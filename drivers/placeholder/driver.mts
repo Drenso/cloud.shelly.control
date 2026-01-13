@@ -1,4 +1,4 @@
-import Homey from 'homey';
+import Homey, { type DiscoveryResultMDNSSD } from 'homey';
 
 type ListDeviceProperties = {
   name: string;
@@ -27,13 +27,28 @@ export default class PlaceholderDriver extends Homey.Driver {
   }
 
   async onPairListDevices(): Promise<ListDeviceProperties[]> {
-    return [
-      {
-        name: 'Placeholder',
+    const results: ListDeviceProperties[] = [];
+
+    const discoveryStrategy = this.homey.discovery.getStrategy('shelly');
+    const discoveryResults = discoveryStrategy.getDiscoveryResults();
+
+    for (const discoveryResultsKey in discoveryResults) {
+      const discoveryResult = discoveryResults[discoveryResultsKey] as DiscoveryResultMDNSSD;
+      results.push({
+        name: discoveryResult.name,
         data: {
-          id: 'placeholder',
+          id: discoveryResult.id,
         },
-      },
-    ];
+        store: {
+          address: discoveryResult.address,
+          port: discoveryResult.port,
+          host: discoveryResult.host,
+          name: discoveryResult.name,
+          txt: discoveryResult.txt,
+        },
+      });
+    }
+
+    return results;
   }
 }
