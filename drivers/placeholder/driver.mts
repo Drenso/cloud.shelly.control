@@ -34,8 +34,9 @@ export default class PlaceholderDriver extends Homey.Driver {
 
     for (const discoveryResultsKey in discoveryResults) {
       const discoveryResult = discoveryResults[discoveryResultsKey] as DiscoveryResultMDNSSD;
+      const txt = discoveryResult.txt as { ver: `${number}.${number}.${number}`; app: string; gen: `${number}` };
       results.push({
-        name: discoveryResult.name,
+        name: txt.app,
         data: {
           id: discoveryResult.id,
         },
@@ -44,7 +45,7 @@ export default class PlaceholderDriver extends Homey.Driver {
           port: discoveryResult.port,
           host: discoveryResult.host,
           name: discoveryResult.name,
-          txt: discoveryResult.txt,
+          txt: txt,
         },
       });
     }

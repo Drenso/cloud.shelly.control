@@ -1,7 +1,8 @@
 import type { RequestFrame, ResponseFrame } from '../Rpc.mjs';
 
 export async function sendRequestFrame(address: string, request: RequestFrame): Promise<ResponseFrame> {
-  const response = await fetch(new URL('rpc', address), {
+  // TODO change to HTTPS
+  const response = await fetch(`http://${address}/rpc`, {
     method: 'POST',
     body: JSON.stringify(request),
   });
