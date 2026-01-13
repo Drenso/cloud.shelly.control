@@ -1,6 +1,6 @@
 import Homey from 'homey';
 import HttpChannel from '../../lib/rpc/channel/HttpChannel.mjs';
-import GetComponents from '../../lib/component/Shelly/GetComponents.mjs';
+import Shelly from '../../lib/component/Shelly/Shelly.mjs';
 
 export default class PlaceholderDevice extends Homey.Device {
   private httpChannel!: HttpChannel;
@@ -12,7 +12,7 @@ export default class PlaceholderDevice extends Homey.Device {
 
     this.httpChannel = new HttpChannel(address);
 
-    await GetComponents(this.httpChannel)
+    await Shelly.GetComponents(this.httpChannel)
       .then(res => {
         this.log('RES:', JSON.stringify(res));
       })
