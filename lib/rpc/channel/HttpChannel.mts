@@ -11,7 +11,7 @@ export default class HttpChannel implements RpcChannel {
     this.address = address;
   }
 
-  async sendRequestFrame<Result extends object>(requestFrame: RequestFrame): Promise<ResponseFrame<Result>> {
+  async sendRequestFrame<Result extends object | null>(requestFrame: RequestFrame): Promise<ResponseFrame<Result>> {
     // TODO change to HTTPS
     const addressString = this.address;
     const response = await fetch(`http://${addressString}/rpc`, {

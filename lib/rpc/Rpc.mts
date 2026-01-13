@@ -22,7 +22,7 @@ export type RequestFrame = {
   params?: object;
 };
 
-export type ResponseFrame<Result extends object> = ResponseSuccessFrame<Result> | ResponseErrorFrame;
+export type ResponseFrame<Result extends object | null> = ResponseSuccessFrame<Result> | ResponseErrorFrame;
 
 interface ResponseFrameBasis {
   // Identifier of the communication
@@ -33,7 +33,7 @@ interface ResponseFrameBasis {
   dst: string;
 }
 
-export type ResponseSuccessFrame<Result extends object> = ResponseFrameBasis & {
+export type ResponseSuccessFrame<Result extends object | null> = ResponseFrameBasis & {
   // The result of the invoked procedure
   result: Result;
 };
