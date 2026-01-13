@@ -37,6 +37,11 @@ type ShellyGetComponentsResponseComponent = {
   config?: object;
 };
 
+/**
+ * This method returns a list with device's components.
+ * It supports paging, filter for dynamic components (for example virtual components)
+ * and allows the user to get only the needed information from the component.
+ */
 export default async function GetComponents(
   channel: RpcChannel,
   params?: ShellyGetComponentsParams,
