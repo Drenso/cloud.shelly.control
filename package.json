@@ -1,5 +1,5 @@
 {
-  "name": "nl.drenso.template",
+  "name": "cloud.shelly.control",
   "version": "1.0.0",
   "main": "app.mts",
   "scripts": {
