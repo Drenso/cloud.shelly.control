@@ -1,0 +1,35 @@
+{
+  "id": "nl.drenso.template",
+  "version": "0.0.0",
+  "compatibility": ">=12.2.0",
+  "sdk": 3,
+  "brandColor": "#000000",
+  "name": {
+    "en": "TODO"
+  },
+  "description": {
+    "en": "TODO"
+  },
+  "category": [],
+  "homeyCommunityTopicId": -1,
+  "permissions": [],
+  "platforms": [
+    "local",
+    "cloud"
+  ],
+  "images": {
+    "small": "/assets/images/small.png",
+    "large": "/assets/images/large.png",
+    "xlarge": "/assets/images/xlarge.png"
+  },
+  "homepage": "https://TODO.drenso.nl",
+  "support": "mailto:TODO@drenso.nl",
+  "author": {
+    "name": "TODO",
+    "email": "TODO@drenso.nl"
+  },
+  "contributors": {},
+  "tags": {
+    "en": []
+  }
+}

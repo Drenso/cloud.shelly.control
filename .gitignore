@@ -1,0 +1,9 @@
+/env.json
+/node_modules/
+/.homeybuild/
+
+/.idea
+
+# Translations
+translations-in.csv
+translations-out.csv
