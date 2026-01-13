@@ -10,6 +10,13 @@ import ListTimezones from './ListTimezones.mjs';
 import DetectLocation from './DetectLocation.mjs';
 import CheckForUpdate from './CheckForUpdate.mjs';
 import Update from './Update.mjs';
+import FactoryReset from './FactoryReset.mjs';
+import ResetWifiConfig from './ResetWifiConfig.mjs';
+import Reboot from './Reboot.mjs';
+import SetAuth from './SetAuth.mjs';
+import PutUserCA from './PutUserCA.mjs';
+import PutTLSClientCert from './PutTLSClientCert.mjs';
+import PutTLSClientKey from './PutTLSClientKey.mjs';
 import GetComponents from './GetComponents.mjs';
 
 /**
@@ -26,5 +33,12 @@ export default class Shelly extends Service {
   static DetectLocation = DetectLocation;
   static CheckForUpdate = CheckForUpdate;
   static Update = Update;
+  static FactoryReset = FactoryReset;
+  static ResetWifiConfig = ResetWifiConfig;
+  static Reboot = Reboot;
+  static SetAuth = SetAuth;
+  static PutUserCA = PutUserCA;
+  static PutTLSClientCert = PutTLSClientCert;
+  static PutTLSClientKey = PutTLSClientKey;
   static GetComponents = GetComponents;
 }
