@@ -1,5 +1,6 @@
 import type { RpcChannel } from './RpcChannel.mjs';
-import type { RequestFrame, ResponseFrame } from '../Rpc.mjs';
+import type { RequestFrame, ResponseErrorFrame, ResponseFrame, ResponseSuccessFrame } from '../Rpc.mjs';
+import { RpcError } from '../RpcError.mjs';
 
 // TODO authentication
 // See documentation: https://shelly-api-docs.shelly.cloud/gen2/General/Authentication/#authentication
@@ -11,13 +12,24 @@ export default class HttpChannel implements RpcChannel {
     this.address = address;
   }
 
-  async sendRequestFrame<Result extends object | null>(requestFrame: RequestFrame): Promise<ResponseFrame<Result>> {
+  async sendRequestFrame<Result extends object | null>(
+    requestFrame: RequestFrame,
+  ): Promise<ResponseSuccessFrame<Result>> {
     // TODO change to HTTPS
     const addressString = this.address;
     const response = await fetch(`http://${addressString}/rpc`, {
       method: 'POST',
       body: JSON.stringify(requestFrame),
     });
-    return (await response.json()) as ResponseFrame<Result>;
+
+    // TODO create a reusable method that handles errors properly
+    const json = (await response.json()) as ResponseFrame<Result>;
+    const error = json as ResponseErrorFrame;
+    const result = json as ResponseSuccessFrame<Result>;
+    if (error.error !== undefined) {
+      const { code, message } = error.error;
+      throw new RpcError(code, message);
+    }
+    return result;
   }
 }

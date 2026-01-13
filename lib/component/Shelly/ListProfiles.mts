@@ -1,5 +1,5 @@
 import type { RpcChannel } from '../../rpc/channel/RpcChannel.mjs';
-import { createRequestFrame, type ResponseFrame } from '../../rpc/Rpc.mjs';
+import { createRequestFrame, type ResponseSuccessFrame } from '../../rpc/Rpc.mjs';
 
 type ShellyListProfilesResponse = {
   profiles: {
@@ -23,7 +23,9 @@ type ShellyListProfilesResponseProfileComponent = {
  * Shelly.ListProfiles lists the names of available profiles and the type/count of functional components exposed for each profile.
  * Shelly.ListProfiles is only available on multi-profile devices.
  */
-export default async function ListProfiles(channel: RpcChannel): Promise<ResponseFrame<ShellyListProfilesResponse>> {
+export default async function ListProfiles(
+  channel: RpcChannel,
+): Promise<ResponseSuccessFrame<ShellyListProfilesResponse>> {
   const requestFrame = createRequestFrame('Shelly.ListProfiles');
   return channel.sendRequestFrame(requestFrame);
 }

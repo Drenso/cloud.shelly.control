@@ -1,5 +1,5 @@
 import type { RpcChannel } from '../../rpc/channel/RpcChannel.mjs';
-import { createRequestFrame, type ResponseFrame } from '../../rpc/Rpc.mjs';
+import { createRequestFrame, type ResponseSuccessFrame } from '../../rpc/Rpc.mjs';
 
 type ShellySetAuthParams = {
   // Must be set to admin. Only one user is supported.
@@ -13,7 +13,10 @@ type ShellySetAuthParams = {
 /**
  * This method sets authentication details (password) for the device.
  */
-export default async function SetAuth(channel: RpcChannel, params: ShellySetAuthParams): Promise<ResponseFrame<null>> {
+export default async function SetAuth(
+  channel: RpcChannel,
+  params: ShellySetAuthParams,
+): Promise<ResponseSuccessFrame<null>> {
   const requestFrame = createRequestFrame('Shelly.SetAuth', params);
   return channel.sendRequestFrame(requestFrame);
 }

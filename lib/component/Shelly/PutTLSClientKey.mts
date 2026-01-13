@@ -1,5 +1,5 @@
 import type { RpcChannel } from '../../rpc/channel/RpcChannel.mjs';
-import { createRequestFrame, type ResponseFrame } from '../../rpc/Rpc.mjs';
+import { createRequestFrame, type ResponseSuccessFrame } from '../../rpc/Rpc.mjs';
 
 type ShellyPutTLSClientKeyParams = {
   // Contents of the client.key file (null if you want to delete the existing data).
@@ -21,7 +21,7 @@ type ShellyPutTLSClientKeyResult = {
 export default async function PutTLSClientKey(
   channel: RpcChannel,
   params: ShellyPutTLSClientKeyParams,
-): Promise<ResponseFrame<ShellyPutTLSClientKeyResult>> {
+): Promise<ResponseSuccessFrame<ShellyPutTLSClientKeyResult>> {
   const requestFrame = createRequestFrame('Shelly.PutTLSClientKey', params);
   return channel.sendRequestFrame(requestFrame);
 }

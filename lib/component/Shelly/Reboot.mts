@@ -1,5 +1,5 @@
 import type { RpcChannel } from '../../rpc/channel/RpcChannel.mjs';
-import { createRequestFrame, type ResponseFrame } from '../../rpc/Rpc.mjs';
+import { createRequestFrame, type ResponseSuccessFrame } from '../../rpc/Rpc.mjs';
 
 type ShellyRebootParams = {
   // Delay until reboot in milliseconds.
@@ -11,7 +11,10 @@ type ShellyRebootParams = {
 /**
  * This method reboots the device.
  */
-export default async function Reboot(channel: RpcChannel, params?: ShellyRebootParams): Promise<ResponseFrame<null>> {
+export default async function Reboot(
+  channel: RpcChannel,
+  params?: ShellyRebootParams,
+): Promise<ResponseSuccessFrame<null>> {
   const requestFrame = createRequestFrame('Shelly.Reboot', params);
   return channel.sendRequestFrame(requestFrame);
 }

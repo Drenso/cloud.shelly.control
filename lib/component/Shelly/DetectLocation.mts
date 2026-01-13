@@ -1,5 +1,5 @@
 import type { RpcChannel } from '../../rpc/channel/RpcChannel.mjs';
-import { createRequestFrame, type ResponseFrame } from '../../rpc/Rpc.mjs';
+import { createRequestFrame, type ResponseSuccessFrame } from '../../rpc/Rpc.mjs';
 
 type ShellyDetectLocationResult = {
   // Timezone of the detected location (null if not available)
@@ -13,7 +13,9 @@ type ShellyDetectLocationResult = {
 /**
  * This method detects and returns the location of the device.
  */
-export default async function DetectLocation(channel: RpcChannel): Promise<ResponseFrame<ShellyDetectLocationResult>> {
+export default async function DetectLocation(
+  channel: RpcChannel,
+): Promise<ResponseSuccessFrame<ShellyDetectLocationResult>> {
   const requestFrame = createRequestFrame('Shelly.DetectLocation');
   return channel.sendRequestFrame(requestFrame);
 }

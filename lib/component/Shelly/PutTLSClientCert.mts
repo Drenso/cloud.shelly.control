@@ -1,5 +1,5 @@
 import type { RpcChannel } from '../../rpc/channel/RpcChannel.mjs';
-import { createRequestFrame, type ResponseFrame } from '../../rpc/Rpc.mjs';
+import { createRequestFrame, type ResponseSuccessFrame } from '../../rpc/Rpc.mjs';
 
 type ShellyPutTLSClientCertParams = {
   // Contents of the client.crt file (null if you want to delete the existing data).
@@ -21,7 +21,7 @@ type ShellyPutTLSClientCertResult = {
 export default async function PutTLSClientCert(
   channel: RpcChannel,
   params: ShellyPutTLSClientCertParams,
-): Promise<ResponseFrame<ShellyPutTLSClientCertResult>> {
+): Promise<ResponseSuccessFrame<ShellyPutTLSClientCertResult>> {
   const requestFrame = createRequestFrame('Shelly.PutTLSClientCert', params);
   return channel.sendRequestFrame(requestFrame);
 }

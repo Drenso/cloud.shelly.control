@@ -1,4 +1,4 @@
-import { createRequestFrame, type ResponseFrame } from '../../rpc/Rpc.mjs';
+import { createRequestFrame, type ResponseSuccessFrame } from '../../rpc/Rpc.mjs';
 import type { RpcChannel } from '../../rpc/channel/RpcChannel.mjs';
 
 type ShellyGetComponentsParams = {
@@ -45,7 +45,7 @@ type ShellyGetComponentsResponseComponent = {
 export default async function GetComponents(
   channel: RpcChannel,
   params?: ShellyGetComponentsParams,
-): Promise<ResponseFrame<ShellyGetComponentsResponse>> {
+): Promise<ResponseSuccessFrame<ShellyGetComponentsResponse>> {
   const requestFrame = createRequestFrame('Shelly.GetComponents', params);
   return channel.sendRequestFrame(requestFrame);
 }

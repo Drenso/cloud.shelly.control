@@ -1,5 +1,5 @@
 import type { RpcChannel } from '../../rpc/channel/RpcChannel.mjs';
-import { createRequestFrame, type ResponseFrame } from '../../rpc/Rpc.mjs';
+import { createRequestFrame, type ResponseSuccessFrame } from '../../rpc/Rpc.mjs';
 
 type ShellyGetDeviceInfoParams = {
   // Flag specifying if extra identifying information should be displayed.
@@ -54,7 +54,7 @@ type ShellyGetDeviceInfoResponse = {
 export default async function GetDeviceInfo(
   channel: RpcChannel,
   params?: ShellyGetDeviceInfoParams,
-): Promise<ResponseFrame<ShellyGetDeviceInfoResponse>> {
+): Promise<ResponseSuccessFrame<ShellyGetDeviceInfoResponse>> {
   const requestFrame = createRequestFrame('Shelly.GetDeviceInfo', params);
   return channel.sendRequestFrame(requestFrame);
 }

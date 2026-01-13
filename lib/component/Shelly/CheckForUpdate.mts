@@ -1,5 +1,5 @@
 import type { RpcChannel } from '../../rpc/channel/RpcChannel.mjs';
-import { createRequestFrame, type ResponseFrame } from '../../rpc/Rpc.mjs';
+import { createRequestFrame, type ResponseSuccessFrame } from '../../rpc/Rpc.mjs';
 
 type ShellyCheckForUpdateResult = {
   // Indicates new stable version of the firmware.
@@ -21,7 +21,9 @@ type ShellyCheckForUpdateResult = {
  * This method checks for new firmware version for the device and returns information about it.
  * If no update is available returns empty JSON object as result.
  */
-export default async function CheckForUpdate(channel: RpcChannel): Promise<ResponseFrame<ShellyCheckForUpdateResult>> {
+export default async function CheckForUpdate(
+  channel: RpcChannel,
+): Promise<ResponseSuccessFrame<ShellyCheckForUpdateResult>> {
   const requestFrame = createRequestFrame('Shelly.CheckForUpdate');
   return channel.sendRequestFrame(requestFrame);
 }

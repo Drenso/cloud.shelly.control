@@ -1,5 +1,5 @@
 import type { RpcChannel } from '../../rpc/channel/RpcChannel.mjs';
-import { createRequestFrame, type ResponseFrame } from '../../rpc/Rpc.mjs';
+import { createRequestFrame, type ResponseSuccessFrame } from '../../rpc/Rpc.mjs';
 
 type ShellyPutUserCAParams = {
   // Contents of the PEM file (null if you want to delete the existing data).
@@ -21,7 +21,7 @@ type ShellyPutUserCAResult = {
 export default async function PutUserCA(
   channel: RpcChannel,
   params: ShellyPutUserCAParams,
-): Promise<ResponseFrame<ShellyPutUserCAResult>> {
+): Promise<ResponseSuccessFrame<ShellyPutUserCAResult>> {
   const requestFrame = createRequestFrame('Shelly.PutUserCA', params);
   return channel.sendRequestFrame(requestFrame);
 }

@@ -1,5 +1,5 @@
 import type { RpcChannel } from '../../rpc/channel/RpcChannel.mjs';
-import { createRequestFrame, type ResponseFrame } from '../../rpc/Rpc.mjs';
+import { createRequestFrame, type ResponseSuccessFrame } from '../../rpc/Rpc.mjs';
 
 type ShellySetProfileParams = {
   // Name of the device profile
@@ -19,7 +19,7 @@ type ShellySetProfileResponse = {
 export default async function SetProfile(
   channel: RpcChannel,
   params: ShellySetProfileParams,
-): Promise<ResponseFrame<ShellySetProfileResponse>> {
+): Promise<ResponseSuccessFrame<ShellySetProfileResponse>> {
   const requestFrame = createRequestFrame('Shelly.SetProfile', params);
   return channel.sendRequestFrame(requestFrame);
 }

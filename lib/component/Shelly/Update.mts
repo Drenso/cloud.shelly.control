@@ -1,5 +1,5 @@
 import type { RpcChannel } from '../../rpc/channel/RpcChannel.mjs';
-import { createRequestFrame, type ResponseFrame } from '../../rpc/Rpc.mjs';
+import { createRequestFrame, type ResponseSuccessFrame } from '../../rpc/Rpc.mjs';
 
 type ShellyUpdateParams =
   | {
@@ -15,7 +15,10 @@ type ShellyUpdateParams =
 /**
  * This method updates the firmware version of the device.
  */
-export default async function Update(channel: RpcChannel, params: ShellyUpdateParams): Promise<ResponseFrame<null>> {
+export default async function Update(
+  channel: RpcChannel,
+  params: ShellyUpdateParams,
+): Promise<ResponseSuccessFrame<null>> {
   const requestFrame = createRequestFrame('Shelly.Update', params);
   return channel.sendRequestFrame(requestFrame);
 }

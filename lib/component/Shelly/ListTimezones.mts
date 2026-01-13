@@ -1,4 +1,4 @@
-import { createRequestFrame, type ResponseFrame } from '../../rpc/Rpc.mjs';
+import { createRequestFrame, type ResponseSuccessFrame } from '../../rpc/Rpc.mjs';
 import type { RpcChannel } from '../../rpc/channel/RpcChannel.mjs';
 
 type ShellyListTimezonesParams = {
@@ -20,7 +20,7 @@ type ShellyListTimezonesResponse = {
 export default async function ListTimezones(
   channel: RpcChannel,
   params?: ShellyListTimezonesParams,
-): Promise<ResponseFrame<ShellyListTimezonesResponse>> {
+): Promise<ResponseSuccessFrame<ShellyListTimezonesResponse>> {
   const requestFrame = createRequestFrame('Shelly.ListTimezones', params);
   return channel.sendRequestFrame(requestFrame);
 }
