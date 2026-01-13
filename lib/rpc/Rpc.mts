@@ -1,4 +1,15 @@
-export type RequestFrame<Params extends object | undefined = undefined> = {
+import { randomInt } from 'node:crypto';
+
+export function createRequestFrame(method: string, params?: object): RequestFrame {
+  return {
+    id: randomInt(2 ** 48 - 1),
+    src: 'Homey',
+    method: method,
+    params: params,
+  };
+}
+
+export type RequestFrame = {
   // The version of jsonrpc used.
   jsonrpc?: '2.0';
   // Identifier of this request, will be used to match the response frame.
@@ -8,10 +19,10 @@ export type RequestFrame<Params extends object | undefined = undefined> = {
   // Name of the procedure to be called.
   method: string;
   // Parameters that the method takes (if any)
-  params?: Params;
+  params?: object;
 };
 
-export type ResponseFrame = ResponseSuccessFrame | ResponseErrorFrame;
+export type ResponseFrame<Result extends object> = ResponseSuccessFrame<Result> | ResponseErrorFrame;
 
 interface ResponseFrameBasis {
   // Identifier of the communication
@@ -20,13 +31,11 @@ interface ResponseFrameBasis {
   src: string;
   // Name of the destination (the source of the request)
   dst: string;
-  // The result of the invoked procedure
-  result: object;
 }
 
-export type ResponseSuccessFrame = ResponseFrameBasis & {
+export type ResponseSuccessFrame<Result extends object> = ResponseFrameBasis & {
   // The result of the invoked procedure
-  result: object;
+  result: Result;
 };
 
 export type ResponseErrorFrame = ResponseFrameBasis & {

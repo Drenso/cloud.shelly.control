@@ -1,23 +1,20 @@
 import Homey from 'homey';
-import type { RequestFrame } from '../../lib/rpc/Rpc.mjs';
-import { randomInt } from 'node:crypto';
-import { sendRequestFrame } from '../../lib/rpc/channel/RpcHttp.mjs';
+import HttpChannel from '../../lib/rpc/channel/HttpChannel.mjs';
+import GetComponents from '../../lib/component/Shelly/GetComponents.mjs';
 
 export default class PlaceholderDevice extends Homey.Device {
+  private httpChannel!: HttpChannel;
+
   async onInit(): Promise<void> {
     this.log('PlaceholderDevice has been initialized');
 
-    const requestFrame: RequestFrame = {
-      id: randomInt(2 ** 48 - 1),
-      src: 'Homey',
-      method: 'Sys.GetStatus',
-    };
-
     const { address } = this.getTypedStore();
 
-    sendRequestFrame(address, requestFrame)
+    this.httpChannel = new HttpChannel(address);
+
+    await GetComponents(this.httpChannel)
       .then(res => {
-        this.log('RES:', res);
+        this.log('RES:', JSON.stringify(res));
       })
       .catch(err => {
         this.error('ERR:', err);
