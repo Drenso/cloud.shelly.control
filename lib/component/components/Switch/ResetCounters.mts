@@ -1,15 +1,13 @@
 import type { RpcChannel } from '../../../rpc/channel/RpcChannel.mjs';
 import { createRequestFrame, type ResponseSuccessFrame } from '../../../rpc/Rpc.mjs';
 
-type SwitchResetCountersParams = {
-  // Identifier of the Switch component instance
-  id: number;
+export type SwitchResetCountersParams = {
   // Array of strings, selects which counter to reset.
   // If not provided, the method will reset all available counters.
   type?: ('aenergy' | 'ret_aenergy')[];
 };
 
-type SwitchResetCountersResponse = {
+export type SwitchResetCountersResponse = {
   // Information about the active energy counter prior to reset
   // (shown if applicable)
   aenergy?: {
@@ -29,8 +27,9 @@ type SwitchResetCountersResponse = {
  */
 export default async function ResetCounters(
   channel: RpcChannel,
-  params: SwitchResetCountersParams,
+  id: number,
+  params?: SwitchResetCountersParams,
 ): Promise<ResponseSuccessFrame<SwitchResetCountersResponse>> {
-  const requestFrame = createRequestFrame('Switch.ResetCounters', params);
+  const requestFrame = createRequestFrame('Switch.ResetCounters', { ...params, id: id });
   return channel.sendRequestFrame(requestFrame);
 }

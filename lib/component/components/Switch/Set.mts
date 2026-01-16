@@ -1,16 +1,14 @@
 import type { RpcChannel } from '../../../rpc/channel/RpcChannel.mjs';
 import { createRequestFrame, type ResponseSuccessFrame } from '../../../rpc/Rpc.mjs';
 
-type SwitchSetParams = {
-  // Identifier of the Switch component instance
-  id: number;
+export type SwitchSetParams = {
   // True for switch on, false otherwise.
   on: boolean;
   // Optional flip-back timer in seconds.
   toggle_after: number;
 };
 
-type SwitchSetResponse = {
+export type SwitchSetResponse = {
   // True if the switch was on before the method was executed, false otherwise.
   was_on: boolean;
 };
@@ -20,8 +18,9 @@ type SwitchSetResponse = {
  */
 export default async function Set(
   channel: RpcChannel,
+  id: number,
   params: SwitchSetParams,
 ): Promise<ResponseSuccessFrame<SwitchSetResponse>> {
-  const requestFrame = createRequestFrame('Switch.Set', params);
+  const requestFrame = createRequestFrame('Switch.Set', { ...params, id: id });
   return channel.sendRequestFrame(requestFrame);
 }

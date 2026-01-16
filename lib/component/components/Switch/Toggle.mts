@@ -1,12 +1,7 @@
 import type { RpcChannel } from '../../../rpc/channel/RpcChannel.mjs';
 import { createRequestFrame, type ResponseSuccessFrame } from '../../../rpc/Rpc.mjs';
 
-type SwitchToggleParams = {
-  // Identifier of the Switch component instance
-  id: number;
-};
-
-type SwitchToggleResponse = {
+export type SwitchToggleResponse = {
   // True if the switch was on before the method was executed, false otherwise.
   was_on: boolean;
 };
@@ -16,8 +11,8 @@ type SwitchToggleResponse = {
  */
 export default async function Toggle(
   channel: RpcChannel,
-  params: SwitchToggleParams,
+  id: number,
 ): Promise<ResponseSuccessFrame<SwitchToggleResponse>> {
-  const requestFrame = createRequestFrame('Switch.Toggle', params);
+  const requestFrame = createRequestFrame('Switch.Toggle', { id: id });
   return channel.sendRequestFrame(requestFrame);
 }

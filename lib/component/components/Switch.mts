@@ -1,10 +1,15 @@
-import { Component } from '../Component.mjs';
+import { ComponentInstance } from '../Component.mjs';
 import GetConfig from './Switch/GetConfig.mjs';
 import GetStatus from './Switch/GetStatus.mjs';
 import SetConfig from './Switch/SetConfig.mjs';
-import Set from './Switch/Set.mjs';
-import Toggle from './Switch/Toggle.mjs';
-import ResetCounters from './Switch/ResetCounters.mjs';
+import Set, { type SwitchSetParams, type SwitchSetResponse } from './Switch/Set.mjs';
+import Toggle, { type SwitchToggleResponse } from './Switch/Toggle.mjs';
+import ResetCounters, {
+  type SwitchResetCountersParams,
+  type SwitchResetCountersResponse,
+} from './Switch/ResetCounters.mjs';
+import type { RpcChannel } from '../../rpc/channel/RpcChannel.mjs';
+import type { ResponseSuccessFrame } from '../../rpc/Rpc.mjs';
 
 export type SwitchConfig = {
   // Identifier of the Switch component instance
@@ -133,11 +138,26 @@ export type SwitchStatus = {
   errors?: ('overtemp' | 'overpower' | 'overvoltage' | 'undervoltage')[];
 };
 
-export default class Switch extends Component {
-  static SetConfig = SetConfig;
-  static GetConfig = GetConfig;
-  static GetStatus = GetStatus;
-  static Set = Set;
-  static Toggle = Toggle;
-  static ResetCounters = ResetCounters;
+/**
+ * The Switch component handles a switch (relay) output terminal with optional power metering capabilities.
+ */
+export default class SwitchInstance extends ComponentInstance<SwitchStatus, SwitchConfig> {
+  _SetConfig = SetConfig;
+  _GetConfig = GetConfig;
+  _GetStatus = GetStatus;
+
+  async Set(channel: RpcChannel, params: SwitchSetParams): Promise<ResponseSuccessFrame<SwitchSetResponse>> {
+    return Set(channel, this.id, params);
+  }
+
+  async Toggle(channel: RpcChannel): Promise<ResponseSuccessFrame<SwitchToggleResponse>> {
+    return Toggle(channel, this.id);
+  }
+
+  async ResetCounters(
+    channel: RpcChannel,
+    params?: SwitchResetCountersParams,
+  ): Promise<ResponseSuccessFrame<SwitchResetCountersResponse>> {
+    return ResetCounters(channel, this.id, params);
+  }
 }
