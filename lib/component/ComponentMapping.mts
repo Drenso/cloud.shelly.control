@@ -1,8 +1,8 @@
 import Shelly from './components/Shelly.mjs';
-import SwitchInstance from './components/Switch.mjs';
+import Switch from './components/Switch.mjs';
 
 export const ComponentMapping = {
-  Switch: SwitchInstance,
+  Switch: Switch,
 } as const;
 
 export const ServiceMapping = {

@@ -11,7 +11,7 @@ type ComponentSetConfigResponse = {
   restart_required: boolean;
 };
 
-export abstract class ComponentInstance<Status extends object, Config extends { id: number }> {
+export abstract class Component<Status extends object, Config extends { id: number }> {
   status: Status;
   config: Config;
 

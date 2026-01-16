@@ -1,4 +1,4 @@
-import { ComponentInstance } from '../Component.mjs';
+import { Component } from '../Component.mjs';
 import GetConfig from './Switch/GetConfig.mjs';
 import GetStatus from './Switch/GetStatus.mjs';
 import SetConfig from './Switch/SetConfig.mjs';
@@ -141,7 +141,7 @@ export type SwitchStatus = {
 /**
  * The Switch component handles a switch (relay) output terminal with optional power metering capabilities.
  */
-export default class SwitchInstance extends ComponentInstance<SwitchStatus, SwitchConfig> {
+export default class Switch extends Component<SwitchStatus, SwitchConfig> {
   _SetConfig = SetConfig;
   _GetConfig = GetConfig;
   _GetStatus = GetStatus;
