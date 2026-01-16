@@ -1,6 +1,6 @@
 import Homey from 'homey';
 import HttpChannel from '../../lib/rpc/channel/HttpChannel.mjs';
-import Shelly from '../../lib/component/Shelly/Shelly.mjs';
+import Shelly from '../../lib/component/components/Shelly.mjs';
 
 export default class PlaceholderDevice extends Homey.Device {
   private httpChannel!: HttpChannel;

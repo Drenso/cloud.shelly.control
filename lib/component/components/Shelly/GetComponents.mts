@@ -1,5 +1,5 @@
-import { createRequestFrame, type ResponseSuccessFrame } from '../../rpc/Rpc.mjs';
-import type { RpcChannel } from '../../rpc/channel/RpcChannel.mjs';
+import { createRequestFrame, type ResponseSuccessFrame } from '../../../rpc/Rpc.mjs';
+import type { RpcChannel } from '../../../rpc/channel/RpcChannel.mjs';
 
 type ShellyGetComponentsParams = {
   // Index of the component from which to start generating the result

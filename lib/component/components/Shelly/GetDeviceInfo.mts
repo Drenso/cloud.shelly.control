@@ -1,5 +1,5 @@
-import type { RpcChannel } from '../../rpc/channel/RpcChannel.mjs';
-import { createRequestFrame, type ResponseSuccessFrame } from '../../rpc/Rpc.mjs';
+import type { RpcChannel } from '../../../rpc/channel/RpcChannel.mjs';
+import { createRequestFrame, type ResponseSuccessFrame } from '../../../rpc/Rpc.mjs';
 
 type ShellyGetDeviceInfoParams = {
   // Flag specifying if extra identifying information should be displayed.

@@ -1,5 +1,5 @@
-import type { RpcChannel } from '../../rpc/channel/RpcChannel.mjs';
-import { createRequestFrame, type ResponseSuccessFrame } from '../../rpc/Rpc.mjs';
+import type { RpcChannel } from '../../../rpc/channel/RpcChannel.mjs';
+import { createRequestFrame, type ResponseSuccessFrame } from '../../../rpc/Rpc.mjs';
 
 type ShellyPutUserCAParams = {
   // Contents of the PEM file (null if you want to delete the existing data).
