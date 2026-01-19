@@ -143,9 +143,9 @@ export type SwitchStatus = {
  * The Switch component handles a switch (relay) output terminal with optional power metering capabilities.
  */
 export default class Switch extends ComponentWithId<SwitchStatus, SwitchConfig> {
-  _SetConfig = SetConfig;
-  _GetConfig = GetConfig;
-  _GetStatus = GetStatus;
+  protected _SetConfig = SetConfig;
+  protected _GetConfig = GetConfig;
+  protected _GetStatus = GetStatus;
 
   async Set(channel: RpcChannel, params: SwitchSetParams): Promise<ResponseSuccessFrame<SwitchSetResponse>> {
     return Set(channel, this.id, params);
