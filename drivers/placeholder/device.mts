@@ -8,6 +8,7 @@ import type OutboundWebsocket from '../../lib/component/components/OutboundWebso
 import { RpcError } from '../../lib/rpc/RpcError.mjs';
 import { getIp } from '../../lib/LocalIp.mjs';
 import InboundWebsocket from '../../lib/rpc/channel/InboundWebsocket.mjs';
+import { OUTBOUND_WS_PORT } from '../../lib/config.mjs';
 
 export abstract class ShellyDevice extends Homey.Device {
   abstract getChannel(): RpcChannel;
@@ -25,13 +26,13 @@ export abstract class ShellyDevice extends Homey.Device {
   }
 
   async configureOutboundWebsocket(component: OutboundWebsocket): Promise<void> {
-    const address = await getIp(this.homey);
-    if (component.config.enable) {
+    const server = `ws://${await getIp(this.homey)}:${OUTBOUND_WS_PORT}/${this.getAppId()}`;
+    if (component.config.enable && component.config.server === server) {
       this.log('Outbound websocket already enabled');
       return;
     }
     this.log('Enabling outbound websocket...');
-    await component.SetConfig(this.getChannel(), { config: { enable: true } });
+    await component.SetConfig(this.getChannel(), { config: { enable: true, server: server } });
     await this.reboot();
   }
 
