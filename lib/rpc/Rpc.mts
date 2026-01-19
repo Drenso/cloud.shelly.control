@@ -1,8 +1,6 @@
-import { randomInt } from 'node:crypto';
-
 export function createRequestFrame(method: string, params?: object): RequestFrame {
   return {
-    id: randomInt(2 ** 48 - 1),
+    id: Date.now(),
     src: 'Homey',
     method: method,
     params: params,
