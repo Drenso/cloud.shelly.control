@@ -9,6 +9,7 @@ import type { RpcChannel } from './RpcChannel.mjs';
 import WebSocket, { type RawData } from 'ws';
 import EventEmitter from 'events';
 import { RpcError } from '../RpcError.mjs';
+import { RPC_SRC } from '../../config.mjs';
 
 // TODO authentication
 // See documentation: https://shelly-api-docs.shelly.cloud/gen2/General/Authentication/#authentication
@@ -56,7 +57,7 @@ export default class InboundWebsocket implements RpcChannel {
   private handleMessage(message: RawData): void {
     const string = message.toString();
     const json = JSON.parse(string);
-    if (json.dst === 'Homey') {
+    if (json.dst === RPC_SRC) {
       if (json.id !== undefined) {
         // Response to a request with the same id
         const awaitingResponse = this.awaitingResponse.get(json.id);

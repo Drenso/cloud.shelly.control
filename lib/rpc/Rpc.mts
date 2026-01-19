@@ -1,7 +1,9 @@
+import { RPC_SRC } from '../config.mjs';
+
 export function createRequestFrame(method: string, params?: object): RequestFrame {
   return {
     id: Date.now(),
-    src: 'Homey',
+    src: RPC_SRC,
     method: method,
     params: params,
   };
