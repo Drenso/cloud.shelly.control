@@ -5,7 +5,7 @@ export type SwitchSetParams = {
   // True for switch on, false otherwise.
   on: boolean;
   // Optional flip-back timer in seconds.
-  toggle_after: number;
+  toggle_after?: number;
 };
 
 export type SwitchSetResponse = {
