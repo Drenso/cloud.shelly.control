@@ -1,4 +1,4 @@
-import { Component } from '../Component.mjs';
+import { ComponentWithId } from '../Component.mjs';
 import GetConfig from './Switch/GetConfig.mjs';
 import GetStatus from './Switch/GetStatus.mjs';
 import SetConfig from './Switch/SetConfig.mjs';
@@ -10,6 +10,7 @@ import ResetCounters, {
 } from './Switch/ResetCounters.mjs';
 import type { RpcChannel } from '../../rpc/channel/RpcChannel.mjs';
 import type { ResponseSuccessFrame } from '../../rpc/Rpc.mjs';
+import type { ShellyDevice } from '../../../drivers/placeholder/device.mjs';
 
 export type SwitchConfig = {
   // Identifier of the Switch component instance
@@ -141,7 +142,7 @@ export type SwitchStatus = {
 /**
  * The Switch component handles a switch (relay) output terminal with optional power metering capabilities.
  */
-export default class Switch extends Component<SwitchStatus, SwitchConfig> {
+export default class Switch extends ComponentWithId<SwitchStatus, SwitchConfig> {
   _SetConfig = SetConfig;
   _GetConfig = GetConfig;
   _GetStatus = GetStatus;
@@ -159,5 +160,38 @@ export default class Switch extends Component<SwitchStatus, SwitchConfig> {
     params?: SwitchResetCountersParams,
   ): Promise<ResponseSuccessFrame<SwitchResetCountersResponse>> {
     return ResetCounters(channel, this.id, params);
+  }
+
+  async register(device: ShellyDevice): Promise<void> {
+    {
+      // onoff
+      const capabilityId = `onoff.${this.id}` as const;
+      await device.safeAddCapability(capabilityId);
+      const capabilityListener = async (value: boolean): Promise<void> => {
+        await this.Set(device.getChannel(), { on: value });
+      };
+      device.registerCapabilityListener(capabilityId, capabilityListener);
+      const capabilityOptions = {
+        // TODO translations
+        title: {
+          en: `Switch ${this.id}`,
+        },
+      };
+      await device.setCapabilityOptions(capabilityId, capabilityOptions);
+    }
+    {
+      // measure_temperature
+      if (this.status.temperature !== undefined) {
+        const capabilityId = `measure_temperature.switch_${this.id}`;
+        await device.safeAddCapability(capabilityId);
+        const capabilityOptions = {
+          // TODO translations
+          title: {
+            en: `Switch ${this.id} Temperature`,
+          },
+        };
+        await device.setCapabilityOptions(capabilityId, capabilityOptions);
+      }
+    }
   }
 }

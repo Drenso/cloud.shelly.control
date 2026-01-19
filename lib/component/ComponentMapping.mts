@@ -1,10 +1,11 @@
-import Shelly from './components/Shelly.mjs';
 import Switch from './components/Switch.mjs';
 
+export const ComponentWithIdMapping = { switch: Switch } as const;
+export const ComponentWithoutIdMapping = {} as const;
+
 export const ComponentMapping = {
-  Switch: Switch,
+  ...ComponentWithIdMapping,
+  ...ComponentWithoutIdMapping,
 } as const;
 
-export const ServiceMapping = {
-  Shelly: Shelly,
-} as const;
+export type MappedComponent = (typeof ComponentMapping)[keyof typeof ComponentMapping];

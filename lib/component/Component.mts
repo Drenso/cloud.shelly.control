@@ -1,9 +1,10 @@
 import type { RpcChannel } from '../rpc/channel/RpcChannel.mjs';
 import type { ResponseSuccessFrame } from '../rpc/Rpc.mjs';
+import type { ShellyDevice } from '../../drivers/placeholder/device.mjs';
 
 export class Service {}
 
-type ComponentSetConfigParams<Config extends { id: number }> = {
+type ComponentSetConfigParams<Config extends object> = {
   config: Partial<Omit<Config, 'id'>>;
 };
 
@@ -11,10 +12,66 @@ type ComponentSetConfigResponse = {
   restart_required: boolean;
 };
 
-export abstract class Component<Status extends object, Config extends { id: number }> {
+export abstract class Component<Status extends object, Config extends object> {
   status: Status;
   config: Config;
 
+  constructor(status: Status, config: Config) {
+    this.status = status;
+    this.config = config;
+  }
+
+  abstract SetConfig(
+    channel: RpcChannel,
+    params: ComponentSetConfigParams<Config>,
+  ): Promise<ResponseSuccessFrame<ComponentSetConfigResponse>>;
+
+  abstract GetConfig(channel: RpcChannel): Promise<ResponseSuccessFrame<Config>>;
+
+  abstract GetStatus(channel: RpcChannel): Promise<ResponseSuccessFrame<Status>>;
+
+  abstract register(device: ShellyDevice): Promise<void>;
+}
+
+export abstract class ComponentWithoutId<Status extends object, Config extends object> extends Component<
+  Status,
+  Config
+> {
+  protected abstract _SetConfig: (
+    channel: RpcChannel,
+    params: ComponentSetConfigParams<Config>,
+  ) => Promise<ResponseSuccessFrame<ComponentSetConfigResponse>>;
+
+  protected abstract _GetConfig(channel: RpcChannel): Promise<ResponseSuccessFrame<Config>>;
+
+  protected abstract _GetStatus(channel: RpcChannel): Promise<ResponseSuccessFrame<Status>>;
+
+  async SetConfig(
+    channel: RpcChannel,
+    params: ComponentSetConfigParams<Config>,
+  ): Promise<ResponseSuccessFrame<ComponentSetConfigResponse>> {
+    const response = await this._SetConfig(channel, params);
+    this.config = { ...this.config, ...params.config };
+    return response;
+  }
+
+  async GetConfig(channel: RpcChannel): Promise<ResponseSuccessFrame<Config>> {
+    const response = await this._GetConfig(channel);
+    this.config = response.result;
+    return response;
+  }
+
+  async GetStatus(channel: RpcChannel): Promise<ResponseSuccessFrame<Status>> {
+    const response = await this._GetStatus(channel);
+    this.status = response.result;
+    return response;
+  }
+}
+
+export abstract class ComponentWithId<Status extends object, Config extends { id: number }> extends Component<
+  Status,
+  Config
+> {
   protected abstract _SetConfig: (
     channel: RpcChannel,
     id: number,
@@ -24,11 +81,6 @@ export abstract class Component<Status extends object, Config extends { id: numb
   protected abstract _GetConfig(channel: RpcChannel, id: number): Promise<ResponseSuccessFrame<Config>>;
 
   protected abstract _GetStatus(channel: RpcChannel, id: number): Promise<ResponseSuccessFrame<Status>>;
-
-  constructor(status: Status, config: Config) {
-    this.status = status;
-    this.config = config;
-  }
 
   get id(): number {
     return this.config.id;

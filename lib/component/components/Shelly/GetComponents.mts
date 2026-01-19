@@ -1,12 +1,13 @@
 import { createRequestFrame, type ResponseSuccessFrame } from '../../../rpc/Rpc.mjs';
 import type { RpcChannel } from '../../../rpc/channel/RpcChannel.mjs';
+import { ComponentWithIdMapping, ComponentWithoutIdMapping, type MappedComponent } from '../../ComponentMapping.mjs';
 
 type ShellyGetComponentsParams = {
   // Index of the component from which to start generating the result
   offset?: number;
   // "status" will include the component's status, "config" - the config.
   // The keys are always included.
-  // Combination of both (["config", "status"]) to get the full config and status of each component.
+  // If empty/not provided, both will be returned.
   include?: ('config' | 'status')[];
   // An array of component keys in the format <type> <cid> (for example, boolean:200)
   // which is used to filter the response list.
@@ -26,15 +27,14 @@ type ShellyGetComponentsResponse = {
   total: number;
 };
 
-// TODO get the typing of status and config from the actual component definitions
 // TODO make presence of status and config dependent on request params
-type ShellyGetComponentsResponseComponent = {
+export type ShellyGetComponentsResponseComponent = {
   // Component's key (in format <type>:<cid>, for example boolean:200)
-  key: string;
+  key: keyof typeof ComponentWithoutIdMapping | `${keyof typeof ComponentWithIdMapping}:${number}`;
   // Component's status, will be omitted if "status" is not specified in the include property.
-  status?: object;
+  status?: InstanceType<MappedComponent>['status'];
   // Component's config, will be omitted if "config" is not specified in the include property.
-  config?: object;
+  config?: InstanceType<MappedComponent>['config'];
 };
 
 /**
