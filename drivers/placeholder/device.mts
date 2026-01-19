@@ -27,24 +27,25 @@ export abstract class ShellyDevice extends Homey.Device {
   async configureOutboundWebsocket(component: OutboundWebsocket): Promise<void> {
     const address = await getIp(this.homey);
     if (component.config.enable) {
-      this.log('Websocket already enabled');
+      this.log('Outbound websocket already enabled');
       return;
     }
-    this.log('Enabling websocket...');
+    this.log('Enabling outbound websocket...');
     await component.SetConfig(this.getChannel(), { config: { enable: true } });
     await this.reboot();
   }
 
   async disableOutboundWebsocket(component: OutboundWebsocket): Promise<void> {
     if (!component.config.enable) {
-      this.log('Websocket already disabled');
+      this.log('Outbound websocket already disabled');
       return;
     }
-    this.log('Disabling websocket...');
+    this.log('Disabling outbound websocket...');
     await component.SetConfig(this.getChannel(), { config: { enable: false } });
     await this.reboot();
   }
 
+  // TODO ensure this works with all channel types
   async reboot(initialWaitTime = 1000, pingTime = 500): Promise<void> {
     await Shelly.Reboot(this.getChannel(), { delay_ms: initialWaitTime });
     this.log('Rebooting...');
@@ -116,11 +117,11 @@ export default class PlaceholderDevice extends ShellyDevice {
     const { address } = this.getTypedStore();
 
     this.httpChannel = new HttpChannel(address);
-    this.inboundWs = new InboundWebsocket(address);
+    this.inboundWs = new InboundWebsocket(address, this.log, this.error);
 
-    this.inboundWs.registerUpdateHandler(update => {
-      this.log('UPDATE:', update);
-    });
+    // this.inboundWs.registerUpdateHandler(update => {
+    //   this.log('UPDATE:', update);
+    // });
 
     await this.initialize();
   }

@@ -1,7 +1,14 @@
-import { createRequestFrame, type NotificationFrame, type RequestFrame, type ResponseSuccessFrame } from '../Rpc.mjs';
+import {
+  createRequestFrame,
+  type NotificationFrame,
+  type RequestFrame,
+  type ResponseErrorFrame,
+  type ResponseSuccessFrame,
+} from '../Rpc.mjs';
 import type { RpcChannel } from './RpcChannel.mjs';
-import WebSocket from 'ws';
+import WebSocket, { type RawData } from 'ws';
 import EventEmitter from 'events';
+import { RpcError } from '../RpcError.mjs';
 
 // TODO authentication
 // See documentation: https://shelly-api-docs.shelly.cloud/gen2/General/Authentication/#authentication
@@ -13,37 +20,66 @@ export default class InboundWebsocket implements RpcChannel {
   private awaitingResponse: Map<number, { resolve: (res: never) => void; reject: (err: never) => void }> = new Map();
   private eventEmitter = new EventEmitter();
 
-  constructor(address: string) {
+  log: (...args: unknown[]) => void;
+  error: (...args: unknown[]) => void;
+
+  constructor(
+    address: string,
+    log: (...args: unknown[]) => void = console.log,
+    error: (...args: unknown[]) => void = console.error,
+  ) {
+    this.log = log;
+    this.error = error;
+
     this.address = address;
     this.ws = new WebSocket(`ws://${address}/rpc`);
+
     this.ws.on('open', () => {
       // Send a message to enable receiving
-      const handshakeMessage = JSON.stringify(createRequestFrame('Shelly.GetConfig'));
-      console.log('WS handshake:', handshakeMessage);
-      this.ws.send(handshakeMessage);
-      console.log('WS opened');
+      const greetingMessage = createRequestFrame('Shelly.GetConfig');
+      this.sendRequestFrame(greetingMessage)
+        .then(() => this.log('Inbound WS greeting completed'))
+        .catch(err => this.error('Error during WS greeting:', err));
+      this.log('WS opened');
     });
     this.ws.on('message', message => {
-      const parsedMessage = JSON.parse(message.toString());
-      console.log('WS message:', message.toString());
-      if (parsedMessage.dst === 'Homey') {
-        if (parsedMessage.id !== undefined) {
-          const awaitingResponse = this.awaitingResponse.get(parsedMessage.id);
-          if (awaitingResponse) {
-            awaitingResponse.resolve(parsedMessage as never);
-            this.awaitingResponse.delete(parsedMessage.id);
-          }
-        } else if (parsedMessage.method !== undefined) {
-          this.eventEmitter.emit('update', parsedMessage);
-        }
-      }
+      this.handleMessage(message);
     });
     this.ws.on('error', err => {
-      console.error('WS error:', err.toString());
+      this.error('WS error:', err.toString());
     });
     this.ws.on('close', () => {
-      console.log('WS closed');
+      this.log('WS closed');
     });
+  }
+
+  private handleMessage(message: RawData): void {
+    const string = message.toString();
+    const json = JSON.parse(string);
+    if (json.dst === 'Homey') {
+      if (json.id !== undefined) {
+        // Response to a request with the same id
+        const awaitingResponse = this.awaitingResponse.get(json.id);
+        this.awaitingResponse.delete(json.id);
+        if (awaitingResponse) {
+          const error = json as ResponseErrorFrame;
+          const result = json as ResponseSuccessFrame<object | null>;
+          if (error.error !== undefined) {
+            const { code, message } = error.error;
+            awaitingResponse.reject(new RpcError(code, message) as never);
+          } else {
+            awaitingResponse.resolve(result as never);
+          }
+        } else {
+          this.error('Received response without a request:', string);
+        }
+      } else if (json.method !== undefined) {
+        // Notification
+        this.eventEmitter.emit('update', json);
+      } else {
+        this.error('Unexpected WS message format:', string);
+      }
+    }
   }
 
   async sendRequestFrame<Result extends object | null>(
