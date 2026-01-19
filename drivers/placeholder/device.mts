@@ -6,6 +6,8 @@ import type { RpcChannel } from '../../lib/rpc/channel/RpcChannel.mjs';
 import type { ShellyGetComponentsResponseComponent } from '../../lib/component/components/Shelly/GetComponents.mjs';
 import type OutboundWebsocket from '../../lib/component/components/OutboundWebsocket.mjs';
 import { RpcError } from '../../lib/rpc/RpcError.mjs';
+import { getIp } from '../../lib/LocalIp.mjs';
+import InboundWebsocket from '../../lib/rpc/channel/InboundWebsocket.mjs';
 
 export abstract class ShellyDevice extends Homey.Device {
   abstract getChannel(): RpcChannel;
@@ -22,7 +24,8 @@ export abstract class ShellyDevice extends Homey.Device {
     }
   }
 
-  async enableWebsocket(component: OutboundWebsocket): Promise<void> {
+  async configureOutboundWebsocket(component: OutboundWebsocket): Promise<void> {
+    const address = await getIp(this.homey);
     if (component.config.enable) {
       this.log('Websocket already enabled');
       return;
@@ -32,7 +35,7 @@ export abstract class ShellyDevice extends Homey.Device {
     await this.reboot();
   }
 
-  async disableWebsocket(component: OutboundWebsocket): Promise<void> {
+  async disableOutboundWebsocket(component: OutboundWebsocket): Promise<void> {
     if (!component.config.enable) {
       this.log('Websocket already disabled');
       return;
@@ -67,6 +70,7 @@ export abstract class ShellyDevice extends Homey.Device {
 
 export default class PlaceholderDevice extends ShellyDevice {
   private httpChannel!: HttpChannel;
+  private inboundWs!: InboundWebsocket;
 
   private registered: InstanceType<MappedComponent>[] = [];
 
@@ -112,6 +116,11 @@ export default class PlaceholderDevice extends ShellyDevice {
     const { address } = this.getTypedStore();
 
     this.httpChannel = new HttpChannel(address);
+    this.inboundWs = new InboundWebsocket(address);
+
+    this.inboundWs.registerUpdateHandler(update => {
+      this.log('UPDATE:', update);
+    });
 
     await this.initialize();
   }
