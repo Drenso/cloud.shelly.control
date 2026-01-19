@@ -2,9 +2,10 @@ import Homey from 'homey';
 import HttpChannel from '../../lib/rpc/channel/HttpChannel.mjs';
 import Shelly from '../../lib/component/components/Shelly.mjs';
 import { ComponentMapping, type MappedComponent } from '../../lib/component/ComponentMapping.mjs';
-import { getFromRecord } from '../../lib/util.mjs';
 import type { RpcChannel } from '../../lib/rpc/channel/RpcChannel.mjs';
 import type { ShellyGetComponentsResponseComponent } from '../../lib/component/components/Shelly/GetComponents.mjs';
+import type OutboundWebsocket from '../../lib/component/components/OutboundWebsocket.mjs';
+import { RpcError } from '../../lib/rpc/RpcError.mjs';
 
 export abstract class ShellyDevice extends Homey.Device {
   abstract getChannel(): RpcChannel;
@@ -18,6 +19,48 @@ export abstract class ShellyDevice extends Homey.Device {
   async safeRemoveCapability(id: string): Promise<void> {
     if (this.hasCapability(id)) {
       await this.removeCapability(id);
+    }
+  }
+
+  async enableWebsocket(component: OutboundWebsocket): Promise<void> {
+    if (component.config.enable) {
+      this.log('Websocket already enabled');
+      return;
+    }
+    this.log('Enabling websocket...');
+    await component.SetConfig(this.getChannel(), { config: { enable: true } });
+    await this.reboot();
+  }
+
+  async disableWebsocket(component: OutboundWebsocket): Promise<void> {
+    if (!component.config.enable) {
+      this.log('Websocket already disabled');
+      return;
+    }
+    this.log('Disabling websocket...');
+    await component.SetConfig(this.getChannel(), { config: { enable: false } });
+    await this.reboot();
+  }
+
+  async reboot(initialWaitTime = 1000, pingTime = 500): Promise<void> {
+    await Shelly.Reboot(this.getChannel(), { delay_ms: initialWaitTime });
+    this.log('Rebooting...');
+    // Give the device time to shut down
+    await new Promise(resolve => setTimeout(resolve, initialWaitTime));
+    while (true) {
+      try {
+        await Shelly.GetDeviceInfo(this.getChannel());
+        this.log('Finished rebooting');
+        return;
+      } catch (e) {
+        if (e instanceof RpcError && e.code === -109) {
+          this.log('Still rebooting...');
+          // Wait before trying again
+          await new Promise(resolve => setTimeout(resolve, pingTime));
+          continue;
+        }
+        throw e;
+      }
     }
   }
 }
@@ -46,15 +89,15 @@ export default class PlaceholderDevice extends ShellyDevice {
       }
     }
 
-    this.log(components);
-
     for (const component of components) {
-      const [componentName, componentId] = component.key.split(':');
-      const componentConstructor: MappedComponent | undefined = getFromRecord(ComponentMapping, componentName);
+      const [componentName, componentId] = component.key.split(':') as [string, `${number}` | undefined];
+      // @ts-expect-error TS definition is incorrect with behavior in practice
+      const componentConstructor: MappedComponent | undefined = ComponentMapping[componentName];
       if (!componentConstructor) {
         continue;
       }
-      const componentInstance = new componentConstructor(component.status!, component.config!);
+      // @ts-expect-error The status and config will always be of the type for the component
+      const componentInstance = new componentConstructor(component.status, component.config);
       this.registered.push(componentInstance);
     }
 
