@@ -1,4 +1,5 @@
 import Homey, { type DiscoveryResultMDNSSD } from 'homey';
+import type { ShellyLocalDeviceStore } from './device.mjs';
 
 type ListDeviceProperties = {
   name: string;
@@ -21,13 +22,15 @@ type ListDeviceProperties = {
   class?: string;
 };
 
-export default class PlaceholderDriver extends Homey.Driver {
+type ShellyLocalListDeviceProperties = ListDeviceProperties & { store: ShellyLocalDeviceStore };
+
+export default class ShellyLocalDriver extends Homey.Driver {
   async onInit(): Promise<void> {
     this.log('PlaceholderDriver has been initialized.');
   }
 
-  async onPairListDevices(): Promise<ListDeviceProperties[]> {
-    const results: ListDeviceProperties[] = [];
+  async onPairListDevices(): Promise<ShellyLocalListDeviceProperties[]> {
+    const results: ShellyLocalListDeviceProperties[] = [];
 
     const discoveryStrategy = this.homey.discovery.getStrategy('shelly');
     const discoveryResults = discoveryStrategy.getDiscoveryResults();
@@ -42,10 +45,11 @@ export default class PlaceholderDriver extends Homey.Driver {
         },
         store: {
           address: discoveryResult.address,
-          port: discoveryResult.port,
+          port: discoveryResult.port as unknown as number,
           host: discoveryResult.host,
           name: discoveryResult.name,
           txt: txt,
+          components: [],
         },
       });
     }

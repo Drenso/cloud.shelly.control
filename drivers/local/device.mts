@@ -14,6 +14,15 @@ import type ShellyApp from '../../app.mjs';
 import WebSocket from 'ws';
 import type { NotificationFrame, NotificationStatusFrame } from '../../lib/rpc/Rpc.mjs';
 
+export type ShellyLocalDeviceStore = {
+  address: string;
+  port: number;
+  host: string;
+  name: string;
+  txt: { ver: `${number}.${number}.${number}`; app: string; gen: `${number}` };
+  components: string[];
+};
+
 export default class ShellyLocalDevice extends Homey.Device {
   private httpChannel!: HttpChannel;
   private inboundWsChannel!: InboundWebsocketChannel;
@@ -48,6 +57,7 @@ export default class ShellyLocalDevice extends Homey.Device {
       // @ts-expect-error TS definition is incorrect with behavior in practice
       const componentConstructor: MappedComponent | undefined = ComponentMapping[componentName];
       if (!componentConstructor) {
+        this.log('No implementation found for', componentName);
         continue;
       }
       const componentInstance = new componentConstructor(
@@ -59,9 +69,18 @@ export default class ShellyLocalDevice extends Homey.Device {
       this.registered.set(component.key, componentInstance);
     }
 
+    const oldComponents = this.getTypedStore().components;
+
+    for (const componentId of oldComponents) {
+      if (!this.registered.has(componentId)) {
+        // TODO unregister
+      }
+    }
+
     for (const component of this.registered.values()) {
       await component.register().catch(this.error);
     }
+    await this.setStoreValue('components', components).catch(this.error);
   }
 
   async onInit(): Promise<void> {
@@ -99,13 +118,7 @@ export default class ShellyLocalDevice extends Homey.Device {
     this.log('Uninitialized');
   }
 
-  getTypedStore(): {
-    address: string;
-    port: number;
-    host: string;
-    name: string;
-    txt: { ver: `${number}.${number}.${number}`; app: string; gen: `${number}` };
-  } {
+  getTypedStore(): ShellyLocalDeviceStore {
     return this.getStore();
   }
 
