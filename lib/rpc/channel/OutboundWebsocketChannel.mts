@@ -2,12 +2,12 @@ import type { RpcChannel } from './RpcChannel.mjs';
 import mitt from 'mitt';
 import WebSocket from 'ws';
 import type { OutboundWsMessageEvent, OutboundWsMittEvents } from '../../../app.mjs';
-import type { RequestFrame, ResponseErrorFrame, ResponseSuccessFrame, UnknownFrame } from '../Rpc.mjs';
+import type { NotificationFrame, RequestFrame, ResponseErrorFrame, ResponseSuccessFrame } from '../Rpc.mjs';
 import { createMitt } from '../../util.mjs';
 import { RpcError } from '../RpcError.mjs';
 
 type OutboundWsChannelMittEvents = {
-  update: UnknownFrame;
+  notification: NotificationFrame;
 };
 
 // TODO authentication
@@ -82,7 +82,7 @@ export default class OutboundWebsocketChannel implements RpcChannel {
         }
       } else if (json.method !== undefined) {
         // Notification
-        this.eventEmitter.emit('update', json);
+        this.eventEmitter.emit('notification', json as NotificationFrame);
       } else {
         this.error('Unexpected WS message format:', JSON.stringify(json));
       }
@@ -111,11 +111,11 @@ export default class OutboundWebsocketChannel implements RpcChannel {
     });
   }
 
-  registerUpdateHandler(handler: (update: UnknownFrame) => void): void {
-    this.eventEmitter.on('update', handler);
+  registerNotificationHandler(handler: (notification: NotificationFrame) => void): void {
+    this.eventEmitter.on('notification', handler);
   }
 
-  unregisterUpdateHandler(handler: (update: UnknownFrame) => void): void {
-    this.eventEmitter.off('update', handler);
+  unregisterNotificationHandler(handler: (notification: NotificationFrame) => void): void {
+    this.eventEmitter.off('notification', handler);
   }
 }

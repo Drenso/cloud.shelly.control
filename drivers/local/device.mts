@@ -11,15 +11,20 @@ import InboundWebsocketChannel from '../../lib/rpc/channel/InboundWebsocketChann
 import { OUTBOUND_WS_PORT } from '../../lib/config.mjs';
 import OutboundWebsocketChannel from '../../lib/rpc/channel/OutboundWebsocketChannel.mjs';
 import type ShellyApp from '../../app.mjs';
+import WebSocket from 'ws';
+import type { NotificationFrame, NotificationStatusFrame } from '../../lib/rpc/Rpc.mjs';
 
 export default class ShellyLocalDevice extends Homey.Device {
   private httpChannel!: HttpChannel;
   private inboundWsChannel!: InboundWebsocketChannel;
   private outboundWsChannel!: OutboundWebsocketChannel;
 
-  private registered: InstanceType<MappedComponent>[] = [];
+  private readonly registered = new Map<string, InstanceType<MappedComponent>>();
 
   getChannel(): RpcChannel {
+    if (this.inboundWsChannel !== undefined && this.inboundWsChannel.ws.readyState === WebSocket.OPEN) {
+      return this.inboundWsChannel;
+    }
     return this.httpChannel;
   }
 
@@ -51,10 +56,10 @@ export default class ShellyLocalDevice extends Homey.Device {
         component.status as ConstructorParameters<MappedComponent>[1],
         component.config as ConstructorParameters<MappedComponent>[2],
       );
-      this.registered.push(componentInstance);
+      this.registered.set(component.key, componentInstance);
     }
 
-    for (const component of this.registered) {
+    for (const component of this.registered.values()) {
       await component.register().catch(this.error);
     }
   }
@@ -71,12 +76,15 @@ export default class ShellyLocalDevice extends Homey.Device {
       this.error,
     );
 
-    this.inboundWsChannel.registerUpdateHandler(update => {
-      this.log('Inbound WS message:', update);
+    this.inboundWsChannel.registerNotificationHandler(notification => {
+      this.handleWsNotification(notification);
     });
 
-    this.outboundWsChannel.registerUpdateHandler(update => {
-      this.log('Outbound WS message:', update);
+    this.outboundWsChannel.registerNotificationHandler(notification => {
+      // Ignore outbound WS messages if an inbound WS is open
+      if (this.inboundWsChannel === undefined || this.inboundWsChannel.ws.readyState !== WebSocket.OPEN) {
+        this.handleWsNotification(notification);
+      }
     });
 
     await this.initialize();
@@ -110,6 +118,31 @@ export default class ShellyLocalDevice extends Homey.Device {
   async safeRemoveCapability(id: string): Promise<void> {
     if (this.hasCapability(id)) {
       await this.removeCapability(id);
+    }
+  }
+
+  async safeSetCapability(id: string, value: unknown): Promise<void> {
+    if (this.hasCapability(id)) {
+      await this.setCapabilityValue(id, value);
+    }
+  }
+
+  handleWsNotification(notification: NotificationFrame): void {
+    if (notification.method === 'NotifyStatus' || notification.method === 'NotifyFullStatus') {
+      const statusNotification = notification as NotificationStatusFrame<string, object>;
+      for (const component in statusNotification.params) {
+        if (component === 'ts') {
+          continue;
+        }
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { ts, source, ...statusUpdate } = statusNotification.params[component] as {
+          ts?: number;
+          source?: string;
+        };
+        this.registered.get(component)?.updateStatus(statusUpdate as never);
+      }
+    } else {
+      this.log('Unhandled WS notification method:', notification.method);
     }
   }
 

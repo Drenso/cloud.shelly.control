@@ -173,7 +173,7 @@ export default class Switch extends ComponentWithId<SwitchStatus, SwitchConfig> 
       const capabilityOptions = {
         // TODO translations
         title: {
-          en: `Switch ${this.id}`,
+          en: `Switch ${this.id + 1}`,
         },
       };
       await this.device.setCapabilityOptions(capabilityId, capabilityOptions);
@@ -186,11 +186,19 @@ export default class Switch extends ComponentWithId<SwitchStatus, SwitchConfig> 
         const capabilityOptions = {
           // TODO translations
           title: {
-            en: `Switch ${this.id} Temperature`,
+            en: `Switch ${this.id + 1} Temperature`,
           },
         };
         await this.device.setCapabilityOptions(capabilityId, capabilityOptions);
       }
+    }
+  }
+
+  async updateStatus(status: Partial<SwitchStatus>): Promise<void> {
+    this.device.log(`Switch ${this.id} status update:`, JSON.stringify(status));
+    this.status = { ...this.status, ...status };
+    if (status.output !== undefined) {
+      await this.device.safeSetCapability(`onoff.${this.id}`, status.output).catch(this.device.error);
     }
   }
 }

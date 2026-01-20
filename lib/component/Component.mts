@@ -33,6 +33,8 @@ export abstract class Component<Status extends object, Config extends object> {
   abstract GetStatus(channel: RpcChannel): Promise<ResponseSuccessFrame<Status>>;
 
   abstract register(): Promise<void>;
+
+  abstract updateStatus(status: Status): Promise<void>;
 }
 
 export abstract class ComponentWithoutId<Status extends object, Config extends object> extends Component<

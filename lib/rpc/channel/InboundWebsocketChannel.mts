@@ -1,4 +1,10 @@
-import { type RequestFrame, type ResponseErrorFrame, type ResponseSuccessFrame, type UnknownFrame } from '../Rpc.mjs';
+import {
+  type NotificationFrame,
+  type RequestFrame,
+  type ResponseErrorFrame,
+  type ResponseSuccessFrame,
+  type UnknownFrame,
+} from '../Rpc.mjs';
 import type { RpcChannel } from './RpcChannel.mjs';
 import WebSocket, { type RawData } from 'ws';
 import { RpcError } from '../RpcError.mjs';
@@ -9,7 +15,7 @@ import Shelly from '../../component/components/Shelly.mjs';
 const GREETING_DELAY = 100;
 
 type InboundWsChannelMittEvents = {
-  update: UnknownFrame;
+  notification: NotificationFrame;
 };
 
 // TODO authentication
@@ -58,6 +64,7 @@ export default class InboundWebsocketChannel implements RpcChannel {
       this.error('WS error:', err.toString());
     });
     this.ws.on('close', () => {
+      // TODO handle
       this.log('WS closed');
     });
   }
@@ -88,7 +95,7 @@ export default class InboundWebsocketChannel implements RpcChannel {
         }
       } else if (json.method !== undefined) {
         // Notification
-        this.eventEmitter.emit('update', json);
+        this.eventEmitter.emit('notification', json as NotificationFrame);
       } else {
         this.error('Unexpected WS message format:', string);
       }
@@ -104,11 +111,11 @@ export default class InboundWebsocketChannel implements RpcChannel {
     });
   }
 
-  registerUpdateHandler(handler: (update: UnknownFrame) => void): void {
-    this.eventEmitter.on('update', handler);
+  registerNotificationHandler(handler: (notification: NotificationFrame) => void): void {
+    this.eventEmitter.on('notification', handler);
   }
 
-  unregisterUpdateHandler(handler: (update: UnknownFrame) => void): void {
-    this.eventEmitter.off('update', handler);
+  unregisterNotificationHandler(handler: (notification: NotificationFrame) => void): void {
+    this.eventEmitter.off('notification', handler);
   }
 }

@@ -77,6 +77,8 @@ export type NotificationStatusFrame<Component extends string, Status extends obj
   params: {
     // Unix timestamp (in UTC)
     ts: number;
+    // The cause of the status change
+    source?: string;
     // The same structure as the status object of the component.
     // Some or all unchanged attributes of the status object may not be visible.
     // Component must be substituted by the component type, (for example, cloud, wifi, mqtt).
