@@ -10,7 +10,6 @@ import ResetCounters, {
 } from './Switch/ResetCounters.mjs';
 import type { RpcChannel } from '../../rpc/channel/RpcChannel.mjs';
 import type { ResponseSuccessFrame } from '../../rpc/Rpc.mjs';
-import type ShellyLocalDevice from '../../../drivers/local/device.mjs';
 
 export type SwitchConfig = {
   // Identifier of the Switch component instance
@@ -162,35 +161,35 @@ export default class Switch extends ComponentWithId<SwitchStatus, SwitchConfig> 
     return ResetCounters(channel, this.id, params);
   }
 
-  async register(device: ShellyLocalDevice): Promise<void> {
+  async register(): Promise<void> {
     {
       // onoff
       const capabilityId = `onoff.${this.id}` as const;
-      await device.safeAddCapability(capabilityId);
+      await this.device.safeAddCapability(capabilityId);
       const capabilityListener = async (value: boolean): Promise<void> => {
-        await this.Set(device.getChannel(), { on: value });
+        await this.Set(this.device.getChannel(), { on: value });
       };
-      device.registerCapabilityListener(capabilityId, capabilityListener);
+      this.device.registerCapabilityListener(capabilityId, capabilityListener);
       const capabilityOptions = {
         // TODO translations
         title: {
           en: `Switch ${this.id}`,
         },
       };
-      await device.setCapabilityOptions(capabilityId, capabilityOptions);
+      await this.device.setCapabilityOptions(capabilityId, capabilityOptions);
     }
     {
       // measure_temperature
       if (this.status.temperature !== undefined) {
         const capabilityId = `measure_temperature.switch_${this.id}`;
-        await device.safeAddCapability(capabilityId);
+        await this.device.safeAddCapability(capabilityId);
         const capabilityOptions = {
           // TODO translations
           title: {
             en: `Switch ${this.id} Temperature`,
           },
         };
-        await device.setCapabilityOptions(capabilityId, capabilityOptions);
+        await this.device.setCapabilityOptions(capabilityId, capabilityOptions);
       }
     }
   }

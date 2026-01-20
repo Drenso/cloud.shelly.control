@@ -26,7 +26,7 @@ export default class OutboundWebsocket extends ComponentWithoutId<OutboundWebsoc
   protected _GetConfig = GetConfig;
   protected _GetStatus = GetStatus;
 
-  async register(device: ShellyLocalDevice): Promise<void> {
-    await device.configureOutboundWebsocket(this);
+  async register(): Promise<void> {
+    await this.device.configureOutboundWebsocket(this);
   }
 }

@@ -45,13 +45,17 @@ export default class ShellyLocalDevice extends Homey.Device {
       if (!componentConstructor) {
         continue;
       }
-      // @ts-expect-error The status and config will always be of the type for the component
-      const componentInstance = new componentConstructor(component.status, component.config);
+      const componentInstance = new componentConstructor(
+        this,
+        // @ts-expect-error For some reason this gives the union instead of the intersection
+        component.status as ConstructorParameters<MappedComponent>[1],
+        component.config as ConstructorParameters<MappedComponent>[2],
+      );
       this.registered.push(componentInstance);
     }
 
     for (const component of this.registered) {
-      await component.register(this).catch(this.error);
+      await component.register().catch(this.error);
     }
   }
 

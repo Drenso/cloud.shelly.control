@@ -13,10 +13,12 @@ type ComponentSetConfigResponse = {
 };
 
 export abstract class Component<Status extends object, Config extends object> {
+  device: ShellyLocalDevice;
   status: Status;
   config: Config;
 
-  constructor(status: Status, config: Config) {
+  constructor(device: ShellyLocalDevice, status: Status, config: Config) {
+    this.device = device;
     this.status = status;
     this.config = config;
   }
@@ -30,7 +32,7 @@ export abstract class Component<Status extends object, Config extends object> {
 
   abstract GetStatus(channel: RpcChannel): Promise<ResponseSuccessFrame<Status>>;
 
-  abstract register(device: ShellyLocalDevice): Promise<void>;
+  abstract register(): Promise<void>;
 }
 
 export abstract class ComponentWithoutId<Status extends object, Config extends object> extends Component<
