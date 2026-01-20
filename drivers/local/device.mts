@@ -148,9 +148,8 @@ export default class ShellyLocalDevice extends Homey.Device {
           continue;
         }
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { ts, source, ...statusUpdate } = statusNotification.params[component] as {
+        const { ts, ...statusUpdate } = statusNotification.params[component] as {
           ts?: number;
-          source?: string;
         };
         this.registered.get(component)?.updateStatus(statusUpdate as never);
       }
