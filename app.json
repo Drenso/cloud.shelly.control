@@ -62,9 +62,9 @@
         "cloud"
       ],
       "images": {
-        "small": "/drivers/placeholder/assets/images/small.png",
-        "large": "/drivers/placeholder/assets/images/large.png",
-        "xlarge": "/drivers/placeholder/assets/images/xlarge.png"
+        "small": "/drivers/local/assets/images/small.png",
+        "large": "/drivers/local/assets/images/large.png",
+        "xlarge": "/drivers/local/assets/images/xlarge.png"
       },
       "pair": [
         {
@@ -79,7 +79,7 @@
           "template": "add_devices"
         }
       ],
-      "id": "placeholder"
+      "id": "local"
     }
   ],
   "discovery": {

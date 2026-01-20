@@ -10,7 +10,7 @@ import ResetCounters, {
 } from './Switch/ResetCounters.mjs';
 import type { RpcChannel } from '../../rpc/channel/RpcChannel.mjs';
 import type { ResponseSuccessFrame } from '../../rpc/Rpc.mjs';
-import type { ShellyDevice } from '../../../drivers/placeholder/device.mjs';
+import type ShellyLocalDevice from '../../../drivers/local/device.mjs';
 
 export type SwitchConfig = {
   // Identifier of the Switch component instance
@@ -162,7 +162,7 @@ export default class Switch extends ComponentWithId<SwitchStatus, SwitchConfig> 
     return ResetCounters(channel, this.id, params);
   }
 
-  async register(device: ShellyDevice): Promise<void> {
+  async register(device: ShellyLocalDevice): Promise<void> {
     {
       // onoff
       const capabilityId = `onoff.${this.id}` as const;

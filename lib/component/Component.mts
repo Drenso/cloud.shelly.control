@@ -1,6 +1,6 @@
 import type { RpcChannel } from '../rpc/channel/RpcChannel.mjs';
 import type { ResponseSuccessFrame } from '../rpc/Rpc.mjs';
-import type { ShellyDevice } from '../../drivers/placeholder/device.mjs';
+import type ShellyLocalDevice from '../../drivers/local/device.mjs';
 
 export class Service {}
 
@@ -30,7 +30,7 @@ export abstract class Component<Status extends object, Config extends object> {
 
   abstract GetStatus(channel: RpcChannel): Promise<ResponseSuccessFrame<Status>>;
 
-  abstract register(device: ShellyDevice): Promise<void>;
+  abstract register(device: ShellyLocalDevice): Promise<void>;
 }
 
 export abstract class ComponentWithoutId<Status extends object, Config extends object> extends Component<

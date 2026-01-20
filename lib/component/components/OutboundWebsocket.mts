@@ -1,5 +1,5 @@
 import { ComponentWithoutId } from '../Component.mjs';
-import type { ShellyDevice } from '../../../drivers/placeholder/device.mjs';
+import type ShellyLocalDevice from '../../../drivers/local/device.mjs';
 import SetConfig from './OutboundWebsocket/SetConfig.mjs';
 import GetConfig from './OutboundWebsocket/GetConfig.mjs';
 import GetStatus from './OutboundWebsocket/GetStatus.mjs';
@@ -26,7 +26,7 @@ export default class OutboundWebsocket extends ComponentWithoutId<OutboundWebsoc
   protected _GetConfig = GetConfig;
   protected _GetStatus = GetStatus;
 
-  async register(device: ShellyDevice): Promise<void> {
+  async register(device: ShellyLocalDevice): Promise<void> {
     await device.configureOutboundWebsocket(this);
   }
 }
