@@ -7,19 +7,27 @@ import {
 } from '../Rpc.mjs';
 import type { RpcChannel } from './RpcChannel.mjs';
 import WebSocket, { type RawData } from 'ws';
-import EventEmitter from 'events';
 import { RpcError } from '../RpcError.mjs';
 import { RPC_SRC } from '../../config.mjs';
+import { createMitt } from '../../util.mjs';
+
+type InboundWsChannelMittEvents = {
+  update: NotificationFrame;
+};
 
 // TODO authentication
 // See documentation: https://shelly-api-docs.shelly.cloud/gen2/General/Authentication/#authentication
 // See example: https://github.com/home-assistant-libs/aioshelly/blob/main/aioshelly/rpc_device/wsrpc.py
+// TODO wss://
 export default class InboundWebsocketChannel implements RpcChannel {
   readonly address: string;
   readonly ws: WebSocket;
 
-  private awaitingResponse: Map<number, { resolve: (res: never) => void; reject: (err: never) => void }> = new Map();
-  private eventEmitter = new EventEmitter();
+  private readonly awaitingResponse = new Map<
+    number,
+    { resolve: (res: never) => void; reject: (err: never) => void }
+  >();
+  private readonly eventEmitter = createMitt<InboundWsChannelMittEvents>();
 
   log: (...args: unknown[]) => void;
   error: (...args: unknown[]) => void;
@@ -52,6 +60,10 @@ export default class InboundWebsocketChannel implements RpcChannel {
     this.ws.on('close', () => {
       this.log('WS closed');
     });
+  }
+
+  disconnect(): void {
+    this.ws.close();
   }
 
   private handleMessage(message: RawData): void {

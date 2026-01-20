@@ -12,6 +12,8 @@ export default class HttpChannel implements RpcChannel {
     this.address = address;
   }
 
+  disconnect(): void {}
+
   async sendRequestFrame<Result extends object | null>(
     requestFrame: RequestFrame,
   ): Promise<ResponseSuccessFrame<Result>> {
