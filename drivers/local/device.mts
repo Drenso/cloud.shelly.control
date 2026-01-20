@@ -7,17 +7,17 @@ import type { ShellyGetComponentsResponseComponent } from '../../lib/component/c
 import type OutboundWebsocket from '../../lib/component/components/OutboundWebsocket.mjs';
 import { RpcError } from '../../lib/rpc/RpcError.mjs';
 import { getIp } from '../../lib/LocalIp.mjs';
-import InboundWebsocket from '../../lib/rpc/channel/InboundWebsocket.mjs';
+import InboundWebsocketChannel from '../../lib/rpc/channel/InboundWebsocketChannel.mjs';
 import { OUTBOUND_WS_PORT } from '../../lib/config.mjs';
 
 export default class ShellyLocalDevice extends Homey.Device {
   private httpChannel!: HttpChannel;
-  private inboundWs!: InboundWebsocket;
+  private inboundWsChannel!: InboundWebsocketChannel;
 
   private registered: InstanceType<MappedComponent>[] = [];
 
   getChannel(): RpcChannel {
-    return this.httpChannel;
+    return this.inboundWsChannel;
   }
 
   // Called after onInit
@@ -58,11 +58,11 @@ export default class ShellyLocalDevice extends Homey.Device {
     const { address } = this.getTypedStore();
 
     this.httpChannel = new HttpChannel(address);
-    this.inboundWs = new InboundWebsocket(address, this.log, this.error);
+    this.inboundWsChannel = new InboundWebsocketChannel(address, this.log, this.error);
 
-    // this.inboundWs.registerUpdateHandler(update => {
-    //   this.log('UPDATE:', update);
-    // });
+    this.inboundWsChannel.registerUpdateHandler(update => {
+      this.log('UPDATE:', update);
+    });
 
     await this.initialize();
   }

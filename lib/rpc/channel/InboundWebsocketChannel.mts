@@ -14,7 +14,7 @@ import { RPC_SRC } from '../../config.mjs';
 // TODO authentication
 // See documentation: https://shelly-api-docs.shelly.cloud/gen2/General/Authentication/#authentication
 // See example: https://github.com/home-assistant-libs/aioshelly/blob/main/aioshelly/rpc_device/wsrpc.py
-export default class InboundWebsocket implements RpcChannel {
+export default class InboundWebsocketChannel implements RpcChannel {
   readonly address: string;
   readonly ws: WebSocket;
 
