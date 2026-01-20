@@ -168,19 +168,12 @@ export default class Switch extends ComponentWithId<SwitchStatus, SwitchConfig> 
     // cumulativeExportedCapability: ???
     {
       // output
-      const capabilityId = `onoff.${this.id}` as const;
-      await this.device.safeAddCapability(capabilityId);
+      await this.registerMeasured('output', 'onoff', '').catch(this.device.error);
+      const capabilityId = `onoff.switch_${this.id}` as const;
       const capabilityListener = async (value: boolean): Promise<void> => {
         await this.Set(this.device.getChannel(), { on: value });
       };
       this.device.registerCapabilityListener(capabilityId, capabilityListener);
-      const capabilityOptions = {
-        // TODO translations
-        title: {
-          en: `Switch ${this.id + 1}`,
-        },
-      };
-      await this.device.setCapabilityOptions(capabilityId, capabilityOptions);
     }
 
     await this.registerMeasured('apower', 'measure_power', 'Power').catch(this.device.error);
