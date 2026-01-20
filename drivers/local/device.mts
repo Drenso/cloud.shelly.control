@@ -124,19 +124,19 @@ export default class ShellyLocalDevice extends Homey.Device {
 
   async safeAddCapability(id: string): Promise<void> {
     if (!this.hasCapability(id)) {
-      await this.addCapability(id);
+      await this.addCapability(id).catch(this.error);
     }
   }
 
   async safeRemoveCapability(id: string): Promise<void> {
     if (this.hasCapability(id)) {
-      await this.removeCapability(id);
+      await this.removeCapability(id).catch(this.error);
     }
   }
 
   async safeSetCapability(id: string, value: unknown): Promise<void> {
     if (this.hasCapability(id)) {
-      await this.setCapabilityValue(id, value);
+      await this.setCapabilityValue(id, value).catch(this.error);
     }
   }
 
