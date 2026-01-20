@@ -1,15 +1,12 @@
-import {
-  createRequestFrame,
-  type RequestFrame,
-  type ResponseErrorFrame,
-  type ResponseSuccessFrame,
-  type UnknownFrame,
-} from '../Rpc.mjs';
+import { type RequestFrame, type ResponseErrorFrame, type ResponseSuccessFrame, type UnknownFrame } from '../Rpc.mjs';
 import type { RpcChannel } from './RpcChannel.mjs';
 import WebSocket, { type RawData } from 'ws';
 import { RpcError } from '../RpcError.mjs';
 import { RPC_SRC } from '../../config.mjs';
 import { createMitt } from '../../util.mjs';
+import Shelly from '../../component/components/Shelly.mjs';
+
+const GREETING_DELAY = 100;
 
 type InboundWsChannelMittEvents = {
   update: UnknownFrame;
@@ -43,11 +40,14 @@ export default class InboundWebsocketChannel implements RpcChannel {
     this.address = address;
     this.ws = new WebSocket(`ws://${address}/rpc`);
 
-    this.ws.on('open', () => {
+    this.ws.on('open', async () => {
+      // Delay greeting to
+      await new Promise(resolve => setTimeout(resolve, GREETING_DELAY));
       // Send a message to enable receiving
-      const greetingMessage = createRequestFrame('Shelly.GetConfig');
-      this.sendRequestFrame(greetingMessage)
-        .then(() => this.log('Inbound WS greeting completed'))
+      Shelly.GetDeviceInfo(this)
+        .then(() => {
+          this.log('Inbound WS greeting completed');
+        })
         .catch(err => this.error('Error during WS greeting:', err));
       this.log('WS opened');
     });
