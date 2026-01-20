@@ -90,7 +90,7 @@ export default class ShellyLocalDevice extends Homey.Device {
   }
 
   async configureOutboundWebsocket(component: OutboundWebsocket): Promise<void> {
-    const server = `ws://${await getIp(this.homey)}:${OUTBOUND_WS_PORT}/${this.getAppId()}`;
+    const server = `ws://${await getIp(this.homey)}:${OUTBOUND_WS_PORT}`;
     if (component.config.enable && component.config.server === server) {
       this.log('Outbound websocket already enabled');
       return;

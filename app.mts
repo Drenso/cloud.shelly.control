@@ -3,7 +3,6 @@ import Homey from 'homey';
 import sourceMapSupport from 'source-map-support';
 import { WebSocketServer } from 'ws';
 import { OUTBOUND_WS_PORT } from './lib/config.mjs';
-import { createServer } from 'node:http';
 import { getIp } from './lib/LocalIp.mjs';
 
 sourceMapSupport.install();
@@ -15,10 +14,7 @@ export default class ShellyApp extends Homey.App {
   async onInit(): Promise<void> {
     this.log('Initializing App...');
 
-    const server = createServer();
-
-    const wss = new WebSocketServer({ noServer: true });
-    const baseUrl = `ws://${await getIp(this.homey)}`;
+    const wss = new WebSocketServer({ port: OUTBOUND_WS_PORT });
 
     wss.on('connection', ws => {
       this.log('Outbound WS connected');
@@ -26,17 +22,7 @@ export default class ShellyApp extends Homey.App {
       ws.on('error', error => this.log('Outbound WS connection error', error.toString()));
     });
 
-    server.on('upgrade', (request, socket, head) => {
-      const { pathname } = new URL(request.url!, baseUrl);
-      this.log('Connection request from:', pathname);
-
-      wss.handleUpgrade(request, socket, head, ws => {
-        wss.emit('connection', ws, request);
-      });
-    });
-
-    server.listen(OUTBOUND_WS_PORT);
-    this.log('Started WS server on:', await getIp(this.homey), OUTBOUND_WS_PORT);
+    this.log('Started WS server on:', `ws://${await getIp(this.homey)}:${OUTBOUND_WS_PORT}`);
 
     this.log('Finished initializing App');
   }
