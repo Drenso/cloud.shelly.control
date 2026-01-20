@@ -70,6 +70,7 @@ export default class InboundWebsocketChannel implements RpcChannel {
   }
 
   disconnect(): void {
+    this.eventEmitter.all.clear();
     this.ws.close();
   }
 

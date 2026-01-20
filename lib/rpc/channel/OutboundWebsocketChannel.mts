@@ -58,6 +58,7 @@ export default class OutboundWebsocketChannel implements RpcChannel {
   }
 
   disconnect(): void {
+    this.eventEmitter.all.clear();
     this.outboundWsMitt.off('message', this.handleMessage.bind(this));
   }
 
