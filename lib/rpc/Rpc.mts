@@ -22,6 +22,9 @@ export type RequestFrame = {
   params?: object;
 };
 
+export type UnknownFrame = (ResponseFrame<object | null> | NotificationFrame) &
+  Partial<ResponseFrame<object | null> & NotificationFrame>;
+
 export type ResponseFrame<Result extends object | null> = ResponseSuccessFrame<Result> | ResponseErrorFrame;
 
 interface ResponseFrameBasis {

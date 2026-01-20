@@ -1,9 +1,9 @@
 import {
   createRequestFrame,
-  type NotificationFrame,
   type RequestFrame,
   type ResponseErrorFrame,
   type ResponseSuccessFrame,
+  type UnknownFrame,
 } from '../Rpc.mjs';
 import type { RpcChannel } from './RpcChannel.mjs';
 import WebSocket, { type RawData } from 'ws';
@@ -12,7 +12,7 @@ import { RPC_SRC } from '../../config.mjs';
 import { createMitt } from '../../util.mjs';
 
 type InboundWsChannelMittEvents = {
-  update: NotificationFrame;
+  update: UnknownFrame;
 };
 
 // TODO authentication
@@ -68,12 +68,12 @@ export default class InboundWebsocketChannel implements RpcChannel {
 
   private handleMessage(message: RawData): void {
     const string = message.toString();
-    const json = JSON.parse(string);
+    const json = JSON.parse(string) as UnknownFrame;
     if (json.dst === RPC_SRC) {
       if (json.id !== undefined) {
         // Response to a request with the same id
-        const awaitingResponse = this.awaitingResponse.get(json.id);
-        this.awaitingResponse.delete(json.id);
+        const awaitingResponse = this.awaitingResponse.get(json.id as number);
+        this.awaitingResponse.delete(json.id as number);
         if (awaitingResponse) {
           const error = json as ResponseErrorFrame;
           const result = json as ResponseSuccessFrame<object | null>;
@@ -104,11 +104,11 @@ export default class InboundWebsocketChannel implements RpcChannel {
     });
   }
 
-  registerUpdateHandler(handler: (update: NotificationFrame) => void): void {
+  registerUpdateHandler(handler: (update: UnknownFrame) => void): void {
     this.eventEmitter.on('update', handler);
   }
 
-  unregisterUpdateHandler(handler: (update: NotificationFrame) => void): void {
+  unregisterUpdateHandler(handler: (update: UnknownFrame) => void): void {
     this.eventEmitter.off('update', handler);
   }
 }

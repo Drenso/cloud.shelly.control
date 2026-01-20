@@ -4,13 +4,17 @@ import sourceMapSupport from 'source-map-support';
 import WebSocket, { type RawData, WebSocketServer } from 'ws';
 import { OUTBOUND_WS_PORT } from './lib/config.mjs';
 import { getIp } from './lib/LocalIp.mjs';
-import type { NotificationFrame } from './lib/rpc/Rpc.mjs';
+import type { NotificationFrame, UnknownFrame } from './lib/rpc/Rpc.mjs';
 import { createMitt } from './lib/util.mjs';
 
 sourceMapSupport.install();
 
+export type OutboundWsMessageEvent = { json: UnknownFrame; ws: WebSocket };
+export type OutboundWsClosedEvent = { ws: WebSocket };
+
 export type OutboundWsMittEvents = {
-  [src: string]: { json: NotificationFrame; ws: WebSocket };
+  message: OutboundWsMessageEvent;
+  closed: OutboundWsClosedEvent;
 };
 
 // noinspection JSUnusedGlobalSymbols
@@ -38,7 +42,7 @@ export default class ShellyApp extends Homey.App {
     const string = message.toString();
     const json = JSON.parse(string) as NotificationFrame;
     if (json.src !== undefined) {
-      this.outboundWsMitt.emit(json.src, { json: json, ws: ws });
+      this.outboundWsMitt.emit('message', { json: json, ws: ws });
     }
   }
 }

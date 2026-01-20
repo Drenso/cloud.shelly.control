@@ -1,12 +1,13 @@
 import type { RpcChannel } from './RpcChannel.mjs';
 import mitt from 'mitt';
 import WebSocket from 'ws';
-import type { OutboundWsMittEvents } from '../../../app.mjs';
-import type { NotificationFrame, RequestFrame, ResponseSuccessFrame } from '../Rpc.mjs';
+import type { OutboundWsMessageEvent, OutboundWsMittEvents } from '../../../app.mjs';
+import type { RequestFrame, ResponseErrorFrame, ResponseSuccessFrame, UnknownFrame } from '../Rpc.mjs';
 import { createMitt } from '../../util.mjs';
+import { RpcError } from '../RpcError.mjs';
 
 type OutboundWsChannelMittEvents = {
-  update: NotificationFrame;
+  update: UnknownFrame;
 };
 
 // TODO authentication
@@ -44,7 +45,7 @@ export default class OutboundWebsocketChannel implements RpcChannel {
       this.resolveWsPromise = resolve;
     });
 
-    this.outboundWsMitt.on('*', this.handleMessage.bind(this));
+    this.outboundWsMitt.on('message', this.handleMessage.bind(this));
   }
 
   updateWs(ws: WebSocket): void {
@@ -57,16 +58,38 @@ export default class OutboundWebsocketChannel implements RpcChannel {
   }
 
   disconnect(): void {
-    this.outboundWsMitt.off('*', this.handleMessage.bind(this));
+    this.outboundWsMitt.off('message', this.handleMessage.bind(this));
   }
 
-  private handleMessage(type: string | number, event: OutboundWsMittEvents[string]): void {
-    if (type === this.address) {
-      this.updateWs(event.ws);
-      this.log('Outbound WS message:', event.json);
+  private handleMessage({ ws, json }: OutboundWsMessageEvent): void {
+    if (json.src === this.address) {
+      this.updateWs(ws);
+      if (json.id !== undefined) {
+        // Response to a request with the same id
+        const awaitingResponse = this.awaitingResponse.get(json.id as number);
+        this.awaitingResponse.delete(json.id as number);
+        if (awaitingResponse) {
+          const error = json as ResponseErrorFrame;
+          const result = json as ResponseSuccessFrame<object | null>;
+          if (error.error !== undefined) {
+            const { code, message } = error.error;
+            awaitingResponse.reject(new RpcError(code, message) as never);
+          } else {
+            awaitingResponse.resolve(result as never);
+          }
+        } else {
+          this.error('Received response without a request:', JSON.stringify(json));
+        }
+      } else if (json.method !== undefined) {
+        // Notification
+        this.eventEmitter.emit('update', json);
+      } else {
+        this.error('Unexpected WS message format:', JSON.stringify(json));
+      }
     }
   }
 
+  // TODO use closed event to make this cleaner
   private async getWs(): Promise<WebSocket> {
     const socket = await this.wsPromise;
     if (socket.readyState === WebSocket.OPEN) {
@@ -88,11 +111,11 @@ export default class OutboundWebsocketChannel implements RpcChannel {
     });
   }
 
-  registerUpdateHandler(handler: (update: NotificationFrame) => void): void {
+  registerUpdateHandler(handler: (update: UnknownFrame) => void): void {
     this.eventEmitter.on('update', handler);
   }
 
-  unregisterUpdateHandler(handler: (update: NotificationFrame) => void): void {
+  unregisterUpdateHandler(handler: (update: UnknownFrame) => void): void {
     this.eventEmitter.off('update', handler);
   }
 }
