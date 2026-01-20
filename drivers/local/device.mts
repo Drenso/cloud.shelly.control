@@ -69,7 +69,7 @@ export default class ShellyLocalDevice extends Homey.Device {
       this.registered.set(component.key, componentInstance);
     }
 
-    const oldComponents = this.getTypedStore().components;
+    const oldComponents = this.getTypedStore().components ?? [];
 
     for (const componentId of oldComponents) {
       if (!this.registered.has(componentId)) {
@@ -80,7 +80,7 @@ export default class ShellyLocalDevice extends Homey.Device {
     for (const component of this.registered.values()) {
       await component.register().catch(this.error);
     }
-    await this.setStoreValue('components', components).catch(this.error);
+    await this.setStoreValue('components', [...this.registered.keys()]).catch(this.error);
   }
 
   async onInit(): Promise<void> {
