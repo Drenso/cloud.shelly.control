@@ -43,9 +43,14 @@ export default class ShellyLocalDevice extends Homey.Device {
   }
 
   async initialize(): Promise<void> {
+    const assignedComponentKeys = this.getTypedStore().components;
+
     const components: ShellyGetComponentsResponseComponent[] = [];
     while (true) {
-      const componentsResponse = await Shelly.GetComponents(this.httpChannel, { offset: components.length });
+      const componentsResponse = await Shelly.GetComponents(this.httpChannel, {
+        offset: components.length,
+        keys: assignedComponentKeys,
+      });
       components.push(...componentsResponse.result.components);
       if (components.length >= componentsResponse.result.total) {
         break;

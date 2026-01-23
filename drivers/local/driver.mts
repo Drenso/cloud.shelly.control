@@ -1,5 +1,9 @@
 import Homey, { type DiscoveryResultMDNSSD, type Driver } from 'homey';
 import type { ShellyLocalDeviceStore } from './device.mjs';
+import HttpChannel from '../../lib/rpc/channel/HttpChannel.mjs';
+import type { ShellyGetComponentsResponseComponent } from '../../lib/component/components/Shelly/GetComponents.mjs';
+import Shelly from '../../lib/component/components/Shelly.mjs';
+import { ComponentMapping, type MappedComponent } from '../../lib/component/ComponentMapping.mjs';
 
 type ListDeviceProperties = {
   name: string;
@@ -30,8 +34,68 @@ export default class ShellyLocalDriver extends Homey.Driver {
   }
 
   async assembleSubdevices(selectedDevices: ShellyLocalListDeviceProperties[]): Promise<unknown[]> {
-    this.log('TODO');
-    return selectedDevices;
+    const subdevices: ShellyLocalListDeviceProperties[] = [];
+    for (const selectedDevice of selectedDevices) {
+      const newSubdevices = await this.assembleDevice(selectedDevice);
+      subdevices.push(...newSubdevices);
+    }
+    return subdevices;
+  }
+
+  async assembleDevice(selectedDevice: ShellyLocalListDeviceProperties): Promise<ShellyLocalListDeviceProperties[]> {
+    const mainDevice: ShellyLocalListDeviceProperties = {
+      name: selectedDevice.name,
+      data: {
+        id: selectedDevice.data.id,
+        parent: selectedDevice.data.id,
+      },
+      store: {
+        ...selectedDevice.store,
+        components: [],
+      },
+    };
+    const subdevices: ShellyLocalListDeviceProperties[] = [];
+    const httpChannel = new HttpChannel(selectedDevice.store.address);
+
+    const components: ShellyGetComponentsResponseComponent[] = [];
+    while (true) {
+      const componentsResponse = await Shelly.GetComponents(httpChannel, { offset: components.length });
+      components.push(...componentsResponse.result.components);
+      if (components.length >= componentsResponse.result.total) {
+        break;
+      }
+    }
+
+    for (const component of components) {
+      const [componentName, componentId] = component.key.split(':') as [string, `${number}` | undefined];
+      // @ts-expect-error TS definition is incorrect with behavior in practice
+      const componentConstructor: MappedComponent | undefined = ComponentMapping[componentName];
+      if (!componentConstructor) {
+        this.log('No implementation found for', componentName);
+        continue;
+      }
+      // TODO check whether component should be split
+      // For now just check whether it has an ID
+      if (componentId !== undefined) {
+        const subDevice: ShellyLocalListDeviceProperties = {
+          name: `${selectedDevice.name} - ${componentName} ${parseInt(componentId) + 1}`,
+          data: {
+            id: `${selectedDevice.data.id}:${component.key}`,
+            parent: selectedDevice.data.id,
+          },
+          store: {
+            ...selectedDevice.store,
+            components: [component.key],
+          },
+        };
+        subdevices.push(subDevice);
+      } else {
+        mainDevice.store.components.push(component.key);
+      }
+    }
+
+    // TODO recombine subdevices if applicable
+    return [mainDevice, ...subdevices];
   }
 
   async onPair(session: Driver.PairSession): Promise<void> {
