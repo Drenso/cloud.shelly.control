@@ -1,0 +1,23 @@
+{
+  "meter_power.consumed": {
+    "title": {
+      "en": "Consumed Energy"
+    },
+    "decimals": 3
+  },
+  "meter_power.returned": {
+    "title": {
+      "en": "Returned Energy"
+    },
+    "decimals": 3
+  },
+  "button.reset_energy_counters": {
+    "title": {
+      "en": "Reset Energy"
+    },
+    "desc": {
+      "en": "Reset the consumed and returned energy counters."
+    },
+    "maintenanceAction": true
+  }
+}
