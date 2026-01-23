@@ -11,6 +11,12 @@
     },
     "decimals": 3
   },
+  "meter_power.total": {
+    "title": {
+      "en": "Total Energy"
+    },
+    "decimals": 3
+  },
   "button.reset_energy_counters": {
     "title": {
       "en": "Reset Energy"

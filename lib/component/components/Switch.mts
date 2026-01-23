@@ -180,6 +180,7 @@ export default class Switch extends ComponentWithId<SwitchStatus, SwitchConfig> 
     await this.registerCapability('freq', 'measure_frequency').catch(this.device.error);
     await this.registerCapability('aenergy', 'meter_power.consumed').catch(this.device.error);
     await this.registerCapability('ret_aenergy', 'meter_power.returned').catch(this.device.error);
+    await this.registerCapability('aenergy', 'meter_power.total').catch(this.device.error);
     await this.registerCapability('temperature', 'measure_temperature').catch(this.device.error);
     // TODO errors
 
@@ -223,6 +224,7 @@ export default class Switch extends ComponentWithId<SwitchStatus, SwitchConfig> 
       const consumedEnergy = absoluteEnergy - returnedEnergy;
       await this.device.safeSetCapability('meter_power.consumed', consumedEnergy / 1000).catch(this.device.error);
       await this.device.safeSetCapability('meter_power.returned', returnedEnergy / 1000).catch(this.device.error);
+      await this.device.safeSetCapability('meter_power.total', absoluteEnergy / 1000).catch(this.device.error);
     }
     await this.updateMeasured(status, 'temperature', 'measure_temperature');
     // TODO errors
