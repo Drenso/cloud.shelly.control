@@ -182,14 +182,46 @@ export default class Switch extends ComponentWithId<SwitchStatus, SwitchConfig> 
     await this.registerMeasured('temperature', 'measure_temperature').catch(this.device.error);
     // TODO errors
 
-    let energy = this.device.getEnergy();
-    energy = {
-      ...energy,
-      cumulative: false,
-      meterPowerImportedCapability: 'meter_power.consumed',
-      meterPowerExportedCapability: 'meter_power.returned',
-    };
-    await this.device.setEnergy(energy).catch(this.device.error);
+    if (this.status['aenergy'] !== undefined || this.status['ret_aenergy'] !== undefined) {
+      let energy = this.device.getEnergy();
+      energy = {
+        ...energy,
+        cumulative: false,
+        meterPowerImportedCapability: 'meter_power.consumed',
+        meterPowerExportedCapability: 'meter_power.returned',
+      };
+      await this.device.setEnergy(energy).catch(this.device.error);
+
+      {
+        const capabilityId = 'meter_power.consumed';
+        let capabilityOptions = this.device.getCapabilityOptions(capabilityId);
+        capabilityOptions = { ...capabilityOptions, decimals: 3 };
+        await this.device.setCapabilityOptions(capabilityId, capabilityOptions).catch(this.device.error);
+      }
+      {
+        const capabilityId = 'meter_power.returned';
+        let capabilityOptions = this.device.getCapabilityOptions(capabilityId);
+        capabilityOptions = { ...capabilityOptions, decimals: 3 };
+        await this.device.setCapabilityOptions(capabilityId, capabilityOptions).catch(this.device.error);
+      }
+
+      const maintenanceActionId = 'button.reset_energy_counters';
+      await this.device.safeAddCapability(maintenanceActionId);
+      this.device.registerCapabilityListener(maintenanceActionId, async () => {
+        await this.ResetCounters(this.device.getChannel());
+      });
+      await this.device
+        .setCapabilityOptions(maintenanceActionId, {
+          title: {
+            en: 'Reset Energy',
+          },
+          desc: {
+            en: 'Reset the consumed and returned energy counters.',
+          },
+          maintenanceAction: true,
+        })
+        .catch(this.device.error);
+    }
 
     // Set correct capability values
     await this.updateStatus(this.status);
