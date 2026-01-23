@@ -1,0 +1,11 @@
+<script type="text/javascript">
+  Homey.emit('add_subdevices', {})
+    .then(async result => {
+      console.log('Adding devices:', JSON.stringify(result));
+      for (const device of result) {
+        await Homey.createDevice(device);
+      }
+    })
+    .catch(err => Homey.alert(err))
+    .finally(() => Homey.done());
+</script>

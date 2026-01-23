@@ -162,10 +162,6 @@ export default class Switch extends ComponentWithId<SwitchStatus, SwitchConfig> 
   }
 
   async register(): Promise<void> {
-    // TODO energy configuration - combine with existing
-    // cumulative: true
-    // cumulativeImportedCapability: ???
-    // cumulativeExportedCapability: ???
     {
       // output
       await this.registerMeasured('output', 'onoff', '').catch(this.device.error);

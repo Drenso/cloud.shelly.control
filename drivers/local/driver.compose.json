@@ -15,11 +15,18 @@
     {
       "id": "list_devices",
       "template": "list_devices",
-      "navigation": { "next": "add_devices" }
+      "navigation": { "next": "load_subdevices" }
     },
     {
-      "id": "add_devices",
-      "template": "add_devices"
+      "id": "load_subdevices",
+      "template": "loading",
+      "options": {
+        "text": "pair.loading_devices"
+      }
+    },
+    {
+      "id": "add_subdevices",
+      "$template": "add_subdevices"
     }
   ]
 }
