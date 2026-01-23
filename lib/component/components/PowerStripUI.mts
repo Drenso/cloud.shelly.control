@@ -1,7 +1,7 @@
 import { ComponentWithoutId } from '../Component.mjs';
-import GetConfig from './PowerstripUI/GetConfig.mjs';
-import SetConfig from './PowerstripUI/SetConfig.mjs';
-import GetStatus from './PowerstripUI/GetStatus.mjs';
+import GetConfig from './PowerStripUI/GetConfig.mjs';
+import SetConfig from './PowerStripUI/SetConfig.mjs';
+import GetStatus from './PowerStripUI/GetStatus.mjs';
 
 export type PowerStripUIStatus = Record<string, never>;
 
