@@ -164,7 +164,7 @@ export default class Switch extends ComponentWithId<SwitchStatus, SwitchConfig> 
   async register(): Promise<void> {
     {
       // output
-      await this.registerMeasured('output', 'onoff', '').catch(this.device.error);
+      await this.registerMeasured('output', 'onoff').catch(this.device.error);
       const capabilityId = `onoff.switch_${this.id}` as const;
       const capabilityListener = async (value: boolean): Promise<void> => {
         await this.Set(this.device.getChannel(), { on: value });
@@ -172,14 +172,14 @@ export default class Switch extends ComponentWithId<SwitchStatus, SwitchConfig> 
       this.device.registerCapabilityListener(capabilityId, capabilityListener);
     }
 
-    await this.registerMeasured('apower', 'measure_power', 'Power').catch(this.device.error);
-    await this.registerMeasured('voltage', 'measure_voltage', 'Voltage').catch(this.device.error);
-    await this.registerMeasured('current', 'measure_current', 'Current').catch(this.device.error);
+    await this.registerMeasured('apower', 'measure_power').catch(this.device.error);
+    await this.registerMeasured('voltage', 'measure_voltage').catch(this.device.error);
+    await this.registerMeasured('current', 'measure_current').catch(this.device.error);
     // TODO power factor
-    await this.registerMeasured('freq', 'measure_frequency', 'Frequency').catch(this.device.error);
-    await this.registerMeasured('aenergy', 'meter_power', 'Energy').catch(this.device.error);
+    await this.registerMeasured('freq', 'measure_frequency').catch(this.device.error);
+    await this.registerMeasured('aenergy', 'meter_power').catch(this.device.error);
     await this.registerMeasured('ret_aenergy', 'meter_power.returned', 'Returned Energy').catch(this.device.error);
-    await this.registerMeasured('temperature', 'measure_temperature', 'Temperature').catch(this.device.error);
+    await this.registerMeasured('temperature', 'measure_temperature').catch(this.device.error);
     // TODO errors
 
     // Set correct capability values
@@ -197,30 +197,27 @@ export default class Switch extends ComponentWithId<SwitchStatus, SwitchConfig> 
     // TODO power factor
     await this.updateMeasured(status, 'freq', 'measure_frequency').catch(this.device.error);
     if (status.aenergy !== undefined) {
-      await this.device
-        .safeSetCapability(`meter_power.switch_${this.id}`, status.aenergy.total)
-        .catch(this.device.error);
+      await this.device.safeSetCapability('meter_power', status.aenergy.total).catch(this.device.error);
     }
     if (status.ret_aenergy !== undefined) {
-      await this.device
-        .safeSetCapability(`meter_power.returned.switch_${this.id}`, status.ret_aenergy.total)
-        .catch(this.device.error);
+      await this.device.safeSetCapability('meter_power.returned', status.ret_aenergy.total).catch(this.device.error);
     }
     await this.updateMeasured(status, 'temperature', 'measure_temperature');
     // TODO errors
   }
 
-  async registerMeasured(statusProperty: keyof SwitchStatus, homeyCapability: string, uiName: string): Promise<void> {
+  async registerMeasured(statusProperty: keyof SwitchStatus, homeyCapability: string, uiName?: string): Promise<void> {
     if (this.status[statusProperty] !== undefined) {
-      const capabilityId = `${homeyCapability}.switch_${this.id}`;
-      await this.device.safeAddCapability(capabilityId);
-      const capabilityOptions = {
-        // TODO translations
-        title: {
-          en: `Switch ${this.id + 1} ${uiName}`,
-        },
-      };
-      await this.device.setCapabilityOptions(capabilityId, capabilityOptions);
+      await this.device.safeAddCapability(homeyCapability);
+      if (uiName !== undefined) {
+        const capabilityOptions = {
+          // TODO translations
+          title: {
+            en: uiName,
+          },
+        };
+        await this.device.setCapabilityOptions(homeyCapability, capabilityOptions);
+      }
     }
   }
 
@@ -230,8 +227,7 @@ export default class Switch extends ComponentWithId<SwitchStatus, SwitchConfig> 
     homeyCapability: string,
   ): Promise<void> {
     if (status[statusProperty] !== undefined) {
-      const capabilityId = `${homeyCapability}.switch_${this.id}`;
-      await this.device.safeSetCapability(capabilityId, status[statusProperty]).catch(this.device.error);
+      await this.device.safeSetCapability(homeyCapability, status[statusProperty]).catch(this.device.error);
     }
   }
 }
