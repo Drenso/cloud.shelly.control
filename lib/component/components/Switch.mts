@@ -165,7 +165,7 @@ export default class Switch extends ComponentWithId<SwitchStatus, SwitchConfig> 
     {
       // output
       await this.registerMeasured('output', 'onoff').catch(this.device.error);
-      const capabilityId = `onoff.switch_${this.id}` as const;
+      const capabilityId = 'onoff' as const;
       const capabilityListener = async (value: boolean): Promise<void> => {
         await this.Set(this.device.getChannel(), { on: value });
       };
@@ -177,10 +177,19 @@ export default class Switch extends ComponentWithId<SwitchStatus, SwitchConfig> 
     await this.registerMeasured('current', 'measure_current').catch(this.device.error);
     // TODO power factor
     await this.registerMeasured('freq', 'measure_frequency').catch(this.device.error);
-    await this.registerMeasured('aenergy', 'meter_power').catch(this.device.error);
+    await this.registerMeasured('aenergy', 'meter_power.consumed', 'Consumed Energy').catch(this.device.error);
     await this.registerMeasured('ret_aenergy', 'meter_power.returned', 'Returned Energy').catch(this.device.error);
     await this.registerMeasured('temperature', 'measure_temperature').catch(this.device.error);
     // TODO errors
+
+    let energy = this.device.getEnergy();
+    energy = {
+      ...energy,
+      cumulative: false,
+      meterPowerImportedCapability: 'meter_power.consumed',
+      meterPowerExportedCapability: 'meter_power.returned',
+    };
+    await this.device.setEnergy(energy).catch(this.device.error);
 
     // Set correct capability values
     await this.updateStatus(this.status);
@@ -189,18 +198,19 @@ export default class Switch extends ComponentWithId<SwitchStatus, SwitchConfig> 
   async updateStatus(status: Partial<SwitchStatus>): Promise<void> {
     this.status = { ...this.status, ...status };
     if (status.output !== undefined) {
-      await this.device.safeSetCapability(`onoff.${this.id}`, status.output).catch(this.device.error);
+      await this.device.safeSetCapability('onoff', status.output).catch(this.device.error);
     }
     await this.updateMeasured(status, 'apower', 'measure_power').catch(this.device.error);
     await this.updateMeasured(status, 'voltage', 'measure_voltage').catch(this.device.error);
     await this.updateMeasured(status, 'current', 'measure_current').catch(this.device.error);
     // TODO power factor
     await this.updateMeasured(status, 'freq', 'measure_frequency').catch(this.device.error);
-    if (status.aenergy !== undefined) {
-      await this.device.safeSetCapability('meter_power', status.aenergy.total).catch(this.device.error);
-    }
-    if (status.ret_aenergy !== undefined) {
-      await this.device.safeSetCapability('meter_power.returned', status.ret_aenergy.total).catch(this.device.error);
+    if (status.aenergy !== undefined || status.ret_aenergy !== undefined) {
+      const absoluteEnergy = this.status.aenergy?.total ?? 0;
+      const returnedEnergy = this.status.ret_aenergy?.total ?? 0;
+      const consumedEnergy = absoluteEnergy - returnedEnergy;
+      await this.device.safeSetCapability('meter_power.consumed', consumedEnergy / 1000).catch(this.device.error);
+      await this.device.safeSetCapability('meter_power.returned', returnedEnergy / 1000).catch(this.device.error);
     }
     await this.updateMeasured(status, 'temperature', 'measure_temperature');
     // TODO errors
