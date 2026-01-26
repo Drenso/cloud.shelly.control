@@ -210,21 +210,19 @@ export default class Switch extends ComponentWithId<SwitchStatus, SwitchConfig> 
 
   async updateStatus(status: Partial<SwitchStatus>): Promise<void> {
     this.status = { ...this.status, ...status };
-    if (status.output !== undefined) {
-      await this.device.safeSetCapability('onoff', status.output).catch(this.device.error);
-    }
-    await this.updateMeasured(status, 'apower', 'measure_power').catch(this.device.error);
-    await this.updateMeasured(status, 'voltage', 'measure_voltage').catch(this.device.error);
-    await this.updateMeasured(status, 'current', 'measure_current').catch(this.device.error);
+    await this.updateMeasured(status, 'output', 'onoff');
+    await this.updateMeasured(status, 'apower', 'measure_power');
+    await this.updateMeasured(status, 'voltage', 'measure_voltage');
+    await this.updateMeasured(status, 'current', 'measure_current');
     // TODO power factor
-    await this.updateMeasured(status, 'freq', 'measure_frequency').catch(this.device.error);
+    await this.updateMeasured(status, 'freq', 'measure_frequency');
     if (status.aenergy !== undefined || status.ret_aenergy !== undefined) {
       const absoluteEnergy = this.status.aenergy?.total ?? 0;
       const returnedEnergy = this.status.ret_aenergy?.total ?? 0;
       const consumedEnergy = absoluteEnergy - returnedEnergy;
-      await this.device.safeSetCapability('meter_power.consumed', consumedEnergy / 1000).catch(this.device.error);
-      await this.device.safeSetCapability('meter_power.returned', returnedEnergy / 1000).catch(this.device.error);
-      await this.device.safeSetCapability('meter_power.total', absoluteEnergy / 1000).catch(this.device.error);
+      await this.device.safeSetCapability('meter_power.consumed', consumedEnergy / 1000);
+      await this.device.safeSetCapability('meter_power.returned', returnedEnergy / 1000);
+      await this.device.safeSetCapability('meter_power.total', absoluteEnergy / 1000);
     }
     await this.updateMeasured(status, 'temperature', 'measure_temperature');
     // TODO errors
