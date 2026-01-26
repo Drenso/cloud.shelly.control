@@ -1,6 +1,7 @@
 import type { RpcChannel } from '../rpc/channel/RpcChannel.mjs';
 import type { ResponseSuccessFrame } from '../rpc/Rpc.mjs';
 import type ShellyLocalDevice from '../../drivers/local/device.mjs';
+import type { ComponentMethod, NameSpace } from './components/Shelly/ListMethods.mjs';
 
 export class Service {}
 
@@ -16,6 +17,7 @@ export abstract class Component<Status extends object, Config extends object> {
   device: ShellyLocalDevice;
   status: Status;
   config: Config;
+  abstract readonly namespace: NameSpace;
 
   constructor(device: ShellyLocalDevice, status: Status, config: Config) {
     this.device = device;
@@ -32,7 +34,7 @@ export abstract class Component<Status extends object, Config extends object> {
 
   abstract GetStatus(channel: RpcChannel): Promise<ResponseSuccessFrame<Status>>;
 
-  abstract register(): Promise<void>;
+  abstract register(methods: ComponentMethod<NameSpace>[]): Promise<void>;
 
   abstract updateStatus(status: Status): Promise<void>;
 }

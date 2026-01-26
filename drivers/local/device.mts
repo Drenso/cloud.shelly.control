@@ -13,6 +13,7 @@ import OutboundWebsocketChannel from '../../lib/rpc/channel/OutboundWebsocketCha
 import type ShellyApp from '../../app.mjs';
 import WebSocket from 'ws';
 import type { NotificationFrame, NotificationStatusFrame } from '../../lib/rpc/Rpc.mjs';
+import type { ComponentMethod, NameSpace } from '../../lib/component/components/Shelly/ListMethods.mjs';
 
 export type ShellyLocalDeviceStore = {
   address: string;
@@ -57,8 +58,19 @@ export default class ShellyLocalDevice extends Homey.Device {
       }
     }
 
+    const methodsResponse = await Shelly.ListMethods(this.getChannel());
+    const methods = methodsResponse.result.methods;
+
+    const methodMapping: Partial<Record<NameSpace, ComponentMethod<NameSpace>[]>> = {};
+    for (const methodString of methods) {
+      const [namespace, method] = methodString.split('.') as [NameSpace, ComponentMethod<NameSpace>];
+      const namespaceMethods = methodMapping[namespace] ?? [];
+      namespaceMethods.push(method);
+      methodMapping[namespace] = namespaceMethods;
+    }
+
     for (const component of components) {
-      const [componentName, componentId] = component.key.split(':') as [string, `${number}` | undefined];
+      const [componentName] = component.key.split(':') as [string, `${number}` | undefined];
       // @ts-expect-error TS definition is incorrect with behavior in practice
       const componentConstructor: MappedComponent | undefined = ComponentMapping[componentName];
       if (!componentConstructor) {
@@ -83,7 +95,9 @@ export default class ShellyLocalDevice extends Homey.Device {
     }
 
     for (const component of this.registered.values()) {
-      await component.register().catch(this.error);
+      const methods = methodMapping[component.namespace] ?? [];
+      // @ts-expect-error The typing does not support it, but methods can only have those values expected by the component
+      await component.register(methods).catch(this.error);
     }
     await this.setStoreValue('components', [...this.registered.keys()]).catch(this.error);
   }

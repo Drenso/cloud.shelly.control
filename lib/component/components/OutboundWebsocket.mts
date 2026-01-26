@@ -2,6 +2,7 @@ import { ComponentWithoutId } from '../Component.mjs';
 import SetConfig from './OutboundWebsocket/SetConfig.mjs';
 import GetConfig from './OutboundWebsocket/GetConfig.mjs';
 import GetStatus from './OutboundWebsocket/GetStatus.mjs';
+import type { ComponentMethod } from './Shelly/ListMethods.mjs';
 
 export type OutBoundWebsocketConfig = {
   // true if websocket outbound connection is enabled, false otherwise
@@ -24,8 +25,9 @@ export default class OutboundWebsocket extends ComponentWithoutId<OutboundWebsoc
   protected _SetConfig = SetConfig;
   protected _GetConfig = GetConfig;
   protected _GetStatus = GetStatus;
+  readonly namespace = 'Ws';
 
-  async register(): Promise<void> {
+  async register(methods: ComponentMethod<'Ws'>[]): Promise<void> {
     await this.device.configureOutboundWebsocket(this);
   }
 

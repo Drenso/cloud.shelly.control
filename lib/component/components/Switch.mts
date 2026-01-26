@@ -146,6 +146,7 @@ export default class Switch extends ComponentWithId<SwitchStatus, SwitchConfig> 
   protected _SetConfig = SetConfig;
   protected _GetConfig = GetConfig;
   protected _GetStatus = GetStatus;
+  readonly namespace = 'Switch';
 
   async Set(channel: RpcChannel, params: SwitchSetParams): Promise<ResponseSuccessFrame<SwitchSetResponse>> {
     return Set(channel, this.id, params);

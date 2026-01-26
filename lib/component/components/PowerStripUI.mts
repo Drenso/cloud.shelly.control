@@ -2,6 +2,7 @@ import { ComponentWithoutId } from '../Component.mjs';
 import GetConfig from './PowerStripUI/GetConfig.mjs';
 import SetConfig from './PowerStripUI/SetConfig.mjs';
 import GetStatus from './PowerStripUI/GetStatus.mjs';
+import type { ComponentMethod } from './Shelly/ListMethods.mjs';
 
 export type PowerStripUIStatus = Record<string, never>;
 
@@ -74,7 +75,9 @@ export default class PowerStripUI extends ComponentWithoutId<PowerStripUIStatus,
   protected _SetConfig = SetConfig;
   protected _GetConfig = GetConfig;
   protected _GetStatus = GetStatus;
-  async register(): Promise<void> {
+  readonly namespace = 'POWERSTRIP_UI';
+
+  async register(methods: ComponentMethod<'POWERSTRIP_UI'>[]): Promise<void> {
     return;
   }
   async updateStatus(status: PowerStripUIStatus): Promise<void> {
