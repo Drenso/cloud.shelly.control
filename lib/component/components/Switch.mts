@@ -11,6 +11,7 @@ import ResetCounters, {
 import type { RpcChannel } from '../../rpc/channel/RpcChannel.mjs';
 import type { ResponseSuccessFrame } from '../../rpc/Rpc.mjs';
 import capabilitiesOptions from './Switch/capabilitiesOptions.json' with { type: 'json' };
+import type { ComponentMethod } from './Shelly/ListMethods.mjs';
 
 export type SwitchConfig = {
   // Identifier of the Switch component instance
@@ -163,7 +164,7 @@ export default class Switch extends ComponentWithId<SwitchStatus, SwitchConfig> 
     return ResetCounters(channel, this.id, params);
   }
 
-  async register(): Promise<void> {
+  async register(methods: ComponentMethod<'Switch'>[]): Promise<void> {
     {
       // output
       await this.registerCapability('output', 'onoff').catch(this.device.error);
@@ -194,7 +195,9 @@ export default class Switch extends ComponentWithId<SwitchStatus, SwitchConfig> 
         meterPowerExportedCapability: 'meter_power.returned',
       };
       await this.device.setEnergy(energy).catch(this.device.error);
+    }
 
+    if (methods.includes('ResetCounters')) {
       const maintenanceActionId = 'button.reset_energy_counters';
       await this.device.safeAddCapability(maintenanceActionId);
       this.device.registerCapabilityListener(maintenanceActionId, async () => {
