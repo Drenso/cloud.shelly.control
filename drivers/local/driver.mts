@@ -26,7 +26,7 @@ type ListDeviceProperties = {
   class?: string;
 };
 
-type ShellyLocalListDeviceProperties = ListDeviceProperties & { store: ShellyLocalDeviceStore };
+export type ShellyLocalListDeviceProperties = ListDeviceProperties & { store: ShellyLocalDeviceStore };
 
 export default class ShellyLocalDriver extends Homey.Driver {
   async onInit(): Promise<void> {
@@ -54,7 +54,7 @@ export default class ShellyLocalDriver extends Homey.Driver {
         components: [],
       },
     };
-    const subdevices: ShellyLocalListDeviceProperties[] = [];
+    let devices = new Map<string, ShellyLocalListDeviceProperties>([[selectedDevice.data.id, mainDevice]]);
     const httpChannel = new HttpChannel(selectedDevice.store.address);
 
     const components: ShellyGetComponentsResponseComponent[] = [];
@@ -67,35 +67,17 @@ export default class ShellyLocalDriver extends Homey.Driver {
     }
 
     for (const component of components) {
-      const [componentName, componentId] = component.key.split(':') as [string, `${number}` | undefined];
+      const [componentName] = component.key.split(':') as [string, `${number}` | undefined];
       // @ts-expect-error TS definition is incorrect with behavior in practice
       const componentConstructor: MappedComponent | undefined = ComponentMapping[componentName];
       if (!componentConstructor) {
         this.log('No implementation found for', componentName);
         continue;
       }
-      // TODO check whether component should be split
-      // For now just check whether it has an ID
-      if (componentId !== undefined) {
-        const subDevice: ShellyLocalListDeviceProperties = {
-          name: `${selectedDevice.name} - ${componentName} ${parseInt(componentId) + 1}`,
-          data: {
-            id: `${selectedDevice.data.id}:${component.key}`,
-            parent: selectedDevice.data.id,
-          },
-          store: {
-            ...selectedDevice.store,
-            components: [component.key],
-          },
-        };
-        subdevices.push(subDevice);
-      } else {
-        mainDevice.store.components.push(component.key);
-      }
+      devices = componentConstructor.createDevices(selectedDevice.data.id, component, devices);
     }
 
-    // TODO recombine subdevices if applicable
-    return [mainDevice, ...subdevices];
+    return [...devices.values()];
   }
 
   async onPair(session: Driver.PairSession): Promise<void> {
