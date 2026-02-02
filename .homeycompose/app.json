@@ -1,5 +1,5 @@
 {
-  "id": "cloud.shelly",
+  "id": "cloud.shelly.control",
   "version": "0.0.0",
   "compatibility": ">=12.2.0",
   "sdk": 3,
