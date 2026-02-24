@@ -1,11 +1,11 @@
 import type { RpcChannel } from './RpcChannel.mjs';
 import mitt from 'mitt';
 import WebSocket from 'ws';
-import type { WsClosedEvent, WsMessageEvent, WsMittEvents } from '../../../app.mjs';
 import type { NotificationFrame, RequestFrame, ResponseErrorFrame, ResponseSuccessFrame } from '../Rpc.mjs';
 import { createMitt, type UnionToIntersection } from '../../util.mjs';
 import { RpcError } from '../RpcError.mjs';
 import type ShellyLocalDevice from '../../../drivers/local/device.mjs';
+import type { WsClosedEvent, WsMessageEvent, WsMittEvents } from '../ChannelController.mjs';
 
 type OutboundWsChannelMittEvents = {
   notification: NotificationFrame;

@@ -110,8 +110,8 @@ export default class ShellyLocalDevice extends Homey.Device {
     const { address, name } = this.getTypedStore();
 
     this.httpChannel = new HttpChannel(address);
-    this.inboundWsChannel = this.app.registerInboundWsChannel(address);
-    this.outboundWsChannel = this.app.registerOutboundWsChannel(name);
+    this.inboundWsChannel = this.app.channelController.registerInboundWsChannel(address);
+    this.outboundWsChannel = this.app.channelController.registerOutboundWsChannel(name);
 
     this.inboundWsChannel.registerNotificationHandler(this, this.handleWsNotification.bind(this));
     this.outboundWsChannel.registerNotificationHandler(this, this.handleOutboundWsNotification.bind(this));
@@ -125,11 +125,11 @@ export default class ShellyLocalDevice extends Homey.Device {
     this.httpChannel.disconnect();
     if (this.inboundWsChannel !== undefined) {
       this.inboundWsChannel.unregisterNotificationHandler(this);
-      this.app.unregisterInboundWsChannel(this.inboundWsChannel);
+      this.app.channelController.unregisterInboundWsChannel(this.inboundWsChannel);
     }
     if (this.outboundWsChannel !== undefined) {
       this.outboundWsChannel.unregisterNotificationHandler(this);
-      this.app.unregisterOutboundWsChannel(this.outboundWsChannel);
+      this.app.channelController.unregisterOutboundWsChannel(this.outboundWsChannel);
     }
     this.log('Uninitialized');
   }
