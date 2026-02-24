@@ -1,10 +1,11 @@
 import type { RpcChannel } from '../../../rpc/channel/RpcChannel.mjs';
 import { createRequestFrame, type ResponseSuccessFrame } from '../../../rpc/Rpc.mjs';
-import type { SwitchConfig } from '../Switch.mjs';
 import type { PowerStripUIConfig } from '../PowerStripUI.mjs';
+import type { RecursivePartial } from '../../../util.mjs';
+import type { AllowedPrimitives } from '../../Component.mjs';
 
 export type PowerStripUISetConfigParams = {
-  config: Partial<PowerStripUIConfig>;
+  config: RecursivePartial<PowerStripUIConfig, AllowedPrimitives>;
 };
 
 export type PowerStripUISetConfigResponse = {

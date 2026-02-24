@@ -4,11 +4,14 @@ import type ShellyLocalDevice from '../../drivers/local/device.mjs';
 import type { ComponentMethod, NameSpace } from './components/Shelly/ListMethods.mjs';
 import type { ShellyLocalListDeviceProperties } from '../../drivers/local/driver.mjs';
 import type { ShellyGetComponentsResponseComponent } from './components/Shelly/GetComponents.mjs';
+import type { RecursivePartial } from '../util.mjs';
 
 export class Service {}
 
+export type AllowedPrimitives = number | string | null;
+
 type ComponentSetConfigParams<Config extends object> = {
-  config: Partial<Omit<Config, 'id'>>;
+  config: RecursivePartial<Omit<Config, 'id'>, AllowedPrimitives>;
 };
 
 type ComponentSetConfigResponse = {
