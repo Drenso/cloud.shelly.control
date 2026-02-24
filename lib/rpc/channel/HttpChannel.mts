@@ -7,10 +7,7 @@ import { RpcError } from '../RpcError.mjs';
 // See example: https://github.com/ALLTERCO/gen2-sample-code/blob/main/http-digest-auth/src/shellyHttpCall.ts
 
 export default class HttpChannel implements RpcChannel {
-  readonly address: string;
-  constructor(address: string) {
-    this.address = address;
-  }
+  constructor(public readonly address: string) {}
 
   disconnect(): void {}
 

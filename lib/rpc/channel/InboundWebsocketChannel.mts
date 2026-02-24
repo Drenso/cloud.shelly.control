@@ -23,8 +23,7 @@ type InboundWsChannelMittEvents = {
 // See example: https://github.com/home-assistant-libs/aioshelly/blob/main/aioshelly/rpc_device/wsrpc.py
 // TODO wss://
 export default class InboundWebsocketChannel implements RpcChannel {
-  readonly address: string;
-  readonly ws: WebSocket;
+  public readonly ws: WebSocket;
 
   private readonly awaitingResponse = new Map<
     number,
@@ -32,18 +31,11 @@ export default class InboundWebsocketChannel implements RpcChannel {
   >();
   private readonly eventEmitter = createMitt<InboundWsChannelMittEvents>();
 
-  log: (...args: unknown[]) => void;
-  error: (...args: unknown[]) => void;
-
   constructor(
-    address: string,
-    log: (...args: unknown[]) => void = console.log,
-    error: (...args: unknown[]) => void = console.error,
+    public readonly address: string,
+    public readonly log: (...args: unknown[]) => void = console.log,
+    public readonly error: (...args: unknown[]) => void = console.error,
   ) {
-    this.log = log;
-    this.error = error;
-
-    this.address = address;
     this.ws = new WebSocket(`ws://${address}/rpc`);
 
     this.ws.on('open', async () => {

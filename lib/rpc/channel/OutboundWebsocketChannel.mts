@@ -15,10 +15,7 @@ type OutboundWsChannelMittEvents = {
 // See example: https://github.com/home-assistant-libs/aioshelly/blob/main/aioshelly/rpc_device/wsrpc.py
 // TODO secure ws
 export default class OutboundWebsocketChannel implements RpcChannel {
-  private readonly address: string;
-  private readonly outboundWsMitt: mitt.Emitter<WsMittEvents>;
-
-  wsPromise: Promise<WebSocket>;
+  public wsPromise: Promise<WebSocket>;
   private resolveWsPromise: ((ws: WebSocket) => void) | undefined;
 
   private readonly awaitingResponse = new Map<
@@ -27,25 +24,18 @@ export default class OutboundWebsocketChannel implements RpcChannel {
   >();
   private readonly eventEmitter = createMitt<OutboundWsChannelMittEvents>();
 
-  log: (...args: unknown[]) => void;
-  error: (...args: unknown[]) => void;
-
   constructor(
-    address: string,
-    outboundWsMitt: mitt.Emitter<WsMittEvents>,
-    log: (...args: unknown[]) => void = console.log,
-    error: (...args: unknown[]) => void = console.error,
+    public readonly identifier: string,
+    private readonly outboundWsMitt: mitt.Emitter<WsMittEvents>,
+    public readonly log: (...args: unknown[]) => void = console.log,
+    public readonly error: (...args: unknown[]) => void = console.error,
   ) {
-    this.log = log;
-    this.error = error;
-
-    this.address = address;
     this.outboundWsMitt = outboundWsMitt;
     this.wsPromise = new Promise(resolve => {
       this.resolveWsPromise = resolve;
     });
 
-    this.outboundWsMitt.on(this.address, this.handleMessage.bind(this));
+    this.outboundWsMitt.on(this.identifier, this.handleMessage.bind(this));
   }
 
   updateWs(ws: WebSocket): void {
@@ -59,7 +49,7 @@ export default class OutboundWebsocketChannel implements RpcChannel {
 
   disconnect(): void {
     this.eventEmitter.all.clear();
-    this.outboundWsMitt.off(this.address, this.handleMessage.bind(this));
+    this.outboundWsMitt.off(this.identifier, this.handleMessage.bind(this));
   }
 
   private handleMessage(event: WsMessageEvent | WsClosedEvent): void {
@@ -70,7 +60,7 @@ export default class OutboundWebsocketChannel implements RpcChannel {
     }
     // Message event
     const { ws, json } = event as WsMessageEvent;
-    if (json.src === this.address) {
+    if (json.src === this.identifier) {
       this.updateWs(ws);
       if (json.id !== undefined) {
         // Response to a request with the same id
