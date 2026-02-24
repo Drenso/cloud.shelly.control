@@ -26,6 +26,10 @@ type ListDeviceProperties = {
   class?: string;
 };
 
+export type ShellyDiscoveryResult = DiscoveryResultMDNSSD & {
+  txt: { ver: `${number}.${number}.${number}`; app: string; gen: `${number}` };
+};
+
 export type ShellyLocalListDeviceProperties = ListDeviceProperties & { store: ShellyLocalDeviceStore };
 
 export default class ShellyLocalDriver extends Homey.Driver {
@@ -98,15 +102,24 @@ export default class ShellyLocalDriver extends Homey.Driver {
     });
   }
 
+  async onPairMatchDevice(discoveryResult: ShellyDiscoveryResult): Promise<boolean> {
+    return true;
+  }
+
   async onPairListDevices(): Promise<ShellyLocalListDeviceProperties[]> {
     const results: ShellyLocalListDeviceProperties[] = [];
 
     const discoveryStrategy = this.homey.discovery.getStrategy('shelly');
     const discoveryResults = discoveryStrategy.getDiscoveryResults();
 
+    this.log('Discovery results:');
     for (const discoveryResultsKey in discoveryResults) {
-      const discoveryResult = discoveryResults[discoveryResultsKey] as DiscoveryResultMDNSSD;
-      const txt = discoveryResult.txt as { ver: `${number}.${number}.${number}`; app: string; gen: `${number}` };
+      const discoveryResult = discoveryResults[discoveryResultsKey] as ShellyDiscoveryResult;
+      if (!(await this.onPairMatchDevice(discoveryResult))) {
+        continue;
+      }
+      console.log(discoveryResult);
+      const txt = discoveryResult.txt;
       results.push({
         name: txt.app,
         data: {

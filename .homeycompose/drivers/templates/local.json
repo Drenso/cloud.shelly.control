@@ -1,0 +1,28 @@
+{
+  "capabilities": [],
+  "platforms": ["local", "cloud"],
+  "connectivity": ["cloud"],
+  "images": {
+    "small": "{{driverAssetsPath}}/images/small.png",
+    "large": "{{driverAssetsPath}}/images/large.png",
+    "xlarge": "{{driverAssetsPath}}/images/xlarge.png"
+  },
+  "pair": [
+    {
+      "id": "list_devices",
+      "template": "list_devices",
+      "navigation": { "next": "load_subdevices" }
+    },
+    {
+      "id": "load_subdevices",
+      "template": "loading",
+      "options": {
+        "text": "pair.loading_devices"
+      }
+    },
+    {
+      "id": "add_subdevices",
+      "$template": "add_subdevices"
+    }
+  ]
+}

@@ -49,10 +49,45 @@
   "api": {},
   "drivers": [
     {
+      "capabilities": [],
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "images": {
+        "small": "/drivers/gen4_power_strip/assets/images/small.png",
+        "large": "/drivers/gen4_power_strip/assets/images/large.png",
+        "xlarge": "/drivers/gen4_power_strip/assets/images/xlarge.png"
+      },
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "load_subdevices"
+          }
+        },
+        {
+          "id": "load_subdevices",
+          "template": "loading",
+          "options": {
+            "text": "pair.loading_devices"
+          }
+        },
+        {
+          "id": "add_subdevices"
+        }
+      ],
       "name": {
-        "en": "Generic Device"
+        "en": "Gen 4 PowerStrip"
       },
       "class": "other",
+      "id": "gen4_power_strip"
+    },
+    {
       "capabilities": [],
       "platforms": [
         "local",
@@ -85,6 +120,10 @@
           "id": "add_subdevices"
         }
       ],
+      "name": {
+        "en": "Generic Device"
+      },
+      "class": "other",
       "id": "local"
     }
   ],

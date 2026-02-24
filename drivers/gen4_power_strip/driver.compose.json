@@ -1,6 +1,6 @@
 {
   "name": {
-    "en": "Generic Device"
+    "en": "Gen 4 PowerStrip"
   },
   "class": "other",
   "$extends": "local"
