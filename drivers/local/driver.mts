@@ -112,13 +112,11 @@ export default class ShellyLocalDriver extends Homey.Driver {
     const discoveryStrategy = this.homey.discovery.getStrategy('shelly');
     const discoveryResults = discoveryStrategy.getDiscoveryResults();
 
-    this.log('Discovery results:');
     for (const discoveryResultsKey in discoveryResults) {
       const discoveryResult = discoveryResults[discoveryResultsKey] as ShellyDiscoveryResult;
       if (!(await this.onPairMatchDevice(discoveryResult))) {
         continue;
       }
-      console.log(discoveryResult);
       const txt = discoveryResult.txt;
       results.push({
         name: txt.app,
