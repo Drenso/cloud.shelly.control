@@ -1,7 +1,7 @@
 import type { RpcChannel } from './RpcChannel.mjs';
 import mitt from 'mitt';
 import WebSocket from 'ws';
-import type { OutboundWsMessageEvent, OutboundWsMittEvents } from '../../../app.mjs';
+import type { WsMessageEvent, WsMittEvents } from '../../../app.mjs';
 import type { NotificationFrame, RequestFrame, ResponseErrorFrame, ResponseSuccessFrame } from '../Rpc.mjs';
 import { createMitt } from '../../util.mjs';
 import { RpcError } from '../RpcError.mjs';
@@ -16,7 +16,7 @@ type OutboundWsChannelMittEvents = {
 // TODO secure ws
 export default class OutboundWebsocketChannel implements RpcChannel {
   private readonly address: string;
-  private readonly outboundWsMitt: mitt.Emitter<OutboundWsMittEvents>;
+  private readonly outboundWsMitt: mitt.Emitter<WsMittEvents>;
 
   wsPromise: Promise<WebSocket>;
   private resolveWsPromise: ((ws: WebSocket) => void) | undefined;
@@ -32,7 +32,7 @@ export default class OutboundWebsocketChannel implements RpcChannel {
 
   constructor(
     address: string,
-    outboundWsMitt: mitt.Emitter<OutboundWsMittEvents>,
+    outboundWsMitt: mitt.Emitter<WsMittEvents>,
     log: (...args: unknown[]) => void = console.log,
     error: (...args: unknown[]) => void = console.error,
   ) {
@@ -62,7 +62,7 @@ export default class OutboundWebsocketChannel implements RpcChannel {
     this.outboundWsMitt.off('message', this.handleMessage.bind(this));
   }
 
-  private handleMessage({ ws, json }: OutboundWsMessageEvent): void {
+  private handleMessage({ ws, json }: WsMessageEvent): void {
     if (json.src === this.address) {
       this.updateWs(ws);
       if (json.id !== undefined) {

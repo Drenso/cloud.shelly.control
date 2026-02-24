@@ -9,18 +9,18 @@ import { createMitt } from './lib/util.mjs';
 
 sourceMapSupport.install();
 
-export type OutboundWsMessageEvent = { json: UnknownFrame; ws: WebSocket };
-export type OutboundWsClosedEvent = { ws: WebSocket };
+export type WsMessageEvent = { json: UnknownFrame; ws: WebSocket };
+export type WsClosedEvent = { ws: WebSocket };
 
-export type OutboundWsMittEvents = {
-  message: OutboundWsMessageEvent;
-  closed: OutboundWsClosedEvent;
+export type WsMittEvents = {
+  message: WsMessageEvent;
+  closed: WsClosedEvent;
 };
 
 // noinspection JSUnusedGlobalSymbols
 export default class ShellyApp extends Homey.App {
   homeyLog = new Log({ homey: this.homey });
-  outboundWsMitt = createMitt<OutboundWsMittEvents>();
+  outboundWsMitt = createMitt<WsMittEvents>();
 
   async onInit(): Promise<void> {
     this.log('Initializing App...');
