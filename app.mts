@@ -15,6 +15,7 @@ export type WsClosedEvent = { ws: WebSocket };
 export type WsMittEvents = {
   message: WsMessageEvent;
   closed: WsClosedEvent;
+  [src: string]: WsMessageEvent | WsClosedEvent;
 };
 
 // noinspection JSUnusedGlobalSymbols
@@ -42,7 +43,7 @@ export default class ShellyApp extends Homey.App {
     const string = message.toString();
     const json = JSON.parse(string) as NotificationFrame;
     if (json.src !== undefined) {
-      this.outboundWsMitt.emit('message', { json: json, ws: ws });
+      this.outboundWsMitt.emit(json.src, { json: json, ws: ws });
     }
   }
 }

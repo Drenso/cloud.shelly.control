@@ -1,9 +1,9 @@
 import type { RpcChannel } from './RpcChannel.mjs';
 import mitt from 'mitt';
 import WebSocket from 'ws';
-import type { WsMessageEvent, WsMittEvents } from '../../../app.mjs';
+import type { WsClosedEvent, WsMessageEvent, WsMittEvents } from '../../../app.mjs';
 import type { NotificationFrame, RequestFrame, ResponseErrorFrame, ResponseSuccessFrame } from '../Rpc.mjs';
-import { createMitt } from '../../util.mjs';
+import { createMitt, type UnionToIntersection } from '../../util.mjs';
 import { RpcError } from '../RpcError.mjs';
 
 type OutboundWsChannelMittEvents = {
@@ -45,7 +45,7 @@ export default class OutboundWebsocketChannel implements RpcChannel {
       this.resolveWsPromise = resolve;
     });
 
-    this.outboundWsMitt.on('message', this.handleMessage.bind(this));
+    this.outboundWsMitt.on(this.address, this.handleMessage.bind(this));
   }
 
   updateWs(ws: WebSocket): void {
@@ -59,10 +59,17 @@ export default class OutboundWebsocketChannel implements RpcChannel {
 
   disconnect(): void {
     this.eventEmitter.all.clear();
-    this.outboundWsMitt.off('message', this.handleMessage.bind(this));
+    this.outboundWsMitt.off(this.address, this.handleMessage.bind(this));
   }
 
-  private handleMessage({ ws, json }: WsMessageEvent): void {
+  private handleMessage(event: WsMessageEvent | WsClosedEvent): void {
+    if ((event as UnionToIntersection<WsMessageEvent | WsClosedEvent>).json === undefined) {
+      // Closed event
+      // TODO
+      return;
+    }
+    // Message event
+    const { ws, json } = event as WsMessageEvent;
     if (json.src === this.address) {
       this.updateWs(ws);
       if (json.id !== undefined) {
