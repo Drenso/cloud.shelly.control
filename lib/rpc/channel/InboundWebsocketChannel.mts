@@ -11,6 +11,7 @@ import { RpcError } from '../RpcError.mjs';
 import { RPC_SRC } from '../../config.mjs';
 import { createMitt } from '../../util.mjs';
 import Shelly from '../../component/components/Shelly.mjs';
+import type ShellyLocalDevice from '../../../drivers/local/device.mjs';
 
 const GREETING_DELAY = 100;
 
@@ -24,6 +25,7 @@ type InboundWsChannelMittEvents = {
 // TODO wss://
 export default class InboundWebsocketChannel implements RpcChannel {
   public readonly ws: WebSocket;
+  private readonly handlers = new Map<ShellyLocalDevice, (notification: NotificationFrame) => void>();
 
   private readonly awaitingResponse = new Map<
     number,
@@ -104,11 +106,14 @@ export default class InboundWebsocketChannel implements RpcChannel {
     });
   }
 
-  registerNotificationHandler(handler: (notification: NotificationFrame) => void): void {
+  registerNotificationHandler(device: ShellyLocalDevice, handler: (notification: NotificationFrame) => void): void {
+    this.handlers.set(device, handler);
     this.eventEmitter.on('notification', handler);
   }
 
-  unregisterNotificationHandler(handler: (notification: NotificationFrame) => void): void {
+  unregisterNotificationHandler(device: ShellyLocalDevice): void {
+    const handler = this.handlers.get(device);
     this.eventEmitter.off('notification', handler);
+    this.handlers.delete(device);
   }
 }

@@ -26,8 +26,8 @@ export type ShellyLocalDeviceStore = {
 
 export default class ShellyLocalDevice extends Homey.Device {
   private httpChannel!: HttpChannel;
-  private inboundWsChannel!: InboundWebsocketChannel;
-  private outboundWsChannel!: OutboundWebsocketChannel;
+  private inboundWsChannel?: InboundWebsocketChannel;
+  private outboundWsChannel?: OutboundWebsocketChannel;
 
   private readonly registered = new Map<string, InstanceType<MappedComponent>>();
 
@@ -36,6 +36,10 @@ export default class ShellyLocalDevice extends Homey.Device {
       return this.inboundWsChannel;
     }
     return this.httpChannel;
+  }
+
+  get app(): ShellyApp {
+    return this.homey.app as ShellyApp;
   }
 
   // Called after onInit
@@ -106,24 +110,11 @@ export default class ShellyLocalDevice extends Homey.Device {
     const { address, name } = this.getTypedStore();
 
     this.httpChannel = new HttpChannel(address);
-    this.inboundWsChannel = new InboundWebsocketChannel(address, this.log, this.error);
-    this.outboundWsChannel = new OutboundWebsocketChannel(
-      name,
-      (this.homey.app as ShellyApp).outboundWsMitt,
-      this.log,
-      this.error,
-    );
+    this.inboundWsChannel = this.app.registerInboundWsChannel(address);
+    this.outboundWsChannel = this.app.registerOutboundWsChannel(name);
 
-    this.inboundWsChannel.registerNotificationHandler(notification => {
-      this.handleWsNotification(notification);
-    });
-
-    this.outboundWsChannel.registerNotificationHandler(notification => {
-      // Ignore outbound WS messages if an inbound WS is open
-      if (this.inboundWsChannel === undefined || this.inboundWsChannel.ws.readyState !== WebSocket.OPEN) {
-        this.handleWsNotification(notification);
-      }
-    });
+    this.inboundWsChannel.registerNotificationHandler(this, this.handleWsNotification.bind(this));
+    this.outboundWsChannel.registerNotificationHandler(this, this.handleOutboundWsNotification.bind(this));
 
     await this.initialize();
 
@@ -132,8 +123,14 @@ export default class ShellyLocalDevice extends Homey.Device {
 
   async onUninit(): Promise<void> {
     this.httpChannel.disconnect();
-    this.inboundWsChannel.disconnect();
-    this.outboundWsChannel.disconnect();
+    if (this.inboundWsChannel !== undefined) {
+      this.inboundWsChannel.unregisterNotificationHandler(this);
+      this.app.unregisterInboundWsChannel(this.inboundWsChannel);
+    }
+    if (this.outboundWsChannel !== undefined) {
+      this.outboundWsChannel.unregisterNotificationHandler(this);
+      this.app.unregisterOutboundWsChannel(this.outboundWsChannel);
+    }
     this.log('Uninitialized');
   }
 
@@ -174,6 +171,13 @@ export default class ShellyLocalDevice extends Homey.Device {
       }
     } else {
       this.log('Unhandled WS notification method:', notification.method);
+    }
+  }
+
+  handleOutboundWsNotification(notification: NotificationFrame): void {
+    // Ignore outbound WS messages if an inbound WS is open
+    if (this.inboundWsChannel === undefined || this.inboundWsChannel.ws.readyState !== WebSocket.OPEN) {
+      this.handleWsNotification(notification);
     }
   }
 

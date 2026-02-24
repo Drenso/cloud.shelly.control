@@ -5,6 +5,7 @@ import type { WsClosedEvent, WsMessageEvent, WsMittEvents } from '../../../app.m
 import type { NotificationFrame, RequestFrame, ResponseErrorFrame, ResponseSuccessFrame } from '../Rpc.mjs';
 import { createMitt, type UnionToIntersection } from '../../util.mjs';
 import { RpcError } from '../RpcError.mjs';
+import type ShellyLocalDevice from '../../../drivers/local/device.mjs';
 
 type OutboundWsChannelMittEvents = {
   notification: NotificationFrame;
@@ -17,12 +18,14 @@ type OutboundWsChannelMittEvents = {
 export default class OutboundWebsocketChannel implements RpcChannel {
   public wsPromise: Promise<WebSocket>;
   private resolveWsPromise: ((ws: WebSocket) => void) | undefined;
+  private readonly handlers = new Map<ShellyLocalDevice, (notification: NotificationFrame) => void>();
 
   private readonly awaitingResponse = new Map<
     number,
     { resolve: (res: never) => void; reject: (err: never) => void }
   >();
   private readonly eventEmitter = createMitt<OutboundWsChannelMittEvents>();
+  private readonly boundHandler: OmitThisParameter<(event: WsMessageEvent | WsClosedEvent) => void>;
 
   constructor(
     public readonly identifier: string,
@@ -35,7 +38,8 @@ export default class OutboundWebsocketChannel implements RpcChannel {
       this.resolveWsPromise = resolve;
     });
 
-    this.outboundWsMitt.on(this.identifier, this.handleMessage.bind(this));
+    this.boundHandler = this.handleMessage.bind(this);
+    this.outboundWsMitt.on(this.identifier, this.boundHandler);
   }
 
   updateWs(ws: WebSocket): void {
@@ -49,7 +53,7 @@ export default class OutboundWebsocketChannel implements RpcChannel {
 
   disconnect(): void {
     this.eventEmitter.all.clear();
-    this.outboundWsMitt.off(this.identifier, this.handleMessage.bind(this));
+    this.outboundWsMitt.off(this.identifier, this.boundHandler);
   }
 
   private handleMessage(event: WsMessageEvent | WsClosedEvent): void {
@@ -109,11 +113,14 @@ export default class OutboundWebsocketChannel implements RpcChannel {
     });
   }
 
-  registerNotificationHandler(handler: (notification: NotificationFrame) => void): void {
+  registerNotificationHandler(device: ShellyLocalDevice, handler: (notification: NotificationFrame) => void): void {
+    this.handlers.set(device, handler);
     this.eventEmitter.on('notification', handler);
   }
 
-  unregisterNotificationHandler(handler: (notification: NotificationFrame) => void): void {
+  unregisterNotificationHandler(device: ShellyLocalDevice): void {
+    const handler = this.handlers.get(device);
     this.eventEmitter.off('notification', handler);
+    this.handlers.delete(device);
   }
 }
