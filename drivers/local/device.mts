@@ -12,7 +12,7 @@ import { OUTBOUND_WS_PORT } from '../../lib/config.mjs';
 import OutboundWebsocketChannel from '../../lib/rpc/channel/OutboundWebsocketChannel.mjs';
 import type ShellyApp from '../../app.mjs';
 import WebSocket from 'ws';
-import type { NotificationFrame, NotificationStatusFrame } from '../../lib/rpc/Rpc.mjs';
+import type { NotificationEventFrame, NotificationFrame, NotificationStatusFrame } from '../../lib/rpc/Rpc.mjs';
 import type { ComponentMethod, NameSpace } from '../../lib/component/components/Shelly/ListMethods.mjs';
 
 export type ShellyLocalDeviceStore = {
@@ -29,7 +29,7 @@ export default class ShellyLocalDevice extends Homey.Device {
   private inboundWsChannel?: InboundWebsocketChannel;
   private outboundWsChannel?: OutboundWebsocketChannel;
 
-  private readonly registered = new Map<string, InstanceType<MappedComponent>>();
+  protected readonly registered = new Map<string, InstanceType<MappedComponent>>();
 
   getChannel(): RpcChannel {
     if (this.inboundWsChannel !== undefined && this.inboundWsChannel.ws.readyState === WebSocket.OPEN) {
@@ -167,7 +167,15 @@ export default class ShellyLocalDevice extends Homey.Device {
         const { ts, ...statusUpdate } = statusNotification.params[component] as {
           ts?: number;
         };
-        this.registered.get(component)?.updateStatus(statusUpdate as never);
+        this.registered
+          .get(component)
+          ?.updateStatus(statusUpdate as never)
+          .catch(this.error);
+      }
+    } else if (notification.method === 'NotifyEvent') {
+      const eventNotification = notification as NotificationEventFrame;
+      for (const event of eventNotification.params.events) {
+        this.registered.get(event.component)?.handleEvent(event).catch(this.error);
       }
     } else {
       this.log('Unhandled WS notification method:', notification.method);

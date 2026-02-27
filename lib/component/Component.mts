@@ -1,5 +1,5 @@
 import type { RpcChannel } from '../rpc/channel/RpcChannel.mjs';
-import type { ResponseSuccessFrame } from '../rpc/Rpc.mjs';
+import type { NotificationEventParam, ResponseSuccessFrame } from '../rpc/Rpc.mjs';
 import type ShellyLocalDevice from '../../drivers/local/device.mjs';
 import type { ComponentMethod, NameSpace } from './components/Shelly/ListMethods.mjs';
 import type { ShellyLocalListDeviceProperties } from '../../drivers/local/driver.mjs';
@@ -42,6 +42,17 @@ export abstract class Component<Status extends object, Config extends object> {
   abstract register(methods: ComponentMethod<NameSpace>[]): Promise<void>;
 
   abstract updateStatus(status: Status): Promise<void>;
+
+  abstract updateConfig(config: Config): Promise<void>;
+
+  async handleEvent(event: NotificationEventParam): Promise<void> {
+    if (event.event === 'config_changed') {
+      const newConfig = await this.GetConfig(this.device.getChannel());
+      await this.updateConfig(newConfig.result);
+    } else {
+      this.device.log('Unknown event:', event.event);
+    }
+  }
 
   static readonly createDevices: (
     id: string,

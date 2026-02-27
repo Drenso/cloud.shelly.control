@@ -211,10 +211,16 @@ export default class Switch extends ComponentWithId<SwitchStatus, SwitchConfig> 
 
     // Set correct capability values
     await this.updateStatus(this.status);
+    // Set correct setting values
+    await this.updateConfig(this.config);
   }
 
   async updateStatus(status: Partial<SwitchStatus>): Promise<void> {
-    this.status = { ...this.status, ...status };
+    this.status = { ...this.status, ...status }; /*
+      TODO is this necessary?
+        The status should already be updated whenever it is retrieved/received.
+        Do we also want to call this method at this moment?
+    */
     await this.updateMeasured(status, 'output', 'onoff');
     await this.updateMeasured(status, 'apower', 'measure_power');
     await this.updateMeasured(status, 'voltage', 'measure_voltage');
@@ -231,6 +237,10 @@ export default class Switch extends ComponentWithId<SwitchStatus, SwitchConfig> 
     }
     await this.updateMeasured(status, 'temperature', 'measure_temperature');
     // TODO errors
+  }
+
+  async updateConfig(config: SwitchConfig): Promise<void> {
+    // TODO update settings
   }
 
   async registerCapability(statusProperty: keyof SwitchStatus, homeyCapability: string): Promise<void> {

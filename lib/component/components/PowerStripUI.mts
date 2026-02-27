@@ -1,10 +1,11 @@
-import { ComponentWithoutId } from '../Component.mjs';
+import { type AllowedPrimitives, ComponentWithoutId } from '../Component.mjs';
 import GetConfig from './PowerStripUI/GetConfig.mjs';
 import SetConfig from './PowerStripUI/SetConfig.mjs';
 import GetStatus from './PowerStripUI/GetStatus.mjs';
 import type { ComponentMethod } from './Shelly/ListMethods.mjs';
 import type { ShellyGetComponentsResponseComponent } from './Shelly/GetComponents.mjs';
 import type { ShellyLocalListDeviceProperties } from '../../../drivers/local/driver.mjs';
+import { deepAssign, type RecursivePartial } from '../../util.mjs';
 import Switch from './Switch.mjs';
 
 export type PowerStripUIStatus = Record<string, never>;
@@ -23,7 +24,7 @@ export type PowerStripUIConfig = {
     // LED colors and brightness in RGB format
     colors: {
       // Switch component instance
-      // TODO test whether it also works for the other switches
+      // NOTE: Even though this says switch:0 it is used for all switches
       'switch:0': {
         // LED configuration for output state on
         on: LedConfiguration;
@@ -39,7 +40,7 @@ export type PowerStripUIConfig = {
     // LED configuration for night mode
     night_mode: {
       // Enable or disable night mode
-      enable: false;
+      enable: boolean;
       // range 0-100
       brightness: number;
       // start and end time of night_mode in format HH:MM
@@ -71,6 +72,23 @@ export type PowerStripUISwitchControl = {
   in_mode: 'momentary' | 'detached';
 };
 
+export type PowerStripUIHomeySettings = {
+  'POWERSTRIP_UI:leds.mode': 'power' | 'switch' | 'off';
+  'POWERSTRIP_UI:leds.colors.power.brightness': number;
+  'POWERSTRIP_UI:leds.colors.switch:0.on.brightness': number;
+  'POWERSTRIP_UI:leds.colors.switch:0.on.r': number;
+  'POWERSTRIP_UI:leds.colors.switch:0.on.g': number;
+  'POWERSTRIP_UI:leds.colors.switch:0.on.b': number;
+  'POWERSTRIP_UI:leds.colors.switch:0.off.brightness': number;
+  'POWERSTRIP_UI:leds.colors.switch:0.off.r': number;
+  'POWERSTRIP_UI:leds.colors.switch:0.off.g': number;
+  'POWERSTRIP_UI:leds.colors.switch:0.off.b': number;
+  'POWERSTRIP_UI:leds.night_mode.enable': boolean;
+  'POWERSTRIP_UI:leds.night_mode.brightness': number;
+  'POWERSTRIP_UI:leds.night_mode.active_between.start': `${number}:${number}`;
+  'POWERSTRIP_UI:leds.night_mode.active_between.end': `${number}:${number}`;
+};
+
 /**
  * The POWERSTRIP_UI component handles the settings of a PowerStrip Gen4 device's LEDs.
  */
@@ -84,10 +102,159 @@ export default class PowerStripUI extends ComponentWithoutId<PowerStripUIStatus,
     const { id, parent } = this.device.getData() as { id: string; parent: string };
     const switchId = id.substring(parent.length + 1);
     this.device.log('POWERSTRIP_UI', switchId);
-    return;
+
+    // Set correct setting values
+    await this.updateConfig(this.config);
   }
   async updateStatus(status: PowerStripUIStatus): Promise<void> {
     return;
+  }
+
+  async updateConfig(config: PowerStripUIConfig): Promise<void> {
+    const changedSettings: Partial<PowerStripUIHomeySettings> = {
+      'POWERSTRIP_UI:leds.mode': config.leds.mode,
+      'POWERSTRIP_UI:leds.colors.power.brightness': config.leds.colors.power.brightness,
+      'POWERSTRIP_UI:leds.colors.switch:0.on.brightness': config.leds.colors['switch:0'].on.brightness,
+      'POWERSTRIP_UI:leds.colors.switch:0.off.brightness': config.leds.colors['switch:0'].off.brightness,
+      'POWERSTRIP_UI:leds.night_mode.enable': config.leds.night_mode.enable,
+      'POWERSTRIP_UI:leds.night_mode.brightness': config.leds.night_mode.brightness,
+    };
+    const onRgb = config.leds.colors['switch:0'].on.rgb;
+    if (onRgb !== null) {
+      const [r, g, b] = onRgb;
+      changedSettings['POWERSTRIP_UI:leds.colors.switch:0.on.r'] = r;
+      changedSettings['POWERSTRIP_UI:leds.colors.switch:0.on.g'] = g;
+      changedSettings['POWERSTRIP_UI:leds.colors.switch:0.on.b'] = b;
+    }
+    const offRgb = config.leds.colors['switch:0'].off.rgb;
+    if (offRgb !== null) {
+      const [r, g, b] = offRgb;
+      changedSettings['POWERSTRIP_UI:leds.colors.switch:0.off.r'] = r;
+      changedSettings['POWERSTRIP_UI:leds.colors.switch:0.off.g'] = g;
+      changedSettings['POWERSTRIP_UI:leds.colors.switch:0.off.b'] = b;
+    }
+    const nightModePeriod = config.leds.night_mode.active_between;
+    if (nightModePeriod.length === 2) {
+      const [start, end] = nightModePeriod;
+      changedSettings['POWERSTRIP_UI:leds.night_mode.active_between.start'] = start;
+      changedSettings['POWERSTRIP_UI:leds.night_mode.active_between.end'] = end;
+    }
+    await this.device.setSettings(changedSettings);
+  }
+
+  async handleSettings<Settings extends PowerStripUIHomeySettings>({
+    changedKeys,
+    newSettings,
+  }: SettingsEvent<Settings>): Promise<void | string> {
+    const changedConfigs: RecursivePartial<PowerStripUIConfig, AllowedPrimitives> = {};
+    if (changedKeys.includes('POWERSTRIP_UI:leds.mode')) {
+      const newSetting = newSettings['POWERSTRIP_UI:leds.mode'];
+      deepAssign(changedConfigs, { leds: { mode: newSetting } });
+    }
+    if (changedKeys.includes('POWERSTRIP_UI:leds.colors.power.brightness')) {
+      const newSetting = newSettings['POWERSTRIP_UI:leds.colors.power.brightness'];
+      deepAssign(changedConfigs, {
+        leds: { colors: { power: { brightness: newSetting } } },
+      });
+    }
+    if (changedKeys.includes('POWERSTRIP_UI:leds.colors.switch:0.on.brightness')) {
+      const newSetting = newSettings['POWERSTRIP_UI:leds.colors.switch:0.on.brightness'];
+      deepAssign(changedConfigs, {
+        leds: {
+          colors: {
+            'switch:0': { on: { brightness: newSetting } },
+          },
+        },
+      });
+    }
+    if (
+      changedKeys.includes('POWERSTRIP_UI:leds.colors.switch:0.on.r') ||
+      changedKeys.includes('POWERSTRIP_UI:leds.colors.switch:0.on.g') ||
+      changedKeys.includes('POWERSTRIP_UI:leds.colors.switch:0.on.b')
+    ) {
+      const r = newSettings['POWERSTRIP_UI:leds.colors.switch:0.on.r'];
+      const g = newSettings['POWERSTRIP_UI:leds.colors.switch:0.on.g'];
+      const b = newSettings['POWERSTRIP_UI:leds.colors.switch:0.on.b'];
+      deepAssign(changedConfigs, {
+        leds: { colors: { 'switch:0': { on: { rgb: [r, g, b] } } } },
+      });
+    }
+    if (changedKeys.includes('POWERSTRIP_UI:leds.colors.switch:0.off.brightness')) {
+      const newSetting = newSettings['POWERSTRIP_UI:leds.colors.switch:0.off.brightness'];
+      deepAssign(changedConfigs, {
+        leds: {
+          colors: {
+            'switch:0': { off: { brightness: newSetting } },
+          },
+        },
+      });
+    }
+    if (
+      changedKeys.includes('POWERSTRIP_UI:leds.colors.switch:0.off.r') ||
+      changedKeys.includes('POWERSTRIP_UI:leds.colors.switch:0.off.g') ||
+      changedKeys.includes('POWERSTRIP_UI:leds.colors.switch:0.off.b')
+    ) {
+      const r = newSettings['POWERSTRIP_UI:leds.colors.switch:0.off.r'];
+      const g = newSettings['POWERSTRIP_UI:leds.colors.switch:0.off.g'];
+      const b = newSettings['POWERSTRIP_UI:leds.colors.switch:0.off.b'];
+      deepAssign(changedConfigs, {
+        leds: { colors: { 'switch:0': { off: { rgb: [r, g, b] } } } },
+      });
+    }
+    if (changedKeys.includes('POWERSTRIP_UI:leds.night_mode.enable')) {
+      const newSetting = newSettings['POWERSTRIP_UI:leds.night_mode.enable'];
+      deepAssign(changedConfigs, { leds: { night_mode: { enable: newSetting } } });
+    }
+    if (changedKeys.includes('POWERSTRIP_UI:leds.night_mode.brightness')) {
+      const newSetting = newSettings['POWERSTRIP_UI:leds.night_mode.brightness'];
+      deepAssign(changedConfigs, { leds: { night_mode: { brightness: newSetting } } });
+    }
+    if (
+      changedKeys.includes('POWERSTRIP_UI:leds.night_mode.active_between.start') ||
+      changedKeys.includes('POWERSTRIP_UI:leds.night_mode.active_between.end')
+    ) {
+      const rawStart = newSettings['POWERSTRIP_UI:leds.night_mode.active_between.start'];
+      const rawEnd = newSettings['POWERSTRIP_UI:leds.night_mode.active_between.end'];
+      const [rawStartHour, rawStartMinutes, ...startRest] = rawStart.split(':');
+      const [rawEndHour, rawEndMinutes, ...endRest] = rawEnd.split(':');
+
+      const startHour = parseInt(rawStartHour, 10);
+      const startMinutes = parseInt(rawStartMinutes, 10);
+      const endHour = parseInt(rawEndHour, 10);
+      const endMinutes = parseInt(rawEndMinutes, 10);
+
+      const invalidStart =
+        startRest.length > 0 ||
+        isNaN(startHour) ||
+        isNaN(startMinutes) ||
+        startHour < 0 ||
+        startMinutes < 0 ||
+        startHour >= 24 ||
+        startMinutes >= 60;
+
+      const invalidEnd =
+        endRest.length > 0 ||
+        isNaN(endHour) ||
+        isNaN(endMinutes) ||
+        endHour < 0 ||
+        endMinutes < 0 ||
+        endHour >= 24 ||
+        endMinutes >= 60;
+
+      // Invalid argument 'night_mode.active_between': Time range must be between [00:00, 23:59]!
+      // TODO translate
+      if (invalidStart && invalidEnd) {
+        throw new Error('Invalid Start Time and End Time for Indicator LED - Night Mode');
+      }
+      if (invalidStart) {
+        throw new Error('Invalid Start Time for Indicator LED - Night Mode');
+      }
+      if (invalidEnd) {
+        throw new Error('Invalid End Time for Indicator LED - Night Mode');
+      }
+      deepAssign(changedConfigs, { leds: { night_mode: { active_between: [rawStart, rawEnd] } } });
+    }
+    await this.SetConfig(this.device.getChannel(), { config: changedConfigs });
   }
 
   static createDevices(

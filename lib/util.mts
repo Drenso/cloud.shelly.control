@@ -18,3 +18,33 @@ export type RecursivePartial<T, AllowedPrimitives> = {
   [P in keyof T]?: T[P] extends Array<infer U> ? Array<Value<U, AllowedPrimitives>> : Value<T[P], AllowedPrimitives>;
 };
 type Value<T, AllowedPrimitives> = T extends AllowedPrimitives ? T : RecursivePartial<T, AllowedPrimitives>;
+
+export function deepMerge(destination: Record<string, unknown>, source: Record<string, unknown>): object {
+  const result = { ...destination };
+  for (const key in source) {
+    if (source[key] !== undefined && typeof source[key] === 'object' && !Array.isArray(source[key])) {
+      result[key] = deepMerge((result[key] ?? {}) as Record<string, unknown>, source[key] as Record<string, unknown>);
+    } else {
+      result[key] = source[key];
+    }
+  }
+  return result;
+}
+
+export function deepAssign<T, AllowedPrimitives>(
+  destination: RecursivePartial<T, AllowedPrimitives>,
+  source: RecursivePartial<T, AllowedPrimitives>,
+): void {
+  for (const key in source) {
+    const value = source[key];
+    if (value !== undefined && typeof value === 'object' && !Array.isArray(value)) {
+      (destination[key] as RecursivePartial<T[typeof key], AllowedPrimitives>) ??= {};
+      deepAssign(
+        destination[key] as RecursivePartial<T[typeof key], AllowedPrimitives>,
+        source[key] as RecursivePartial<T[typeof key], AllowedPrimitives>,
+      );
+    } else {
+      destination[key] = source[key];
+    }
+  }
+}

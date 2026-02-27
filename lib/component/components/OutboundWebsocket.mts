@@ -34,4 +34,8 @@ export default class OutboundWebsocket extends ComponentWithoutId<OutboundWebsoc
   async updateStatus(status: OutboundWebsocketStatus): Promise<void> {
     this.status = { ...this.status, ...status };
   }
+
+  async updateConfig(config: OutBoundWebsocketConfig): Promise<void> {
+    // TODO update settings
+  }
 }
