@@ -215,17 +215,12 @@ export default class Switch extends ComponentWithId<SwitchStatus, SwitchConfig> 
     }
 
     // Set correct capability values
-    await this.updateStatus(homeyDevice, this.status);
+    await this.onStatusUpdate(homeyDevice, this.status);
     // Set correct setting values
-    await this.updateConfig(homeyDevice, this.config);
+    await this.onConfigUpdate(homeyDevice, this.config);
   }
 
-  async updateStatus(homeyDevice: ShellyLocalDevice, status: Partial<SwitchStatus>): Promise<void> {
-    this.status = { ...this.status, ...status }; /*
-      TODO is this necessary?
-        The status should already be updated whenever it is retrieved/received.
-        Do we also want to call this method at this moment?
-    */
+  async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Partial<SwitchStatus>): Promise<void> {
     await this.updateMeasured(homeyDevice, status, 'output', 'onoff');
     await this.updateMeasured(homeyDevice, status, 'apower', 'measure_power');
     await this.updateMeasured(homeyDevice, status, 'voltage', 'measure_voltage');
@@ -244,8 +239,7 @@ export default class Switch extends ComponentWithId<SwitchStatus, SwitchConfig> 
     // TODO errors
   }
 
-  async updateConfig(homeyDevice: ShellyLocalDevice, config: SwitchConfig): Promise<void> {
-    this.config = { ...this.config, ...config };
+  async onConfigUpdate(homeyDevice: ShellyLocalDevice, config: SwitchConfig): Promise<void> {
     // TODO update settings
   }
 

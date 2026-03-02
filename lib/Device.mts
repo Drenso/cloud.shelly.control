@@ -65,7 +65,7 @@ export default class ShellyLocalDevice extends Homey.Device {
         };
         this.virtualComponents
           .get(component)
-          ?.updateStatus(this, statusUpdate as never)
+          ?.onStatusUpdate(this, statusUpdate as never)
           .catch(this.error);
       }
     } else if (notification.method === 'NotifyEvent') {

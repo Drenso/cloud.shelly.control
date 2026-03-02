@@ -2,7 +2,7 @@ import type { RpcChannel } from '../rpc/channel/RpcChannel.mjs';
 import type { NotificationEventParam, ResponseSuccessFrame } from '../rpc/Rpc.mjs';
 import type { ComponentMethod, NameSpace } from './components/Shelly/ListMethods.mjs';
 import type { ShellyGetComponentsResponseComponent } from './components/Shelly/GetComponents.mjs';
-import type { RecursivePartial } from '../util.mjs';
+import { deepAssign, type RecursivePartial } from '../util.mjs';
 import type { VirtualDevice } from '../VirtualDevice.mjs';
 import type ShellyLocalDevice from '../Device.mjs';
 import type { ShellyLocalListDeviceProperties } from '../types.mjs';
@@ -22,7 +22,6 @@ type ComponentSetConfigResponse = {
 export abstract class Component<Status extends object, Config extends object> {
   abstract readonly namespace: NameSpace;
 
-  // TODO make status and config available through readonly get
   constructor(
     protected device: VirtualDevice,
     public status: Status,
@@ -42,15 +41,15 @@ export abstract class Component<Status extends object, Config extends object> {
 
   abstract registerHomeyDevice(homeyDevice: ShellyLocalDevice, methods: ComponentMethod<NameSpace>[]): Promise<void>;
 
-  abstract updateStatus(homeyDevice: ShellyLocalDevice, status: Status): Promise<void>;
+  abstract onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Status): Promise<void>;
 
-  abstract updateConfig(homeyDevice: ShellyLocalDevice, config: Config): Promise<void>;
+  abstract onConfigUpdate(homeyDevice: ShellyLocalDevice, config: Config): Promise<void>;
 
   // TODO update so the virtual device handles events and distributes updates to the Homey devices
   async handleEvent(homeyDevice: ShellyLocalDevice, event: NotificationEventParam): Promise<void> {
     if (event.event === 'config_changed') {
       const newConfig = await this.GetConfig(this.device.getChannel());
-      await this.updateConfig(homeyDevice, newConfig.result);
+      await this.onConfigUpdate(homeyDevice, newConfig.result);
     } else {
       homeyDevice.log('Unknown event:', event.event);
     }
@@ -84,7 +83,7 @@ export abstract class ComponentWithoutId<Status extends object, Config extends o
     params: ComponentSetConfigParams<Config>,
   ): Promise<ResponseSuccessFrame<ComponentSetConfigResponse>> {
     const response = await this._SetConfig(channel, params);
-    this.config = { ...this.config, ...params.config };
+    deepAssign(this.config, params.config as Config);
     return response;
   }
 
@@ -126,7 +125,7 @@ export abstract class ComponentWithId<Status extends object, Config extends { id
     params: ComponentSetConfigParams<Config>,
   ): Promise<ResponseSuccessFrame<ComponentSetConfigResponse>> {
     const response = await this._SetConfig(channel, this.id, params);
-    this.config = { ...this.config, ...params.config };
+    deepAssign(this.config, params.config as Config);
     return response;
   }
 

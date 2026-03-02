@@ -109,14 +109,11 @@ export default class PowerStripUI extends ComponentWithoutId<PowerStripUIStatus,
     homeyDevice.log('POWERSTRIP_UI', switchId);
 
     // Set correct setting values
-    await this.updateConfig(homeyDevice, this.config);
+    await this.onConfigUpdate(homeyDevice, this.config);
   }
-  async updateStatus(homeyDevice: ShellyLocalDevice, status: PowerStripUIStatus): Promise<void> {
-    deepAssign(this.status, status);
-  }
+  async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: PowerStripUIStatus): Promise<void> {}
 
-  async updateConfig(homeyDevice: ShellyLocalDevice, config: PowerStripUIConfig): Promise<void> {
-    deepAssign(this.config, config);
+  async onConfigUpdate(homeyDevice: ShellyLocalDevice, config: PowerStripUIConfig): Promise<void> {
     const changedSettings: Partial<PowerStripUIHomeySettings> = {
       'POWERSTRIP_UI:leds.mode': config.leds.mode,
       'POWERSTRIP_UI:leds.colors.power.brightness': config.leds.colors.power.brightness,
