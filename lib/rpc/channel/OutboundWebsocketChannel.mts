@@ -4,8 +4,7 @@ import WebSocket from 'ws';
 import type { NotificationFrame, RequestFrame, ResponseErrorFrame, ResponseSuccessFrame } from '../Rpc.mjs';
 import { createMitt, type UnionToIntersection } from '../../util.mjs';
 import { RpcError } from '../RpcError.mjs';
-import type { WsClosedEvent, WsMessageEvent, WsMittEvents } from '../ChannelController.mjs';
-import type { VirtualDevice } from '../../VirtualDevice.mjs';
+import type { WsClosedEvent, WsMessageEvent, WsMittEvents } from '../OutboundWsServer.mjs';
 
 type OutboundWsChannelMittEvents = {
   notification: NotificationFrame;
@@ -18,13 +17,12 @@ type OutboundWsChannelMittEvents = {
 export default class OutboundWebsocketChannel implements RpcChannel {
   public wsPromise: Promise<WebSocket>;
   private resolveWsPromise: ((ws: WebSocket) => void) | undefined;
-  private readonly handlers = new Map<VirtualDevice, (notification: NotificationFrame) => void>();
 
   private readonly awaitingResponse = new Map<
     number,
     { resolve: (res: never) => void; reject: (err: never) => void }
   >();
-  private readonly eventEmitter = createMitt<OutboundWsChannelMittEvents>();
+  public readonly eventEmitter = createMitt<OutboundWsChannelMittEvents>();
   private readonly boundHandler: OmitThisParameter<(event: WsMessageEvent | WsClosedEvent) => void>;
 
   constructor(
@@ -111,16 +109,5 @@ export default class OutboundWebsocketChannel implements RpcChannel {
     return new Promise((resolve, reject) => {
       this.awaitingResponse.set(requestFrame.id as number, { resolve, reject });
     });
-  }
-
-  registerNotificationHandler(device: VirtualDevice, handler: (notification: NotificationFrame) => void): void {
-    this.handlers.set(device, handler);
-    this.eventEmitter.on('notification', handler);
-  }
-
-  unregisterNotificationHandler(device: VirtualDevice): void {
-    const handler = this.handlers.get(device);
-    this.eventEmitter.off('notification', handler);
-    this.handlers.delete(device);
   }
 }

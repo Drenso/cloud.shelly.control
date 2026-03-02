@@ -2,7 +2,7 @@ import { Log } from '@drenso/homey-log';
 import Homey from 'homey';
 import sourceMapSupport from 'source-map-support';
 import { getIp } from './lib/LocalIp.mjs';
-import ChannelController from './lib/rpc/ChannelController.mjs';
+import OutboundWsServer from './lib/rpc/OutboundWsServer.mjs';
 import { VirtualDevice, type SerializedVirtualDevice } from './lib/VirtualDevice.mjs';
 import type ShellyLocalDevice from './lib/Device.mjs';
 
@@ -14,13 +14,13 @@ const VIRTUAL_DEVICE_SETTING_KEY_PREFIX = 'virtual_device_';
 // noinspection JSUnusedGlobalSymbols
 export default class ShellyApp extends Homey.App {
   homeyLog = new Log({ homey: this.homey });
-  channelController = new ChannelController(this.log, this.error);
+  outboundWsServer = new OutboundWsServer(this.log, this.error);
 
   virtualDevices = new Map<string, VirtualDevice>();
 
   async onInit(): Promise<void> {
     this.log('Initializing App...');
-    this.channelController.openWebsocketServer(await getIp(this.homey));
+    this.outboundWsServer.open(await getIp(this.homey));
     await this.deserializeVirtualDevices();
     this.log('Finished initializing App');
   }

@@ -11,7 +11,6 @@ import { RpcError } from '../RpcError.mjs';
 import { RPC_SRC } from '../../config.mjs';
 import { createMitt } from '../../util.mjs';
 import Shelly from '../../component/components/Shelly.mjs';
-import type { VirtualDevice } from '../../VirtualDevice.mjs';
 
 const GREETING_DELAY = 100;
 
@@ -25,13 +24,12 @@ type InboundWsChannelMittEvents = {
 // TODO wss://
 export default class InboundWebsocketChannel implements RpcChannel {
   public readonly ws: WebSocket;
-  private readonly handlers = new Map<VirtualDevice, (notification: NotificationFrame) => void>();
 
   private readonly awaitingResponse = new Map<
     number,
     { resolve: (res: never) => void; reject: (err: never) => void }
   >();
-  private readonly eventEmitter = createMitt<InboundWsChannelMittEvents>();
+  public readonly eventEmitter = createMitt<InboundWsChannelMittEvents>();
 
   constructor(
     public readonly address: string,
@@ -104,16 +102,5 @@ export default class InboundWebsocketChannel implements RpcChannel {
     return new Promise((resolve, reject) => {
       this.awaitingResponse.set(requestFrame.id as number, { resolve, reject });
     });
-  }
-
-  registerNotificationHandler(device: VirtualDevice, handler: (notification: NotificationFrame) => void): void {
-    this.handlers.set(device, handler);
-    this.eventEmitter.on('notification', handler);
-  }
-
-  unregisterNotificationHandler(device: VirtualDevice): void {
-    const handler = this.handlers.get(device);
-    this.eventEmitter.off('notification', handler);
-    this.handlers.delete(device);
   }
 }

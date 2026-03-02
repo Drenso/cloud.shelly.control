@@ -24,8 +24,8 @@ export type SerializedVirtualDevice = {
 
 export class VirtualDevice {
   public readonly httpChannel: HttpChannel;
-  public inboundWsChannel?: InboundWebsocketChannel;
-  public outboundWsChannel?: OutboundWebsocketChannel;
+  public inboundWsChannel: InboundWebsocketChannel;
+  public outboundWsChannel: OutboundWebsocketChannel;
 
   private readonly initializedComponents = new Map<string, InstanceType<MappedComponent>>();
   private readonly initializedHomeyDevices = new Map<string, ShellyLocalDevice>();
@@ -46,7 +46,29 @@ export class VirtualDevice {
     this.log = (...args): void => this.app.log(`[Virtual:${deviceId}]`, ...args);
     this.error = (...args): void => this.app.error(`[Virtual:${deviceId}]`, ...args);
 
-    this.httpChannel = new HttpChannel(ipAddress);
+    // Initialize channels
+    {
+      this.httpChannel = new HttpChannel(ipAddress);
+
+      this.inboundWsChannel = new InboundWebsocketChannel(
+        this.ipAddress,
+        (...args) => this.log(`[InboundWS:${this.ipAddress}]`, ...args),
+        (...args) => {
+          this.error(`[InboundWS:${this.ipAddress}]`, ...args);
+        },
+      );
+      this.inboundWsChannel.eventEmitter.on('notification', this.handleWsNotification.bind(this));
+
+      this.outboundWsChannel = new OutboundWebsocketChannel(
+        this.deviceId,
+        this.app.outboundWsServer.outboundWsMitt,
+        (...args) => this.log(`[OutboundWS:${this.deviceId}]`, ...args),
+        (...args) => {
+          this.error(`[OutboundWS:${this.deviceId}]`, ...args);
+        },
+      );
+      this.outboundWsChannel.eventEmitter.on('notification', this.handleOutboundWsNotification.bind(this));
+    }
 
     this.initialize(componentResponses)
       .then(() => {
@@ -70,8 +92,6 @@ export class VirtualDevice {
   }
 
   private async initialize(components: ShellyGetComponentsResponseComponent[] | undefined): Promise<void> {
-    await this.connect();
-
     if (components === undefined) {
       components = await this.retrieveComponents();
     }
@@ -212,13 +232,6 @@ export class VirtualDevice {
     return this.uninitialize();
   }
 
-  async connect(): Promise<void> {
-    this.inboundWsChannel = this.app.channelController.registerInboundWsChannel(this.ipAddress);
-    this.outboundWsChannel = this.app.channelController.registerOutboundWsChannel(this.deviceId);
-    this.inboundWsChannel.registerNotificationHandler(this, this.handleWsNotification.bind(this));
-    this.outboundWsChannel.registerNotificationHandler(this, this.handleOutboundWsNotification.bind(this));
-  }
-
   private async uninitialize(): Promise<void> {
     // TODO unregister components?
     await this.disconnect();
@@ -226,14 +239,8 @@ export class VirtualDevice {
   }
 
   async disconnect(): Promise<void> {
-    if (this.inboundWsChannel !== undefined) {
-      this.inboundWsChannel.unregisterNotificationHandler(this);
-      this.app.channelController.unregisterInboundWsChannel(this.inboundWsChannel);
-    }
-    if (this.outboundWsChannel !== undefined) {
-      this.outboundWsChannel.unregisterNotificationHandler(this);
-      this.app.channelController.unregisterOutboundWsChannel(this.outboundWsChannel);
-    }
+    this.inboundWsChannel.disconnect();
+    this.outboundWsChannel.disconnect();
   }
 
   handleWsNotification(notification: NotificationFrame): void {
