@@ -1,0 +1,123 @@
+{
+  "id": 29531424850703,
+  "src": "shellypstripg4-7c2c6763f474",
+  "dst": "Homey",
+  "result": {
+    "components": [
+      { "key": "ble", "status": {}, "config": { "enable": true, "rpc": { "enable": true } } },
+      { "key": "bthome", "status": {}, "config": {} },
+      {
+        "key": "cloud",
+        "status": { "connected": true },
+        "config": { "enable": true, "server": "shelly-238-eu.shelly.cloud:6022/jrpc" }
+      },
+      {
+        "key": "knx",
+        "status": {},
+        "config": { "enable": false, "ia": "15.15.255", "routing": { "addr": "224.0.23.12:3671" } }
+      },
+      { "key": "matter", "status": { "num_fabrics": 0, "commissionable": false }, "config": { "enable": false } },
+      {
+        "key": "mqtt",
+        "status": { "connected": false },
+        "config": {
+          "enable": false,
+          "server": null,
+          "client_id": "shellypstripg4-7c2c6763f474",
+          "user": null,
+          "ssl_ca": null,
+          "topic_prefix": "shellypstripg4-7c2c6763f474",
+          "rpc_ntf": true,
+          "status_ntf": false,
+          "use_client_cert": false,
+          "enable_rpc": true,
+          "enable_control": true
+        }
+      },
+      {
+        "key": "powerstrip_ui",
+        "status": {},
+        "config": {
+          "leds": {
+            "mode": "power",
+            "colors": {
+              "switch:0": {
+                "on": { "rgb": [0, 100, 0], "brightness": 100 },
+                "off": { "rgb": [100, 0, 0], "brightness": 100 }
+              },
+              "power": { "brightness": 100 }
+            },
+            "night_mode": { "enable": false, "brightness": 100, "active_between": [] }
+          },
+          "controls": {
+            "switch:0": { "in_mode": "momentary" },
+            "switch:1": { "in_mode": "momentary" },
+            "switch:2": { "in_mode": "momentary" },
+            "switch:3": { "in_mode": "momentary" }
+          }
+        }
+      },
+      {
+        "key": "switch:0",
+        "status": {
+          "id": 0,
+          "source": "SHC",
+          "output": false,
+          "apower": 0,
+          "voltage": 231.4,
+          "freq": 50,
+          "current": 0,
+          "pf": 0,
+          "aenergy": { "total": 0, "by_minute": [0, 0, 0], "minute_ts": 1768308060 },
+          "ret_aenergy": { "total": 0, "by_minute": [0, 0, 0], "minute_ts": 1768308060 }
+        },
+        "config": {
+          "id": 0,
+          "name": null,
+          "initial_state": "off",
+          "auto_on": false,
+          "auto_on_delay": 60,
+          "auto_off": false,
+          "auto_off_delay": 60,
+          "power_limit": 3360,
+          "voltage_limit": 280,
+          "autorecover_voltage_errors": false,
+          "current_limit": 12,
+          "reverse": false
+        }
+      },
+      {
+        "key": "switch:1",
+        "status": {
+          "id": 1,
+          "source": "init",
+          "output": false,
+          "apower": 0,
+          "voltage": 231.4,
+          "freq": 50,
+          "current": 0,
+          "pf": 0,
+          "aenergy": { "total": 0, "by_minute": [0, 0, 0], "minute_ts": 1768308060 },
+          "ret_aenergy": { "total": 0, "by_minute": [0, 0, 0], "minute_ts": 1768308060 }
+        },
+        "config": {
+          "id": 1,
+          "name": null,
+          "initial_state": "off",
+          "auto_on": false,
+          "auto_on_delay": 60,
+          "auto_off": false,
+          "auto_off_delay": 60,
+          "power_limit": 3360,
+          "voltage_limit": 280,
+          "autorecover_voltage_errors": false,
+          "current_limit": 12,
+          "reverse": false
+        }
+      }
+    ],
+    "cfg_rev": 16,
+    "offset": 0,
+    "total": 14
+  }
+}
