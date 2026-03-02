@@ -4,8 +4,8 @@ import WebSocket from 'ws';
 import type { NotificationFrame, RequestFrame, ResponseErrorFrame, ResponseSuccessFrame } from '../Rpc.mjs';
 import { createMitt, type UnionToIntersection } from '../../util.mjs';
 import { RpcError } from '../RpcError.mjs';
-import type ShellyLocalDevice from '../../../drivers/local/device.mjs';
 import type { WsClosedEvent, WsMessageEvent, WsMittEvents } from '../ChannelController.mjs';
+import type ShellyLocalDevice from '../../Device.mjs';
 
 type OutboundWsChannelMittEvents = {
   notification: NotificationFrame;

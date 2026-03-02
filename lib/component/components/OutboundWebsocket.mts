@@ -3,6 +3,7 @@ import SetConfig from './OutboundWebsocket/SetConfig.mjs';
 import GetConfig from './OutboundWebsocket/GetConfig.mjs';
 import GetStatus from './OutboundWebsocket/GetStatus.mjs';
 import type { ComponentMethod } from './Shelly/ListMethods.mjs';
+import type ShellyLocalDevice from '../../Device.mjs';
 
 export type OutBoundWebsocketConfig = {
   // true if websocket outbound connection is enabled, false otherwise
@@ -31,11 +32,14 @@ export default class OutboundWebsocket extends ComponentWithoutId<OutboundWebsoc
     await this.device.configureOutboundWebsocket(this);
   }
 
-  async updateStatus(status: OutboundWebsocketStatus): Promise<void> {
+  async registerHomeyDevice(homeyDevice: ShellyLocalDevice, methods: ComponentMethod<'Ws'>[]): Promise<void> {}
+
+  async updateStatus(homeyDevice: ShellyLocalDevice, status: OutboundWebsocketStatus): Promise<void> {
     this.status = { ...this.status, ...status };
   }
 
-  async updateConfig(config: OutBoundWebsocketConfig): Promise<void> {
+  async updateConfig(homeyDevice: ShellyLocalDevice, config: OutBoundWebsocketConfig): Promise<void> {
+    this.config = { ...this.config, ...config };
     // TODO update settings
   }
 }

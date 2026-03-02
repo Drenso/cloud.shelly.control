@@ -1,10 +1,11 @@
 import type { RpcChannel } from '../rpc/channel/RpcChannel.mjs';
 import type { NotificationEventParam, ResponseSuccessFrame } from '../rpc/Rpc.mjs';
-import type ShellyLocalDevice from '../../drivers/local/device.mjs';
 import type { ComponentMethod, NameSpace } from './components/Shelly/ListMethods.mjs';
-import type { ShellyLocalListDeviceProperties } from '../../drivers/local/driver.mjs';
 import type { ShellyGetComponentsResponseComponent } from './components/Shelly/GetComponents.mjs';
 import type { RecursivePartial } from '../util.mjs';
+import type { VirtualDevice } from '../VirtualDevice.mjs';
+import type ShellyLocalDevice from '../Device.mjs';
+import type { ShellyLocalListDeviceProperties } from '../types.mjs';
 
 export class Service {}
 
@@ -19,16 +20,14 @@ type ComponentSetConfigResponse = {
 };
 
 export abstract class Component<Status extends object, Config extends object> {
-  device: ShellyLocalDevice;
-  status: Status;
-  config: Config;
   abstract readonly namespace: NameSpace;
 
-  constructor(device: ShellyLocalDevice, status: Status, config: Config) {
-    this.device = device;
-    this.status = status;
-    this.config = config;
-  }
+  // TODO make status and config available through readonly get
+  constructor(
+    protected device: VirtualDevice,
+    public status: Status,
+    public config: Config,
+  ) {}
 
   abstract SetConfig(
     channel: RpcChannel,
@@ -41,18 +40,24 @@ export abstract class Component<Status extends object, Config extends object> {
 
   abstract register(methods: ComponentMethod<NameSpace>[]): Promise<void>;
 
-  abstract updateStatus(status: Status): Promise<void>;
+  abstract registerHomeyDevice(homeyDevice: ShellyLocalDevice, methods: ComponentMethod<NameSpace>[]): Promise<void>;
 
-  abstract updateConfig(config: Config): Promise<void>;
+  abstract updateStatus(homeyDevice: ShellyLocalDevice, status: Status): Promise<void>;
 
-  async handleEvent(event: NotificationEventParam): Promise<void> {
+  abstract updateConfig(homeyDevice: ShellyLocalDevice, config: Config): Promise<void>;
+
+  // TODO update so the virtual device handles events and distributes updates to the Homey devices
+  async handleEvent(homeyDevice: ShellyLocalDevice, event: NotificationEventParam): Promise<void> {
     if (event.event === 'config_changed') {
       const newConfig = await this.GetConfig(this.device.getChannel());
-      await this.updateConfig(newConfig.result);
+      await this.updateConfig(homeyDevice, newConfig.result);
     } else {
-      this.device.log('Unknown event:', event.event);
+      homeyDevice.log('Unknown event:', event.event);
     }
   }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  async handleSettings(homeyDevice: ShellyLocalDevice, event: SettingsEvent<any>): Promise<void | string> {}
 
   static readonly createDevices: (
     id: string,
@@ -93,16 +98,6 @@ export abstract class ComponentWithoutId<Status extends object, Config extends o
     const response = await this._GetStatus(channel);
     this.status = response.result;
     return response;
-  }
-
-  static createDevices(
-    id: string,
-    component: ShellyGetComponentsResponseComponent,
-    devices: Map<string, ShellyLocalListDeviceProperties>,
-  ): Map<string, ShellyLocalListDeviceProperties> {
-    const mainDevice: ShellyLocalListDeviceProperties = devices.get(id)!;
-    mainDevice.store.components.push(component.key);
-    return devices;
   }
 }
 
@@ -145,31 +140,5 @@ export abstract class ComponentWithId<Status extends object, Config extends { id
     const response = await this._GetStatus(channel, this.id);
     this.status = response.result;
     return response;
-  }
-
-  static createDevices(
-    id: string,
-    component: ShellyGetComponentsResponseComponent,
-    devices: Map<string, ShellyLocalListDeviceProperties>,
-  ): Map<string, ShellyLocalListDeviceProperties> {
-    const mainDevice: ShellyLocalListDeviceProperties = devices.get(id)!;
-    const [, componentId] = component.key.split(':') as [string, `${number}`];
-
-    const subdeviceId = `${id}:${component.key}`;
-    const subdevice: ShellyLocalListDeviceProperties = devices.get(subdeviceId) ?? {
-      name: `${mainDevice.name} - ${this.uiName} ${parseInt(componentId) + 1}`,
-      data: {
-        id: subdeviceId,
-        parent: id,
-      },
-      store: {
-        ...mainDevice.store,
-        components: [],
-      },
-    };
-    subdevice.store.components.push(component.key);
-
-    devices.set(subdeviceId, subdevice);
-    return devices;
   }
 }

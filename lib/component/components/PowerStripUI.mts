@@ -3,10 +3,8 @@ import GetConfig from './PowerStripUI/GetConfig.mjs';
 import SetConfig from './PowerStripUI/SetConfig.mjs';
 import GetStatus from './PowerStripUI/GetStatus.mjs';
 import type { ComponentMethod } from './Shelly/ListMethods.mjs';
-import type { ShellyGetComponentsResponseComponent } from './Shelly/GetComponents.mjs';
-import type { ShellyLocalListDeviceProperties } from '../../../drivers/local/driver.mjs';
 import { deepAssign, type RecursivePartial } from '../../util.mjs';
-import Switch from './Switch.mjs';
+import type ShellyLocalDevice from '../../Device.mjs';
 
 export type PowerStripUIStatus = Record<string, never>;
 
@@ -99,18 +97,26 @@ export default class PowerStripUI extends ComponentWithoutId<PowerStripUIStatus,
   readonly namespace = 'POWERSTRIP_UI';
 
   async register(methods: ComponentMethod<'POWERSTRIP_UI'>[]): Promise<void> {
-    const { id, parent } = this.device.getData() as { id: string; parent: string };
-    const switchId = id.substring(parent.length + 1);
-    this.device.log('POWERSTRIP_UI', switchId);
-
-    // Set correct setting values
-    await this.updateConfig(this.config);
-  }
-  async updateStatus(status: PowerStripUIStatus): Promise<void> {
     return;
   }
 
-  async updateConfig(config: PowerStripUIConfig): Promise<void> {
+  async registerHomeyDevice(
+    homeyDevice: ShellyLocalDevice,
+    methods: ComponentMethod<'POWERSTRIP_UI'>[],
+  ): Promise<void> {
+    const { id, parent } = homeyDevice.getData() as { id: string; parent: string };
+    const switchId = id.substring(parent.length + 1);
+    homeyDevice.log('POWERSTRIP_UI', switchId);
+
+    // Set correct setting values
+    await this.updateConfig(homeyDevice, this.config);
+  }
+  async updateStatus(homeyDevice: ShellyLocalDevice, status: PowerStripUIStatus): Promise<void> {
+    deepAssign(this.status, status);
+  }
+
+  async updateConfig(homeyDevice: ShellyLocalDevice, config: PowerStripUIConfig): Promise<void> {
+    deepAssign(this.config, config);
     const changedSettings: Partial<PowerStripUIHomeySettings> = {
       'POWERSTRIP_UI:leds.mode': config.leds.mode,
       'POWERSTRIP_UI:leds.colors.power.brightness': config.leds.colors.power.brightness,
@@ -139,13 +145,13 @@ export default class PowerStripUI extends ComponentWithoutId<PowerStripUIStatus,
       changedSettings['POWERSTRIP_UI:leds.night_mode.active_between.start'] = start;
       changedSettings['POWERSTRIP_UI:leds.night_mode.active_between.end'] = end;
     }
-    await this.device.setSettings(changedSettings);
+    await homeyDevice.setSettings(changedSettings);
   }
 
-  async handleSettings<Settings extends PowerStripUIHomeySettings>({
-    changedKeys,
-    newSettings,
-  }: SettingsEvent<Settings>): Promise<void | string> {
+  async handleSettings<Settings extends PowerStripUIHomeySettings>(
+    homeyDevice: ShellyLocalDevice,
+    { changedKeys, newSettings }: SettingsEvent<Settings>,
+  ): Promise<void | string> {
     const changedConfigs: RecursivePartial<PowerStripUIConfig, AllowedPrimitives> = {};
     if (changedKeys.includes('POWERSTRIP_UI:leds.mode')) {
       const newSetting = newSettings['POWERSTRIP_UI:leds.mode'];
@@ -255,33 +261,5 @@ export default class PowerStripUI extends ComponentWithoutId<PowerStripUIStatus,
       deepAssign(changedConfigs, { leds: { night_mode: { active_between: [rawStart, rawEnd] } } });
     }
     await this.SetConfig(this.device.getChannel(), { config: changedConfigs });
-  }
-
-  static createDevices(
-    id: string,
-    component: ShellyGetComponentsResponseComponent,
-    devices: Map<string, ShellyLocalListDeviceProperties>,
-  ): Map<string, ShellyLocalListDeviceProperties> {
-    const mainDevice: ShellyLocalListDeviceProperties = devices.get(id)!;
-
-    for (const switchId of [0, 1, 2, 3] as const) {
-      const subdeviceId = `${id}:switch:${switchId}`;
-      const subdevice: ShellyLocalListDeviceProperties = devices.get(subdeviceId) ?? {
-        name: `${mainDevice.name} - ${Switch.uiName} ${switchId + 1}`,
-        data: {
-          id: subdeviceId,
-          parent: id,
-        },
-        store: {
-          ...mainDevice.store,
-          components: [],
-        },
-      };
-      subdevice.store.components.push(component.key);
-
-      devices.set(subdeviceId, subdevice);
-    }
-
-    return devices;
   }
 }

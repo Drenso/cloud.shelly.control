@@ -11,7 +11,7 @@ import { RpcError } from '../RpcError.mjs';
 import { RPC_SRC } from '../../config.mjs';
 import { createMitt } from '../../util.mjs';
 import Shelly from '../../component/components/Shelly.mjs';
-import type ShellyLocalDevice from '../../../drivers/local/device.mjs';
+import type ShellyLocalDevice from '../../Device.mjs';
 
 const GREETING_DELAY = 100;
 

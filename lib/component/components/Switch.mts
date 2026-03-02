@@ -11,6 +11,7 @@ import ResetCounters, {
 import type { RpcChannel } from '../../rpc/channel/RpcChannel.mjs';
 import type { ResponseSuccessFrame } from '../../rpc/Rpc.mjs';
 import capabilitiesOptions from './Switch/capabilitiesOptions.json' with { type: 'json' };
+import type ShellyLocalDevice from '../../Device.mjs';
 import type { ComponentMethod } from './Shelly/ListMethods.mjs';
 
 export type SwitchConfig = {
@@ -166,100 +167,110 @@ export default class Switch extends ComponentWithId<SwitchStatus, SwitchConfig> 
   }
 
   async register(methods: ComponentMethod<'Switch'>[]): Promise<void> {
+    return;
+  }
+
+  async registerHomeyDevice(homeyDevice: ShellyLocalDevice, methods: ComponentMethod<'Switch'>[]): Promise<void> {
     {
       // output
-      await this.registerCapability('output', 'onoff').catch(this.device.error);
+      await this.registerCapability(homeyDevice, 'output', 'onoff').catch(homeyDevice.error);
       const capabilityId = 'onoff' as const;
       const capabilityListener = async (value: boolean): Promise<void> => {
         await this.Set(this.device.getChannel(), { on: value });
       };
-      this.device.registerCapabilityListener(capabilityId, capabilityListener);
+      homeyDevice.registerCapabilityListener(capabilityId, capabilityListener);
     }
 
-    await this.registerCapability('apower', 'measure_power').catch(this.device.error);
-    await this.registerCapability('voltage', 'measure_voltage').catch(this.device.error);
-    await this.registerCapability('current', 'measure_current').catch(this.device.error);
+    await this.registerCapability(homeyDevice, 'apower', 'measure_power').catch(homeyDevice.error);
+    await this.registerCapability(homeyDevice, 'voltage', 'measure_voltage').catch(homeyDevice.error);
+    await this.registerCapability(homeyDevice, 'current', 'measure_current').catch(homeyDevice.error);
     // TODO power factor
-    await this.registerCapability('freq', 'measure_frequency').catch(this.device.error);
-    await this.registerCapability('aenergy', 'meter_power.consumed').catch(this.device.error);
-    await this.registerCapability('ret_aenergy', 'meter_power.returned').catch(this.device.error);
-    await this.registerCapability('aenergy', 'meter_power.total').catch(this.device.error);
-    await this.registerCapability('temperature', 'measure_temperature').catch(this.device.error);
+    await this.registerCapability(homeyDevice, 'freq', 'measure_frequency').catch(homeyDevice.error);
+    await this.registerCapability(homeyDevice, 'aenergy', 'meter_power.consumed').catch(homeyDevice.error);
+    await this.registerCapability(homeyDevice, 'ret_aenergy', 'meter_power.returned').catch(homeyDevice.error);
+    await this.registerCapability(homeyDevice, 'aenergy', 'meter_power.total').catch(homeyDevice.error);
+    await this.registerCapability(homeyDevice, 'temperature', 'measure_temperature').catch(homeyDevice.error);
     // TODO errors
 
     if (this.status['aenergy'] !== undefined || this.status['ret_aenergy'] !== undefined) {
-      let energy = this.device.getEnergy();
+      let energy = homeyDevice.getEnergy();
       energy = {
         ...energy,
         cumulative: false,
         meterPowerImportedCapability: 'meter_power.consumed',
         meterPowerExportedCapability: 'meter_power.returned',
       };
-      await this.device.setEnergy(energy).catch(this.device.error);
+      await homeyDevice.setEnergy(energy).catch(homeyDevice.error);
     }
 
     if (methods.includes('ResetCounters')) {
       const maintenanceActionId = 'button.reset_energy_counters';
-      await this.device.safeAddCapability(maintenanceActionId);
-      this.device.registerCapabilityListener(maintenanceActionId, async () => {
+      await homeyDevice.safeAddCapability(maintenanceActionId);
+      homeyDevice.registerCapabilityListener(maintenanceActionId, async () => {
         await this.ResetCounters(this.device.getChannel());
       });
-      await this.device
+      await homeyDevice
         .setCapabilityOptions(maintenanceActionId, capabilitiesOptions['button.reset_energy_counters'])
-        .catch(this.device.error);
+        .catch(homeyDevice.error);
     }
 
     // Set correct capability values
-    await this.updateStatus(this.status);
+    await this.updateStatus(homeyDevice, this.status);
     // Set correct setting values
-    await this.updateConfig(this.config);
+    await this.updateConfig(homeyDevice, this.config);
   }
 
-  async updateStatus(status: Partial<SwitchStatus>): Promise<void> {
+  async updateStatus(homeyDevice: ShellyLocalDevice, status: Partial<SwitchStatus>): Promise<void> {
     this.status = { ...this.status, ...status }; /*
       TODO is this necessary?
         The status should already be updated whenever it is retrieved/received.
         Do we also want to call this method at this moment?
     */
-    await this.updateMeasured(status, 'output', 'onoff');
-    await this.updateMeasured(status, 'apower', 'measure_power');
-    await this.updateMeasured(status, 'voltage', 'measure_voltage');
-    await this.updateMeasured(status, 'current', 'measure_current');
+    await this.updateMeasured(homeyDevice, status, 'output', 'onoff');
+    await this.updateMeasured(homeyDevice, status, 'apower', 'measure_power');
+    await this.updateMeasured(homeyDevice, status, 'voltage', 'measure_voltage');
+    await this.updateMeasured(homeyDevice, status, 'current', 'measure_current');
     // TODO power factor
-    await this.updateMeasured(status, 'freq', 'measure_frequency');
+    await this.updateMeasured(homeyDevice, status, 'freq', 'measure_frequency');
     if (status.aenergy !== undefined || status.ret_aenergy !== undefined) {
       const absoluteEnergy = this.status.aenergy?.total ?? 0;
       const returnedEnergy = this.status.ret_aenergy?.total ?? 0;
       const consumedEnergy = absoluteEnergy - returnedEnergy;
-      await this.device.safeSetCapability('meter_power.consumed', consumedEnergy / 1000);
-      await this.device.safeSetCapability('meter_power.returned', returnedEnergy / 1000);
-      await this.device.safeSetCapability('meter_power.total', absoluteEnergy / 1000);
+      await homeyDevice.safeSetCapability('meter_power.consumed', consumedEnergy / 1000);
+      await homeyDevice.safeSetCapability('meter_power.returned', returnedEnergy / 1000);
+      await homeyDevice.safeSetCapability('meter_power.total', absoluteEnergy / 1000);
     }
-    await this.updateMeasured(status, 'temperature', 'measure_temperature');
+    await this.updateMeasured(homeyDevice, status, 'temperature', 'measure_temperature');
     // TODO errors
   }
 
-  async updateConfig(config: SwitchConfig): Promise<void> {
+  async updateConfig(homeyDevice: ShellyLocalDevice, config: SwitchConfig): Promise<void> {
+    this.config = { ...this.config, ...config };
     // TODO update settings
   }
 
-  async registerCapability(statusProperty: keyof SwitchStatus, homeyCapability: string): Promise<void> {
+  async registerCapability(
+    homeyDevice: ShellyLocalDevice,
+    statusProperty: keyof SwitchStatus,
+    homeyCapability: string,
+  ): Promise<void> {
     if (this.status[statusProperty] !== undefined) {
-      await this.device.safeAddCapability(homeyCapability);
+      await homeyDevice.safeAddCapability(homeyCapability);
       const capabilityOptions = capabilitiesOptions[homeyCapability as keyof typeof capabilitiesOptions];
       if (capabilityOptions !== undefined) {
-        await this.device.setCapabilityOptions(homeyCapability, capabilityOptions);
+        await homeyDevice.setCapabilityOptions(homeyCapability, capabilityOptions);
       }
     }
   }
 
   async updateMeasured(
+    homeyDevice: ShellyLocalDevice,
     status: Partial<SwitchStatus>,
     statusProperty: keyof SwitchStatus,
     homeyCapability: string,
   ): Promise<void> {
     if (status[statusProperty] !== undefined) {
-      await this.device.safeSetCapability(homeyCapability, status[statusProperty]).catch(this.device.error);
+      await homeyDevice.safeSetCapability(homeyCapability, status[statusProperty]).catch(homeyDevice.error);
     }
   }
 }

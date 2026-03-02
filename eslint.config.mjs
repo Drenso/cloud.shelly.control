@@ -19,6 +19,7 @@ export default tseslint.config(
           'ts-ignore': 'allow-with-description',
         },
       ],
+      '@typescript-eslint/no-unused-vars': 'warn',
       semi: [2, 'always'],
     },
   },

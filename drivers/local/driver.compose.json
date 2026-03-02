@@ -1,7 +1,0 @@
-{
-  "name": {
-    "en": "Generic Device"
-  },
-  "class": "other",
-  "$extends": "local"
-}
