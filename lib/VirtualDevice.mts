@@ -12,6 +12,8 @@ import type OutboundWebsocket from './component/components/OutboundWebsocket.mjs
 import { getIp } from './LocalIp.mjs';
 import { OUTBOUND_WS_PORT } from './config.mjs';
 import { RpcError } from './rpc/RpcError.mjs';
+import type { NotificationEventFrame, NotificationFrame, NotificationStatusFrame } from './rpc/Rpc.mjs';
+import type ShellyLocalDevice from './Device.mjs';
 
 export type SerializedVirtualDevice = {
   readonly deviceId: string;
@@ -26,6 +28,7 @@ export class VirtualDevice {
   public outboundWsChannel?: OutboundWebsocketChannel;
 
   private readonly initializedComponents = new Map<string, InstanceType<MappedComponent>>();
+  private readonly initializedHomeyDevices = new Map<string, ShellyLocalDevice>();
 
   get virtualComponents(): ReadonlyMap<string, InstanceType<MappedComponent>> {
     return this.initializedComponents;
@@ -126,7 +129,6 @@ export class VirtualDevice {
   private async initializeHomeyDevices(
     methodMapping: Partial<Record<NameSpace, ComponentMethod<NameSpace>[]>>,
   ): Promise<void> {
-    const foundDevices: string[] = [];
     const initializers = [];
     for (const homeyDeviceId of this.homeyDeviceIds) {
       const homeyDevice = this.app.getDevice(homeyDeviceId);
@@ -134,10 +136,10 @@ export class VirtualDevice {
         this.log('No homeyDevice found for', homeyDeviceId);
         continue;
       }
-      foundDevices.push(homeyDeviceId);
+      this.initializedHomeyDevices.set(homeyDeviceId, homeyDevice);
       initializers.push(homeyDevice.initializeShelly(this, methodMapping));
     }
-    this.homeyDeviceIds = foundDevices;
+    this.homeyDeviceIds = [...this.initializedHomeyDevices.keys()];
     await this.app.updateVirtualDevice(this);
     await Promise.all(initializers);
   }
@@ -201,7 +203,8 @@ export class VirtualDevice {
   }
 
   async removeHomeyDevice(id: string): Promise<void> {
-    this.homeyDeviceIds = this.homeyDeviceIds.filter(deviceId => deviceId !== id);
+    this.initializedHomeyDevices.delete(id);
+    this.homeyDeviceIds = [...this.initializedHomeyDevices.keys()];
     if (this.homeyDeviceIds.length > 0) {
       return this.app.updateVirtualDevice(this);
     }
@@ -212,6 +215,8 @@ export class VirtualDevice {
   async connect(): Promise<void> {
     this.inboundWsChannel = this.app.channelController.registerInboundWsChannel(this.ipAddress);
     this.outboundWsChannel = this.app.channelController.registerOutboundWsChannel(this.deviceId);
+    this.inboundWsChannel.registerNotificationHandler(this, this.handleWsNotification.bind(this));
+    this.outboundWsChannel.registerNotificationHandler(this, this.handleOutboundWsNotification.bind(this));
   }
 
   private async uninitialize(): Promise<void> {
@@ -222,10 +227,61 @@ export class VirtualDevice {
 
   async disconnect(): Promise<void> {
     if (this.inboundWsChannel !== undefined) {
+      this.inboundWsChannel.unregisterNotificationHandler(this);
       this.app.channelController.unregisterInboundWsChannel(this.inboundWsChannel);
     }
     if (this.outboundWsChannel !== undefined) {
+      this.outboundWsChannel.unregisterNotificationHandler(this);
       this.app.channelController.unregisterOutboundWsChannel(this.outboundWsChannel);
+    }
+  }
+
+  handleWsNotification(notification: NotificationFrame): void {
+    if (notification.method === 'NotifyStatus' || notification.method === 'NotifyFullStatus') {
+      const statusNotification = notification as NotificationStatusFrame<string, object>;
+      for (const component in statusNotification.params) {
+        if (component === 'ts') {
+          continue;
+        }
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { ts, ...statusUpdate } = statusNotification.params[component] as {
+          ts?: number;
+        };
+        for (const homeyDevice of this.initializedHomeyDevices.values()) {
+          homeyDevice.virtualComponents.get(component)?.onStatusUpdate(homeyDevice, statusUpdate as never);
+        }
+      }
+    } else if (notification.method === 'NotifyEvent') {
+      const eventNotification = notification as NotificationEventFrame;
+      this.handleEventNotification(eventNotification).catch(this.error);
+    } else {
+      this.log('Unhandled WS notification method:', notification.method);
+    }
+  }
+
+  async handleEventNotification(eventNotification: NotificationEventFrame): Promise<void> {
+    for (const event of eventNotification.params.events) {
+      if (event.event === 'config_changed') {
+        await this.handleConfigChangedEvent(event.component).catch(this.error);
+      } else {
+        this.log('Unknown event:', event.event);
+      }
+    }
+  }
+
+  async handleConfigChangedEvent(componentId: string): Promise<void> {
+    const component = this.virtualComponents.get(componentId);
+    if (component) {
+      const newConfig = await component.GetConfig(this.getChannel());
+      for (const homeyDevice of this.initializedHomeyDevices.values()) {
+        await homeyDevice.virtualComponents.get(componentId)?.onConfigUpdate(homeyDevice, newConfig.result as never);
+      }
+    }
+  }
+
+  handleOutboundWsNotification(notification: NotificationFrame): void {
+    if (this.inboundWsChannel === undefined || this.inboundWsChannel.ws.readyState !== WebSocket.OPEN) {
+      this.handleWsNotification(notification);
     }
   }
 }

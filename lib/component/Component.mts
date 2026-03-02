@@ -1,5 +1,5 @@
 import type { RpcChannel } from '../rpc/channel/RpcChannel.mjs';
-import type { NotificationEventParam, ResponseSuccessFrame } from '../rpc/Rpc.mjs';
+import type { ResponseSuccessFrame } from '../rpc/Rpc.mjs';
 import type { ComponentMethod, NameSpace } from './components/Shelly/ListMethods.mjs';
 import type { ShellyGetComponentsResponseComponent } from './components/Shelly/GetComponents.mjs';
 import { deepAssign, type RecursivePartial } from '../util.mjs';
@@ -44,16 +44,6 @@ export abstract class Component<Status extends object, Config extends object> {
   abstract onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Status): Promise<void>;
 
   abstract onConfigUpdate(homeyDevice: ShellyLocalDevice, config: Config): Promise<void>;
-
-  // TODO update so the virtual device handles events and distributes updates to the Homey devices
-  async handleEvent(homeyDevice: ShellyLocalDevice, event: NotificationEventParam): Promise<void> {
-    if (event.event === 'config_changed') {
-      const newConfig = await this.GetConfig(this.device.getChannel());
-      await this.onConfigUpdate(homeyDevice, newConfig.result);
-    } else {
-      homeyDevice.log('Unknown event:', event.event);
-    }
-  }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async handleSettings(homeyDevice: ShellyLocalDevice, event: SettingsEvent<any>): Promise<void | string> {}

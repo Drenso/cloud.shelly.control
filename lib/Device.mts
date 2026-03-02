@@ -3,8 +3,6 @@ import type { ShellyLocalDeviceData, ShellyLocalDeviceStore } from './types.mjs'
 import type ShellyApp from '../app.mjs';
 import type { VirtualDevice } from './VirtualDevice.mjs';
 import type { ComponentMethod, NameSpace } from './component/components/Shelly/ListMethods.mjs';
-import type { NotificationEventFrame, NotificationFrame, NotificationStatusFrame } from './rpc/Rpc.mjs';
-import WebSocket from 'ws';
 import type { MappedComponent } from './component/ComponentMapping.mjs';
 
 export default class ShellyLocalDevice extends Homey.Device {
@@ -45,50 +43,8 @@ export default class ShellyLocalDevice extends Homey.Device {
       await virtualComponent.registerHomeyDevice(this, (methodMapping[virtualComponent.namespace] ?? []) as never);
     }
 
-    virtualDevice.inboundWsChannel?.registerNotificationHandler(this, this.handleWsNotification.bind(this));
-    virtualDevice.outboundWsChannel?.registerNotificationHandler(this, this.handleOutboundWsNotification.bind(this));
-
     this.log(this.getName(), 'initialized');
     await this.setAvailable();
-  }
-
-  handleWsNotification(notification: NotificationFrame): void {
-    if (notification.method === 'NotifyStatus' || notification.method === 'NotifyFullStatus') {
-      const statusNotification = notification as NotificationStatusFrame<string, object>;
-      for (const component in statusNotification.params) {
-        if (component === 'ts') {
-          continue;
-        }
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { ts, ...statusUpdate } = statusNotification.params[component] as {
-          ts?: number;
-        };
-        this.virtualComponents
-          .get(component)
-          ?.onStatusUpdate(this, statusUpdate as never)
-          .catch(this.error);
-      }
-    } else if (notification.method === 'NotifyEvent') {
-      const eventNotification = notification as NotificationEventFrame;
-      for (const event of eventNotification.params.events) {
-        this.virtualComponents.get(event.component)?.handleEvent(this, event).catch(this.error);
-      }
-    } else {
-      this.log('Unhandled WS notification method:', notification.method);
-    }
-  }
-
-  handleOutboundWsNotification(notification: NotificationFrame): void {
-    if (this.virtualDevice === undefined) {
-      return;
-    }
-    // Ignore outbound WS messages if an inbound WS is open
-    if (
-      this.virtualDevice.inboundWsChannel === undefined ||
-      this.virtualDevice.inboundWsChannel.ws.readyState !== WebSocket.OPEN
-    ) {
-      this.handleWsNotification(notification);
-    }
   }
 
   get app(): ShellyApp {

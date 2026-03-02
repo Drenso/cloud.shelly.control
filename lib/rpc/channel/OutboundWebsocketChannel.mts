@@ -5,7 +5,7 @@ import type { NotificationFrame, RequestFrame, ResponseErrorFrame, ResponseSucce
 import { createMitt, type UnionToIntersection } from '../../util.mjs';
 import { RpcError } from '../RpcError.mjs';
 import type { WsClosedEvent, WsMessageEvent, WsMittEvents } from '../ChannelController.mjs';
-import type ShellyLocalDevice from '../../Device.mjs';
+import type { VirtualDevice } from '../../VirtualDevice.mjs';
 
 type OutboundWsChannelMittEvents = {
   notification: NotificationFrame;
@@ -18,7 +18,7 @@ type OutboundWsChannelMittEvents = {
 export default class OutboundWebsocketChannel implements RpcChannel {
   public wsPromise: Promise<WebSocket>;
   private resolveWsPromise: ((ws: WebSocket) => void) | undefined;
-  private readonly handlers = new Map<ShellyLocalDevice, (notification: NotificationFrame) => void>();
+  private readonly handlers = new Map<VirtualDevice, (notification: NotificationFrame) => void>();
 
   private readonly awaitingResponse = new Map<
     number,
@@ -113,12 +113,12 @@ export default class OutboundWebsocketChannel implements RpcChannel {
     });
   }
 
-  registerNotificationHandler(device: ShellyLocalDevice, handler: (notification: NotificationFrame) => void): void {
+  registerNotificationHandler(device: VirtualDevice, handler: (notification: NotificationFrame) => void): void {
     this.handlers.set(device, handler);
     this.eventEmitter.on('notification', handler);
   }
 
-  unregisterNotificationHandler(device: ShellyLocalDevice): void {
+  unregisterNotificationHandler(device: VirtualDevice): void {
     const handler = this.handlers.get(device);
     this.eventEmitter.off('notification', handler);
     this.handlers.delete(device);
