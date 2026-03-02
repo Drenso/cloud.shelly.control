@@ -161,6 +161,7 @@ export class VirtualDevice {
     }
     this.homeyDeviceIds = [...this.initializedHomeyDevices.keys()];
     await this.app.updateVirtualDevice(this);
+    this.log(this.homeyDeviceIds.length, 'children found again');
     await Promise.all(initializers);
   }
 
@@ -225,6 +226,7 @@ export class VirtualDevice {
   async removeHomeyDevice(id: string): Promise<void> {
     this.initializedHomeyDevices.delete(id);
     this.homeyDeviceIds = [...this.initializedHomeyDevices.keys()];
+    this.log(this.homeyDeviceIds.length, 'children remaining');
     if (this.homeyDeviceIds.length > 0) {
       return this.app.updateVirtualDevice(this);
     }
@@ -236,6 +238,7 @@ export class VirtualDevice {
     // TODO unregister components?
     await this.disconnect();
     await this.app.removeVirtualDevice(this);
+    this.log('Uninitialized');
   }
 
   async disconnect(): Promise<void> {
