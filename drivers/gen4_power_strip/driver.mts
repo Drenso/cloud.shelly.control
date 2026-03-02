@@ -25,6 +25,7 @@ export default class ShellyGen4PowerStripDriver extends ShellyLocalDriver {
           data: {
             id: subdeviceId,
             parent: selectedDevice.data.id,
+            subdevice_id: parseInt(componentId!, 10),
           },
           store: {
             ...selectedDevice.store,

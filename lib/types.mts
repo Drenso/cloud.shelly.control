@@ -11,7 +11,8 @@ export type ShellyLocalDeviceStore = {
 
 export type ShellyLocalDeviceData = {
   id: string;
-  parent: string;
+  parent?: string;
+  subdevice_id?: number;
 };
 
 export type ListDeviceProperties = {

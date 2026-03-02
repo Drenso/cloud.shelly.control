@@ -85,6 +85,7 @@ export type PowerStripUIHomeySettings = {
   'POWERSTRIP_UI:leds.night_mode.brightness': number;
   'POWERSTRIP_UI:leds.night_mode.active_between.start': `${number}:${number}`;
   'POWERSTRIP_UI:leds.night_mode.active_between.end': `${number}:${number}`;
+  'POWERSTRIP_UI:controls.switch.in_mode': 'momentary' | 'detached';
 };
 
 /**
@@ -141,6 +142,11 @@ export default class PowerStripUI extends ComponentWithoutId<PowerStripUIStatus,
       const [start, end] = nightModePeriod;
       changedSettings['POWERSTRIP_UI:leds.night_mode.active_between.start'] = start;
       changedSettings['POWERSTRIP_UI:leds.night_mode.active_between.end'] = end;
+    }
+    const switchId = homeyDevice.getTypedData().subdevice_id;
+    if (switchId !== undefined && switchId >= 0 && switchId <= 3) {
+      changedSettings['POWERSTRIP_UI:controls.switch.in_mode'] =
+        config.controls[`switch:${switchId as 0 | 1 | 2 | 3}`].in_mode;
     }
     await homeyDevice.setSettings(changedSettings);
   }
@@ -257,6 +263,20 @@ export default class PowerStripUI extends ComponentWithoutId<PowerStripUIStatus,
       }
       deepAssign(changedConfigs, { leds: { night_mode: { active_between: [rawStart, rawEnd] } } });
     }
+
+    const switchId = homeyDevice.getTypedData().subdevice_id;
+    if (
+      switchId !== undefined &&
+      switchId >= 0 &&
+      switchId <= 3 &&
+      changedKeys.includes('POWERSTRIP_UI:controls.switch.in_mode')
+    ) {
+      const newSetting = newSettings['POWERSTRIP_UI:controls.switch.in_mode'];
+      deepAssign(changedConfigs, { controls: { [`switch:${switchId as 0 | 1 | 2 | 3}`]: { in_mode: newSetting } } });
+    }
+
+    homeyDevice.log('New Settings:', JSON.stringify(changedConfigs));
+
     await this.SetConfig(this.device.getChannel(), { config: changedConfigs });
   }
 }

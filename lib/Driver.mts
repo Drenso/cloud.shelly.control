@@ -87,7 +87,6 @@ export default class ShellyLocalDriver extends Homey.Driver {
         name: txt.app,
         data: {
           id: discoveryResult.id,
-          parent: discoveryResult.id,
         },
         store: {
           address: discoveryResult.address,
