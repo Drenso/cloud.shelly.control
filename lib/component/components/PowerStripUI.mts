@@ -109,10 +109,6 @@ export default class PowerStripUI extends ComponentWithoutId<
     homeyDevice: ShellyLocalDevice,
     methods: ComponentMethod<'POWERSTRIP_UI'>[],
   ): Promise<void> {
-    const { id, parent } = homeyDevice.getData() as { id: string; parent: string };
-    const switchId = id.substring(parent.length + 1);
-    homeyDevice.log('POWERSTRIP_UI', switchId);
-
     // Set correct setting values
     await this.onConfigUpdate(homeyDevice, this.config);
   }
