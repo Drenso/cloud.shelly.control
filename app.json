@@ -92,9 +92,9 @@
         }
       ],
       "name": {
-        "en": "Gen 4 PowerStrip"
+        "en": "PowerStrip 4 Gen4"
       },
-      "class": "other",
+      "class": "socket",
       "id": "gen4_power_strip",
       "settings": [
         {
@@ -118,6 +118,95 @@
               }
             }
           ]
+        },
+        {
+          "id": "Switch:initial_state",
+          "type": "dropdown",
+          "label": {
+            "en": "Switch - Startup State"
+          },
+          "value": "off",
+          "values": [
+            {
+              "id": "off",
+              "label": {
+                "en": "Off"
+              }
+            },
+            {
+              "id": "on",
+              "label": {
+                "en": "On"
+              }
+            },
+            {
+              "id": "restore_last",
+              "label": {
+                "en": "Restore Last"
+              }
+            }
+          ]
+        },
+        {
+          "id": "Switch:autorecover_voltage_errors",
+          "type": "checkbox",
+          "label": {
+            "en": "Switch - Autorecover Voltage Errors"
+          },
+          "hint": {
+            "en": "Whether to restore the switch output state after an overvoltage error is cleared."
+          },
+          "value": false
+        },
+        {
+          "id": "Switch:power_limit",
+          "type": "number",
+          "label": {
+            "en": "Switch - Power Limit"
+          },
+          "hint": {
+            "en": "The maximum value is the max-rated output power."
+          },
+          "value": 3360,
+          "min": 0,
+          "units": "W"
+        },
+        {
+          "id": "Switch:voltage_limit",
+          "type": "number",
+          "label": {
+            "en": "Switch - Voltage Limit"
+          },
+          "hint": {
+            "en": "The maximum value is the max-rated output voltage."
+          },
+          "value": 280,
+          "min": 0,
+          "units": "V"
+        },
+        {
+          "id": "Switch:current_limit",
+          "type": "number",
+          "label": {
+            "en": "Switch - Current Limit"
+          },
+          "hint": {
+            "en": "The maximum value is the max-rated output current."
+          },
+          "value": 12,
+          "min": 0,
+          "units": "A"
+        },
+        {
+          "id": "Switch:reverse",
+          "type": "checkbox",
+          "label": {
+            "en": "Switch - Reverse Measurement"
+          },
+          "value": false,
+          "hint": {
+            "en": "Whether the measurement direction of active power and energy should be reversed. Requires a restart of the device."
+          }
         },
         {
           "type": "group",
@@ -314,45 +403,6 @@
           ]
         }
       ]
-    },
-    {
-      "capabilities": [],
-      "platforms": [
-        "local",
-        "cloud"
-      ],
-      "connectivity": [
-        "cloud"
-      ],
-      "images": {
-        "small": "/drivers/local/assets/images/small.png",
-        "large": "/drivers/local/assets/images/large.png",
-        "xlarge": "/drivers/local/assets/images/xlarge.png"
-      },
-      "pair": [
-        {
-          "id": "list_devices",
-          "template": "list_devices",
-          "navigation": {
-            "next": "load_subdevices"
-          }
-        },
-        {
-          "id": "load_subdevices",
-          "template": "loading",
-          "options": {
-            "text": "pair.loading_devices"
-          }
-        },
-        {
-          "id": "add_subdevices"
-        }
-      ],
-      "name": {
-        "en": "Generic Device"
-      },
-      "class": "other",
-      "id": "local"
     }
   ],
   "discovery": {

@@ -6,7 +6,7 @@ import HttpChannel from './rpc/channel/HttpChannel.mjs';
 import type { ShellyGetComponentsResponseComponent } from './component/components/Shelly/GetComponents.mjs';
 import Shelly from './component/components/Shelly.mjs';
 
-export default class ShellyLocalDriver extends Homey.Driver {
+export default abstract class ShellyLocalDriver extends Homey.Driver {
   get app(): ShellyApp {
     return this.homey.app as ShellyApp;
   }
@@ -21,7 +21,7 @@ export default class ShellyLocalDriver extends Homey.Driver {
     session.setHandler('showView', async (view: string) => {
       if (view === 'load_subdevices') {
         subDevices = await this.createDevices(selectedDevices);
-        await session.showView('add_subdevices');
+        await session.showView('add_subdevices').catch(this.error);
       }
     });
     session.setHandler('add_subdevices', async () => {
@@ -60,22 +60,20 @@ export default class ShellyLocalDriver extends Homey.Driver {
     );
   }
 
-  async assembleHomeyDevices(
+  abstract assembleHomeyDevices(
     selectedDevice: ShellyLocalListDeviceProperties,
     components: ShellyGetComponentsResponseComponent[],
-  ): Promise<ShellyLocalListDeviceProperties[]> {
-    return [selectedDevice];
-  }
+  ): Promise<ShellyLocalListDeviceProperties[]>;
 
-  async onPairMatchDevice(discoveryResult: ShellyDiscoveryResult): Promise<boolean> {
-    return true;
-  }
+  abstract onPairMatchDevice(discoveryResult: ShellyDiscoveryResult): Promise<boolean>;
 
   async onPairListDevices(): Promise<ShellyLocalListDeviceProperties[]> {
     const results: ShellyLocalListDeviceProperties[] = [];
 
     const discoveryStrategy = this.homey.discovery.getStrategy('shelly');
     const discoveryResults = discoveryStrategy.getDiscoveryResults();
+
+    this.log(JSON.stringify(discoveryResults));
 
     for (const discoveryResultsKey in discoveryResults) {
       const discoveryResult = discoveryResults[discoveryResultsKey] as ShellyDiscoveryResult;
@@ -84,13 +82,13 @@ export default class ShellyLocalDriver extends Homey.Driver {
       }
       const txt = discoveryResult.txt;
       results.push({
-        name: txt.app,
+        name: discoveryResult.name,
         data: {
           id: discoveryResult.id,
         },
         store: {
           address: discoveryResult.address,
-          port: discoveryResult.port as unknown as number,
+          port: Number(discoveryResult.port),
           host: discoveryResult.host,
           name: discoveryResult.name,
           txt: txt,

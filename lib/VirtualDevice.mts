@@ -185,6 +185,7 @@ export class VirtualDevice {
     if (this.inboundWsChannel !== undefined && this.inboundWsChannel.ws.readyState === WebSocket.OPEN) {
       return this.inboundWsChannel;
     }
+
     return this.httpChannel;
   }
 
@@ -297,18 +298,22 @@ export class VirtualDevice {
 
   async handleConfigChangedEvent(componentId: string): Promise<void> {
     const component = this.virtualComponents.get(componentId);
-    if (component) {
-      const newConfig = await component.GetConfig(this.getChannel());
-      for (const homeyDevice of this.initializedHomeyDevices.values()) {
-        await homeyDevice.virtualComponents.get(componentId)?.onConfigUpdate(homeyDevice, newConfig.result as never);
-      }
+    if (!component) {
+      return;
+    }
+
+    const newConfig = await component.GetConfig(this.getChannel());
+    for (const homeyDevice of this.initializedHomeyDevices.values()) {
+      await homeyDevice.virtualComponents.get(componentId)?.onConfigUpdate(homeyDevice, newConfig.result as never);
     }
   }
 
   handleOutboundWsNotification(notification: NotificationFrame): void {
-    if (this.inboundWsChannel === undefined || this.inboundWsChannel.ws.readyState !== WebSocket.OPEN) {
-      this.handleWsNotification(notification);
+    if (!(this.inboundWsChannel === undefined || this.inboundWsChannel.ws.readyState !== WebSocket.OPEN)) {
+      return;
     }
+
+    this.handleWsNotification(notification);
   }
 
   async setUnavailable(message: string): Promise<void> {

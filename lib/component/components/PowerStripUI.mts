@@ -112,6 +112,7 @@ export default class PowerStripUI extends ComponentWithoutId<
     // Set correct setting values
     await this.onConfigUpdate(homeyDevice, this.config);
   }
+
   async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: PowerStripUIStatus): Promise<void> {}
 
   async onConfigUpdate(homeyDevice: ShellyLocalDevice, config: PowerStripUIConfig): Promise<void> {
@@ -160,12 +161,14 @@ export default class PowerStripUI extends ComponentWithoutId<
       const newSetting = newSettings['POWERSTRIP_UI:leds.mode'];
       deepAssign(changedConfigs, { leds: { mode: newSetting } });
     }
+
     if (changedKeys.includes('POWERSTRIP_UI:leds.colors.power.brightness')) {
       const newSetting = newSettings['POWERSTRIP_UI:leds.colors.power.brightness'];
       deepAssign(changedConfigs, {
         leds: { colors: { power: { brightness: newSetting } } },
       });
     }
+
     if (changedKeys.includes('POWERSTRIP_UI:leds.colors.switch:0.on.brightness')) {
       const newSetting = newSettings['POWERSTRIP_UI:leds.colors.switch:0.on.brightness'];
       deepAssign(changedConfigs, {
@@ -176,6 +179,7 @@ export default class PowerStripUI extends ComponentWithoutId<
         },
       });
     }
+
     if (
       changedKeys.includes('POWERSTRIP_UI:leds.colors.switch:0.on.r') ||
       changedKeys.includes('POWERSTRIP_UI:leds.colors.switch:0.on.g') ||
@@ -188,6 +192,7 @@ export default class PowerStripUI extends ComponentWithoutId<
         leds: { colors: { 'switch:0': { on: { rgb: [r, g, b] } } } },
       });
     }
+
     if (changedKeys.includes('POWERSTRIP_UI:leds.colors.switch:0.off.brightness')) {
       const newSetting = newSettings['POWERSTRIP_UI:leds.colors.switch:0.off.brightness'];
       deepAssign(changedConfigs, {
@@ -198,6 +203,7 @@ export default class PowerStripUI extends ComponentWithoutId<
         },
       });
     }
+
     if (
       changedKeys.includes('POWERSTRIP_UI:leds.colors.switch:0.off.r') ||
       changedKeys.includes('POWERSTRIP_UI:leds.colors.switch:0.off.g') ||
@@ -210,14 +216,17 @@ export default class PowerStripUI extends ComponentWithoutId<
         leds: { colors: { 'switch:0': { off: { rgb: [r, g, b] } } } },
       });
     }
+
     if (changedKeys.includes('POWERSTRIP_UI:leds.night_mode.enable')) {
       const newSetting = newSettings['POWERSTRIP_UI:leds.night_mode.enable'];
       deepAssign(changedConfigs, { leds: { night_mode: { enable: newSetting } } });
     }
+
     if (changedKeys.includes('POWERSTRIP_UI:leds.night_mode.brightness')) {
       const newSetting = newSettings['POWERSTRIP_UI:leds.night_mode.brightness'];
       deepAssign(changedConfigs, { leds: { night_mode: { brightness: newSetting } } });
     }
+
     if (
       changedKeys.includes('POWERSTRIP_UI:leds.night_mode.active_between.start') ||
       changedKeys.includes('POWERSTRIP_UI:leds.night_mode.active_between.end')
@@ -255,12 +264,15 @@ export default class PowerStripUI extends ComponentWithoutId<
       if (invalidStart && invalidEnd) {
         throw new Error('Invalid Start Time and End Time for Indicator LED - Night Mode');
       }
+
       if (invalidStart) {
         throw new Error('Invalid Start Time for Indicator LED - Night Mode');
       }
+
       if (invalidEnd) {
         throw new Error('Invalid End Time for Indicator LED - Night Mode');
       }
+
       deepAssign(changedConfigs, { leds: { night_mode: { active_between: [rawStart, rawEnd] } } });
     }
 
@@ -275,11 +287,11 @@ export default class PowerStripUI extends ComponentWithoutId<
       deepAssign(changedConfigs, { controls: { [`switch:${switchId as 0 | 1 | 2 | 3}`]: { in_mode: newSetting } } });
     }
 
-    if (Object.keys(changedConfigs).length > 0) {
-      const result = await this.SetConfig(this.device.getChannel(), { config: changedConfigs });
-      return result.result.restart_required;
-    } else {
+    if (Object.keys(changedConfigs).length <= 0) {
       return false;
     }
+
+    const result = await this.SetConfig(this.device.getChannel(), { config: changedConfigs });
+    return result.result.restart_required;
   }
 }

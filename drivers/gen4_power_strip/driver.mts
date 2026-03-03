@@ -5,7 +5,7 @@ import Switch from '../../lib/component/components/Switch.mjs';
 
 export default class ShellyGen4PowerStripDriver extends ShellyLocalDriver {
   async onPairMatchDevice(discoveryResult: ShellyDiscoveryResult): Promise<boolean> {
-    return discoveryResult.id.startsWith('ShellyPStripG4');
+    return discoveryResult.id.toLowerCase().startsWith('shellypstripg4');
   }
 
   async assembleHomeyDevices(

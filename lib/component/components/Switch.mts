@@ -200,7 +200,7 @@ export default class Switch extends ComponentWithId<SwitchStatus, SwitchConfig, 
     return ResetCounters(channel, this.id, params);
   }
 
-  async register(methods: ComponentMethod<'Switch'>[]): Promise<void> {
+  async register(): Promise<void> {
     return;
   }
 

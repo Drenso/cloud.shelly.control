@@ -1,5 +1,9 @@
 {
   "pair": {
+    "add_devices": {
+      "loading": "Adding your new Shelly devices, this may take a moment...",
+      "title": "Adding devices"
+    },
     "loading_devices": "Assembling device information..."
   }
 }

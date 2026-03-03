@@ -59,9 +59,11 @@ export default class ShellyLocalDevice extends Homey.Device {
   }
 
   async safeAddCapability(id: string): Promise<void> {
-    if (!this.hasCapability(id)) {
-      await this.addCapability(id).catch(this.error);
+    if (this.hasCapability(id)) {
+      return;
     }
+
+    await this.addCapability(id).catch(this.error);
   }
 
   getTypedStore(): ShellyLocalDeviceStore {
@@ -73,15 +75,19 @@ export default class ShellyLocalDevice extends Homey.Device {
   }
 
   async safeRemoveCapability(id: string): Promise<void> {
-    if (this.hasCapability(id)) {
-      await this.removeCapability(id).catch(this.error);
+    if (!this.hasCapability(id)) {
+      return;
     }
+
+    await this.removeCapability(id).catch(this.error);
   }
 
   async safeSetCapability(id: string, value: unknown): Promise<void> {
-    if (this.hasCapability(id)) {
-      await this.setCapabilityValue(id, value).catch(this.error);
+    if (!this.hasCapability(id)) {
+      return;
     }
+
+    await this.setCapabilityValue(id, value).catch(this.error);
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

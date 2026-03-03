@@ -1,4 +1,7 @@
 <script type="text/javascript">
+  Homey.setTitle(Homey.__('pair.add_devices.title'));
+  Homey.showLoadingOverlay(Homey.__('pair.add_devices.loading'));
+
   Homey.emit('add_subdevices', {})
     .then(async result => {
       console.log('Adding devices:', JSON.stringify(result));

@@ -1,11 +1,9 @@
+import type ShellyLocalDevice from '../Device.mjs';
 import type { RpcChannel } from '../rpc/channel/RpcChannel.mjs';
 import type { ResponseSuccessFrame } from '../rpc/Rpc.mjs';
-import type { ComponentMethod, NameSpace } from './components/Shelly/ListMethods.mjs';
-import type { ShellyGetComponentsResponseComponent } from './components/Shelly/GetComponents.mjs';
 import { deepAssign, type RecursivePartial } from '../util.mjs';
 import type { VirtualDevice } from '../VirtualDevice.mjs';
-import type ShellyLocalDevice from '../Device.mjs';
-import type { ShellyLocalListDeviceProperties } from '../types.mjs';
+import type { ComponentMethod, NameSpace } from './components/Shelly/ListMethods.mjs';
 
 export class Service {}
 

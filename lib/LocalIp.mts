@@ -16,9 +16,7 @@ export async function getIp(homey: typeof Homey.App.prototype.homey): Promise<st
   }
 
   if (lastLoggedIp !== ip) {
-    // todo: use reference to ShellyApp when converted to Typescript and remove esline disable
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (homey.app as any).log('Using local IP', ip);
+    (homey.app as Homey.App).log('Using local IP', ip);
     lastLoggedIp = ip;
   }
 
