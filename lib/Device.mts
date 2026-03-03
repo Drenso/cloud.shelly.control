@@ -12,6 +12,13 @@ export default class ShellyLocalDevice extends Homey.Device {
   async onInit(): Promise<void> {
     // TODO translate
     await this.setUnavailable('Initializing...');
+    this.registerCapabilityListener('button.restart', () => {
+      if (this.virtualDevice === undefined) {
+        // TODO translate
+        throw new Error('Not connected to device');
+      }
+      return this.virtualDevice.reboot({ awaitRestart: false });
+    });
   }
 
   async onDeleted(): Promise<void> {
@@ -84,7 +91,6 @@ export default class ShellyLocalDevice extends Homey.Device {
       restartRequired ||= await virtualComponent.handleSettings(this, event as never);
     }
     if (restartRequired) {
-      // TODO set devices unavailable?
       // TODO translate
       return 'The device needs to be restarted.';
     }

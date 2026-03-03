@@ -49,7 +49,6 @@
   "api": {},
   "drivers": [
     {
-      "capabilities": [],
       "platforms": [
         "local",
         "cloud"
@@ -61,6 +60,17 @@
         "small": "/drivers/gen4_power_strip/assets/images/small.png",
         "large": "/drivers/gen4_power_strip/assets/images/large.png",
         "xlarge": "/drivers/gen4_power_strip/assets/images/xlarge.png"
+      },
+      "capabilities": [
+        "button.restart"
+      ],
+      "capabilitiesOptions": {
+        "button.restart": {
+          "maintenanceAction": true,
+          "title": {
+            "en": "Restart Device"
+          }
+        }
       },
       "pair": [
         {

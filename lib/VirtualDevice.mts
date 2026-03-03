@@ -201,9 +201,21 @@ export class VirtualDevice {
   }
 
   // TODO ensure this works with all channel types getChannel can return
-  async reboot(initialWaitTime = 1000, pingTime = 500): Promise<void> {
+  async reboot({ awaitRestart = true, initialWaitTime = 1000, pingTime = 500 } = {}): Promise<void> {
+    // TODO translate
+    await this.setUnavailable('Rebooting...');
     await Shelly.Reboot(this.httpChannel, { delay_ms: initialWaitTime });
     this.log('Rebooting...');
+    const restart = this.resolveReboot(initialWaitTime, pingTime).finally(async () => {
+      await this.setAvailable().catch(this.error);
+      // TODO re-establish inbound WS
+    });
+    if (awaitRestart) {
+      await restart;
+    }
+  }
+
+  async resolveReboot(initialWaitTime = 1000, pingTime = 500): Promise<void> {
     // Give the device time to shut down
     await new Promise(resolve => setTimeout(resolve, initialWaitTime));
     while (true) {
@@ -212,12 +224,16 @@ export class VirtualDevice {
         this.log('Finished rebooting');
         return;
       } catch (e) {
-        if (e instanceof RpcError && e.code === -109) {
+        if (
+          (e instanceof RpcError && e.code === -109) ||
+          (e as { cause: { code: string } }).cause?.code === 'UND_ERR_CONNECT_TIMEOUT'
+        ) {
           this.log('Still rebooting...');
           // Wait before trying again
           await new Promise(resolve => setTimeout(resolve, pingTime));
           continue;
         }
+        this.error('Error while rebooting:', e);
         throw e;
       }
     }
@@ -293,5 +309,21 @@ export class VirtualDevice {
     if (this.inboundWsChannel === undefined || this.inboundWsChannel.ws.readyState !== WebSocket.OPEN) {
       this.handleWsNotification(notification);
     }
+  }
+
+  async setUnavailable(message: string): Promise<void> {
+    const promises = [];
+    for (const homeyDevice of this.initializedHomeyDevices.values()) {
+      promises.push(homeyDevice.setUnavailable(message));
+    }
+    await Promise.all(promises);
+  }
+
+  async setAvailable(): Promise<void> {
+    const promises = [];
+    for (const homeyDevice of this.initializedHomeyDevices.values()) {
+      promises.push(homeyDevice.setAvailable());
+    }
+    await Promise.all(promises);
   }
 }
