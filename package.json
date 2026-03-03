@@ -13,7 +13,7 @@
     "prettier-check": "prettier . --check"
   },
   "dependencies": {
-    "@drenso/homey-log": "10.32.1",
+    "@drenso/homey-log": "10.4100.0",
     "homey-zigbeedriver": "2.2.15",
     "homey-zwavedriver": "2.2.1",
     "mitt": "^3.0.1",
