@@ -204,9 +204,8 @@ export class VirtualDevice {
   // TODO ensure this works with all channel types getChannel can return
   async reboot({ awaitRestart = true, initialWaitTime = 1000, pingTime = 500 } = {}): Promise<void> {
     // TODO translate
-    await this.setUnavailable('Rebooting...');
+    await this.setUnavailable('Restarting...');
     await Shelly.Reboot(this.httpChannel, { delay_ms: initialWaitTime });
-    this.log('Rebooting...');
     const restart = this.resolveReboot(initialWaitTime, pingTime).finally(async () => {
       await this.setAvailable().catch(this.error);
       // TODO re-establish inbound WS
@@ -290,6 +289,8 @@ export class VirtualDevice {
     for (const event of eventNotification.params.events) {
       if (event.event === 'config_changed') {
         await this.handleConfigChangedEvent(event.component).catch(this.error);
+      } else if (event.event === 'scheduled_restart') {
+        this.log('Device is restarting');
       } else {
         this.log('Unknown event:', event.event);
       }

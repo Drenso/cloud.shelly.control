@@ -99,7 +99,9 @@ export default class InboundWebsocketChannel implements RpcChannel {
           const result = json as ResponseSuccessFrame<object | null>;
           if (error.error !== undefined) {
             const { code, message } = error.error;
-            awaitingResponse.reject(new RpcError(code, message) as never);
+            const rpcError = new RpcError(code, message);
+            rpcError.stack = undefined;
+            awaitingResponse.reject(rpcError as never);
           } else {
             awaitingResponse.resolve(result as never);
           }
