@@ -11,7 +11,7 @@ import ResetCounters, {
 import type { RpcChannel } from '../../rpc/channel/RpcChannel.mjs';
 import type { ResponseSuccessFrame } from '../../rpc/Rpc.mjs';
 import capabilitiesOptions from './Switch/capabilitiesOptions.json' with { type: 'json' };
-import ShellyLocalDevice from '../../Device.mjs';
+import type ShellyLocalDevice from '../../Device.mjs';
 import type { ComponentMethod } from './Shelly/ListMethods.mjs';
 import { type RecursivePartial } from '../../util.mjs';
 

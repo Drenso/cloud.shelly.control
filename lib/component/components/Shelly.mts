@@ -17,7 +17,8 @@ import SetAuth from './Shelly/SetAuth.mjs';
 import PutUserCA from './Shelly/PutUserCA.mjs';
 import PutTLSClientCert from './Shelly/PutTLSClientCert.mjs';
 import PutTLSClientKey from './Shelly/PutTLSClientKey.mjs';
-import GetComponents from './Shelly/GetComponents.mjs';
+import GetComponents, { type ShellyGetComponentsResponseComponent } from './Shelly/GetComponents.mjs';
+import type { RpcChannel } from '../../rpc/channel/RpcChannel.mjs';
 
 /**
  * This service is common for all Gen2+ devices. It handles device management.
@@ -41,4 +42,19 @@ export default class Shelly extends Service {
   static PutTLSClientCert = PutTLSClientCert;
   static PutTLSClientKey = PutTLSClientKey;
   static GetComponents = GetComponents;
+
+  /**
+   * A utility function outside the RPC spec to collect the paginated results of GetComponents in a single array.
+   */
+  static async getAllComponents(channel: RpcChannel): Promise<ShellyGetComponentsResponseComponent[]> {
+    const components: ShellyGetComponentsResponseComponent[] = [];
+    while (true) {
+      const componentsResponse = await Shelly.GetComponents(channel, { offset: components.length });
+      components.push(...componentsResponse.result.components);
+      if (components.length >= componentsResponse.result.total) {
+        break;
+      }
+    }
+    return components;
+  }
 }

@@ -34,7 +34,7 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
   ): Promise<ShellyLocalListDeviceProperties[]> {
     const devices: ShellyLocalListDeviceProperties[] = [];
     for (const selectedDevice of selectedDevices) {
-      const components = await this.getDeviceComponents(selectedDevice.store.address);
+      const components = await Shelly.getAllComponents(new HttpChannel(selectedDevice.store.address));
       const homeyDevices = await this.assembleHomeyDevices(selectedDevice, components);
       const virtualDevice = await this.createVirtualDevice(selectedDevice, components, homeyDevices);
       await this.app.addVirtualDevice(virtualDevice);
@@ -98,18 +98,5 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
     }
 
     return results;
-  }
-
-  private async getDeviceComponents(ipAddress: string): Promise<ShellyGetComponentsResponseComponent[]> {
-    const httpChannel = new HttpChannel(ipAddress);
-    const components: ShellyGetComponentsResponseComponent[] = [];
-    while (true) {
-      const componentsResponse = await Shelly.GetComponents(httpChannel, { offset: components.length });
-      components.push(...componentsResponse.result.components);
-      if (components.length >= componentsResponse.result.total) {
-        break;
-      }
-    }
-    return components;
   }
 }
