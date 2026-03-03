@@ -8,7 +8,10 @@
       for (const device of result) {
         await Homey.createDevice(device);
       }
+      await Homey.emit('done');
     })
     .catch(err => Homey.alert(err))
-    .finally(() => Homey.done());
+    .finally(() => {
+      return Homey.done();
+    });
 </script>
