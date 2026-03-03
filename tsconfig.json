@@ -7,6 +7,6 @@
     "moduleResolution": "NodeNext",
     "target": "ES2022",
     "verbatimModuleSyntax": true,
-    "resolveJsonModule": true,
+    "resolveJsonModule": true
   }
 }
