@@ -10,7 +10,8 @@
     "locales-import": "homey-translation-helper import -l all",
     "validate": "homey app validate --level=verified",
     "prettier": "prettier . --write",
-    "prettier-check": "prettier . --check"
+    "prettier-check": "prettier . --check",
+    "interview-rpc": "tsx interview.mts"
   },
   "dependencies": {
     "@drenso/homey-log": "10.4300.0",

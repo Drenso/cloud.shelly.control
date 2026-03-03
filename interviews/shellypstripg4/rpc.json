@@ -1,18 +1,40 @@
 [
-  { "key": "ble", "status": {}, "config": { "enable": true, "rpc": { "enable": true } } },
+  {
+    "key": "ble",
+    "status": {},
+    "config": {
+      "enable": true,
+      "rpc": {
+        "enable": true
+      }
+    }
+  },
   {
     "key": "cloud",
-    "status": { "connected": true },
-    "config": { "enable": true, "server": "shelly-238-eu.shelly.cloud:6022/jrpc" }
+    "status": {
+      "connected": true
+    },
+    "config": {
+      "enable": true,
+      "server": "shelly-238-eu.shelly.cloud:6022/jrpc"
+    }
   },
   {
     "key": "knx",
     "status": {},
-    "config": { "enable": false, "ia": "15.15.255", "routing": { "addr": "224.0.23.12:3671" } }
+    "config": {
+      "enable": false,
+      "ia": "15.15.255",
+      "routing": {
+        "addr": "224.0.23.12:3671"
+      }
+    }
   },
   {
     "key": "mqtt",
-    "status": { "connected": false },
+    "status": {
+      "connected": false
+    },
     "config": {
       "enable": false,
       "server": null,
@@ -35,18 +57,46 @@
         "mode": "power",
         "colors": {
           "switch:0": {
-            "on": { "rgb": [0, 100, 0], "brightness": 100 },
-            "off": { "rgb": [100, 0, 0], "brightness": 100 }
+            "on": {
+              "rgb": [
+                0,
+                100,
+                0
+              ],
+              "brightness": 100
+            },
+            "off": {
+              "rgb": [
+                100,
+                0,
+                0
+              ],
+              "brightness": 100
+            }
           },
-          "power": { "brightness": 100 }
+          "power": {
+            "brightness": 100
+          }
         },
-        "night_mode": { "enable": false, "brightness": 100, "active_between": [] }
+        "night_mode": {
+          "enable": false,
+          "brightness": 100,
+          "active_between": []
+        }
       },
       "controls": {
-        "switch:0": { "in_mode": "momentary" },
-        "switch:1": { "in_mode": "momentary" },
-        "switch:2": { "in_mode": "momentary" },
-        "switch:3": { "in_mode": "momentary" }
+        "switch:0": {
+          "in_mode": "detached"
+        },
+        "switch:1": {
+          "in_mode": "momentary"
+        },
+        "switch:2": {
+          "in_mode": "momentary"
+        },
+        "switch:3": {
+          "in_mode": "momentary"
+        }
       }
     }
   },
@@ -54,20 +104,36 @@
     "key": "switch:0",
     "status": {
       "id": 0,
-      "source": "WS_in",
+      "source": "init",
       "tag": null,
       "output": false,
       "apower": 0,
-      "voltage": 230.6,
+      "voltage": 232.7,
       "freq": 50,
       "current": 0,
       "pf": 0,
-      "aenergy": { "total": 134.432, "by_minute": [0, 0, 0], "minute_ts": 1772466120 },
-      "ret_aenergy": { "total": 0, "by_minute": [0, 0, 0], "minute_ts": 1772466120 },
+      "aenergy": {
+        "total": 134.505,
+        "by_minute": [
+          0,
+          0,
+          0
+        ],
+        "minute_ts": 1772552820
+      },
+      "ret_aenergy": {
+        "total": 0,
+        "by_minute": [
+          0,
+          0,
+          0
+        ],
+        "minute_ts": 1772552820
+      },
       "counts": {
         "on_time": 2520,
         "on_time_rst_ts": 0,
-        "switch_on": 68,
+        "switch_on": 69,
         "switch_on_rst_ts": 0,
         "on_above_thr": 0,
         "on_above_thr_rst_ts": 0
@@ -86,27 +152,46 @@
       "autorecover_voltage_errors": false,
       "current_limit": 12,
       "reverse": false,
-      "counts": { "enable": true, "power_thr": 100 }
+      "counts": {
+        "enable": true,
+        "power_thr": 100
+      }
     }
   },
   {
     "key": "switch:1",
     "status": {
       "id": 1,
-      "source": "short_push",
+      "source": "WS_in",
       "tag": null,
       "output": false,
       "apower": 0,
-      "voltage": 230.7,
+      "voltage": 232.7,
       "freq": 50,
       "current": 0,
       "pf": 0,
-      "aenergy": { "total": 0, "by_minute": [0, 0, 0], "minute_ts": 1772466120 },
-      "ret_aenergy": { "total": 0, "by_minute": [0, 0, 0], "minute_ts": 1772466120 },
+      "aenergy": {
+        "total": 0.002,
+        "by_minute": [
+          0,
+          0,
+          0
+        ],
+        "minute_ts": 1772552820
+      },
+      "ret_aenergy": {
+        "total": 0.001,
+        "by_minute": [
+          0,
+          0,
+          0
+        ],
+        "minute_ts": 1772552820
+      },
       "counts": {
-        "on_time": 1620,
+        "on_time": 5940,
         "on_time_rst_ts": 0,
-        "switch_on": 23,
+        "switch_on": 31,
         "switch_on_rst_ts": 0,
         "on_above_thr": 0,
         "on_above_thr_rst_ts": 0
@@ -125,27 +210,46 @@
       "autorecover_voltage_errors": false,
       "current_limit": 12,
       "reverse": false,
-      "counts": { "enable": true, "power_thr": 100 }
+      "counts": {
+        "enable": true,
+        "power_thr": 100
+      }
     }
   },
   {
     "key": "switch:2",
     "status": {
       "id": 2,
-      "source": "short_push",
+      "source": "init",
       "tag": null,
       "output": false,
       "apower": 0,
-      "voltage": 228.9,
+      "voltage": 230.9,
       "freq": 50,
       "current": 0,
       "pf": 0,
-      "aenergy": { "total": 0, "by_minute": [0, 0, 0], "minute_ts": 1772466120 },
-      "ret_aenergy": { "total": 0, "by_minute": [0, 0, 0], "minute_ts": 1772466120 },
+      "aenergy": {
+        "total": 0,
+        "by_minute": [
+          0,
+          0,
+          0
+        ],
+        "minute_ts": 1772552820
+      },
+      "ret_aenergy": {
+        "total": 0,
+        "by_minute": [
+          0,
+          0,
+          0
+        ],
+        "minute_ts": 1772552820
+      },
       "counts": {
         "on_time": 244740,
         "on_time_rst_ts": 0,
-        "switch_on": 19,
+        "switch_on": 20,
         "switch_on_rst_ts": 0,
         "on_above_thr": 0,
         "on_above_thr_rst_ts": 0
@@ -164,27 +268,46 @@
       "autorecover_voltage_errors": false,
       "current_limit": 12,
       "reverse": false,
-      "counts": { "enable": true, "power_thr": 100 }
+      "counts": {
+        "enable": true,
+        "power_thr": 100
+      }
     }
   },
   {
     "key": "switch:3",
     "status": {
       "id": 3,
-      "source": "short_push",
+      "source": "init",
       "tag": null,
       "output": false,
       "apower": 0,
-      "voltage": 229,
+      "voltage": 231,
       "freq": 50,
       "current": 0,
       "pf": 0,
-      "aenergy": { "total": 0, "by_minute": [0, 0, 0], "minute_ts": 1772466120 },
-      "ret_aenergy": { "total": 0, "by_minute": [0, 0, 0], "minute_ts": 1772466120 },
+      "aenergy": {
+        "total": 0,
+        "by_minute": [
+          0,
+          0,
+          0
+        ],
+        "minute_ts": 1772552820
+      },
+      "ret_aenergy": {
+        "total": 0,
+        "by_minute": [
+          0,
+          0,
+          0
+        ],
+        "minute_ts": 1772552820
+      },
       "counts": {
         "on_time": 0,
         "on_time_rst_ts": 0,
-        "switch_on": 49,
+        "switch_on": 50,
         "switch_on_rst_ts": 0,
         "on_above_thr": 0,
         "on_above_thr_rst_ts": 0
@@ -203,7 +326,10 @@
       "autorecover_voltage_errors": false,
       "current_limit": 12,
       "reverse": false,
-      "counts": { "enable": true, "power_thr": 100 }
+      "counts": {
+        "enable": true,
+        "power_thr": 100
+      }
     }
   },
   {
@@ -211,16 +337,16 @@
     "status": {
       "mac": "7C2C6763F474",
       "restart_required": false,
-      "time": "16:42",
-      "unixtime": 1772466120,
-      "last_sync_ts": 1772465863,
-      "uptime": 605835,
-      "ram_size": 304828,
-      "ram_free": 66352,
-      "ram_min_free": 32552,
+      "time": "16:47",
+      "unixtime": 1772552832,
+      "last_sync_ts": 1772552350,
+      "uptime": 7648,
+      "ram_size": 304796,
+      "ram_free": 67220,
+      "ram_min_free": 47304,
       "fs_size": 917504,
       "fs_free": 462848,
-      "cfg_rev": 40,
+      "cfg_rev": 49,
       "kvs_rev": 0,
       "schedule_rev": 0,
       "webhook_rev": 0,
@@ -231,7 +357,7 @@
     },
     "config": {
       "device": {
-        "name": null,
+        "name": "Blabla",
         "mac": "7C2C6763F474",
         "fw_id": "20260210-090807/g2994994",
         "discoverable": true,
@@ -239,19 +365,36 @@
         "tls_check_cert_validity_time": true,
         "enhanced_security": false
       },
-      "location": { "tz": "Europe/Amsterdam", "lat": 52.2159, "lon": 6.9091 },
+      "location": {
+        "tz": "Europe/Amsterdam",
+        "lat": 52.2159,
+        "lon": 6.9091
+      },
       "debug": {
         "level": 2,
         "file_level": null,
-        "mqtt": { "enable": false },
-        "websocket": { "enable": false },
-        "file_log": { "enable": false },
-        "udp": { "addr": "35.205.173.252:8910" }
+        "mqtt": {
+          "enable": false
+        },
+        "websocket": {
+          "enable": false
+        },
+        "file_log": {
+          "enable": false
+        },
+        "udp": {
+          "addr": "35.205.173.252:8910"
+        }
       },
       "ui_data": {},
-      "rpc_udp": { "dst_addr": null, "listen_port": null },
-      "sntp": { "server": "time.cloudflare.com" },
-      "cfg_rev": 40
+      "rpc_udp": {
+        "dst_addr": null,
+        "listen_port": null
+      },
+      "sntp": {
+        "server": "time.cloudflare.com"
+      },
+      "cfg_rev": 49
     }
   },
   {
@@ -261,8 +404,11 @@
       "status": "got ip",
       "ssid": "DrensoDev",
       "bssid": "76:ac:b9:2c:8c:03",
-      "rssi": -40,
-      "sta_ip6": ["fe80::7e2c:67ff:fe63:f474", "fd03:8586:4012:ec48:7e2c:67ff:fe63:f474"]
+      "rssi": -38,
+      "sta_ip6": [
+        "fe80::7e2c:67ff:fe63:f474",
+        "fd03:8586:4012:ec48:7e2c:67ff:fe63:f474"
+      ]
     },
     "config": {
       "sta": {
@@ -285,13 +431,30 @@
         "gw": null,
         "nameserver": null
       },
-      "roam": { "rssi_thr": -80, "interval": 60 }
+      "roam": {
+        "rssi_thr": -80,
+        "interval": 60
+      }
     }
   },
   {
     "key": "ws",
-    "status": { "connected": false },
-    "config": { "enable": true, "server": "ws://192.168.123.103:6114", "ssl_ca": "ca.pem" }
+    "status": {
+      "connected": false
+    },
+    "config": {
+      "enable": true,
+      "server": "ws://192.168.222.182:6114",
+      "ssl_ca": "ca.pem"
+    }
   },
-  { "key": "zigbee", "status": { "network_state": "failed" }, "config": { "enable": true } }
+  {
+    "key": "zigbee",
+    "status": {
+      "network_state": "failed"
+    },
+    "config": {
+      "enable": true
+    }
+  }
 ]
