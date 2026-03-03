@@ -83,7 +83,9 @@ export default class InboundWebsocketChannel implements RpcChannel {
 
   disconnect(): void {
     this.eventEmitter.all.clear();
+    this.ws.removeAllListeners();
     this.ws.close();
+    this.log('WS closed');
   }
 
   private handleMessage(message: RawData): void {
