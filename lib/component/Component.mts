@@ -19,7 +19,7 @@ type ComponentSetConfigResponse = {
   restart_required: boolean;
 };
 
-export abstract class Component<Status extends object, Config extends object> {
+export abstract class Component<Status extends object, Config extends object, Settings extends object> {
   abstract readonly namespace: NameSpace;
 
   constructor(
@@ -45,20 +45,16 @@ export abstract class Component<Status extends object, Config extends object> {
 
   abstract onConfigUpdate(homeyDevice: ShellyLocalDevice, config: Config): Promise<void>;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  async handleSettings(homeyDevice: ShellyLocalDevice, event: SettingsEvent<any>): Promise<void | string> {}
-
-  static readonly createDevices: (
-    id: string,
-    component: ShellyGetComponentsResponseComponent,
-    devices: Map<string, ShellyLocalListDeviceProperties>,
-  ) => Map<string, ShellyLocalListDeviceProperties>;
+  async handleSettings(homeyDevice: ShellyLocalDevice, event: SettingsEvent<Settings>): Promise<boolean> {
+    return false;
+  }
 }
 
-export abstract class ComponentWithoutId<Status extends object, Config extends object> extends Component<
-  Status,
-  Config
-> {
+export abstract class ComponentWithoutId<
+  Status extends object,
+  Config extends object,
+  Settings extends object,
+> extends Component<Status, Config, Settings> {
   protected abstract _SetConfig: (
     channel: RpcChannel,
     params: ComponentSetConfigParams<Config>,
@@ -90,10 +86,11 @@ export abstract class ComponentWithoutId<Status extends object, Config extends o
   }
 }
 
-export abstract class ComponentWithId<Status extends object, Config extends { id: number }> extends Component<
-  Status,
-  Config
-> {
+export abstract class ComponentWithId<
+  Status extends object,
+  Config extends { id: number },
+  Settings extends object,
+> extends Component<Status, Config, Settings> {
   static uiName: string;
 
   protected abstract _SetConfig: (

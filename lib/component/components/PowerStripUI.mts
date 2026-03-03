@@ -91,7 +91,11 @@ export type PowerStripUIHomeySettings = {
 /**
  * The POWERSTRIP_UI component handles the settings of a PowerStrip Gen4 device's LEDs.
  */
-export default class PowerStripUI extends ComponentWithoutId<PowerStripUIStatus, PowerStripUIConfig> {
+export default class PowerStripUI extends ComponentWithoutId<
+  PowerStripUIStatus,
+  PowerStripUIConfig,
+  PowerStripUIHomeySettings
+> {
   protected _SetConfig = SetConfig;
   protected _GetConfig = GetConfig;
   protected _GetStatus = GetStatus;
@@ -151,10 +155,10 @@ export default class PowerStripUI extends ComponentWithoutId<PowerStripUIStatus,
     await homeyDevice.setSettings(changedSettings);
   }
 
-  async handleSettings<Settings extends PowerStripUIHomeySettings>(
+  async handleSettings(
     homeyDevice: ShellyLocalDevice,
-    { changedKeys, newSettings }: SettingsEvent<Settings>,
-  ): Promise<void | string> {
+    { changedKeys, newSettings }: SettingsEvent<PowerStripUIHomeySettings>,
+  ): Promise<boolean> {
     const changedConfigs: RecursivePartial<PowerStripUIConfig, AllowedPrimitives> = {};
     if (changedKeys.includes('POWERSTRIP_UI:leds.mode')) {
       const newSetting = newSettings['POWERSTRIP_UI:leds.mode'];
@@ -275,8 +279,11 @@ export default class PowerStripUI extends ComponentWithoutId<PowerStripUIStatus,
       deepAssign(changedConfigs, { controls: { [`switch:${switchId as 0 | 1 | 2 | 3}`]: { in_mode: newSetting } } });
     }
 
-    homeyDevice.log('New Settings:', JSON.stringify(changedConfigs));
-
-    await this.SetConfig(this.device.getChannel(), { config: changedConfigs });
+    if (Object.keys(changedConfigs).length > 0) {
+      const result = await this.SetConfig(this.device.getChannel(), { config: changedConfigs });
+      return result.result.restart_required;
+    } else {
+      return false;
+    }
   }
 }

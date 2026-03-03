@@ -79,8 +79,14 @@ export default class ShellyLocalDevice extends Homey.Device {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async onSettings(event: SettingsEvent<any>): Promise<string | void> {
+    let restartRequired = false;
     for (const virtualComponent of this.virtualComponents.values()) {
-      await virtualComponent.handleSettings(this, event);
+      restartRequired ||= await virtualComponent.handleSettings(this, event as never);
+    }
+    if (restartRequired) {
+      // TODO set devices unavailable?
+      // TODO translate
+      return 'The device needs to be restarted.';
     }
   }
 }

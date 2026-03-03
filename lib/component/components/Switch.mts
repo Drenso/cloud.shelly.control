@@ -1,4 +1,4 @@
-import { ComponentWithId } from '../Component.mjs';
+import { type AllowedPrimitives, ComponentWithId } from '../Component.mjs';
 import GetConfig from './Switch/GetConfig.mjs';
 import GetStatus from './Switch/GetStatus.mjs';
 import SetConfig from './Switch/SetConfig.mjs';
@@ -11,8 +11,9 @@ import ResetCounters, {
 import type { RpcChannel } from '../../rpc/channel/RpcChannel.mjs';
 import type { ResponseSuccessFrame } from '../../rpc/Rpc.mjs';
 import capabilitiesOptions from './Switch/capabilitiesOptions.json' with { type: 'json' };
-import type ShellyLocalDevice from '../../Device.mjs';
+import ShellyLocalDevice from '../../Device.mjs';
 import type { ComponentMethod } from './Shelly/ListMethods.mjs';
+import { type RecursivePartial } from '../../util.mjs';
 
 export type SwitchConfig = {
   // Identifier of the Switch component instance
@@ -141,10 +142,43 @@ export type SwitchStatus = {
   errors?: ('overtemp' | 'overpower' | 'overvoltage' | 'undervoltage')[];
 };
 
+export type SwitchHomeySettings = {
+  'Switch:in_mode': 'momentary' | 'follow' | 'flip' | 'detached' | 'cycle' | 'activate';
+  'Switch:in_locked': boolean;
+  'Switch:initial_state': 'off' | 'on' | 'restore_last' | 'match_input';
+  'Switch:auto_on': boolean;
+  'Switch:auto_on_delay': number;
+  'Switch:auto_off': boolean;
+  'Switch:auto_off_delay': number;
+  'Switch:autorecover_voltage_errors': boolean;
+  'Switch:input_id': '0' | '1';
+  'Switch:power_limit': number;
+  'Switch:voltage_limit': number;
+  'Switch:undervoltage_limit': number;
+  'Switch:current_limit': number;
+  'Switch:reverse': boolean;
+};
+
+const settingKeys = [
+  'in_mode',
+  'in_locked',
+  'initial_state',
+  'auto_on',
+  'auto_on_delay',
+  'auto_off',
+  'auto_off_delay',
+  'autorecover_voltage_errors',
+  'power_limit',
+  'voltage_limit',
+  'undervoltage_limit',
+  'current_limit',
+  'reverse',
+] as const satisfies (keyof SwitchConfig)[];
+
 /**
  * The Switch component handles a switch (relay) output terminal with optional power metering capabilities.
  */
-export default class Switch extends ComponentWithId<SwitchStatus, SwitchConfig> {
+export default class Switch extends ComponentWithId<SwitchStatus, SwitchConfig, SwitchHomeySettings> {
   protected _SetConfig = SetConfig;
   protected _GetConfig = GetConfig;
   protected _GetStatus = GetStatus;
@@ -240,7 +274,43 @@ export default class Switch extends ComponentWithId<SwitchStatus, SwitchConfig> 
   }
 
   async onConfigUpdate(homeyDevice: ShellyLocalDevice, config: SwitchConfig): Promise<void> {
-    // TODO update settings
+    const newSettings: RecursivePartial<SwitchHomeySettings, AllowedPrimitives> = {};
+    for (const settingKey of settingKeys) {
+      if (config[settingKey] !== undefined) {
+        newSettings[`Switch:${settingKey}`] = config[settingKey] as never;
+      }
+    }
+    if (config['input_id'] !== undefined) {
+      newSettings['Switch:input_id'] = `${config['input_id']}`;
+    }
+
+    await homeyDevice.setSettings(newSettings);
+  }
+
+  async handleSettings(
+    homeyDevice: ShellyLocalDevice,
+    { changedKeys, newSettings }: SettingsEvent<SwitchHomeySettings>,
+  ): Promise<boolean> {
+    const changedConfig: RecursivePartial<SwitchConfig, AllowedPrimitives> = {};
+
+    for (const settingKey of settingKeys) {
+      const homeySettingKey = `Switch:${settingKey}` as const;
+      if (changedKeys.includes(homeySettingKey)) {
+        changedConfig[settingKey] = newSettings[homeySettingKey] as never;
+      }
+    }
+
+    if (changedKeys.includes('Switch:input_id')) {
+      const newSetting = newSettings['Switch:input_id'];
+      changedConfig['input_id'] = parseInt(newSetting, 10) as 0 | 1;
+    }
+
+    if (Object.keys(changedConfig).length > 0) {
+      const result = await this.SetConfig(this.device.getChannel(), { config: changedConfig });
+      return result.result.restart_required;
+    } else {
+      return false;
+    }
   }
 
   async registerCapability(

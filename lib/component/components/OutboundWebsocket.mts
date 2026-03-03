@@ -22,7 +22,13 @@ export type OutboundWebsocketStatus = {
   connected: boolean;
 };
 
-export default class OutboundWebsocket extends ComponentWithoutId<OutboundWebsocketStatus, OutBoundWebsocketConfig> {
+export type OutboundWebsocketHomeySettings = Record<string, never>;
+
+export default class OutboundWebsocket extends ComponentWithoutId<
+  OutboundWebsocketStatus,
+  OutBoundWebsocketConfig,
+  OutboundWebsocketHomeySettings
+> {
   protected _SetConfig = SetConfig;
   protected _GetConfig = GetConfig;
   protected _GetStatus = GetStatus;
