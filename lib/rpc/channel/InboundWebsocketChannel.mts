@@ -23,7 +23,7 @@ type InboundWsChannelMittEvents = {
 // See example: https://github.com/home-assistant-libs/aioshelly/blob/main/aioshelly/rpc_device/wsrpc.py
 // TODO wss://
 export default class InboundWebsocketChannel implements RpcChannel {
-  public readonly ws: WebSocket;
+  public ws!: WebSocket;
 
   private readonly awaitingResponse = new Map<
     number,
@@ -36,10 +36,14 @@ export default class InboundWebsocketChannel implements RpcChannel {
     public readonly log: (...args: unknown[]) => void = console.log,
     public readonly error: (...args: unknown[]) => void = console.error,
   ) {
-    this.ws = new WebSocket(`ws://${address}/rpc`);
+    this.connect();
+  }
+
+  connect(): void {
+    this.ws = new WebSocket(`ws://${this.address}/rpc`);
 
     this.ws.on('open', async () => {
-      // Delay greeting to
+      // Delay greeting to allow some time for the device to be responsive
       await new Promise(resolve => setTimeout(resolve, GREETING_DELAY));
       // Send a message to enable receiving
       Shelly.GetDeviceInfo(this)
@@ -56,9 +60,25 @@ export default class InboundWebsocketChannel implements RpcChannel {
       this.error('WS error:', err.toString());
     });
     this.ws.on('close', () => {
-      // TODO handle
       this.log('WS closed');
+      this.reconnect();
     });
+  }
+
+  reconnect(): void {
+    if (this.ws.readyState === WebSocket.CONNECTING) {
+      this.log('Waiting for connection...');
+      return;
+    }
+    this.log('Reconnecting...');
+    try {
+      const oldWs = this.ws;
+      oldWs.removeAllListeners();
+      oldWs.close();
+    } catch (error) {
+      this.error('Error while closing old WS:', error);
+    }
+    this.connect();
   }
 
   disconnect(): void {
