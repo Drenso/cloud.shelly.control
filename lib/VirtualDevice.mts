@@ -194,7 +194,7 @@ export class VirtualDevice {
     return this.httpChannel;
   }
 
-  // TODO ensure this works with all channel types getChannel can return
+  // TODO ensure this works for battery/BLE devices
   async configureOutboundWebsocket(component: OutboundWebsocket): Promise<void> {
     const server = `ws://${await getIp(this.app.homey)}:${OUTBOUND_WS_PORT}`;
     if (component.config.enable && component.config.server === server) {
@@ -206,7 +206,7 @@ export class VirtualDevice {
     await this.reboot();
   }
 
-  // TODO ensure this works with all channel types getChannel can return
+  // TODO ensure this works for battery/BLE devices
   async reboot({
     awaitRestart = true,
     initialWaitTime = REBOOT_INITIAL_WAIT,

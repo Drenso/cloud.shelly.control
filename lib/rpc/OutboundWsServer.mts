@@ -13,6 +13,7 @@ export type WsMittEvents = {
   [src: string]: WsMessageEvent | WsClosedEvent;
 };
 
+// TODO enable wss and authentication
 export default class OutboundWsServer {
   outboundWsMitt = createMitt<WsMittEvents>();
 
