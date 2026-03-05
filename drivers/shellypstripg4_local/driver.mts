@@ -28,6 +28,7 @@ export default class ShellyGen4PowerStripDriver extends ShellyLocalDriver {
             parent: selectedDevice.data.id,
             subdevice_id: parseInt(componentId!, 10),
           },
+          icon: '../../../assets/drivers/shellypstripg4/icon.svg',
           store: {
             ...selectedDevice.store,
             components: [component.key],
