@@ -1,5 +1,5 @@
 import type { RpcChannel } from './RpcChannel.mjs';
-import mitt from 'mitt';
+import type mitt from 'mitt';
 import WebSocket from 'ws';
 import type { NotificationFrame, RequestFrame, ResponseErrorFrame, ResponseSuccessFrame } from '../Rpc.mjs';
 import { createMitt, type UnionToIntersection } from '../../util.mjs';

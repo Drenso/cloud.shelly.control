@@ -1,4 +1,5 @@
-import WebSocket, { type RawData, WebSocketServer } from 'ws';
+import type WebSocket from 'ws';
+import { type RawData, WebSocketServer } from 'ws';
 import { OUTBOUND_WS_PORT } from '../config.mjs';
 import type { NotificationFrame, UnknownFrame } from './Rpc.mjs';
 import { createMitt } from '../util.mjs';

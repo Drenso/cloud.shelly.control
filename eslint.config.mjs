@@ -20,6 +20,11 @@ export default tseslint.config(
         },
       ],
       '@typescript-eslint/no-unused-vars': 'warn',
+      '@typescript-eslint/consistent-type-imports': [
+        'error',
+        { prefer: 'type-imports', fixStyle: 'separate-type-imports' },
+      ],
+      '@typescript-eslint/no-import-type-side-effects': 'error',
       semi: [2, 'always'],
     },
   },

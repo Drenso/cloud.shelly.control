@@ -1,9 +1,9 @@
-import {
-  type NotificationFrame,
-  type RequestFrame,
-  type ResponseErrorFrame,
-  type ResponseSuccessFrame,
-  type UnknownFrame,
+import type {
+  NotificationFrame,
+  RequestFrame,
+  ResponseErrorFrame,
+  ResponseSuccessFrame,
+  UnknownFrame,
 } from '../Rpc.mjs';
 import type { RpcChannel } from './RpcChannel.mjs';
 import WebSocket, { type RawData } from 'ws';
