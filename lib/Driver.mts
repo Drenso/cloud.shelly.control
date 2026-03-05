@@ -92,6 +92,12 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
     const deviceInfoResponse = await Shelly.GetDeviceInfo(new HttpChannel(discoveryResult.address));
     const deviceInfo = deviceInfoResponse.result;
 
+    // Filter out devices that are already paired
+    if (this.app.virtualDevices.has(deviceInfo.id)) {
+      return undefined;
+    }
+
+    // Filter out devices that are not for this driver
     if (!(await this.onPairMatchDevice(deviceInfo))) {
       return undefined;
     }
