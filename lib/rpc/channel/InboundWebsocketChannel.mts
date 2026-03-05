@@ -12,7 +12,7 @@ import { RPC_SRC } from '../../config.mjs';
 import { createMitt } from '../../util.mjs';
 import Shelly from '../../component/components/Shelly.mjs';
 
-const GREETING_DELAY = 100;
+const GREETING_DELAY = 500;
 
 type InboundWsChannelMittEvents = {
   notification: NotificationFrame;
