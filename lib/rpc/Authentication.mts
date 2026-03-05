@@ -37,3 +37,21 @@ export class NoPassword extends Error {
     super('No password known');
   }
 }
+
+export class UnauthenticatedWS extends Error {
+  constructor(public readonly challenge: string) {
+    super('WS is unauthenticated');
+  }
+}
+
+export type WsAuthenticationChallenge = {
+  auth_type: 'digest';
+  nonce: string;
+  nc: 1;
+  realm: string;
+  algorithm: 'SHA-256';
+};
+
+export function parseWsChallenge(message: string): WsAuthenticationChallenge {
+  return JSON.parse(message) as WsAuthenticationChallenge;
+}

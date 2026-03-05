@@ -11,6 +11,7 @@ import { RpcError } from '../RpcError.mjs';
 import { RPC_SRC } from '../../config.mjs';
 import { createMitt } from '../../util.mjs';
 import RPC from '../../component/components/RPC.mjs';
+import { createAuthenticationResponse, NoPassword, parseWsChallenge, UnauthenticatedWS } from '../Authentication.mjs';
 
 const GREETING_DELAY = 500;
 
@@ -35,6 +36,7 @@ export default class InboundWebsocketChannel implements RpcChannel {
     public readonly address: string,
     public readonly log: (...args: unknown[]) => void = console.log,
     public readonly error: (...args: unknown[]) => void = console.error,
+    public password?: string,
   ) {
     this.connect();
   }
@@ -101,6 +103,12 @@ export default class InboundWebsocketChannel implements RpcChannel {
           const result = json as ResponseSuccessFrame<object | null>;
           if (error.error !== undefined) {
             const { code, message } = error.error;
+            if (code === 401) {
+              const authenticationError = new UnauthenticatedWS(message);
+              authenticationError.stack = undefined;
+              awaitingResponse.reject(authenticationError as never);
+              return;
+            }
             const rpcError = new RpcError(code, message);
             rpcError.stack = undefined;
             awaitingResponse.reject(rpcError as never);
@@ -123,8 +131,23 @@ export default class InboundWebsocketChannel implements RpcChannel {
     requestFrame: RequestFrame,
   ): Promise<ResponseSuccessFrame<Result>> {
     this.ws.send(JSON.stringify(requestFrame));
-    return new Promise((resolve, reject) => {
-      this.awaitingResponse.set(requestFrame.id as number, { resolve, reject });
-    });
+    try {
+      const response = await new Promise<ResponseSuccessFrame<Result>>((resolve, reject) => {
+        this.awaitingResponse.set(requestFrame.id as number, { resolve, reject });
+      });
+      return response;
+    } catch (error) {
+      // this.log(error instanceof UnauthenticatedWS, requestFrame.auth === undefined, error);
+      if (error instanceof UnauthenticatedWS && requestFrame.auth === undefined) {
+        if (this.password === undefined) {
+          throw new NoPassword();
+        }
+        const challenge = parseWsChallenge(error.challenge);
+        const authenticationResponse = createAuthenticationResponse(challenge.realm, challenge.nonce, this.password);
+        return this.sendRequestFrame({ ...requestFrame, auth: authenticationResponse });
+      } else {
+        throw error;
+      }
+    }
   }
 }
