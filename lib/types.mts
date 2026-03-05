@@ -3,9 +3,6 @@ import type { DiscoveryResultMDNSSD } from 'homey';
 export type ShellyLocalDeviceStore = {
   address: string;
   port: number;
-  host: string;
-  name: string;
-  txt: { ver: `${number}.${number}.${number}`; app: string; gen: `${number}` };
   components: string[];
 };
 

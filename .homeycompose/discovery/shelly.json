@@ -4,5 +4,5 @@
     "name": "shelly",
     "protocol": "tcp"
   },
-  "id": "{{host}}"
+  "id": "{{address}}"
 }

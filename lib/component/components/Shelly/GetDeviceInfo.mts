@@ -7,7 +7,7 @@ type ShellyGetDeviceInfoParams = {
 };
 
 // TODO make presence dependent on request ident param
-type ShellyGetDeviceInfoResponse = {
+export type ShellyGetDeviceInfoResponse = {
   // Identifier of the device
   id: string;
   // Mac address of the device
@@ -40,8 +40,8 @@ type ShellyGetDeviceInfoResponse = {
   fw_sbits?: string;
 
   // Undocumented
+  name: string | null;
   /*
-  name: null;
   slot: 0;
   selftest_skip: true;
   matter: false;

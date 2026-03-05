@@ -1,11 +1,12 @@
 import ShellyLocalDriver from '../../lib/Driver.mjs';
-import type { ShellyDiscoveryResult, ShellyLocalListDeviceProperties } from '../../lib/types.mjs';
+import type { ShellyLocalListDeviceProperties } from '../../lib/types.mjs';
 import type { ShellyGetComponentsResponseComponent } from '../../lib/component/components/Shelly/GetComponents.mjs';
 import Switch from '../../lib/component/components/Switch.mjs';
+import type { ShellyGetDeviceInfoResponse } from '../../lib/component/components/Shelly/GetDeviceInfo.mjs';
 
 export default class ShellyGen4PowerStripDriver extends ShellyLocalDriver {
-  async onPairMatchDevice(discoveryResult: ShellyDiscoveryResult): Promise<boolean> {
-    return discoveryResult.id.toLowerCase().startsWith('shellypstripg4');
+  async onPairMatchDevice(deviceInfo: ShellyGetDeviceInfoResponse): Promise<boolean> {
+    return deviceInfo.id.toLowerCase().startsWith('shellypstripg4');
   }
 
   async assembleHomeyDevices(

@@ -5,6 +5,7 @@ import type { ShellyDiscoveryResult, ShellyLocalListDeviceProperties } from './t
 import HttpChannel from './rpc/channel/HttpChannel.mjs';
 import type { ShellyGetComponentsResponseComponent } from './component/components/Shelly/GetComponents.mjs';
 import Shelly from './component/components/Shelly.mjs';
+import type { ShellyGetDeviceInfoResponse } from './component/components/Shelly/GetDeviceInfo.mjs';
 
 export default abstract class ShellyLocalDriver extends Homey.Driver {
   get app(): ShellyApp {
@@ -68,7 +69,7 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
     components: ShellyGetComponentsResponseComponent[],
   ): Promise<ShellyLocalListDeviceProperties[]>;
 
-  abstract onPairMatchDevice(discoveryResult: ShellyDiscoveryResult): Promise<boolean>;
+  abstract onPairMatchDevice(deviceInfo: ShellyGetDeviceInfoResponse): Promise<boolean>;
 
   async onPairListDevices(): Promise<ShellyLocalListDeviceProperties[]> {
     const results: ShellyLocalListDeviceProperties[] = [];
@@ -76,30 +77,28 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
     const discoveryStrategy = this.homey.discovery.getStrategy('shelly');
     const discoveryResults = discoveryStrategy.getDiscoveryResults();
 
-    this.log(JSON.stringify(discoveryResults));
+    for (const key in discoveryResults) {
+      const discoveryResult = discoveryResults[key] as ShellyDiscoveryResult;
+      const deviceInfoResponse = await Shelly.GetDeviceInfo(new HttpChannel(discoveryResult.address));
+      const deviceInfo = deviceInfoResponse.result;
 
-    for (const discoveryResultsKey in discoveryResults) {
-      const discoveryResult = discoveryResults[discoveryResultsKey] as ShellyDiscoveryResult;
-      if (!(await this.onPairMatchDevice(discoveryResult))) {
+      if (!(await this.onPairMatchDevice(deviceInfo))) {
         continue;
       }
-      const txt = discoveryResult.txt;
-      results.push({
-        name: discoveryResult.name,
+
+      const result = {
+        name: deviceInfo.name ?? deviceInfo.app,
         data: {
-          id: discoveryResult.id,
+          id: deviceInfo.id,
         },
         store: {
           address: discoveryResult.address,
           port: Number(discoveryResult.port),
-          host: discoveryResult.host,
-          name: discoveryResult.name,
-          txt: txt,
           components: [],
         },
-      });
+      };
+      results.push(result);
     }
-
     return results;
   }
 }
