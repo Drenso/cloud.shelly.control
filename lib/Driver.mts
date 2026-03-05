@@ -72,33 +72,36 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
   abstract onPairMatchDevice(deviceInfo: ShellyGetDeviceInfoResponse): Promise<boolean>;
 
   async onPairListDevices(): Promise<ShellyLocalListDeviceProperties[]> {
-    const results: ShellyLocalListDeviceProperties[] = [];
+    const results: Promise<ShellyLocalListDeviceProperties | undefined>[] = [];
 
     const discoveryStrategy = this.homey.discovery.getStrategy('shelly');
     const discoveryResults = discoveryStrategy.getDiscoveryResults();
 
     for (const key in discoveryResults) {
       const discoveryResult = discoveryResults[key] as ShellyDiscoveryResult;
-      const deviceInfoResponse = await Shelly.GetDeviceInfo(new HttpChannel(discoveryResult.address));
-      const deviceInfo = deviceInfoResponse.result;
-
-      if (!(await this.onPairMatchDevice(deviceInfo))) {
-        continue;
-      }
-
-      const result = {
-        name: deviceInfo.name ?? deviceInfo.app,
-        data: {
-          id: deviceInfo.id,
-        },
-        store: {
-          address: discoveryResult.address,
-          port: Number(discoveryResult.port),
-          components: [],
-        },
-      };
-      results.push(result);
+      results.push(this.getPairDevice(discoveryResult));
     }
-    return results;
+    return Promise.all(results).then(results => results.filter(result => result !== undefined));
+  }
+
+  async getPairDevice(discoveryResult: ShellyDiscoveryResult): Promise<ShellyLocalListDeviceProperties | undefined> {
+    const deviceInfoResponse = await Shelly.GetDeviceInfo(new HttpChannel(discoveryResult.address));
+    const deviceInfo = deviceInfoResponse.result;
+
+    if (!(await this.onPairMatchDevice(deviceInfo))) {
+      return undefined;
+    }
+
+    return {
+      name: deviceInfo.name ?? deviceInfo.app,
+      data: {
+        id: deviceInfo.id,
+      },
+      store: {
+        address: discoveryResult.address,
+        port: Number(discoveryResult.port),
+        components: [],
+      },
+    };
   }
 }
