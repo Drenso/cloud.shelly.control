@@ -215,27 +215,34 @@ export class VirtualDevice {
     }
   }
 
-  async resolveReboot(initialWaitTime = 1000, pingTime = 500): Promise<void> {
-    // Give the device time to shut down
-    await new Promise(resolve => setTimeout(resolve, initialWaitTime));
-    while (true) {
-      try {
-        await Shelly.GetDeviceInfo(this.httpChannel);
-        this.log('Finished rebooting');
-        return;
-      } catch (e) {
-        if (
-          (e instanceof RpcError && e.code === -109) ||
-          (e as { cause: { code: string } }).cause?.code === 'UND_ERR_CONNECT_TIMEOUT'
-        ) {
-          this.log('Still rebooting...');
-          // Wait before trying again
-          await new Promise(resolve => setTimeout(resolve, pingTime));
-          continue;
+  async resolveReboot(initialWaitTime = 1000, pingTime = 500, timeout = 30 * 1000): Promise<void> {
+    let timedOut = false;
+    const rebootTimeout = setTimeout(() => (timedOut = true), timeout);
+    try {
+      // Give the device time to shut down
+      await new Promise(resolve => setTimeout(resolve, initialWaitTime));
+      while (!timedOut) {
+        try {
+          await Shelly.GetDeviceInfo(this.httpChannel);
+          this.log('Finished rebooting');
+          return;
+        } catch (e) {
+          if (
+            (e instanceof RpcError && e.code === -109) ||
+            (e as { cause: { code: string } }).cause?.code === 'UND_ERR_CONNECT_TIMEOUT'
+          ) {
+            this.log('Still rebooting...');
+            // Wait before trying again
+            await new Promise(resolve => setTimeout(resolve, pingTime));
+            continue;
+          }
+          this.error('Error while rebooting:', e);
+          throw e;
         }
-        this.error('Error while rebooting:', e);
-        throw e;
       }
+      throw new Error('Reboot timed out');
+    } finally {
+      clearTimeout(rebootTimeout);
     }
   }
 
