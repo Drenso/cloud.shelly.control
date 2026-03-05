@@ -10,7 +10,7 @@ import WebSocket, { type RawData } from 'ws';
 import { RpcError } from '../RpcError.mjs';
 import { RPC_SRC } from '../../config.mjs';
 import { createMitt } from '../../util.mjs';
-import Shelly from '../../component/components/Shelly.mjs';
+import RPC from '../../component/components/RPC.mjs';
 
 const GREETING_DELAY = 500;
 
@@ -46,7 +46,7 @@ export default class InboundWebsocketChannel implements RpcChannel {
       // Delay greeting to allow some time for the device to be responsive
       await new Promise(resolve => setTimeout(resolve, GREETING_DELAY));
       // Send a message to enable receiving
-      Shelly.GetDeviceInfo(this)
+      RPC.Ping(this)
         .then(() => {
           this.log('Inbound WS greeting completed');
         })

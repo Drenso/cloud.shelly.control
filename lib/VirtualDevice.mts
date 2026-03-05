@@ -14,6 +14,7 @@ import { OUTBOUND_WS_PORT } from './config.mjs';
 import { RpcError } from './rpc/RpcError.mjs';
 import type { NotificationEventFrame, NotificationFrame, NotificationStatusFrame } from './rpc/Rpc.mjs';
 import type ShellyLocalDevice from './Device.mjs';
+import RPC from './component/components/RPC.mjs';
 
 const REBOOT_INITIAL_WAIT = 1000;
 const REBOOT_PING_TIME = 500;
@@ -231,7 +232,7 @@ export class VirtualDevice {
       await new Promise(resolve => setTimeout(resolve, initialWaitTime));
       while (!timedOut) {
         try {
-          await Shelly.GetDeviceInfo(this.httpChannel);
+          await RPC.Ping(this.httpChannel);
           this.log('Finished rebooting');
           return;
         } catch (e) {
