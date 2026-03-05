@@ -15,6 +15,10 @@ import { RpcError } from './rpc/RpcError.mjs';
 import type { NotificationEventFrame, NotificationFrame, NotificationStatusFrame } from './rpc/Rpc.mjs';
 import type ShellyLocalDevice from './Device.mjs';
 
+const REBOOT_INITIAL_WAIT = 1000;
+const REBOOT_PING_TIME = 500;
+const REBOOT_TIMEOUT = 30 * 1000;
+
 export type SerializedVirtualDevice = {
   readonly deviceId: string;
   readonly ipAddress: string;
@@ -202,7 +206,11 @@ export class VirtualDevice {
   }
 
   // TODO ensure this works with all channel types getChannel can return
-  async reboot({ awaitRestart = true, initialWaitTime = 1000, pingTime = 500 } = {}): Promise<void> {
+  async reboot({
+    awaitRestart = true,
+    initialWaitTime = REBOOT_INITIAL_WAIT,
+    pingTime = REBOOT_PING_TIME,
+  } = {}): Promise<void> {
     // TODO translate
     await this.setUnavailable('Restarting...');
     await Shelly.Reboot(this.httpChannel, { delay_ms: initialWaitTime });
@@ -215,7 +223,7 @@ export class VirtualDevice {
     }
   }
 
-  async resolveReboot(initialWaitTime = 1000, pingTime = 500, timeout = 30 * 1000): Promise<void> {
+  async resolveReboot(initialWaitTime: number, pingTime: number, timeout = REBOOT_TIMEOUT): Promise<void> {
     let timedOut = false;
     const rebootTimeout = setTimeout(() => (timedOut = true), timeout);
     try {
