@@ -1,22 +1,13 @@
 import type { RpcChannel } from './RpcChannel.mjs';
 import type { RequestFrame, ResponseErrorFrame, ResponseFrame, ResponseSuccessFrame } from '../Rpc.mjs';
 import { RpcError } from '../RpcError.mjs';
-import { hexHash, NoPassword } from '../Authentication.mjs';
+import { createAuthenticationResponse, NoPassword } from '../Authentication.mjs';
 
-type AuthenticationInfo = {
+type AuthenticationChallenge = {
   qop: 'auth' | 'auth-int';
   realm: string;
   nonce: string;
   algorithm: string;
-};
-
-type AuthenticationResponse = {
-  username: string;
-  nonce: string;
-  cnonce: string;
-  realm: string;
-  algorithm: string;
-  response: string;
 };
 
 export default class HttpChannel implements RpcChannel {
@@ -44,8 +35,12 @@ export default class HttpChannel implements RpcChannel {
       }
 
       const authenticationHeader = response.headers.get('WWW-Authenticate');
-      const authenticationInfo = this.parseAuthenticationHeader(authenticationHeader);
-      const authenticationResponse = this.createAuthenticationHeader(authenticationInfo, this.password);
+      const authenticationChallenge = this.parseAuthenticationHeader(authenticationHeader);
+      const authenticationResponse = createAuthenticationResponse(
+        authenticationChallenge.realm,
+        authenticationChallenge.nonce,
+        this.password,
+      );
       return this.sendRequestFrame({
         ...requestFrame,
         auth: authenticationResponse,
@@ -67,14 +62,14 @@ export default class HttpChannel implements RpcChannel {
     return result;
   }
 
-  parseAuthenticationHeader(header: string | null): AuthenticationInfo {
+  parseAuthenticationHeader(header: string | null): AuthenticationChallenge {
     if (header === null) {
       throw new Error('Expected WWW-Authenticate header for 401 response');
     }
 
     const headerWithoutDigest = header.slice(7);
     const headerParameterStrings = headerWithoutDigest.split(', ');
-    const info: Partial<AuthenticationInfo> = {};
+    const challenge: Partial<AuthenticationChallenge> = {};
     for (const parameterString of headerParameterStrings) {
       const [parameterName, parameterValueString] = parameterString.split('=');
       // Only some fields are quoted https://datatracker.ietf.org/doc/html/rfc7616#autoid-9
@@ -82,44 +77,25 @@ export default class HttpChannel implements RpcChannel {
         parameterValueString.startsWith('"') && parameterValueString.endsWith('"')
           ? parameterValueString.slice(1, -1)
           : parameterValueString;
-      info[parameterName as keyof AuthenticationInfo] = parameterValue as never;
+      challenge[parameterName as keyof AuthenticationChallenge] = parameterValue as never;
     }
 
-    if (info.qop !== 'auth') {
-      throw new Error(`Unexpected quality of protection value: ${info.qop}`);
+    if (challenge.qop !== 'auth') {
+      throw new Error(`Unexpected WWW-Authenticate header quality of protection value: ${challenge.qop}`);
     }
 
-    if (info.algorithm !== 'SHA-256') {
-      throw new Error(`Unexpected algorithm value: ${info.algorithm}`);
+    if (challenge.algorithm !== 'SHA-256') {
+      throw new Error(`Unexpected WWW-Authenticate header algorithm value: ${challenge.algorithm}`);
     }
 
-    if (info.nonce === undefined) {
-      throw new Error(`Unexpected nonce value: ${info.nonce}`);
+    if (challenge.nonce === undefined) {
+      throw new Error(`Unexpected WWW-Authenticate header nonce value: ${challenge.nonce}`);
     }
 
-    if (info.realm === undefined) {
-      throw new Error(`Unexpected realm value: ${info.realm}`);
+    if (challenge.realm === undefined) {
+      throw new Error(`Unexpected WWW-Authenticate header realm value: ${challenge.realm}`);
     }
 
-    return info as AuthenticationInfo;
-  }
-
-  createAuthenticationHeader(info: AuthenticationInfo, password: string): AuthenticationResponse {
-    const username = 'admin';
-    const cnonce = String(Math.floor(Math.random() * 10e8));
-
-    const ha1 = hexHash(`admin:${info.realm}:${password}`);
-    const ha2 = hexHash('dummy_method:dummy_uri');
-    const responseRaw = `${ha1}:${info.nonce}:1:${cnonce}:auth:${ha2}`;
-    const response = hexHash(responseRaw);
-
-    return {
-      username: username,
-      nonce: info.nonce,
-      cnonce: cnonce,
-      realm: info.realm,
-      algorithm: info.algorithm,
-      response: response,
-    };
+    return challenge as AuthenticationChallenge;
   }
 }
