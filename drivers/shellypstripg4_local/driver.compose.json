@@ -1,0 +1,12 @@
+{
+  "name": {
+    "en": "Power Strip 4 Gen4 - LAN"
+  },
+  "class": "socket",
+  "images": {
+    "small": "/assets/drivers/shellypstripg4/images/small.png",
+    "large": "/assets/drivers/shellypstripg4/images/large.png",
+    "xlarge": "/assets/drivers/shellypstripg4/images/xlarge.png"
+  },
+  "$extends": "local"
+}

@@ -71,6 +71,10 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
 
   abstract onPairMatchDevice(deviceInfo: ShellyGetDeviceInfoResponse): Promise<boolean>;
 
+  getDefaultName(): string {
+    return this.manifest.name.en.split('-')[0].trim();
+  }
+
   async onPairListDevices(): Promise<ShellyLocalListDeviceProperties[]> {
     const results: Promise<ShellyLocalListDeviceProperties | undefined>[] = [];
 
@@ -93,7 +97,7 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
     }
 
     return {
-      name: deviceInfo.name ?? deviceInfo.app,
+      name: deviceInfo.name ?? this.getDefaultName(),
       data: {
         id: deviceInfo.id,
       },

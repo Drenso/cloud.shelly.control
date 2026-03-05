@@ -1,7 +1,0 @@
-{
-  "name": {
-    "en": "PowerStrip 4 Gen4"
-  },
-  "class": "socket",
-  "$extends": "local"
-}

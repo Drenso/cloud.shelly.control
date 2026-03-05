@@ -56,11 +56,6 @@
       "connectivity": [
         "cloud"
       ],
-      "images": {
-        "small": "/drivers/gen4_power_strip/assets/images/small.png",
-        "large": "/drivers/gen4_power_strip/assets/images/large.png",
-        "xlarge": "/drivers/gen4_power_strip/assets/images/xlarge.png"
-      },
       "capabilities": [
         "button.restart"
       ],
@@ -92,10 +87,15 @@
         }
       ],
       "name": {
-        "en": "PowerStrip 4 Gen4"
+        "en": "Power Strip 4 Gen4 - LAN"
       },
       "class": "socket",
-      "id": "gen4_power_strip",
+      "images": {
+        "small": "/assets/drivers/shellypstripg4/images/small.png",
+        "large": "/assets/drivers/shellypstripg4/images/large.png",
+        "xlarge": "/assets/drivers/shellypstripg4/images/xlarge.png"
+      },
+      "id": "shellypstripg4_local",
       "settings": [
         {
           "id": "POWERSTRIP_UI:controls.switch.in_mode",
