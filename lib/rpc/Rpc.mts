@@ -20,6 +20,14 @@ export type RequestFrame = {
   method: string;
   // Parameters that the method takes (if any)
   params?: object;
+  auth?: {
+    username: string;
+    nonce: string;
+    cnonce: string;
+    realm: string;
+    algorithm: string;
+    response: string;
+  };
 };
 
 export type UnknownFrame = (ResponseFrame<object | null> | NotificationFrame) &
