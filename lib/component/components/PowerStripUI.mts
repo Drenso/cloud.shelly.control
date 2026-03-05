@@ -260,17 +260,16 @@ export default class PowerStripUI extends ComponentWithoutId<
         endMinutes >= 60;
 
       // Invalid argument 'night_mode.active_between': Time range must be between [00:00, 23:59]!
-      // TODO translate
       if (invalidStart && invalidEnd) {
-        throw new Error('Invalid Start Time and End Time for Indicator LED - Night Mode');
+        throw new Error(homeyDevice.homey.__('component.POWERSTRIP_UI.invalid_night_mode.start_and_end'));
       }
 
       if (invalidStart) {
-        throw new Error('Invalid Start Time for Indicator LED - Night Mode');
+        throw new Error(homeyDevice.homey.__('component.POWERSTRIP_UI.invalid_night_mode.start'));
       }
 
       if (invalidEnd) {
-        throw new Error('Invalid End Time for Indicator LED - Night Mode');
+        throw new Error(homeyDevice.homey.__('component.POWERSTRIP_UI.invalid_night_mode.end'));
       }
 
       deepAssign(changedConfigs, { leds: { night_mode: { active_between: [rawStart, rawEnd] } } });

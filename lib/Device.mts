@@ -10,12 +10,10 @@ export default class ShellyLocalDevice extends Homey.Device {
   virtualComponents = new Map<string, InstanceType<MappedComponent>>();
 
   async onInit(): Promise<void> {
-    // TODO translate
-    await this.setUnavailable('Initializing...');
+    await this.setUnavailable(this.homey.__('device.initializing'));
     this.registerCapabilityListener('button.restart', () => {
       if (this.virtualDevice === undefined) {
-        // TODO translate
-        throw new Error('Not connected to device');
+        throw new Error(this.homey.__('device.not_connected'));
       }
       return this.virtualDevice.reboot({ awaitRestart: false });
     });
@@ -97,8 +95,7 @@ export default class ShellyLocalDevice extends Homey.Device {
       restartRequired ||= await virtualComponent.handleSettings(this, event as never);
     }
     if (restartRequired) {
-      // TODO translate
-      return 'The device needs to be restarted.';
+      return this.homey.__('device.requires_restart');
     }
   }
 }

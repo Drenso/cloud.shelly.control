@@ -5,5 +5,20 @@
       "title": "Adding devices"
     },
     "loading_devices": "Assembling device information..."
+  },
+  "device": {
+    "initializing": "Initializing...",
+    "restarting": "Restarting...",
+    "not_connected": "Not connected to device",
+    "requires_restart": "The device needs to be restarted."
+  },
+  "component": {
+    "POWERSTRIP_UI": {
+      "invalid_night_mode": {
+        "start": "Invalid Start Time for Indicator LED - Night Mode",
+        "end": "Invalid End Time for Indicator LED - Night Mode",
+        "start_and_end": "Invalid Start Time and End Time for Indicator LED - Night Mode"
+      }
+    }
   }
 }

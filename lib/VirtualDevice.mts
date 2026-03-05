@@ -212,8 +212,7 @@ export class VirtualDevice {
     initialWaitTime = REBOOT_INITIAL_WAIT,
     pingTime = REBOOT_PING_TIME,
   } = {}): Promise<void> {
-    // TODO translate
-    await this.setUnavailable('Restarting...');
+    await this.setUnavailable(this.app.homey.__('device.restarting'));
     await Shelly.Reboot(this.httpChannel, { delay_ms: initialWaitTime });
     const restart = this.resolveReboot(initialWaitTime, pingTime).finally(async () => {
       await this.setAvailable().catch(this.error);
