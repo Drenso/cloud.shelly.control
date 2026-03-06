@@ -2,7 +2,6 @@ import type { RpcChannel } from './RpcChannel.mjs';
 import type { RequestFrame, ResponseErrorFrame, ResponseFrame, ResponseSuccessFrame } from '../Rpc.mjs';
 import { RpcError } from '../RpcError.mjs';
 import { createAuthenticationResponse, NoPassword } from '../Authentication.mjs';
-import Homey from 'homey';
 
 type AuthenticationChallenge = {
   qop: 'auth' | 'auth-int';
@@ -22,16 +21,11 @@ export class HttpError extends Error {
 export default class HttpChannel implements RpcChannel {
   constructor(
     public readonly address: string,
+    public readonly debug: (...args: unknown[]) => void,
     public ha1?: string,
   ) {}
 
   disconnect(): void {}
-
-  debug(...args: unknown[]): void {
-    if (Homey.env['DEBUG'] === '1') {
-      console.log('[dbg]', '[ShellyApp]', `[HttpChannel:${this.address}]`, ...args);
-    }
-  }
 
   async sendRequestFrame<Result extends object | null>(
     requestFrame: RequestFrame,

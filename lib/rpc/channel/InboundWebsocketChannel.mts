@@ -18,7 +18,6 @@ import {
   parseWsChallenge,
   UnauthenticatedWS,
 } from '../Authentication.mjs';
-import Homey from 'homey';
 
 const GREETING_DELAY = 500;
 
@@ -43,17 +42,12 @@ export default class InboundWebsocketChannel implements RpcChannel {
 
   constructor(
     public readonly address: string,
-    public readonly log: (...args: unknown[]) => void = console.log,
-    public readonly error: (...args: unknown[]) => void = console.error,
+    public readonly log: (...args: unknown[]) => void,
+    public readonly error: (...args: unknown[]) => void,
+    public readonly debug: (...args: unknown[]) => void,
     public ha1?: string,
   ) {
     this.connect();
-  }
-
-  debug(...args: unknown[]): void {
-    if (Homey.env['DEBUG'] === '1') {
-      console.log('[dbg]', '[ShellyApp]', `[InboundWS:${this.address}]`, ...args);
-    }
   }
 
   connect(): void {

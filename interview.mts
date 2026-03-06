@@ -8,7 +8,7 @@ const interviewsDir = '/interviews';
 
 const address = process.argv[2];
 // TODO add password
-const rpcChannel = new HttpChannel(address);
+const rpcChannel = new HttpChannel(address, console.log);
 
 const deviceInfo = await Shelly.GetDeviceInfo(rpcChannel);
 const deviceType = deviceInfo.result.id.split('-')[0];

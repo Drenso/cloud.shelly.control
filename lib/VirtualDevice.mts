@@ -1,8 +1,8 @@
 import type ShellyApp from '../app.mjs';
 import type { RpcChannel } from './rpc/channel/RpcChannel.mjs';
-import HttpChannel from './rpc/channel/HttpChannel.mjs';
-import InboundWebsocketChannel from './rpc/channel/InboundWebsocketChannel.mjs';
-import OutboundWebsocketChannel from './rpc/channel/OutboundWebsocketChannel.mjs';
+import type HttpChannel from './rpc/channel/HttpChannel.mjs';
+import type InboundWebsocketChannel from './rpc/channel/InboundWebsocketChannel.mjs';
+import type OutboundWebsocketChannel from './rpc/channel/OutboundWebsocketChannel.mjs';
 import WebSocket from 'ws';
 import { ComponentMapping, type MappedComponent } from './component/ComponentMapping.mjs';
 import type { ShellyGetComponentsResponseComponent } from './component/components/Shelly/GetComponents.mjs';
@@ -15,6 +15,7 @@ import { RpcError } from './rpc/RpcError.mjs';
 import type { NotificationEventFrame, NotificationFrame, NotificationStatusFrame } from './rpc/Rpc.mjs';
 import type ShellyLocalDevice from './Device.mjs';
 import RPC from './component/components/RPC.mjs';
+import { createHttpChannel, createInboundWsChannel, createOutboundWsChannel } from './HomeyRPCChannels.mjs';
 
 const REBOOT_INITIAL_WAIT = 1000;
 const REBOOT_PING_TIME = 500;
@@ -56,25 +57,16 @@ export class VirtualDevice {
 
     // Initialize channels
     {
-      this.httpChannel = new HttpChannel(ipAddress, this.ha1);
+      this.httpChannel = createHttpChannel(ipAddress, this.ha1);
 
-      this.inboundWsChannel = new InboundWebsocketChannel(
-        this.ipAddress,
-        (...args) => this.log(`[InboundWS:${this.ipAddress}]`, ...args),
-        (...args) => {
-          this.error(`[InboundWS:${this.ipAddress}]`, ...args);
-        },
-        this.ha1,
-      );
+      this.inboundWsChannel = createInboundWsChannel(this.ipAddress, this.log, this.error, this.ha1);
       this.inboundWsChannel.eventEmitter.on('notification', this.handleWsNotification.bind(this));
 
-      this.outboundWsChannel = new OutboundWebsocketChannel(
+      this.outboundWsChannel = createOutboundWsChannel(
         this.deviceId,
         this.app.outboundWsServer.outboundWsMitt,
-        (...args) => this.log(`[OutboundWS:${this.deviceId}]`, ...args),
-        (...args) => {
-          this.error(`[OutboundWS:${this.deviceId}]`, ...args);
-        },
+        this.log,
+        this.error,
       );
       this.outboundWsChannel.eventEmitter.on('notification', this.handleOutboundWsNotification.bind(this));
     }
