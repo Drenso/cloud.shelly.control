@@ -223,7 +223,7 @@ export default class Switch extends ComponentWithId<SwitchStatus, SwitchConfig, 
     await this.registerCapability(homeyDevice, 'aenergy', 'meter_power.consumed').catch(homeyDevice.error);
     await this.registerCapability(homeyDevice, 'ret_aenergy', 'meter_power.returned').catch(homeyDevice.error);
     await this.registerCapability(homeyDevice, 'aenergy', 'meter_power.total').catch(homeyDevice.error);
-    await this.registerCapability(homeyDevice, 'temperature', 'measure_temperature').catch(homeyDevice.error);
+    await this.registerCapability(homeyDevice, 'temperature', 'measure_temperature.switch').catch(homeyDevice.error);
     // TODO errors
 
     if (this.status['aenergy'] !== undefined || this.status['ret_aenergy'] !== undefined) {
@@ -269,7 +269,9 @@ export default class Switch extends ComponentWithId<SwitchStatus, SwitchConfig, 
       await homeyDevice.safeSetCapability('meter_power.returned', returnedEnergy / 1000);
       await homeyDevice.safeSetCapability('meter_power.total', absoluteEnergy / 1000);
     }
-    await this.updateMeasured(homeyDevice, status, 'temperature', 'measure_temperature');
+    if (status.temperature !== undefined) {
+      await homeyDevice.safeSetCapability('measure_temperature.switch', status.temperature.tC);
+    }
     // TODO errors
   }
 
