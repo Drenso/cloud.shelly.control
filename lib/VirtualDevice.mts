@@ -222,7 +222,6 @@ export class VirtualDevice {
     await Shelly.Reboot(this.httpChannel, { delay_ms: initialWaitTime });
     const restart = this.resolveReboot(initialWaitTime, pingTime).finally(async () => {
       await this.setAvailable().catch(this.error);
-      // TODO re-establish inbound WS
     });
     if (awaitRestart) {
       await restart;
