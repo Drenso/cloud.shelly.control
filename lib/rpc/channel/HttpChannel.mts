@@ -2,6 +2,7 @@ import type { RpcChannel } from './RpcChannel.mjs';
 import type { RequestFrame, ResponseErrorFrame, ResponseFrame, ResponseSuccessFrame } from '../Rpc.mjs';
 import { RpcError } from '../RpcError.mjs';
 import { createAuthenticationResponse, NoPassword } from '../Authentication.mjs';
+import Homey from 'homey';
 
 type AuthenticationChallenge = {
   qop: 'auth' | 'auth-int';
@@ -18,9 +19,16 @@ export default class HttpChannel implements RpcChannel {
 
   disconnect(): void {}
 
+  debug(...args: unknown[]): void {
+    if (Homey.env['DEBUG'] === '1') {
+      console.log('[dbg]', '[ShellyApp]', `[HttpChannel:${this.address}]`, ...args);
+    }
+  }
+
   async sendRequestFrame<Result extends object | null>(
     requestFrame: RequestFrame,
   ): Promise<ResponseSuccessFrame<Result>> {
+    this.debug('Sending', requestFrame.method);
     // TODO change to HTTPS
     const addressString = this.address;
     const response = await fetch(`http://${addressString}/rpc`, {
@@ -41,6 +49,7 @@ export default class HttpChannel implements RpcChannel {
         authenticationChallenge.nonce,
         this.ha1,
       );
+      this.debug('Resending', requestFrame.method, 'with auth');
       return this.sendRequestFrame({
         ...requestFrame,
         auth: authenticationResponse,

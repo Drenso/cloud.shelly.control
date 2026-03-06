@@ -5,6 +5,7 @@ import type { NotificationFrame, RequestFrame, ResponseErrorFrame, ResponseSucce
 import { createMitt, type UnionToIntersection } from '../../util.mjs';
 import { RpcError } from '../RpcError.mjs';
 import type { WsClosedEvent, WsMessageEvent, WsMittEvents } from '../OutboundWsServer.mjs';
+import Homey from 'homey';
 
 type OutboundWsChannelMittEvents = {
   notification: NotificationFrame;
@@ -38,6 +39,12 @@ export default class OutboundWebsocketChannel implements RpcChannel {
 
     this.boundHandler = this.handleMessage.bind(this);
     this.outboundWsMitt.on(this.identifier, this.boundHandler);
+  }
+
+  debug(...args: unknown[]): void {
+    if (Homey.env['DEBUG'] === '1') {
+      console.log('[dbg]', '[ShellyApp]', `[OutboundWS:${this.identifier}]`, ...args);
+    }
   }
 
   updateWs(ws: WebSocket): void {
@@ -105,6 +112,7 @@ export default class OutboundWebsocketChannel implements RpcChannel {
     requestFrame: RequestFrame,
   ): Promise<ResponseSuccessFrame<Result>> {
     const ws = await this.getWs();
+    this.debug('Sending', requestFrame.method);
     ws.send(JSON.stringify(requestFrame));
     return new Promise((resolve, reject) => {
       this.awaitingResponse.set(requestFrame.id as number, { resolve, reject });

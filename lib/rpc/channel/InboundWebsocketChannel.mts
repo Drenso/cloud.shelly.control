@@ -18,6 +18,7 @@ import {
   parseWsChallenge,
   UnauthenticatedWS,
 } from '../Authentication.mjs';
+import Homey from 'homey';
 
 const GREETING_DELAY = 500;
 
@@ -47,6 +48,12 @@ export default class InboundWebsocketChannel implements RpcChannel {
     public ha1?: string,
   ) {
     this.connect();
+  }
+
+  debug(...args: unknown[]): void {
+    if (Homey.env['DEBUG'] === '1') {
+      console.log('[dbg]', '[ShellyApp]', `[InboundWS:${this.address}]`, ...args);
+    }
   }
 
   connect(): void {
@@ -139,9 +146,11 @@ export default class InboundWebsocketChannel implements RpcChannel {
     requestFrame: RequestFrame,
   ): Promise<ResponseSuccessFrame<Result>> {
     if (this.auth !== undefined && this.ha1 !== undefined) {
+      this.debug('Sending', requestFrame.method, 'with auth');
       this.auth = createAuthenticationResponse(this.auth.realm, this.auth.nonce, this.ha1, ++this.nonce_count);
       this.ws.send(JSON.stringify({ ...requestFrame, auth: this.auth }));
     } else {
+      this.debug('Sending', requestFrame.method);
       this.ws.send(JSON.stringify(requestFrame));
     }
     return new Promise<ResponseSuccessFrame<Result>>((resolve, reject) => {
