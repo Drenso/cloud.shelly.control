@@ -1,0 +1,290 @@
+[
+  {
+    "key": "ble",
+    "status": {},
+    "config": {
+      "enable": true,
+      "rpc": {
+        "enable": true
+      }
+    }
+  },
+  {
+    "key": "bthome",
+    "status": {},
+    "config": {}
+  },
+  {
+    "key": "cloud",
+    "status": {
+      "connected": true
+    },
+    "config": {
+      "enable": true,
+      "server": "shelly-238-eu.shelly.cloud:6022/jrpc"
+    }
+  },
+  {
+    "key": "humidity:100",
+    "status": {
+      "id": 100,
+      "rh": null,
+      "errors": [
+        "read"
+      ]
+    },
+    "config": {
+      "id": 100,
+      "name": null,
+      "report_thr": 1,
+      "offset": 0
+    }
+  },
+  {
+    "key": "input:0",
+    "status": {
+      "id": 0,
+      "state": false
+    },
+    "config": {
+      "id": 0,
+      "name": null,
+      "type": "switch",
+      "enable": true,
+      "invert": false,
+      "factory_reset": true
+    }
+  },
+  {
+    "key": "knx",
+    "status": {},
+    "config": {
+      "enable": false,
+      "ia": "15.15.255",
+      "routing": {
+        "addr": "224.0.23.12:3671"
+      }
+    }
+  },
+  {
+    "key": "matter",
+    "status": {
+      "num_fabrics": 0,
+      "commissionable": false
+    },
+    "config": {
+      "enable": false
+    }
+  },
+  {
+    "key": "modbus",
+    "status": {},
+    "config": {
+      "enable": true
+    }
+  },
+  {
+    "key": "mqtt",
+    "status": {
+      "connected": false
+    },
+    "config": {
+      "enable": false,
+      "server": null,
+      "client_id": "shelly1g4-a085e3bc9b18",
+      "user": null,
+      "ssl_ca": null,
+      "topic_prefix": "shelly1g4-a085e3bc9b18",
+      "rpc_ntf": true,
+      "status_ntf": false,
+      "use_client_cert": false,
+      "enable_rpc": true,
+      "enable_control": true
+    }
+  },
+  {
+    "key": "switch:0",
+    "status": {
+      "id": 0,
+      "source": "init",
+      "output": false,
+      "temperature": {
+        "tC": 42.3,
+        "tF": 108.1
+      }
+    },
+    "config": {
+      "id": 0,
+      "name": null,
+      "in_mode": "follow",
+      "in_locked": false,
+      "initial_state": "match_input",
+      "auto_on": false,
+      "auto_on_delay": 60,
+      "auto_off": false,
+      "auto_off_delay": 60
+    },
+    "attrs": {
+      "inputs": [
+        0
+      ]
+    }
+  },
+  {
+    "key": "sys",
+    "status": {
+      "mac": "A085E3BC9B18",
+      "restart_required": false,
+      "time": "14:10",
+      "unixtime": 1772802605,
+      "last_sync_ts": 1772802310,
+      "uptime": 300,
+      "ram_size": 359308,
+      "ram_free": 181536,
+      "ram_min_free": 169648,
+      "fs_size": 917504,
+      "fs_free": 450560,
+      "cfg_rev": 11,
+      "kvs_rev": 0,
+      "schedule_rev": 0,
+      "webhook_rev": 0,
+      "btrelay_rev": 0,
+      "available_updates": {
+        "beta": {
+          "version": "1.7.5-beta1"
+        },
+        "stable": {
+          "version": "1.7.4"
+        }
+      },
+      "alt": {
+        "S1G4ZB": {
+          "name": "Shelly 1 Gen4",
+          "desc": "Shelly 1 with Zigbee",
+          "beta": {
+            "version": "1.7.5-beta1",
+            "build_id": "20260226-111110/1.7.5-beta1-gf460490"
+          },
+          "stable": {
+            "version": "1.7.4",
+            "build_id": "20260120-145244/1.7.4-gf9878b6"
+          }
+        }
+      },
+      "reset_reason": 1,
+      "utc_offset": 3600
+    },
+    "config": {
+      "device": {
+        "name": null,
+        "mac": "A085E3BC9B18",
+        "fw_id": "20250508-110744/1.6.1-g8dbd358",
+        "discoverable": true,
+        "eco_mode": false,
+        "addon_type": "sensor"
+      },
+      "location": {
+        "tz": "Europe/Amsterdam",
+        "lat": 52.2159,
+        "lon": 6.9091
+      },
+      "debug": {
+        "level": 2,
+        "file_level": null,
+        "mqtt": {
+          "enable": false
+        },
+        "websocket": {
+          "enable": false
+        },
+        "udp": {
+          "addr": null
+        }
+      },
+      "ui_data": {},
+      "rpc_udp": {
+        "dst_addr": null,
+        "listen_port": null
+      },
+      "sntp": {
+        "server": "time.cloudflare.com"
+      },
+      "cfg_rev": 11
+    }
+  },
+  {
+    "key": "temperature:100",
+    "status": {
+      "id": 100,
+      "tC": null,
+      "tF": null,
+      "errors": [
+        "read"
+      ]
+    },
+    "config": {
+      "id": 100,
+      "name": null,
+      "report_thr_C": 0.1,
+      "offset_C": 0
+    }
+  },
+  {
+    "key": "wifi",
+    "status": {
+      "sta_ip": "192.168.222.139",
+      "status": "got ip",
+      "ssid": "DrensoDev",
+      "rssi": -41,
+      "sta_ip6": [
+        "fe80::a285:e3ff:febc:9b18",
+        "fd03:8586:4012:ec48:a285:e3ff:febc:9b18"
+      ]
+    },
+    "config": {
+      "ap": {
+        "ssid": "Shelly1G4-A085E3BC9B18",
+        "is_open": true,
+        "enable": true,
+        "range_extender": {
+          "enable": false
+        }
+      },
+      "sta": {
+        "ssid": "DrensoDev",
+        "is_open": false,
+        "enable": true,
+        "ipv4mode": "dhcp",
+        "ip": null,
+        "netmask": null,
+        "gw": null,
+        "nameserver": null
+      },
+      "sta1": {
+        "ssid": null,
+        "is_open": true,
+        "enable": false,
+        "ipv4mode": "dhcp",
+        "ip": null,
+        "netmask": null,
+        "gw": null,
+        "nameserver": null
+      },
+      "roam": {
+        "rssi_thr": -80,
+        "interval": 60
+      }
+    }
+  },
+  {
+    "key": "ws",
+    "status": {
+      "connected": false
+    },
+    "config": {
+      "enable": false,
+      "server": null,
+      "ssl_ca": "*"
+    }
+  }
+]
