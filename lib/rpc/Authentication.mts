@@ -1,21 +1,28 @@
 import crypto from 'crypto';
 
-type AuthenticationResponse = {
+export type AuthenticationResponse = {
   username: string;
   nonce: string;
   cnonce: string;
   realm: string;
   algorithm: string;
   response: string;
+  nc: string;
 };
 
-export function createAuthenticationResponse(realm: string, nonce: string, password: string): AuthenticationResponse {
+export function createAuthenticationResponse(
+  realm: string,
+  nonce: string,
+  password: string,
+  nonce_count = 1,
+): AuthenticationResponse {
   const username = 'admin';
   const cnonce = String(Math.floor(Math.random() * 10e8));
 
   const ha1 = hexHash(`admin:${realm}:${password}`);
   const ha2 = hexHash('dummy_method:dummy_uri');
-  const responseRaw = `${ha1}:${nonce}:1:${cnonce}:auth:${ha2}`;
+  const nc = nonce_count.toString(16).padStart(8, '0');
+  const responseRaw = `${ha1}:${nonce}:${nc}:${cnonce}:auth:${ha2}`;
   const response = hexHash(responseRaw);
 
   return {
@@ -25,6 +32,7 @@ export function createAuthenticationResponse(realm: string, nonce: string, passw
     realm: realm,
     algorithm: 'SHA-256',
     response: response,
+    nc: nc,
   };
 }
 
@@ -47,7 +55,7 @@ export class UnauthenticatedWS extends Error {
 export type WsAuthenticationChallenge = {
   auth_type: 'digest';
   nonce: string;
-  nc: 1;
+  nc: number;
   realm: string;
   algorithm: 'SHA-256';
 };
