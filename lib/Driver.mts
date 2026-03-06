@@ -2,7 +2,7 @@ import Homey from 'homey';
 import { VirtualDevice } from './VirtualDevice.mjs';
 import type ShellyApp from '../app.mjs';
 import type { ShellyDiscoveryResult, ShellyLocalListDeviceProperties } from './types.mjs';
-import HttpChannel from './rpc/channel/HttpChannel.mjs';
+import HttpChannel, { HttpError } from './rpc/channel/HttpChannel.mjs';
 import type { ShellyGetComponentsResponseComponent } from './component/components/Shelly/GetComponents.mjs';
 import Shelly from './component/components/Shelly.mjs';
 import type { ShellyGetDeviceInfoResponse } from './component/components/Shelly/GetDeviceInfo.mjs';
@@ -12,26 +12,44 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
     return this.homey.app as ShellyApp;
   }
 
+  // TODO refactor
   async onPair(session: Homey.Driver.PairSession): Promise<void> {
     let selectedDevices: ShellyLocalListDeviceProperties[] = [];
     const deviceComponents = new Map<string, ShellyGetComponentsResponseComponent[]>();
     const childHomeyDevices = new Map<string, ShellyLocalListDeviceProperties[]>();
     const allHomeyDevices: ShellyLocalListDeviceProperties[] = [];
+    let authenticationDevice: ShellyLocalListDeviceProperties;
+    let resolveAuthentication: ((password: string) => void) | undefined;
+    let rejectAuthentication: ((reason?: unknown) => void) | undefined;
+    let authenticationPromise: Promise<string>;
+
     await super.onPair(session);
     session.setHandler('list_devices_selection', async (data: ShellyLocalListDeviceProperties[]) => {
       selectedDevices = data;
     });
     session.setHandler('showView', async (view: string) => {
-      if (view === 'load_subdevices') {
-        for (const selectedDevice of selectedDevices) {
-          // TODO add password
-          const components = await Shelly.getAllComponents(new HttpChannel(selectedDevice.store.address));
-          const homeyDevices = await this.assembleHomeyDevices(selectedDevice, components);
-          allHomeyDevices.push(...homeyDevices);
-          deviceComponents.set(selectedDevice.data.id, components);
-          childHomeyDevices.set(selectedDevice.data.id, homeyDevices);
+      if (view === 'authenticate_devices') {
+        for (authenticationDevice of selectedDevices) {
+          if (authenticationDevice.store.auth_domain !== undefined) {
+            authenticationPromise = new Promise((resolve, reject) => {
+              resolveAuthentication = resolve;
+              rejectAuthentication = reject;
+            });
+            await session.showView('device_password');
+            await session.emit('credentials_device', {
+              title: authenticationDevice.name,
+              id: authenticationDevice.data.id,
+            });
+            authenticationDevice.store.ha1 = await authenticationPromise;
+          } else {
+            const components = await Shelly.getAllComponents(new HttpChannel(authenticationDevice.store.address));
+            const homeyDevices = await this.assembleHomeyDevices(authenticationDevice, components);
+            allHomeyDevices.push(...homeyDevices);
+            deviceComponents.set(authenticationDevice.data.id, components);
+            childHomeyDevices.set(authenticationDevice.data.id, homeyDevices);
+          }
         }
-        await session.showView('add_subdevices').catch(this.error);
+        await session.showView('add_subdevices');
       }
     });
     session.setHandler('add_subdevices', async () => {
@@ -44,6 +62,29 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
         const homeyDevices = childHomeyDevices.get(selectedDevice.data.id)!;
         const virtualDevice = await this.createVirtualDevice(selectedDevice, components, homeyDevices);
         await this.app.addVirtualDevice(virtualDevice);
+      }
+    });
+    session.setHandler('disconnect', async () => {
+      rejectAuthentication?.('session disconnected');
+    });
+    session.setHandler('credentials', async (ha1: string) => {
+      if (resolveAuthentication === undefined) {
+        throw new Error('No device being authenticated');
+      }
+      try {
+        const components = await Shelly.getAllComponents(new HttpChannel(authenticationDevice.store.address, ha1));
+        const homeyDevices = await this.assembleHomeyDevices(authenticationDevice, components);
+        allHomeyDevices.push(...homeyDevices);
+        deviceComponents.set(authenticationDevice.data.id, components);
+        childHomeyDevices.set(authenticationDevice.data.id, homeyDevices);
+        resolveAuthentication(ha1);
+        return true;
+      } catch (err) {
+        if (err instanceof HttpError && err.code === 401) {
+          return false;
+        } else {
+          throw err;
+        }
       }
     });
   }
@@ -61,6 +102,7 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
       selectedDevice.store.address,
       componentKeys,
       homeyDeviceIds,
+      selectedDevice.store.ha1,
       components,
     );
   }
@@ -112,6 +154,7 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
         address: discoveryResult.address,
         port: Number(discoveryResult.port),
         components: [],
+        auth_domain: deviceInfo.auth_domain ?? undefined,
       },
     };
   }

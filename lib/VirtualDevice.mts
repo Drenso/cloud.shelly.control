@@ -20,11 +20,13 @@ const REBOOT_INITIAL_WAIT = 1000;
 const REBOOT_PING_TIME = 500;
 const REBOOT_TIMEOUT = 30 * 1000;
 
+// TODO password change
 export type SerializedVirtualDevice = {
   readonly deviceId: string;
   readonly ipAddress: string;
   readonly components: readonly string[];
   readonly homeyDeviceIds: readonly string[];
+  readonly ha1: string | undefined;
 };
 
 export class VirtualDevice {
@@ -45,6 +47,7 @@ export class VirtualDevice {
     private ipAddress: string,
     private readonly components: readonly string[],
     private homeyDeviceIds: string[],
+    private ha1: string | undefined,
     // Allow passing these in the pairing flow so we do not need to retrieve them twice
     componentResponses?: ShellyGetComponentsResponseComponent[],
   ) {
@@ -53,7 +56,7 @@ export class VirtualDevice {
 
     // Initialize channels
     {
-      this.httpChannel = new HttpChannel(ipAddress);
+      this.httpChannel = new HttpChannel(ipAddress, this.ha1);
 
       this.inboundWsChannel = new InboundWebsocketChannel(
         this.ipAddress,
@@ -61,6 +64,7 @@ export class VirtualDevice {
         (...args) => {
           this.error(`[InboundWS:${this.ipAddress}]`, ...args);
         },
+        this.ha1,
       );
       this.inboundWsChannel.eventEmitter.on('notification', this.handleWsNotification.bind(this));
 
@@ -89,6 +93,7 @@ export class VirtualDevice {
       ipAddress: this.ipAddress,
       components: this.components,
       homeyDeviceIds: this.homeyDeviceIds,
+      ha1: this.ha1,
     };
   }
 

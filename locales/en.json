@@ -11,8 +11,7 @@
       "validating": "Validating credentials...",
       "invalid": "Invalid password"
     },
-    "loading_devices": "Assembling device information...",
-    "authenticate_devices": "Authenticating with devices..."
+    "loading_devices": "Assembling device information..."
   },
   "device": {
     "initializing": "Initializing...",

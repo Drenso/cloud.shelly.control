@@ -4,7 +4,8 @@ export type ShellyLocalDeviceStore = {
   address: string;
   port: number;
   components: string[];
-  passwordProtected: boolean;
+  auth_domain?: string;
+  ha1?: string;
 };
 
 export type ShellyLocalDeviceData = {

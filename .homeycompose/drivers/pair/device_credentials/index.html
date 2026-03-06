@@ -111,7 +111,7 @@
       const ha1 = await ha1Digest(deviceId, password);
       const valid = await Homey.emit("credentials", ha1);
       if (valid) {
-        await Homey.showView("authenticate_more_devices")
+        await Homey.showView("loading_devices")
       } else {
         Homey.error(Homey.__('pair.device_credentials.invalid'))
         Homey.hideLoadingOverlay();

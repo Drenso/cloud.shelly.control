@@ -72,15 +72,25 @@
           "id": "list_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "load_subdevices"
+            "next": "authenticate_devices"
           }
         },
         {
-          "id": "load_subdevices",
+          "id": "authenticate_devices",
           "template": "loading",
           "options": {
             "text": "pair.loading_devices"
           }
+        },
+        {
+          "id": "loading_devices",
+          "template": "loading",
+          "options": {
+            "text": "pair.loading_devices"
+          }
+        },
+        {
+          "id": "device_password"
         },
         {
           "id": "add_subdevices"

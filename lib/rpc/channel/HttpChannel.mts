@@ -11,6 +11,14 @@ type AuthenticationChallenge = {
   algorithm: string;
 };
 
+export class HttpError extends Error {
+  readonly code: number;
+  constructor(code: number, message: string) {
+    super(message);
+    this.code = code;
+  }
+}
+
 export default class HttpChannel implements RpcChannel {
   constructor(
     public readonly address: string,
@@ -28,13 +36,18 @@ export default class HttpChannel implements RpcChannel {
   async sendRequestFrame<Result extends object | null>(
     requestFrame: RequestFrame,
   ): Promise<ResponseSuccessFrame<Result>> {
-    this.debug('Sending', requestFrame.method);
+    if (requestFrame.auth === undefined) {
+      this.debug(`Sending ${requestFrame.id}:`, requestFrame.method);
+    } else {
+      this.debug(`Resending ${requestFrame.id} with auth:`, requestFrame.method);
+    }
     // TODO change to HTTPS
     const addressString = this.address;
     const response = await fetch(`http://${addressString}/rpc`, {
       method: 'POST',
       body: JSON.stringify(requestFrame),
     });
+    // this.debug(`Response ${requestFrame.id}:`, response);
 
     if (response.status === 401 && requestFrame.auth === undefined) {
       // We need to re-send authenticated with the given authentication information
@@ -49,7 +62,6 @@ export default class HttpChannel implements RpcChannel {
         authenticationChallenge.nonce,
         this.ha1,
       );
-      this.debug('Resending', requestFrame.method, 'with auth');
       return this.sendRequestFrame({
         ...requestFrame,
         auth: authenticationResponse,
@@ -57,7 +69,7 @@ export default class HttpChannel implements RpcChannel {
     }
 
     if (response.status !== 200) {
-      throw new Error(response.statusText);
+      throw new HttpError(response.status, response.statusText);
     }
 
     // TODO create a reusable method that handles errors properly
