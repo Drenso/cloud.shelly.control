@@ -75,13 +75,9 @@ export class VirtualDevice {
       this.outboundWsChannel.eventEmitter.on('notification', this.handleOutboundWsNotification.bind(this));
     }
 
-    this.initialize(componentResponses)
-      .then(() => {
-        this.log('Initialized');
-      })
-      .catch(err => {
-        this.error('Error while initializing components:', err);
-      });
+    this.initialize(componentResponses).catch(err => {
+      this.error('Error while initializing components:', err);
+    });
   }
 
   public readonly log: (...args: unknown[]) => void;
@@ -165,9 +161,14 @@ export class VirtualDevice {
       initializers.push(homeyDevice.initializeShelly(this, methodMapping));
     }
     this.homeyDeviceIds = [...this.initializedHomeyDevices.keys()];
-    await this.app.updateVirtualDevice(this);
     this.log(this.homeyDeviceIds.length, 'children found again');
-    await Promise.all(initializers);
+    if (this.homeyDeviceIds.length === 0) {
+      await this.uninitialize();
+    } else {
+      await this.app.updateVirtualDevice(this);
+      await Promise.all(initializers);
+      this.log('Initialized');
+    }
   }
 
   private async retrieveComponents(): Promise<ShellyGetComponentsResponseComponent[]> {
