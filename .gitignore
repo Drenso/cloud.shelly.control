@@ -8,5 +8,5 @@
 translations-in.csv
 translations-out.csv
 
-/lib/component/*/examples/
+/lib/component/**/examples/
 /drivers/*/pair/
