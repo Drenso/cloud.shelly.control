@@ -46,6 +46,14 @@ export default class HttpChannel implements RpcChannel {
     const response = await fetch(`http://${addressString}/rpc`, {
       method: 'POST',
       body: JSON.stringify(requestFrame),
+    }).catch(err => {
+      if (err instanceof TypeError) {
+        const wrappedError = (err as unknown as { cause: Error }).cause;
+        wrappedError.stack = err.stack;
+        throw wrappedError;
+      } else {
+        throw err;
+      }
     });
     // this.debug(`Response ${requestFrame.id}:`, response);
 
