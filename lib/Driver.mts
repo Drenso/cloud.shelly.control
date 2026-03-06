@@ -24,6 +24,7 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
     session.setHandler('showView', async (view: string) => {
       if (view === 'load_subdevices') {
         for (const selectedDevice of selectedDevices) {
+          // TODO add password
           const components = await Shelly.getAllComponents(new HttpChannel(selectedDevice.store.address));
           const homeyDevices = await this.assembleHomeyDevices(selectedDevice, components);
           allHomeyDevices.push(...homeyDevices);

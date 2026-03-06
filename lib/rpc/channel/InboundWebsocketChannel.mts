@@ -11,7 +11,13 @@ import { RpcError } from '../RpcError.mjs';
 import { RPC_SRC } from '../../config.mjs';
 import { createMitt } from '../../util.mjs';
 import RPC from '../../component/components/RPC.mjs';
-import { createAuthenticationResponse, NoPassword, parseWsChallenge, UnauthenticatedWS } from '../Authentication.mjs';
+import {
+  type AuthenticationResponse,
+  createAuthenticationResponse,
+  NoPassword,
+  parseWsChallenge,
+  UnauthenticatedWS,
+} from '../Authentication.mjs';
 
 const GREETING_DELAY = 500;
 
@@ -25,6 +31,8 @@ type InboundWsChannelMittEvents = {
 // TODO wss://
 export default class InboundWebsocketChannel implements RpcChannel {
   public ws!: WebSocket;
+  private auth?: AuthenticationResponse;
+  private nonce_count = 0;
 
   private readonly awaitingResponse = new Map<
     number,
@@ -36,7 +44,7 @@ export default class InboundWebsocketChannel implements RpcChannel {
     public readonly address: string,
     public readonly log: (...args: unknown[]) => void = console.log,
     public readonly error: (...args: unknown[]) => void = console.error,
-    public password?: string,
+    public ha1?: string,
   ) {
     this.connect();
   }
@@ -130,18 +138,24 @@ export default class InboundWebsocketChannel implements RpcChannel {
   async sendRequestFrame<Result extends object | null>(
     requestFrame: RequestFrame,
   ): Promise<ResponseSuccessFrame<Result>> {
-    this.ws.send(JSON.stringify(requestFrame));
+    if (this.auth !== undefined && this.ha1 !== undefined) {
+      this.auth = createAuthenticationResponse(this.auth.realm, this.auth.nonce, this.ha1, ++this.nonce_count);
+      this.ws.send(JSON.stringify({ ...requestFrame, auth: this.auth }));
+    } else {
+      this.ws.send(JSON.stringify(requestFrame));
+    }
     return new Promise<ResponseSuccessFrame<Result>>((resolve, reject) => {
       this.awaitingResponse.set(requestFrame.id as number, { resolve, reject });
     }).catch(error => {
       if (error instanceof UnauthenticatedWS && requestFrame.auth === undefined) {
-        if (this.password === undefined) {
+        if (this.ha1 === undefined) {
           throw new NoPassword();
         }
         const challenge = parseWsChallenge(error.challenge);
-        const authenticationResponse = createAuthenticationResponse(challenge.realm, challenge.nonce, this.password);
+        this.auth = createAuthenticationResponse(challenge.realm, challenge.nonce, this.ha1);
+        this.nonce_count = 0;
         this.log('Authenticating...');
-        const response = this.sendRequestFrame<Result>({ ...requestFrame, auth: authenticationResponse });
+        const response = this.sendRequestFrame<Result>({ ...requestFrame, auth: this.auth });
         this.log('Authenticated');
         return response;
       } else {

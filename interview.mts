@@ -7,6 +7,7 @@ import * as fs from 'node:fs';
 const interviewsDir = '/interviews';
 
 const address = process.argv[2];
+// TODO add password
 const rpcChannel = new HttpChannel(address);
 
 const deviceInfo = await Shelly.GetDeviceInfo(rpcChannel);

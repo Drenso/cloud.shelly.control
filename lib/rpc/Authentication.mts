@@ -10,16 +10,26 @@ export type AuthenticationResponse = {
   nc: string;
 };
 
+/**
+ * @param realm takes the form shelly<model>-<identifier>
+ * @param password user provided password
+ */
+export function hashDigest(realm: string, password: string): string {
+  const username = 'admin'; // always
+  const auth_parts = [username, realm, password];
+  const ha1 = hexHash(auth_parts.join(':'));
+  return ha1;
+}
+
 export function createAuthenticationResponse(
   realm: string,
   nonce: string,
-  password: string,
+  ha1: string,
   nonce_count = 1,
 ): AuthenticationResponse {
   const username = 'admin';
   const cnonce = String(Math.floor(Math.random() * 10e8));
 
-  const ha1 = hexHash(`admin:${realm}:${password}`);
   const ha2 = hexHash('dummy_method:dummy_uri');
   const nc = nonce_count.toString(16).padStart(8, '0');
   const responseRaw = `${ha1}:${nonce}:${nc}:${cnonce}:auth:${ha2}`;

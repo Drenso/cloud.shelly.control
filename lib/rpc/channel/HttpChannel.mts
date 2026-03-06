@@ -13,7 +13,7 @@ type AuthenticationChallenge = {
 export default class HttpChannel implements RpcChannel {
   constructor(
     public readonly address: string,
-    public password?: string,
+    public ha1?: string,
   ) {}
 
   disconnect(): void {}
@@ -30,7 +30,7 @@ export default class HttpChannel implements RpcChannel {
 
     if (response.status === 401 && requestFrame.auth === undefined) {
       // We need to re-send authenticated with the given authentication information
-      if (this.password === undefined) {
+      if (this.ha1 === undefined) {
         throw new NoPassword();
       }
 
@@ -39,7 +39,7 @@ export default class HttpChannel implements RpcChannel {
       const authenticationResponse = createAuthenticationResponse(
         authenticationChallenge.realm,
         authenticationChallenge.nonce,
-        this.password,
+        this.ha1,
       );
       return this.sendRequestFrame({
         ...requestFrame,
