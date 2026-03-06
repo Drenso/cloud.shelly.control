@@ -31,6 +31,14 @@ export type SwitchConfig = {
   // detached: the state of the input doesn't affect the state of the switch.
   // activate: available only on devices with physical input.
   //
+  // In the web UI:
+  // follow: Toggle - Act as a flip input with one state for ON and one state for OFF
+  // momentary: Momentary - Every push, toggles the state ON -> OFF or OFF -> ON
+  // flip: Edge - Changes state on every change of the switch state
+  // detached: Detached - Input is separated/not changing state of the output/relay
+  // cycle: ???
+  // activation: Activation - Used with motion sensor. Any input turns ON and resets Auto Off timer
+  //
   in_mode: 'momentary' | 'follow' | 'flip' | 'detached' | 'cycle' | 'activate';
   // If True, all changes to physical inputs are ignored, regardless of mode.
   in_locked: boolean;
