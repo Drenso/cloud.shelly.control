@@ -1,0 +1,125 @@
+<style>
+  .__private__homey-login-credentials {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .__private__homey-login-credentials__form {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .__private__homey-login-credentials__center {
+    width: 100%;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+
+  .__private__homey-login-credentials__footer {
+    width: 100%;
+  }
+
+  .__private__homey-login-credentials__button {
+    white-space: nowrap; /* Safari fix for strange bug which makes button extra high */
+  }
+
+  .__private__homey-login-credentials__logo.is-visible {
+    display: block;
+    position: relative;
+    width: 66%;
+    height: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: var(--homey-su-4);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+</style>
+
+<div class="__private__homey-login-credentials" id="$HY_TMPL_ID">
+  <form
+    id="login-credentials-form"
+    class="__private__homey-login-credentials__form homey-form"
+    action="/"
+    method="post"
+  >
+    <div class="__private__homey-login-credentials__center">
+      <div id="login-credentials-logo" class="__private__homey-login-credentials__logo">
+      <!-- TODO device icon? -->
+      </div>
+      <h1 id="login-credentials-title" class="homey-title homey-text-align-center">Device ID</h1>
+      <div class="homey-form-group-large">
+        <label
+          class="homey-form-label"
+          for="login-credentials-password"
+          data-i18n="pair.device_credentials.password"
+        >Password</label>
+        <input
+          class="homey-form-input-large"
+          id="login-credentials-password"
+          name="password"
+          type="password"
+          value=""
+        />
+      </div>
+    </div>
+    <div class="__private__homey-login-credentials__footer">
+      <button
+        id="device_credentials_submit_button"
+        tabindex="0"
+        class="homey-button-primary-shadow-full __private__homey-login-credentials__button"
+        type="submit"
+        data-i18n="pair.device_credentials.authenticate"
+      >Authenticate</button>
+    </div>
+  </form>
+</div>
+
+<script type="text/javascript">
+  async function ha1Digest(realm, password) {
+    const encoder = new TextEncoder();
+    const ha1 = await window.crypto.subtle.digest("SHA-256", encoder.encode(`admin:${realm}:${password}`));
+    const ha1String = Array.prototype.map.call(new Uint8Array(ha1), n => n.toString(16).padStart(2, "0")).join("");
+    return ha1String;
+  }
+
+  let deviceId = undefined;
+
+  Homey.setTitle(Homey.__('pair.device_credentials.title'));
+  const credentialsTitle = document.getElementById("login-credentials-title");
+  Homey.on("credentials_device", ({title, id}) => {
+    credentialsTitle.innerText = title
+    deviceId = id
+  })
+
+  const passwordField = document.getElementById("login-credentials-password");
+
+  const submitForm = document.getElementById("login-credentials-form")
+
+  submitForm.onsubmit = async (e) => {
+    e.preventDefault();
+    Homey.showLoadingOverlay(Homey.__('pair.device_credentials.validating'));
+    try {
+      const password = passwordField.value;
+      const ha1 = await ha1Digest(deviceId, password);
+      const valid = await Homey.emit("credentials", ha1);
+      if (valid) {
+        await Homey.showView("authenticate_more_devices")
+      } else {
+        Homey.error(Homey.__('pair.device_credentials.invalid'))
+        Homey.hideLoadingOverlay();
+      }
+    } catch (error) {
+      Homey.error(error)
+      Homey.hideLoadingOverlay();
+    }
+  }
+  // Homey.showLoadingOverlay(Homey.__('pair.add_devices.loading'));
+</script>

@@ -14,11 +14,10 @@ export type AuthenticationResponse = {
  * @param realm takes the form shelly<model>-<identifier>
  * @param password user provided password
  */
-export function hashDigest(realm: string, password: string): string {
+export function ha1Digest(realm: string, password: string): string {
   const username = 'admin'; // always
   const auth_parts = [username, realm, password];
-  const ha1 = hexHash(auth_parts.join(':'));
-  return ha1;
+  return hexHash(auth_parts.join(':'));
 }
 
 export function createAuthenticationResponse(

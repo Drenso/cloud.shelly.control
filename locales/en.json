@@ -2,9 +2,17 @@
   "pair": {
     "add_devices": {
       "loading": "Adding your new Shelly devices, this may take a moment...",
-      "title": "Adding devices"
+      "title": "Adding Devices"
     },
-    "loading_devices": "Assembling device information..."
+    "device_credentials": {
+      "title": "Device Authentication",
+      "password": "Password",
+      "authenticate": "Authenticate",
+      "validating": "Validating credentials...",
+      "invalid": "Invalid password"
+    },
+    "loading_devices": "Assembling device information...",
+    "authenticate_devices": "Authenticating with devices..."
   },
   "device": {
     "initializing": "Initializing...",
