@@ -20,7 +20,7 @@ const REBOOT_INITIAL_WAIT = 1000;
 const REBOOT_PING_TIME = 500;
 const REBOOT_TIMEOUT = 30 * 1000;
 
-// TODO password change
+// TODO password change on re-pair
 export type SerializedVirtualDevice = {
   readonly deviceId: string;
   readonly ipAddress: string;

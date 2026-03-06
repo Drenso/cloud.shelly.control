@@ -89,14 +89,6 @@ export default class ShellyLocalDevice extends Homey.Device {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  async _onSettings(event: SettingsEvent<any>): Promise<string | void> {
-    // @ts-ignore THis is an internal function
-    const result = await super._onSettings(event);
-    // TODO overwrite password
-    return result;
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async onSettings(event: SettingsEvent<any>): Promise<string | void> {
     let restartRequired = false;
     for (const virtualComponent of this.virtualComponents.values()) {
