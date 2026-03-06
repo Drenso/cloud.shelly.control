@@ -29,9 +29,7 @@
     "status": {
       "id": 100,
       "rh": null,
-      "errors": [
-        "read"
-      ]
+      "errors": ["read"]
     },
     "config": {
       "id": 100,
@@ -125,9 +123,7 @@
       "auto_off_delay": 60
     },
     "attrs": {
-      "inputs": [
-        0
-      ]
+      "inputs": [0]
     }
   },
   {
@@ -218,9 +214,7 @@
       "id": 100,
       "tC": null,
       "tF": null,
-      "errors": [
-        "read"
-      ]
+      "errors": ["read"]
     },
     "config": {
       "id": 100,
@@ -236,10 +230,7 @@
       "status": "got ip",
       "ssid": "DrensoDev",
       "rssi": -41,
-      "sta_ip6": [
-        "fe80::a285:e3ff:febc:9b18",
-        "fd03:8586:4012:ec48:a285:e3ff:febc:9b18"
-      ]
+      "sta_ip6": ["fe80::a285:e3ff:febc:9b18", "fd03:8586:4012:ec48:a285:e3ff:febc:9b18"]
     },
     "config": {
       "ap": {

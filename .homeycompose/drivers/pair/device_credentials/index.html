@@ -52,15 +52,13 @@
   >
     <div class="__private__homey-login-credentials__center">
       <div id="login-credentials-logo" class="__private__homey-login-credentials__logo">
-      <!-- TODO device icon? -->
+        <!-- TODO device icon? -->
       </div>
       <h1 id="login-credentials-title" class="homey-title homey-text-align-center">Device ID</h1>
       <div class="homey-form-group-large">
-        <label
-          class="homey-form-label"
-          for="login-credentials-password"
-          data-i18n="pair.device_credentials.password"
-        >Password</label>
+        <label class="homey-form-label" for="login-credentials-password" data-i18n="pair.device_credentials.password"
+          >Password</label
+        >
         <input
           class="homey-form-input-large"
           id="login-credentials-password"
@@ -77,7 +75,9 @@
         class="homey-button-primary-shadow-full __private__homey-login-credentials__button"
         type="submit"
         data-i18n="pair.device_credentials.authenticate"
-      >Authenticate</button>
+      >
+        Authenticate
+      </button>
     </div>
   </form>
 </div>
@@ -85,41 +85,41 @@
 <script type="text/javascript">
   async function ha1Digest(realm, password) {
     const encoder = new TextEncoder();
-    const ha1 = await window.crypto.subtle.digest("SHA-256", encoder.encode(`admin:${realm}:${password}`));
-    const ha1String = Array.prototype.map.call(new Uint8Array(ha1), n => n.toString(16).padStart(2, "0")).join("");
+    const ha1 = await window.crypto.subtle.digest('SHA-256', encoder.encode(`admin:${realm}:${password}`));
+    const ha1String = Array.prototype.map.call(new Uint8Array(ha1), n => n.toString(16).padStart(2, '0')).join('');
     return ha1String;
   }
 
   let deviceId = undefined;
 
   Homey.setTitle(Homey.__('pair.device_credentials.title'));
-  const credentialsTitle = document.getElementById("login-credentials-title");
-  Homey.on("credentials_device", ({title, id}) => {
-    credentialsTitle.innerText = title
-    deviceId = id
-  })
+  const credentialsTitle = document.getElementById('login-credentials-title');
+  Homey.on('credentials_device', ({ title, id }) => {
+    credentialsTitle.innerText = title;
+    deviceId = id;
+  });
 
-  const passwordField = document.getElementById("login-credentials-password");
+  const passwordField = document.getElementById('login-credentials-password');
 
-  const submitForm = document.getElementById("login-credentials-form")
+  const submitForm = document.getElementById('login-credentials-form');
 
-  submitForm.onsubmit = async (e) => {
+  submitForm.onsubmit = async e => {
     e.preventDefault();
     Homey.showLoadingOverlay(Homey.__('pair.device_credentials.validating'));
     try {
       const password = passwordField.value;
       const ha1 = await ha1Digest(deviceId, password);
-      const valid = await Homey.emit("credentials", ha1);
+      const valid = await Homey.emit('credentials', ha1);
       if (valid) {
-        await Homey.showView("loading_devices")
+        await Homey.showView('loading_devices');
       } else {
-        Homey.error(Homey.__('pair.device_credentials.invalid'))
+        Homey.error(Homey.__('pair.device_credentials.invalid'));
         Homey.hideLoadingOverlay();
       }
     } catch (error) {
-      Homey.error(error)
+      Homey.error(error);
       Homey.hideLoadingOverlay();
     }
-  }
+  };
   // Homey.showLoadingOverlay(Homey.__('pair.add_devices.loading'));
 </script>
