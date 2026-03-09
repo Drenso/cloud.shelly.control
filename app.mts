@@ -5,7 +5,7 @@ import { getIp } from './lib/LocalIp.mjs';
 import OutboundWsServer from './lib/rpc/OutboundWsServer.mjs';
 import { VirtualDevice, type SerializedVirtualDevice } from './lib/VirtualDevice.mjs';
 import type ShellyLocalDevice from './lib/Device.mjs';
-import { registerFlowCards } from './flowCardRegistration.mjs';
+import Input from './lib/component/components/Input.mjs';
 
 sourceMapSupport.install();
 
@@ -22,7 +22,7 @@ export default class ShellyApp extends Homey.App {
   async onInit(): Promise<void> {
     this.log('Initializing App...');
     this.outboundWsServer.open(await getIp(this.homey));
-    await registerFlowCards(this);
+    this.registerFlowCards();
     await this.deserializeVirtualDevices();
     this.log('Finished initializing App');
   }
@@ -77,5 +77,9 @@ export default class ShellyApp extends Homey.App {
     if (Homey.env['DEBUG'] === '1') {
       console.log(new Date(), '[dbg]', '[ShellyApp]', ...args);
     }
+  }
+
+  registerFlowCards(): void {
+    Input.registerFlowCards(this);
   }
 }
