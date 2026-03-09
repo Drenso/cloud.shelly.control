@@ -40,9 +40,13 @@ export type TemperatureHomeySettings = {
 const settingKeys = ['report_thr_C', 'offset_C'] as const satisfies (keyof TemperatureConfig)[];
 
 /**
- * The Switch component handles a switch (relay) output terminal with optional power metering capabilities.
+ * The Temperature component handles the monitoring of device's temperature sensors.
  */
-export default class Switch extends ComponentWithId<TemperatureStatus, TemperatureConfig, TemperatureHomeySettings> {
+export default class Temperature extends ComponentWithId<
+  TemperatureStatus,
+  TemperatureConfig,
+  TemperatureHomeySettings
+> {
   protected _SetConfig = SetConfig;
   protected _GetConfig = GetConfig;
   protected _GetStatus = GetStatus;
