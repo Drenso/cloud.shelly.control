@@ -352,28 +352,4 @@ export class VirtualDevice {
     }
     await Promise.all(promises);
   }
-
-  private inputTypes?: Record<InputConfig['type'], string[]>;
-
-  getInputTypes(): Record<InputConfig['type'], string[]> {
-    if (this.inputTypes !== undefined) {
-      return this.inputTypes;
-    }
-
-    const types: Record<InputConfig['type'], string[]> = {
-      switch: [],
-      button: [],
-      analog: [],
-      count: [],
-    };
-
-    for (const [componentId, component] of this.virtualComponents.entries()) {
-      if (component instanceof Input) {
-        types[component.config.type].push(componentId);
-      }
-    }
-
-    this.inputTypes = types;
-    return this.inputTypes;
-  }
 }

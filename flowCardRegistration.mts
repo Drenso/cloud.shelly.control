@@ -1,6 +1,6 @@
 import type ShellyApp from './app.mjs';
 import type ShellyLocalDevice from './lib/Device.mjs';
-import type Input from './lib/component/components/Input.mjs';
+import Input from './lib/component/components/Input.mjs';
 
 export async function registerFlowCards(app: ShellyApp): Promise<void> {
   app.homey.flow
@@ -12,7 +12,7 @@ export async function registerFlowCards(app: ShellyApp): Promise<void> {
           return [];
         }
 
-        const switchInputs = device.virtualDevice.getInputTypes()['switch'];
+        const switchInputs = Input.getInputTypes(device.virtualDevice)['switch'];
 
         const deviceSwitchInputs: Input[] = [];
         for (const inputId of switchInputs) {

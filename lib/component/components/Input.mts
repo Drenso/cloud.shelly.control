@@ -11,6 +11,7 @@ import type { InputResetCountersParams, InputResetCountersResponse } from './Inp
 import type { ResponseSuccessFrame } from '../../rpc/Rpc.mjs';
 import ResetCounters from './Input/ResetCounters.mjs';
 import Trigger, { type InputTriggerParams } from './Input/Trigger.mjs';
+import type { VirtualDevice } from '../../VirtualDevice.mjs';
 
 export type InputConfig = {
   /**
@@ -326,7 +327,7 @@ export default class Input extends ComponentWithId<InputStatus, InputConfig, Inp
   }
 
   async registerHomeyDevice(homeyDevice: ShellyLocalDevice, methods: ComponentMethod<'Input'>[]): Promise<void> {
-    const inputTypes = homeyDevice.virtualDevice!.getInputTypes();
+    const inputTypes = Input.getInputTypes(homeyDevice.virtualDevice!);
     const sameTypeInputComponents = inputTypes[this.config.type];
     const homeyDeviceInputComponents = sameTypeInputComponents.filter(component =>
       homeyDevice.getTypedStore().components.includes(component),
@@ -392,5 +393,25 @@ export default class Input extends ComponentWithId<InputStatus, InputConfig, Inp
     } else {
       return false;
     }
+  }
+
+  /**
+   * A utility function outside the RPC spec to collect all components configured to each type for a Shelly device.
+   */
+  static getInputTypes(virtualDevice: VirtualDevice): Record<InputConfig['type'], string[]> {
+    const types: Record<InputConfig['type'], string[]> = {
+      switch: [],
+      button: [],
+      analog: [],
+      count: [],
+    };
+
+    for (const [componentId, component] of virtualDevice.virtualComponents.entries()) {
+      if (component instanceof Input) {
+        types[component.config.type].push(componentId);
+      }
+    }
+
+    return types;
   }
 }
