@@ -5,7 +5,7 @@ import { getIp } from './lib/LocalIp.mjs';
 import OutboundWsServer from './lib/rpc/OutboundWsServer.mjs';
 import { VirtualDevice, type SerializedVirtualDevice } from './lib/VirtualDevice.mjs';
 import type ShellyLocalDevice from './lib/Device.mjs';
-import type Input from './lib/component/components/Input.mjs';
+import { registerFlowCards } from './flowCardRegistration.mjs';
 
 sourceMapSupport.install();
 
@@ -22,7 +22,7 @@ export default class ShellyApp extends Homey.App {
   async onInit(): Promise<void> {
     this.log('Initializing App...');
     this.outboundWsServer.open(await getIp(this.homey));
-    await this.registerFlowCards();
+    await registerFlowCards(this);
     await this.deserializeVirtualDevices();
     this.log('Finished initializing App');
   }
@@ -71,33 +71,6 @@ export default class ShellyApp extends Homey.App {
       }
     }
     return undefined;
-  }
-
-  async registerFlowCards(): Promise<void> {
-    this.homey.flow
-      .getDeviceTriggerCard('input_multiple_switch_event')
-      .registerArgumentAutocompleteListener(
-        'switch',
-        (query, { value, device }: { value: boolean; device: ShellyLocalDevice }) => {
-          if (device.virtualDevice === undefined) {
-            return [];
-          }
-
-          const switchInputs = device.virtualDevice.getInputTypes()['switch'];
-
-          const deviceSwitchInputs: Input[] = [];
-          for (const inputId of switchInputs) {
-            const inputComponent = device.virtualComponents.get(inputId) as Input | undefined;
-            if (inputComponent !== undefined) {
-              deviceSwitchInputs.push(inputComponent);
-            }
-          }
-          return deviceSwitchInputs.map(input => ({
-            name: input.config.name ?? `Input ${input.id + 1}`,
-            id: input.id,
-          }));
-        },
-      );
   }
 
   debug(...args: unknown[]): void {
