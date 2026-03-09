@@ -5,11 +5,10 @@ import Input from './lib/component/components/Input.mjs';
 export async function registerFlowCards(app: ShellyApp): Promise<void> {
   app.homey.flow
     .getDeviceTriggerCard('input_switch_event')
-    .registerRunListener(
-      (flowArgs: { value: boolean; switch: { id: number } }, triggerArgs: { value: boolean; switch: number }) => {
-        return flowArgs.value === triggerArgs.value;
-      },
-    );
+    .registerRunListener((flowArgs: { value: ('on' | 'off')[] }, triggerArgs: { value: boolean; switch: number }) => {
+      const stateMatches = flowArgs.value.includes(triggerArgs.value ? 'on' : 'off');
+      return stateMatches;
+    });
 
   app.homey.flow
     .getDeviceTriggerCard('input_multiple_switch_event')
@@ -31,13 +30,18 @@ export async function registerFlowCards(app: ShellyApp): Promise<void> {
         }
         return deviceSwitchInputs.map(input => ({
           name: input.config.name ?? `Input ${input.id + 1}`,
-          id: input.id,
+          id: input.id + 1,
         }));
       },
     )
     .registerRunListener(
-      (flowArgs: { value: boolean; switch: { id: number } }, triggerArgs: { value: boolean; switch: number }) => {
-        return flowArgs.value === triggerArgs.value && flowArgs.switch.id === triggerArgs.switch;
+      (
+        flowArgs: { value: ('on' | 'off')[]; switch: { id: number } },
+        triggerArgs: { value: boolean; switch: number },
+      ) => {
+        const switchMatches = flowArgs.switch.id === triggerArgs.switch;
+        const stateMatches = flowArgs.value.includes(triggerArgs.value ? 'on' : 'off');
+        return switchMatches && stateMatches;
       },
     );
 }

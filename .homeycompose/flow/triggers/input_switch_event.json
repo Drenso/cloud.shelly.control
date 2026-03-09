@@ -5,6 +5,15 @@
   "titleFormatted": {
     "en": "Switch changed to [[value]]"
   },
+  "tokens": [
+    {
+      "name": "value",
+      "type": "boolean",
+      "title": {
+        "en": "Switch Value"
+      }
+    }
+  ],
   "args": [
     {
       "name": "device",
@@ -19,10 +28,25 @@
     },
     {
       "name": "value",
-      "type": "checkbox",
       "title": {
-        "en": "On"
-      }
+        "en": "Value"
+      },
+      "type": "multiselect",
+      "conjunction": "or",
+      "values": [
+        {
+          "id": "on",
+          "title": {
+            "en": "On"
+          }
+        },
+        {
+          "id": "off",
+          "title": {
+            "en": "Off"
+          }
+        }
+      ]
     }
   ]
 }

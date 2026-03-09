@@ -343,7 +343,7 @@ export default class Input extends ComponentWithId<InputStatus, InputConfig, Inp
 
   async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Partial<InputStatus>): Promise<void> {
     if (status.state !== undefined && status.state !== null) {
-      const switchUpdate = { value: status.state, switch: this.id };
+      const switchUpdate = { value: status.state, switch: this.id + 1 };
       await homeyDevice.homey.flow
         .getDeviceTriggerCard('input_switch_event')
         .trigger(homeyDevice, switchUpdate, switchUpdate);
