@@ -326,33 +326,17 @@ export default class Input extends ComponentWithId<InputStatus, InputConfig, Inp
   }
 
   async registerHomeyDevice(homeyDevice: ShellyLocalDevice, methods: ComponentMethod<'Input'>[]): Promise<void> {
-    // Add helper capability to show flows
+    const inputTypes = homeyDevice.virtualDevice!.getInputTypes();
+    const sameTypeInputComponents = inputTypes[this.config.type];
+    const homeyDeviceInputComponents = sameTypeInputComponents.filter(component =>
+      homeyDevice.getTypedStore().components.includes(component),
+    );
 
-    // TODO cleaner
-    // Check whether there are multiple inputs for the Homey device
-    const switchComponents = homeyDevice
-      .getTypedStore()
-      .components.filter(componentId => componentId.split(':')[0] === 'input');
-    if (switchComponents.length <= 1) {
-      // There is only one input for this Homey device
-      await homeyDevice.safeAddCapability(`hidden.has_input_${this.config.type}`);
+    // Add helper capability to show correct flows
+    if (homeyDeviceInputComponents.length > 0) {
+      await homeyDevice.safeAddCapability(`hidden.has_input_multiple_${this.config.type}`);
     } else {
-      // Check whether they are the same type
-      const inputType = this.config.type;
-      let inputCount = 0;
-      switchComponents.forEach(componentId => {
-        const inputComponent = homeyDevice.virtualDevice!.virtualComponents.get(componentId)! as Input;
-        if (inputComponent.config.type === inputType) {
-          inputCount += 1;
-        }
-      });
-      if (inputCount > 1) {
-        // There are multiple inputs of this type for this Homey device
-        await homeyDevice.safeAddCapability(`hidden.has_input_multiple_${this.config.type}`);
-      } else {
-        // There is only one input if this type for this Homey device
-        await homeyDevice.safeAddCapability(`hidden.has_input_${this.config.type}`);
-      }
+      await homeyDevice.safeAddCapability(`hidden.has_input_${this.config.type}`);
     }
   }
 
