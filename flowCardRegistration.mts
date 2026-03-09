@@ -4,6 +4,14 @@ import Input from './lib/component/components/Input.mjs';
 
 export async function registerFlowCards(app: ShellyApp): Promise<void> {
   app.homey.flow
+    .getDeviceTriggerCard('input_switch_event')
+    .registerRunListener(
+      (flowArgs: { value: boolean; switch: { id: number } }, triggerArgs: { value: boolean; switch: number }) => {
+        return flowArgs.value === triggerArgs.value;
+      },
+    );
+
+  app.homey.flow
     .getDeviceTriggerCard('input_multiple_switch_event')
     .registerArgumentAutocompleteListener(
       'switch',
@@ -25,6 +33,11 @@ export async function registerFlowCards(app: ShellyApp): Promise<void> {
           name: input.config.name ?? `Input ${input.id + 1}`,
           id: input.id,
         }));
+      },
+    )
+    .registerRunListener(
+      (flowArgs: { value: boolean; switch: { id: number } }, triggerArgs: { value: boolean; switch: number }) => {
+        return flowArgs.value === triggerArgs.value && flowArgs.switch.id === triggerArgs.switch;
       },
     );
 }

@@ -8,7 +8,7 @@ import GetStatus from './Input/GetStatus.mjs';
 import CheckExpression from './Input/CheckExpression.mjs';
 import type { RpcChannel } from '../../rpc/channel/RpcChannel.mjs';
 import type { InputResetCountersParams, InputResetCountersResponse } from './Input/ResetCounters.mjs';
-import type { ResponseSuccessFrame } from '../../rpc/Rpc.mjs';
+import type { NotificationEventParam, ResponseSuccessFrame } from '../../rpc/Rpc.mjs';
 import ResetCounters from './Input/ResetCounters.mjs';
 import Trigger, { type InputTriggerParams } from './Input/Trigger.mjs';
 import type { VirtualDevice } from '../../VirtualDevice.mjs';
@@ -334,7 +334,7 @@ export default class Input extends ComponentWithId<InputStatus, InputConfig, Inp
     );
 
     // Add helper capability to show correct flows
-    if (homeyDeviceInputComponents.length > 0) {
+    if (homeyDeviceInputComponents.length > 1) {
       await homeyDevice.safeAddCapability(`hidden.has_input_multiple_${this.config.type}`);
     } else {
       await homeyDevice.safeAddCapability(`hidden.has_input_${this.config.type}`);
@@ -342,10 +342,15 @@ export default class Input extends ComponentWithId<InputStatus, InputConfig, Inp
   }
 
   async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Partial<InputStatus>): Promise<void> {
-    // TODO update button
-    // TODO trigger flows
-
-    return;
+    if (status.state !== undefined && status.state !== null) {
+      const switchUpdate = { value: status.state, switch: this.id };
+      await homeyDevice.homey.flow
+        .getDeviceTriggerCard('input_switch_event')
+        .trigger(homeyDevice, switchUpdate, switchUpdate);
+      await homeyDevice.homey.flow
+        .getDeviceTriggerCard('input_multiple_switch_event')
+        .trigger(homeyDevice, switchUpdate, switchUpdate);
+    }
   }
 
   async onConfigUpdate(homeyDevice: ShellyLocalDevice, config: InputConfig): Promise<void> {
@@ -392,6 +397,15 @@ export default class Input extends ComponentWithId<InputStatus, InputConfig, Inp
       return result.result.restart_required;
     } else {
       return false;
+    }
+  }
+
+  async handleEvent(event: NotificationEventParam): Promise<void> {
+    if (['btn_down', 'btn_up', 'single_push', 'double_push', 'triple_push', 'long_push'].includes(event.event)) {
+      this.device.log('Button event:', event.event);
+      // TODO
+    } else {
+      await super.handleEvent(event);
     }
   }
 
