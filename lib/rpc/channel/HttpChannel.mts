@@ -42,8 +42,9 @@ export default class HttpChannel implements RpcChannel {
       body: JSON.stringify(requestFrame),
     }).catch(err => {
       if (err instanceof TypeError) {
+        this.debug('Unwrapped undici TypeError');
         const wrappedError = (err as unknown as { cause: Error }).cause;
-        wrappedError.stack = err.stack;
+        Error.captureStackTrace(wrappedError);
         throw wrappedError;
       } else {
         throw err;
