@@ -1,6 +1,6 @@
 import type ShellyLocalDevice from '../Device.mjs';
 import type { RpcChannel } from '../rpc/channel/RpcChannel.mjs';
-import type { ResponseSuccessFrame } from '../rpc/Rpc.mjs';
+import type { NotificationEventParam, ResponseSuccessFrame } from '../rpc/Rpc.mjs';
 import { deepAssign, type RecursivePartial } from '../util.mjs';
 import type { VirtualDevice } from '../VirtualDevice.mjs';
 import type { ComponentMethod, NameSpace } from './components/Shelly/ListMethods.mjs';
@@ -45,6 +45,11 @@ export abstract class Component<Status extends object, Config extends object, Se
 
   async handleSettings(homeyDevice: ShellyLocalDevice, event: SettingsEvent<Settings>): Promise<boolean> {
     return false;
+  }
+
+  async handleEvent(event: NotificationEventParam): Promise<void> {
+    this.device.log(`Unknown event for ${this.namespace}:`, event.event);
+    this.device.debug(JSON.stringify(event));
   }
 }
 

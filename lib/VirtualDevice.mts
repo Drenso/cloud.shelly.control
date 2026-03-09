@@ -306,7 +306,13 @@ export class VirtualDevice {
       } else if (event.event === 'scheduled_restart') {
         this.log('Device is restarting');
       } else {
-        this.log('Unknown event:', event.event);
+        const component = this.virtualComponents.get(event.component);
+        if (component !== undefined) {
+          await component.handleEvent(event).catch(this.error);
+        } else {
+          this.log(`No component ${event.component} found for ${event.event}`);
+          this.debug(JSON.stringify(event));
+        }
       }
     }
   }
