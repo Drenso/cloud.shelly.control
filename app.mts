@@ -5,6 +5,7 @@ import { getIp } from './lib/LocalIp.mjs';
 import OutboundWsServer from './lib/rpc/OutboundWsServer.mjs';
 import { VirtualDevice, type SerializedVirtualDevice } from './lib/VirtualDevice.mjs';
 import type ShellyLocalDevice from './lib/Device.mjs';
+import type Input from './lib/component/components/Input.mjs';
 
 sourceMapSupport.install();
 
@@ -78,9 +79,23 @@ export default class ShellyApp extends Homey.App {
       .registerArgumentAutocompleteListener(
         'switch',
         (query, { value, device }: { value: boolean; device: ShellyLocalDevice }) => {
-          // TODO
-          this.log(query, [...device.virtualComponents.keys()]);
-          return [];
+          if (device.virtualDevice === undefined) {
+            return [];
+          }
+
+          const switchInputs = device.virtualDevice.getInputTypes()['switch'];
+
+          const deviceSwitchInputs: Input[] = [];
+          for (const inputId of switchInputs) {
+            const inputComponent = device.virtualComponents.get(inputId) as Input | undefined;
+            if (inputComponent !== undefined) {
+              deviceSwitchInputs.push(inputComponent);
+            }
+          }
+          return deviceSwitchInputs.map(input => ({
+            name: input.config.name ?? `Input ${input.id + 1}`,
+            id: input.id,
+          }));
         },
       );
   }
