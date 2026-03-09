@@ -7,7 +7,7 @@ import type { ComponentMethod, NameSpace } from './components/Shelly/ListMethods
 
 export class Service {}
 
-export type AllowedPrimitives = number | string | null;
+export type AllowedPrimitives = number | string | null | number[] | string[];
 
 type ComponentSetConfigParams<Config extends object> = {
   config: RecursivePartial<Omit<Config, 'id'>, AllowedPrimitives>;

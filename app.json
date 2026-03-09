@@ -47,6 +47,75 @@
     ]
   },
   "api": {},
+  "flow": {
+    "triggers": [
+      {
+        "title": {
+          "en": "Switch toggled"
+        },
+        "titleFormatted": {
+          "en": "Switch [[switch]] changed to [[value]]"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": {
+              "driver_id": "shelly1g4_local|shellypstripg4_local",
+              "capabilities": "hidden.has_input_multiple_switch"
+            },
+            "title": {
+              "en": "Device"
+            }
+          },
+          {
+            "name": "switch",
+            "type": "autocomplete",
+            "title": {
+              "en": "Switch"
+            }
+          },
+          {
+            "name": "value",
+            "type": "checkbox",
+            "title": {
+              "en": "On"
+            }
+          }
+        ],
+        "id": "input_multiple_switch_event"
+      },
+      {
+        "title": {
+          "en": "Switch toggled"
+        },
+        "titleFormatted": {
+          "en": "Switch changed to [[value]]"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": {
+              "driver_id": "shelly1g4_local|shellypstripg4_local",
+              "capabilities": "hidden.has_input_switch"
+            },
+            "title": {
+              "en": "Device"
+            }
+          },
+          {
+            "name": "value",
+            "type": "checkbox",
+            "title": {
+              "en": "On"
+            }
+          }
+        ],
+        "id": "input_switch_event"
+      }
+    ]
+  },
   "drivers": [
     {
       "platforms": [
@@ -564,6 +633,15 @@
       ]
     }
   ],
+  "capabilities": {
+    "hidden": {
+      "type": "string",
+      "title": "hidden",
+      "getable": false,
+      "setable": false,
+      "uiComponent": null
+    }
+  },
   "discovery": {
     "shelly": {
       "type": "mdns-sd",

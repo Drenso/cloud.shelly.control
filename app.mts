@@ -21,6 +21,7 @@ export default class ShellyApp extends Homey.App {
   async onInit(): Promise<void> {
     this.log('Initializing App...');
     this.outboundWsServer.open(await getIp(this.homey));
+    await this.registerFlowCards();
     await this.deserializeVirtualDevices();
     this.log('Finished initializing App');
   }
@@ -69,6 +70,19 @@ export default class ShellyApp extends Homey.App {
       }
     }
     return undefined;
+  }
+
+  async registerFlowCards(): Promise<void> {
+    this.homey.flow
+      .getDeviceTriggerCard('input_multiple_switch_event')
+      .registerArgumentAutocompleteListener(
+        'switch',
+        (query, { value, device }: { value: boolean; device: ShellyLocalDevice }) => {
+          // TODO
+          this.log(query, [...device.virtualComponents.keys()]);
+          return [];
+        },
+      );
   }
 
   debug(...args: unknown[]): void {

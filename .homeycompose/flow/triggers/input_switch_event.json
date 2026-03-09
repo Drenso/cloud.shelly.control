@@ -1,0 +1,28 @@
+{
+  "title": {
+    "en": "Switch toggled"
+  },
+  "titleFormatted": {
+    "en": "Switch changed to [[value]]"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": {
+        "driver_id": "shelly1g4_local|shellypstripg4_local",
+        "capabilities": "hidden.has_input_switch"
+      },
+      "title": {
+        "en": "Device"
+      }
+    },
+    {
+      "name": "value",
+      "type": "checkbox",
+      "title": {
+        "en": "On"
+      }
+    }
+  ]
+}

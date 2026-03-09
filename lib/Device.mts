@@ -70,6 +70,13 @@ export default class ShellyLocalDevice extends Homey.Device {
     return this.getStore();
   }
 
+  setTypedStoreValue<Key extends keyof ShellyLocalDeviceStore>(
+    key: Key,
+    value: ShellyLocalDeviceStore[Key],
+  ): Promise<void> {
+    return this.setStoreValue(key, value);
+  }
+
   getTypedData(): ShellyLocalDeviceData {
     return this.getData();
   }
