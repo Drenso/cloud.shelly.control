@@ -159,4 +159,10 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
       },
     };
   }
+
+  debug(...args: unknown[]): void {
+    if (Homey.env['DEBUG'] === '1') {
+      console.log(new Date(), '[ManagerDrivers]', `[Driver:${this.id}]`, ...args);
+    }
+  }
 }

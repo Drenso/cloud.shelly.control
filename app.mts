@@ -70,4 +70,10 @@ export default class ShellyApp extends Homey.App {
     }
     return undefined;
   }
+
+  debug(...args: unknown[]): void {
+    if (Homey.env['DEBUG'] === '1') {
+      console.log(new Date(), '[dbg]', '[ShellyApp]', ...args);
+    }
+  }
 }

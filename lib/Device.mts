@@ -4,8 +4,10 @@ import type ShellyApp from '../app.mjs';
 import type { VirtualDevice } from './VirtualDevice.mjs';
 import type { ComponentMethod, NameSpace } from './component/components/Shelly/ListMethods.mjs';
 import type { MappedComponent } from './component/ComponentMapping.mjs';
+import type ShellyLocalDriver from './Driver.mjs';
 
 export default class ShellyLocalDevice extends Homey.Device {
+  declare readonly __id: string;
   virtualDevice?: VirtualDevice;
   virtualComponents = new Map<string, InstanceType<MappedComponent>>();
 
@@ -97,5 +99,9 @@ export default class ShellyLocalDevice extends Homey.Device {
     if (restartRequired) {
       return this.homey.__('device.requires_restart');
     }
+  }
+
+  debug(...args: unknown[]): void {
+    (this.driver as ShellyLocalDriver).debug(`[Device:${this.__id}]`, ...args);
   }
 }

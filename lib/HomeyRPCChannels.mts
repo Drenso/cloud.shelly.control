@@ -8,7 +8,7 @@ import type { WsMittEvents } from './rpc/OutboundWsServer.mjs';
 export function createHttpChannel(address: string, ha1?: string): HttpChannel {
   const debug = (...args: unknown[]): void => {
     if (Homey.env['DEBUG'] === '1') {
-      console.log('[dbg]', '[ShellyApp]', `[HttpChannel:${address}]`, ...args);
+      console.log(new Date(), '[dbg]', '[ShellyApp]', `[HttpChannel:${address}]`, ...args);
     }
   };
   return new HttpChannel(address, debug, ha1);
@@ -22,7 +22,7 @@ export function createInboundWsChannel(
 ): InboundWebsocketChannel {
   const debug = (...args: unknown[]): void => {
     if (Homey.env['DEBUG'] === '1') {
-      console.log('[dbg]', '[ShellyApp]', `[InboundWS:${address}]`, ...args);
+      console.log(new Date(), '[dbg]', '[ShellyApp]', `[InboundWS:${address}]`, ...args);
     }
   };
 
@@ -44,7 +44,7 @@ export function createOutboundWsChannel(
 ): OutboundWebsocketChannel {
   const debug = (...args: unknown[]): void => {
     if (Homey.env['DEBUG'] === '1') {
-      console.log('[dbg]', '[ShellyApp]', `[OutboundWS:${identifier}]`, ...args);
+      console.log(new Date(), '[dbg]', '[ShellyApp]', `[OutboundWS:${identifier}]`, ...args);
     }
   };
 

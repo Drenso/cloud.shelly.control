@@ -54,6 +54,7 @@ export class VirtualDevice {
   ) {
     this.log = (...args): void => this.app.log(`[Virtual:${deviceId}]`, ...args);
     this.error = (...args): void => this.app.error(`[Virtual:${deviceId}]`, ...args);
+    this.debug = (...args): void => this.app.debug(`[Virtual:${deviceId}]`, ...args);
 
     // Initialize channels
     {
@@ -78,6 +79,7 @@ export class VirtualDevice {
 
   public readonly log: (...args: unknown[]) => void;
   public readonly error: (...args: unknown[]) => void;
+  public readonly debug: (...args: unknown[]) => void;
 
   public serialize(): SerializedVirtualDevice {
     return {
@@ -118,7 +120,7 @@ export class VirtualDevice {
       // @ts-expect-error TS definition is incorrect with behavior in practice
       const componentConstructor: MappedComponent | undefined = ComponentMapping[componentName];
       if (!componentConstructor) {
-        this.log('No implementation found for', componentName);
+        this.debug('No implementation found for', componentName);
         continue;
       }
       const componentInstance = new componentConstructor(
