@@ -53,6 +53,23 @@ export function fillTranslationTagsRecursively(capabilityOptions: JsonValue, tag
   return filledCapabilityOptions;
 }
 
+export function translate(
+  locale: string,
+  template:
+    | string
+    | {
+        en: string;
+        [locale: string]: string;
+      },
+  tags: Record<string, string> = {},
+): string {
+  if (typeof template === 'string') {
+    return fillStringTemplateTags(template, tags);
+  }
+  const templateString = template[locale] ?? template['en'];
+  return fillStringTemplateTags(templateString, tags);
+}
+
 export function deepMerge(destination: Record<string, unknown>, source: Record<string, unknown>): object {
   const result = { ...destination };
   for (const key in source) {

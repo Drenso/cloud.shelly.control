@@ -1,4 +1,5 @@
 {
+  "locale": "en",
   "pair": {
     "add_devices": {
       "loading": "Adding your new Shelly devices, this may take a moment...",

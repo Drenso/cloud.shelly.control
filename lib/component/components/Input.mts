@@ -1,7 +1,7 @@
 import { type AllowedPrimitives, ComponentWithId } from '../Component.mjs';
 import type ShellyLocalDevice from '../../Device.mjs';
 import type { ComponentMethod } from './Shelly/ListMethods.mjs';
-import { createMitt, fillTranslationTagsRecursively, type RecursivePartial } from '../../util.mjs';
+import { createMitt, fillTranslationTagsRecursively, type RecursivePartial, translate } from '../../util.mjs';
 import SetConfig from './Input/SetConfig.mjs';
 import GetConfig from './Input/GetConfig.mjs';
 import GetStatus from './Input/GetStatus.mjs';
@@ -302,10 +302,18 @@ const settingKeys = [
 ] as const satisfies (keyof InputConfig)[];
 
 const BUTTON_EVENTS = ['btn_down', 'btn_up', 'single_push', 'double_push', 'triple_push', 'long_push'] as const;
+type ButtonEvent = (typeof BUTTON_EVENTS)[number];
 
 type ButtonMittEvents = {
-  button: (typeof BUTTON_EVENTS)[number];
+  button: ButtonEvent;
 };
+
+const CAPABILITY_MAPPING = {
+  switch: 'sensor_boolean.input_switch',
+  analog: 'sensor_number.input_analog',
+  count: 'sensor_number.input_count',
+  button: 'sensor_string.input_button',
+} as const satisfies Record<InputConfig['type'], keyof typeof capabilitiesOptions>;
 
 /**
  * The Input component handles the external digital or analog input terminals of a device.
@@ -351,16 +359,8 @@ export default class Input extends ComponentWithId<InputStatus, InputConfig, Inp
       await homeyDevice.safeAddCapability(`hidden.has_input_${this.config.type}`);
     }
 
-    switch (this.config.type) {
-      case 'switch':
-        await this.registerCapability(homeyDevice, 'sensor_boolean.input_switch');
-        break;
-      case 'analog':
-        await this.registerCapability(homeyDevice, 'sensor_number.input_analog');
-        break;
-      case 'count':
-        await this.registerCapability(homeyDevice, 'sensor_number.input_count');
-        break;
+    if (['switch', 'analog', 'count'].includes(this.config.type)) {
+      await this.registerCapability(homeyDevice, CAPABILITY_MAPPING[this.config.type as 'switch' | 'analog' | 'count']);
     }
 
     // TODO unregister
@@ -453,8 +453,8 @@ export default class Input extends ComponentWithId<InputStatus, InputConfig, Inp
   }
 
   async handleEvent(event: NotificationEventParam): Promise<void> {
-    if (BUTTON_EVENTS.includes(event.event)) {
-      this.buttonMitt.emit('button', event.event);
+    if (BUTTON_EVENTS.includes(event.event as never)) {
+      this.buttonMitt.emit('button', event.event as ButtonEvent);
     } else {
       await super.handleEvent(event);
     }
@@ -515,9 +515,10 @@ export default class Input extends ComponentWithId<InputStatus, InputConfig, Inp
             deviceSwitchInputs.push(inputComponent);
           }
         }
-        // TODO translate
+        const capabilityOptions = capabilitiesOptions[CAPABILITY_MAPPING[inputType]];
         return deviceSwitchInputs.map(input => ({
-          name: input.config.name ?? `Input ${input.id}`,
+          name:
+            input.config.name ?? translate(app.homey.__('locale'), capabilityOptions.title, { number: `${input.id}` }),
           id: input.id,
         }));
       };

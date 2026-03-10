@@ -21,5 +21,10 @@
       "en": "Count Input __number__"
     },
     "decimals": 0
+  },
+  "sensor_string.input_button": {
+    "title": {
+      "en": "Button Input __number__"
+    }
   }
 }
