@@ -54,16 +54,8 @@
       "counts": {
         "total": 2816,
         "xtotal": 281.6,
-        "by_minute": [
-          0,
-          0,
-          0
-        ],
-        "xby_minute": [
-          0,
-          0,
-          0
-        ],
+        "by_minute": [0, 0, 0],
+        "xby_minute": [0, 0, 0],
         "minute_ts": 1773138180
       },
       "freq": 0
@@ -124,9 +116,7 @@
       "auto_off_delay": 60
     },
     "attrs": {
-      "inputs": [
-        0
-      ]
+      "inputs": [0]
     }
   },
   {
@@ -148,9 +138,7 @@
       "auto_off_delay": 60
     },
     "attrs": {
-      "inputs": [
-        1
-      ]
+      "inputs": [1]
     }
   },
   {

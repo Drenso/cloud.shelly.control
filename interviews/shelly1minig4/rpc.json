@@ -109,9 +109,7 @@
       "auto_off_delay": 60
     },
     "attrs": {
-      "inputs": [
-        0
-      ]
+      "inputs": [0]
     }
   },
   {
@@ -201,10 +199,7 @@
       "ssid": "DrensoDev",
       "bssid": "76:ac:b9:2c:8c:03",
       "rssi": -37,
-      "sta_ip6": [
-        "fe80::a285:e3ff:febc:31cc",
-        "fd03:8586:4012:ec48:a285:e3ff:febc:31cc"
-      ]
+      "sta_ip6": ["fe80::a285:e3ff:febc:31cc", "fd03:8586:4012:ec48:a285:e3ff:febc:31cc"]
     },
     "config": {
       "ap": {
