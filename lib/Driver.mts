@@ -133,31 +133,36 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
   }
 
   async getPairDevice(discoveryResult: ShellyDiscoveryResult): Promise<ShellyLocalListDeviceProperties | undefined> {
-    const deviceInfoResponse = await Shelly.GetDeviceInfo(createHttpChannel(discoveryResult.address));
-    const deviceInfo = deviceInfoResponse.result;
+    try {
+      const deviceInfoResponse = await Shelly.GetDeviceInfo(createHttpChannel(discoveryResult.address));
+      const deviceInfo = deviceInfoResponse.result;
 
-    // Filter out devices that are already paired
-    if (this.app.virtualDevices.has(deviceInfo.id)) {
+      // Filter out devices that are already paired
+      if (this.app.virtualDevices.has(deviceInfo.id)) {
+        return undefined;
+      }
+
+      // Filter out devices that are not for this driver
+      if (!(await this.onPairMatchDevice(deviceInfo))) {
+        return undefined;
+      }
+
+      return {
+        name: deviceInfo.name ?? this.getDefaultName(),
+        data: {
+          id: deviceInfo.id,
+        },
+        store: {
+          address: discoveryResult.address,
+          port: Number(discoveryResult.port),
+          components: [],
+          auth_domain: deviceInfo.auth_domain ?? undefined,
+        },
+      };
+    } catch (error) {
+      this.error(error);
       return undefined;
     }
-
-    // Filter out devices that are not for this driver
-    if (!(await this.onPairMatchDevice(deviceInfo))) {
-      return undefined;
-    }
-
-    return {
-      name: deviceInfo.name ?? this.getDefaultName(),
-      data: {
-        id: deviceInfo.id,
-      },
-      store: {
-        address: discoveryResult.address,
-        port: Number(discoveryResult.port),
-        components: [],
-        auth_domain: deviceInfo.auth_domain ?? undefined,
-      },
-    };
   }
 
   debug(...args: unknown[]): void {
