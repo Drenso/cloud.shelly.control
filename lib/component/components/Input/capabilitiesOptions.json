@@ -1,0 +1,25 @@
+{
+  "sensor_boolean.input_switch": {
+    "title": {
+      "en": "Switch Input __number__"
+    },
+    "titleTrue": {
+      "en": "On"
+    },
+    "titleFalse": {
+      "en": "Off"
+    }
+  },
+  "sensor_number.input_analog": {
+    "title": {
+      "en": "Analog Input __number__"
+    },
+    "units": "%"
+  },
+  "sensor_number.input_count": {
+    "title": {
+      "en": "Count Input __number__"
+    },
+    "decimals": 0
+  }
+}

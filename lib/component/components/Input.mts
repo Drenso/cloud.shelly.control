@@ -1,18 +1,20 @@
 import { type AllowedPrimitives, ComponentWithId } from '../Component.mjs';
 import type ShellyLocalDevice from '../../Device.mjs';
 import type { ComponentMethod } from './Shelly/ListMethods.mjs';
-import type { RecursivePartial } from '../../util.mjs';
+import { fillTranslationTagsRecursively, type RecursivePartial } from '../../util.mjs';
 import SetConfig from './Input/SetConfig.mjs';
 import GetConfig from './Input/GetConfig.mjs';
 import GetStatus from './Input/GetStatus.mjs';
 import CheckExpression from './Input/CheckExpression.mjs';
 import type { RpcChannel } from '../../rpc/channel/RpcChannel.mjs';
 import type { InputResetCountersParams, InputResetCountersResponse } from './Input/ResetCounters.mjs';
-import type { NotificationEventParam, ResponseSuccessFrame } from '../../rpc/Rpc.mjs';
 import ResetCounters from './Input/ResetCounters.mjs';
+import type { NotificationEventParam, ResponseSuccessFrame } from '../../rpc/Rpc.mjs';
 import Trigger, { type InputTriggerParams } from './Input/Trigger.mjs';
 import type { VirtualDevice } from '../../VirtualDevice.mjs';
 import type ShellyApp from '../../../app.mjs';
+import capabilitiesOptions from './Input/capabilitiesOptions.json' with { type: 'json' };
+import type { JsonObject } from '../../../types/json.mjs';
 
 export type InputConfig = {
   /**
@@ -340,17 +342,51 @@ export default class Input extends ComponentWithId<InputStatus, InputConfig, Inp
     } else {
       await homeyDevice.safeAddCapability(`hidden.has_input_${this.config.type}`);
     }
+
+    switch (this.config.type) {
+      case 'switch':
+        await this.registerCapability(homeyDevice, 'sensor_boolean.input_switch');
+        break;
+      case 'analog':
+        await this.registerCapability(homeyDevice, 'sensor_number.input_analog');
+        break;
+      case 'count':
+        await this.registerCapability(homeyDevice, 'sensor_number.input_count');
+        break;
+    }
+
+    // Set correct capability values
+    await this.onStatusUpdate(homeyDevice, this.status);
+    // Set correct setting values
+    await this.onConfigUpdate(homeyDevice, this.config);
   }
 
   async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Partial<InputStatus>): Promise<void> {
     if (status.state !== undefined && status.state !== null) {
-      const switchUpdate = { value: status.state, switch: this.id + 1 };
-      await homeyDevice.homey.flow
-        .getDeviceTriggerCard('input_switch_event')
-        .trigger(homeyDevice, switchUpdate, switchUpdate);
-      await homeyDevice.homey.flow
-        .getDeviceTriggerCard('input_multiple_switch_event')
-        .trigger(homeyDevice, switchUpdate, switchUpdate);
+      await homeyDevice.safeSetCapability(`sensor_boolean.input_switch_${this.id}`, status.state);
+      const switchUpdate = { value: status.state, input: this.id };
+      await homeyDevice.safeTriggerDeviceCard('input_switch_changed', switchUpdate, switchUpdate);
+      await homeyDevice.safeTriggerDeviceCard('input_switch_changed_multiple', switchUpdate, switchUpdate);
+    }
+
+    if (status.percent !== undefined) {
+      await homeyDevice.safeSetCapability(`sensor_number.input_analog_${this.id}`, status.percent);
+      if (status.percent === null) {
+        const analogUpdate = { input: this.id };
+        await homeyDevice.safeTriggerDeviceCard('input_analog_became_null', analogUpdate, analogUpdate);
+        await homeyDevice.safeTriggerDeviceCard('input_analog_became_null_multiple', analogUpdate, analogUpdate);
+      } else {
+        const analogUpdate = { value: status.percent, input: this.id };
+        await homeyDevice.safeTriggerDeviceCard('input_analog_changed', analogUpdate, analogUpdate);
+        await homeyDevice.safeTriggerDeviceCard('input_analog_changed_multiple', analogUpdate, analogUpdate);
+      }
+    }
+
+    if (status.counts !== undefined) {
+      await homeyDevice.safeSetCapability(`sensor_number.input_count_${this.id}`, status.counts.total);
+      const countUpdate = { value: status.counts.total, input: this.id };
+      await homeyDevice.safeTriggerDeviceCard('input_count_changed', countUpdate, countUpdate);
+      await homeyDevice.safeTriggerDeviceCard('input_count_changed_multiple', countUpdate, countUpdate);
     }
   }
 
@@ -410,6 +446,22 @@ export default class Input extends ComponentWithId<InputStatus, InputConfig, Inp
     }
   }
 
+  async registerCapability(
+    homeyDevice: ShellyLocalDevice,
+    capability: 'sensor_boolean.input_switch' | 'sensor_number.input_analog' | 'sensor_number.input_count',
+  ): Promise<void> {
+    const capabilityId = `${capability}_${this.id}`;
+    await homeyDevice.safeAddCapability(capabilityId);
+    const rawCapabilityOptions = capabilitiesOptions[capability];
+    const capabilityOptions = fillTranslationTagsRecursively(rawCapabilityOptions, {
+      number: `${this.id}`,
+    }) as JsonObject;
+    if (this.config.name !== null) {
+      capabilityOptions.title = this.config.name;
+    }
+    await homeyDevice.setCapabilityOptions(capabilityId, capabilityOptions as object);
+  }
+
   /**
    * A utility function outside the RPC spec to collect all components configured to each type for a Shelly device.
    */
@@ -431,46 +483,68 @@ export default class Input extends ComponentWithId<InputStatus, InputConfig, Inp
   }
 
   static registerFlowCards(app: ShellyApp): void {
+    const createAutocompleteListener = (inputType: InputConfig['type']) => {
+      return (
+        query: string,
+        { device }: { value: boolean; device: ShellyLocalDevice },
+      ): { name: string; id: number }[] => {
+        if (device.virtualDevice === undefined) {
+          return [];
+        }
+
+        const switchInputs = Input.getInputTypes(device.virtualDevice)[inputType];
+
+        const deviceSwitchInputs: Input[] = [];
+        for (const inputId of switchInputs) {
+          const inputComponent = device.virtualComponents.get(inputId) as Input | undefined;
+          if (inputComponent !== undefined) {
+            deviceSwitchInputs.push(inputComponent);
+          }
+        }
+        // TODO translate
+        return deviceSwitchInputs.map(input => ({
+          name: input.config.name ?? `Input ${input.id}`,
+          id: input.id,
+        }));
+      };
+    };
+
     app.homey.flow
-      .getDeviceTriggerCard('input_switch_event')
-      .registerRunListener((flowArgs: { value: ('on' | 'off')[] }, triggerArgs: { value: boolean; switch: number }) => {
+      .getDeviceTriggerCard('input_switch_changed')
+      .registerRunListener((flowArgs: { value: ('on' | 'off')[] }, triggerArgs: { value: boolean; input: number }) => {
         const stateMatches = flowArgs.value.includes(triggerArgs.value ? 'on' : 'off');
         return stateMatches;
       });
 
     app.homey.flow
-      .getDeviceTriggerCard('input_multiple_switch_event')
-      .registerArgumentAutocompleteListener(
-        'switch',
-        (query, { device }: { value: boolean; device: ShellyLocalDevice }) => {
-          if (device.virtualDevice === undefined) {
-            return [];
-          }
-
-          const switchInputs = Input.getInputTypes(device.virtualDevice)['switch'];
-
-          const deviceSwitchInputs: Input[] = [];
-          for (const inputId of switchInputs) {
-            const inputComponent = device.virtualComponents.get(inputId) as Input | undefined;
-            if (inputComponent !== undefined) {
-              deviceSwitchInputs.push(inputComponent);
-            }
-          }
-          return deviceSwitchInputs.map(input => ({
-            name: input.config.name ?? `Input ${input.id + 1}`,
-            id: input.id + 1,
-          }));
-        },
-      )
+      .getDeviceTriggerCard('input_switch_changed_multiple')
+      .registerArgumentAutocompleteListener('input', createAutocompleteListener('switch'))
       .registerRunListener(
         (
-          flowArgs: { value: ('on' | 'off')[]; switch: { id: number } },
-          triggerArgs: { value: boolean; switch: number },
+          flowArgs: { value: ('on' | 'off')[]; input: { id: number } },
+          triggerArgs: { value: boolean; input: number },
         ) => {
-          const switchMatches = flowArgs.switch.id === triggerArgs.switch;
+          const switchMatches = flowArgs.input.id === triggerArgs.input;
           const stateMatches = flowArgs.value.includes(triggerArgs.value ? 'on' : 'off');
           return switchMatches && stateMatches;
         },
       );
+
+    app.homey.flow.getDeviceTriggerCard('input_analog_changed').registerRunListener(() => true);
+
+    app.homey.flow
+      .getDeviceTriggerCard('input_analog_changed_multiple')
+      .registerArgumentAutocompleteListener('input', createAutocompleteListener('analog'))
+      .registerRunListener((flowArgs: { input: { id: number } }, triggerArgs: { value: boolean; input: number }) => {
+        const switchMatches = flowArgs.input.id === triggerArgs.input;
+        return switchMatches;
+      });
+
+    app.homey.flow
+      .getDeviceTriggerCard('input_analog_became_null_multiple')
+      .registerArgumentAutocompleteListener('input', createAutocompleteListener('analog'))
+      .registerRunListener(() => true);
+
+    app.homey.flow.getDeviceTriggerCard('input_analog_became_null').registerRunListener(() => true);
   }
 }

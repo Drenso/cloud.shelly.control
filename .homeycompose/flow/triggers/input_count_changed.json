@@ -1,0 +1,35 @@
+{
+  "title": {
+    "en": "Count input changed"
+  },
+  "tokens": [
+    {
+      "name": "input",
+      "type": "number",
+      "title": {
+        "en": "Input ID"
+      },
+      "example": 1
+    },
+    {
+      "name": "value",
+      "type": "number",
+      "title": {
+        "en": "Input Value"
+      }
+    }
+  ],
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": {
+        "driver_id": "shelly1g4_local|shellypstripg4_local",
+        "capabilities": "hidden.has_input_count"
+      },
+      "title": {
+        "en": "Device"
+      }
+    }
+  ]
+}

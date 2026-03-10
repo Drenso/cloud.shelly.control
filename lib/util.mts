@@ -1,4 +1,5 @@
 import mitt, { type Emitter, type EventType } from 'mitt';
+import type { JsonObject, JsonValue } from '../types/json.mjs';
 
 export function createMitt<Events extends Record<EventType, unknown>>(): Emitter<Events> {
   // @ts-expect-error Mitt default export is broken
@@ -18,6 +19,39 @@ export type RecursivePartial<T, AllowedPrimitives> = {
   [P in keyof T]?: T[P] extends Array<infer U> ? Array<Value<U, AllowedPrimitives>> : Value<T[P], AllowedPrimitives>;
 };
 type Value<T, AllowedPrimitives> = T extends AllowedPrimitives ? T : RecursivePartial<T, AllowedPrimitives>;
+
+export function fillStringTemplateTags(template: string, tags: Record<string, string>): string {
+  let filledTemplate = template;
+  for (const [tag, value] of Object.entries(tags)) {
+    filledTemplate = filledTemplate.replace(`__${tag}__`, value);
+  }
+  return filledTemplate;
+}
+
+export function fillTranslationTagsRecursively(capabilityOptions: JsonValue, tags: Record<string, string>): JsonValue {
+  if (typeof capabilityOptions !== 'object' || capabilityOptions === null) {
+    if (typeof capabilityOptions === 'string') {
+      return fillStringTemplateTags(capabilityOptions, tags);
+    } else {
+      return capabilityOptions;
+    }
+  }
+
+  if (Array.isArray(capabilityOptions)) {
+    return capabilityOptions.map(arrayValue => fillTranslationTagsRecursively(arrayValue, tags));
+  }
+
+  const filledCapabilityOptions: JsonObject = {};
+
+  for (const capabilityOptionsKey in capabilityOptions) {
+    filledCapabilityOptions[capabilityOptionsKey] = fillTranslationTagsRecursively(
+      capabilityOptions[capabilityOptionsKey],
+      tags,
+    );
+  }
+
+  return filledCapabilityOptions;
+}
 
 export function deepMerge(destination: Record<string, unknown>, source: Record<string, unknown>): object {
   const result = { ...destination };

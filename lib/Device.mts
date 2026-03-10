@@ -97,6 +97,14 @@ export default class ShellyLocalDevice extends Homey.Device {
     await this.setCapabilityValue(id, value).catch(this.error);
   }
 
+  async safeTriggerDeviceCard(
+    id: string,
+    tokens?: Record<string, unknown>,
+    triggerArgs?: Record<string, unknown>,
+  ): Promise<void> {
+    return this.homey.flow.getDeviceTriggerCard(id).trigger(this, tokens, triggerArgs).catch(this.error);
+  }
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async onSettings(event: SettingsEvent<any>): Promise<string | void> {
     let restartRequired = false;

@@ -1,24 +1,24 @@
 {
   "title": {
-    "en": "Switch toggled"
+    "en": "Switch input changed"
   },
   "titleFormatted": {
-    "en": "Switch [[switch]] changed to [[value]]"
+    "en": "Switch input changed to [[value]]"
   },
   "tokens": [
     {
-      "name": "switch",
+      "name": "input",
       "type": "number",
       "title": {
-        "en": "Switch Number"
+        "en": "Input ID"
       },
-      "example": 1
+      "example": 0
     },
     {
       "name": "value",
       "type": "boolean",
       "title": {
-        "en": "Switch Value"
+        "en": "Input Value"
       }
     }
   ],
@@ -28,17 +28,10 @@
       "type": "device",
       "filter": {
         "driver_id": "shelly1g4_local|shellypstripg4_local",
-        "capabilities": "hidden.has_input_multiple_switch"
+        "capabilities": "hidden.has_input_switch"
       },
       "title": {
         "en": "Device"
-      }
-    },
-    {
-      "name": "switch",
-      "type": "autocomplete",
-      "title": {
-        "en": "Switch"
       }
     },
     {

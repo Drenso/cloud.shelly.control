@@ -175,7 +175,6 @@ export class VirtualDevice {
     while (true) {
       const componentsResponse = await Shelly.GetComponents(this.httpChannel, {
         offset: components.length,
-        keys: this.components as string[],
       });
       components.push(...componentsResponse.result.components);
       if (components.length >= componentsResponse.result.total) {

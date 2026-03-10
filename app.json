@@ -51,25 +51,90 @@
     "triggers": [
       {
         "title": {
-          "en": "Switch toggled"
-        },
-        "titleFormatted": {
-          "en": "Switch [[switch]] changed to [[value]]"
+          "en": "Analog input became unknown"
         },
         "tokens": [
           {
-            "name": "switch",
+            "name": "input",
             "type": "number",
             "title": {
-              "en": "Switch Number"
+              "en": "Input ID"
+            },
+            "example": 1
+          }
+        ],
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": {
+              "driver_id": "shelly1g4_local|shellypstripg4_local",
+              "capabilities": "hidden.has_input_analog"
+            },
+            "title": {
+              "en": "Device"
+            }
+          }
+        ],
+        "id": "input_analog_became_null"
+      },
+      {
+        "title": {
+          "en": "Analog input became unknown"
+        },
+        "titleFormatted": {
+          "en": "Analog input [[input]] became unknown"
+        },
+        "tokens": [
+          {
+            "name": "input",
+            "type": "number",
+            "title": {
+              "en": "Input ID"
+            },
+            "example": 1
+          }
+        ],
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": {
+              "driver_id": "shelly1g4_local|shellypstripg4_local",
+              "capabilities": "hidden.has_input_multiple_analog"
+            },
+            "title": {
+              "en": "Device"
+            }
+          },
+          {
+            "name": "input",
+            "type": "autocomplete",
+            "title": {
+              "en": "Input"
+            }
+          }
+        ],
+        "id": "input_analog_became_null_multiple"
+      },
+      {
+        "title": {
+          "en": "Analog input changed"
+        },
+        "tokens": [
+          {
+            "name": "input",
+            "type": "number",
+            "title": {
+              "en": "Input ID"
             },
             "example": 1
           },
           {
             "name": "value",
-            "type": "boolean",
+            "type": "number",
             "title": {
-              "en": "Switch Value"
+              "en": "Input Value"
             }
           }
         ],
@@ -79,57 +144,164 @@
             "type": "device",
             "filter": {
               "driver_id": "shelly1g4_local|shellypstripg4_local",
-              "capabilities": "hidden.has_input_multiple_switch"
+              "capabilities": "hidden.has_input_analog"
+            },
+            "title": {
+              "en": "Device"
+            }
+          }
+        ],
+        "id": "input_analog_changed"
+      },
+      {
+        "title": {
+          "en": "Analog input changed"
+        },
+        "titleFormatted": {
+          "en": "Analog input [[input]] changed"
+        },
+        "tokens": [
+          {
+            "name": "input",
+            "type": "number",
+            "title": {
+              "en": "Input ID"
+            },
+            "example": 1
+          },
+          {
+            "name": "value",
+            "type": "number",
+            "title": {
+              "en": "Input Value"
+            }
+          }
+        ],
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": {
+              "driver_id": "shelly1g4_local|shellypstripg4_local",
+              "capabilities": "hidden.has_input_multiple_analog"
             },
             "title": {
               "en": "Device"
             }
           },
           {
-            "name": "switch",
+            "name": "input",
             "type": "autocomplete",
             "title": {
-              "en": "Switch"
+              "en": "Input"
             }
-          },
-          {
-            "name": "value",
-            "title": {
-              "en": "Value"
-            },
-            "type": "multiselect",
-            "conjunction": "or",
-            "values": [
-              {
-                "id": "on",
-                "title": {
-                  "en": "On"
-                }
-              },
-              {
-                "id": "off",
-                "title": {
-                  "en": "Off"
-                }
-              }
-            ]
           }
         ],
-        "id": "input_multiple_switch_event"
+        "id": "input_analog_changed_multiple"
       },
       {
         "title": {
-          "en": "Switch toggled"
-        },
-        "titleFormatted": {
-          "en": "Switch changed to [[value]]"
+          "en": "Count input changed"
         },
         "tokens": [
+          {
+            "name": "input",
+            "type": "number",
+            "title": {
+              "en": "Input ID"
+            },
+            "example": 1
+          },
+          {
+            "name": "value",
+            "type": "number",
+            "title": {
+              "en": "Input Value"
+            }
+          }
+        ],
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": {
+              "driver_id": "shelly1g4_local|shellypstripg4_local",
+              "capabilities": "hidden.has_input_count"
+            },
+            "title": {
+              "en": "Device"
+            }
+          }
+        ],
+        "id": "input_count_changed"
+      },
+      {
+        "title": {
+          "en": "Count input changed"
+        },
+        "titleFormatted": {
+          "en": "Count input [[input]] changed"
+        },
+        "tokens": [
+          {
+            "name": "input",
+            "type": "number",
+            "title": {
+              "en": "Input ID"
+            },
+            "example": 1
+          },
+          {
+            "name": "value",
+            "type": "number",
+            "title": {
+              "en": "Input Value"
+            }
+          }
+        ],
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": {
+              "driver_id": "shelly1g4_local|shellypstripg4_local",
+              "capabilities": "hidden.has_input_multiple_analog"
+            },
+            "title": {
+              "en": "Device"
+            }
+          },
+          {
+            "name": "input",
+            "type": "autocomplete",
+            "title": {
+              "en": "Input"
+            }
+          }
+        ],
+        "id": "input_count_changed_multiple"
+      },
+      {
+        "title": {
+          "en": "Switch input changed"
+        },
+        "titleFormatted": {
+          "en": "Switch input changed to [[value]]"
+        },
+        "tokens": [
+          {
+            "name": "input",
+            "type": "number",
+            "title": {
+              "en": "Input ID"
+            },
+            "example": 0
+          },
           {
             "name": "value",
             "type": "boolean",
             "title": {
-              "en": "Switch Value"
+              "en": "Input Value"
             }
           }
         ],
@@ -168,7 +340,75 @@
             ]
           }
         ],
-        "id": "input_switch_event"
+        "id": "input_switch_changed"
+      },
+      {
+        "title": {
+          "en": "Switch input changed"
+        },
+        "titleFormatted": {
+          "en": "Switch input [[input]] changed to [[value]]"
+        },
+        "tokens": [
+          {
+            "name": "input",
+            "type": "number",
+            "title": {
+              "en": "Input ID"
+            },
+            "example": 0
+          },
+          {
+            "name": "value",
+            "type": "boolean",
+            "title": {
+              "en": "Input Value"
+            }
+          }
+        ],
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": {
+              "driver_id": "shelly1g4_local|shellypstripg4_local",
+              "capabilities": "hidden.has_input_multiple_switch"
+            },
+            "title": {
+              "en": "Device"
+            }
+          },
+          {
+            "name": "input",
+            "type": "autocomplete",
+            "title": {
+              "en": "Input"
+            }
+          },
+          {
+            "name": "value",
+            "title": {
+              "en": "Value"
+            },
+            "type": "multiselect",
+            "conjunction": "or",
+            "values": [
+              {
+                "id": "on",
+                "title": {
+                  "en": "On"
+                }
+              },
+              {
+                "id": "off",
+                "title": {
+                  "en": "Off"
+                }
+              }
+            ]
+          }
+        ],
+        "id": "input_switch_changed_multiple"
       }
     ]
   },
@@ -696,6 +936,18 @@
       "getable": false,
       "setable": false,
       "uiComponent": null
+    },
+    "sensor_boolean": {
+      "title": "Boolean",
+      "type": "boolean",
+      "getable": true,
+      "setable": false
+    },
+    "sensor_number": {
+      "title": "Number",
+      "type": "number",
+      "getable": true,
+      "setable": false
     }
   },
   "discovery": {
