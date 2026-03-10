@@ -25,20 +25,6 @@
     }
   },
   {
-    "key": "humidity:100",
-    "status": {
-      "id": 100,
-      "rh": null,
-      "errors": ["read"]
-    },
-    "config": {
-      "id": 100,
-      "name": null,
-      "report_thr": 1,
-      "offset": 0
-    }
-  },
-  {
     "key": "input:0",
     "status": {
       "id": 0,
@@ -107,8 +93,8 @@
       "source": "init",
       "output": false,
       "temperature": {
-        "tC": 42.3,
-        "tF": 108.1
+        "tC": 55.7,
+        "tF": 132.2
       }
     },
     "config": {
@@ -116,14 +102,16 @@
       "name": null,
       "in_mode": "follow",
       "in_locked": false,
-      "initial_state": "match_input",
+      "initial_state": "restore_last",
       "auto_on": false,
       "auto_on_delay": 60,
       "auto_off": false,
       "auto_off_delay": 60
     },
     "attrs": {
-      "inputs": [0]
+      "inputs": [
+        0
+      ]
     }
   },
   {
@@ -131,26 +119,24 @@
     "status": {
       "mac": "A085E3BC9B18",
       "restart_required": false,
-      "time": "14:10",
-      "unixtime": 1772802605,
-      "last_sync_ts": 1772802310,
-      "uptime": 300,
-      "ram_size": 359308,
-      "ram_free": 181536,
-      "ram_min_free": 169648,
+      "time": "16:26",
+      "unixtime": 1773156398,
+      "last_sync_ts": 1773156335,
+      "uptime": 69,
+      "ram_size": 344104,
+      "ram_free": 171228,
+      "ram_min_free": 160868,
       "fs_size": 917504,
       "fs_free": 450560,
-      "cfg_rev": 11,
+      "cfg_rev": 38,
       "kvs_rev": 0,
       "schedule_rev": 0,
       "webhook_rev": 0,
       "btrelay_rev": 0,
+      "bthc_rev": 0,
       "available_updates": {
         "beta": {
           "version": "1.7.5-beta1"
-        },
-        "stable": {
-          "version": "1.7.4"
         }
       },
       "alt": {
@@ -167,17 +153,17 @@
           }
         }
       },
-      "reset_reason": 1,
+      "reset_reason": 3,
       "utc_offset": 3600
     },
     "config": {
       "device": {
         "name": null,
         "mac": "A085E3BC9B18",
-        "fw_id": "20250508-110744/1.6.1-g8dbd358",
+        "fw_id": "20260120-145311/1.7.4-gf9878b6",
         "discoverable": true,
         "eco_mode": false,
-        "addon_type": "sensor"
+        "addon_type": null
       },
       "location": {
         "tz": "Europe/Amsterdam",
@@ -205,22 +191,7 @@
       "sntp": {
         "server": "time.cloudflare.com"
       },
-      "cfg_rev": 11
-    }
-  },
-  {
-    "key": "temperature:100",
-    "status": {
-      "id": 100,
-      "tC": null,
-      "tF": null,
-      "errors": ["read"]
-    },
-    "config": {
-      "id": 100,
-      "name": null,
-      "report_thr_C": 0.1,
-      "offset_C": 0
+      "cfg_rev": 38
     }
   },
   {
@@ -229,8 +200,12 @@
       "sta_ip": "192.168.222.139",
       "status": "got ip",
       "ssid": "DrensoDev",
-      "rssi": -41,
-      "sta_ip6": ["fe80::a285:e3ff:febc:9b18", "fd03:8586:4012:ec48:a285:e3ff:febc:9b18"]
+      "bssid": "76:ac:b9:2c:8c:03",
+      "rssi": -39,
+      "sta_ip6": [
+        "fe80::a285:e3ff:febc:9b18",
+        "fd03:8586:4012:ec48:a285:e3ff:febc:9b18"
+      ]
     },
     "config": {
       "ap": {
@@ -273,8 +248,8 @@
       "connected": false
     },
     "config": {
-      "enable": false,
-      "server": null,
+      "enable": true,
+      "server": "ws://192.168.123.103:6114",
       "ssl_ca": "*"
     }
   }
