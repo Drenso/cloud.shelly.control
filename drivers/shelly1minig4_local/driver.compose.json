@@ -1,0 +1,12 @@
+{
+  "name": {
+    "en": "Shelly 1 Mini Gen4 - LAN"
+  },
+  "class": "socket",
+  "images": {
+    "small": "/assets/drivers/shelly1minig4/images/small.png",
+    "large": "/assets/drivers/shelly1minig4/images/large.png",
+    "xlarge": "/assets/drivers/shelly1minig4/images/xlarge.png"
+  },
+  "$extends": "local"
+}
