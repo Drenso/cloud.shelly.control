@@ -1,0 +1,255 @@
+[
+  {
+    "key": "ble",
+    "status": {},
+    "config": {
+      "enable": true,
+      "rpc": {
+        "enable": true
+      }
+    }
+  },
+  {
+    "key": "bthome",
+    "status": {},
+    "config": {}
+  },
+  {
+    "key": "cloud",
+    "status": {
+      "connected": false
+    },
+    "config": {
+      "enable": false,
+      "server": "iot.shelly.cloud:6012/jrpc"
+    }
+  },
+  {
+    "key": "input:0",
+    "status": {
+      "id": 0,
+      "state": false
+    },
+    "config": {
+      "id": 0,
+      "name": null,
+      "type": "switch",
+      "enable": true,
+      "invert": false,
+      "factory_reset": true
+    }
+  },
+  {
+    "key": "knx",
+    "status": {},
+    "config": {
+      "enable": false,
+      "ia": "15.15.255",
+      "routing": {
+        "addr": "224.0.23.12:3671"
+      }
+    }
+  },
+  {
+    "key": "matter",
+    "status": {
+      "num_fabrics": 0,
+      "commissionable": false
+    },
+    "config": {
+      "enable": false
+    }
+  },
+  {
+    "key": "modbus",
+    "status": {},
+    "config": {
+      "enable": true
+    }
+  },
+  {
+    "key": "mqtt",
+    "status": {
+      "connected": false
+    },
+    "config": {
+      "enable": false,
+      "server": null,
+      "client_id": "shelly1minig4-a085e3bc31cc",
+      "user": null,
+      "ssl_ca": null,
+      "topic_prefix": "shelly1minig4-a085e3bc31cc",
+      "rpc_ntf": true,
+      "status_ntf": false,
+      "use_client_cert": false,
+      "enable_rpc": true,
+      "enable_control": true
+    }
+  },
+  {
+    "key": "switch:0",
+    "status": {
+      "id": 0,
+      "source": "switch",
+      "output": false,
+      "temperature": {
+        "tC": 55.7,
+        "tF": 132.2
+      }
+    },
+    "config": {
+      "id": 0,
+      "name": null,
+      "in_mode": "follow",
+      "in_locked": false,
+      "initial_state": "match_input",
+      "auto_on": false,
+      "auto_on_delay": 60,
+      "auto_off": false,
+      "auto_off_delay": 60
+    },
+    "attrs": {
+      "inputs": [
+        0
+      ]
+    }
+  },
+  {
+    "key": "sys",
+    "status": {
+      "mac": "A085E3BC31CC",
+      "restart_required": false,
+      "time": "16:53",
+      "unixtime": 1773158005,
+      "last_sync_ts": 1773156752,
+      "uptime": 1258,
+      "ram_size": 346444,
+      "ram_free": 183988,
+      "ram_min_free": 172904,
+      "fs_size": 917504,
+      "fs_free": 462848,
+      "cfg_rev": 1,
+      "kvs_rev": 0,
+      "schedule_rev": 0,
+      "webhook_rev": 0,
+      "btrelay_rev": 0,
+      "bthc_rev": 0,
+      "available_updates": {
+        "beta": {
+          "version": "1.7.5-beta1"
+        }
+      },
+      "alt": {
+        "Mini1G4ZB": {
+          "name": "Shelly Mini 1 Gen4",
+          "desc": "Shelly Mini 1 Gen4 with Zigbee",
+          "beta": {
+            "version": "1.7.5-beta1",
+            "build_id": "20260226-111103/1.7.5-beta1-gf460490"
+          },
+          "stable": {
+            "version": "1.7.4",
+            "build_id": "20260120-145249/1.7.4-gf9878b6"
+          }
+        }
+      },
+      "reset_reason": 1,
+      "utc_offset": 3600
+    },
+    "config": {
+      "device": {
+        "name": null,
+        "mac": "A085E3BC31CC",
+        "fw_id": "20260120-145257/1.7.4-gf9878b6",
+        "discoverable": true,
+        "eco_mode": false
+      },
+      "location": {
+        "tz": "Europe/Amsterdam",
+        "lat": 52.2159,
+        "lon": 6.9091
+      },
+      "debug": {
+        "level": 2,
+        "file_level": null,
+        "mqtt": {
+          "enable": false
+        },
+        "websocket": {
+          "enable": false
+        },
+        "udp": {
+          "addr": null
+        }
+      },
+      "ui_data": {},
+      "rpc_udp": {
+        "dst_addr": null,
+        "listen_port": null
+      },
+      "sntp": {
+        "server": "time.cloudflare.com"
+      },
+      "cfg_rev": 1
+    }
+  },
+  {
+    "key": "wifi",
+    "status": {
+      "sta_ip": "192.168.222.128",
+      "status": "got ip",
+      "ssid": "DrensoDev",
+      "bssid": "76:ac:b9:2c:8c:03",
+      "rssi": -37,
+      "sta_ip6": [
+        "fe80::a285:e3ff:febc:31cc",
+        "fd03:8586:4012:ec48:a285:e3ff:febc:31cc"
+      ]
+    },
+    "config": {
+      "ap": {
+        "ssid": "Shelly1MiniG4-A085E3BC31CC",
+        "is_open": true,
+        "enable": true,
+        "range_extender": {
+          "enable": false
+        }
+      },
+      "sta": {
+        "ssid": "DrensoDev",
+        "is_open": false,
+        "enable": true,
+        "ipv4mode": "dhcp",
+        "ip": null,
+        "netmask": null,
+        "gw": null,
+        "nameserver": null
+      },
+      "sta1": {
+        "ssid": null,
+        "is_open": true,
+        "enable": false,
+        "ipv4mode": "dhcp",
+        "ip": null,
+        "netmask": null,
+        "gw": null,
+        "nameserver": null
+      },
+      "roam": {
+        "rssi_thr": -80,
+        "interval": 60
+      }
+    }
+  },
+  {
+    "key": "ws",
+    "status": {
+      "connected": false
+    },
+    "config": {
+      "enable": false,
+      "server": null,
+      "ssl_ca": "ca.pem"
+    }
+  }
+]
