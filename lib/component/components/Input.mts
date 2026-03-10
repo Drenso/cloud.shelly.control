@@ -1,7 +1,7 @@
 import { type AllowedPrimitives, ComponentWithId } from '../Component.mjs';
 import type ShellyLocalDevice from '../../Device.mjs';
 import type { ComponentMethod } from './Shelly/ListMethods.mjs';
-import { fillTranslationTagsRecursively, type RecursivePartial } from '../../util.mjs';
+import { createMitt, fillTranslationTagsRecursively, type RecursivePartial } from '../../util.mjs';
 import SetConfig from './Input/SetConfig.mjs';
 import GetConfig from './Input/GetConfig.mjs';
 import GetStatus from './Input/GetStatus.mjs';
@@ -301,6 +301,12 @@ const settingKeys = [
   'freq_rep_thr',
 ] as const satisfies (keyof InputConfig)[];
 
+const BUTTON_EVENTS = ['btn_down', 'btn_up', 'single_push', 'double_push', 'triple_push', 'long_push'] as const;
+
+type ButtonMittEvents = {
+  button: (typeof BUTTON_EVENTS)[number];
+};
+
 /**
  * The Input component handles the external digital or analog input terminals of a device.
  * Inputs can trigger webhooks, control switches and optionally perform factory reset.
@@ -313,6 +319,8 @@ export default class Input extends ComponentWithId<InputStatus, InputConfig, Inp
   static uiName = 'Input';
 
   readonly CheckExpression = CheckExpression;
+
+  buttonMitt = createMitt<ButtonMittEvents>();
 
   async ResetCounters(
     channel: RpcChannel,
@@ -354,6 +362,13 @@ export default class Input extends ComponentWithId<InputStatus, InputConfig, Inp
         await this.registerCapability(homeyDevice, 'sensor_number.input_count');
         break;
     }
+
+    // TODO unregister
+    this.buttonMitt.on('button', type => {
+      const buttonUpdate = { value: type, input: this.id };
+      homeyDevice.safeTriggerDeviceCard('input_button_event', buttonUpdate, buttonUpdate);
+      homeyDevice.safeTriggerDeviceCard('input_button_event_multiple', buttonUpdate, buttonUpdate);
+    });
 
     // Set correct capability values
     await this.onStatusUpdate(homeyDevice, this.status);
@@ -438,9 +453,8 @@ export default class Input extends ComponentWithId<InputStatus, InputConfig, Inp
   }
 
   async handleEvent(event: NotificationEventParam): Promise<void> {
-    if (['btn_down', 'btn_up', 'single_push', 'double_push', 'triple_push', 'long_push'].includes(event.event)) {
-      this.device.log('Button event:', event.event);
-      // TODO
+    if (BUTTON_EVENTS.includes(event.event)) {
+      this.buttonMitt.emit('button', event.event);
     } else {
       await super.handleEvent(event);
     }
@@ -546,5 +560,38 @@ export default class Input extends ComponentWithId<InputStatus, InputConfig, Inp
       .registerRunListener(() => true);
 
     app.homey.flow.getDeviceTriggerCard('input_analog_became_null').registerRunListener(() => true);
+
+    app.homey.flow.getDeviceTriggerCard('input_button_event').registerRunListener(
+      (
+        flowArgs: { value: ('btn_down' | 'btn_up' | 'single_push' | 'double_push' | 'triple_push' | 'long_push')[] },
+        triggerArgs: {
+          value: 'btn_down' | 'btn_up' | 'single_push' | 'double_push' | 'triple_push' | 'long_push';
+          input: number;
+        },
+      ) => {
+        const stateMatches = flowArgs.value.includes(triggerArgs.value);
+        return stateMatches;
+      },
+    );
+
+    app.homey.flow
+      .getDeviceTriggerCard('input_button_event_multiple')
+      .registerArgumentAutocompleteListener('input', createAutocompleteListener('button'))
+      .registerRunListener(
+        (
+          flowArgs: {
+            value: ('btn_down' | 'btn_up' | 'single_push' | 'double_push' | 'triple_push' | 'long_push')[];
+            input: { id: number };
+          },
+          triggerArgs: {
+            value: 'btn_down' | 'btn_up' | 'single_push' | 'double_push' | 'triple_push' | 'long_push';
+            input: number;
+          },
+        ) => {
+          const switchMatches = flowArgs.input.id === triggerArgs.input;
+          const stateMatches = flowArgs.value.includes(triggerArgs.value);
+          return switchMatches && stateMatches;
+        },
+      );
   }
 }
