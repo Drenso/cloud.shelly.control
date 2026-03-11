@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@drenso/homey-log": "10.4200.0",
-    "homey-zigbeedriver": "2.2.15",
+    "homey-zigbeedriver": "2.2.16",
     "homey-zwavedriver": "2.2.1",
     "mitt": "^3.0.1",
     "semver": "7.7.3",
