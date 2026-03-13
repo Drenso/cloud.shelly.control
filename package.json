@@ -11,7 +11,8 @@
     "validate": "homey app validate --level=verified",
     "prettier": "prettier . --write",
     "prettier-check": "prettier . --check",
-    "interview-rpc": "tsx interview.mts"
+    "interview-rpc": "tsx interview.mts",
+    "update-flow-driver-filters": "tsx fixFlows.mts"
   },
   "dependencies": {
     "@drenso/homey-log": "10.4300.0",
