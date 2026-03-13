@@ -108,15 +108,35 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
     );
   }
 
-  abstract assembleHomeyDevices(
-    selectedDevice: ShellyLocalListDeviceProperties,
-    components: ShellyGetComponentsResponseComponent[],
-  ): Promise<ShellyLocalListDeviceProperties[]>;
-
-  abstract onPairMatchDevice(deviceInfo: ShellyGetDeviceInfoResponse): Promise<boolean>;
-
   getDefaultName(): string {
     return this.manifest.name.en.split('-')[0].trim();
+  }
+
+  get baseDriverId(): string {
+    return this.id.split('_')[0];
+  }
+
+  async onPairMatchDevice(deviceInfo: ShellyGetDeviceInfoResponse): Promise<boolean> {
+    return deviceInfo.id.toLowerCase().startsWith(this.baseDriverId);
+  }
+
+  async assembleHomeyDevices(
+    selectedDevice: ShellyLocalListDeviceProperties,
+    components: ShellyGetComponentsResponseComponent[],
+  ): Promise<ShellyLocalListDeviceProperties[]> {
+    const device: ShellyLocalListDeviceProperties = {
+      name: selectedDevice.name,
+      data: {
+        id: selectedDevice.data.id,
+      },
+      icon: `../../../assets/drivers/${this.baseDriverId}/icon.svg`,
+      store: {
+        ...selectedDevice.store,
+        components: components.map(component => component.key),
+      },
+    };
+
+    return [device];
   }
 
   async onPairListDevices(): Promise<ShellyLocalListDeviceProperties[]> {
