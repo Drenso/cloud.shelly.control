@@ -1421,6 +1421,124 @@
         }
       ],
       "name": {
+        "en": "Shelly 2PM Gen4 - Cover - LAN"
+      },
+      "class": "socket",
+      "images": {
+        "small": "/assets/drivers/shelly2pmg4/images/small.png",
+        "large": "/assets/drivers/shelly2pmg4/images/large.png",
+        "xlarge": "/assets/drivers/shelly2pmg4/images/xlarge.png"
+      },
+      "id": "shelly2pmg4_cover_local"
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "capabilities": [
+        "button.restart"
+      ],
+      "capabilitiesOptions": {
+        "button.restart": {
+          "maintenanceAction": true,
+          "title": {
+            "en": "Restart Device"
+          }
+        }
+      },
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "authenticate_devices"
+          }
+        },
+        {
+          "id": "authenticate_devices",
+          "template": "loading",
+          "options": {
+            "text": "pair.loading_devices"
+          }
+        },
+        {
+          "id": "loading_devices",
+          "template": "loading",
+          "options": {
+            "text": "pair.loading_devices"
+          }
+        },
+        {
+          "id": "device_password"
+        },
+        {
+          "id": "add_subdevices"
+        }
+      ],
+      "name": {
+        "en": "Shelly 2PM Gen4 - Switch - LAN"
+      },
+      "class": "socket",
+      "images": {
+        "small": "/assets/drivers/shelly2pmg4/images/small.png",
+        "large": "/assets/drivers/shelly2pmg4/images/large.png",
+        "xlarge": "/assets/drivers/shelly2pmg4/images/xlarge.png"
+      },
+      "id": "shelly2pmg4_switch_local"
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "capabilities": [
+        "button.restart"
+      ],
+      "capabilitiesOptions": {
+        "button.restart": {
+          "maintenanceAction": true,
+          "title": {
+            "en": "Restart Device"
+          }
+        }
+      },
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "authenticate_devices"
+          }
+        },
+        {
+          "id": "authenticate_devices",
+          "template": "loading",
+          "options": {
+            "text": "pair.loading_devices"
+          }
+        },
+        {
+          "id": "loading_devices",
+          "template": "loading",
+          "options": {
+            "text": "pair.loading_devices"
+          }
+        },
+        {
+          "id": "device_password"
+        },
+        {
+          "id": "add_subdevices"
+        }
+      ],
+      "name": {
         "en": "Power Strip 4 Gen4 - LAN"
       },
       "class": "socket",
