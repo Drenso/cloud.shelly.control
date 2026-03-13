@@ -1,0 +1,11 @@
+{
+  "id": "Switch:in_locked",
+  "type": "checkbox",
+  "label": {
+    "en": "Switch - Ignore Inputs"
+  },
+  "hint": {
+    "en": "Ignore all changes to physical inputs, regardless of mode."
+  },
+  "value": false
+}

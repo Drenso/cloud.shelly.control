@@ -22,12 +22,7 @@
     ]
   },
   {
-    "id": "Switch:initial_state",
-    "type": "dropdown",
-    "label": {
-      "en": "Switch - Startup State"
-    },
-    "value": "off",
+    "$extends": "Switch:initial_state",
     "values": [
       {
         "id": "off",
@@ -50,65 +45,19 @@
     ]
   },
   {
-    "id": "Switch:autorecover_voltage_errors",
-    "type": "checkbox",
-    "label": {
-      "en": "Switch - Autorecover Voltage Errors"
-    },
-    "hint": {
-      "en": "Whether to restore the switch output state after an overvoltage error is cleared."
-    },
-    "value": false
+    "$extends": "Switch:autorecover_voltage_errors"
   },
   {
-    "id": "Switch:power_limit",
-    "type": "number",
-    "label": {
-      "en": "Switch - Power Limit"
-    },
-    "hint": {
-      "en": "The maximum value is the max-rated output power."
-    },
-    "value": 3360,
-    "min": 0,
-    "units": "W"
+    "$extends": "Switch:power_limit"
   },
   {
-    "id": "Switch:voltage_limit",
-    "type": "number",
-    "label": {
-      "en": "Switch - Voltage Limit"
-    },
-    "hint": {
-      "en": "The maximum value is the max-rated output voltage."
-    },
-    "value": 280,
-    "min": 0,
-    "units": "V"
+    "$extends": "Switch:voltage_limit"
   },
   {
-    "id": "Switch:current_limit",
-    "type": "number",
-    "label": {
-      "en": "Switch - Current Limit"
-    },
-    "hint": {
-      "en": "The maximum value is the max-rated output current."
-    },
-    "value": 12,
-    "min": 0,
-    "units": "A"
+    "$extends": "Switch:current_limit"
   },
   {
-    "id": "Switch:reverse",
-    "type": "checkbox",
-    "label": {
-      "en": "Switch - Reverse Measurement"
-    },
-    "value": false,
-    "hint": {
-      "en": "Whether the measurement direction of active power and energy should be reversed. Requires a restart of the device."
-    }
+    "$extends": "Switch:reverse"
   },
   {
     "type": "group",

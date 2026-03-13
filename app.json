@@ -1228,12 +1228,6 @@
           ]
         },
         {
-          "id": "Switch:initial_state",
-          "type": "dropdown",
-          "label": {
-            "en": "Switch - Startup State"
-          },
-          "value": "off",
           "values": [
             {
               "id": "off",
@@ -1253,7 +1247,13 @@
                 "en": "Restore Last"
               }
             }
-          ]
+          ],
+          "id": "Switch:initial_state",
+          "type": "dropdown",
+          "label": {
+            "en": "Switch - Startup State"
+          },
+          "value": "off"
         },
         {
           "id": "Switch:autorecover_voltage_errors",

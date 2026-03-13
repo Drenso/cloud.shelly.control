@@ -1,0 +1,8 @@
+{
+  "id": "Input:enable",
+  "type": "checkbox",
+  "label": {
+    "en": "Input - Enabled"
+  },
+  "value": true
+}

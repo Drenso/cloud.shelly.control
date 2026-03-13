@@ -1,0 +1,11 @@
+{
+  "id": "Switch:autorecover_voltage_errors",
+  "type": "checkbox",
+  "label": {
+    "en": "Switch - Autorecover Voltage Errors"
+  },
+  "hint": {
+    "en": "Whether to restore the switch output state after an overvoltage error is cleared."
+  },
+  "value": false
+}

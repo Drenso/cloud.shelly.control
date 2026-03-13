@@ -1,0 +1,11 @@
+{
+  "id": "Switch:reverse",
+  "type": "checkbox",
+  "label": {
+    "en": "Switch - Reverse Measurement"
+  },
+  "value": false,
+  "hint": {
+    "en": "Whether the measurement direction of active power and energy should be reversed. Requires a restart of the device."
+  }
+}

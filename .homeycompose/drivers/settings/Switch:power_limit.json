@@ -1,0 +1,13 @@
+{
+  "id": "Switch:power_limit",
+  "type": "number",
+  "label": {
+    "en": "Switch - Power Limit"
+  },
+  "hint": {
+    "en": "The maximum value is the max-rated output power."
+  },
+  "value": 3360,
+  "min": 0,
+  "units": "W"
+}

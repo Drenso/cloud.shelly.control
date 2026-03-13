@@ -1,0 +1,8 @@
+{
+  "id": "Input:invert",
+  "type": "checkbox",
+  "label": {
+    "en": "Input - Invert"
+  },
+  "value": true
+}

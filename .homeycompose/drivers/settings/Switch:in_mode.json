@@ -1,0 +1,43 @@
+{
+  "id": "Switch:in_mode",
+  "type": "dropdown",
+  "label": {
+    "en": "Switch - Mode"
+  },
+  "value": "follow",
+  "values": [
+    {
+      "id": "momentary",
+      "label": {
+        "en": "Momentary"
+      }
+    },
+    {
+      "id": "follow",
+      "label": {
+        "en": "Follow Input"
+      }
+    },
+    {
+      "id": "flip",
+      "label": {
+        "en": "Change on Input Change"
+      }
+    },
+    {
+      "id": "detached",
+      "label": {
+        "en": "Detached"
+      }
+    },
+    {
+      "id": "activate",
+      "label": {
+        "en": "Turn on only"
+      }
+    }
+  ],
+  "hint": {
+    "en": "\"Turn on only\" is for use with a motion sensor. Turn off again with a flow."
+  }
+}
