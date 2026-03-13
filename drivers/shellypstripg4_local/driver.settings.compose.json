@@ -22,7 +22,7 @@
     ]
   },
   {
-    "$extends": "Switch:initial_state",
+    "$extends": "Switch.initial_state",
     "values": [
       {
         "id": "off",
@@ -45,19 +45,19 @@
     ]
   },
   {
-    "$extends": "Switch:autorecover_voltage_errors"
+    "$extends": "Switch.autorecover_voltage_errors"
   },
   {
-    "$extends": "Switch:power_limit"
+    "$extends": "Switch.power_limit"
   },
   {
-    "$extends": "Switch:voltage_limit"
+    "$extends": "Switch.voltage_limit"
   },
   {
-    "$extends": "Switch:current_limit"
+    "$extends": "Switch.current_limit"
   },
   {
-    "$extends": "Switch:reverse"
+    "$extends": "Switch.reverse"
   },
   {
     "type": "group",

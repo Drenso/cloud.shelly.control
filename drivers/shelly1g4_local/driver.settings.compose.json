@@ -1,17 +1,17 @@
 [
   {
-    "$extends": "Input:enable"
+    "$extends": "Input.enable"
   },
   {
-    "$extends": "Input:invert"
+    "$extends": "Input.invert"
   },
   {
-    "$extends": "Switch:in_mode"
+    "$extends": "Switch.in_mode"
   },
   {
-    "$extends": "Switch:in_locked"
+    "$extends": "Switch.in_locked"
   },
   {
-    "$extends": "Switch:initial_state"
+    "$extends": "Switch.initial_state"
   }
 ]
