@@ -1,73 +1,15 @@
 [
   {
-    "id": "Input:enable",
-    "type": "checkbox",
-    "label": {
-      "en": "Input - Enabled"
-    },
-    "value": true
+    "$extends": "Input.enable"
   },
   {
-    "id": "Input:invert",
-    "type": "checkbox",
-    "label": {
-      "en": "Input - Invert"
-    },
-    "value": true
+    "$extends": "Input.invert"
   },
   {
-    "id": "Switch:in_mode",
-    "type": "dropdown",
-    "label": {
-      "en": "Switch - Mode"
-    },
-    "value": "follow",
-    "values": [
-      {
-        "id": "momentary",
-        "label": {
-          "en": "Momentary"
-        }
-      },
-      {
-        "id": "follow",
-        "label": {
-          "en": "Follow Input"
-        }
-      },
-      {
-        "id": "flip",
-        "label": {
-          "en": "Change on Input Change"
-        }
-      },
-      {
-        "id": "detached",
-        "label": {
-          "en": "Detached"
-        }
-      },
-      {
-        "id": "activate",
-        "label": {
-          "en": "Turn on only"
-        }
-      }
-    ],
-    "hint": {
-      "en": "\"Turn on only\" is for use with a motion sensor. Turn off again with a flow."
-    }
+    "$extends": "Switch.in_mode"
   },
   {
-    "id": "Switch:in_locked",
-    "type": "checkbox",
-    "label": {
-      "en": "Switch - Ignore Inputs"
-    },
-    "hint": {
-      "en": "Ignore all changes to physical inputs, regardless of mode."
-    },
-    "value": false
+    "$extends": "Switch.in_locked"
   },
   {
     "$extends": "Switch.initial_state"
