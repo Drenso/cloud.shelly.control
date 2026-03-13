@@ -20,6 +20,7 @@ type NamespaceMethodMapping = {
   POWERSTRIP_UI: ['SetConfig', 'GetConfig', 'GetStatus'];
   Temperature: ['GetConfig', 'SetConfig', 'GetStatus'];
   Input: ['SetConfig', 'GetConfig', 'GetStatus', 'CheckExpression', 'ResetCounters', 'Trigger'];
+  Sys: ['SetConfig', 'GetConfig', 'GetStatus', 'SetTime'];
 };
 
 export type NameSpace = keyof NamespaceMethodMapping;
