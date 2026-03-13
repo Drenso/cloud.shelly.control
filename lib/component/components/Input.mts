@@ -315,6 +315,15 @@ const CAPABILITY_MAPPING = {
   button: 'sensor_string.input_button',
 } as const satisfies Record<InputConfig['type'], keyof typeof capabilitiesOptions>;
 
+type RateLimitEvent = {
+  component: string;
+  id: number;
+  event: 'rate_limit_exceeded';
+  missed_status: number;
+  missed_events: number;
+  ts: number;
+};
+
 /**
  * The Input component handles the external digital or analog input terminals of a device.
  * Inputs can trigger webhooks, control switches and optionally perform factory reset.
@@ -455,6 +464,17 @@ export default class Input extends ComponentWithId<InputStatus, InputConfig, Inp
   async handleEvent(event: NotificationEventParam): Promise<void> {
     if (BUTTON_EVENTS.includes(event.event as never)) {
       this.buttonMitt.emit('button', event.event as ButtonEvent);
+    }
+    if (event.event === 'rate_limit_exceeded') {
+      const rateLimitEvent = event as RateLimitEvent;
+      this.device.error(
+        `[Input:${this.id}]`,
+        'Rate limit exceeded. Missed',
+        rateLimitEvent.missed_status,
+        'status updates and',
+        rateLimitEvent.missed_events,
+        'events',
+      );
     } else {
       await super.handleEvent(event);
     }
