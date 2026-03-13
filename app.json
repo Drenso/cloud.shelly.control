@@ -68,7 +68,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "shelly1g4_local|shellypstripg4_local",
+              "driver_id": "shelly1g4_local|shelly1minig4_local|shellypstripg4_local",
               "capabilities": "hidden.has_input_analog"
             },
             "title": {
@@ -100,7 +100,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "shelly1g4_local|shellypstripg4_local",
+              "driver_id": "shelly1g4_local|shelly1minig4_local|shellypstripg4_local",
               "capabilities": "hidden.has_input_multiple_analog"
             },
             "title": {
@@ -143,7 +143,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "shelly1g4_local|shellypstripg4_local",
+              "driver_id": "shelly1g4_local|shelly1minig4_local|shellypstripg4_local",
               "capabilities": "hidden.has_input_analog"
             },
             "title": {
@@ -182,7 +182,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "shelly1g4_local|shellypstripg4_local",
+              "driver_id": "shelly1g4_local|shelly1minig4_local|shellypstripg4_local",
               "capabilities": "hidden.has_input_multiple_analog"
             },
             "title": {
@@ -228,7 +228,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "shelly1g4_local|shellypstripg4_local",
+              "driver_id": "shelly1g4_local|shelly1minig4_local|shellypstripg4_local",
               "capabilities": "hidden.has_input_button"
             },
             "title": {
@@ -313,7 +313,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "shelly1g4_local|shellypstripg4_local",
+              "driver_id": "shelly1g4_local|shelly1minig4_local|shellypstripg4_local",
               "capabilities": "hidden.has_input_multiple_button"
             },
             "title": {
@@ -402,7 +402,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "shelly1g4_local|shellypstripg4_local",
+              "driver_id": "shelly1g4_local|shelly1minig4_local|shellypstripg4_local",
               "capabilities": "hidden.has_input_count"
             },
             "title": {
@@ -441,7 +441,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "shelly1g4_local|shellypstripg4_local",
+              "driver_id": "shelly1g4_local|shelly1minig4_local|shellypstripg4_local",
               "capabilities": "hidden.has_input_multiple_analog"
             },
             "title": {
@@ -487,7 +487,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "shelly1g4_local|shellypstripg4_local",
+              "driver_id": "shelly1g4_local|shelly1minig4_local|shellypstripg4_local",
               "capabilities": "hidden.has_input_switch"
             },
             "title": {
@@ -548,7 +548,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "shelly1g4_local|shellypstripg4_local",
+              "driver_id": "shelly1g4_local|shelly1minig4_local|shellypstripg4_local",
               "capabilities": "hidden.has_input_multiple_switch"
             },
             "title": {

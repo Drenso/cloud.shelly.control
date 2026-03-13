@@ -27,7 +27,7 @@
       "name": "device",
       "type": "device",
       "filter": {
-        "driver_id": "shelly1g4_local|shellypstripg4_local",
+        "driver_id": "shelly1g4_local|shelly1minig4_local|shellypstripg4_local",
         "capabilities": "hidden.has_input_switch"
       },
       "title": {
