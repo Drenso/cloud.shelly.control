@@ -1195,6 +1195,65 @@
         }
       ],
       "name": {
+        "en": "Shelly 1PM Mini Gen4 - LAN"
+      },
+      "class": "socket",
+      "images": {
+        "small": "/assets/drivers/shelly1pmminig4/images/small.png",
+        "large": "/assets/drivers/shelly1pmminig4/images/large.png",
+        "xlarge": "/assets/drivers/shelly1pmminig4/images/xlarge.png"
+      },
+      "id": "shelly1pmminig4_local"
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "capabilities": [
+        "button.restart"
+      ],
+      "capabilitiesOptions": {
+        "button.restart": {
+          "maintenanceAction": true,
+          "title": {
+            "en": "Restart Device"
+          }
+        }
+      },
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "authenticate_devices"
+          }
+        },
+        {
+          "id": "authenticate_devices",
+          "template": "loading",
+          "options": {
+            "text": "pair.loading_devices"
+          }
+        },
+        {
+          "id": "loading_devices",
+          "template": "loading",
+          "options": {
+            "text": "pair.loading_devices"
+          }
+        },
+        {
+          "id": "device_password"
+        },
+        {
+          "id": "add_subdevices"
+        }
+      ],
+      "name": {
         "en": "Power Strip 4 Gen4 - LAN"
       },
       "class": "socket",
