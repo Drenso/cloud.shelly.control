@@ -117,7 +117,7 @@ export default class PowerStripUI extends ComponentWithoutId<
   async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: PowerStripUIStatus): Promise<void> {}
 
   async onConfigUpdate(homeyDevice: ShellyLocalDevice, config: PowerStripUIConfig): Promise<void> {
-    const changedSettings: Partial<PowerStripUIHomeySettings> = {
+    const newSettings: Partial<PowerStripUIHomeySettings> = {
       'POWERSTRIP_UI:leds.mode': config.leds.mode,
       'POWERSTRIP_UI:leds.colors.power.brightness': config.leds.colors.power.brightness,
       'POWERSTRIP_UI:leds.colors.switch:0.on.brightness': config.leds.colors['switch:0'].on.brightness,
@@ -128,29 +128,29 @@ export default class PowerStripUI extends ComponentWithoutId<
     const onRgb = config.leds.colors['switch:0'].on.rgb;
     if (onRgb !== null) {
       const [r, g, b] = onRgb;
-      changedSettings['POWERSTRIP_UI:leds.colors.switch:0.on.r'] = r;
-      changedSettings['POWERSTRIP_UI:leds.colors.switch:0.on.g'] = g;
-      changedSettings['POWERSTRIP_UI:leds.colors.switch:0.on.b'] = b;
+      newSettings['POWERSTRIP_UI:leds.colors.switch:0.on.r'] = r;
+      newSettings['POWERSTRIP_UI:leds.colors.switch:0.on.g'] = g;
+      newSettings['POWERSTRIP_UI:leds.colors.switch:0.on.b'] = b;
     }
     const offRgb = config.leds.colors['switch:0'].off.rgb;
     if (offRgb !== null) {
       const [r, g, b] = offRgb;
-      changedSettings['POWERSTRIP_UI:leds.colors.switch:0.off.r'] = r;
-      changedSettings['POWERSTRIP_UI:leds.colors.switch:0.off.g'] = g;
-      changedSettings['POWERSTRIP_UI:leds.colors.switch:0.off.b'] = b;
+      newSettings['POWERSTRIP_UI:leds.colors.switch:0.off.r'] = r;
+      newSettings['POWERSTRIP_UI:leds.colors.switch:0.off.g'] = g;
+      newSettings['POWERSTRIP_UI:leds.colors.switch:0.off.b'] = b;
     }
     const nightModePeriod = config.leds.night_mode.active_between;
     if (nightModePeriod.length === 2) {
       const [start, end] = nightModePeriod;
-      changedSettings['POWERSTRIP_UI:leds.night_mode.active_between.start'] = start;
-      changedSettings['POWERSTRIP_UI:leds.night_mode.active_between.end'] = end;
+      newSettings['POWERSTRIP_UI:leds.night_mode.active_between.start'] = start;
+      newSettings['POWERSTRIP_UI:leds.night_mode.active_between.end'] = end;
     }
     const switchId = homeyDevice.getTypedData().subdevice_id;
     if (switchId !== undefined && switchId >= 0 && switchId <= 3) {
-      changedSettings['POWERSTRIP_UI:controls.switch.in_mode'] =
+      newSettings['POWERSTRIP_UI:controls.switch.in_mode'] =
         config.controls[`switch:${switchId as 0 | 1 | 2 | 3}`].in_mode;
     }
-    await homeyDevice.setSettings(changedSettings);
+    await homeyDevice.setComponentSettings(this.namespace, undefined, newSettings);
   }
 
   async handleSettings(

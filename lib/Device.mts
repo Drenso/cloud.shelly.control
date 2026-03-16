@@ -116,6 +116,14 @@ export default class ShellyLocalDevice extends Homey.Device {
     }
   }
 
+  async setComponentSettings(
+    component: NameSpace,
+    id: number | undefined,
+    settings: Record<string, unknown>,
+  ): Promise<void> {
+    await this.setSettings(settings);
+  }
+
   debug(...args: unknown[]): void {
     (this.driver as ShellyLocalDriver).debug(`[Device:${this.__id}]`, ...args);
   }

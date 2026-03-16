@@ -75,7 +75,7 @@ export default class Temperature extends ComponentWithId<
       }
     }
 
-    await homeyDevice.setSettings(newSettings);
+    await homeyDevice.setComponentSettings(this.namespace, undefined, newSettings);
   }
 
   async handleSettings(

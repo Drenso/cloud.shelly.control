@@ -647,7 +647,7 @@ export default class Cover extends ComponentWithId<'Cover', CoverStatus, CoverCo
       }
     }
 
-    await homeyDevice.setSettings(newSettings);
+    await homeyDevice.setComponentSettings(this.namespace, undefined, newSettings);
   }
 
   async handleSettings(

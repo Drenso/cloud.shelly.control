@@ -433,7 +433,7 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
       }
     }
 
-    await homeyDevice.setSettings(newSettings);
+    await homeyDevice.setComponentSettings(this.namespace, this.id, newSettings);
   }
 
   async handleSettings(

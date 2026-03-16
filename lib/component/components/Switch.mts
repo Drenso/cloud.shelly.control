@@ -294,7 +294,7 @@ export default class Switch extends ComponentWithId<'Switch', SwitchStatus, Swit
       newSettings['Switch:input_id'] = `${config['input_id']}`;
     }
 
-    await homeyDevice.setSettings(newSettings);
+    await homeyDevice.setComponentSettings(this.namespace, undefined, newSettings);
   }
 
   async handleSettings(
