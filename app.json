@@ -1429,7 +1429,53 @@
         "large": "/assets/drivers/shelly2pmg4/images/large.png",
         "xlarge": "/assets/drivers/shelly2pmg4/images/xlarge.png"
       },
-      "id": "shelly2pmg4_cover_local"
+      "id": "shelly2pmg4_cover_local",
+      "settings": [
+        {
+          "type": "group",
+          "label": "Input 0",
+          "children": [
+            {
+              "id": "Input:0:enable",
+              "label": {
+                "en": "Input 0 - Enabled"
+              },
+              "type": "checkbox",
+              "value": true
+            },
+            {
+              "id": "Input:0:invert",
+              "label": {
+                "en": "Input 0 - Invert"
+              },
+              "type": "checkbox",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": "Input 1",
+          "children": [
+            {
+              "id": "Input:1:enable",
+              "label": {
+                "en": "Input 1 - Enabled"
+              },
+              "type": "checkbox",
+              "value": true
+            },
+            {
+              "id": "Input:1:invert",
+              "label": {
+                "en": "Input 1 - Invert"
+              },
+              "type": "checkbox",
+              "value": true
+            }
+          ]
+        }
+      ]
     },
     {
       "platforms": [

@@ -56,8 +56,8 @@ export default class Shelly2PMGen4CoverDevice extends ShellyLocalDevice {
       }
     }
 
-    this.virtualComponents.get('input:0')?.handleSettings(this, splitSettings['Input:0'] as never);
-    this.virtualComponents.get('input:1')?.handleSettings(this, splitSettings['Input:1'] as never);
+    await this.virtualComponents.get('input:0')?.handleSettings(this, splitSettings['Input:0'] as never);
+    await this.virtualComponents.get('input:1')?.handleSettings(this, splitSettings['Input:1'] as never);
 
     return super.onSettings(splitSettings['Rest']);
   }

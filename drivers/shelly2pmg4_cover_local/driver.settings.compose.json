@@ -1,0 +1,42 @@
+[
+  {
+    "type": "group",
+    "label": "Input 0",
+    "children": [
+      {
+        "$extends": "Input.enable",
+        "id": "Input:0:enable",
+        "label": {
+          "en": "Input 0 - Enabled"
+        }
+      },
+      {
+        "$extends": "Input.invert",
+        "id": "Input:0:invert",
+        "label": {
+          "en": "Input 0 - Invert"
+        }
+      }
+    ]
+  },
+  {
+    "type": "group",
+    "label": "Input 1",
+    "children": [
+      {
+        "$extends": "Input.enable",
+        "id": "Input:1:enable",
+        "label": {
+          "en": "Input 1 - Enabled"
+        }
+      },
+      {
+        "$extends": "Input.invert",
+        "id": "Input:1:invert",
+        "label": {
+          "en": "Input 1 - Invert"
+        }
+      }
+    ]
+  }
+]
