@@ -20,6 +20,17 @@ export type RecursivePartial<T, AllowedPrimitives> = {
 };
 type Value<T, AllowedPrimitives> = T extends AllowedPrimitives ? T : RecursivePartial<T, AllowedPrimitives>;
 
+// Source - https://stackoverflow.com/a/66605669
+// Posted by Voskanyan David
+// Retrieved 2026-03-16, License - CC BY-SA 4.0
+type Only<T, U> = {
+  [P in keyof T]: T[P];
+} & {
+  [P in keyof U]?: never;
+};
+
+export type Either<T, U> = Only<T, U> | Only<U, T>;
+
 export function fillStringTemplateTags(template: string, tags: Record<string, string>): string {
   let filledTemplate = template;
   for (const [tag, value] of Object.entries(tags)) {

@@ -4,8 +4,9 @@ import PowerStripUI from './components/PowerStripUI.mjs';
 import Temperature from './components/Temperature.mjs';
 import Input from './components/Input.mjs';
 import System from './components/System.mjs';
+import Cover from './components/Cover.mjs';
 
-export const ComponentWithIdMapping = { switch: Switch, temperature: Temperature, input: Input } as const;
+export const ComponentWithIdMapping = { switch: Switch, temperature: Temperature, input: Input, cover: Cover } as const;
 export const ComponentWithoutIdMapping = { ws: OutboundWebsocket, powerstrip_ui: PowerStripUI, sys: System } as const;
 
 export const ComponentMapping = {

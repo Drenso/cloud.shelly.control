@@ -21,6 +21,7 @@ type NamespaceMethodMapping = {
   Temperature: ['GetConfig', 'SetConfig', 'GetStatus'];
   Input: ['SetConfig', 'GetConfig', 'GetStatus', 'CheckExpression', 'ResetCounters', 'Trigger'];
   Sys: ['SetConfig', 'GetConfig', 'GetStatus', 'SetTime'];
+  Cover: ['SetConfig', 'GetConfig', 'GetStatus', 'Calibrate', 'Open', 'Close', 'Stop', 'GoToPosition', 'ResetCounters'];
 };
 
 export type NameSpace = keyof NamespaceMethodMapping;
