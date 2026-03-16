@@ -2,7 +2,7 @@ import { type AllowedPrimitives, ComponentWithId } from '../Component.mjs';
 import capabilitiesOptions from './Cover/capabilitiesOptions.json' with { type: 'json' };
 import type ShellyLocalDevice from '../../Device.mjs';
 import type { ComponentMethod } from './Shelly/ListMethods.mjs';
-import type { RecursivePartial } from '../../util.mjs';
+import { deepAssign, type RecursivePartial } from '../../util.mjs';
 import SetConfig from './Cover/SetConfig.mjs';
 import GetConfig from './Cover/GetConfig.mjs';
 import GetStatus from './Cover/GetStatus.mjs';
@@ -460,9 +460,38 @@ export type CoverStatus = {
 
 export type CoverHomeySettings = {
   'Cover:in_mode': 'single' | 'dual' | 'detached';
+  'Cover:in_locked': boolean;
+  'Cover:initial_state': 'open' | 'closed' | 'stopped';
+  'Cover:power_limit': number;
+  'Cover:voltage_limit': number;
+  'Cover:undervoltage_limit': number;
+  'Cover:current_limit': number;
+  'Cover:motor.idle_power_thr': number;
+  'Cover:motor.idle_confirm_period': number;
+  'Cover:maxtime_open': number;
+  'Cover:maxtime_close': number;
+  'Cover:swap_inputs': boolean;
+  'Cover:invert_directions': boolean;
+  'Cover:maintenance_mode': boolean;
+  // TODO missing settings
+  'Cover:slat.retain_pos': boolean;
+  'Cover:slat.precise_ctl': boolean;
 };
 
-const settingKeys = ['in_mode'] as const satisfies (keyof CoverConfig)[];
+const simpleSettingKeys = [
+  'in_mode',
+  'in_locked',
+  'initial_state',
+  'power_limit',
+  'voltage_limit',
+  'undervoltage_limit',
+  'current_limit',
+  'maxtime_open',
+  'maxtime_close',
+  'swap_inputs',
+  'invert_directions',
+  'maintenance_mode',
+] as const satisfies (keyof CoverConfig)[];
 
 /**
  * The Cover component handles the operation of motorized garage doors, window blinds, roof skylights etc.
@@ -612,7 +641,7 @@ export default class Cover extends ComponentWithId<'Cover', CoverStatus, CoverCo
   async onConfigUpdate(homeyDevice: ShellyLocalDevice, config: CoverConfig): Promise<void> {
     const newSettings: RecursivePartial<CoverHomeySettings, AllowedPrimitives> = {};
 
-    for (const settingKey of settingKeys) {
+    for (const settingKey of simpleSettingKeys) {
       if (config[settingKey] !== undefined) {
         newSettings[`Cover:${settingKey}`] = config[settingKey] as never;
       }
@@ -627,12 +656,30 @@ export default class Cover extends ComponentWithId<'Cover', CoverStatus, CoverCo
   ): Promise<boolean> {
     const changedConfig: RecursivePartial<CoverConfig, AllowedPrimitives> = {};
 
-    for (const settingKey of settingKeys) {
+    for (const settingKey of simpleSettingKeys) {
       const homeySettingKey = `Cover:${settingKey}` as const;
       if (changedKeys.includes(homeySettingKey)) {
         changedConfig[settingKey] = newSettings[homeySettingKey] as never;
       }
     }
+
+    if (changedKeys.includes('Cover:motor.idle_confirm_period')) {
+      deepAssign(changedConfig, { motor: { idle_confirm_period: newSettings['Cover:motor.idle_confirm_period'] } });
+    }
+
+    if (changedKeys.includes('Cover:motor.idle_power_thr')) {
+      deepAssign(changedConfig, { motor: { idle_power_thr: newSettings['Cover:motor.idle_power_thr'] } });
+    }
+
+    if (changedKeys.includes('Cover:slat.retain_pos')) {
+      deepAssign(changedConfig, { slat: { retain_pos: newSettings['Cover:slat.retain_pos'] } });
+    }
+
+    if (changedKeys.includes('Cover:slat.precise_ctl')) {
+      deepAssign(changedConfig, { slat: { precise_ctl: newSettings['Cover:slat.precise_ctl'] } });
+    }
+
+    // TODO missing settings
 
     if (Object.keys(changedConfig).length > 0) {
       const result = await this.SetConfig(this.device.getChannel(), { config: changedConfig });
