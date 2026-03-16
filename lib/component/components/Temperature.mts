@@ -43,6 +43,7 @@ const settingKeys = ['report_thr_C', 'offset_C'] as const satisfies (keyof Tempe
  * The Temperature component handles the monitoring of device's temperature sensors.
  */
 export default class Temperature extends ComponentWithId<
+  'Temperature',
   TemperatureStatus,
   TemperatureConfig,
   TemperatureHomeySettings

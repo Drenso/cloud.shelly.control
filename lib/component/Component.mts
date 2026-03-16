@@ -17,8 +17,13 @@ type ComponentSetConfigResponse = {
   restart_required: boolean;
 };
 
-export abstract class Component<Status extends object, Config extends object, Settings extends object> {
-  abstract readonly namespace: NameSpace;
+export abstract class Component<
+  ComponentNameSpace extends NameSpace,
+  Status extends object,
+  Config extends object,
+  Settings extends object,
+> {
+  abstract readonly namespace: ComponentNameSpace;
 
   constructor(
     protected device: VirtualDevice,
@@ -35,9 +40,12 @@ export abstract class Component<Status extends object, Config extends object, Se
 
   abstract GetStatus(channel: RpcChannel): Promise<ResponseSuccessFrame<Status>>;
 
-  abstract register(methods: ComponentMethod<NameSpace>[]): Promise<void>;
+  abstract register(methods: ComponentMethod<ComponentNameSpace>[]): Promise<void>;
 
-  abstract registerHomeyDevice(homeyDevice: ShellyLocalDevice, methods: ComponentMethod<NameSpace>[]): Promise<void>;
+  abstract registerHomeyDevice(
+    homeyDevice: ShellyLocalDevice,
+    methods: ComponentMethod<ComponentNameSpace>[],
+  ): Promise<void>;
 
   abstract onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Status): Promise<void>;
 
@@ -54,10 +62,11 @@ export abstract class Component<Status extends object, Config extends object, Se
 }
 
 export abstract class ComponentWithoutId<
+  ComponentNameSpace extends NameSpace,
   Status extends object,
   Config extends object,
   Settings extends object,
-> extends Component<Status, Config, Settings> {
+> extends Component<ComponentNameSpace, Status, Config, Settings> {
   protected abstract _SetConfig: (
     channel: RpcChannel,
     params: ComponentSetConfigParams<Config>,
@@ -90,10 +99,11 @@ export abstract class ComponentWithoutId<
 }
 
 export abstract class ComponentWithId<
+  ComponentNameSpace extends NameSpace,
   Status extends object,
   Config extends { id: number },
   Settings extends object,
-> extends Component<Status, Config, Settings> {
+> extends Component<ComponentNameSpace, Status, Config, Settings> {
   static uiName: string;
 
   protected abstract _SetConfig: (

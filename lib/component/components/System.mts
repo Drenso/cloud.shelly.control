@@ -214,7 +214,7 @@ export type SystemStatus = {
 /**
  * The system component provides information about general device status, resource usage, availability of firmware updates, etc.
  */
-export default class System extends ComponentWithoutId<SystemStatus, SystemConfig, Record<never, never>> {
+export default class System extends ComponentWithoutId<'Sys', SystemStatus, SystemConfig, Record<never, never>> {
   protected _SetConfig = SetConfig;
   protected _GetConfig = GetConfig;
   protected _GetStatus = GetStatus;

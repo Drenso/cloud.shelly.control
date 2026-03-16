@@ -186,7 +186,7 @@ const settingKeys = [
 /**
  * The Switch component handles a switch (relay) output terminal with optional power metering capabilities.
  */
-export default class Switch extends ComponentWithId<SwitchStatus, SwitchConfig, SwitchHomeySettings> {
+export default class Switch extends ComponentWithId<'Switch', SwitchStatus, SwitchConfig, SwitchHomeySettings> {
   protected _SetConfig = SetConfig;
   protected _GetConfig = GetConfig;
   protected _GetStatus = GetStatus;

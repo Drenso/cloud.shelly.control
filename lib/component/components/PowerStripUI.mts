@@ -92,6 +92,7 @@ export type PowerStripUIHomeySettings = {
  * The POWERSTRIP_UI component handles the settings of a PowerStrip Gen4 device's LEDs.
  */
 export default class PowerStripUI extends ComponentWithoutId<
+  'POWERSTRIP_UI',
   PowerStripUIStatus,
   PowerStripUIConfig,
   PowerStripUIHomeySettings

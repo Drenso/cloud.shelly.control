@@ -328,7 +328,7 @@ type RateLimitEvent = {
  * The Input component handles the external digital or analog input terminals of a device.
  * Inputs can trigger webhooks, control switches and optionally perform factory reset.
  */
-export default class Input extends ComponentWithId<InputStatus, InputConfig, InputHomeySettings> {
+export default class Input extends ComponentWithId<'Input', InputStatus, InputConfig, InputHomeySettings> {
   protected _SetConfig = SetConfig;
   protected _GetConfig = GetConfig;
   protected _GetStatus = GetStatus;

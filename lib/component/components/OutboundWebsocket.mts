@@ -25,6 +25,7 @@ export type OutboundWebsocketStatus = {
 export type OutboundWebsocketHomeySettings = Record<string, never>;
 
 export default class OutboundWebsocket extends ComponentWithoutId<
+  'Ws',
   OutboundWebsocketStatus,
   OutBoundWebsocketConfig,
   OutboundWebsocketHomeySettings
