@@ -17,6 +17,18 @@ import type ShellyLocalDevice from './Device.mjs';
 import RPC from './component/components/RPC.mjs';
 import { createHttpChannel, createInboundWsChannel, createOutboundWsChannel } from './HomeyRPCChannels.mjs';
 
+const IGNORED_NO_IMPLEMENTATION_COMPONENTS = [
+  'ble',
+  'bthome',
+  'cloud',
+  'knx',
+  'matter',
+  'modbus',
+  'mqtt',
+  'wifi',
+  'zigbee',
+];
+
 const REBOOT_INITIAL_WAIT = 1000;
 const REBOOT_PING_TIME = 500;
 const REBOOT_TIMEOUT = 30 * 1000;
@@ -120,7 +132,9 @@ export class VirtualDevice {
       // @ts-expect-error TS definition is incorrect with behavior in practice
       const componentConstructor: MappedComponent | undefined = ComponentMapping[componentName];
       if (!componentConstructor) {
-        this.debug('No implementation found for', componentName);
+        if (!IGNORED_NO_IMPLEMENTATION_COMPONENTS.includes(componentName)) {
+          this.debug('\x1b[31mNo implementation found for', componentName, '\x1b[0m');
+        }
         continue;
       }
       const componentInstance = new componentConstructor(
