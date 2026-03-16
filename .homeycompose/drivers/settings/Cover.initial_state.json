@@ -1,0 +1,28 @@
+{
+  "id": "Cover:initial_state",
+  "type": "dropdown",
+  "label": {
+    "en": "Cover - Startup State"
+  },
+  "value": "stopped",
+  "values": [
+    {
+      "id": "open",
+      "label": {
+        "en": "Fully Open"
+      }
+    },
+    {
+      "id": "closed",
+      "label": {
+        "en": "Fully Close"
+      }
+    },
+    {
+      "id": "stopped",
+      "label": {
+        "en": "Do not Change Position"
+      }
+    }
+  ]
+}

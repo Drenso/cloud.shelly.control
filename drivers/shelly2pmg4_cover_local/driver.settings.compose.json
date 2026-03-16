@@ -38,5 +38,26 @@
         }
       }
     ]
+  },
+  {
+    "$extends": "Cover.in_mode"
+  },
+  {
+    "$extends": "Cover.in_locked"
+  },
+  {
+    "$extends": "Cover.initial_state"
+  },
+  {
+    "$extends": "Cover.power_limit"
+  },
+  {
+    "$extends": "Cover.voltage_limit"
+  },
+  {
+    "$extends": "Cover.undervoltage_limit"
+  },
+  {
+    "$extends": "Cover.current_limit"
   }
 ]

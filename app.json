@@ -1474,6 +1474,122 @@
               "value": true
             }
           ]
+        },
+        {
+          "id": "Cover:in_mode",
+          "type": "dropdown",
+          "label": {
+            "en": "Cover - Control Mode"
+          },
+          "value": "dual",
+          "values": [
+            {
+              "id": "single",
+              "label": {
+                "en": "Single Input"
+              }
+            },
+            {
+              "id": "dual",
+              "label": {
+                "en": "Dual Input"
+              }
+            },
+            {
+              "id": "detached",
+              "label": {
+                "en": "Detached"
+              }
+            }
+          ]
+        },
+        {
+          "id": "Cover:in_locked",
+          "type": "checkbox",
+          "label": {
+            "en": "Cover - Ignore Inputs"
+          },
+          "hint": {
+            "en": "Ignore all changes to physical inputs, regardless of mode."
+          },
+          "value": false
+        },
+        {
+          "id": "Cover:initial_state",
+          "type": "dropdown",
+          "label": {
+            "en": "Cover - Startup State"
+          },
+          "value": "stopped",
+          "values": [
+            {
+              "id": "open",
+              "label": {
+                "en": "Fully Open"
+              }
+            },
+            {
+              "id": "closed",
+              "label": {
+                "en": "Fully Close"
+              }
+            },
+            {
+              "id": "stopped",
+              "label": {
+                "en": "Do not Change Position"
+              }
+            }
+          ]
+        },
+        {
+          "id": "Cover:power_limit",
+          "type": "number",
+          "label": {
+            "en": "Cover - Power Limit"
+          },
+          "hint": {
+            "en": "The maximum value is the max-rated output power."
+          },
+          "value": 3360,
+          "min": 0,
+          "units": "W"
+        },
+        {
+          "id": "Cover:voltage_limit",
+          "type": "number",
+          "label": {
+            "en": "Cover - Voltage Limit"
+          },
+          "hint": {
+            "en": "The maximum value is the max-rated output voltage."
+          },
+          "value": 280,
+          "min": 0,
+          "units": "V"
+        },
+        {
+          "id": "Cover:undervoltage_limit",
+          "type": "number",
+          "label": {
+            "en": "Cover - Undervoltage Limit"
+          },
+          "value": 0,
+          "min": 0,
+          "units": "V"
+        },
+        {
+          "id": "Cover:current_limit",
+          "type": "number",
+          "label": {
+            "en": "Cover - Current Limit"
+          },
+          "hint": {
+            "en": "The maximum value is the max-rated output current."
+          },
+          "value": 12,
+          "min": 0,
+          "units": "A"
         }
       ]
     },

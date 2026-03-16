@@ -1,0 +1,11 @@
+{
+  "id": "Cover:in_locked",
+  "type": "checkbox",
+  "label": {
+    "en": "Cover - Ignore Inputs"
+  },
+  "hint": {
+    "en": "Ignore all changes to physical inputs, regardless of mode."
+  },
+  "value": false
+}

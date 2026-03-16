@@ -466,6 +466,7 @@ export type CoverHomeySettings = {
   'Cover:voltage_limit': number;
   'Cover:undervoltage_limit': number;
   'Cover:current_limit': number;
+  // TODO setting templates
   'Cover:motor.idle_power_thr': number;
   'Cover:motor.idle_confirm_period': number;
   'Cover:maxtime_open': number;

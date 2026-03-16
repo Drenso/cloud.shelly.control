@@ -75,7 +75,6 @@ export default class Shelly2PMGen4CoverDevice extends ShellyLocalDevice {
         const remappedKey = `${component}:${id}:${settingIdentifier}`;
         remappedSettings[remappedKey] = settingValue;
       }
-      this.debug('Remapped settings:', remappedSettings);
       await this.setSettings(remappedSettings);
     } else {
       await super.setComponentSettings(component, id, settings);

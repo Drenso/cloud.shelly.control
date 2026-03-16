@@ -1,0 +1,28 @@
+{
+  "id": "Cover:in_mode",
+  "type": "dropdown",
+  "label": {
+    "en": "Cover - Control Mode"
+  },
+  "value": "dual",
+  "values": [
+    {
+      "id": "single",
+      "label": {
+        "en": "Single Input"
+      }
+    },
+    {
+      "id": "dual",
+      "label": {
+        "en": "Dual Input"
+      }
+    },
+    {
+      "id": "detached",
+      "label": {
+        "en": "Detached"
+      }
+    }
+  ]
+}

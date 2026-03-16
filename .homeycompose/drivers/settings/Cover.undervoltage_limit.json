@@ -1,0 +1,10 @@
+{
+  "id": "Cover:undervoltage_limit",
+  "type": "number",
+  "label": {
+    "en": "Cover - Undervoltage Limit"
+  },
+  "value": 0,
+  "min": 0,
+  "units": "V"
+}
