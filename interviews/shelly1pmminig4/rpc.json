@@ -83,20 +83,12 @@
       "current": 0,
       "aenergy": {
         "total": 26,
-        "by_minute": [
-          0,
-          0,
-          0
-        ],
+        "by_minute": [0, 0, 0],
         "minute_ts": 1773399240
       },
       "ret_aenergy": {
         "total": 0,
-        "by_minute": [
-          0,
-          0,
-          0
-        ],
+        "by_minute": [0, 0, 0],
         "minute_ts": 1773399240
       },
       "temperature": {
@@ -121,9 +113,7 @@
       "reverse": false
     },
     "attrs": {
-      "inputs": [
-        0
-      ]
+      "inputs": [0]
     }
   },
   {
@@ -213,10 +203,7 @@
       "status": "got ip",
       "ssid": "DrensoDev",
       "rssi": -47,
-      "sta_ip6": [
-        "fe80::ceba:97ff:fec7:67e8",
-        "fd03:8586:4012:ec48:ceba:97ff:fec7:67e8"
-      ]
+      "sta_ip6": ["fe80::ceba:97ff:fec7:67e8", "fd03:8586:4012:ec48:ceba:97ff:fec7:67e8"]
     },
     "config": {
       "sta": {
