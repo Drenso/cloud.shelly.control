@@ -84,7 +84,12 @@ export function translate(
 export function deepMerge(destination: Record<string, unknown>, source: Record<string, unknown>): object {
   const result = { ...destination };
   for (const key in source) {
-    if (source[key] !== undefined && typeof source[key] === 'object' && !Array.isArray(source[key])) {
+    if (
+      source[key] !== undefined &&
+      typeof source[key] === 'object' &&
+      source[key] !== null &&
+      !Array.isArray(source[key])
+    ) {
       result[key] = deepMerge((result[key] ?? {}) as Record<string, unknown>, source[key] as Record<string, unknown>);
     } else {
       result[key] = source[key];
@@ -99,7 +104,7 @@ export function deepAssign<T, AllowedPrimitives>(
 ): void {
   for (const key in source) {
     const value = source[key];
-    if (value !== undefined && typeof value === 'object' && !Array.isArray(value)) {
+    if (value !== undefined && typeof value === 'object' && value !== null && !Array.isArray(value)) {
       (destination[key] as RecursivePartial<T[typeof key], AllowedPrimitives>) ??= {};
       deepAssign(
         destination[key] as RecursivePartial<T[typeof key], AllowedPrimitives>,
