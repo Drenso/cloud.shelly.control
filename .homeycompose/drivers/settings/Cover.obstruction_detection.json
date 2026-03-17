@@ -3,7 +3,7 @@
   "label": "Cover - Obstruction Detection",
   "children": [
     {
-      "id": "Cover:obstruction_detection.enabled",
+      "id": "Cover:obstruction_detection.enable",
       "type": "checkbox",
       "label": {
         "en": "Cover - Obstruction Detection - Enabled"

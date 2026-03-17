@@ -473,7 +473,7 @@ export type CoverHomeySettings = {
   'Cover:swap_inputs': boolean;
   'Cover:invert_directions': boolean;
   'Cover:maintenance_mode': boolean;
-  'Cover:obstruction_detection.enabled': boolean;
+  'Cover:obstruction_detection.enable': boolean;
   'Cover:obstruction_detection.direction': 'open' | 'close' | 'both';
   'Cover:obstruction_detection.action': 'stop' | 'reverse';
   'Cover:obstruction_detection.power_thr': number;
@@ -504,6 +504,30 @@ const simpleSettingKeys = [
   'invert_directions',
   'maintenance_mode',
 ] as const satisfies (keyof CoverConfig)[];
+
+const motorSettingKeys = ['idle_power_thr', 'idle_confirm_period'] as const satisfies (keyof CoverConfig['motor'])[];
+
+const obstructionDetectionSettingKeys = [
+  'enable',
+  'direction',
+  'action',
+  'power_thr',
+  'holdoff',
+] as const satisfies (keyof CoverConfig['obstruction_detection'])[];
+
+const safetySwitchSettingKeys = [
+  'enable',
+  'direction',
+  'action',
+] as const satisfies (keyof CoverConfig['safety_switch'])[];
+
+const slatSettingKeys = [
+  'open_time',
+  'close_time',
+  'step',
+  'retain_pos',
+  'precise_ctl',
+] as const satisfies (keyof Required<CoverConfig>['slat'])[];
 
 /**
  * The Cover component handles the operation of motorized garage doors, window blinds, roof skylights etc.
@@ -659,6 +683,42 @@ export default class Cover extends ComponentWithId<'Cover', CoverStatus, CoverCo
       }
     }
 
+    for (const motorSettingKey of motorSettingKeys) {
+      const newValue = config['motor'][motorSettingKey];
+      if (newValue !== undefined) {
+        newSettings[`Cover:motor.${motorSettingKey}`] = newValue;
+      }
+    }
+
+    for (const obstructionDetectionSettingKey of obstructionDetectionSettingKeys) {
+      const newValue = config['obstruction_detection'][obstructionDetectionSettingKey];
+      if (newValue !== undefined) {
+        newSettings[`Cover:obstruction_detection.${obstructionDetectionSettingKey}`] = newValue as never;
+      }
+    }
+
+    for (const safetySwitchSettingKey of safetySwitchSettingKeys) {
+      const newValue = config['safety_switch'][safetySwitchSettingKey];
+      if (newValue !== undefined) {
+        newSettings[`Cover:safety_switch.${safetySwitchSettingKey}`] = newValue as never;
+      }
+    }
+
+    if (config['slat'] !== undefined) {
+      for (const slatSettingKey of slatSettingKeys) {
+        const newValue = config['slat'][slatSettingKey];
+        if (newValue !== undefined) {
+          newSettings[`Cover:slat.${slatSettingKey}`] = newValue as never;
+        }
+      }
+    }
+
+    const safetySwitchAllowedMove = config['safety_switch']['allowed_move'];
+    if (safetySwitchAllowedMove !== undefined) {
+      newSettings['Cover:safety_switch.allowed_move'] =
+        safetySwitchAllowedMove === null ? 'none' : safetySwitchAllowedMove;
+    }
+
     await homeyDevice.setComponentSettings(this.namespace, undefined, newSettings);
   }
 
@@ -675,23 +735,38 @@ export default class Cover extends ComponentWithId<'Cover', CoverStatus, CoverCo
       }
     }
 
-    if (changedKeys.includes('Cover:motor.idle_confirm_period')) {
-      deepAssign(changedConfig, { motor: { idle_confirm_period: newSettings['Cover:motor.idle_confirm_period'] } });
+    for (const settingKey of motorSettingKeys) {
+      const homeySettingKey = `Cover:motor.${settingKey}` as const;
+      if (changedKeys.includes(homeySettingKey)) {
+        deepAssign(changedConfig, { motor: { [settingKey]: newSettings[homeySettingKey] } });
+      }
     }
 
-    if (changedKeys.includes('Cover:motor.idle_power_thr')) {
-      deepAssign(changedConfig, { motor: { idle_power_thr: newSettings['Cover:motor.idle_power_thr'] } });
+    for (const settingKey of obstructionDetectionSettingKeys) {
+      const homeySettingKey = `Cover:obstruction_detection.${settingKey}` as const;
+      if (changedKeys.includes(homeySettingKey)) {
+        deepAssign(changedConfig, { obstruction_detection: { [settingKey]: newSettings[homeySettingKey] } });
+      }
     }
 
-    if (changedKeys.includes('Cover:slat.retain_pos')) {
-      deepAssign(changedConfig, { slat: { retain_pos: newSettings['Cover:slat.retain_pos'] } });
+    for (const settingKey of safetySwitchSettingKeys) {
+      const homeySettingKey = `Cover:safety_switch.${settingKey}` as const;
+      if (changedKeys.includes(homeySettingKey)) {
+        deepAssign(changedConfig, { safety_switch: { [settingKey]: newSettings[homeySettingKey] } });
+      }
     }
 
-    if (changedKeys.includes('Cover:slat.precise_ctl')) {
-      deepAssign(changedConfig, { slat: { precise_ctl: newSettings['Cover:slat.precise_ctl'] } });
+    for (const settingKey of slatSettingKeys) {
+      const homeySettingKey = `Cover:slat.${settingKey}` as const;
+      if (changedKeys.includes(homeySettingKey)) {
+        deepAssign(changedConfig, { slat: { [settingKey]: newSettings[homeySettingKey] } });
+      }
     }
 
-    // TODO missing settings
+    if (changedKeys.includes('Cover:safety_switch.allowed_move')) {
+      const allowedMove = newSettings['Cover:safety_switch.allowed_move'];
+      deepAssign(changedConfig, { safety_switch: { allowed_move: allowedMove === 'none' ? null : allowedMove } });
+    }
 
     if (Object.keys(changedConfig).length > 0) {
       const result = await this.SetConfig(this.device.getChannel(), { config: changedConfig });
