@@ -8,6 +8,7 @@ import type { WsClosedEvent, WsMessageEvent, WsMittEvents } from '../OutboundWsS
 
 type OutboundWsChannelMittEvents = {
   notification: NotificationFrame;
+  opened: undefined;
 };
 
 // TODO authentication
@@ -48,6 +49,7 @@ export default class OutboundWebsocketChannel implements RpcChannel {
     } else {
       this.wsPromise = Promise.resolve(ws);
     }
+    this.eventEmitter.emit('opened');
   }
 
   disconnect(): void {

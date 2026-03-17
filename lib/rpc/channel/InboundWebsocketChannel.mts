@@ -23,6 +23,7 @@ const GREETING_DELAY = 500;
 
 type InboundWsChannelMittEvents = {
   notification: NotificationFrame;
+  opened: undefined;
 };
 
 // TODO authentication
@@ -63,6 +64,7 @@ export default class InboundWebsocketChannel implements RpcChannel {
         })
         .catch(err => this.error('Error during WS greeting:', err));
       this.log('WS opened');
+      this.eventEmitter.emit('opened');
     });
     this.ws.on('message', message => {
       this.handleMessage(message);

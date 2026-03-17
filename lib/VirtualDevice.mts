@@ -47,6 +47,7 @@ export class VirtualDevice {
   public inboundWsChannel: InboundWebsocketChannel;
   public outboundWsChannel: OutboundWebsocketChannel;
 
+  private initialized = false;
   private readonly initializedComponents = new Map<string, InstanceType<MappedComponent>>();
   private readonly initializedHomeyDevices = new Map<string, ShellyLocalDevice>();
 
@@ -74,6 +75,7 @@ export class VirtualDevice {
 
       this.inboundWsChannel = createInboundWsChannel(this.ipAddress, this.log, this.error, this.ha1);
       this.inboundWsChannel.eventEmitter.on('notification', this.handleWsNotification.bind(this));
+      this.inboundWsChannel.eventEmitter.on('opened', this.safeInitialize.bind(this));
 
       this.outboundWsChannel = createOutboundWsChannel(
         this.deviceId,
@@ -82,11 +84,11 @@ export class VirtualDevice {
         this.error,
       );
       this.outboundWsChannel.eventEmitter.on('notification', this.handleOutboundWsNotification.bind(this));
+      this.outboundWsChannel.eventEmitter.on('opened', this.safeInitialize.bind(this));
     }
 
-    this.initialize(componentResponses).catch(err => {
-      this.error('Error while initializing components:', err);
-    });
+    // TODO does this need a nextTick?
+    this.safeInitialize(componentResponses);
   }
 
   public readonly log: (...args: unknown[]) => void;
@@ -101,6 +103,20 @@ export class VirtualDevice {
       homeyDeviceIds: this.homeyDeviceIds,
       ha1: this.ha1,
     };
+  }
+
+  private async safeInitialize(components?: ShellyGetComponentsResponseComponent[]): Promise<void> {
+    if (this.initialized) {
+      return;
+    }
+    this.log('Initializing...');
+    try {
+      this.initialized = true;
+      await this.initialize(components);
+    } catch (error) {
+      this.initialized = false;
+      this.error('Error while initializing components:', error);
+    }
   }
 
   private async initialize(components: ShellyGetComponentsResponseComponent[] | undefined): Promise<void> {
