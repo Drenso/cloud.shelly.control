@@ -1,0 +1,13 @@
+{
+  "id": "Light:voltage_limit",
+  "type": "number",
+  "label": {
+    "en": "Light - Voltage Limit"
+  },
+  "hint": {
+    "en": "The maximum value is the max-rated output voltage."
+  },
+  "value": 280,
+  "min": 0,
+  "units": "V"
+}

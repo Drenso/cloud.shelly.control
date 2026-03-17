@@ -1,0 +1,49 @@
+{
+  "type": "group",
+  "label": "Light - Night Mode",
+  "children": [
+    {
+      "id": "Light:night_mode.enable",
+      "type": "checkbox",
+      "label": {
+        "en": "Enabled"
+      },
+      "value": false
+    },
+    {
+      "id": "Light:night_mode.brightness",
+      "type": "number",
+      "label": {
+        "en": "Brightness"
+      },
+      "value": 100,
+      "min": 0,
+      "max": 100,
+      "units": "%"
+    },
+    {
+      "id": "Light.night_mode.active_between.start",
+      "type": "text",
+      "label": {
+        "en": "Start Time"
+      },
+      "value": "00:00",
+      "pattern": "^(?:(?:2[0-3])|(?:[01]?[0-9]))(?::[0-5][0-9])?$",
+      "hint": {
+        "en": "In 24 hour format (00:00 - 23:59)."
+      }
+    },
+    {
+      "id": "Light.night_mode.active_between.end",
+      "type": "text",
+      "label": {
+        "en": "End Time"
+      },
+      "value": "23:59",
+      "pattern": "^(?:(?:2[0-3])|(?:[01]?[0-9]))(?::[0-5][0-9])?$",
+      "hint": {
+        "en": "In 24 hour format (00:00 - 23:59)."
+      }
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "button.reset_energy_counters": {
+    "title": {
+      "en": "Reset Energy"
+    },
+    "desc": {
+      "en": "Reset the consumed energy counter."
+    },
+    "maintenanceAction": true
+  },
+  "measure_temperature.light": {
+    "title": {
+      "en": "Light Temperature"
+    }
+  }
+}

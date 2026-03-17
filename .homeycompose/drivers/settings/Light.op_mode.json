@@ -1,0 +1,22 @@
+{
+  "id": "Light:op_mode",
+  "type": "dropdown",
+  "label": {
+    "en": "Light - Operational Mode"
+  },
+  "value": "0",
+  "values": [
+    {
+      "id": "0",
+      "label": {
+        "en": "0-10VDC"
+      }
+    },
+    {
+      "id": "1",
+      "label": {
+        "en": "1-10VDC"
+      }
+    }
+  ]
+}

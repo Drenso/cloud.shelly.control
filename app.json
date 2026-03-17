@@ -669,7 +669,7 @@
           "id": "Switch:in_mode",
           "type": "dropdown",
           "label": {
-            "en": "Switch - Mode"
+            "en": "Switch - Control Mode"
           },
           "value": "follow",
           "values": [
@@ -834,7 +834,7 @@
           "id": "Switch:in_mode",
           "type": "dropdown",
           "label": {
-            "en": "Switch - Mode"
+            "en": "Switch - Control Mode"
           },
           "value": "follow",
           "values": [
@@ -999,7 +999,7 @@
           "id": "Switch:in_mode",
           "type": "dropdown",
           "label": {
-            "en": "Switch - Mode"
+            "en": "Switch - Control Mode"
           },
           "value": "follow",
           "values": [
@@ -1225,7 +1225,7 @@
           "id": "Switch:in_mode",
           "type": "dropdown",
           "label": {
-            "en": "Switch - Mode"
+            "en": "Switch - Control Mode"
           },
           "value": "follow",
           "values": [
@@ -2067,7 +2067,7 @@
           "id": "Switch:in_mode",
           "type": "dropdown",
           "label": {
-            "en": "Switch - Mode"
+            "en": "Switch - Control Mode"
           },
           "value": "follow",
           "hint": {
@@ -2189,6 +2189,379 @@
           "hint": {
             "en": "Whether the measurement direction of active power and energy should be reversed. Requires a restart of the device."
           }
+        }
+      ]
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "capabilities": [
+        "button.restart"
+      ],
+      "capabilitiesOptions": {
+        "button.restart": {
+          "maintenanceAction": true,
+          "title": {
+            "en": "Restart Device"
+          }
+        }
+      },
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "authenticate_devices"
+          }
+        },
+        {
+          "id": "authenticate_devices",
+          "template": "loading",
+          "options": {
+            "text": "pair.loading_devices"
+          }
+        },
+        {
+          "id": "loading_devices",
+          "template": "loading",
+          "options": {
+            "text": "pair.loading_devices"
+          }
+        },
+        {
+          "id": "device_password"
+        },
+        {
+          "id": "add_subdevices"
+        }
+      ],
+      "name": {
+        "en": "Shelly Dimmer Gen4 - LAN"
+      },
+      "class": "socket",
+      "images": {
+        "small": "/assets/drivers/shellydimmerg4/images/small.png",
+        "large": "/assets/drivers/shellydimmerg4/images/large.png",
+        "xlarge": "/assets/drivers/shellydimmerg4/images/xlarge.png"
+      },
+      "id": "shellydimmerg4_local",
+      "settings": [
+        {
+          "type": "group",
+          "label": "Input 0",
+          "children": [
+            {
+              "id": "Input:0:enable",
+              "label": {
+                "en": "Input 0 - Enabled"
+              },
+              "type": "checkbox",
+              "value": true
+            },
+            {
+              "id": "Input:0:invert",
+              "label": {
+                "en": "Input 0 - Invert"
+              },
+              "type": "checkbox",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": "Input 1",
+          "children": [
+            {
+              "id": "Input:1:enable",
+              "label": {
+                "en": "Input 1 - Enabled"
+              },
+              "type": "checkbox",
+              "value": true
+            },
+            {
+              "id": "Input:1:invert",
+              "label": {
+                "en": "Input 1 - Invert"
+              },
+              "type": "checkbox",
+              "value": true
+            }
+          ]
+        },
+        {
+          "values": [
+            {
+              "id": "dim",
+              "label": {
+                "en": "Single Input Dim"
+              }
+            },
+            {
+              "id": "dual_dim",
+              "label": {
+                "en": "Dual Input Dim"
+              }
+            },
+            {
+              "id": "follow",
+              "label": {
+                "en": "Follow Input"
+              }
+            },
+            {
+              "id": "flip",
+              "label": {
+                "en": "Change on Input Change"
+              }
+            },
+            {
+              "id": "detached",
+              "label": {
+                "en": "Detached"
+              }
+            }
+          ],
+          "id": "Light:in_mode",
+          "type": "dropdown",
+          "label": {
+            "en": "Light - Control Mode"
+          },
+          "value": "dim",
+          "hint": {
+            "en": "\"Turn on only\" is for use with a motion sensor. Turn off again with a flow."
+          }
+        },
+        {
+          "id": "Light:initial_state",
+          "type": "dropdown",
+          "label": {
+            "en": "Light - Startup State"
+          },
+          "value": "off",
+          "values": [
+            {
+              "id": "off",
+              "label": {
+                "en": "Off"
+              }
+            },
+            {
+              "id": "on",
+              "label": {
+                "en": "On"
+              }
+            },
+            {
+              "id": "restore_last",
+              "label": {
+                "en": "Restore Last"
+              }
+            }
+          ]
+        },
+        {
+          "id": "Light:transition_duration",
+          "type": "number",
+          "label": {
+            "en": "Light - Transition Duration"
+          },
+          "value": 1,
+          "min": 0,
+          "units": "s"
+        },
+        {
+          "id": "Light.night_mode",
+          "type": "group",
+          "label": "Light - Night Mode",
+          "children": [
+            {
+              "id": "Light:night_mode.enable",
+              "type": "checkbox",
+              "label": {
+                "en": "Enabled"
+              },
+              "value": false
+            },
+            {
+              "id": "Light:night_mode.brightness",
+              "type": "number",
+              "label": {
+                "en": "Brightness"
+              },
+              "value": 100,
+              "min": 0,
+              "max": 100,
+              "units": "%"
+            },
+            {
+              "id": "Light.night_mode.active_between.start",
+              "type": "text",
+              "label": {
+                "en": "Start Time"
+              },
+              "value": "00:00",
+              "pattern": "^(?:(?:2[0-3])|(?:[01]?[0-9]))(?::[0-5][0-9])?$",
+              "hint": {
+                "en": "In 24 hour format (00:00 - 23:59)."
+              }
+            },
+            {
+              "id": "Light.night_mode.active_between.end",
+              "type": "text",
+              "label": {
+                "en": "End Time"
+              },
+              "value": "23:59",
+              "pattern": "^(?:(?:2[0-3])|(?:[01]?[0-9]))(?::[0-5][0-9])?$",
+              "hint": {
+                "en": "In 24 hour format (00:00 - 23:59)."
+              }
+            }
+          ]
+        },
+        {
+          "id": "Light.button_fade_rate",
+          "type": "dropdown",
+          "label": {
+            "en": "Light - Button Fade Rate"
+          },
+          "value": "3",
+          "values": [
+            {
+              "id": "1",
+              "label": {
+                "en": "Slowest"
+              }
+            },
+            {
+              "id": "2",
+              "label": {
+                "en": "Slow"
+              }
+            },
+            {
+              "id": "3",
+              "label": {
+                "en": "Default"
+              }
+            },
+            {
+              "id": "4",
+              "label": {
+                "en": "Fast"
+              }
+            },
+            {
+              "id": "5",
+              "label": {
+                "en": "Fastest"
+              }
+            }
+          ]
+        },
+        {
+          "id": "Light.button_presets.button_doublepush",
+          "type": "group",
+          "label": "Light - Double Push Preset",
+          "children": [
+            {
+              "id": "Light.button_presets.button_doublepush.enable",
+              "type": "checkbox",
+              "label": {
+                "en": "Enabled"
+              },
+              "value": false
+            },
+            {
+              "id": "Light.button_presets.button_doublepush.brightness",
+              "type": "number",
+              "label": {
+                "en": "Brightness"
+              },
+              "value": 100,
+              "min": 0,
+              "max": 100,
+              "units": "%"
+            }
+          ]
+        },
+        {
+          "id": "Light.range_map.min",
+          "type": "number",
+          "label": {
+            "en": "Light - Remapped Minimum Brightness"
+          },
+          "value": 0,
+          "min": 0,
+          "max": 100,
+          "units": "%"
+        },
+        {
+          "id": "Light.range_map.max",
+          "type": "number",
+          "label": {
+            "en": "Light - Remapped Maximum Brightness"
+          },
+          "value": 0,
+          "min": 0,
+          "max": 100,
+          "units": "%"
+        },
+        {
+          "id": "Light:power_limit",
+          "type": "number",
+          "label": {
+            "en": "Light - Power Limit"
+          },
+          "hint": {
+            "en": "The maximum value is the max-rated output power."
+          },
+          "value": 3360,
+          "min": 0,
+          "units": "W"
+        },
+        {
+          "id": "Light:voltage_limit",
+          "type": "number",
+          "label": {
+            "en": "Light - Voltage Limit"
+          },
+          "hint": {
+            "en": "The maximum value is the max-rated output voltage."
+          },
+          "value": 280,
+          "min": 0,
+          "units": "V"
+        },
+        {
+          "id": "Light:undervoltage_limit",
+          "type": "number",
+          "label": {
+            "en": "Light - Undervoltage Limit"
+          },
+          "value": 0,
+          "min": 0,
+          "units": "V"
+        },
+        {
+          "id": "Light:current_limit",
+          "type": "number",
+          "label": {
+            "en": "Light - Current Limit"
+          },
+          "hint": {
+            "en": "The maximum value is the max-rated output current."
+          },
+          "value": 12,
+          "min": 0,
+          "units": "A"
         }
       ]
     },

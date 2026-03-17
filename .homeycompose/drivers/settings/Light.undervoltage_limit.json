@@ -1,0 +1,10 @@
+{
+  "id": "Light:undervoltage_limit",
+  "type": "number",
+  "label": {
+    "en": "Light - Undervoltage Limit"
+  },
+  "value": 0,
+  "min": 0,
+  "units": "V"
+}

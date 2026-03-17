@@ -1,0 +1,13 @@
+{
+  "id": "Light:current_limit",
+  "type": "number",
+  "label": {
+    "en": "Light - Current Limit"
+  },
+  "hint": {
+    "en": "The maximum value is the max-rated output current."
+  },
+  "value": 12,
+  "min": 0,
+  "units": "A"
+}

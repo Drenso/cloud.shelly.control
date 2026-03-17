@@ -1,15 +1,21 @@
 {
-  "id": "Switch:in_mode",
+  "id": "Light:in_mode",
   "type": "dropdown",
   "label": {
-    "en": "Switch - Control Mode"
+    "en": "Light - Control Mode"
   },
-  "value": "follow",
+  "value": "dim",
   "values": [
     {
-      "id": "momentary",
+      "id": "dim",
       "label": {
-        "en": "Momentary"
+        "en": "Single Input Dim"
+      }
+    },
+    {
+      "id": "dual_dim",
+      "label": {
+        "en": "Dual Input Dim"
       }
     },
     {
