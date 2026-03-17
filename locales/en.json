@@ -1,6 +1,10 @@
 {
   "locale": "en",
   "pair": {
+    "pairing_information": {
+      "title": "Pairing Information",
+      "content": "Before you continue make sure that your Shelly devices are connected to your Wi-Fi, you can do this by using the Shelly smartphone app. Also make sure both Homey and the Shelly device has a static IP address assigned. If you experience any issues getting the devices paired to Homey, check your network settings, reboot the device and try again. Visit the support topic on the community forum for detailed instructions and troubleshooting."
+    },
     "add_devices": {
       "loading": "Adding your new Shelly devices, this may take a moment...",
       "title": "Adding Devices"
