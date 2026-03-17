@@ -216,7 +216,8 @@ export class VirtualDevice {
     }
     this.log('Enabling outbound websocket...');
     await component.SetConfig(this.httpChannel, { config: { enable: true, server: server } });
-    await this.reboot();
+    await this.reboot().catch(err => this.debug('Error during Outbound WS reboot:', err));
+    this.log('Enabled outbound websocket');
   }
 
   // TODO ensure this works for battery/BLE devices
@@ -249,14 +250,13 @@ export class VirtualDevice {
         } catch (e) {
           if (
             (e instanceof RpcError && e.code === -109) ||
-            (e as { cause: { code: string } }).cause?.code === 'UND_ERR_CONNECT_TIMEOUT'
+            (e as { code: string }).code === 'UND_ERR_CONNECT_TIMEOUT'
           ) {
             this.log('Still rebooting...');
             // Wait before trying again
             await new Promise(resolve => setTimeout(resolve, pingTime));
             continue;
           }
-          this.error('Error while rebooting:', e);
           throw e;
         }
       }
