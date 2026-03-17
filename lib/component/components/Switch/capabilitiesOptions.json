@@ -25,10 +25,5 @@
       "en": "Reset the consumed and returned energy counters."
     },
     "maintenanceAction": true
-  },
-  "measure_temperature.switch": {
-    "title": {
-      "en": "Switch Temperature"
-    }
   }
 }
