@@ -1,0 +1,28 @@
+{
+  "title": {
+    "en": "The total energy changed"
+  },
+  "tokens": [
+    {
+      "name": "meter_power.total",
+      "title": {
+        "en": "Total Energy"
+      },
+      "type": "number",
+      "example": 25
+    }
+  ],
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": {
+        "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellydimmerg4_local|shellypstripg4_local",
+        "capabilities": "meter_power.total"
+      },
+      "title": {
+        "en": "Device"
+      }
+    }
+  ]
+}
