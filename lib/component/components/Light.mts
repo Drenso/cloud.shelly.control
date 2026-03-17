@@ -10,6 +10,13 @@ import ResetCounters from './Light/ResetCounters.mjs';
 import type { ComponentMethod } from './Shelly/ListMethods.mjs';
 import type ShellyLocalDevice from '../../Device.mjs';
 import type { RecursivePartial } from '../../util.mjs';
+import Set, { type LightSetParams } from './Light/Set.mjs';
+import Toggle from './Light/Toggle.mjs';
+import DimUp, { type LightDimUpParams } from './Light/DimUp.mjs';
+import DimDown, { type LightDimDownParams } from './Light/DimDown.mjs';
+import DimStop from './Light/DimStop.mjs';
+import SetAll, { type LightSetAllParams } from './Light/SetAll.mjs';
+import Calibrate from './Light/Calibrate.mjs';
 
 export type LightConfig = {
   /** Identifier of the Light component instance */
@@ -273,10 +280,35 @@ export default class Light extends ComponentWithId<'Light', LightStatus, LightCo
   readonly namespace = 'Light';
   static uiName = 'Light';
 
-  async ResetCounters(
-    channel: RpcChannel,
-    params?: LightResetCountersParams,
-  ): Promise<ResponseSuccessFrame<LightResetCountersResponse>> {
+  async Set(channel: RpcChannel, params: LightSetParams): ReturnType<typeof Set> {
+    return Set(channel, this.id, params);
+  }
+
+  async Toggle(channel: RpcChannel): ReturnType<typeof Toggle> {
+    return Toggle(channel, this.id);
+  }
+
+  async DimUp(channel: RpcChannel, params?: LightDimUpParams): ReturnType<typeof DimUp> {
+    return DimUp(channel, this.id, params);
+  }
+
+  async DimDown(channel: RpcChannel, params?: LightDimDownParams): ReturnType<typeof DimDown> {
+    return DimDown(channel, this.id, params);
+  }
+
+  async DimStop(channel: RpcChannel): ReturnType<typeof DimStop> {
+    return DimStop(channel, this.id);
+  }
+
+  async SetAll(channel: RpcChannel, params: LightSetAllParams): ReturnType<typeof SetAll> {
+    return SetAll(channel, params);
+  }
+
+  async Calibrate(channel: RpcChannel): ReturnType<typeof Calibrate> {
+    return Calibrate(channel, this.id);
+  }
+
+  async ResetCounters(channel: RpcChannel, params?: LightResetCountersParams): ReturnType<typeof ResetCounters> {
     return ResetCounters(channel, this.id, params);
   }
 
