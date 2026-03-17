@@ -8,9 +8,13 @@
     },
     "maintenanceAction": true
   },
-  "measure_temperature.light": {
+  "button.calibrate": {
     "title": {
-      "en": "Light Temperature"
-    }
+      "en": "Calibrate"
+    },
+    "desc": {
+      "en": "Calibrate the device's outputs."
+    },
+    "maintenanceAction": true
   }
 }

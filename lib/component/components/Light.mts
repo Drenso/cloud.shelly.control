@@ -1,11 +1,10 @@
 import { type AllowedPrimitives, ComponentWithId } from '../Component.mjs';
 import type { RpcChannel } from '../../rpc/channel/RpcChannel.mjs';
-import type { ResponseSuccessFrame } from '../../rpc/Rpc.mjs';
 import capabilitiesOptions from './Light/capabilitiesOptions.json' with { type: 'json' };
 import SetConfig from './Light/SetConfig.mjs';
 import GetConfig from './Light/GetConfig.mjs';
 import GetStatus from './Light/GetStatus.mjs';
-import type { LightResetCountersParams, LightResetCountersResponse } from './Light/ResetCounters.mjs';
+import type { LightResetCountersParams } from './Light/ResetCounters.mjs';
 import ResetCounters from './Light/ResetCounters.mjs';
 import type { ComponentMethod } from './Shelly/ListMethods.mjs';
 import type ShellyLocalDevice from '../../Device.mjs';
@@ -315,32 +314,30 @@ export default class Light extends ComponentWithId<'Light', LightStatus, LightCo
   async register(methods: ComponentMethod<'Light'>[]): Promise<void> {}
 
   async registerHomeyDevice(homeyDevice: ShellyLocalDevice, methods: ComponentMethod<'Light'>[]): Promise<void> {
-    // {
-    //   // output
-    //   await this.registerCapability('output', 'onoff').catch(this.device.error);
-    //   const capabilityId = 'onoff' as const;
-    //   const capabilityListener = async (value: boolean): Promise<void> => {
-    //     await this.Set(this.device.getChannel(), { on: value });
-    //   };
-    //   this.device.registerCapabilityListener(capabilityId, capabilityListener);
-    // }
+    {
+      // output
+      const capabilityId = 'onoff';
+      await this.registerCapability(homeyDevice, 'output', capabilityId).catch(homeyDevice.error);
+      homeyDevice.registerCapabilityListener(capabilityId, async (value: boolean) => {
+        await this.Set(this.device.getChannel(), { on: value });
+      });
+    }
 
+    {
+      // brightness
+      const capabilityId = 'dim';
+      await this.registerCapability(homeyDevice, 'brightness', capabilityId).catch(homeyDevice.error);
+      homeyDevice.registerCapabilityListener(capabilityId, async (value: number) => {
+        await this.Set(this.device.getChannel(), { brightness: value * 100 });
+      });
+    }
+
+    await this.registerCapability(homeyDevice, 'temperature', 'measure_temperature').catch(homeyDevice.error);
+    await this.registerCapability(homeyDevice, 'aenergy', 'meter_power').catch(homeyDevice.error);
     await this.registerCapability(homeyDevice, 'apower', 'measure_power').catch(homeyDevice.error);
     await this.registerCapability(homeyDevice, 'voltage', 'measure_voltage').catch(homeyDevice.error);
     await this.registerCapability(homeyDevice, 'current', 'measure_current').catch(homeyDevice.error);
-    await this.registerCapability(homeyDevice, 'aenergy', 'meter_power.consumed').catch(homeyDevice.error);
-    await this.registerCapability(homeyDevice, 'temperature', 'measure_temperature.light').catch(homeyDevice.error);
     // TODO errors
-
-    if (this.status['aenergy'] !== undefined) {
-      let energy = homeyDevice.getEnergy();
-      energy = {
-        ...energy,
-        cumulative: false,
-        meterPowerImportedCapability: 'meter_power.consumed',
-      };
-      await homeyDevice.setEnergy(energy).catch(homeyDevice.error);
-    }
 
     if (methods.includes('ResetCounters')) {
       const maintenanceActionId = 'button.reset_energy_counters';
@@ -350,6 +347,17 @@ export default class Light extends ComponentWithId<'Light', LightStatus, LightCo
       });
       await homeyDevice
         .setCapabilityOptions(maintenanceActionId, capabilitiesOptions['button.reset_energy_counters'])
+        .catch(homeyDevice.error);
+    }
+
+    if (methods.includes('Calibrate')) {
+      const maintenanceActionId = 'button.calibrate';
+      await homeyDevice.safeAddCapability(maintenanceActionId);
+      homeyDevice.registerCapabilityListener(maintenanceActionId, async () => {
+        await this.Calibrate(this.device.getChannel());
+      });
+      await homeyDevice
+        .setCapabilityOptions(maintenanceActionId, capabilitiesOptions['button.calibrate'])
         .catch(homeyDevice.error);
     }
 
@@ -364,20 +372,20 @@ export default class Light extends ComponentWithId<'Light', LightStatus, LightCo
     status: RecursivePartial<LightStatus, AllowedPrimitives>,
   ): Promise<void> {
     await this.updateMeasured(homeyDevice, status, 'output', 'onoff');
-    await this.updateMeasured(homeyDevice, status, 'brightness', 'dim');
+    if (status.brightness !== undefined) {
+      await homeyDevice.safeSetCapability('dim', status.brightness / 100);
+    }
     if (status.temperature !== undefined) {
-      await homeyDevice.safeSetCapability('measure_temperature.light', status.temperature.tC);
+      await homeyDevice.safeSetCapability('measure_temperature', status.temperature.tC);
     }
     if (status.aenergy?.total !== undefined) {
       const consumedEnergy = status.aenergy.total;
-      await homeyDevice.safeSetCapability('meter_power.consumed', consumedEnergy / 1000);
+      await homeyDevice.safeSetCapability('meter_power', consumedEnergy / 1000);
     }
     await this.updateMeasured(homeyDevice, status, 'apower', 'measure_power');
     await this.updateMeasured(homeyDevice, status, 'voltage', 'measure_voltage');
     await this.updateMeasured(homeyDevice, status, 'current', 'measure_current');
-    // TODO calibration progress?
     // TODO errors
-    // TODO flags
   }
 
   async onConfigUpdate(homeyDevice: ShellyLocalDevice, config: LightConfig): Promise<void> {
