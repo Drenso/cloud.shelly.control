@@ -719,7 +719,7 @@ export default class Cover extends ComponentWithId<'Cover', CoverStatus, CoverCo
         safetySwitchAllowedMove === null ? 'none' : safetySwitchAllowedMove;
     }
 
-    await homeyDevice.setComponentSettings(this.namespace, undefined, newSettings);
+    await homeyDevice.setComponentSettings(this.namespace, this.id, newSettings);
   }
 
   async handleSettings(
