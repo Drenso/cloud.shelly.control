@@ -44,7 +44,29 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
             authenticationDevice.store.ha1 = await authenticationPromise;
           } else {
             const components = await Shelly.getAllComponents(createHttpChannel(authenticationDevice.store.address));
-            const homeyDevices = await this.assembleHomeyDevices(authenticationDevice, components);
+
+            const addonComponents = [];
+            const mainComponents = [];
+
+            for (const component of components) {
+              const [, componentId] = component.key.split(':') as [string, `${number}` | undefined];
+              if (componentId !== undefined) {
+                const componentIdNumber = parseInt(componentId);
+                if (100 <= componentIdNumber && componentIdNumber <= 199) {
+                  addonComponents.push(component);
+                  continue;
+                }
+              }
+              mainComponents.push(component);
+            }
+
+            const homeyDevices = await this.assembleHomeyDevices(authenticationDevice, mainComponents);
+
+            if (addonComponents.length > 0) {
+              const addonDevice = await this.assembleAddonHomeyDevices(authenticationDevice, addonComponents);
+              homeyDevices.push(...addonDevice);
+            }
+
             allHomeyDevices.push(...homeyDevices);
             deviceComponents.set(authenticationDevice.data.id, components);
             childHomeyDevices.set(authenticationDevice.data.id, homeyDevices);
@@ -118,6 +140,26 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
 
   async onPairMatchDevice(deviceInfo: ShellyGetDeviceInfoResponse): Promise<boolean> {
     return deviceInfo.id.toLowerCase().startsWith(this.baseDriverId);
+  }
+
+  async assembleAddonHomeyDevices(
+    selectedDevice: ShellyLocalListDeviceProperties,
+    components: ShellyGetComponentsResponseComponent[],
+  ): Promise<ShellyLocalListDeviceProperties[]> {
+    const device: ShellyLocalListDeviceProperties = {
+      name: `${selectedDevice.name} - Addon`,
+      data: {
+        id: `${selectedDevice.data.id}:addon`,
+        parent: selectedDevice.data.id,
+      },
+      icon: `../../../assets/drivers/${this.baseDriverId}/icon.svg`,
+      store: {
+        ...selectedDevice.store,
+        components: components.map(component => component.key),
+      },
+    };
+
+    return [device];
   }
 
   async assembleHomeyDevices(
