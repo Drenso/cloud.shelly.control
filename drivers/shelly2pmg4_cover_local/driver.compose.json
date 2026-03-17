@@ -2,7 +2,7 @@
   "name": {
     "en": "Shelly 2PM Gen4 - Cover - LAN"
   },
-  "class": "socket",
+  "class": "windowcoverings",
   "images": {
     "small": "/assets/drivers/shelly2pmg4/images/small.png",
     "large": "/assets/drivers/shelly2pmg4/images/large.png",

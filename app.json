@@ -1423,7 +1423,7 @@
       "name": {
         "en": "Shelly 2PM Gen4 - Cover - LAN"
       },
-      "class": "socket",
+      "class": "windowcoverings",
       "images": {
         "small": "/assets/drivers/shelly2pmg4/images/small.png",
         "large": "/assets/drivers/shelly2pmg4/images/large.png",
@@ -2243,7 +2243,7 @@
       "name": {
         "en": "Shelly Dimmer Gen4 - LAN"
       },
-      "class": "socket",
+      "class": "light",
       "images": {
         "small": "/assets/drivers/shellydimmerg4/images/small.png",
         "large": "/assets/drivers/shellydimmerg4/images/large.png",

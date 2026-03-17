@@ -2,7 +2,7 @@
   "name": {
     "en": "Shelly Dimmer Gen4 - LAN"
   },
-  "class": "socket",
+  "class": "light",
   "images": {
     "small": "/assets/drivers/shellydimmerg4/images/small.png",
     "large": "/assets/drivers/shellydimmerg4/images/large.png",
