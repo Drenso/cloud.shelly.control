@@ -16,3 +16,14 @@ env.json.dev
 env.json.prod
 README.MD
 interviews
+
+CODE_OF_CONDUCT.md
+troubleshooting.md
+
+fixFlows.*
+interview.*
+eslint.config.mjs
+package.json
+
+assets/templates/
+assets/drivers/*/icon_connectivity.svg
