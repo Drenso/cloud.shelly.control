@@ -1,0 +1,14 @@
+{
+  "id": "Cover:maxtime_close",
+  "type": "number",
+  "label": {
+    "en": "Cover - Close Timeout"
+  },
+  "hint": {
+    "en": "Default timeout after which the cover will stop moving in the close direction."
+  },
+  "value": 60,
+  "min": 0.1,
+  "max": 300,
+  "units": "s"
+}

@@ -1,0 +1,8 @@
+{
+  "id": "Cover:invert_directions",
+  "type": "checkbox",
+  "label": {
+    "en": "Cover - Invert Motor Direction"
+  },
+  "value": false
+}

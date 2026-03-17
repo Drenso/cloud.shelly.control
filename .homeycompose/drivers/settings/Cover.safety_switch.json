@@ -1,0 +1,104 @@
+{
+  "type": "group",
+  "label": "Cover - Safety Switch",
+  "children": [
+    {
+      "id": "Cover:safety_switch.enable",
+      "type": "checkbox",
+      "label": {
+        "en": "Cover - Safety Switch - Enabled"
+      },
+      "hint": {
+        "en": "The safety switch feature will only work of two inputs are connected while in single button control mode."
+      },
+      "value": false
+    },
+    {
+      "id": "Cover:safety_switch.direction",
+      "type": "dropdown",
+      "label": {
+        "en": "Cover - Safety Switch - Direction"
+      },
+      "hint": {
+        "en": "Direction of motion for which the safety switch should be monitored."
+      },
+      "value": "both",
+      "values": [
+        {
+          "id": "open",
+          "label": {
+            "en": "Opening"
+          }
+        },
+        {
+          "id": "close",
+          "label": {
+            "en": "Closing"
+          }
+        },
+        {
+          "id": "both",
+          "label": {
+            "en": "Both"
+          }
+        }
+      ]
+    },
+    {
+      "id": "Cover:safety_switch.action",
+      "type": "dropdown",
+      "label": {
+        "en": "Cover - Safety Switch - Action"
+      },
+      "hint": {
+        "en": "The recovery action that should be performed if the safety switch is engaged."
+      },
+      "value": "stop",
+      "values": [
+        {
+          "id": "stop",
+          "label": {
+            "en": "Stop"
+          }
+        },
+        {
+          "id": "reverse",
+          "label": {
+            "en": "Reverse"
+          }
+        },
+        {
+          "id": "pause",
+          "label": {
+            "en": "Pause"
+          }
+        }
+      ]
+    },
+    {
+      "id": "Cover:safety_switch.allowed_move",
+      "type": "dropdown",
+      "label": {
+        "en": "Cover - Safety Switch - Allowed Movement"
+      },
+      "hint": {
+        "en": "Allowed movement direction when the safety switch is engaged."
+      },
+      "value": "none",
+      "values": [
+        {
+          "id": "none",
+          "label": {
+            "en": "None"
+          }
+        },
+        {
+          "id": "reverse",
+          "label": {
+            "en": "Reverse"
+          }
+        }
+      ]
+    }
+  ]
+}

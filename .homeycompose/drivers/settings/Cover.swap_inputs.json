@@ -1,0 +1,8 @@
+{
+  "id": "Cover:swap_inputs",
+  "type": "checkbox",
+  "label": {
+    "en": "Cover - Swap Inputs"
+  },
+  "value": false
+}

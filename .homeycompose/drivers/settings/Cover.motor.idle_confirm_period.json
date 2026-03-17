@@ -1,0 +1,14 @@
+{
+  "id": "Cover:motor.idle_confirm_period",
+  "type": "number",
+  "label": {
+    "en": "Cover - Motor Idle Confirm Period"
+  },
+  "hint": {
+    "en": "The minimum period of time in idle state before the stopped state is confirmed."
+  },
+  "value": 0.25,
+  "min": 0.25,
+  "max": 2,
+  "units": "s"
+}

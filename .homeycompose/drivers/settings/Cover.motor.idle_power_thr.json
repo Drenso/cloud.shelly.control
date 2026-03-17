@@ -1,0 +1,14 @@
+{
+  "id": "Cover:motor.idle_power_thr",
+  "type": "number",
+  "label": {
+    "en": "Cover - Motor Idle Power Threshold"
+  },
+  "hint": {
+    "en": "Threshold below which the motor is considered stopped."
+  },
+  "value": 2,
+  "min": 0,
+  "max": 50,
+  "units": "W"
+}

@@ -1,0 +1,70 @@
+{
+  "type": "group",
+  "label": "Cover - Slats",
+  "children": [
+    {
+      "id": "Cover:slat.open_time",
+      "type": "number",
+      "label": {
+        "en": "Cover - Slats - Open Time"
+      },
+      "hint": {
+        "en": "Time it takes for slats to move from fully closed (0%) to fully open (100%)."
+      },
+      "value": 1.5,
+      "min": 0.5,
+      "max": 30,
+      "units": "s"
+    },
+    {
+      "id": "Cover:slat.close_time",
+      "type": "number",
+      "label": {
+        "en": "Cover - Slats - Close Time"
+      },
+      "hint": {
+        "en": "Time it takes for slats to move from fully open (100%) to fully closed (100%)."
+      },
+      "value": 1.5,
+      "min": 0.5,
+      "max": 30,
+      "units": "s"
+    },
+    {
+      "id": "Cover:slat.step",
+      "type": "number",
+      "label": {
+        "en": "Cover - Slats - Step Size"
+      },
+      "hint": {
+        "en": "Part of the full range of motion that the slats move in a single step (used only when slats are controlled via inputs)."
+      },
+      "value": 20,
+      "min": 1,
+      "max": 100,
+      "units": "%"
+    },
+    {
+      "id": "Cover:slat.retain_pos",
+      "type": "checkbox",
+      "label": {
+        "en": "Cover - Slats - Retain Position"
+      },
+      "hint": {
+        "en": "Whether to retain slat position when cover (vertical) position is changed."
+      },
+      "value": false
+    },
+    {
+      "id": "Cover:slat.precise_ctl",
+      "type": "checkbox",
+      "label": {
+        "en": "Cover - Slats - Precise Control"
+      },
+      "hint": {
+        "en": "This property only applies when cover (vertical) position is less than one full slat rotation away from the fully closed position. If this condition is met, any slat movement will always go through fully closed position first. This improves slat positioning accuracy, yet is slower to execute."
+      },
+      "value": false
+    }
+  ]
+}

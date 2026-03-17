@@ -59,5 +59,35 @@
   },
   {
     "$extends": "Cover.current_limit"
+  },
+  {
+    "$extends": "Cover.motor.idle_power_thr"
+  },
+  {
+    "$extends": "Cover.motor.idle_confirm_period"
+  },
+  {
+    "$extends": "Cover.maxtime_open"
+  },
+  {
+    "$extends": "Cover.maxtime_close"
+  },
+  {
+    "$extends": "Cover.swap_inputs"
+  },
+  {
+    "$extends": "Cover.invert_directions"
+  },
+  {
+    "$extends": "Cover.maintenance_mode"
+  },
+  {
+    "$extends": "Cover.obstruction_detection"
+  },
+  {
+    "$extends": "Cover.safety_switch"
+  },
+  {
+    "$extends": "Cover.slat"
   }
 ]

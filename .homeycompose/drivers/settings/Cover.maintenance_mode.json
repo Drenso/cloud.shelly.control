@@ -1,0 +1,11 @@
+{
+  "id": "Cover:maintenance_mode",
+  "type": "checkbox",
+  "label": {
+    "en": "Cover - Maintenance Mode"
+  },
+  "hint": {
+    "en": "Temporarily freeze all motions for maintenance."
+  },
+  "value": false
+}

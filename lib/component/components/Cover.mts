@@ -466,7 +466,6 @@ export type CoverHomeySettings = {
   'Cover:voltage_limit': number;
   'Cover:undervoltage_limit': number;
   'Cover:current_limit': number;
-  // TODO setting templates
   'Cover:motor.idle_power_thr': number;
   'Cover:motor.idle_confirm_period': number;
   'Cover:maxtime_open': number;
@@ -474,7 +473,19 @@ export type CoverHomeySettings = {
   'Cover:swap_inputs': boolean;
   'Cover:invert_directions': boolean;
   'Cover:maintenance_mode': boolean;
-  // TODO missing settings
+  'Cover:obstruction_detection.enabled': boolean;
+  'Cover:obstruction_detection.direction': 'open' | 'close' | 'both';
+  'Cover:obstruction_detection.action': 'stop' | 'reverse';
+  'Cover:obstruction_detection.power_thr': number;
+  'Cover:obstruction_detection.holdoff': number;
+  'Cover:safety_switch.enable': boolean;
+  'Cover:safety_switch.direction': 'open' | 'close' | 'both';
+  'Cover:safety_switch.action': 'stop' | 'reverse' | 'pause';
+  'Cover:safety_switch.allowed_move': 'reverse' | 'none';
+  // 'Cover:slat.enable': boolean; // TODO enable once dynamic capabilities are supported
+  'Cover:slat.open_time': number;
+  'Cover:slat.close_time': number;
+  'Cover:slat.step': number;
   'Cover:slat.retain_pos': boolean;
   'Cover:slat.precise_ctl': boolean;
 };

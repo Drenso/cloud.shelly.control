@@ -1,0 +1,97 @@
+{
+  "type": "group",
+  "label": "Cover - Obstruction Detection",
+  "children": [
+    {
+      "id": "Cover:obstruction_detection.enabled",
+      "type": "checkbox",
+      "label": {
+        "en": "Cover - Obstruction Detection - Enabled"
+      },
+      "value": false
+    },
+    {
+      "id": "Cover:obstruction_detection.direction",
+      "type": "dropdown",
+      "label": {
+        "en": "Cover - Obstruction Detection - Direction"
+      },
+      "hint": {
+        "en": "Direction of motion for which the obstruction detection should be monitored."
+      },
+      "value": "both",
+      "values": [
+        {
+          "id": "open",
+          "label": {
+            "en": "Opening"
+          }
+        },
+        {
+          "id": "close",
+          "label": {
+            "en": "Closing"
+          }
+        },
+        {
+          "id": "both",
+          "label": {
+            "en": "Both"
+          }
+        }
+      ]
+    },
+    {
+      "id": "Cover:obstruction_detection.action",
+      "type": "dropdown",
+      "label": {
+        "en": "Cover - Obstruction Detection - Action"
+      },
+      "hint": {
+        "en": "The recovery action that should be performed if the obstruction detection is triggered."
+      },
+      "value": "stop",
+      "values": [
+        {
+          "id": "stop",
+          "label": {
+            "en": "Stop"
+          }
+        },
+        {
+          "id": "reverse",
+          "label": {
+            "en": "Reverse"
+          }
+        }
+      ]
+    },
+    {
+      "id": "Cover:obstruction_detection.power_thr",
+      "type": "number",
+      "label": {
+        "en": "Cover - Obstruction Detection - Power Threshold"
+      },
+      "hint": {
+        "en": "Threshold above which the motor is considered obstructed."
+      },
+      "value": 1000,
+      "min": 0,
+      "units": "W"
+    },
+    {
+      "id": "Cover:obstruction_detection.holdoff",
+      "type": "number",
+      "label": {
+        "en": "Cover - Obstruction Detection - Holdoff Time"
+      },
+      "hint": {
+        "en": "Time to wait after Cover starts moving before obstruction detection is activated (to avoid false detections because of the initial power consumption spike)."
+      },
+      "value": 1,
+      "min": 0.1,
+      "max": 300,
+      "units": "s"
+    }
+  ]
+}
