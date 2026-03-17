@@ -8,23 +8,27 @@
     },
     "titleFalse": {
       "en": "Off"
-    }
+    },
+    "icon": "/assets/capabilities/input_switch.svg"
   },
   "sensor_number.input_analog": {
     "title": {
       "en": "Analog Input __number__"
     },
-    "units": "%"
+    "units": "%",
+    "icon": "/assets/capabilities/input_analog.svg"
   },
   "sensor_number.input_count": {
     "title": {
       "en": "Count Input __number__"
     },
-    "decimals": 0
+    "decimals": 0,
+    "icon": "/assets/capabilities/input_count.svg"
   },
   "sensor_string.input_button": {
     "title": {
       "en": "Button Input __number__"
-    }
+    },
+    "icon": "/assets/capabilities/input_button.svg"
   }
 }
