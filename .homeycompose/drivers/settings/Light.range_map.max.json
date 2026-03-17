@@ -1,5 +1,5 @@
 {
-  "id": "Light.range_map.max",
+  "id": "Light:range_map.max",
   "type": "number",
   "label": {
     "en": "Light - Remapped Maximum Brightness"

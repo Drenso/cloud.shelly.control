@@ -1,5 +1,5 @@
 {
-  "id": "Light.button_fade_rate",
+  "id": "Light:button_fade_rate",
   "type": "dropdown",
   "label": {
     "en": "Light - Button Fade Rate"

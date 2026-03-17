@@ -8,7 +8,7 @@ import type { LightResetCountersParams } from './Light/ResetCounters.mjs';
 import ResetCounters from './Light/ResetCounters.mjs';
 import type { ComponentMethod } from './Shelly/ListMethods.mjs';
 import type ShellyLocalDevice from '../../Device.mjs';
-import type { RecursivePartial } from '../../util.mjs';
+import { deepAssign, type RecursivePartial } from '../../util.mjs';
 import Set, { type LightSetParams } from './Light/Set.mjs';
 import Toggle from './Light/Toggle.mjs';
 import DimUp, { type LightDimUpParams } from './Light/DimUp.mjs';
@@ -268,6 +268,17 @@ export type LightHomeySettings = {
   'Light:current_limit': number;
 };
 
+const simpleSettingKeys = [
+  'in_mode',
+  'initial_state',
+  'transition_duration',
+  'min_brightness_on_toggle',
+  'power_limit',
+  'voltage_limit',
+  'undervoltage_limit',
+  'current_limit',
+] as const satisfies (keyof LightConfig)[];
+
 /**
  * The Light component handles a dimmable light output with additional on/off control.
  * It has night mode capability that can reduce brightness in selected period of time.
@@ -389,7 +400,157 @@ export default class Light extends ComponentWithId<'Light', LightStatus, LightCo
   }
 
   async onConfigUpdate(homeyDevice: ShellyLocalDevice, config: LightConfig): Promise<void> {
-    // TODO update settings
+    const newSettings: RecursivePartial<LightHomeySettings, AllowedPrimitives> = {};
+
+    for (const settingKey of simpleSettingKeys) {
+      if (config[settingKey] !== undefined) {
+        newSettings[`Light:${settingKey}`] = config[settingKey] as never;
+      }
+    }
+
+    if (config.op_mode !== undefined) {
+      newSettings['Light:op_mode'] = `${config.op_mode}`;
+    }
+
+    if (config.night_mode !== undefined) {
+      if (config.night_mode.enable !== undefined) {
+        newSettings['Light:night_mode.enable'] = config.night_mode.enable;
+      }
+      if (config.night_mode.brightness !== undefined) {
+        newSettings['Light:night_mode.brightness'] = config.night_mode.brightness;
+      }
+      const nightModePeriod = config.night_mode.active_between;
+      if (nightModePeriod !== undefined && nightModePeriod.length === 2) {
+        const [start, end] = nightModePeriod;
+        newSettings['Light:night_mode.active_between.start'] = start;
+        newSettings['Light:night_mode.active_between.end'] = end;
+      }
+    }
+
+    if (config.button_fade_rate !== undefined) {
+      newSettings['Light:button_fade_rate'] = `${config.button_fade_rate}`;
+    }
+
+    const buttonDoublePushPreset = config.button_presets?.button_doublepush;
+
+    if (buttonDoublePushPreset !== undefined) {
+      newSettings['Light:button_presets.button_doublepush.enable'] = buttonDoublePushPreset !== null;
+      newSettings['Light:button_presets.button_doublepush.brightness'] = buttonDoublePushPreset?.brightness;
+    }
+
+    if (config.range_map !== undefined) {
+      if (config.range_map === null) {
+        newSettings['Light:range_map.min'] = 0;
+        newSettings['Light:range_map.max'] = 100;
+      } else if (config.range_map.length === 2) {
+        const [min, max] = config.range_map;
+        newSettings['Light:range_map.min'] = min;
+        newSettings['Light:range_map.max'] = max;
+      }
+    }
+
+    homeyDevice.debug(newSettings);
+    await homeyDevice.setComponentSettings(this.namespace, this.id, newSettings);
+  }
+
+  async handleSettings(
+    homeyDevice: ShellyLocalDevice,
+    { changedKeys, newSettings }: SettingsEvent<LightHomeySettings>,
+  ): Promise<boolean> {
+    const changedConfig: RecursivePartial<LightConfig, AllowedPrimitives> = {};
+
+    for (const settingKey of simpleSettingKeys) {
+      const homeySettingKey = `Light:${settingKey}` as const;
+      if (changedKeys.includes(homeySettingKey)) {
+        changedConfig[settingKey] = newSettings[homeySettingKey] as never;
+      }
+    }
+
+    if (changedKeys.includes('Light:op_mode')) {
+      changedConfig.op_mode = parseInt(newSettings['Light:op_mode']) as 0 | 1;
+    }
+
+    if (changedKeys.includes('Light:night_mode.enable')) {
+      deepAssign(changedConfig, { night_mode: { enable: newSettings['Light:night_mode.enable'] } });
+    }
+
+    if (changedKeys.includes('Light:night_mode.brightness')) {
+      deepAssign(changedConfig, { night_mode: { brightness: newSettings['Light:night_mode.brightness'] } });
+    }
+
+    if (
+      changedKeys.includes('Light:night_mode.active_between.start') ||
+      changedKeys.includes('Light:night_mode.active_between.end')
+    ) {
+      const rawStart = newSettings['Light:night_mode.active_between.start'];
+      const rawEnd = newSettings['Light:night_mode.active_between.end'];
+      const [rawStartHour, rawStartMinutes, ...startRest] = rawStart.split(':');
+      const [rawEndHour, rawEndMinutes, ...endRest] = rawEnd.split(':');
+
+      const startHour = parseInt(rawStartHour, 10);
+      const startMinutes = parseInt(rawStartMinutes, 10);
+      const endHour = parseInt(rawEndHour, 10);
+      const endMinutes = parseInt(rawEndMinutes, 10);
+
+      const invalidStart =
+        startRest.length > 0 ||
+        isNaN(startHour) ||
+        isNaN(startMinutes) ||
+        startHour < 0 ||
+        startMinutes < 0 ||
+        startHour >= 24 ||
+        startMinutes >= 60;
+
+      const invalidEnd =
+        endRest.length > 0 ||
+        isNaN(endHour) ||
+        isNaN(endMinutes) ||
+        endHour < 0 ||
+        endMinutes < 0 ||
+        endHour >= 24 ||
+        endMinutes >= 60;
+
+      // Invalid argument 'night_mode.active_between': Time range must be between [00:00, 23:59]!
+      if (invalidStart && invalidEnd) {
+        throw new Error(homeyDevice.homey.__('component.Light.invalid_night_mode.start_and_end'));
+      }
+
+      if (invalidStart) {
+        throw new Error(homeyDevice.homey.__('component.Light.invalid_night_mode.start'));
+      }
+
+      if (invalidEnd) {
+        throw new Error(homeyDevice.homey.__('component.Light.invalid_night_mode.end'));
+      }
+
+      deepAssign(changedConfig, { night_mode: { active_between: [rawStart, rawEnd] } });
+    }
+
+    if (changedKeys.includes('Light:button_fade_rate')) {
+      changedConfig.button_fade_rate = parseInt(newSettings['Light:button_fade_rate']) as 1 | 2 | 3 | 4 | 5;
+    }
+
+    if (
+      changedKeys.includes('Light:button_presets.button_doublepush.enable') ||
+      changedKeys.includes('Light:button_presets.button_doublepush.brightness')
+    ) {
+      const enabled = newSettings['Light:button_presets.button_doublepush.enable'];
+      const brightness = newSettings['Light:button_presets.button_doublepush.brightness'];
+      deepAssign(changedConfig, { button_presets: { button_doublepush: enabled ? { brightness: brightness } : null } });
+    }
+
+    if (changedKeys.includes('Light:range_map.min') || changedKeys.includes(`Light:range_map.max`)) {
+      const min = newSettings['Light:range_map.min'];
+      const max = newSettings['Light:range_map.max'];
+      changedConfig.range_map = [min, max];
+    }
+
+    if (Object.keys(changedConfig).length <= 0) {
+      return false;
+    }
+
+    const result = await this.SetConfig(this.device.getChannel(), { config: changedConfig });
+    return result.result.restart_required;
   }
 
   async registerCapability(

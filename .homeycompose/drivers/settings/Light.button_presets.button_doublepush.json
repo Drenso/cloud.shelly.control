@@ -3,7 +3,7 @@
   "label": "Light - Double Push Preset",
   "children": [
     {
-      "id": "Light.button_presets.button_doublepush.enable",
+      "id": "Light:button_presets.button_doublepush.enable",
       "type": "checkbox",
       "label": {
         "en": "Enabled"
@@ -11,7 +11,7 @@
       "value": false
     },
     {
-      "id": "Light.button_presets.button_doublepush.brightness",
+      "id": "Light:button_presets.button_doublepush.brightness",
       "type": "number",
       "label": {
         "en": "Brightness"

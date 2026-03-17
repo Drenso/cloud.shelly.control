@@ -27,6 +27,13 @@
         "end": "Invalid End Time for Indicator LED - Night Mode",
         "start_and_end": "Invalid Start Time and End Time for Indicator LED - Night Mode"
       }
+    },
+    "Light": {
+      "invalid_night_mode": {
+        "start": "Invalid Start Time for Light - Night Mode",
+        "end": "Invalid End Time for Light - Night Mode",
+        "start_and_end": "Invalid Start Time and End Time for Light - Night Mode"
+      }
     }
   }
 }

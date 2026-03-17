@@ -2401,7 +2401,7 @@
               "units": "%"
             },
             {
-              "id": "Light.night_mode.active_between.start",
+              "id": "Light:night_mode.active_between.start",
               "type": "text",
               "label": {
                 "en": "Start Time"
@@ -2413,7 +2413,7 @@
               }
             },
             {
-              "id": "Light.night_mode.active_between.end",
+              "id": "Light:night_mode.active_between.end",
               "type": "text",
               "label": {
                 "en": "End Time"
@@ -2427,7 +2427,7 @@
           ]
         },
         {
-          "id": "Light.button_fade_rate",
+          "id": "Light:button_fade_rate",
           "type": "dropdown",
           "label": {
             "en": "Light - Button Fade Rate"
@@ -2472,7 +2472,7 @@
           "label": "Light - Double Push Preset",
           "children": [
             {
-              "id": "Light.button_presets.button_doublepush.enable",
+              "id": "Light:button_presets.button_doublepush.enable",
               "type": "checkbox",
               "label": {
                 "en": "Enabled"
@@ -2480,7 +2480,7 @@
               "value": false
             },
             {
-              "id": "Light.button_presets.button_doublepush.brightness",
+              "id": "Light:button_presets.button_doublepush.brightness",
               "type": "number",
               "label": {
                 "en": "Brightness"
@@ -2493,7 +2493,7 @@
           ]
         },
         {
-          "id": "Light.range_map.min",
+          "id": "Light:range_map.min",
           "type": "number",
           "label": {
             "en": "Light - Remapped Minimum Brightness"
@@ -2504,7 +2504,7 @@
           "units": "%"
         },
         {
-          "id": "Light.range_map.max",
+          "id": "Light:range_map.max",
           "type": "number",
           "label": {
             "en": "Light - Remapped Maximum Brightness"
