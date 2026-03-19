@@ -27,6 +27,7 @@
   },
   "homepage": "https://shelly.cloud/",
   "support": "mailto:homey-shelly-control@drenso.nl",
+  "homeyCommunityTopicId": 152695,
   "author": {
     "name": "Allterco Robotics",
     "email": "homey@shelly.cloud"
