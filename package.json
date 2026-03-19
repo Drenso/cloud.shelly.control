@@ -28,7 +28,7 @@
     "@drenso/eslint-config-homey-mts": "1.0.0",
     "@drenso/homey-translation-helper": "2.4.0",
     "@drenso/prettier-config-homey-mts": "1.0.0",
-    "@tsconfig/node16": "16.1.8",
+    "@tsconfig/node20": "20.1.9",
     "@types/homey": "npm:homey-apps-sdk-v3-types@0.3.6",
     "@types/node": "24.11.0",
     "@types/semver": "7.7.1",
