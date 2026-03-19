@@ -7,11 +7,11 @@ import type { MappedComponent } from './component/ComponentMapping.mjs';
 import type ShellyLocalDriver from './Driver.mjs';
 
 export default class ShellyLocalDevice extends Homey.Device {
-  declare readonly __id: string;
-  virtualDevice?: VirtualDevice;
-  virtualComponents = new Map<string, InstanceType<MappedComponent>>();
+  declare public readonly __id: string;
+  public virtualDevice?: VirtualDevice;
+  public readonly virtualComponents = new Map<string, InstanceType<MappedComponent>>();
 
-  async onInit(): Promise<void> {
+  public async onInit(): Promise<void> {
     await this.setUnavailable(this.homey.__('device.initializing'));
     this.registerCapabilityListener('button.restart', () => {
       if (this.virtualDevice === undefined) {
@@ -21,7 +21,7 @@ export default class ShellyLocalDevice extends Homey.Device {
     });
   }
 
-  async onDeleted(): Promise<void> {
+  public async onDeleted(): Promise<void> {
     if (this.virtualDevice !== undefined) {
       await this.virtualDevice.removeHomeyDevice(this.getTypedData().id);
     } else {
@@ -33,7 +33,7 @@ export default class ShellyLocalDevice extends Homey.Device {
   }
 
   // This is called by the parent virtual device
-  async initializeShelly(
+  public async initializeShelly(
     virtualDevice: VirtualDevice,
     methodMapping: Partial<Record<NameSpace, ComponentMethod<NameSpace>[]>>,
   ): Promise<void> {
@@ -54,11 +54,11 @@ export default class ShellyLocalDevice extends Homey.Device {
     await this.setAvailable();
   }
 
-  get app(): ShellyApp {
+  public get app(): ShellyApp {
     return this.homey.app as ShellyApp;
   }
 
-  async safeAddCapability(id: string): Promise<void> {
+  public async safeAddCapability(id: string): Promise<void> {
     if (this.hasCapability(id)) {
       return;
     }
@@ -66,22 +66,22 @@ export default class ShellyLocalDevice extends Homey.Device {
     await this.addCapability(id).catch(this.error);
   }
 
-  getTypedStore(): ShellyLocalDeviceStore {
+  public getTypedStore(): ShellyLocalDeviceStore {
     return this.getStore();
   }
 
-  setTypedStoreValue<Key extends keyof ShellyLocalDeviceStore>(
+  public setTypedStoreValue<Key extends keyof ShellyLocalDeviceStore>(
     key: Key,
     value: ShellyLocalDeviceStore[Key],
   ): Promise<void> {
     return this.setStoreValue(key, value);
   }
 
-  getTypedData(): ShellyLocalDeviceData {
+  public getTypedData(): ShellyLocalDeviceData {
     return this.getData();
   }
 
-  async safeRemoveCapability(id: string): Promise<void> {
+  public async safeRemoveCapability(id: string): Promise<void> {
     if (!this.hasCapability(id)) {
       return;
     }
@@ -89,7 +89,7 @@ export default class ShellyLocalDevice extends Homey.Device {
     await this.removeCapability(id).catch(this.error);
   }
 
-  async safeSetCapability(id: string, value: unknown): Promise<void> {
+  public async safeSetCapability(id: string, value: unknown): Promise<void> {
     if (!this.hasCapability(id)) {
       return;
     }
@@ -97,7 +97,7 @@ export default class ShellyLocalDevice extends Homey.Device {
     await this.setCapabilityValue(id, value).catch(this.error);
   }
 
-  async safeTriggerDeviceCard(
+  public async safeTriggerDeviceCard(
     id: string,
     tokens?: Record<string, unknown>,
     triggerArgs?: Record<string, unknown>,
@@ -106,7 +106,7 @@ export default class ShellyLocalDevice extends Homey.Device {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  async onSettings(event: SettingsEvent<any>): Promise<string | void> {
+  public async onSettings(event: SettingsEvent<any>): Promise<string | void> {
     let restartRequired = false;
     for (const virtualComponent of this.virtualComponents.values()) {
       restartRequired ||= await virtualComponent.handleSettings(this, event as never);
@@ -116,7 +116,7 @@ export default class ShellyLocalDevice extends Homey.Device {
     }
   }
 
-  async setComponentSettings(
+  public async setComponentSettings(
     component: NameSpace,
     id: number | undefined,
     settings: Record<string, unknown>,
@@ -124,7 +124,7 @@ export default class ShellyLocalDevice extends Homey.Device {
     await this.setSettings(settings);
   }
 
-  debug(...args: unknown[]): void {
+  public debug(...args: unknown[]): void {
     (this.driver as ShellyLocalDriver).debug(`[Device:${this.__id}]`, ...args);
   }
 }

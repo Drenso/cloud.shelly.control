@@ -14,12 +14,12 @@ const VIRTUAL_DEVICE_SETTING_KEY_PREFIX = 'virtual_device_';
 
 // noinspection JSUnusedGlobalSymbols
 export default class ShellyApp extends Homey.App {
-  homeyLog = new Log({ homey: this.homey });
-  outboundWsServer = new OutboundWsServer(this.log, this.error);
+  public readonly homeyLog = new Log({ homey: this.homey });
+  public readonly outboundWsServer = new OutboundWsServer(this.log, this.error);
 
-  virtualDevices = new Map<string, VirtualDevice>();
+  public readonly virtualDevices = new Map<string, VirtualDevice>();
 
-  async onInit(): Promise<void> {
+  public async onInit(): Promise<void> {
     this.log('Initializing App...');
     this.outboundWsServer.open(await getIp(this.homey));
     this.registerFlowCards();
@@ -27,7 +27,7 @@ export default class ShellyApp extends Homey.App {
     this.log('Finished initializing App');
   }
 
-  async deserializeVirtualDevices(): Promise<void> {
+  private async deserializeVirtualDevices(): Promise<void> {
     const virtualDeviceIds = this.homey.settings.get(VIRTUAL_DEVICE_IDS_SETTING_KEY) ?? ([] as readonly string[]);
     for (const virtualDeviceId of virtualDeviceIds) {
       const { deviceId, ipAddress, components, homeyDeviceIds, ha1 } = this.homey.settings.get(
@@ -38,7 +38,7 @@ export default class ShellyApp extends Homey.App {
     }
   }
 
-  async addVirtualDevice(device: VirtualDevice): Promise<void> {
+  public async addVirtualDevice(device: VirtualDevice): Promise<void> {
     this.virtualDevices.set(device.deviceId, device);
     const virtualDeviceIds: readonly string[] = [...this.virtualDevices.keys()];
     this.homey.settings.set(VIRTUAL_DEVICE_IDS_SETTING_KEY, virtualDeviceIds);
@@ -46,7 +46,7 @@ export default class ShellyApp extends Homey.App {
     this.homey.settings.set(deviceSettingKey, device.serialize());
   }
 
-  async removeVirtualDevice(device: VirtualDevice): Promise<void> {
+  public async removeVirtualDevice(device: VirtualDevice): Promise<void> {
     this.virtualDevices.delete(device.deviceId);
     const virtualDeviceIds: readonly string[] = [...this.virtualDevices.keys()];
     this.homey.settings.set(VIRTUAL_DEVICE_IDS_SETTING_KEY, virtualDeviceIds);
@@ -54,12 +54,12 @@ export default class ShellyApp extends Homey.App {
     this.homey.settings.unset(deviceSettingKey);
   }
 
-  async updateVirtualDevice(device: VirtualDevice): Promise<void> {
+  public async updateVirtualDevice(device: VirtualDevice): Promise<void> {
     const deviceSettingKey = VIRTUAL_DEVICE_SETTING_KEY_PREFIX + device.deviceId;
     this.homey.settings.set(deviceSettingKey, device.serialize());
   }
 
-  getDevice(id: string): ShellyLocalDevice | undefined {
+  public getDevice(id: string): ShellyLocalDevice | undefined {
     const drivers = this.homey.drivers.getDrivers();
     for (const driverId in drivers) {
       const driver = drivers[driverId];
@@ -73,13 +73,13 @@ export default class ShellyApp extends Homey.App {
     return undefined;
   }
 
-  debug(...args: unknown[]): void {
+  public debug(...args: unknown[]): void {
     if (Homey.env['DEBUG'] === '1') {
       console.log(new Date(), '[dbg]', '[ShellyApp]', ...args);
     }
   }
 
-  registerFlowCards(): void {
+  private registerFlowCards(): void {
     Input.registerFlowCards(this);
   }
 }

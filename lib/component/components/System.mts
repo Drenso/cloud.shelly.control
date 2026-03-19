@@ -215,18 +215,21 @@ export type SystemStatus = {
  * The system component provides information about general device status, resource usage, availability of firmware updates, etc.
  */
 export default class System extends ComponentWithoutId<'Sys', SystemStatus, SystemConfig, Record<never, never>> {
-  protected _SetConfig = SetConfig;
-  protected _GetConfig = GetConfig;
-  protected _GetStatus = GetStatus;
-  readonly namespace = 'Sys';
+  protected readonly _SetConfig = SetConfig;
+  protected readonly _GetConfig = GetConfig;
+  protected readonly _GetStatus = GetStatus;
+  public readonly namespace = 'Sys';
 
-  readonly SetTime = SetTime;
+  public readonly SetTime = SetTime;
 
-  async register(): Promise<void> {}
+  public async register(): Promise<void> {}
 
-  async registerHomeyDevice(_homeyDevice: ShellyLocalDevice, _methods: ComponentMethod<'Sys'>[]): Promise<void> {}
+  public async registerHomeyDevice(
+    _homeyDevice: ShellyLocalDevice,
+    _methods: ComponentMethod<'Sys'>[],
+  ): Promise<void> {}
 
-  async onStatusUpdate(_homeyDevice: ShellyLocalDevice, _status: Partial<SystemStatus>): Promise<void> {}
+  public async onStatusUpdate(_homeyDevice: ShellyLocalDevice, _status: Partial<SystemStatus>): Promise<void> {}
 
-  async onConfigUpdate(_homeyDevice: ShellyLocalDevice, _config: SystemConfig): Promise<void> {}
+  public async onConfigUpdate(_homeyDevice: ShellyLocalDevice, _config: SystemConfig): Promise<void> {}
 }

@@ -190,29 +190,32 @@ export default class Switch extends ComponentWithId<'Switch', SwitchStatus, Swit
   protected _SetConfig = SetConfig;
   protected _GetConfig = GetConfig;
   protected _GetStatus = GetStatus;
-  readonly namespace = 'Switch';
-  static uiName = 'Switch';
+  public readonly namespace = 'Switch';
+  public static readonly uiName = 'Switch';
 
-  async Set(channel: RpcChannel, params: SwitchSetParams): Promise<ResponseSuccessFrame<SwitchSetResponse>> {
+  public async Set(channel: RpcChannel, params: SwitchSetParams): Promise<ResponseSuccessFrame<SwitchSetResponse>> {
     return Set(channel, this.id, params);
   }
 
-  async Toggle(channel: RpcChannel): Promise<ResponseSuccessFrame<SwitchToggleResponse>> {
+  public async Toggle(channel: RpcChannel): Promise<ResponseSuccessFrame<SwitchToggleResponse>> {
     return Toggle(channel, this.id);
   }
 
-  async ResetCounters(
+  public async ResetCounters(
     channel: RpcChannel,
     params?: SwitchResetCountersParams,
   ): Promise<ResponseSuccessFrame<SwitchResetCountersResponse>> {
     return ResetCounters(channel, this.id, params);
   }
 
-  async register(): Promise<void> {
+  public async register(): Promise<void> {
     return;
   }
 
-  async registerHomeyDevice(homeyDevice: ShellyLocalDevice, methods: ComponentMethod<'Switch'>[]): Promise<void> {
+  public async registerHomeyDevice(
+    homeyDevice: ShellyLocalDevice,
+    methods: ComponentMethod<'Switch'>[],
+  ): Promise<void> {
     {
       // output
       await this.registerCapability(homeyDevice, 'output', 'onoff').catch(homeyDevice.error);
@@ -262,7 +265,7 @@ export default class Switch extends ComponentWithId<'Switch', SwitchStatus, Swit
     await this.onConfigUpdate(homeyDevice, this.config);
   }
 
-  async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Partial<SwitchStatus>): Promise<void> {
+  public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Partial<SwitchStatus>): Promise<void> {
     await this.updateMeasured(homeyDevice, status, 'output', 'onoff');
     await this.updateMeasured(homeyDevice, status, 'apower', 'measure_power');
     await this.updateMeasured(homeyDevice, status, 'voltage', 'measure_voltage');
@@ -283,7 +286,7 @@ export default class Switch extends ComponentWithId<'Switch', SwitchStatus, Swit
     // TODO errors
   }
 
-  async onConfigUpdate(homeyDevice: ShellyLocalDevice, config: SwitchConfig): Promise<void> {
+  public async onConfigUpdate(homeyDevice: ShellyLocalDevice, config: SwitchConfig): Promise<void> {
     const newSettings: RecursivePartial<SwitchHomeySettings, AllowedPrimitives> = {};
     for (const settingKey of settingKeys) {
       if (config[settingKey] !== undefined) {
@@ -297,7 +300,7 @@ export default class Switch extends ComponentWithId<'Switch', SwitchStatus, Swit
     await homeyDevice.setComponentSettings(this.namespace, this.id, newSettings);
   }
 
-  async handleSettings(
+  public async handleSettings(
     homeyDevice: ShellyLocalDevice,
     { changedKeys, newSettings }: SettingsEvent<SwitchHomeySettings>,
   ): Promise<boolean> {
@@ -323,7 +326,7 @@ export default class Switch extends ComponentWithId<'Switch', SwitchStatus, Swit
     }
   }
 
-  async registerCapability(
+  private async registerCapability(
     homeyDevice: ShellyLocalDevice,
     statusProperty: keyof SwitchStatus,
     homeyCapability: string,
@@ -337,7 +340,7 @@ export default class Switch extends ComponentWithId<'Switch', SwitchStatus, Swit
     }
   }
 
-  async updateMeasured(
+  private async updateMeasured(
     homeyDevice: ShellyLocalDevice,
     status: Partial<SwitchStatus>,
     statusProperty: keyof SwitchStatus,

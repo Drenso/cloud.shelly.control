@@ -97,16 +97,16 @@ export default class PowerStripUI extends ComponentWithoutId<
   PowerStripUIConfig,
   PowerStripUIHomeySettings
 > {
-  protected _SetConfig = SetConfig;
-  protected _GetConfig = GetConfig;
-  protected _GetStatus = GetStatus;
-  readonly namespace = 'POWERSTRIP_UI';
+  protected readonly _SetConfig = SetConfig;
+  protected readonly _GetConfig = GetConfig;
+  protected readonly _GetStatus = GetStatus;
+  public readonly namespace = 'POWERSTRIP_UI';
 
-  async register(_methods: ComponentMethod<'POWERSTRIP_UI'>[]): Promise<void> {
+  public async register(_methods: ComponentMethod<'POWERSTRIP_UI'>[]): Promise<void> {
     return;
   }
 
-  async registerHomeyDevice(
+  public async registerHomeyDevice(
     homeyDevice: ShellyLocalDevice,
     _methods: ComponentMethod<'POWERSTRIP_UI'>[],
   ): Promise<void> {
@@ -114,9 +114,9 @@ export default class PowerStripUI extends ComponentWithoutId<
     await this.onConfigUpdate(homeyDevice, this.config);
   }
 
-  async onStatusUpdate(_homeyDevice: ShellyLocalDevice, _status: PowerStripUIStatus): Promise<void> {}
+  public async onStatusUpdate(_homeyDevice: ShellyLocalDevice, _status: PowerStripUIStatus): Promise<void> {}
 
-  async onConfigUpdate(homeyDevice: ShellyLocalDevice, config: PowerStripUIConfig): Promise<void> {
+  public async onConfigUpdate(homeyDevice: ShellyLocalDevice, config: PowerStripUIConfig): Promise<void> {
     const newSettings: Partial<PowerStripUIHomeySettings> = {
       'POWERSTRIP_UI:leds.mode': config.leds.mode,
       'POWERSTRIP_UI:leds.colors.power.brightness': config.leds.colors.power.brightness,
@@ -153,7 +153,7 @@ export default class PowerStripUI extends ComponentWithoutId<
     await homeyDevice.setComponentSettings(this.namespace, undefined, newSettings);
   }
 
-  async handleSettings(
+  public async handleSettings(
     homeyDevice: ShellyLocalDevice,
     { changedKeys, newSettings }: SettingsEvent<PowerStripUIHomeySettings>,
   ): Promise<boolean> {

@@ -329,32 +329,35 @@ type RateLimitEvent = {
  * Inputs can trigger webhooks, control switches and optionally perform factory reset.
  */
 export default class Input extends ComponentWithId<'Input', InputStatus, InputConfig, InputHomeySettings> {
-  protected _SetConfig = SetConfig;
-  protected _GetConfig = GetConfig;
-  protected _GetStatus = GetStatus;
-  readonly namespace = 'Input';
-  static uiName = 'Input';
+  protected readonly _SetConfig = SetConfig;
+  protected readonly _GetConfig = GetConfig;
+  protected readonly _GetStatus = GetStatus;
+  public readonly namespace = 'Input';
+  public static readonly uiName = 'Input';
 
-  readonly CheckExpression = CheckExpression;
+  public readonly CheckExpression = CheckExpression;
 
-  buttonMitt = createMitt<ButtonMittEvents>();
+  private readonly buttonMitt = createMitt<ButtonMittEvents>();
 
-  async ResetCounters(
+  public async ResetCounters(
     channel: RpcChannel,
     params?: InputResetCountersParams,
   ): Promise<ResponseSuccessFrame<InputResetCountersResponse>> {
     return ResetCounters(channel, this.id, params);
   }
 
-  async Trigger(channel: RpcChannel, params: InputTriggerParams): Promise<ResponseSuccessFrame<null>> {
+  public async Trigger(channel: RpcChannel, params: InputTriggerParams): Promise<ResponseSuccessFrame<null>> {
     return Trigger(channel, this.id, params);
   }
 
-  async register(): Promise<void> {
+  public async register(): Promise<void> {
     return;
   }
 
-  async registerHomeyDevice(homeyDevice: ShellyLocalDevice, _methods: ComponentMethod<'Input'>[]): Promise<void> {
+  public async registerHomeyDevice(
+    homeyDevice: ShellyLocalDevice,
+    _methods: ComponentMethod<'Input'>[],
+  ): Promise<void> {
     const inputTypes = Input.getInputTypes(homeyDevice.virtualDevice!);
     const sameTypeInputComponents = inputTypes[this.config.type];
     const homeyDeviceInputComponents = sameTypeInputComponents.filter(component =>
@@ -385,7 +388,7 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
     await this.onConfigUpdate(homeyDevice, this.config);
   }
 
-  async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Partial<InputStatus>): Promise<void> {
+  public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Partial<InputStatus>): Promise<void> {
     if (status.state !== undefined && status.state !== null) {
       await homeyDevice.safeSetCapability(`sensor_boolean.input_switch_${this.id}`, status.state);
       const switchUpdate = { value: status.state, input: this.id };
@@ -414,7 +417,7 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
     }
   }
 
-  async onConfigUpdate(homeyDevice: ShellyLocalDevice, config: InputConfig): Promise<void> {
+  public async onConfigUpdate(homeyDevice: ShellyLocalDevice, config: InputConfig): Promise<void> {
     const newSettings: RecursivePartial<InputHomeySettings, AllowedPrimitives> = {};
 
     for (const settingKey of settingKeys) {
@@ -436,7 +439,7 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
     await homeyDevice.setComponentSettings(this.namespace, this.id, newSettings);
   }
 
-  async handleSettings(
+  public async handleSettings(
     homeyDevice: ShellyLocalDevice,
     { changedKeys, newSettings }: SettingsEvent<InputHomeySettings>,
   ): Promise<boolean> {
@@ -461,7 +464,7 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
     }
   }
 
-  async handleEvent(event: NotificationEventParam): Promise<void> {
+  public async handleEvent(event: NotificationEventParam): Promise<void> {
     if (BUTTON_EVENTS.includes(event.event as never)) {
       this.buttonMitt.emit('button', event.event as ButtonEvent);
     }
@@ -480,7 +483,7 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
     }
   }
 
-  async registerCapability(
+  private async registerCapability(
     homeyDevice: ShellyLocalDevice,
     capability: 'sensor_boolean.input_switch' | 'sensor_number.input_analog' | 'sensor_number.input_count',
   ): Promise<void> {
@@ -499,7 +502,7 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
   /**
    * A utility function outside the RPC spec to collect all components configured to each type for a Shelly device.
    */
-  static getInputTypes(virtualDevice: VirtualDevice): Record<InputConfig['type'], string[]> {
+  public static getInputTypes(virtualDevice: VirtualDevice): Record<InputConfig['type'], string[]> {
     const types: Record<InputConfig['type'], string[]> = {
       switch: [],
       button: [],
@@ -516,7 +519,7 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
     return types;
   }
 
-  static registerFlowCards(app: ShellyApp): void {
+  public static registerFlowCards(app: ShellyApp): void {
     const createAutocompleteListener = (inputType: InputConfig['type']) => {
       return (
         query: string,

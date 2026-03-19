@@ -8,9 +8,6 @@ import { ComponentMapping, type MappedComponent } from './component/ComponentMap
 import type { ShellyGetComponentsResponseComponent } from './component/components/Shelly/GetComponents.mjs';
 import Shelly from './component/components/Shelly.mjs';
 import type { ComponentMethod, NameSpace } from './component/components/Shelly/ListMethods.mjs';
-import type OutboundWebsocket from './component/components/OutboundWebsocket.mjs';
-import { getIp } from './LocalIp.mjs';
-import { OUTBOUND_WS_PORT } from './config.mjs';
 import { RpcError } from './rpc/RpcError.mjs';
 import type { NotificationEventFrame, NotificationFrame, NotificationStatusFrame } from './rpc/Rpc.mjs';
 import type ShellyLocalDevice from './Device.mjs';
@@ -44,19 +41,19 @@ export type SerializedVirtualDevice = {
 
 export class VirtualDevice {
   public readonly httpChannel: HttpChannel;
-  public inboundWsChannel: InboundWebsocketChannel;
-  public outboundWsChannel: OutboundWebsocketChannel;
+  public readonly inboundWsChannel: InboundWebsocketChannel;
+  public readonly outboundWsChannel: OutboundWebsocketChannel;
 
   private initialized = false;
   private readonly initializedComponents = new Map<string, InstanceType<MappedComponent>>();
   private readonly initializedHomeyDevices = new Map<string, ShellyLocalDevice>();
 
-  get virtualComponents(): ReadonlyMap<string, InstanceType<MappedComponent>> {
+  public get virtualComponents(): ReadonlyMap<string, InstanceType<MappedComponent>> {
     return this.initializedComponents;
   }
 
-  constructor(
-    private readonly app: ShellyApp,
+  public constructor(
+    public readonly app: ShellyApp,
     public readonly deviceId: string,
     private ipAddress: string,
     private readonly components: readonly string[],
@@ -214,7 +211,7 @@ export class VirtualDevice {
     return components;
   }
 
-  getChannel(): RpcChannel {
+  public getChannel(): RpcChannel {
     // For sending, prefer inbound WS channel > httpChannel > outbound WS channel
     if (this.inboundWsChannel !== undefined && this.inboundWsChannel.ws.readyState === WebSocket.OPEN) {
       return this.inboundWsChannel;
@@ -224,20 +221,7 @@ export class VirtualDevice {
   }
 
   // TODO ensure this works for battery/BLE devices
-  async configureOutboundWebsocket(component: OutboundWebsocket): Promise<void> {
-    const server = `ws://${await getIp(this.app.homey)}:${OUTBOUND_WS_PORT}`;
-    if (component.config.enable && component.config.server === server) {
-      this.log('Outbound websocket already enabled');
-      return;
-    }
-    this.log('Enabling outbound websocket...');
-    await component.SetConfig(this.httpChannel, { config: { enable: true, server: server } });
-    await this.reboot().catch(err => this.debug('Error during Outbound WS reboot:', err));
-    this.log('Enabled outbound websocket');
-  }
-
-  // TODO ensure this works for battery/BLE devices
-  async reboot({
+  public async reboot({
     awaitRestart = true,
     initialWaitTime = REBOOT_INITIAL_WAIT,
     pingTime = REBOOT_PING_TIME,
@@ -252,7 +236,7 @@ export class VirtualDevice {
     }
   }
 
-  async resolveReboot(initialWaitTime: number, pingTime: number, timeout = REBOOT_TIMEOUT): Promise<void> {
+  private async resolveReboot(initialWaitTime: number, pingTime: number, timeout = REBOOT_TIMEOUT): Promise<void> {
     let timedOut = false;
     const rebootTimeout = setTimeout(() => (timedOut = true), timeout);
     try {
@@ -282,7 +266,7 @@ export class VirtualDevice {
     }
   }
 
-  async removeHomeyDevice(id: string): Promise<void> {
+  public async removeHomeyDevice(id: string): Promise<void> {
     this.initializedHomeyDevices.delete(id);
     this.homeyDeviceIds = [...this.initializedHomeyDevices.keys()];
     this.log(this.homeyDeviceIds.length, 'children remaining');
@@ -300,12 +284,12 @@ export class VirtualDevice {
     this.log('Uninitialized');
   }
 
-  async disconnect(): Promise<void> {
+  public async disconnect(): Promise<void> {
     this.inboundWsChannel.disconnect();
     this.outboundWsChannel.disconnect();
   }
 
-  handleWsNotification(notification: NotificationFrame): void {
+  private handleWsNotification(notification: NotificationFrame): void {
     if (notification.method === 'NotifyStatus' || notification.method === 'NotifyFullStatus') {
       const statusNotification = notification as NotificationStatusFrame<string, object>;
       for (const component in statusNotification.params) {
@@ -328,7 +312,7 @@ export class VirtualDevice {
     }
   }
 
-  async handleEventNotification(eventNotification: NotificationEventFrame): Promise<void> {
+  private async handleEventNotification(eventNotification: NotificationEventFrame): Promise<void> {
     for (const event of eventNotification.params.events) {
       if (event.event === 'config_changed') {
         await this.handleConfigChangedEvent(event.component).catch(this.error);
@@ -346,7 +330,7 @@ export class VirtualDevice {
     }
   }
 
-  async handleConfigChangedEvent(componentId: string): Promise<void> {
+  private async handleConfigChangedEvent(componentId: string): Promise<void> {
     const component = this.virtualComponents.get(componentId);
     if (!component) {
       return;
@@ -358,7 +342,7 @@ export class VirtualDevice {
     }
   }
 
-  handleOutboundWsNotification(notification: NotificationFrame): void {
+  private handleOutboundWsNotification(notification: NotificationFrame): void {
     if (!(this.inboundWsChannel === undefined || this.inboundWsChannel.ws.readyState !== WebSocket.OPEN)) {
       return;
     }
@@ -366,7 +350,7 @@ export class VirtualDevice {
     this.handleWsNotification(notification);
   }
 
-  async setUnavailable(message: string): Promise<void> {
+  public async setUnavailable(message: string): Promise<void> {
     const promises = [];
     for (const homeyDevice of this.initializedHomeyDevices.values()) {
       promises.push(homeyDevice.setUnavailable(message));
@@ -374,7 +358,7 @@ export class VirtualDevice {
     await Promise.all(promises);
   }
 
-  async setAvailable(): Promise<void> {
+  public async setAvailable(): Promise<void> {
     const promises = [];
     for (const homeyDevice of this.initializedHomeyDevices.values()) {
       promises.push(homeyDevice.setAvailable());

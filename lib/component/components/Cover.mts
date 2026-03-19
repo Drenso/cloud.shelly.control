@@ -533,41 +533,41 @@ const slatSettingKeys = [
  * The Cover component handles the operation of motorized garage doors, window blinds, roof skylights etc.
  */
 export default class Cover extends ComponentWithId<'Cover', CoverStatus, CoverConfig, CoverHomeySettings> {
-  protected _SetConfig = SetConfig;
-  protected _GetConfig = GetConfig;
-  protected _GetStatus = GetStatus;
-  readonly namespace = 'Cover';
-  static uiName = 'Cover';
+  protected readonly _SetConfig = SetConfig;
+  protected readonly _GetConfig = GetConfig;
+  protected readonly _GetStatus = GetStatus;
+  public readonly namespace = 'Cover';
+  public static readonly uiName = 'Cover';
 
-  async Calibrate(channel: RpcChannel): ReturnType<typeof Calibrate> {
+  public async Calibrate(channel: RpcChannel): ReturnType<typeof Calibrate> {
     return Calibrate(channel, this.id);
   }
 
-  async Open(channel: RpcChannel, params?: CoverOpenParams): ReturnType<typeof Open> {
+  public async Open(channel: RpcChannel, params?: CoverOpenParams): ReturnType<typeof Open> {
     return Open(channel, this.id, params);
   }
 
-  async Close(channel: RpcChannel, params?: CoverCloseParams): ReturnType<typeof Close> {
+  public async Close(channel: RpcChannel, params?: CoverCloseParams): ReturnType<typeof Close> {
     return Close(channel, this.id, params);
   }
 
-  async Stop(channel: RpcChannel): ReturnType<typeof Stop> {
+  public async Stop(channel: RpcChannel): ReturnType<typeof Stop> {
     return Stop(channel, this.id);
   }
 
-  async GoToPosition(channel: RpcChannel, params: CoverGoToPositionParams): ReturnType<typeof GoToPosition> {
+  public async GoToPosition(channel: RpcChannel, params: CoverGoToPositionParams): ReturnType<typeof GoToPosition> {
     return GoToPosition(channel, this.id, params);
   }
 
-  async ResetCounters(channel: RpcChannel, params?: CoverResetCountersParams): ReturnType<typeof ResetCounters> {
+  public async ResetCounters(channel: RpcChannel, params?: CoverResetCountersParams): ReturnType<typeof ResetCounters> {
     return ResetCounters(channel, this.id, params);
   }
 
-  async register(): Promise<void> {
+  public async register(): Promise<void> {
     return;
   }
 
-  async registerHomeyDevice(homeyDevice: ShellyLocalDevice, methods: ComponentMethod<'Cover'>[]): Promise<void> {
+  public async registerHomeyDevice(homeyDevice: ShellyLocalDevice, methods: ComponentMethod<'Cover'>[]): Promise<void> {
     {
       const homeyCapability = 'windowcoverings_state';
       await this.registerCapability(homeyDevice, 'state', homeyCapability).catch(homeyDevice.error);
@@ -631,7 +631,7 @@ export default class Cover extends ComponentWithId<'Cover', CoverStatus, CoverCo
     await this.onConfigUpdate(homeyDevice, this.config);
   }
 
-  async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Partial<CoverStatus>): Promise<void> {
+  public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Partial<CoverStatus>): Promise<void> {
     const state = this.status.state;
     if (state !== undefined) {
       const stateMapping = {
@@ -674,7 +674,7 @@ export default class Cover extends ComponentWithId<'Cover', CoverStatus, CoverCo
     // TODO errors
   }
 
-  async onConfigUpdate(homeyDevice: ShellyLocalDevice, config: CoverConfig): Promise<void> {
+  public async onConfigUpdate(homeyDevice: ShellyLocalDevice, config: CoverConfig): Promise<void> {
     const newSettings: RecursivePartial<CoverHomeySettings, AllowedPrimitives> = {};
 
     for (const settingKey of simpleSettingKeys) {
@@ -722,7 +722,7 @@ export default class Cover extends ComponentWithId<'Cover', CoverStatus, CoverCo
     await homeyDevice.setComponentSettings(this.namespace, this.id, newSettings);
   }
 
-  async handleSettings(
+  public async handleSettings(
     homeyDevice: ShellyLocalDevice,
     { changedKeys, newSettings }: SettingsEvent<CoverHomeySettings>,
   ): Promise<boolean> {
@@ -776,7 +776,7 @@ export default class Cover extends ComponentWithId<'Cover', CoverStatus, CoverCo
     }
   }
 
-  async registerCapability(
+  private async registerCapability(
     homeyDevice: ShellyLocalDevice,
     statusProperty: keyof CoverStatus,
     homeyCapability: string,
@@ -790,7 +790,7 @@ export default class Cover extends ComponentWithId<'Cover', CoverStatus, CoverCo
     }
   }
 
-  async updateMeasured(
+  private async updateMeasured(
     homeyDevice: ShellyLocalDevice,
     status: Partial<CoverStatus>,
     statusProperty: keyof CoverStatus,

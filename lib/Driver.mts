@@ -9,12 +9,12 @@ import type { ShellyGetDeviceInfoResponse } from './component/components/Shelly/
 import { createHttpChannel } from './HomeyRPCChannels.mjs';
 
 export default abstract class ShellyLocalDriver extends Homey.Driver {
-  get app(): ShellyApp {
+  public get app(): ShellyApp {
     return this.homey.app as ShellyApp;
   }
 
   // TODO refactor
-  async onPair(session: Homey.Driver.PairSession): Promise<void> {
+  public async onPair(session: Homey.Driver.PairSession): Promise<void> {
     let selectedDevices: ShellyLocalListDeviceProperties[] = [];
     const deviceComponents = new Map<string, ShellyGetComponentsResponseComponent[]>();
     const childHomeyDevices = new Map<string, ShellyLocalListDeviceProperties[]>();
@@ -130,19 +130,19 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
     );
   }
 
-  getDefaultName(): string {
+  protected getDefaultName(): string {
     return this.manifest.name.en.split('-')[0].trim();
   }
 
-  get baseDriverId(): string {
+  protected get baseDriverId(): string {
     return this.id.split('_')[0];
   }
 
-  async onPairMatchDevice(deviceInfo: ShellyGetDeviceInfoResponse): Promise<boolean> {
+  protected async onPairMatchDevice(deviceInfo: ShellyGetDeviceInfoResponse): Promise<boolean> {
     return deviceInfo.id.toLowerCase().startsWith(this.baseDriverId);
   }
 
-  async assembleAddonHomeyDevices(
+  protected async assembleAddonHomeyDevices(
     selectedDevice: ShellyLocalListDeviceProperties,
     components: ShellyGetComponentsResponseComponent[],
   ): Promise<ShellyLocalListDeviceProperties[]> {
@@ -162,7 +162,7 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
     return [device];
   }
 
-  async assembleHomeyDevices(
+  protected async assembleHomeyDevices(
     selectedDevice: ShellyLocalListDeviceProperties,
     components: ShellyGetComponentsResponseComponent[],
   ): Promise<ShellyLocalListDeviceProperties[]> {
@@ -181,7 +181,7 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
     return [device];
   }
 
-  async onPairListDevices(): Promise<ShellyLocalListDeviceProperties[]> {
+  public async onPairListDevices(): Promise<ShellyLocalListDeviceProperties[]> {
     const results: Promise<ShellyLocalListDeviceProperties | undefined>[] = [];
 
     const discoveryStrategy = this.homey.discovery.getStrategy('shelly');
@@ -194,7 +194,9 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
     return Promise.all(results).then(results => results.filter(result => result !== undefined));
   }
 
-  async getPairDevice(discoveryResult: ShellyDiscoveryResult): Promise<ShellyLocalListDeviceProperties | undefined> {
+  private async getPairDevice(
+    discoveryResult: ShellyDiscoveryResult,
+  ): Promise<ShellyLocalListDeviceProperties | undefined> {
     try {
       const deviceInfoResponse = await Shelly.GetDeviceInfo(createHttpChannel(discoveryResult.address));
       const deviceInfo = deviceInfoResponse.result;
@@ -227,7 +229,7 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
     }
   }
 
-  debug(...args: unknown[]): void {
+  public debug(...args: unknown[]): void {
     if (Homey.env['DEBUG'] === '1') {
       console.log(new Date(), '[dbg]', '[ManagerDrivers]', `[Driver:${this.id}]`, ...args);
     }

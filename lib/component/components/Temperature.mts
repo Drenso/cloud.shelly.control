@@ -48,25 +48,28 @@ export default class Temperature extends ComponentWithId<
   TemperatureConfig,
   TemperatureHomeySettings
 > {
-  protected _SetConfig = SetConfig;
-  protected _GetConfig = GetConfig;
-  protected _GetStatus = GetStatus;
-  readonly namespace = 'Temperature';
-  static uiName = 'Temperature';
+  protected readonly _SetConfig = SetConfig;
+  protected readonly _GetConfig = GetConfig;
+  protected readonly _GetStatus = GetStatus;
+  public readonly namespace = 'Temperature';
+  public static readonly uiName = 'Temperature';
 
-  async register(): Promise<void> {
+  public async register(): Promise<void> {
     return;
   }
 
-  async registerHomeyDevice(homeyDevice: ShellyLocalDevice, _methods: ComponentMethod<'Temperature'>[]): Promise<void> {
+  public async registerHomeyDevice(
+    homeyDevice: ShellyLocalDevice,
+    _methods: ComponentMethod<'Temperature'>[],
+  ): Promise<void> {
     await this.registerCapability(homeyDevice, 'tC', 'measure_temperature').catch(homeyDevice.error);
   }
 
-  async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Partial<TemperatureStatus>): Promise<void> {
+  public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Partial<TemperatureStatus>): Promise<void> {
     await this.updateMeasured(homeyDevice, status, 'tC', 'measure_temperature');
   }
 
-  async onConfigUpdate(homeyDevice: ShellyLocalDevice, config: TemperatureConfig): Promise<void> {
+  public async onConfigUpdate(homeyDevice: ShellyLocalDevice, config: TemperatureConfig): Promise<void> {
     const newSettings: RecursivePartial<TemperatureHomeySettings, AllowedPrimitives> = {};
 
     for (const settingKey of settingKeys) {
@@ -78,7 +81,7 @@ export default class Temperature extends ComponentWithId<
     await homeyDevice.setComponentSettings(this.namespace, this.id, newSettings);
   }
 
-  async handleSettings(
+  public async handleSettings(
     homeyDevice: ShellyLocalDevice,
     { changedKeys, newSettings }: SettingsEvent<TemperatureHomeySettings>,
   ): Promise<boolean> {
@@ -99,7 +102,7 @@ export default class Temperature extends ComponentWithId<
     }
   }
 
-  async registerCapability(
+  private async registerCapability(
     homeyDevice: ShellyLocalDevice,
     statusProperty: keyof TemperatureStatus,
     homeyCapability: string,
@@ -113,7 +116,7 @@ export default class Temperature extends ComponentWithId<
     }
   }
 
-  async updateMeasured(
+  private async updateMeasured(
     homeyDevice: ShellyLocalDevice,
     status: Partial<TemperatureStatus>,
     statusProperty: keyof TemperatureStatus,

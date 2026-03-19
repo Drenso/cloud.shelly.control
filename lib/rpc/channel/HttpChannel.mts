@@ -11,23 +11,23 @@ type AuthenticationChallenge = {
 };
 
 export class HttpError extends Error {
-  readonly code: number;
-  constructor(code: number, message: string) {
+  public readonly code: number;
+  public constructor(code: number, message: string) {
     super(message);
     this.code = code;
   }
 }
 
 export default class HttpChannel implements RpcChannel {
-  constructor(
+  public constructor(
     public readonly address: string,
     public readonly debug: (...args: unknown[]) => void,
     public ha1?: string,
   ) {}
 
-  disconnect(): void {}
+  public disconnect(): void {}
 
-  async sendRequestFrame<Result extends object | null>(
+  public async sendRequestFrame<Result extends object | null>(
     requestFrame: RequestFrame,
   ): Promise<ResponseSuccessFrame<Result>> {
     if (requestFrame.auth === undefined) {
@@ -86,7 +86,7 @@ export default class HttpChannel implements RpcChannel {
     return result;
   }
 
-  parseAuthenticationHeader(header: string | null): AuthenticationChallenge {
+  private parseAuthenticationHeader(header: string | null): AuthenticationChallenge {
     if (header === null) {
       throw new Error('Expected WWW-Authenticate header for 401 response');
     }

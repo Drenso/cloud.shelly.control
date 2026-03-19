@@ -50,13 +50,13 @@ export function hexHash(str: string): string {
 }
 
 export class NoPassword extends Error {
-  constructor() {
+  public constructor() {
     super('No password known');
   }
 }
 
 export class UnauthenticatedWS extends Error {
-  constructor(public readonly challenge: string) {
+  public constructor(public readonly challenge: string) {
     super('WS is unauthenticated');
   }
 }

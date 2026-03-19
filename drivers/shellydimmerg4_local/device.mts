@@ -3,7 +3,7 @@ import type { NameSpace } from '../../lib/component/components/Shelly/ListMethod
 
 // TODO refactor to reusable functions
 export default class ShellyDimmerGen4Device extends ShellyLocalDevice {
-  async onSettings(event: SettingsEvent<Record<string, unknown>>): Promise<string | void> {
+  public async onSettings(event: SettingsEvent<Record<string, unknown>>): Promise<string | void> {
     const splitSettings: Record<string, SettingsEvent<Record<string, unknown>>> = {
       'Input:0': {
         changedKeys: [],
@@ -62,7 +62,7 @@ export default class ShellyDimmerGen4Device extends ShellyLocalDevice {
     return super.onSettings(splitSettings['Rest']);
   }
 
-  async setComponentSettings(
+  public async setComponentSettings(
     component: NameSpace,
     id: number | undefined,
     settings: Record<string, unknown>,

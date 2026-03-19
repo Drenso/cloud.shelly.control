@@ -3,8 +3,8 @@
  * Common errors are described at https://shelly-api-docs.shelly.cloud/gen2/General/CommonErrors/
  */
 export class RpcError extends Error {
-  readonly code: number;
-  constructor(code: number, message: string) {
+  public readonly code: number;
+  public constructor(code: number, message: string) {
     super(message);
     this.code = code;
   }
@@ -14,7 +14,7 @@ export class RpcError extends Error {
  * This error is received when the parameters sent in the request do not match the ones specified by the method in the request.
  */
 export class InvalidArgumentError extends RpcError {
-  constructor(message: string) {
+  public constructor(message: string) {
     super(-103, message);
   }
 }
@@ -24,7 +24,7 @@ export class InvalidArgumentError extends RpcError {
  * It is usually related to requests for fetching external resources by calling HTTP.GET or HTTP.POST in scripts.
  */
 export class DeadlineExceededError extends RpcError {
-  constructor(message: string) {
+  public constructor(message: string) {
     super(-104, message);
   }
 }
@@ -34,7 +34,7 @@ export class DeadlineExceededError extends RpcError {
  * For example, when you try to create 21 schedule jobs on one Shelly device (the limit is 20).
  */
 export class ResourceExhaustedError extends RpcError {
-  constructor(message: string) {
+  public constructor(message: string) {
     super(-108, message);
   }
 }
@@ -45,7 +45,7 @@ export class ResourceExhaustedError extends RpcError {
  * or when a reboot has been scheduled and the device is shutting down.
  */
 export class FailedPreconditionError extends RpcError {
-  constructor(message: string) {
+  public constructor(message: string) {
     super(-109, message);
   }
 }
@@ -56,7 +56,7 @@ export class FailedPreconditionError extends RpcError {
  * External services are - timezone information, firmware update or HTTP requests in Scripts.
  */
 export class UnavailableError extends RpcError {
-  constructor(message: string) {
+  public constructor(message: string) {
     super(-114, message);
   }
 }

@@ -24,29 +24,29 @@ import type { RpcChannel } from '../../rpc/channel/RpcChannel.mjs';
  * This service is common for all Gen2+ devices. It handles device management.
  */
 export default class Shelly extends Service {
-  static GetStatus = GetStatus;
-  static GetConfig = GetConfig;
-  static ListMethods = ListMethods;
-  static GetDeviceInfo = GetDeviceInfo;
-  static ListProfiles = ListProfiles;
-  static SetProfile = SetProfile;
-  static ListTimezones = ListTimezones;
-  static DetectLocation = DetectLocation;
-  static CheckForUpdate = CheckForUpdate;
-  static Update = Update;
-  static FactoryReset = FactoryReset;
-  static ResetWifiConfig = ResetWifiConfig;
-  static Reboot = Reboot;
-  static SetAuth = SetAuth;
-  static PutUserCA = PutUserCA;
-  static PutTLSClientCert = PutTLSClientCert;
-  static PutTLSClientKey = PutTLSClientKey;
-  static GetComponents = GetComponents;
+  public static readonly GetStatus = GetStatus;
+  public static readonly GetConfig = GetConfig;
+  public static readonly ListMethods = ListMethods;
+  public static readonly GetDeviceInfo = GetDeviceInfo;
+  public static readonly ListProfiles = ListProfiles;
+  public static readonly SetProfile = SetProfile;
+  public static readonly ListTimezones = ListTimezones;
+  public static readonly DetectLocation = DetectLocation;
+  public static readonly CheckForUpdate = CheckForUpdate;
+  public static readonly Update = Update;
+  public static readonly FactoryReset = FactoryReset;
+  public static readonly ResetWifiConfig = ResetWifiConfig;
+  public static readonly Reboot = Reboot;
+  public static readonly SetAuth = SetAuth;
+  public static readonly PutUserCA = PutUserCA;
+  public static readonly PutTLSClientCert = PutTLSClientCert;
+  public static readonly PutTLSClientKey = PutTLSClientKey;
+  public static readonly GetComponents = GetComponents;
 
   /**
    * A utility function outside the RPC spec to collect the paginated results of GetComponents in a single array.
    */
-  static async getAllComponents(channel: RpcChannel): Promise<ShellyGetComponentsResponseComponent[]> {
+  public static async getAllComponents(channel: RpcChannel): Promise<ShellyGetComponentsResponseComponent[]> {
     const components: ShellyGetComponentsResponseComponent[] = [];
     while (true) {
       const componentsResponse = await Shelly.GetComponents(channel, { offset: components.length });

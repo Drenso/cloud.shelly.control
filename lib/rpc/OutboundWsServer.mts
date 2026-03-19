@@ -15,14 +15,14 @@ export type WsMittEvents = {
 
 // TODO enable wss and authentication
 export default class OutboundWsServer {
-  outboundWsMitt = createMitt<WsMittEvents>();
+  public readonly outboundWsMitt = createMitt<WsMittEvents>();
 
-  constructor(
+  public constructor(
     public readonly log: (...args: unknown[]) => void = console.log,
     public readonly error: (...args: unknown[]) => void = console.error,
   ) {}
 
-  open(ip: string): void {
+  public open(ip: string): void {
     const wss = new WebSocketServer({ port: OUTBOUND_WS_PORT });
 
     wss.on('connection', (ws, request) => {
@@ -34,7 +34,7 @@ export default class OutboundWsServer {
     this.log('Started WS server on:', `ws://${ip}:${OUTBOUND_WS_PORT}`);
   }
 
-  handleOutboundWsMessage(ws: WebSocket, message: RawData): void {
+  private handleOutboundWsMessage(ws: WebSocket, message: RawData): void {
     const string = message.toString();
     const json = JSON.parse(string) as NotificationFrame;
     if (json.src !== undefined) {

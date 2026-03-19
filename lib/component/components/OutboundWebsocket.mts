@@ -4,6 +4,8 @@ import GetConfig from './OutboundWebsocket/GetConfig.mjs';
 import GetStatus from './OutboundWebsocket/GetStatus.mjs';
 import type { ComponentMethod } from './Shelly/ListMethods.mjs';
 import type ShellyLocalDevice from '../../Device.mjs';
+import { getIp } from '../../LocalIp.mjs';
+import { OUTBOUND_WS_PORT } from '../../config.mjs';
 
 export type OutBoundWebsocketConfig = {
   // true if websocket outbound connection is enabled, false otherwise
@@ -30,18 +32,27 @@ export default class OutboundWebsocket extends ComponentWithoutId<
   OutBoundWebsocketConfig,
   OutboundWebsocketHomeySettings
 > {
-  protected _SetConfig = SetConfig;
-  protected _GetConfig = GetConfig;
-  protected _GetStatus = GetStatus;
-  readonly namespace = 'Ws';
+  protected readonly _SetConfig = SetConfig;
+  protected readonly _GetConfig = GetConfig;
+  protected readonly _GetStatus = GetStatus;
+  public readonly namespace = 'Ws';
 
-  async register(_methods: ComponentMethod<'Ws'>[]): Promise<void> {
-    await this.device.configureOutboundWebsocket(this);
+  // TODO ensure this works for battery/BLE devices
+  public async register(_methods: ComponentMethod<'Ws'>[]): Promise<void> {
+    const server = `ws://${await getIp(this.device.app.homey)}:${OUTBOUND_WS_PORT}`;
+    if (this.config.enable && this.config.server === server) {
+      this.device.log('Outbound websocket already enabled');
+      return;
+    }
+    this.device.log('Enabling outbound websocket...');
+    await this.SetConfig(this.device.httpChannel, { config: { enable: true, server: server } });
+    await this.device.reboot().catch(err => this.device.debug('Error during Outbound WS reboot:', err));
+    this.device.log('Enabled outbound websocket');
   }
 
-  async registerHomeyDevice(_homeyDevice: ShellyLocalDevice, _methods: ComponentMethod<'Ws'>[]): Promise<void> {}
+  public async registerHomeyDevice(_homeyDevice: ShellyLocalDevice, _methods: ComponentMethod<'Ws'>[]): Promise<void> {}
 
-  async onStatusUpdate(_homeyDevice: ShellyLocalDevice, _status: OutboundWebsocketStatus): Promise<void> {}
+  public async onStatusUpdate(_homeyDevice: ShellyLocalDevice, _status: OutboundWebsocketStatus): Promise<void> {}
 
-  async onConfigUpdate(_homeyDevice: ShellyLocalDevice, _config: OutBoundWebsocketConfig): Promise<void> {}
+  public async onConfigUpdate(_homeyDevice: ShellyLocalDevice, _config: OutBoundWebsocketConfig): Promise<void> {}
 }

@@ -287,44 +287,44 @@ export default class Light extends ComponentWithId<'Light', LightStatus, LightCo
   protected _SetConfig = SetConfig;
   protected _GetConfig = GetConfig;
   protected _GetStatus = GetStatus;
-  readonly namespace = 'Light';
-  static uiName = 'Light';
+  public readonly namespace = 'Light';
+  public static readonly uiName = 'Light';
 
-  async Set(channel: RpcChannel, params: LightSetParams): ReturnType<typeof Set> {
+  public async Set(channel: RpcChannel, params: LightSetParams): ReturnType<typeof Set> {
     return Set(channel, this.id, params);
   }
 
-  async Toggle(channel: RpcChannel): ReturnType<typeof Toggle> {
+  public async Toggle(channel: RpcChannel): ReturnType<typeof Toggle> {
     return Toggle(channel, this.id);
   }
 
-  async DimUp(channel: RpcChannel, params?: LightDimUpParams): ReturnType<typeof DimUp> {
+  public async DimUp(channel: RpcChannel, params?: LightDimUpParams): ReturnType<typeof DimUp> {
     return DimUp(channel, this.id, params);
   }
 
-  async DimDown(channel: RpcChannel, params?: LightDimDownParams): ReturnType<typeof DimDown> {
+  public async DimDown(channel: RpcChannel, params?: LightDimDownParams): ReturnType<typeof DimDown> {
     return DimDown(channel, this.id, params);
   }
 
-  async DimStop(channel: RpcChannel): ReturnType<typeof DimStop> {
+  public async DimStop(channel: RpcChannel): ReturnType<typeof DimStop> {
     return DimStop(channel, this.id);
   }
 
-  async SetAll(channel: RpcChannel, params: LightSetAllParams): ReturnType<typeof SetAll> {
+  public async SetAll(channel: RpcChannel, params: LightSetAllParams): ReturnType<typeof SetAll> {
     return SetAll(channel, params);
   }
 
-  async Calibrate(channel: RpcChannel): ReturnType<typeof Calibrate> {
+  public async Calibrate(channel: RpcChannel): ReturnType<typeof Calibrate> {
     return Calibrate(channel, this.id);
   }
 
-  async ResetCounters(channel: RpcChannel, params?: LightResetCountersParams): ReturnType<typeof ResetCounters> {
+  public async ResetCounters(channel: RpcChannel, params?: LightResetCountersParams): ReturnType<typeof ResetCounters> {
     return ResetCounters(channel, this.id, params);
   }
 
-  async register(_methods: ComponentMethod<'Light'>[]): Promise<void> {}
+  public async register(_methods: ComponentMethod<'Light'>[]): Promise<void> {}
 
-  async registerHomeyDevice(homeyDevice: ShellyLocalDevice, methods: ComponentMethod<'Light'>[]): Promise<void> {
+  public async registerHomeyDevice(homeyDevice: ShellyLocalDevice, methods: ComponentMethod<'Light'>[]): Promise<void> {
     {
       // output
       const capabilityId = 'onoff';
@@ -378,7 +378,7 @@ export default class Light extends ComponentWithId<'Light', LightStatus, LightCo
     await this.onConfigUpdate(homeyDevice, this.config);
   }
 
-  async onStatusUpdate(
+  public async onStatusUpdate(
     homeyDevice: ShellyLocalDevice,
     status: RecursivePartial<LightStatus, AllowedPrimitives>,
   ): Promise<void> {
@@ -399,7 +399,7 @@ export default class Light extends ComponentWithId<'Light', LightStatus, LightCo
     // TODO errors
   }
 
-  async onConfigUpdate(homeyDevice: ShellyLocalDevice, config: LightConfig): Promise<void> {
+  public async onConfigUpdate(homeyDevice: ShellyLocalDevice, config: LightConfig): Promise<void> {
     const newSettings: RecursivePartial<LightHomeySettings, AllowedPrimitives> = {};
 
     for (const settingKey of simpleSettingKeys) {
@@ -453,7 +453,7 @@ export default class Light extends ComponentWithId<'Light', LightStatus, LightCo
     await homeyDevice.setComponentSettings(this.namespace, this.id, newSettings);
   }
 
-  async handleSettings(
+  public async handleSettings(
     homeyDevice: ShellyLocalDevice,
     { changedKeys, newSettings }: SettingsEvent<LightHomeySettings>,
   ): Promise<boolean> {
@@ -553,7 +553,7 @@ export default class Light extends ComponentWithId<'Light', LightStatus, LightCo
     return result.result.restart_required;
   }
 
-  async registerCapability(
+  private async registerCapability(
     homeyDevice: ShellyLocalDevice,
     statusProperty: keyof LightStatus,
     homeyCapability: string,
@@ -567,7 +567,7 @@ export default class Light extends ComponentWithId<'Light', LightStatus, LightCo
     }
   }
 
-  async updateMeasured(
+  private async updateMeasured(
     homeyDevice: ShellyLocalDevice,
     status: RecursivePartial<LightStatus, AllowedPrimitives>,
     statusProperty: keyof LightStatus,

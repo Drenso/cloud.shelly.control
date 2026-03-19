@@ -23,39 +23,39 @@ export abstract class Component<
   Config extends object,
   Settings extends object,
 > {
-  abstract readonly namespace: ComponentNameSpace;
+  public abstract readonly namespace: ComponentNameSpace;
 
-  constructor(
+  public constructor(
     protected device: VirtualDevice,
     public status: Status,
     public config: Config,
   ) {}
 
-  abstract SetConfig(
+  public abstract SetConfig(
     channel: RpcChannel,
     params: ComponentSetConfigParams<Config>,
   ): Promise<ResponseSuccessFrame<ComponentSetConfigResponse>>;
 
-  abstract GetConfig(channel: RpcChannel): Promise<ResponseSuccessFrame<Config>>;
+  public abstract GetConfig(channel: RpcChannel): Promise<ResponseSuccessFrame<Config>>;
 
-  abstract GetStatus(channel: RpcChannel): Promise<ResponseSuccessFrame<Status>>;
+  public abstract GetStatus(channel: RpcChannel): Promise<ResponseSuccessFrame<Status>>;
 
-  abstract register(methods: ComponentMethod<ComponentNameSpace>[]): Promise<void>;
+  public abstract register(methods: ComponentMethod<ComponentNameSpace>[]): Promise<void>;
 
-  abstract registerHomeyDevice(
+  public abstract registerHomeyDevice(
     homeyDevice: ShellyLocalDevice,
     methods: ComponentMethod<ComponentNameSpace>[],
   ): Promise<void>;
 
-  abstract onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Status): Promise<void>;
+  public abstract onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Status): Promise<void>;
 
-  abstract onConfigUpdate(homeyDevice: ShellyLocalDevice, config: Config): Promise<void>;
+  public abstract onConfigUpdate(homeyDevice: ShellyLocalDevice, config: Config): Promise<void>;
 
-  async handleSettings(_homeyDevice: ShellyLocalDevice, _event: SettingsEvent<Settings>): Promise<boolean> {
+  public async handleSettings(_homeyDevice: ShellyLocalDevice, _event: SettingsEvent<Settings>): Promise<boolean> {
     return false;
   }
 
-  async handleEvent(event: NotificationEventParam): Promise<void> {
+  public async handleEvent(event: NotificationEventParam): Promise<void> {
     this.device.log(`Unknown event for ${this.namespace}:`, event.event);
     this.device.debug(JSON.stringify(event));
   }
@@ -76,7 +76,7 @@ export abstract class ComponentWithoutId<
 
   protected abstract _GetStatus(channel: RpcChannel): Promise<ResponseSuccessFrame<Status>>;
 
-  async SetConfig(
+  public async SetConfig(
     channel: RpcChannel,
     params: ComponentSetConfigParams<Config>,
   ): Promise<ResponseSuccessFrame<ComponentSetConfigResponse>> {
@@ -85,13 +85,13 @@ export abstract class ComponentWithoutId<
     return response;
   }
 
-  async GetConfig(channel: RpcChannel): Promise<ResponseSuccessFrame<Config>> {
+  public async GetConfig(channel: RpcChannel): Promise<ResponseSuccessFrame<Config>> {
     const response = await this._GetConfig(channel);
     this.config = response.result;
     return response;
   }
 
-  async GetStatus(channel: RpcChannel): Promise<ResponseSuccessFrame<Status>> {
+  public async GetStatus(channel: RpcChannel): Promise<ResponseSuccessFrame<Status>> {
     const response = await this._GetStatus(channel);
     this.status = response.result;
     return response;
@@ -104,7 +104,7 @@ export abstract class ComponentWithId<
   Config extends { id: number },
   Settings extends object,
 > extends Component<ComponentNameSpace, Status, Config, Settings> {
-  static uiName: string;
+  public static readonly uiName: string;
 
   protected abstract _SetConfig: (
     channel: RpcChannel,
@@ -116,11 +116,11 @@ export abstract class ComponentWithId<
 
   protected abstract _GetStatus(channel: RpcChannel, id: number): Promise<ResponseSuccessFrame<Status>>;
 
-  get id(): number {
+  public get id(): number {
     return this.config.id;
   }
 
-  async SetConfig(
+  public async SetConfig(
     channel: RpcChannel,
     params: ComponentSetConfigParams<Config>,
   ): Promise<ResponseSuccessFrame<ComponentSetConfigResponse>> {
@@ -129,13 +129,13 @@ export abstract class ComponentWithId<
     return response;
   }
 
-  async GetConfig(channel: RpcChannel): Promise<ResponseSuccessFrame<Config>> {
+  public async GetConfig(channel: RpcChannel): Promise<ResponseSuccessFrame<Config>> {
     const response = await this._GetConfig(channel, this.id);
     this.config = response.result;
     return response;
   }
 
-  async GetStatus(channel: RpcChannel): Promise<ResponseSuccessFrame<Status>> {
+  public async GetStatus(channel: RpcChannel): Promise<ResponseSuccessFrame<Status>> {
     const response = await this._GetStatus(channel, this.id);
     this.status = response.result;
     return response;

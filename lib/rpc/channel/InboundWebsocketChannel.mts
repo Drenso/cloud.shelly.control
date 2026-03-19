@@ -41,7 +41,7 @@ export default class InboundWebsocketChannel implements RpcChannel {
   >();
   public readonly eventEmitter = createMitt<InboundWsChannelMittEvents>();
 
-  constructor(
+  public constructor(
     public readonly address: string,
     public readonly log: (...args: unknown[]) => void,
     public readonly error: (...args: unknown[]) => void,
@@ -51,7 +51,7 @@ export default class InboundWebsocketChannel implements RpcChannel {
     this.connect();
   }
 
-  connect(): void {
+  private connect(): void {
     this.ws = new WebSocket(`ws://${this.address}/rpc`);
 
     this.ws.on('open', async () => {
@@ -78,7 +78,7 @@ export default class InboundWebsocketChannel implements RpcChannel {
     });
   }
 
-  reconnect(): void {
+  private reconnect(): void {
     if (this.ws.readyState === WebSocket.CONNECTING) {
       this.log('Waiting for connection...');
       return;
@@ -94,7 +94,7 @@ export default class InboundWebsocketChannel implements RpcChannel {
     this.connect();
   }
 
-  disconnect(): void {
+  public disconnect(): void {
     this.eventEmitter.all.clear();
     this.ws.removeAllListeners();
     this.ws.close();
@@ -138,7 +138,7 @@ export default class InboundWebsocketChannel implements RpcChannel {
     }
   }
 
-  async sendRequestFrame<Result extends object | null>(
+  public async sendRequestFrame<Result extends object | null>(
     requestFrame: RequestFrame,
   ): Promise<ResponseSuccessFrame<Result>> {
     if (this.auth !== undefined && this.ha1 !== undefined) {

@@ -26,7 +26,7 @@ export default class OutboundWebsocketChannel implements RpcChannel {
   public readonly eventEmitter = createMitt<OutboundWsChannelMittEvents>();
   private readonly boundHandler: OmitThisParameter<(event: WsMessageEvent | WsClosedEvent) => void>;
 
-  constructor(
+  public constructor(
     public readonly identifier: string,
     private readonly outboundWsMitt: mitt.Emitter<WsMittEvents>,
     public readonly log: (...args: unknown[]) => void,
@@ -42,7 +42,7 @@ export default class OutboundWebsocketChannel implements RpcChannel {
     this.outboundWsMitt.on(this.identifier, this.boundHandler);
   }
 
-  updateWs(ws: WebSocket): void {
+  private updateWs(ws: WebSocket): void {
     if (this.resolveWsPromise) {
       this.resolveWsPromise(ws);
       this.resolveWsPromise = undefined;
@@ -52,7 +52,7 @@ export default class OutboundWebsocketChannel implements RpcChannel {
     this.eventEmitter.emit('opened');
   }
 
-  disconnect(): void {
+  public disconnect(): void {
     this.eventEmitter.all.clear();
     this.outboundWsMitt.off(this.identifier, this.boundHandler);
   }
@@ -104,7 +104,7 @@ export default class OutboundWebsocketChannel implements RpcChannel {
     return this.getWs();
   }
 
-  async sendRequestFrame<Result extends object | null>(
+  public async sendRequestFrame<Result extends object | null>(
     requestFrame: RequestFrame,
   ): Promise<ResponseSuccessFrame<Result>> {
     const ws = await this.getWs();
