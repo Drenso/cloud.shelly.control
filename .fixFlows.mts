@@ -1,3 +1,7 @@
+/**
+ * Update flows that have device arguments with driver id filters,
+ * adding all drivers to all filters.
+ */
 import path from 'node:path';
 import * as fs from 'node:fs';
 import type { JsonObject } from './types/json.mjs';
