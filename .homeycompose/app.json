@@ -5,8 +5,7 @@
   "sdk": 3,
   "brandColor": "#4f8dc8",
   "name": {
-    "en": "Shelly",
-    "nl": "Shelly"
+    "en": "Shelly Control"
   },
   "description": {
     "en": "Smart home automation is that easy!"
