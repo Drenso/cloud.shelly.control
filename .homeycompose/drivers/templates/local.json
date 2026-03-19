@@ -1,6 +1,6 @@
 {
-  "platforms": ["local", "cloud"],
-  "connectivity": ["cloud"],
+  "platforms": ["local"],
+  "connectivity": ["lan"],
   "capabilities": ["button.restart"],
   "capabilitiesOptions": {
     "button.restart": {

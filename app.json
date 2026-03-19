@@ -677,11 +677,10 @@
   "drivers": [
     {
       "platforms": [
-        "local",
-        "cloud"
+        "local"
       ],
       "connectivity": [
-        "cloud"
+        "lan"
       ],
       "capabilities": [
         "button.restart"
@@ -848,11 +847,10 @@
     },
     {
       "platforms": [
-        "local",
-        "cloud"
+        "local"
       ],
       "connectivity": [
-        "cloud"
+        "lan"
       ],
       "capabilities": [
         "button.restart"
@@ -1019,11 +1017,10 @@
     },
     {
       "platforms": [
-        "local",
-        "cloud"
+        "local"
       ],
       "connectivity": [
-        "cloud"
+        "lan"
       ],
       "capabilities": [
         "button.restart"
@@ -1251,11 +1248,10 @@
     },
     {
       "platforms": [
-        "local",
-        "cloud"
+        "local"
       ],
       "connectivity": [
-        "cloud"
+        "lan"
       ],
       "capabilities": [
         "button.restart"
@@ -1483,11 +1479,10 @@
     },
     {
       "platforms": [
-        "local",
-        "cloud"
+        "local"
       ],
       "connectivity": [
-        "cloud"
+        "lan"
       ],
       "capabilities": [
         "button.restart"
@@ -2067,11 +2062,10 @@
     },
     {
       "platforms": [
-        "local",
-        "cloud"
+        "local"
       ],
       "connectivity": [
-        "cloud"
+        "lan"
       ],
       "capabilities": [
         "button.restart"
@@ -2315,11 +2309,10 @@
     },
     {
       "platforms": [
-        "local",
-        "cloud"
+        "local"
       ],
       "connectivity": [
-        "cloud"
+        "lan"
       ],
       "capabilities": [
         "button.restart"
@@ -2694,11 +2687,10 @@
     },
     {
       "platforms": [
-        "local",
-        "cloud"
+        "local"
       ],
       "connectivity": [
-        "cloud"
+        "lan"
       ],
       "capabilities": [
         "button.restart"
