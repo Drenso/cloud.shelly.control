@@ -58,7 +58,7 @@ export default class Temperature extends ComponentWithId<
     return;
   }
 
-  async registerHomeyDevice(homeyDevice: ShellyLocalDevice, methods: ComponentMethod<'Temperature'>[]): Promise<void> {
+  async registerHomeyDevice(homeyDevice: ShellyLocalDevice, _methods: ComponentMethod<'Temperature'>[]): Promise<void> {
     await this.registerCapability(homeyDevice, 'tC', 'measure_temperature').catch(homeyDevice.error);
   }
 

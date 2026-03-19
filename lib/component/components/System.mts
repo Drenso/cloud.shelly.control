@@ -224,9 +224,9 @@ export default class System extends ComponentWithoutId<'Sys', SystemStatus, Syst
 
   async register(): Promise<void> {}
 
-  async registerHomeyDevice(homeyDevice: ShellyLocalDevice, methods: ComponentMethod<'Sys'>[]): Promise<void> {}
+  async registerHomeyDevice(_homeyDevice: ShellyLocalDevice, _methods: ComponentMethod<'Sys'>[]): Promise<void> {}
 
-  async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Partial<SystemStatus>): Promise<void> {}
+  async onStatusUpdate(_homeyDevice: ShellyLocalDevice, _status: Partial<SystemStatus>): Promise<void> {}
 
-  async onConfigUpdate(homeyDevice: ShellyLocalDevice, config: SystemConfig): Promise<void> {}
+  async onConfigUpdate(_homeyDevice: ShellyLocalDevice, _config: SystemConfig): Promise<void> {}
 }

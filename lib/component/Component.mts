@@ -51,7 +51,7 @@ export abstract class Component<
 
   abstract onConfigUpdate(homeyDevice: ShellyLocalDevice, config: Config): Promise<void>;
 
-  async handleSettings(homeyDevice: ShellyLocalDevice, event: SettingsEvent<Settings>): Promise<boolean> {
+  async handleSettings(_homeyDevice: ShellyLocalDevice, _event: SettingsEvent<Settings>): Promise<boolean> {
     return false;
   }
 

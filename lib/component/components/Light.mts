@@ -322,7 +322,7 @@ export default class Light extends ComponentWithId<'Light', LightStatus, LightCo
     return ResetCounters(channel, this.id, params);
   }
 
-  async register(methods: ComponentMethod<'Light'>[]): Promise<void> {}
+  async register(_methods: ComponentMethod<'Light'>[]): Promise<void> {}
 
   async registerHomeyDevice(homeyDevice: ShellyLocalDevice, methods: ComponentMethod<'Light'>[]): Promise<void> {
     {

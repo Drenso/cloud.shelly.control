@@ -35,13 +35,13 @@ export default class OutboundWebsocket extends ComponentWithoutId<
   protected _GetStatus = GetStatus;
   readonly namespace = 'Ws';
 
-  async register(methods: ComponentMethod<'Ws'>[]): Promise<void> {
+  async register(_methods: ComponentMethod<'Ws'>[]): Promise<void> {
     await this.device.configureOutboundWebsocket(this);
   }
 
-  async registerHomeyDevice(homeyDevice: ShellyLocalDevice, methods: ComponentMethod<'Ws'>[]): Promise<void> {}
+  async registerHomeyDevice(_homeyDevice: ShellyLocalDevice, _methods: ComponentMethod<'Ws'>[]): Promise<void> {}
 
-  async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: OutboundWebsocketStatus): Promise<void> {}
+  async onStatusUpdate(_homeyDevice: ShellyLocalDevice, _status: OutboundWebsocketStatus): Promise<void> {}
 
-  async onConfigUpdate(homeyDevice: ShellyLocalDevice, config: OutBoundWebsocketConfig): Promise<void> {}
+  async onConfigUpdate(_homeyDevice: ShellyLocalDevice, _config: OutBoundWebsocketConfig): Promise<void> {}
 }

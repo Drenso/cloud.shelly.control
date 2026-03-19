@@ -354,7 +354,7 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
     return;
   }
 
-  async registerHomeyDevice(homeyDevice: ShellyLocalDevice, methods: ComponentMethod<'Input'>[]): Promise<void> {
+  async registerHomeyDevice(homeyDevice: ShellyLocalDevice, _methods: ComponentMethod<'Input'>[]): Promise<void> {
     const inputTypes = Input.getInputTypes(homeyDevice.virtualDevice!);
     const sameTypeInputComponents = inputTypes[this.config.type];
     const homeyDeviceInputComponents = sameTypeInputComponents.filter(component =>

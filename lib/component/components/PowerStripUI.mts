@@ -102,19 +102,19 @@ export default class PowerStripUI extends ComponentWithoutId<
   protected _GetStatus = GetStatus;
   readonly namespace = 'POWERSTRIP_UI';
 
-  async register(methods: ComponentMethod<'POWERSTRIP_UI'>[]): Promise<void> {
+  async register(_methods: ComponentMethod<'POWERSTRIP_UI'>[]): Promise<void> {
     return;
   }
 
   async registerHomeyDevice(
     homeyDevice: ShellyLocalDevice,
-    methods: ComponentMethod<'POWERSTRIP_UI'>[],
+    _methods: ComponentMethod<'POWERSTRIP_UI'>[],
   ): Promise<void> {
     // Set correct setting values
     await this.onConfigUpdate(homeyDevice, this.config);
   }
 
-  async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: PowerStripUIStatus): Promise<void> {}
+  async onStatusUpdate(_homeyDevice: ShellyLocalDevice, _status: PowerStripUIStatus): Promise<void> {}
 
   async onConfigUpdate(homeyDevice: ShellyLocalDevice, config: PowerStripUIConfig): Promise<void> {
     const newSettings: Partial<PowerStripUIHomeySettings> = {
