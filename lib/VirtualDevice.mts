@@ -85,7 +85,7 @@ export class VirtualDevice {
     }
 
     // TODO does this need a nextTick?
-    this.safeInitialize(componentResponses);
+    void this.safeInitialize(componentResponses);
   }
 
   public readonly log: (...args: unknown[]) => void;

@@ -781,13 +781,17 @@ export default class Cover extends ComponentWithId<'Cover', CoverStatus, CoverCo
     statusProperty: keyof CoverStatus,
     homeyCapability: string,
   ): Promise<void> {
-    if (this.status[statusProperty] !== undefined) {
-      await homeyDevice.safeAddCapability(homeyCapability);
-      const capabilityOptions = capabilitiesOptions[homeyCapability as keyof typeof capabilitiesOptions];
-      if (capabilityOptions !== undefined) {
-        await homeyDevice.setCapabilityOptions(homeyCapability, capabilityOptions);
-      }
+    if (this.status[statusProperty] === undefined) {
+      return;
     }
+
+    await homeyDevice.safeAddCapability(homeyCapability);
+    const capabilityOptions = capabilitiesOptions[homeyCapability as keyof typeof capabilitiesOptions];
+    if (capabilityOptions === undefined) {
+      return;
+    }
+
+    await homeyDevice.setCapabilityOptions(homeyCapability, capabilityOptions);
   }
 
   private async updateMeasured(
@@ -796,8 +800,10 @@ export default class Cover extends ComponentWithId<'Cover', CoverStatus, CoverCo
     statusProperty: keyof CoverStatus,
     homeyCapability: string,
   ): Promise<void> {
-    if (status[statusProperty] !== undefined) {
-      await homeyDevice.safeSetCapability(homeyCapability, status[statusProperty]).catch(homeyDevice.error);
+    if (status[statusProperty] === undefined) {
+      return;
     }
+
+    await homeyDevice.safeSetCapability(homeyCapability, status[statusProperty]).catch(homeyDevice.error);
   }
 }

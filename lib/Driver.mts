@@ -29,51 +29,55 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
       selectedDevices = data;
     });
     session.setHandler('showView', async (view: string) => {
-      if (view === 'authenticate_devices') {
-        for (authenticationDevice of selectedDevices) {
-          if (authenticationDevice.store.auth_domain !== undefined) {
-            authenticationPromise = new Promise((resolve, reject) => {
-              resolveAuthentication = resolve;
-              rejectAuthentication = reject;
-            });
-            await session.showView('device_password');
-            await session.emit('credentials_device', {
+      if (view !== 'authenticate_devices') {
+        return;
+      }
+
+      for (authenticationDevice of selectedDevices) {
+        if (authenticationDevice.store.auth_domain !== undefined) {
+          authenticationPromise = new Promise((resolve, reject) => {
+            resolveAuthentication = resolve;
+            rejectAuthentication = reject;
+          });
+          await session.showView('device_password').catch(this.error);
+          await session
+            .emit('credentials_device', {
               title: authenticationDevice.name,
               id: authenticationDevice.data.id,
-            });
-            authenticationDevice.store.ha1 = await authenticationPromise;
-          } else {
-            const components = await Shelly.getAllComponents(createHttpChannel(authenticationDevice.store.address));
+            })
+            .catch(this.error);
+          authenticationDevice.store.ha1 = await authenticationPromise;
+        } else {
+          const components = await Shelly.getAllComponents(createHttpChannel(authenticationDevice.store.address));
 
-            const addonComponents = [];
-            const mainComponents = [];
+          const addonComponents = [];
+          const mainComponents = [];
 
-            for (const component of components) {
-              const [, componentId] = component.key.split(':') as [string, `${number}` | undefined];
-              if (componentId !== undefined) {
-                const componentIdNumber = parseInt(componentId);
-                if (100 <= componentIdNumber && componentIdNumber <= 199) {
-                  addonComponents.push(component);
-                  continue;
-                }
+          for (const component of components) {
+            const [, componentId] = component.key.split(':') as [string, `${number}` | undefined];
+            if (componentId !== undefined) {
+              const componentIdNumber = parseInt(componentId);
+              if (100 <= componentIdNumber && componentIdNumber <= 199) {
+                addonComponents.push(component);
+                continue;
               }
-              mainComponents.push(component);
             }
-
-            const homeyDevices = await this.assembleHomeyDevices(authenticationDevice, mainComponents);
-
-            if (addonComponents.length > 0) {
-              const addonDevice = await this.assembleAddonHomeyDevices(authenticationDevice, addonComponents);
-              homeyDevices.push(...addonDevice);
-            }
-
-            allHomeyDevices.push(...homeyDevices);
-            deviceComponents.set(authenticationDevice.data.id, components);
-            childHomeyDevices.set(authenticationDevice.data.id, homeyDevices);
+            mainComponents.push(component);
           }
+
+          const homeyDevices = await this.assembleHomeyDevices(authenticationDevice, mainComponents);
+
+          if (addonComponents.length > 0) {
+            const addonDevice = await this.assembleAddonHomeyDevices(authenticationDevice, addonComponents);
+            homeyDevices.push(...addonDevice);
+          }
+
+          allHomeyDevices.push(...homeyDevices);
+          deviceComponents.set(authenticationDevice.data.id, components);
+          childHomeyDevices.set(authenticationDevice.data.id, homeyDevices);
         }
-        await session.showView('add_subdevices');
       }
+      await session.showView('add_subdevices').catch(this.error);
     });
     session.setHandler('add_subdevices', async () => {
       return allHomeyDevices;
@@ -230,8 +234,10 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
   }
 
   public debug(...args: unknown[]): void {
-    if (Homey.env['DEBUG'] === '1') {
-      console.log(new Date(), '[dbg]', '[ManagerDrivers]', `[Driver:${this.id}]`, ...args);
+    if (Homey.env['DEBUG'] !== '1') {
+      return;
     }
+
+    console.log(new Date(), '[dbg]', '[ManagerDrivers]', `[Driver:${this.id}]`, ...args);
   }
 }

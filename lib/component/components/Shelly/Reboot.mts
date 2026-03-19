@@ -3,7 +3,7 @@ import { createRequestFrame, type ResponseSuccessFrame } from '../../../rpc/Rpc.
 
 type ShellyRebootParams = {
   // Delay until reboot in milliseconds.
-  // Any values are valid but the minimum is capped at 500 ms.
+  // Any value is valid, but the minimum is capped at 500 ms.
   // Default value: 1000 ms.
   delay_ms?: number;
 };
