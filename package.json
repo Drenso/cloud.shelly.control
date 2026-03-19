@@ -15,7 +15,7 @@
     "update-flow-driver-filters": "tsx .fixFlows.mts"
   },
   "dependencies": {
-    "@drenso/homey-log": "10.4300.0",
+    "@drenso/homey-log": "10.4400.0",
     "homey-zigbeedriver": "2.2.16",
     "homey-zwavedriver": "2.2.3",
     "mitt": "^3.0.1",
