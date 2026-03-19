@@ -732,7 +732,7 @@
         }
       ],
       "name": {
-        "en": "Shelly 1 Gen4 - LAN"
+        "en": "1 Gen4 - LAN"
       },
       "class": "socket",
       "images": {
@@ -903,7 +903,7 @@
         }
       ],
       "name": {
-        "en": "Shelly 1 Mini Gen4 - LAN"
+        "en": "1 Mini Gen4 - LAN"
       },
       "class": "socket",
       "images": {
@@ -1074,7 +1074,7 @@
         }
       ],
       "name": {
-        "en": "Shelly 1PM Gen4 - LAN"
+        "en": "1PM Gen4 - LAN"
       },
       "class": "socket",
       "images": {
@@ -1306,7 +1306,7 @@
         }
       ],
       "name": {
-        "en": "Shelly 1PM Mini Gen4 - LAN"
+        "en": "1PM Mini Gen4 - LAN"
       },
       "class": "socket",
       "images": {
@@ -1538,7 +1538,7 @@
         }
       ],
       "name": {
-        "en": "Shelly 2PM Gen4 - Cover - LAN"
+        "en": "2PM Gen4 - Cover - LAN"
       },
       "class": "windowcoverings",
       "images": {
@@ -2122,7 +2122,7 @@
         }
       ],
       "name": {
-        "en": "Shelly 2PM Gen4 - Switch - LAN"
+        "en": "2PM Gen4 - Switch - LAN"
       },
       "class": "socket",
       "images": {
@@ -2370,7 +2370,7 @@
         }
       ],
       "name": {
-        "en": "Shelly Dimmer Gen4 - LAN"
+        "en": "Dimmer Gen4 - LAN"
       },
       "class": "light",
       "images": {
