@@ -2,15 +2,15 @@
   "locale": "en",
   "pair": {
     "pairing_information": {
-      "title": "Pairing Information",
-      "content": "Before you continue make sure that your Shelly devices are connected to your Wi-Fi, you can do this by using the Shelly smartphone app. Also make sure both Homey and the Shelly device has a static IP address assigned. If you experience any issues getting the devices paired to Homey, check your network settings, reboot the device and try again. Visit the support topic on the community forum for detailed instructions and troubleshooting."
+      "title": "Pairing information",
+      "content": "Before you continue make sure that you have configured your Shelly device with the Shelly smartphone app to use your local wireless network (Wi-Fi). For the most reliable connectivity we strongly recommend using a static IP address for both your Homey and Shelly device, and that both are connected with the same network. If any issues arise during pairing, please make sure to reboot both your Homey and Shelly device first. If the issues persist, you can always contact our support using the details available on the Homey app store!"
     },
     "add_devices": {
       "loading": "Adding your new Shelly devices, this may take a moment...",
-      "title": "Adding Devices"
+      "title": "Adding devices"
     },
     "device_credentials": {
-      "title": "Device Authentication",
+      "title": "Device authentication",
       "password": "Password",
       "authenticate": "Authenticate",
       "validating": "Validating credentials...",
@@ -27,16 +27,16 @@
   "component": {
     "POWERSTRIP_UI": {
       "invalid_night_mode": {
-        "start": "Invalid Start Time for Indicator LED - Night Mode",
-        "end": "Invalid End Time for Indicator LED - Night Mode",
-        "start_and_end": "Invalid Start Time and End Time for Indicator LED - Night Mode"
+        "start": "Invalid start time for Indicator LED - Night Mode",
+        "end": "Invalid end time for Indicator LED - Night Mode",
+        "start_and_end": "Invalid start time and end time for Indicator LED - Night Mode"
       }
     },
     "Light": {
       "invalid_night_mode": {
-        "start": "Invalid Start Time for Light - Night Mode",
-        "end": "Invalid End Time for Light - Night Mode",
-        "start_and_end": "Invalid Start Time and End Time for Light - Night Mode"
+        "start": "Invalid start time for Light - Night Mode",
+        "end": "Invalid end time for Light - Night Mode",
+        "start_and_end": "Invalid start time and end time for Light - Night Mode"
       }
     }
   }
