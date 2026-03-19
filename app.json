@@ -27,7 +27,7 @@
     "xlarge": "./assets/images/xlarge.png"
   },
   "homepage": "https://shelly.cloud/",
-  "support": "mailto:homey-shelly@drenso.nl",
+  "support": "mailto:homey-shelly-control@drenso.nl",
   "author": {
     "name": "Allterco Robotics",
     "email": "homey@shelly.cloud"
