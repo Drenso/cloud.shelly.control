@@ -43,7 +43,7 @@
   },
   "overrides": {
     "homey-zigbeedriver": {
-      "zigbee-clusters": "^3.0.2"
+      "zigbee-clusters": "3.0.2"
     }
   }
 }
