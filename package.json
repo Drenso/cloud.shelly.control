@@ -22,7 +22,7 @@
     "semver": "7.7.4",
     "source-map-support": "0.5.21",
     "ws": "8.19.0",
-    "zigbee-clusters": "2.6.0"
+    "zigbee-clusters": "3.0.2"
   },
   "devDependencies": {
     "@drenso/eslint-config-homey-mts": "1.0.0",
