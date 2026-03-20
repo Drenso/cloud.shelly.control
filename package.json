@@ -40,5 +40,10 @@
     "tsx": "4.21.0",
     "typescript": "5.9.3",
     "typescript-eslint": "8.56.1"
+  },
+  "overrides": {
+    "homey-zigbeedriver": {
+      "zigbee-clusters": "^3.0.2"
+    }
   }
 }
