@@ -2,7 +2,9 @@ import type { RpcChannel } from '../../../rpc/channel/RpcChannel.mjs';
 import { createRequestFrame, type ResponseSuccessFrame } from '../../../rpc/Rpc.mjs';
 
 type NamespaceMethodMapping = {
-  Switch: ['Set', 'Toggle', 'SetConfig', 'GetConfig', 'GetStatus', 'ResetCounters'];
+  Cover: ['SetConfig', 'GetConfig', 'GetStatus', 'Calibrate', 'Open', 'Close', 'Stop', 'GoToPosition', 'ResetCounters'];
+  CCT: ['GetConfig', 'SetConfig', 'GetStatus', 'Set', 'Toggle', 'DimUp', 'DimDown', 'DimStop'];
+  Input: ['SetConfig', 'GetConfig', 'GetStatus', 'CheckExpression', 'ResetCounters', 'Trigger'];
   Light: [
     'GetConfig',
     'SetConfig',
@@ -16,13 +18,12 @@ type NamespaceMethodMapping = {
     'Calibrate',
     'ResetCounters',
   ];
-  Ws: ['SetConfig', 'GetConfig', 'GetStatus'];
   POWERSTRIP_UI: ['SetConfig', 'GetConfig', 'GetStatus'];
-  Temperature: ['GetConfig', 'SetConfig', 'GetStatus'];
-  Input: ['SetConfig', 'GetConfig', 'GetStatus', 'CheckExpression', 'ResetCounters', 'Trigger'];
+  RGBCCT: ['GetConfig', 'SetConfig', 'GetStatus', 'Set', 'Toggle', 'DimUp', 'DimDown', 'DimStop'];
+  Switch: ['Set', 'Toggle', 'SetConfig', 'GetConfig', 'GetStatus', 'ResetCounters'];
   Sys: ['SetConfig', 'GetConfig', 'GetStatus', 'SetTime'];
-  Cover: ['SetConfig', 'GetConfig', 'GetStatus', 'Calibrate', 'Open', 'Close', 'Stop', 'GoToPosition', 'ResetCounters'];
-  CCT: ['GetConfig', 'SetConfig', 'GetStatus', 'Set', 'Toggle', 'DimUp', 'DimDown', 'DimStop'];
+  Temperature: ['GetConfig', 'SetConfig', 'GetStatus'];
+  Ws: ['SetConfig', 'GetConfig', 'GetStatus'];
 };
 
 export type NameSpace = keyof NamespaceMethodMapping;

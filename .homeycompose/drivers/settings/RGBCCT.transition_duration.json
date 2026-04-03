@@ -1,0 +1,10 @@
+{
+  "id": "RGBCCT:transition_duration",
+  "type": "number",
+  "label": {
+    "en": "Light - Transition Duration"
+  },
+  "value": 1,
+  "min": 0,
+  "units": "s"
+}

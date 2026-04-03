@@ -1,4 +1,5 @@
 import CCT from './components/CCT.mjs';
+import RGBCCT from './components/RGBCCT.mjs';
 import Switch from './components/Switch.mjs';
 import OutboundWebsocket from './components/OutboundWebsocket.mjs';
 import PowerStripUI from './components/PowerStripUI.mjs';
@@ -13,6 +14,7 @@ export const ComponentWithIdMapping = {
   cover: Cover,
   input: Input,
   light: Light,
+  rgbcct: RGBCCT,
   switch: Switch,
   temperature: Temperature,
 } as const;

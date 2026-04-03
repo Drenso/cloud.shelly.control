@@ -45,6 +45,13 @@
         "end": "Invalid end time for Indicator LED - Night Mode",
         "start_and_end": "Invalid start time and end time for Indicator LED - Night Mode"
       }
+    },
+    "RGBCCT": {
+      "invalid_night_mode": {
+        "start": "Invalid start time for Light - Night Mode",
+        "end": "Invalid end time for Light - Night Mode",
+        "start_and_end": "Invalid start time and end time for Light - Night Mode"
+      }
     }
   }
 }
