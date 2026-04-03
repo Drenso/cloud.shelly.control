@@ -1,0 +1,14 @@
+[
+  {
+    "$extends": "RGBCCT.initial_state"
+  },
+  {
+    "$extends": "RGBCCT.transition_duration"
+  },
+  {
+    "$extends": "RGBCCT.min_brightness_on_toggle"
+  },
+  {
+    "$extends": "RGBCCT.night_mode"
+  }
+]
