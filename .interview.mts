@@ -18,7 +18,7 @@ const deviceInfo = await Shelly.GetDeviceInfo(rpcChannel);
 const deviceType = deviceInfo.result.id.split('-')[0];
 
 console.log(`Interviewing ${deviceType}...`);
-const components = await Shelly.getAllComponents(rpcChannel);
+const components = (await Shelly.getAllComponents(rpcChannel)).sort((a, b) => a.key.localeCompare(b.key));
 
 const outputDir = path.join(import.meta.dirname, interviewsDir, deviceType);
 const outputPath = path.join(outputDir, 'rpc.json');
