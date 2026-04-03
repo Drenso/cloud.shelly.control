@@ -2498,6 +2498,20 @@
           "units": "s"
         },
         {
+          "id": "Light:min_brightness_on_toggle",
+          "type": "number",
+          "label": {
+            "en": "Light - Minimum Toggle Brightness"
+          },
+          "hint": {
+            "en": "If the brightness is lower than this value when the light is turned on, it will be set to this value."
+          },
+          "value": 3,
+          "min": 0,
+          "max": 100,
+          "units": "%"
+        },
+        {
           "id": "Light.night_mode",
           "type": "group",
           "label": "Light - Night Mode",

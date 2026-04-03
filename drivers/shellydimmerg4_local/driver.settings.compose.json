@@ -81,6 +81,9 @@
     "$extends": "Light.transition_duration"
   },
   {
+    "$extends": "Light.min_brightness_on_toggle"
+  },
+  {
     "$extends": "Light.night_mode"
   },
   {
