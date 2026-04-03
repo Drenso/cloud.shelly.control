@@ -2768,7 +2768,7 @@
           "id": "CCT:initial_state",
           "type": "dropdown",
           "label": {
-            "en": "CCT - Startup State"
+            "en": "Light - Startup State"
           },
           "value": "off",
           "values": [
@@ -2796,7 +2796,7 @@
           "id": "CCT:transition_duration",
           "type": "number",
           "label": {
-            "en": "CCT - Transition Duration"
+            "en": "Light - Transition Duration"
           },
           "value": 1,
           "min": 0,
@@ -2806,7 +2806,7 @@
           "id": "CCT:min_brightness_on_toggle",
           "type": "number",
           "label": {
-            "en": "CCT - Minimum Toggle Brightness"
+            "en": "Light - Minimum Toggle Brightness"
           },
           "hint": {
             "en": "If the brightness is lower than this value when the light is turned on, it will be set to this value."
@@ -2819,7 +2819,7 @@
         {
           "id": "CCT.night_mode",
           "type": "group",
-          "label": "CCT - Night Mode",
+          "label": "Light - Night Mode",
           "children": [
             {
               "id": "CCT:night_mode.enable",
@@ -2897,7 +2897,7 @@
           "id": "CCT:range_map.min",
           "type": "number",
           "label": {
-            "en": "CCT - Remapped Minimum Brightness"
+            "en": "Light - Remapped Minimum Brightness"
           },
           "value": 0,
           "min": 0,
@@ -2908,7 +2908,7 @@
           "id": "CCT:range_map.max",
           "type": "number",
           "label": {
-            "en": "CCT - Remapped Maximum Brightness"
+            "en": "Light - Remapped Maximum Brightness"
           },
           "value": 0,
           "min": 0,

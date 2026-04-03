@@ -2,7 +2,7 @@
   "id": "CCT:current_limit",
   "type": "number",
   "label": {
-    "en": "CCT - Current Limit"
+    "en": "Light - Current Limit"
   },
   "hint": {
     "en": "The maximum value is the max-rated output current."

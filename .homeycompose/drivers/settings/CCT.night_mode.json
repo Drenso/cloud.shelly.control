@@ -1,6 +1,6 @@
 {
   "type": "group",
-  "label": "CCT - Night Mode",
+  "label": "Light - Night Mode",
   "children": [
     {
       "id": "CCT:night_mode.enable",

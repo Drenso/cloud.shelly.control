@@ -2,7 +2,7 @@
   "id": "CCT:power_limit",
   "type": "number",
   "label": {
-    "en": "CCT - Power Limit"
+    "en": "Light - Power Limit"
   },
   "hint": {
     "en": "The maximum value is the max-rated output power."

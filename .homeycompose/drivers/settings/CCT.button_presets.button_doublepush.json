@@ -1,6 +1,6 @@
 {
   "type": "group",
-  "label": "CCT - Double Push Preset",
+  "label": "Light - Double Push Preset",
   "children": [
     {
       "id": "CCT:button_presets.button_doublepush.enable",

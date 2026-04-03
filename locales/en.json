@@ -27,9 +27,9 @@
   "component": {
     "CCT": {
       "invalid_night_mode": {
-        "start": "Invalid start time for CCT - Night Mode",
-        "end": "Invalid end time for CCT - Night Mode",
-        "start_and_end": "Invalid start time and end time for CCT - Night Mode"
+        "start": "Invalid start time for Light - Night Mode",
+        "end": "Invalid end time for Light - Night Mode",
+        "start_and_end": "Invalid start time and end time for Light - Night Mode"
       }
     },
     "Light": {

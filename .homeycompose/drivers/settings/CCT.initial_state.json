@@ -2,7 +2,7 @@
   "id": "CCT:initial_state",
   "type": "dropdown",
   "label": {
-    "en": "CCT - Startup State"
+    "en": "Light - Startup State"
   },
   "value": "off",
   "values": [

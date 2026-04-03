@@ -2,7 +2,7 @@
   "id": "CCT:range_map.max",
   "type": "number",
   "label": {
-    "en": "CCT - Remapped Maximum Brightness"
+    "en": "Light - Remapped Maximum Brightness"
   },
   "value": 0,
   "min": 0,

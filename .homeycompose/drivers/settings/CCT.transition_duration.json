@@ -2,7 +2,7 @@
   "id": "CCT:transition_duration",
   "type": "number",
   "label": {
-    "en": "CCT - Transition Duration"
+    "en": "Light - Transition Duration"
   },
   "value": 1,
   "min": 0,

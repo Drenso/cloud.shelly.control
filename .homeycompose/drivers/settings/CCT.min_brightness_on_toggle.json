@@ -2,7 +2,7 @@
   "id": "CCT:min_brightness_on_toggle",
   "type": "number",
   "label": {
-    "en": "CCT - Minimum Toggle Brightness"
+    "en": "Light - Minimum Toggle Brightness"
   },
   "hint": {
     "en": "If the brightness is lower than this value when the light is turned on, it will be set to this value."

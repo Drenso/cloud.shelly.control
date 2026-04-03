@@ -2,7 +2,7 @@
   "id": "CCT:button_fade_rate",
   "type": "dropdown",
   "label": {
-    "en": "CCT - Button Fade Rate"
+    "en": "Light - Button Fade Rate"
   },
   "value": "3",
   "values": [
