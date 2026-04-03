@@ -456,12 +456,12 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
       changedConfig['range_map'] = [newSettings['Input:range_map.min'], newSettings['Input:range_map.max']];
     }
 
-    if (Object.keys(changedConfig).length > 0) {
-      const result = await this.SetConfig(this.device.getChannel(), { config: changedConfig });
-      return result.result.restart_required;
-    } else {
+    if (Object.keys(changedConfig).length <= 0) {
       return false;
     }
+
+    const result = await this.SetConfig(this.device.getChannel(), { config: changedConfig });
+    return result.result.restart_required;
   }
 
   public async handleEvent(event: NotificationEventParam): Promise<void> {

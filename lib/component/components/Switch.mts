@@ -318,12 +318,12 @@ export default class Switch extends ComponentWithId<'Switch', SwitchStatus, Swit
       changedConfig['input_id'] = parseInt(newSetting, 10) as 0 | 1;
     }
 
-    if (Object.keys(changedConfig).length > 0) {
-      const result = await this.SetConfig(this.device.getChannel(), { config: changedConfig });
-      return result.result.restart_required;
-    } else {
+    if (Object.keys(changedConfig).length <= 0) {
       return false;
     }
+
+    const result = await this.SetConfig(this.device.getChannel(), { config: changedConfig });
+    return result.result.restart_required;
   }
 
   private async registerCapability(
@@ -331,13 +331,17 @@ export default class Switch extends ComponentWithId<'Switch', SwitchStatus, Swit
     statusProperty: keyof SwitchStatus,
     homeyCapability: string,
   ): Promise<void> {
-    if (this.status[statusProperty] !== undefined) {
-      await homeyDevice.safeAddCapability(homeyCapability);
-      const capabilityOptions = capabilitiesOptions[homeyCapability as keyof typeof capabilitiesOptions];
-      if (capabilityOptions !== undefined) {
-        await homeyDevice.setCapabilityOptions(homeyCapability, capabilityOptions);
-      }
+    if (this.status[statusProperty] === undefined) {
+      return;
     }
+
+    await homeyDevice.safeAddCapability(homeyCapability);
+    const capabilityOptions = capabilitiesOptions[homeyCapability as keyof typeof capabilitiesOptions];
+    if (capabilityOptions === undefined) {
+      return;
+    }
+
+    await homeyDevice.setCapabilityOptions(homeyCapability, capabilityOptions);
   }
 
   private async updateMeasured(
@@ -346,8 +350,10 @@ export default class Switch extends ComponentWithId<'Switch', SwitchStatus, Swit
     statusProperty: keyof SwitchStatus,
     homeyCapability: string,
   ): Promise<void> {
-    if (status[statusProperty] !== undefined) {
-      await homeyDevice.safeSetCapability(homeyCapability, status[statusProperty]).catch(homeyDevice.error);
+    if (status[statusProperty] === undefined) {
+      return;
     }
+
+    await homeyDevice.safeSetCapability(homeyCapability, status[statusProperty]).catch(homeyDevice.error);
   }
 }

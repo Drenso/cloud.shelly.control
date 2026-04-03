@@ -768,12 +768,12 @@ export default class Cover extends ComponentWithId<'Cover', CoverStatus, CoverCo
       deepAssign(changedConfig, { safety_switch: { allowed_move: allowedMove === 'none' ? null : allowedMove } });
     }
 
-    if (Object.keys(changedConfig).length > 0) {
-      const result = await this.SetConfig(this.device.getChannel(), { config: changedConfig });
-      return result.result.restart_required;
-    } else {
+    if (Object.keys(changedConfig).length <= 0) {
       return false;
     }
+
+    const result = await this.SetConfig(this.device.getChannel(), { config: changedConfig });
+    return result.result.restart_required;
   }
 
   private async registerCapability(
