@@ -1,4 +1,5 @@
 import { type AllowedPrimitives, ComponentWithoutId } from '../Component.mjs';
+import { parseNightModeActiveBetween } from '../util/NightMode.mjs';
 import GetConfig from './PowerStripUI/GetConfig.mjs';
 import SetConfig from './PowerStripUI/SetConfig.mjs';
 import GetStatus from './PowerStripUI/GetStatus.mjs';
@@ -232,48 +233,16 @@ export default class PowerStripUI extends ComponentWithoutId<
       changedKeys.includes('POWERSTRIP_UI:leds.night_mode.active_between.start') ||
       changedKeys.includes('POWERSTRIP_UI:leds.night_mode.active_between.end')
     ) {
-      const rawStart = newSettings['POWERSTRIP_UI:leds.night_mode.active_between.start'];
-      const rawEnd = newSettings['POWERSTRIP_UI:leds.night_mode.active_between.end'];
-      const [rawStartHour, rawStartMinutes, ...startRest] = rawStart.split(':');
-      const [rawEndHour, rawEndMinutes, ...endRest] = rawEnd.split(':');
-
-      const startHour = parseInt(rawStartHour, 10);
-      const startMinutes = parseInt(rawStartMinutes, 10);
-      const endHour = parseInt(rawEndHour, 10);
-      const endMinutes = parseInt(rawEndMinutes, 10);
-
-      const invalidStart =
-        startRest.length > 0 ||
-        isNaN(startHour) ||
-        isNaN(startMinutes) ||
-        startHour < 0 ||
-        startMinutes < 0 ||
-        startHour >= 24 ||
-        startMinutes >= 60;
-
-      const invalidEnd =
-        endRest.length > 0 ||
-        isNaN(endHour) ||
-        isNaN(endMinutes) ||
-        endHour < 0 ||
-        endMinutes < 0 ||
-        endHour >= 24 ||
-        endMinutes >= 60;
-
-      // Invalid argument 'night_mode.active_between': Time range must be between [00:00, 23:59]!
-      if (invalidStart && invalidEnd) {
-        throw new Error(homeyDevice.homey.__('component.POWERSTRIP_UI.invalid_night_mode.start_and_end'));
-      }
-
-      if (invalidStart) {
-        throw new Error(homeyDevice.homey.__('component.POWERSTRIP_UI.invalid_night_mode.start'));
-      }
-
-      if (invalidEnd) {
-        throw new Error(homeyDevice.homey.__('component.POWERSTRIP_UI.invalid_night_mode.end'));
-      }
-
-      deepAssign(changedConfigs, { leds: { night_mode: { active_between: [rawStart, rawEnd] } } });
+      deepAssign(changedConfigs, {
+        leds: {
+          night_mode: parseNightModeActiveBetween(
+            homeyDevice,
+            'POWERSTRIP_UI',
+            newSettings['POWERSTRIP_UI:leds.night_mode.active_between.start'],
+            newSettings['POWERSTRIP_UI:leds.night_mode.active_between.end'],
+          ),
+        },
+      });
     }
 
     const switchId = homeyDevice.getTypedData().subdevice_id;

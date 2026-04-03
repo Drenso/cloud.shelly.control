@@ -1,5 +1,6 @@
 import { type AllowedPrimitives, ComponentWithId } from '../Component.mjs';
 import type { RpcChannel } from '../../rpc/channel/RpcChannel.mjs';
+import { parseNightModeActiveBetween } from '../util/NightMode.mjs';
 import capabilitiesOptions from './Light/capabilitiesOptions.json' with { type: 'json' };
 import SetConfig from './Light/SetConfig.mjs';
 import GetConfig from './Light/GetConfig.mjs';
@@ -435,7 +436,9 @@ export default class Light extends ComponentWithId<'Light', LightStatus, LightCo
 
     if (buttonDoublePushPreset !== undefined) {
       newSettings['Light:button_presets.button_doublepush.enable'] = buttonDoublePushPreset !== null;
-      newSettings['Light:button_presets.button_doublepush.brightness'] = buttonDoublePushPreset?.brightness;
+      if (buttonDoublePushPreset !== null) {
+        newSettings['Light:button_presets.button_doublepush.brightness'] = buttonDoublePushPreset.brightness;
+      }
     }
 
     if (config.range_map !== undefined) {
@@ -482,48 +485,14 @@ export default class Light extends ComponentWithId<'Light', LightStatus, LightCo
       changedKeys.includes('Light:night_mode.active_between.start') ||
       changedKeys.includes('Light:night_mode.active_between.end')
     ) {
-      const rawStart = newSettings['Light:night_mode.active_between.start'];
-      const rawEnd = newSettings['Light:night_mode.active_between.end'];
-      const [rawStartHour, rawStartMinutes, ...startRest] = rawStart.split(':');
-      const [rawEndHour, rawEndMinutes, ...endRest] = rawEnd.split(':');
-
-      const startHour = parseInt(rawStartHour, 10);
-      const startMinutes = parseInt(rawStartMinutes, 10);
-      const endHour = parseInt(rawEndHour, 10);
-      const endMinutes = parseInt(rawEndMinutes, 10);
-
-      const invalidStart =
-        startRest.length > 0 ||
-        isNaN(startHour) ||
-        isNaN(startMinutes) ||
-        startHour < 0 ||
-        startMinutes < 0 ||
-        startHour >= 24 ||
-        startMinutes >= 60;
-
-      const invalidEnd =
-        endRest.length > 0 ||
-        isNaN(endHour) ||
-        isNaN(endMinutes) ||
-        endHour < 0 ||
-        endMinutes < 0 ||
-        endHour >= 24 ||
-        endMinutes >= 60;
-
-      // Invalid argument 'night_mode.active_between': Time range must be between [00:00, 23:59]!
-      if (invalidStart && invalidEnd) {
-        throw new Error(homeyDevice.homey.__('component.Light.invalid_night_mode.start_and_end'));
-      }
-
-      if (invalidStart) {
-        throw new Error(homeyDevice.homey.__('component.Light.invalid_night_mode.start'));
-      }
-
-      if (invalidEnd) {
-        throw new Error(homeyDevice.homey.__('component.Light.invalid_night_mode.end'));
-      }
-
-      deepAssign(changedConfig, { night_mode: { active_between: [rawStart, rawEnd] } });
+      deepAssign(changedConfig, {
+        night_mode: parseNightModeActiveBetween(
+          homeyDevice,
+          'Light',
+          newSettings['Light:night_mode.active_between.start'],
+          newSettings['Light:night_mode.active_between.end'],
+        ),
+      });
     }
 
     if (changedKeys.includes('Light:button_fade_rate')) {
@@ -536,7 +505,7 @@ export default class Light extends ComponentWithId<'Light', LightStatus, LightCo
     ) {
       const enabled = newSettings['Light:button_presets.button_doublepush.enable'];
       const brightness = newSettings['Light:button_presets.button_doublepush.brightness'];
-      deepAssign(changedConfig, { button_presets: { button_doublepush: enabled ? { brightness: brightness } : null } });
+      deepAssign(changedConfig, { button_presets: { button_doublepush: enabled ? { brightness } : null } });
     }
 
     if (changedKeys.includes('Light:range_map.min') || changedKeys.includes(`Light:range_map.max`)) {
