@@ -51,19 +51,11 @@
       "mode": "rgb",
       "output": true,
       "brightness": 50,
-      "rgb": [
-        0,
-        0,
-        128
-      ],
+      "rgb": [0, 0, 128],
       "ct": 4600,
       "aenergy": {
         "total": 0.019,
-        "by_minute": [
-          2.272,
-          0,
-          0
-        ],
+        "by_minute": [2.272, 0, 0],
         "minute_ts": 1775211420
       },
       "apower": 1.2
@@ -82,11 +74,7 @@
       "night_mode": {
         "enable": false,
         "brightness": 50,
-        "rgb": [
-          255,
-          255,
-          255
-        ],
+        "rgb": [255, 255, 255],
         "ct": 4600,
         "active_between": []
       }
@@ -166,10 +154,7 @@
       "ssid": "DrensoDev",
       "bssid": "76:ac:b9:2c:8c:03",
       "rssi": -53,
-      "sta_ip6": [
-        "fe80::5632:4ff:fe66:7c50",
-        "fd03:8586:4012:ec48:5632:4ff:fe66:7c50"
-      ]
+      "sta_ip6": ["fe80::5632:4ff:fe66:7c50", "fd03:8586:4012:ec48:5632:4ff:fe66:7c50"]
     },
     "config": {
       "ap": {

@@ -24,11 +24,7 @@
       "ct": 4600,
       "aenergy": {
         "total": 0.094,
-        "by_minute": [
-          0,
-          0,
-          94.388
-        ],
+        "by_minute": [0, 0, 94.388],
         "minute_ts": 1775211420
       },
       "apower": 0
@@ -49,10 +45,7 @@
         "ct": 4600,
         "active_between": []
       },
-      "range_map": [
-        0,
-        100
-      ],
+      "range_map": [0, 100],
       "fade_rate": 3
     }
   },
@@ -159,10 +152,7 @@
       "ssid": "DrensoDev",
       "bssid": "76:ac:b9:2c:8c:03",
       "rssi": -68,
-      "sta_ip6": [
-        "fe80::5632:4ff:fe66:7eec",
-        "fd03:8586:4012:ec48:5632:4ff:fe66:7eec"
-      ]
+      "sta_ip6": ["fe80::5632:4ff:fe66:7eec", "fd03:8586:4012:ec48:5632:4ff:fe66:7eec"]
     },
     "config": {
       "ap": {
