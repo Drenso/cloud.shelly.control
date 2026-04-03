@@ -1,0 +1,52 @@
+{
+  "type": "group",
+  "label": "CCT - Double Push Preset",
+  "children": [
+    {
+      "id": "CCT:button_presets.button_doublepush.enable",
+      "type": "checkbox",
+      "label": {
+        "en": "Enabled"
+      },
+      "value": false
+    },
+    {
+      "id": "CCT:button_presets.button_doublepush.brightness_enabled",
+      "type": "checkbox",
+      "label": {
+        "en": "Override brightness"
+      },
+      "value": true
+    },
+    {
+      "id": "CCT:button_presets.button_doublepush.brightness",
+      "type": "number",
+      "label": {
+        "en": "Brightness"
+      },
+      "value": 100,
+      "min": 0,
+      "max": 100,
+      "units": "%"
+    },
+    {
+      "id": "CCT:button_presets.button_doublepush.ct_enabled",
+      "type": "checkbox",
+      "label": {
+        "en": "Override color temperature"
+      },
+      "value": true
+    },
+    {
+      "id": "CCT:button_presets.button_doublepush.ct",
+      "type": "number",
+      "label": {
+        "en": "Color temperature"
+      },
+      "value": 4600,
+      "min": 2700,
+      "max": 6500,
+      "units": "K"
+    }
+  ]
+}

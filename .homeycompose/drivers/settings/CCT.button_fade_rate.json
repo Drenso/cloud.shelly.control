@@ -1,0 +1,40 @@
+{
+  "id": "CCT:button_fade_rate",
+  "type": "dropdown",
+  "label": {
+    "en": "CCT - Button Fade Rate"
+  },
+  "value": "3",
+  "values": [
+    {
+      "id": "1",
+      "label": {
+        "en": "Slowest"
+      }
+    },
+    {
+      "id": "2",
+      "label": {
+        "en": "Slow"
+      }
+    },
+    {
+      "id": "3",
+      "label": {
+        "en": "Default"
+      }
+    },
+    {
+      "id": "4",
+      "label": {
+        "en": "Fast"
+      }
+    },
+    {
+      "id": "5",
+      "label": {
+        "en": "Fastest"
+      }
+    }
+  ]
+}

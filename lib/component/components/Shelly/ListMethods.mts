@@ -22,6 +22,7 @@ type NamespaceMethodMapping = {
   Input: ['SetConfig', 'GetConfig', 'GetStatus', 'CheckExpression', 'ResetCounters', 'Trigger'];
   Sys: ['SetConfig', 'GetConfig', 'GetStatus', 'SetTime'];
   Cover: ['SetConfig', 'GetConfig', 'GetStatus', 'Calibrate', 'Open', 'Close', 'Stop', 'GoToPosition', 'ResetCounters'];
+  CCT: ['GetConfig', 'SetConfig', 'GetStatus', 'Set', 'Toggle', 'DimUp', 'DimDown', 'DimStop'];
 };
 
 export type NameSpace = keyof NamespaceMethodMapping;

@@ -1,0 +1,28 @@
+{
+  "id": "CCT:initial_state",
+  "type": "dropdown",
+  "label": {
+    "en": "CCT - Startup State"
+  },
+  "value": "off",
+  "values": [
+    {
+      "id": "off",
+      "label": {
+        "en": "Off"
+      }
+    },
+    {
+      "id": "on",
+      "label": {
+        "en": "On"
+      }
+    },
+    {
+      "id": "restore_last",
+      "label": {
+        "en": "Restore Last"
+      }
+    }
+  ]
+}

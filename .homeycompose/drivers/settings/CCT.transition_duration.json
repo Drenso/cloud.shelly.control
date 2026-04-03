@@ -1,0 +1,10 @@
+{
+  "id": "CCT:transition_duration",
+  "type": "number",
+  "label": {
+    "en": "CCT - Transition Duration"
+  },
+  "value": 1,
+  "min": 0,
+  "units": "s"
+}

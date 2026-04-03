@@ -30,6 +30,7 @@ type Only<T, U> = {
 };
 
 export type Either<T, U> = Only<T, U> | Only<U, T>;
+export type Either3<T, U, V> = Only<T, U & V> | Only<U, T & V> | Only<V, T & U>;
 
 export function fillStringTemplateTags(template: string, tags: Record<string, string>): string {
   let filledTemplate = template;
@@ -114,4 +115,8 @@ export function deepAssign<T, AllowedPrimitives>(
       destination[key] = source[key];
     }
   }
+}
+
+export function includesAny<T>(changedKeys: Array<keyof T>, anyOf: Array<keyof T>): boolean {
+  return anyOf.some(key => changedKeys.includes(key));
 }
