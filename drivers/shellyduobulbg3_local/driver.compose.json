@@ -1,0 +1,12 @@
+{
+  "name": {
+    "en": "Duo Bulb Gen3 - LAN"
+  },
+  "class": "light",
+  "images": {
+    "small": "/assets/drivers/shellyduobulbg3/images/small.png",
+    "large": "/assets/drivers/shellyduobulbg3/images/large.png",
+    "xlarge": "/assets/drivers/shellyduobulbg3/images/xlarge.png"
+  },
+  "$extends": "local"
+}

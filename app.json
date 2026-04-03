@@ -2754,6 +2754,223 @@
         }
       ],
       "name": {
+        "en": "Duo Bulb Gen3 - LAN"
+      },
+      "class": "light",
+      "images": {
+        "small": "/assets/drivers/shellyduobulbg3/images/small.png",
+        "large": "/assets/drivers/shellyduobulbg3/images/large.png",
+        "xlarge": "/assets/drivers/shellyduobulbg3/images/xlarge.png"
+      },
+      "id": "shellyduobulbg3_local",
+      "settings": [
+        {
+          "id": "CCT:initial_state",
+          "type": "dropdown",
+          "label": {
+            "en": "CCT - Startup State"
+          },
+          "value": "off",
+          "values": [
+            {
+              "id": "off",
+              "label": {
+                "en": "Off"
+              }
+            },
+            {
+              "id": "on",
+              "label": {
+                "en": "On"
+              }
+            },
+            {
+              "id": "restore_last",
+              "label": {
+                "en": "Restore Last"
+              }
+            }
+          ]
+        },
+        {
+          "id": "CCT:transition_duration",
+          "type": "number",
+          "label": {
+            "en": "CCT - Transition Duration"
+          },
+          "value": 1,
+          "min": 0,
+          "units": "s"
+        },
+        {
+          "id": "CCT:min_brightness_on_toggle",
+          "type": "number",
+          "label": {
+            "en": "CCT - Minimum Toggle Brightness"
+          },
+          "hint": {
+            "en": "If the brightness is lower than this value when the light is turned on, it will be set to this value."
+          },
+          "value": 3,
+          "min": 0,
+          "max": 100,
+          "units": "%"
+        },
+        {
+          "id": "CCT.night_mode",
+          "type": "group",
+          "label": "CCT - Night Mode",
+          "children": [
+            {
+              "id": "CCT:night_mode.enable",
+              "type": "checkbox",
+              "label": {
+                "en": "Enabled"
+              },
+              "value": false
+            },
+            {
+              "id": "CCT:night_mode.brightness_enabled",
+              "type": "checkbox",
+              "label": {
+                "en": "Override brightness"
+              },
+              "value": true
+            },
+            {
+              "id": "CCT:night_mode.brightness",
+              "type": "number",
+              "label": {
+                "en": "Brightness"
+              },
+              "value": 100,
+              "min": 0,
+              "max": 100,
+              "units": "%"
+            },
+            {
+              "id": "CCT:night_mode.ct_enabled",
+              "type": "checkbox",
+              "label": {
+                "en": "Override color temperature"
+              },
+              "value": true
+            },
+            {
+              "id": "CCT:night_mode.ct",
+              "type": "number",
+              "label": {
+                "en": "Color temperature"
+              },
+              "value": 4600,
+              "min": 2700,
+              "max": 6500,
+              "units": "K"
+            },
+            {
+              "id": "CCT:night_mode.active_between.start",
+              "type": "text",
+              "label": {
+                "en": "Start Time"
+              },
+              "value": "00:00",
+              "pattern": "^(?:(?:2[0-3])|(?:[01]?[0-9]))(?::[0-5][0-9])?$",
+              "hint": {
+                "en": "In 24 hour format (00:00 - 23:59)."
+              }
+            },
+            {
+              "id": "CCT:night_mode.active_between.end",
+              "type": "text",
+              "label": {
+                "en": "End Time"
+              },
+              "value": "23:59",
+              "pattern": "^(?:(?:2[0-3])|(?:[01]?[0-9]))(?::[0-5][0-9])?$",
+              "hint": {
+                "en": "In 24 hour format (00:00 - 23:59)."
+              }
+            }
+          ]
+        },
+        {
+          "id": "CCT:range_map.min",
+          "type": "number",
+          "label": {
+            "en": "CCT - Remapped Minimum Brightness"
+          },
+          "value": 0,
+          "min": 0,
+          "max": 100,
+          "units": "%"
+        },
+        {
+          "id": "CCT:range_map.max",
+          "type": "number",
+          "label": {
+            "en": "CCT - Remapped Maximum Brightness"
+          },
+          "value": 0,
+          "min": 0,
+          "max": 100,
+          "units": "%"
+        }
+      ]
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "lan"
+      ],
+      "capabilities": [
+        "button.restart"
+      ],
+      "capabilitiesOptions": {
+        "button.restart": {
+          "maintenanceAction": true,
+          "title": {
+            "en": "Restart Device"
+          }
+        }
+      },
+      "pair": [
+        {
+          "id": "pairing_information",
+          "navigation": {
+            "next": "list_devices"
+          }
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "authenticate_devices"
+          }
+        },
+        {
+          "id": "authenticate_devices",
+          "template": "loading",
+          "options": {
+            "text": "pair.loading_devices"
+          }
+        },
+        {
+          "id": "loading_devices",
+          "template": "loading",
+          "options": {
+            "text": "pair.loading_devices"
+          }
+        },
+        {
+          "id": "device_password"
+        },
+        {
+          "id": "add_subdevices"
+        }
+      ],
+      "name": {
         "en": "Power Strip 4 Gen4 - LAN"
       },
       "class": "socket",
