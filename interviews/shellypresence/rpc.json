@@ -128,19 +128,8 @@
       "id": 200,
       "name": "Main",
       "enable": true,
-      "color": [
-        0,
-        255,
-        0
-      ],
-      "area": [
-        [
-          -8,
-          16,
-          8,
-          0
-        ]
-      ],
+      "color": [0, 255, 0],
+      "area": [[-8, 16, 8, 0]],
       "presence_thr": 0.2,
       "absence_thr": 0.2
     }
@@ -218,10 +207,7 @@
       "ssid": "DrensoDev",
       "bssid": "76:ac:b9:2c:8c:03",
       "rssi": -57,
-      "sta_ip6": [
-        "fe80::ceba:97ff:feeb:f064",
-        "fd03:8586:4012:ec48:ceba:97ff:feeb:f064"
-      ]
+      "sta_ip6": ["fe80::ceba:97ff:feeb:f064", "fd03:8586:4012:ec48:ceba:97ff:feeb:f064"]
     },
     "config": {
       "ap": {
