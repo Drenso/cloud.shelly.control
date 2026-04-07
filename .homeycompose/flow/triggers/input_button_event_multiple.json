@@ -27,7 +27,7 @@
       "name": "device",
       "type": "device",
       "filter": {
-        "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellydimmerg4_local|shellyduobulbg3_local|shellypstripg4_local",
+        "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypstripg4_local",
         "capabilities": "hidden.has_input_multiple_button"
       },
       "title": {
