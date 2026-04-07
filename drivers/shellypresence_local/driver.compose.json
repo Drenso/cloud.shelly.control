@@ -1,0 +1,12 @@
+{
+  "name": {
+    "en": "Presence Gen4 - LAN"
+  },
+  "class": "sensor",
+  "images": {
+    "small": "/assets/drivers/shellypresence/images/small.png",
+    "large": "/assets/drivers/shellypresence/images/large.png",
+    "xlarge": "/assets/drivers/shellypresence/images/xlarge.png"
+  },
+  "$extends": "local"
+}

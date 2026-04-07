@@ -4081,6 +4081,92 @@
         }
       ],
       "name": {
+        "en": "Presence Gen4 - LAN"
+      },
+      "class": "sensor",
+      "images": {
+        "small": "/assets/drivers/shellypresence/images/small.png",
+        "large": "/assets/drivers/shellypresence/images/large.png",
+        "xlarge": "/assets/drivers/shellypresence/images/xlarge.png"
+      },
+      "id": "shellypresence_local",
+      "settings": [
+        {
+          "id": "Illuminance:dark_thr",
+          "type": "number",
+          "label": {
+            "en": "Illuminance - Dark Threshold"
+          },
+          "value": 10,
+          "min": 0,
+          "units": "lux"
+        },
+        {
+          "id": "Illuminance:bright_thr",
+          "type": "number",
+          "label": {
+            "en": "Illuminance - Bright Threshold"
+          },
+          "value": 50,
+          "min": 0,
+          "units": "lux"
+        }
+      ]
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "lan"
+      ],
+      "capabilities": [
+        "button.restart"
+      ],
+      "capabilitiesOptions": {
+        "button.restart": {
+          "maintenanceAction": true,
+          "title": {
+            "en": "Restart Device"
+          }
+        }
+      },
+      "pair": [
+        {
+          "id": "pairing_information",
+          "navigation": {
+            "next": "list_devices"
+          }
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "authenticate_devices"
+          }
+        },
+        {
+          "id": "authenticate_devices",
+          "template": "loading",
+          "options": {
+            "text": "pair.loading_devices"
+          }
+        },
+        {
+          "id": "loading_devices",
+          "template": "loading",
+          "options": {
+            "text": "pair.loading_devices"
+          }
+        },
+        {
+          "id": "device_password"
+        },
+        {
+          "id": "add_subdevices"
+        }
+      ],
+      "name": {
         "en": "Power Strip 4 Gen4 - LAN"
       },
       "class": "socket",

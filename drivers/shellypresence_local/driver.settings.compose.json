@@ -1,0 +1,8 @@
+[
+  {
+    "$extends": "Illuminance.dark_thr"
+  },
+  {
+    "$extends": "Illuminance.bright_thr"
+  }
+]
