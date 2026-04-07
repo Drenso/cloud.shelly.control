@@ -1,17 +1,19 @@
 import CCT from './components/CCT.mjs';
-import RGBCCT from './components/RGBCCT.mjs';
-import Switch from './components/Switch.mjs';
+import Cover from './components/Cover.mjs';
+import Illuminance from './components/Illuminance.mjs';
+import Input from './components/Input.mjs';
+import Light from './components/Light.mjs';
 import OutboundWebsocket from './components/OutboundWebsocket.mjs';
 import PowerStripUI from './components/PowerStripUI.mjs';
-import Temperature from './components/Temperature.mjs';
-import Input from './components/Input.mjs';
+import RGBCCT from './components/RGBCCT.mjs';
+import Switch from './components/Switch.mjs';
 import System from './components/System.mjs';
-import Cover from './components/Cover.mjs';
-import Light from './components/Light.mjs';
+import Temperature from './components/Temperature.mjs';
 
 export const ComponentWithIdMapping = {
   cct: CCT,
   cover: Cover,
+  illuminance: Illuminance,
   input: Input,
   light: Light,
   rgbcct: RGBCCT,

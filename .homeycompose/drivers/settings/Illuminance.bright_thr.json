@@ -1,0 +1,10 @@
+{
+  "id": "Illuminance:bright_thr",
+  "type": "number",
+  "label": {
+    "en": "Illuminance - Bright Threshold"
+  },
+  "value": 50,
+  "min": 0,
+  "units": "lux"
+}

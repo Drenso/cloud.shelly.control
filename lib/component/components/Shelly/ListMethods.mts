@@ -4,6 +4,7 @@ import { createRequestFrame, type ResponseSuccessFrame } from '../../../rpc/Rpc.
 type NamespaceMethodMapping = {
   Cover: ['SetConfig', 'GetConfig', 'GetStatus', 'Calibrate', 'Open', 'Close', 'Stop', 'GoToPosition', 'ResetCounters'];
   CCT: ['GetConfig', 'SetConfig', 'GetStatus', 'Set', 'Toggle', 'DimUp', 'DimDown', 'DimStop'];
+  Illuminance: ['GetConfig', 'SetConfig', 'GetStatus'];
   Input: ['SetConfig', 'GetConfig', 'GetStatus', 'CheckExpression', 'ResetCounters', 'Trigger'];
   Light: [
     'GetConfig',

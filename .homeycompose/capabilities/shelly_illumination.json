@@ -1,0 +1,30 @@
+{
+  "title": {
+    "en": "Illumination status"
+  },
+  "type": "enum",
+  "uiComponent": "sensor",
+  "getable": true,
+  "setable": false,
+  "icon": "/assets/capabilities/shelly_illumination.svg",
+  "values": [
+    {
+      "id": "dark",
+      "title": {
+        "en": "Dark"
+      }
+    },
+    {
+      "id": "twilight",
+      "title": {
+        "en": "Twilight"
+      }
+    },
+    {
+      "id": "bright",
+      "title": {
+        "en": "Bright"
+      }
+    }
+  ]
+}
