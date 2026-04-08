@@ -24,12 +24,6 @@ export type RGBCCTConfig = {
   /** Output state to set on power_on. Range of values: off, on, restore_last */
   initial_state: 'off' | 'on' | 'restore_last';
 
-  /**
-   *  Not documented, but works?
-   *  todo: question has been asked in the Shelly Teams
-   */
-  mode?: 'rgb' | 'cct';
-
   /** True if the "Automatic ON" function is enabled, false otherwise */
   auto_on: boolean;
 
@@ -207,7 +201,9 @@ export default class RGBCCT extends ComponentWithId<'RGBCCT', RGBCCTStatus, RGBC
       const capabilityId = 'dim';
       await this.registerCapability(homeyDevice, 'brightness', capabilityId);
       homeyDevice.registerCapabilityListener(capabilityId, async (value: number) => {
-        await this.Set(this.device.getChannel(), { brightness: value * 100 });
+        await this.Set(this.device.getChannel(), {
+          brightness: value * 100,
+        });
       });
     }
 
@@ -219,19 +215,19 @@ export default class RGBCCT extends ComponentWithId<'RGBCCT', RGBCCTStatus, RGBC
       }
 
       homeyDevice.registerCapabilityListener('light_mode', async value => {
-        await this.SetConfig(this.device.getChannel(), { config: { mode: value === 'color' ? 'rgb' : 'cct' } });
+        await this.Set(this.device.getChannel(), {
+          mode: value === 'color' ? 'rgb' : 'cct',
+        });
       });
 
       homeyDevice.registerCapabilityListener('light_temperature', async value => {
         await this.Set(this.device.getChannel(), {
-          on: homeyDevice.getCapabilityValue('onoff'),
           ct: Math.round(2700 + (1 - value) * (6500 - 2700)),
         });
       });
 
       homeyDevice.registerMultipleCapabilityListener(['light_hue', 'light_saturation'], async values => {
         await this.Set(this.device.getChannel(), {
-          on: homeyDevice.getCapabilityValue('onoff'),
           rgb: convert.hsv.rgb(values.light_hue * 360, values.light_saturation * 100, 100),
         });
       });
