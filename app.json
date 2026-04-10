@@ -67,7 +67,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypstripg4_local",
+              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypresence_local|shellypstripg4_local",
               "capabilities": "hidden.has_input_analog"
             },
             "title": {
@@ -99,7 +99,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypstripg4_local",
+              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypresence_local|shellypstripg4_local",
               "capabilities": "hidden.has_input_multiple_analog"
             },
             "title": {
@@ -142,7 +142,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypstripg4_local",
+              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypresence_local|shellypstripg4_local",
               "capabilities": "hidden.has_input_analog"
             },
             "title": {
@@ -181,7 +181,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypstripg4_local",
+              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypresence_local|shellypstripg4_local",
               "capabilities": "hidden.has_input_multiple_analog"
             },
             "title": {
@@ -227,7 +227,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypstripg4_local",
+              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypresence_local|shellypstripg4_local",
               "capabilities": "hidden.has_input_button"
             },
             "title": {
@@ -312,7 +312,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypstripg4_local",
+              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypresence_local|shellypstripg4_local",
               "capabilities": "hidden.has_input_multiple_button"
             },
             "title": {
@@ -401,7 +401,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypstripg4_local",
+              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypresence_local|shellypstripg4_local",
               "capabilities": "hidden.has_input_count"
             },
             "title": {
@@ -440,7 +440,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypstripg4_local",
+              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypresence_local|shellypstripg4_local",
               "capabilities": "hidden.has_input_multiple_analog"
             },
             "title": {
@@ -486,7 +486,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypstripg4_local",
+              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypresence_local|shellypstripg4_local",
               "capabilities": "hidden.has_input_switch"
             },
             "title": {
@@ -547,7 +547,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypstripg4_local",
+              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypresence_local|shellypstripg4_local",
               "capabilities": "hidden.has_input_multiple_switch"
             },
             "title": {
@@ -605,7 +605,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypstripg4_local",
+              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypresence_local|shellypstripg4_local",
               "capabilities": "meter_power.consumed"
             },
             "title": {
@@ -634,7 +634,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypstripg4_local",
+              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypresence_local|shellypstripg4_local",
               "capabilities": "meter_power.returned"
             },
             "title": {
@@ -663,7 +663,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypstripg4_local",
+              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypresence_local|shellypstripg4_local",
               "capabilities": "meter_power.total"
             },
             "title": {
@@ -672,6 +672,118 @@
           }
         ],
         "id": "meter_power.total_changed"
+      },
+      {
+        "title": {
+          "en": "Illumination status changed"
+        },
+        "titleFormatted": {
+          "en": "Illumination status changed to [[value]]"
+        },
+        "tokens": [
+          {
+            "name": "shelly_illumination",
+            "type": "string",
+            "title": {
+              "en": "Status"
+            },
+            "example": "dark"
+          }
+        ],
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": {
+              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypresence_local|shellypstripg4_local",
+              "capabilities": "shelly_illumination"
+            },
+            "title": {
+              "en": "Device"
+            }
+          },
+          {
+            "name": "value",
+            "title": {
+              "en": "Value"
+            },
+            "type": "multiselect",
+            "conjunction": "or",
+            "values": [
+              {
+                "id": "dark",
+                "title": {
+                  "en": "Dark"
+                }
+              },
+              {
+                "id": "twilight",
+                "title": {
+                  "en": "Twilight"
+                }
+              },
+              {
+                "id": "bright",
+                "title": {
+                  "en": "Bright"
+                }
+              }
+            ]
+          }
+        ],
+        "id": "shelly_illumination_changed"
+      }
+    ],
+    "conditions": [
+      {
+        "title": {
+          "en": "Illumination status is"
+        },
+        "titleFormatted": {
+          "en": "Illumination status is [[value]]"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": {
+              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypresence_local|shellypstripg4_local",
+              "capabilities": "shelly_illumination"
+            },
+            "title": {
+              "en": "Device"
+            }
+          },
+          {
+            "name": "value",
+            "title": {
+              "en": "Value"
+            },
+            "type": "multiselect",
+            "conjunction": "or",
+            "values": [
+              {
+                "id": "dark",
+                "title": {
+                  "en": "Dark"
+                }
+              },
+              {
+                "id": "twilight",
+                "title": {
+                  "en": "Twilight"
+                }
+              },
+              {
+                "id": "bright",
+                "title": {
+                  "en": "Bright"
+                }
+              }
+            ]
+          }
+        ],
+        "id": "shelly_illumination_is"
       }
     ]
   },

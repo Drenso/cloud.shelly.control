@@ -5,6 +5,7 @@ import GetConfig from './Illuminance/GetConfig.mjs';
 import GetStatus from './Illuminance/GetStatus.mjs';
 import SetConfig from './Illuminance/SetConfig.mjs';
 import type { ComponentMethod } from './Shelly/ListMethods.mjs';
+import type ShellyApp from '../../../app.mjs';
 
 export type IlluminanceConfig = {
   /**
@@ -144,5 +145,23 @@ export default class Illuminance extends ComponentWithId<
     }
 
     await homeyDevice.safeSetCapability(homeyCapability, status[statusProperty]).catch(homeyDevice.error);
+  }
+
+  public static registerFlowCards(app: ShellyApp): void {
+    type ValueArg = 'dark' | 'twilight' | 'bright';
+
+    app.homey.flow
+      .getDeviceTriggerCard('shelly_illumination_changed')
+      .registerRunListener((flowArgs: { value: Array<ValueArg> }, triggerArgs: { value: ValueArg }) => {
+        return flowArgs.value.includes(triggerArgs.value);
+      });
+
+    app.homey.flow
+      .getConditionCard('shelly_illumination_is')
+      .registerRunListener(
+        (flowArgs: { value: Array<ValueArg>; device: ShellyLocalDevice }, triggerArgs: { manual: boolean }) => {
+          return flowArgs.value.includes(flowArgs.device.getCapabilityValue('shelly_illumination'));
+        },
+      );
   }
 }

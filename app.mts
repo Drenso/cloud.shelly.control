@@ -6,6 +6,7 @@ import OutboundWsServer from './lib/rpc/OutboundWsServer.mjs';
 import { VirtualDevice, type SerializedVirtualDevice } from './lib/VirtualDevice.mjs';
 import type ShellyLocalDevice from './lib/Device.mjs';
 import Input from './lib/component/components/Input.mjs';
+import Illuminance from './lib/component/components/Illuminance.mjs';
 
 sourceMapSupport.install();
 
@@ -82,5 +83,6 @@ export default class ShellyApp extends Homey.App {
 
   private registerFlowCards(): void {
     Input.registerFlowCards(this);
+    Illuminance.registerFlowCards(this);
   }
 }
