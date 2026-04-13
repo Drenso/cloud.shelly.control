@@ -1,0 +1,312 @@
+{
+  "ids": {
+    "modelId": "2PM",
+    "manufacturerName": "Shelly"
+  },
+  "endpoints": {
+    "ieeeAddress": "7c:2c:67:ff:fe:79:fe:bc",
+    "networkAddress": 56167,
+    "modelId": "2PM",
+    "manufacturerName": "Shelly",
+    "endpointDescriptors": [
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 56167,
+        "_reserved": 18,
+        "endpointId": 1,
+        "applicationProfileId": 260,
+        "applicationDeviceId": 514,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 0,
+        "inputClusters": [
+          0,
+          3,
+          4,
+          5,
+          258
+        ],
+        "outputClusters": []
+      },
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 56167,
+        "_reserved": 12,
+        "endpointId": 239,
+        "applicationProfileId": 49153,
+        "applicationDeviceId": 8193,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 0,
+        "inputClusters": [
+          64513,
+          64514
+        ],
+        "outputClusters": []
+      },
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 56167,
+        "_reserved": 10,
+        "endpointId": 242,
+        "applicationProfileId": 41440,
+        "applicationDeviceId": 97,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 0,
+        "inputClusters": [],
+        "outputClusters": [
+          33
+        ]
+      }
+    ],
+    "deviceType": "router",
+    "receiveWhenIdle": true,
+    "capabilities": {
+      "alternatePANCoordinator": false,
+      "deviceType": true,
+      "powerSourceMains": true,
+      "receiveWhenIdle": true,
+      "security": false,
+      "allocateAddress": true
+    },
+    "extendedEndpointDescriptors": {
+      "1": {
+        "clusters": {
+          "basic": {
+            "attributes": [
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 0,
+                "name": "zclVersion",
+                "value": 8
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 7,
+                "name": "powerSource",
+                "value": "unknown"
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 4,
+                "name": "manufacturerName",
+                "value": "Shelly"
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 5,
+                "name": "modelId",
+                "value": "2PM"
+              }
+            ],
+            "commandsGenerated": [],
+            "commandsReceived": [
+              "factoryReset"
+            ]
+          },
+          "identify": {
+            "attributes": [
+              {
+                "acl": [
+                  "readable",
+                  "writable"
+                ],
+                "id": 0,
+                "name": "identifyTime",
+                "value": 0
+              }
+            ],
+            "commandsGenerated": [
+              "identifyQuery.response"
+            ],
+            "commandsReceived": [
+              "identify",
+              "identifyQuery",
+              "triggerEffect"
+            ]
+          },
+          "groups": {
+            "attributes": [
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 0,
+                "name": "nameSupport",
+                "value": {
+                  "type": "Buffer",
+                  "data": [
+                    0
+                  ]
+                }
+              }
+            ],
+            "commandsGenerated": [
+              "addGroup.response",
+              "viewGroup.response",
+              "getGroupMembership.response",
+              "removeGroup.response"
+            ],
+            "commandsReceived": [
+              "addGroup",
+              "viewGroup",
+              "getGroupMembership",
+              "removeGroup",
+              "removeAllGroups",
+              "addGroupIfIdentify"
+            ]
+          },
+          "scenes": {
+            "attributes": [
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 0
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 1
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 2
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 3
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 4
+              }
+            ],
+            "commandsGenerated": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              6
+            ],
+            "commandsReceived": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ]
+          },
+          "windowCovering": {
+            "attributes": [
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 0,
+                "name": "windowCoveringType",
+                "value": "rollershade"
+              },
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 7,
+                "name": "configStatus",
+                "value": {
+                  "type": "Buffer",
+                  "data": [
+                    3
+                  ]
+                }
+              },
+              {
+                "acl": [
+                  "readable",
+                  "writable"
+                ],
+                "id": 23
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 16
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 17
+              },
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 8,
+                "name": "currentPositionLiftPercentage",
+                "value": 50
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 18
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 19
+              },
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 9,
+                "name": "currentPositionTiltPercentage",
+                "value": 50
+              }
+            ],
+            "commandsGenerated": [],
+            "commandsReceived": [
+              "upOpen",
+              "downClose",
+              "stop",
+              "goToLiftPercentage",
+              "goToTiltPercentage"
+            ]
+          }
+        },
+        "bindings": {}
+      },
+      "239": {
+        "clusters": {},
+        "bindings": {}
+      },
+      "242": {
+        "clusters": {},
+        "bindings": {}
+      }
+    }
+  }
+}

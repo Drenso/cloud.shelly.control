@@ -1,0 +1,31 @@
+{
+  "$extends": ["zigbee"],
+  "name": {
+    "en": "Flood Gen4 - Zigbee"
+  },
+  "class": "sensor",
+  "capabilities": ["alarm_water", "measure_battery"],
+  "energy": {
+    "batteries": ["AA", "AA", "AA", "AA"]
+  },
+  "zigbee": {
+    "manufacturerName": "Shelly",
+    "productId": ["Flood"],
+    "endpoints": {
+      "1": {
+        "clusters": [0, 1, 1280],
+        "bindings": [1280]
+      }
+    },
+    "learnmode": {
+      "instruction": {
+        "en": "Verify that the device is in Zigbee mode (you can enable Zigbee mode by pressing the LED button five times).\n\nPress the LED button three times to initialize pairing, it will start flashing purple."
+      }
+    }
+  },
+  "images": {
+    "small": "/assets/drivers/shellyfloodg4/images/small.png",
+    "large": "/assets/drivers/shellyfloodg4/images/large.png",
+    "xlarge": "/assets/drivers/shellyfloodg4/images/xlarge.png"
+  }
+}

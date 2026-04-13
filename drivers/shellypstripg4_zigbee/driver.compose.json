@@ -1,0 +1,60 @@
+{
+  "$extends": ["zigbee"],
+  "name": {
+    "en": "Power Strip 4 Gen4 - Zigbee"
+  },
+  "class": "socket",
+  "capabilities": ["meter_power", "measure_current", "measure_frequency", "measure_power", "measure_voltage", "onoff"],
+  "zigbee": {
+    "manufacturerName": "Shelly",
+    "productId": ["Power Strip"],
+    "devices": {
+      "channel2": {
+        "name": {
+          "en": "Power Strip 4 Gen4 - Zigbee (2)"
+        },
+        "capabilities": ["meter_power", "measure_current", "measure_power", "onoff"]
+      },
+      "channel3": {
+        "name": {
+          "en": "Power Strip 4 Gen4 - Zigbee (3)"
+        },
+        "capabilities": ["meter_power", "measure_current", "measure_power", "onoff"]
+      },
+      "channel4": {
+        "name": {
+          "en": "Power Strip 4 Gen4 - Zigbee (4)"
+        },
+        "capabilities": ["meter_power", "measure_current", "measure_power", "onoff"]
+      }
+    },
+    "endpoints": {
+      "1": {
+        "clusters": [0, 3, 4, 5, 6, 1794, 2820],
+        "bindings": [6, 1794, 2820]
+      },
+      "2": {
+        "clusters": [4, 5, 6, 1794, 2820],
+        "bindings": [6, 1794, 2820]
+      },
+      "3": {
+        "clusters": [4, 5, 6, 1794, 2820],
+        "bindings": [6, 1794, 2820]
+      },
+      "4": {
+        "clusters": [4, 5, 6, 1794, 2820],
+        "bindings": [6, 1794, 2820]
+      }
+    },
+    "learnmode": {
+      "instruction": {
+        "en": "Verify that the device is in Zigbee mode (you can enable Zigbee mode by holding button 1 and pressing button 4 five times).\n\nHold button 1 and press button 4 three times to initialize pairing."
+      }
+    }
+  },
+  "images": {
+    "small": "/assets/drivers/shellypstripg4/images/small.png",
+    "large": "/assets/drivers/shellypstripg4/images/large.png",
+    "xlarge": "/assets/drivers/shellypstripg4/images/xlarge.png"
+  }
+}

@@ -1,0 +1,117 @@
+{
+  "ids": {
+    "modelId": "Flood",
+    "manufacturerName": "Shelly"
+  },
+  "endpoints": {
+    "ieeeAddress": "7c:2c:67:ff:fe:71:b9:44",
+    "networkAddress": 26374,
+    "modelId": "Flood",
+    "manufacturerName": "Shelly",
+    "endpointDescriptors": [
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 26374,
+        "_reserved": 16,
+        "endpointId": 1,
+        "applicationProfileId": 260,
+        "applicationDeviceId": 1026,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 0,
+        "inputClusters": [
+          0,
+          1,
+          3,
+          1280
+        ],
+        "outputClusters": []
+      }
+    ],
+    "deviceType": "enddevice",
+    "receiveWhenIdle": false,
+    "capabilities": {
+      "alternatePANCoordinator": false,
+      "deviceType": false,
+      "powerSourceMains": false,
+      "receiveWhenIdle": false,
+      "security": false,
+      "allocateAddress": true
+    },
+    "extendedEndpointDescriptors": {
+      "1": {
+        "clusters": {
+          "basic": {},
+          "powerConfiguration": {
+            "attributes": [
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 32,
+                "name": "batteryVoltage",
+                "value": 62
+              },
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 33,
+                "name": "batteryPercentageRemaining",
+                "value": 200
+              }
+            ]
+          },
+          "identify": {
+            "commandsReceived": [
+              "identify",
+              "identifyQuery",
+              "triggerEffect"
+            ]
+          },
+          "iasZone": {
+            "attributes": [
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 0,
+                "name": "zoneState"
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 1,
+                "name": "zoneType"
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 2,
+                "name": "zoneStatus"
+              },
+              {
+                "acl": [
+                  "readable",
+                  "writable"
+                ],
+                "id": 16,
+                "name": "iasCIEAddress"
+              },
+              {
+                "acl": [
+                  "readable"
+                ],
+                "id": 17,
+                "name": "zoneId"
+              }
+            ]
+          }
+        },
+        "bindings": {}
+      }
+    }
+  }
+}

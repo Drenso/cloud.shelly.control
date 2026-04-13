@@ -1,0 +1,40 @@
+{
+  "$extends": ["zigbee"],
+  "name": {
+    "en": "2PM Gen4 - Switch - Zigbee"
+  },
+  "class": "socket",
+  "capabilities": ["meter_power", "measure_current", "measure_frequency", "measure_power", "measure_voltage", "onoff"],
+  "zigbee": {
+    "manufacturerName": "Shelly",
+    "productId": ["2PM"],
+    "devices": {
+      "secondChannel": {
+        "name": {
+          "en": "2PM Gen4 - Switch - Zigbee (2)"
+        },
+        "capabilities": ["meter_power", "measure_current", "measure_power", "onoff"]
+      }
+    },
+    "endpoints": {
+      "1": {
+        "clusters": [0, 3, 4, 5, 6, 1794, 2820],
+        "bindings": [6, 1794, 2820]
+      },
+      "2": {
+        "clusters": [0, 3, 4, 5, 6, 1794, 2820],
+        "bindings": [6, 1794, 2820]
+      }
+    },
+    "learnmode": {
+      "instruction": {
+        "en": "Verify that the device is in Zigbee mode and switch mode (you can enable Zigbee mode by pressing the reset button five times).\n\nPress the reset button three times to initialize pairing."
+      }
+    }
+  },
+  "images": {
+    "small": "/assets/drivers/shelly2pmg4/images/small.png",
+    "large": "/assets/drivers/shelly2pmg4/images/large.png",
+    "xlarge": "/assets/drivers/shelly2pmg4/images/xlarge.png"
+  }
+}

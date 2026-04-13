@@ -1,0 +1,9 @@
+{
+  "type": "number",
+  "value": 30,
+  "min": 4,
+  "max": 30,
+  "label": {
+    "en": "Maximum setpoint"
+  }
+}

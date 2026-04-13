@@ -848,6 +848,54 @@
     },
     {
       "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "icon": "/drivers/shelly1g4_zigbee/assets/icon.svg",
+      "name": {
+        "en": "1 Gen4 - Zigbee"
+      },
+      "class": "socket",
+      "capabilities": [
+        "onoff"
+      ],
+      "zigbee": {
+        "manufacturerName": "Shelly",
+        "productId": [
+          "1"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              3,
+              4,
+              5,
+              6
+            ],
+            "bindings": [
+              6
+            ]
+          }
+        },
+        "learnmode": {
+          "instruction": {
+            "en": "Verify that the device is in Zigbee mode (you can enable Zigbee mode by pressing the reset button five times).\n\nPress the reset button three times to initialize pairing."
+          }
+        }
+      },
+      "images": {
+        "small": "/assets/drivers/shelly1g4/images/small.png",
+        "large": "/assets/drivers/shelly1g4/images/large.png",
+        "xlarge": "/assets/drivers/shelly1g4/images/xlarge.png"
+      },
+      "id": "shelly1g4_zigbee"
+    },
+    {
+      "platforms": [
         "local"
       ],
       "connectivity": [
@@ -1046,6 +1094,54 @@
           ]
         }
       ]
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "icon": "/drivers/shelly1minig4_zigbee/assets/icon.svg",
+      "name": {
+        "en": "1 Mini Gen4 - Zigbee"
+      },
+      "class": "socket",
+      "capabilities": [
+        "onoff"
+      ],
+      "zigbee": {
+        "manufacturerName": "Shelly",
+        "productId": [
+          "Mini1"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              3,
+              4,
+              5,
+              6
+            ],
+            "bindings": [
+              6
+            ]
+          }
+        },
+        "learnmode": {
+          "instruction": {
+            "en": "Verify that the device is in Zigbee mode (you can enable Zigbee mode by pressing the reset button five times).\n\nPress the reset button three times to initialize pairing."
+          }
+        }
+      },
+      "images": {
+        "small": "/assets/drivers/shelly1minig4/images/small.png",
+        "large": "/assets/drivers/shelly1minig4/images/large.png",
+        "xlarge": "/assets/drivers/shelly1minig4/images/xlarge.png"
+      },
+      "id": "shelly1minig4_zigbee"
     },
     {
       "platforms": [
@@ -1308,6 +1404,63 @@
           }
         }
       ]
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "icon": "/drivers/shelly1pmg4_zigbee/assets/icon.svg",
+      "name": {
+        "en": "1PM Gen4 - Zigbee"
+      },
+      "class": "socket",
+      "capabilities": [
+        "meter_power",
+        "measure_current",
+        "measure_frequency",
+        "measure_power",
+        "measure_voltage",
+        "onoff"
+      ],
+      "zigbee": {
+        "manufacturerName": "Shelly",
+        "productId": [
+          "1PM"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              3,
+              4,
+              5,
+              6,
+              1794,
+              2820
+            ],
+            "bindings": [
+              6,
+              1794,
+              2820
+            ]
+          }
+        },
+        "learnmode": {
+          "instruction": {
+            "en": "Verify that the device is in Zigbee mode (you can enable Zigbee mode by pressing the reset button five times).\n\nPress the reset button three times to initialize pairing."
+          }
+        }
+      },
+      "images": {
+        "small": "/assets/drivers/shelly1pmg4/images/small.png",
+        "large": "/assets/drivers/shelly1pmg4/images/large.png",
+        "xlarge": "/assets/drivers/shelly1pmg4/images/xlarge.png"
+      },
+      "id": "shelly1pmg4_zigbee"
     },
     {
       "platforms": [
@@ -1576,6 +1729,63 @@
           }
         }
       ]
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "icon": "/drivers/shelly1pmminig4_zigbee/assets/icon.svg",
+      "name": {
+        "en": "1PM Mini Gen4 - Zigbee"
+      },
+      "class": "socket",
+      "capabilities": [
+        "meter_power",
+        "measure_current",
+        "measure_frequency",
+        "measure_power",
+        "measure_voltage",
+        "onoff"
+      ],
+      "zigbee": {
+        "manufacturerName": "Shelly",
+        "productId": [
+          "Mini1PM"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              3,
+              4,
+              5,
+              6,
+              1794,
+              2820
+            ],
+            "bindings": [
+              6,
+              1794,
+              2820
+            ]
+          }
+        },
+        "learnmode": {
+          "instruction": {
+            "en": "Verify that the device is in Zigbee mode (you can enable Zigbee mode by pressing the reset button five times).\n\nPress the reset button three times to initialize pairing."
+          }
+        }
+      },
+      "images": {
+        "small": "/assets/drivers/shelly1pmminig4/images/small.png",
+        "large": "/assets/drivers/shelly1pmminig4/images/large.png",
+        "xlarge": "/assets/drivers/shelly1pmminig4/images/xlarge.png"
+      },
+      "id": "shelly1pmminig4_zigbee"
     },
     {
       "platforms": [
@@ -2199,6 +2409,55 @@
     },
     {
       "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "icon": "/drivers/shelly2pmg4_cover_zigbee/assets/icon.svg",
+      "name": {
+        "en": "2PM Gen4 - Cover - Zigbee"
+      },
+      "class": "windowcoverings",
+      "capabilities": [
+        "windowcoverings_set",
+        "windowcoverings_state"
+      ],
+      "zigbee": {
+        "manufacturerName": "Shelly",
+        "productId": [
+          "2PM"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              3,
+              4,
+              5,
+              258
+            ],
+            "bindings": [
+              258
+            ]
+          }
+        },
+        "learnmode": {
+          "instruction": {
+            "en": "Verify that the device is in Zigbee mode and cover mode (you can enable Zigbee mode by pressing the reset button five times).\n\nPress the reset button three times to initialize pairing."
+          }
+        }
+      },
+      "images": {
+        "small": "/assets/drivers/shelly2pmg4/images/small.png",
+        "large": "/assets/drivers/shelly2pmg4/images/large.png",
+        "xlarge": "/assets/drivers/shelly2pmg4/images/xlarge.png"
+      },
+      "id": "shelly2pmg4_cover_zigbee"
+    },
+    {
+      "platforms": [
         "local"
       ],
       "connectivity": [
@@ -2472,6 +2731,200 @@
           "value": false,
           "hint": {
             "en": "Whether the measurement direction of active power and energy should be reversed. Requires a restart of the device."
+          }
+        }
+      ]
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "icon": "/drivers/shelly2pmg4_switch_zigbee/assets/icon.svg",
+      "name": {
+        "en": "2PM Gen4 - Switch - Zigbee"
+      },
+      "class": "socket",
+      "capabilities": [
+        "meter_power",
+        "measure_current",
+        "measure_frequency",
+        "measure_power",
+        "measure_voltage",
+        "onoff"
+      ],
+      "zigbee": {
+        "manufacturerName": "Shelly",
+        "productId": [
+          "2PM"
+        ],
+        "devices": {
+          "secondChannel": {
+            "name": {
+              "en": "2PM Gen4 - Switch - Zigbee (2)"
+            },
+            "capabilities": [
+              "meter_power",
+              "measure_current",
+              "measure_power",
+              "onoff"
+            ]
+          }
+        },
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              3,
+              4,
+              5,
+              6,
+              1794,
+              2820
+            ],
+            "bindings": [
+              6,
+              1794,
+              2820
+            ]
+          },
+          "2": {
+            "clusters": [
+              0,
+              3,
+              4,
+              5,
+              6,
+              1794,
+              2820
+            ],
+            "bindings": [
+              6,
+              1794,
+              2820
+            ]
+          }
+        },
+        "learnmode": {
+          "instruction": {
+            "en": "Verify that the device is in Zigbee mode and switch mode (you can enable Zigbee mode by pressing the reset button five times).\n\nPress the reset button three times to initialize pairing."
+          }
+        }
+      },
+      "images": {
+        "small": "/assets/drivers/shelly2pmg4/images/small.png",
+        "large": "/assets/drivers/shelly2pmg4/images/large.png",
+        "xlarge": "/assets/drivers/shelly2pmg4/images/xlarge.png"
+      },
+      "id": "shelly2pmg4_switch_zigbee"
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "icon": "/drivers/shellyblutrv_zigbee/assets/icon.svg",
+      "name": {
+        "en": "BLU TRV - Zigbee"
+      },
+      "class": "thermostat",
+      "capabilities": [
+        "thermostat_mode",
+        "measure_temperature",
+        "target_temperature",
+        "measure_battery",
+        "alarm_problem",
+        "button.calibrate"
+      ],
+      "capabilitiesOptions": {
+        "alarm_problem": {
+          "title": {
+            "en": "Calibration issue"
+          }
+        },
+        "target_temperature": {
+          "max": 30,
+          "step": 0.1
+        },
+        "thermostat_mode": {
+          "uiComponent": null
+        },
+        "button.calibrate": {
+          "maintenanceAction": true,
+          "title": {
+            "en": "Start calibration"
+          }
+        }
+      },
+      "energy": {
+        "batteries": [
+          "AA",
+          "AA"
+        ]
+      },
+      "zigbee": {
+        "manufacturerName": "Shelly",
+        "productId": [
+          "BLU TRV"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              1,
+              3,
+              4,
+              5,
+              513,
+              1026,
+              1030,
+              64548
+            ],
+            "bindings": [
+              513,
+              1026,
+              1030
+            ]
+          }
+        },
+        "learnmode": {
+          "image": "/drivers/shellyblutrv_zigbee/assets/learnmode.svg",
+          "instruction": {
+            "en": "Press the reset button three times to initialize Zigbee pairing. You can also activate the menu by turning the knob in quick short movements for less than 10 steps CCW > CW > CCW> CW (start in either direction) to access the user menu and select ZbP (5 steps CW). The display will blink ZbP when in Zigbee pairing mode."
+          }
+        }
+      },
+      "images": {
+        "small": "/assets/drivers/shellyblutrv/images/small.png",
+        "large": "/assets/drivers/shellyblutrv/images/large.png",
+        "xlarge": "/assets/drivers/shellyblutrv/images/xlarge.png"
+      },
+      "id": "shellyblutrv_zigbee",
+      "settings": [
+        {
+          "id": "TRV.min_setpoint",
+          "type": "number",
+          "value": 4,
+          "min": 4,
+          "max": 30,
+          "label": {
+            "en": "Minimum setpoint"
+          }
+        },
+        {
+          "id": "TRV.max_setpoint",
+          "type": "number",
+          "value": 30,
+          "min": 4,
+          "max": 30,
+          "label": {
+            "en": "Maximum setpoint"
           }
         }
       ]
@@ -3392,6 +3845,115 @@
     },
     {
       "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "icon": "/drivers/shellyemminig4_zigbee/assets/icon.svg",
+      "name": {
+        "en": "EM Mini Gen4 - Zigbee"
+      },
+      "class": "socket",
+      "capabilities": [
+        "meter_power",
+        "measure_current",
+        "measure_frequency",
+        "measure_power",
+        "measure_voltage"
+      ],
+      "zigbee": {
+        "manufacturerName": "Shelly",
+        "productId": [
+          "EM Mini"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              3,
+              4,
+              5,
+              1794,
+              2820
+            ],
+            "bindings": [
+              1794,
+              2820
+            ]
+          }
+        },
+        "learnmode": {
+          "instruction": {
+            "en": "Verify that the device is in Zigbee mode (you can enable Zigbee mode by pressing the reset button five times).\n\nPress the reset button three times to initialize pairing."
+          }
+        }
+      },
+      "images": {
+        "small": "/assets/drivers/shellyemminig4/images/small.png",
+        "large": "/assets/drivers/shellyemminig4/images/large.png",
+        "xlarge": "/assets/drivers/shellyemminig4/images/xlarge.png"
+      },
+      "id": "shellyemminig4_zigbee"
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "icon": "/drivers/shellyfloodg4_zigbee/assets/icon.svg",
+      "name": {
+        "en": "Flood Gen4 - Zigbee"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "alarm_water",
+        "measure_battery"
+      ],
+      "energy": {
+        "batteries": [
+          "AA",
+          "AA",
+          "AA",
+          "AA"
+        ]
+      },
+      "zigbee": {
+        "manufacturerName": "Shelly",
+        "productId": [
+          "Flood"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              1,
+              1280
+            ],
+            "bindings": [
+              1280
+            ]
+          }
+        },
+        "learnmode": {
+          "instruction": {
+            "en": "Verify that the device is in Zigbee mode (you can enable Zigbee mode by pressing the LED button five times).\n\nPress the LED button three times to initialize pairing, it will start flashing purple."
+          }
+        }
+      },
+      "images": {
+        "small": "/assets/drivers/shellyfloodg4/images/small.png",
+        "large": "/assets/drivers/shellyfloodg4/images/large.png",
+        "xlarge": "/assets/drivers/shellyfloodg4/images/xlarge.png"
+      },
+      "id": "shellyfloodg4_zigbee"
+    },
+    {
+      "platforms": [
         "local"
       ],
       "connectivity": [
@@ -3835,6 +4397,140 @@
           ]
         }
       ]
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "icon": "/drivers/shellypstripg4_zigbee/assets/icon.svg",
+      "name": {
+        "en": "Power Strip 4 Gen4 - Zigbee"
+      },
+      "class": "socket",
+      "capabilities": [
+        "meter_power",
+        "measure_current",
+        "measure_frequency",
+        "measure_power",
+        "measure_voltage",
+        "onoff"
+      ],
+      "zigbee": {
+        "manufacturerName": "Shelly",
+        "productId": [
+          "Power Strip"
+        ],
+        "devices": {
+          "channel2": {
+            "name": {
+              "en": "Power Strip 4 Gen4 - Zigbee (2)"
+            },
+            "capabilities": [
+              "meter_power",
+              "measure_current",
+              "measure_power",
+              "onoff"
+            ]
+          },
+          "channel3": {
+            "name": {
+              "en": "Power Strip 4 Gen4 - Zigbee (3)"
+            },
+            "capabilities": [
+              "meter_power",
+              "measure_current",
+              "measure_power",
+              "onoff"
+            ]
+          },
+          "channel4": {
+            "name": {
+              "en": "Power Strip 4 Gen4 - Zigbee (4)"
+            },
+            "capabilities": [
+              "meter_power",
+              "measure_current",
+              "measure_power",
+              "onoff"
+            ]
+          }
+        },
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              3,
+              4,
+              5,
+              6,
+              1794,
+              2820
+            ],
+            "bindings": [
+              6,
+              1794,
+              2820
+            ]
+          },
+          "2": {
+            "clusters": [
+              4,
+              5,
+              6,
+              1794,
+              2820
+            ],
+            "bindings": [
+              6,
+              1794,
+              2820
+            ]
+          },
+          "3": {
+            "clusters": [
+              4,
+              5,
+              6,
+              1794,
+              2820
+            ],
+            "bindings": [
+              6,
+              1794,
+              2820
+            ]
+          },
+          "4": {
+            "clusters": [
+              4,
+              5,
+              6,
+              1794,
+              2820
+            ],
+            "bindings": [
+              6,
+              1794,
+              2820
+            ]
+          }
+        },
+        "learnmode": {
+          "instruction": {
+            "en": "Verify that the device is in Zigbee mode (you can enable Zigbee mode by holding button 1 and pressing button 4 five times).\n\nHold button 1 and press button 4 three times to initialize pairing."
+          }
+        }
+      },
+      "images": {
+        "small": "/assets/drivers/shellypstripg4/images/small.png",
+        "large": "/assets/drivers/shellypstripg4/images/large.png",
+        "xlarge": "/assets/drivers/shellypstripg4/images/xlarge.png"
+      },
+      "id": "shellypstripg4_zigbee"
     }
   ],
   "capabilities": {

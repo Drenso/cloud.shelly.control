@@ -1,0 +1,582 @@
+{
+  "ids": {
+    "modelId": "BLU TRV",
+    "manufacturerName": "Shelly"
+  },
+  "endpoints": {
+    "ieeeAddress": "f8:44:77:ff:fe:2d:08:40",
+    "networkAddress": 63243,
+    "modelId": "BLU TRV",
+    "manufacturerName": "Shelly",
+    "endpointDescriptors": [
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 63243,
+        "_reserved": 28,
+        "endpointId": 1,
+        "applicationProfileId": 260,
+        "applicationDeviceId": 769,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 1,
+        "inputClusters": [
+          0,
+          1,
+          3,
+          4,
+          5,
+          513,
+          64548
+        ],
+        "outputClusters": [
+          3,
+          1026,
+          1030
+        ]
+      }
+    ],
+    "deviceType": "enddevice",
+    "receiveWhenIdle": false,
+    "swBuildId": "1.3.2",
+    "capabilities": {
+      "alternatePANCoordinator": false,
+      "deviceType": false,
+      "powerSourceMains": false,
+      "receiveWhenIdle": false,
+      "security": false,
+      "allocateAddress": true
+    },
+    "extendedEndpointDescriptors": {
+      "1": {
+        "clusters": {
+          "basic": {
+            "attributes": [
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 0,
+                "name": "zclVersion",
+                "value": 8,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 4,
+                "name": "manufacturerName",
+                "value": "Shelly",
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 5,
+                "name": "modelId",
+                "value": "BLU TRV",
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 7,
+                "name": "powerSource",
+                "value": "battery",
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 10,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 16384,
+                "name": "swBuildId",
+                "value": "1.3.2",
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 65533,
+                "name": "clusterRevision",
+                "value": 1,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              }
+            ],
+            "commandsGenerated": [],
+            "commandsReceived": [
+              "factoryReset"
+            ]
+          },
+          "powerConfiguration": {
+            "attributes": [
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 33,
+                "name": "batteryPercentageRemaining",
+                "value": 200,
+                "reportingConfiguration": {
+                  "direction": "reported",
+                  "attributeDataType": 32,
+                  "minInterval": 60,
+                  "maxInterval": 600,
+                  "minChange": 2,
+                  "status": "SUCCESS"
+                }
+              },
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 65533,
+                "name": "clusterRevision",
+                "value": 2,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              }
+            ],
+            "commandsGenerated": [],
+            "commandsReceived": []
+          },
+          "identify": {
+            "attributes": [
+              {
+                "acl": [
+                  "readable",
+                  "writable",
+                  "reportable"
+                ],
+                "id": 0,
+                "name": "identifyTime",
+                "value": 0,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 65533,
+                "name": "clusterRevision",
+                "value": 1,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              }
+            ],
+            "commandsGenerated": [
+              "identifyQuery.response"
+            ],
+            "commandsReceived": [
+              "identify",
+              "identifyQuery",
+              "triggerEffect"
+            ]
+          },
+          "groups": {
+            "attributes": [
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 0,
+                "name": "nameSupport",
+                "value": {
+                  "type": "Buffer",
+                  "data": [
+                    0
+                  ]
+                },
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 65533,
+                "name": "clusterRevision",
+                "value": 3,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              }
+            ],
+            "commandsGenerated": [
+              "addGroup.response",
+              "viewGroup.response",
+              "getGroupMembership.response",
+              "removeGroup.response"
+            ],
+            "commandsReceived": [
+              "addGroup",
+              "viewGroup",
+              "getGroupMembership",
+              "removeGroup",
+              "removeAllGroups",
+              "addGroupIfIdentify"
+            ]
+          },
+          "scenes": {
+            "attributes": [
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 0,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 1,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 2,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 3,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 4,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 65533,
+                "name": "clusterRevision",
+                "value": 3,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              }
+            ],
+            "commandsGenerated": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              6
+            ],
+            "commandsReceived": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ]
+          },
+          "thermostat": {
+            "attributes": [
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 0,
+                "name": "localTemperature",
+                "value": 2203
+              },
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 2,
+                "name": "occupancy",
+                "value": {
+                  "type": "Buffer",
+                  "data": [
+                    1
+                  ]
+                }
+              },
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 3,
+                "name": "absMinHeatSetpointLimit",
+                "value": 400
+              },
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 4,
+                "name": "absMaxHeatSetpointLimit",
+                "value": 3000
+              },
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 8,
+                "name": "pIHeatingDemand",
+                "value": 100
+              },
+              {
+                "acl": [
+                  "readable",
+                  "writable",
+                  "reportable"
+                ],
+                "id": 16,
+                "name": "localTemperatureCalibration",
+                "value": 0
+              },
+              {
+                "acl": [
+                  "readable",
+                  "writable",
+                  "reportable"
+                ],
+                "id": 18,
+                "name": "occupiedHeatingSetpoint",
+                "value": 2460
+              },
+              {
+                "acl": [
+                  "readable",
+                  "writable",
+                  "reportable"
+                ],
+                "id": 20,
+                "name": "unoccupiedHeatingSetpoint",
+                "value": 1300
+              },
+              {
+                "acl": [
+                  "readable",
+                  "writable",
+                  "reportable"
+                ],
+                "id": 21,
+                "name": "minHeatSetpointLimit",
+                "value": 1300
+              },
+              {
+                "acl": [
+                  "readable",
+                  "writable",
+                  "reportable"
+                ],
+                "id": 22,
+                "name": "maxHeatSetpointLimit",
+                "value": 2500
+              },
+              {
+                "acl": [
+                  "readable",
+                  "writable",
+                  "reportable"
+                ],
+                "id": 26,
+                "name": "remoteSensing",
+                "value": {
+                  "type": "Buffer",
+                  "data": [
+                    0
+                  ]
+                }
+              },
+              {
+                "acl": [
+                  "readable",
+                  "writable",
+                  "reportable"
+                ],
+                "id": 27,
+                "name": "controlSequenceOfOperation",
+                "value": "heating"
+              },
+              {
+                "acl": [
+                  "readable",
+                  "writable",
+                  "reportable"
+                ],
+                "id": 28,
+                "name": "systemMode",
+                "value": "heat"
+              },
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 29,
+                "name": "alarmMask",
+                "value": {
+                  "type": "Buffer",
+                  "data": [
+                    0
+                  ]
+                }
+              },
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 65533,
+                "name": "clusterRevision",
+                "value": 3
+              }
+            ],
+            "commandsGenerated": [],
+            "commandsReceived": [
+              "setSetpoint"
+            ]
+          }
+        },
+        "bindings": {
+          "identify": {
+            "attributes": [
+              {
+                "acl": [
+                  "readable",
+                  "writable",
+                  "reportable"
+                ],
+                "id": 0,
+                "name": "identifyTime",
+                "value": 0,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": [
+                  "readable",
+                  "reportable"
+                ],
+                "id": 65533,
+                "name": "clusterRevision",
+                "value": 1,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              }
+            ],
+            "commandsGenerated": [
+              "identifyQuery.response"
+            ],
+            "commandsReceived": [
+              "identify",
+              "identifyQuery",
+              "triggerEffect"
+            ]
+          },
+          "temperatureMeasurement": {
+            "attributes": [],
+            "commandsGenerated": [],
+            "commandsReceived": []
+          },
+          "occupancySensing": {
+            "attributes": [],
+            "commandsGenerated": [],
+            "commandsReceived": []
+          }
+        }
+      }
+    }
+  }
+}

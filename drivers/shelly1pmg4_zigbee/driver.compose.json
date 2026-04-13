@@ -1,0 +1,28 @@
+{
+  "$extends": ["zigbee"],
+  "name": {
+    "en": "1PM Gen4 - Zigbee"
+  },
+  "class": "socket",
+  "capabilities": ["meter_power", "measure_current", "measure_frequency", "measure_power", "measure_voltage", "onoff"],
+  "zigbee": {
+    "manufacturerName": "Shelly",
+    "productId": ["1PM"],
+    "endpoints": {
+      "1": {
+        "clusters": [0, 3, 4, 5, 6, 1794, 2820],
+        "bindings": [6, 1794, 2820]
+      }
+    },
+    "learnmode": {
+      "instruction": {
+        "en": "Verify that the device is in Zigbee mode (you can enable Zigbee mode by pressing the reset button five times).\n\nPress the reset button three times to initialize pairing."
+      }
+    }
+  },
+  "images": {
+    "small": "/assets/drivers/shelly1pmg4/images/small.png",
+    "large": "/assets/drivers/shelly1pmg4/images/large.png",
+    "xlarge": "/assets/drivers/shelly1pmg4/images/xlarge.png"
+  }
+}

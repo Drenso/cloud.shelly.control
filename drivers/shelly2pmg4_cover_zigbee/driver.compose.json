@@ -1,0 +1,28 @@
+{
+  "$extends": ["zigbee"],
+  "name": {
+    "en": "2PM Gen4 - Cover - Zigbee"
+  },
+  "class": "windowcoverings",
+  "capabilities": ["windowcoverings_set", "windowcoverings_state"],
+  "zigbee": {
+    "manufacturerName": "Shelly",
+    "productId": ["2PM"],
+    "endpoints": {
+      "1": {
+        "clusters": [0, 3, 4, 5, 258],
+        "bindings": [258]
+      }
+    },
+    "learnmode": {
+      "instruction": {
+        "en": "Verify that the device is in Zigbee mode and cover mode (you can enable Zigbee mode by pressing the reset button five times).\n\nPress the reset button three times to initialize pairing."
+      }
+    }
+  },
+  "images": {
+    "small": "/assets/drivers/shelly2pmg4/images/small.png",
+    "large": "/assets/drivers/shelly2pmg4/images/large.png",
+    "xlarge": "/assets/drivers/shelly2pmg4/images/xlarge.png"
+  }
+}
