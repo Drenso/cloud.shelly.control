@@ -219,8 +219,6 @@ export default class CCT extends ComponentWithId<'CCT', CCTStatus, CCTConfig, CC
     return DimStop(channel, this.id);
   }
 
-  public async register(_methods: ComponentMethod<'CCT'>[]): Promise<void> {}
-
   public async registerHomeyDevice(homeyDevice: ShellyLocalDevice, _methods: ComponentMethod<'CCT'>[]): Promise<void> {
     {
       // output

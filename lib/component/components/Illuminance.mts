@@ -68,8 +68,6 @@ export default class Illuminance extends ComponentWithId<
   public readonly namespace = 'Illuminance';
   public static readonly uiName = 'Illuminance';
 
-  public async register(_methods: ComponentMethod<'Illuminance'>[]): Promise<void> {}
-
   public async registerHomeyDevice(
     homeyDevice: ShellyLocalDevice,
     _methods: ComponentMethod<'Illuminance'>[],

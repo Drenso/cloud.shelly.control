@@ -350,10 +350,6 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
     return Trigger(channel, this.id, params);
   }
 
-  public async register(): Promise<void> {
-    return;
-  }
-
   public async registerHomeyDevice(
     homeyDevice: ShellyLocalDevice,
     _methods: ComponentMethod<'Input'>[],

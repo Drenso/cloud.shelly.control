@@ -222,8 +222,6 @@ export default class System extends ComponentWithoutId<'Sys', SystemStatus, Syst
 
   public readonly SetTime = SetTime;
 
-  public async register(): Promise<void> {}
-
   public async registerHomeyDevice(
     _homeyDevice: ShellyLocalDevice,
     _methods: ComponentMethod<'Sys'>[],

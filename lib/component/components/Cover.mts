@@ -563,10 +563,6 @@ export default class Cover extends ComponentWithId<'Cover', CoverStatus, CoverCo
     return ResetCounters(channel, this.id, params);
   }
 
-  public async register(): Promise<void> {
-    return;
-  }
-
   public async registerHomeyDevice(homeyDevice: ShellyLocalDevice, methods: ComponentMethod<'Cover'>[]): Promise<void> {
     {
       const homeyCapability = 'windowcoverings_state';

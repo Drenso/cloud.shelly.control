@@ -208,10 +208,6 @@ export default class Switch extends ComponentWithId<'Switch', SwitchStatus, Swit
     return ResetCounters(channel, this.id, params);
   }
 
-  public async register(): Promise<void> {
-    return;
-  }
-
   public async registerHomeyDevice(
     homeyDevice: ShellyLocalDevice,
     methods: ComponentMethod<'Switch'>[],

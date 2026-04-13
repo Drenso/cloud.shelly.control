@@ -181,8 +181,6 @@ export default class RGBCCT extends ComponentWithId<'RGBCCT', RGBCCTStatus, RGBC
     return DimStop(channel, this.id);
   }
 
-  public async register(_methods: ComponentMethod<'RGBCCT'>[]): Promise<void> {}
-
   public async registerHomeyDevice(
     homeyDevice: ShellyLocalDevice,
     _methods: ComponentMethod<'RGBCCT'>[],

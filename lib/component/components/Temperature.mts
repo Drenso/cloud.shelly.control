@@ -54,10 +54,6 @@ export default class Temperature extends ComponentWithId<
   public readonly namespace = 'Temperature';
   public static readonly uiName = 'Temperature';
 
-  public async register(): Promise<void> {
-    return;
-  }
-
   public async registerHomeyDevice(
     homeyDevice: ShellyLocalDevice,
     _methods: ComponentMethod<'Temperature'>[],
