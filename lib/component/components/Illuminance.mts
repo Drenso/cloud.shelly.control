@@ -157,7 +157,7 @@ export default class Illuminance extends ComponentWithId<
     app.homey.flow
       .getConditionCard('shelly_illumination_is')
       .registerRunListener(
-        (flowArgs: { value: Array<ValueArg>; device: ShellyLocalDevice }, triggerArgs: { manual: boolean }) => {
+        (flowArgs: { value: Array<ValueArg>; device: ShellyLocalDevice }, _triggerArgs: { manual: boolean }) => {
           return flowArgs.value.includes(flowArgs.device.getCapabilityValue('shelly_illumination'));
         },
       );

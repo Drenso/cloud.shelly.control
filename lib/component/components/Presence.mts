@@ -259,7 +259,7 @@ export default class Presence extends ComponentWithoutId<
     }
   }
 
-  public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: PresenceStatus): Promise<void> {
+  public async onStatusUpdate(_homeyDevice: ShellyLocalDevice, _status: PresenceStatus): Promise<void> {
     return;
   }
 
@@ -362,6 +362,7 @@ export default class Presence extends ComponentWithoutId<
 
   public async handleEvent(event: NotificationEventParam): Promise<void> {
     if (event.event === 'track') {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const trackEvent = event as TrackEventNotification;
       // TODO
     } else if (event.event === 'no_track') {
