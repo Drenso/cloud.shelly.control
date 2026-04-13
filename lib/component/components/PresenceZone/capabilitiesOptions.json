@@ -1,0 +1,21 @@
+{
+  "alarm_presence": {
+    "title": {
+      "en": "Presence Alarm __name__"
+    },
+    "insightsTitleTrue": {
+      "en": "Presence Alarm __name__ turned on"
+    },
+    "insightsTitleFalse": {
+      "en": "Presence Alarm __name__ turned off"
+    }
+  },
+  "presence_count": {
+    "title": {
+      "en": "Presence Count __name__"
+    }
+  },
+  "presenceZoneName": {
+    "en": "Zone __number__"
+  }
+}

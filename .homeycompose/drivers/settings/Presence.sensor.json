@@ -1,0 +1,281 @@
+{
+  "type": "group",
+  "label": {
+    "en": "Presence Sensor - Sensor Configuration"
+  },
+  "children": [
+    {
+      "id": "Presence:sensor.flipped",
+      "type": "checkbox",
+      "label": {
+        "en": "Flipped"
+      },
+      "value": false
+    },
+    {
+      "id": "Presence:sensor.height",
+      "type": "number",
+      "label": {
+        "en": "Mount Height"
+      },
+      "value": 2,
+      "min": 0,
+      "units": {
+        "en": "m"
+      }
+    },
+    {
+      "id": "Presence:sensor.tilt",
+      "type": "number",
+      "label": {
+        "en": "Vertical Tilt"
+      },
+      "value": 15,
+      "units": {
+        "en": "degrees"
+      }
+    },
+    {
+      "id": "Presence:sensor.position",
+      "type": "dropdown",
+      "label": {
+        "en": "Mount Position"
+      },
+      "hint": {
+        "en": "The mount position of the sensor in the room."
+      },
+      "value": "center",
+      "values": [
+        {
+          "id": "left",
+          "label": {
+            "en": "Left"
+          }
+        },
+        {
+          "id": "center",
+          "label": {
+            "en": "Center"
+          }
+        },
+        {
+          "id": "right",
+          "label": {
+            "en": "Right"
+          }
+        }
+      ]
+    },
+    {
+      "id": "Presence:sensor.power",
+      "type": "dropdown",
+      "label": {
+        "en": "Power"
+      },
+      "value": "high",
+      "values": [
+        {
+          "id": "low",
+          "label": {
+            "en": "Low (0 dBm)"
+          }
+        },
+        {
+          "id": "medium",
+          "label": {
+            "en": "Medium (6 dBm)"
+          }
+        },
+        {
+          "id": "high",
+          "label": {
+            "en": "High (12 dBm)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "Presence:sensor.sensitivity",
+      "type": "dropdown",
+      "label": {
+        "en": "Sensitivity"
+      },
+      "value": "high",
+      "values": [
+        {
+          "id": "low",
+          "label": {
+            "en": "Low"
+          }
+        },
+        {
+          "id": "medium",
+          "label": {
+            "en": "Medium"
+          }
+        },
+        {
+          "id": "high",
+          "label": {
+            "en": "High"
+          }
+        },
+        {
+          "id": "custom",
+          "label": {
+            "en": "Custom"
+          }
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "label": {
+        "en": "Custom Sensitivity"
+      },
+      "children": [
+        {
+          "id": "Presence:sensor.points",
+          "type": "number",
+          "label": {
+            "en": "Recognition Threshold"
+          },
+          "hint": {
+            "en": "Set the points required to recognize an object. Lower values allow detection of smaller or partially visible objects."
+          },
+          "value": 40,
+          "min": 10,
+          "max": 100,
+          "units": {
+            "en": "points"
+          }
+        },
+        {
+          "id": "Presence:sensor.snr",
+          "type": "number",
+          "label": {
+            "en": "Signal-to-noise Ratio Threshold"
+          },
+          "hint": {
+            "en": "Set the minimum signal strength to detect motion. Lower values increase sensitivity; higher values reduce false detections."
+          },
+          "value": 50,
+          "min": 10,
+          "max": 100
+        },
+        {
+          "id": "Presence:sensor.velocity",
+          "type": "number",
+          "label": {
+            "en": "Minimum Velocity Threshold"
+          },
+          "hint": {
+            "en": "Set the minimum speed to detect an object. Use low values to better detect slow movement. Use high values to ignore slow or stationary objects."
+          },
+          "value": 0.01,
+          "min": 0.01,
+          "max": 1,
+          "units": {
+            "en": "m/s"
+          }
+        },
+        {
+          "id": "Presence:sensor.max_velocity",
+          "type": "number",
+          "label": {
+            "en": "Maximum Velocity Difference"
+          },
+          "hint": {
+            "en": "Set the speed variance for grouping points as one target. Prevents unrelated motion (e.g., one object moving past another) from being grouped together."
+          },
+          "value": 20,
+          "min": 1,
+          "max": 50,
+          "units": {
+            "en": "m/s"
+          }
+        },
+        {
+          "id": "Presence:sensor.state.det_act_thr",
+          "type": "number",
+          "label": {
+            "en": "Motion Activation Threshold"
+          },
+          "hint": {
+            "en": "Set the frames required to mark an object as active. Lower values react faster to motion; higher values improve stability and reduce false triggers."
+          },
+          "value": 3,
+          "min": 1,
+          "max": 100,
+          "units": {
+            "en": "frames"
+          }
+        },
+        {
+          "id": "Presence:sensor.state.det_free_thr",
+          "type": "number",
+          "label": {
+            "en": "Motion Release Threshold"
+          },
+          "hint": {
+            "en": "Set the frames required to clear a detection. Lower values stop detection quickly; higher values help avoid flickering."
+          },
+          "value": 3,
+          "min": 1,
+          "max": 100,
+          "units": {
+            "en": "frames"
+          }
+        },
+        {
+          "id": "Presence:sensor.state.act_free_thr",
+          "type": "number",
+          "label": {
+            "en": "Tracking Loss Threshold"
+          },
+          "hint": {
+            "en": "Set the frames required to clear an active object. Lower values switch sooner; higher values delay the transition."
+          },
+          "value": 12,
+          "min": 1,
+          "max": 1000,
+          "units": {
+            "en": "frames"
+          }
+        },
+        {
+          "id": "Presence:sensor.state.stat_free_thr",
+          "type": "number",
+          "label": {
+            "en": "Stillness Tracking Threshold"
+          },
+          "hint": {
+            "en": "Set the frames required to confirm a stationary object as presence. Higher values improve the detection of stationary objects."
+          },
+          "value": 50,
+          "min": 1,
+          "max": 1000,
+          "units": {
+            "en": "frames"
+          }
+        },
+        {
+          "id": "Presence:sensor.state.sleep_free_thr",
+          "type": "number",
+          "label": {
+            "en": "Stillness Timeout Threshold"
+          },
+          "hint": {
+            "en": "Set the maximum time to hold a detection when no motion is sensed. Higher values maintain presence during long inactivity of stationary objects."
+          },
+          "value": 100,
+          "min": 1,
+          "max": 65535,
+          "units": {
+            "en": "frames"
+          }
+        }
+      ]
+    }
+  ]
+}

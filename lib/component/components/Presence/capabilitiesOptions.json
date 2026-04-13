@@ -1,0 +1,11 @@
+{
+  "button.calibrate_presence_tilt": {
+    "title": {
+      "en": "Calibrate Presence Sensor Tilt"
+    },
+    "desc": {
+      "en": "For proper operation this must be done after sensor mounting."
+    },
+    "maintenanceAction": true
+  }
+}

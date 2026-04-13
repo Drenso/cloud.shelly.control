@@ -3,10 +3,11 @@ import Homey from 'homey';
 import sourceMapSupport from 'source-map-support';
 import { getIp } from './lib/LocalIp.mjs';
 import OutboundWsServer from './lib/rpc/OutboundWsServer.mjs';
-import { VirtualDevice, type SerializedVirtualDevice } from './lib/VirtualDevice.mjs';
+import { type SerializedVirtualDevice, VirtualDevice } from './lib/VirtualDevice.mjs';
 import type ShellyLocalDevice from './lib/Device.mjs';
 import Input from './lib/component/components/Input.mjs';
 import Illuminance from './lib/component/components/Illuminance.mjs';
+import PresenceZone from './lib/component/components/PresenceZone.mjs';
 
 sourceMapSupport.install();
 
@@ -84,5 +85,6 @@ export default class ShellyApp extends Homey.App {
   private registerFlowCards(): void {
     Input.registerFlowCards(this);
     Illuminance.registerFlowCards(this);
+    PresenceZone.registerFlowCards(this);
   }
 }

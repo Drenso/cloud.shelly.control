@@ -1,0 +1,10 @@
+{
+  "id": "Presence:zmin",
+  "type": "number",
+  "label": {
+    "en": "Presence Sensor - Lower Detection Limit"
+  },
+  "units": "m",
+  "min": 0,
+  "value": 0
+}

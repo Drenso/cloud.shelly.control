@@ -4,5 +4,20 @@
   },
   {
     "$extends": "Illuminance.bright_thr"
+  },
+  {
+    "$extends": "Presence.enable"
+  },
+  {
+    "$extends": "Presence.zmin"
+  },
+  {
+    "$extends": "Presence.zmax"
+  },
+  {
+    "$extends": "Presence.sensor"
+  },
+  {
+    "$extends": "Presence.leds"
   }
 ]

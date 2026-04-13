@@ -1,0 +1,10 @@
+{
+  "id": "Presence:zmax",
+  "type": "number",
+  "label": {
+    "en": "Presence Sensor - Upper Detection Limit"
+  },
+  "units": "m",
+  "min": 0,
+  "value": 3
+}

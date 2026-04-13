@@ -9,6 +9,8 @@ import RGBCCT from './components/RGBCCT.mjs';
 import Switch from './components/Switch.mjs';
 import System from './components/System.mjs';
 import Temperature from './components/Temperature.mjs';
+import PresenceZone from './components/PresenceZone.mjs';
+import Presence from './components/Presence.mjs';
 
 export const ComponentWithIdMapping = {
   cct: CCT,
@@ -16,12 +18,14 @@ export const ComponentWithIdMapping = {
   illuminance: Illuminance,
   input: Input,
   light: Light,
+  presencezone: PresenceZone,
   rgbcct: RGBCCT,
   switch: Switch,
   temperature: Temperature,
 } as const;
 export const ComponentWithoutIdMapping = {
   powerstrip_ui: PowerStripUI,
+  presence: Presence,
   sys: System,
   ws: OutboundWebsocket,
 } as const;

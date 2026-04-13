@@ -1,0 +1,9 @@
+{
+  "title": {
+    "en": "Presence Count"
+  },
+  "icon": "/assets/capabilities/alarm_presence.svg",
+  "type": "number",
+  "getable": true,
+  "setable": false
+}

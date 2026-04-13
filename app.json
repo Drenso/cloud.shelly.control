@@ -675,6 +675,224 @@
       },
       {
         "title": {
+          "en": "Presence count changed"
+        },
+        "tokens": [
+          {
+            "name": "zone",
+            "type": "number",
+            "title": {
+              "en": "Zone ID"
+            },
+            "example": 201
+          },
+          {
+            "name": "value",
+            "type": "number",
+            "title": {
+              "en": "Presence Count"
+            }
+          }
+        ],
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": {
+              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypresence_local|shellypstripg4_local",
+              "capabilities": "hidden.has_presence_sensor"
+            },
+            "title": {
+              "en": "Device"
+            }
+          }
+        ],
+        "id": "presence_count_changed"
+      },
+      {
+        "title": {
+          "en": "Presence count changed"
+        },
+        "titleFormatted": {
+          "en": "Presence count [[zone]] changed"
+        },
+        "tokens": [
+          {
+            "name": "zone",
+            "type": "number",
+            "title": {
+              "en": "Zone ID"
+            },
+            "example": 201
+          },
+          {
+            "name": "value",
+            "type": "number",
+            "title": {
+              "en": "Presence Count"
+            }
+          }
+        ],
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": {
+              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypresence_local|shellypstripg4_local",
+              "capabilities": "hidden.has_presence_sensor_multiple"
+            },
+            "title": {
+              "en": "Device"
+            }
+          },
+          {
+            "name": "zone",
+            "type": "autocomplete",
+            "title": {
+              "en": "Zone"
+            }
+          }
+        ],
+        "id": "presence_count_changed_multiple"
+      },
+      {
+        "title": {
+          "en": "A presence entered"
+        },
+        "tokens": [
+          {
+            "name": "zone",
+            "type": "number",
+            "title": {
+              "en": "Zone ID"
+            },
+            "example": 201
+          }
+        ],
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": {
+              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypresence_local|shellypstripg4_local",
+              "capabilities": "hidden.has_presence_sensor"
+            },
+            "title": {
+              "en": "Device"
+            }
+          }
+        ],
+        "id": "presence_enter"
+      },
+      {
+        "title": {
+          "en": "A presence entered"
+        },
+        "titleFormatted": {
+          "en": "A presence entered [[zone]]"
+        },
+        "tokens": [
+          {
+            "name": "zone",
+            "type": "number",
+            "title": {
+              "en": "Zone ID"
+            },
+            "example": 201
+          }
+        ],
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": {
+              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypresence_local|shellypstripg4_local",
+              "capabilities": "hidden.has_presence_sensor_multiple"
+            },
+            "title": {
+              "en": "Device"
+            }
+          },
+          {
+            "name": "zone",
+            "type": "autocomplete",
+            "title": {
+              "en": "Zone"
+            }
+          }
+        ],
+        "id": "presence_enter_multiple"
+      },
+      {
+        "title": {
+          "en": "A presence exited"
+        },
+        "tokens": [
+          {
+            "name": "zone",
+            "type": "number",
+            "title": {
+              "en": "Zone ID"
+            },
+            "example": 201
+          }
+        ],
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": {
+              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypresence_local|shellypstripg4_local",
+              "capabilities": "hidden.has_presence_sensor"
+            },
+            "title": {
+              "en": "Device"
+            }
+          }
+        ],
+        "id": "presence_exit"
+      },
+      {
+        "title": {
+          "en": "A presence exited"
+        },
+        "titleFormatted": {
+          "en": "A presence exited [[zone]]"
+        },
+        "tokens": [
+          {
+            "name": "zone",
+            "type": "number",
+            "title": {
+              "en": "Zone ID"
+            },
+            "example": 201
+          }
+        ],
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": {
+              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypresence_local|shellypstripg4_local",
+              "capabilities": "hidden.has_presence_sensor_multiple"
+            },
+            "title": {
+              "en": "Device"
+            }
+          },
+          {
+            "name": "zone",
+            "type": "autocomplete",
+            "title": {
+              "en": "Zone"
+            }
+          }
+        ],
+        "id": "presence_exit_multiple"
+      },
+      {
+        "title": {
           "en": "Illumination status changed"
         },
         "titleFormatted": {
@@ -4222,6 +4440,385 @@
           "value": 50,
           "min": 0,
           "units": "lux"
+        },
+        {
+          "id": "Presence:enable",
+          "type": "checkbox",
+          "label": {
+            "en": "Presence Sensor - Enabled"
+          },
+          "value": true
+        },
+        {
+          "id": "Presence:zmin",
+          "type": "number",
+          "label": {
+            "en": "Presence Sensor - Lower Detection Limit"
+          },
+          "units": "m",
+          "min": 0,
+          "value": 0
+        },
+        {
+          "id": "Presence:zmax",
+          "type": "number",
+          "label": {
+            "en": "Presence Sensor - Upper Detection Limit"
+          },
+          "units": "m",
+          "min": 0,
+          "value": 3
+        },
+        {
+          "id": "Presence.sensor",
+          "type": "group",
+          "label": {
+            "en": "Presence Sensor - Sensor Configuration"
+          },
+          "children": [
+            {
+              "id": "Presence:sensor.flipped",
+              "type": "checkbox",
+              "label": {
+                "en": "Flipped"
+              },
+              "value": false
+            },
+            {
+              "id": "Presence:sensor.height",
+              "type": "number",
+              "label": {
+                "en": "Mount Height"
+              },
+              "value": 2,
+              "min": 0,
+              "units": {
+                "en": "m"
+              }
+            },
+            {
+              "id": "Presence:sensor.tilt",
+              "type": "number",
+              "label": {
+                "en": "Vertical Tilt"
+              },
+              "value": 15,
+              "units": {
+                "en": "degrees"
+              }
+            },
+            {
+              "id": "Presence:sensor.position",
+              "type": "dropdown",
+              "label": {
+                "en": "Mount Position"
+              },
+              "hint": {
+                "en": "The mount position of the sensor in the room."
+              },
+              "value": "center",
+              "values": [
+                {
+                  "id": "left",
+                  "label": {
+                    "en": "Left"
+                  }
+                },
+                {
+                  "id": "center",
+                  "label": {
+                    "en": "Center"
+                  }
+                },
+                {
+                  "id": "right",
+                  "label": {
+                    "en": "Right"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "Presence:sensor.power",
+              "type": "dropdown",
+              "label": {
+                "en": "Power"
+              },
+              "value": "high",
+              "values": [
+                {
+                  "id": "low",
+                  "label": {
+                    "en": "Low (0 dBm)"
+                  }
+                },
+                {
+                  "id": "medium",
+                  "label": {
+                    "en": "Medium (6 dBm)"
+                  }
+                },
+                {
+                  "id": "high",
+                  "label": {
+                    "en": "High (12 dBm)"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "Presence:sensor.sensitivity",
+              "type": "dropdown",
+              "label": {
+                "en": "Sensitivity"
+              },
+              "value": "high",
+              "values": [
+                {
+                  "id": "low",
+                  "label": {
+                    "en": "Low"
+                  }
+                },
+                {
+                  "id": "medium",
+                  "label": {
+                    "en": "Medium"
+                  }
+                },
+                {
+                  "id": "high",
+                  "label": {
+                    "en": "High"
+                  }
+                },
+                {
+                  "id": "custom",
+                  "label": {
+                    "en": "Custom"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "group",
+              "label": {
+                "en": "Custom Sensitivity"
+              },
+              "children": [
+                {
+                  "id": "Presence:sensor.points",
+                  "type": "number",
+                  "label": {
+                    "en": "Recognition Threshold"
+                  },
+                  "hint": {
+                    "en": "Set the points required to recognize an object. Lower values allow detection of smaller or partially visible objects."
+                  },
+                  "value": 40,
+                  "min": 10,
+                  "max": 100,
+                  "units": {
+                    "en": "points"
+                  }
+                },
+                {
+                  "id": "Presence:sensor.snr",
+                  "type": "number",
+                  "label": {
+                    "en": "Signal-to-noise Ratio Threshold"
+                  },
+                  "hint": {
+                    "en": "Set the minimum signal strength to detect motion. Lower values increase sensitivity; higher values reduce false detections."
+                  },
+                  "value": 50,
+                  "min": 10,
+                  "max": 100
+                },
+                {
+                  "id": "Presence:sensor.velocity",
+                  "type": "number",
+                  "label": {
+                    "en": "Minimum Velocity Threshold"
+                  },
+                  "hint": {
+                    "en": "Set the minimum speed to detect an object. Use low values to better detect slow movement. Use high values to ignore slow or stationary objects."
+                  },
+                  "value": 0.01,
+                  "min": 0.01,
+                  "max": 1,
+                  "units": {
+                    "en": "m/s"
+                  }
+                },
+                {
+                  "id": "Presence:sensor.max_velocity",
+                  "type": "number",
+                  "label": {
+                    "en": "Maximum Velocity Difference"
+                  },
+                  "hint": {
+                    "en": "Set the speed variance for grouping points as one target. Prevents unrelated motion (e.g., one object moving past another) from being grouped together."
+                  },
+                  "value": 20,
+                  "min": 1,
+                  "max": 50,
+                  "units": {
+                    "en": "m/s"
+                  }
+                },
+                {
+                  "id": "Presence:sensor.state.det_act_thr",
+                  "type": "number",
+                  "label": {
+                    "en": "Motion Activation Threshold"
+                  },
+                  "hint": {
+                    "en": "Set the frames required to mark an object as active. Lower values react faster to motion; higher values improve stability and reduce false triggers."
+                  },
+                  "value": 3,
+                  "min": 1,
+                  "max": 100,
+                  "units": {
+                    "en": "frames"
+                  }
+                },
+                {
+                  "id": "Presence:sensor.state.det_free_thr",
+                  "type": "number",
+                  "label": {
+                    "en": "Motion Release Threshold"
+                  },
+                  "hint": {
+                    "en": "Set the frames required to clear a detection. Lower values stop detection quickly; higher values help avoid flickering."
+                  },
+                  "value": 3,
+                  "min": 1,
+                  "max": 100,
+                  "units": {
+                    "en": "frames"
+                  }
+                },
+                {
+                  "id": "Presence:sensor.state.act_free_thr",
+                  "type": "number",
+                  "label": {
+                    "en": "Tracking Loss Threshold"
+                  },
+                  "hint": {
+                    "en": "Set the frames required to clear an active object. Lower values switch sooner; higher values delay the transition."
+                  },
+                  "value": 12,
+                  "min": 1,
+                  "max": 1000,
+                  "units": {
+                    "en": "frames"
+                  }
+                },
+                {
+                  "id": "Presence:sensor.state.stat_free_thr",
+                  "type": "number",
+                  "label": {
+                    "en": "Stillness Tracking Threshold"
+                  },
+                  "hint": {
+                    "en": "Set the frames required to confirm a stationary object as presence. Higher values improve the detection of stationary objects."
+                  },
+                  "value": 50,
+                  "min": 1,
+                  "max": 1000,
+                  "units": {
+                    "en": "frames"
+                  }
+                },
+                {
+                  "id": "Presence:sensor.state.sleep_free_thr",
+                  "type": "number",
+                  "label": {
+                    "en": "Stillness Timeout Threshold"
+                  },
+                  "hint": {
+                    "en": "Set the maximum time to hold a detection when no motion is sensed. Higher values maintain presence during long inactivity of stationary objects."
+                  },
+                  "value": 100,
+                  "min": 1,
+                  "max": 65535,
+                  "units": {
+                    "en": "frames"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "Presence.leds",
+          "type": "group",
+          "label": {
+            "en": "Presence Sensor - LED Configuration"
+          },
+          "children": [
+            {
+              "id": "Presence:leds.brightness",
+              "type": "number",
+              "label": {
+                "en": "Maximum Brightness"
+              },
+              "value": 20,
+              "min": 0,
+              "max": 100,
+              "units": "%"
+            },
+            {
+              "type": "group",
+              "label": "Night Mode",
+              "children": [
+                {
+                  "id": "Presence:leds.night_mode.enable",
+                  "type": "checkbox",
+                  "label": {
+                    "en": "Enabled"
+                  },
+                  "value": false
+                },
+                {
+                  "id": "Presence:leds.night_mode.brightness",
+                  "type": "number",
+                  "label": {
+                    "en": "Brightness"
+                  },
+                  "value": 100,
+                  "min": 0,
+                  "max": 100,
+                  "units": "%"
+                },
+                {
+                  "id": "Presence:leds.night_mode.active_between.start",
+                  "type": "text",
+                  "label": {
+                    "en": "Start Time"
+                  },
+                  "value": "00:00",
+                  "pattern": "^(?:(?:2[0-3])|(?:[01]?[0-9]))(?::[0-5][0-9])?$",
+                  "hint": {
+                    "en": "In 24 hour format (00:00 - 23:59)."
+                  }
+                },
+                {
+                  "id": "Presence:leds.night_mode.active_between.end",
+                  "type": "text",
+                  "label": {
+                    "en": "End Time"
+                  },
+                  "value": "23:59",
+                  "pattern": "^(?:(?:2[0-3])|(?:[01]?[0-9]))(?::[0-5][0-9])?$",
+                  "hint": {
+                    "en": "In 24 hour format (00:00 - 23:59)."
+                  }
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -4738,6 +5335,15 @@
       "getable": false,
       "setable": false,
       "uiComponent": null
+    },
+    "presence_count": {
+      "title": {
+        "en": "Presence Count"
+      },
+      "icon": "/assets/capabilities/alarm_presence.svg",
+      "type": "number",
+      "getable": true,
+      "setable": false
     },
     "sensor_boolean": {
       "title": "Boolean",

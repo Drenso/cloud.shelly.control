@@ -1,0 +1,8 @@
+{
+  "id": "Presence:enable",
+  "type": "checkbox",
+  "label": {
+    "en": "Presence Sensor - Enabled"
+  },
+  "value": true
+}
