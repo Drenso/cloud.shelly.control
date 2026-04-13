@@ -30,7 +30,7 @@ export type IlluminanceConfig = {
 
 export type IlluminanceStatus = {
   /**
-   * Id of the Illuminance component instance
+   * Identifier of the Illuminance component instance
    */
   id: number;
   /**
@@ -39,7 +39,7 @@ export type IlluminanceStatus = {
   lux: number | null;
 
   /**
-   * Illuminance level interpreted according to dark_thr/bright_thr (null if valid value could not be obtained): lux below dark_thr is interpreted as dark, lux between dark_thr and bright_thr is interpreted as twiIlluminance, lux above bright_thr is interpreted as bright
+   * Illuminance level interpreted according to dark_thr/bright_thr (null if valid value could not be obtained): lux below dark_thr is interpreted as dark, lux between dark_thr and bright_thr is interpreted as twilight, lux above bright_thr is interpreted as bright
    */
   illumination: 'dark' | 'twilight' | 'bright' | null;
 
