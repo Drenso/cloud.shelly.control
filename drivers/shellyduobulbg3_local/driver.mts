@@ -1,3 +1,3 @@
 import ShellyLocalDriver from '../../lib/Driver.mjs';
 
-export default class ShellyDuoBulbGen3Driver extends ShellyLocalDriver {}
+export default class ShellyDuoBulbGen3LocalDriver extends ShellyLocalDriver {}

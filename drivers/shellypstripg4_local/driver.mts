@@ -3,7 +3,7 @@ import type { ShellyLocalListDeviceProperties } from '../../lib/types.mjs';
 import type { ShellyGetComponentsResponseComponent } from '../../lib/component/components/Shelly/GetComponents.mjs';
 import Switch, { type SwitchConfig } from '../../lib/component/components/Switch.mjs';
 
-export default class ShellyPowerStripGen4Driver extends ShellyLocalDriver {
+export default class ShellyPowerStripGen4LocalDriver extends ShellyLocalDriver {
   protected async assembleHomeyDevices(
     selectedDevice: ShellyLocalListDeviceProperties,
     components: ShellyGetComponentsResponseComponent[],

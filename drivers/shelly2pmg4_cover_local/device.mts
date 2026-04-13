@@ -2,7 +2,7 @@ import ShellyLocalDevice from '../../lib/Device.mjs';
 import type { NameSpace } from '../../lib/component/components/Shelly/ListMethods.mjs';
 
 // TODO refactor to reusable functions
-export default class Shelly2PMGen4CoverDevice extends ShellyLocalDevice {
+export default class Shelly2PMGen4CoverLocalDevice extends ShellyLocalDevice {
   public async onSettings(event: SettingsEvent<Record<string, unknown>>): Promise<string | void> {
     const splitSettings: Record<string, SettingsEvent<Record<string, unknown>>> = {
       'Input:0': {

@@ -4,7 +4,7 @@ import type { ShellyGetComponentsResponseComponent } from '../../lib/component/c
 import Switch, { type SwitchConfig } from '../../lib/component/components/Switch.mjs';
 import type { ShellyGetDeviceInfoResponse } from '../../lib/component/components/Shelly/GetDeviceInfo.mjs';
 
-export default class Shelly2PMGen4SwitchDriver extends ShellyLocalDriver {
+export default class Shelly2PMGen4SwitchLocalDriver extends ShellyLocalDriver {
   protected async onPairMatchDevice(deviceInfo: ShellyGetDeviceInfoResponse): Promise<boolean> {
     return deviceInfo.id.toLowerCase().startsWith(this.baseDriverId) && deviceInfo.profile === 'switch';
   }
