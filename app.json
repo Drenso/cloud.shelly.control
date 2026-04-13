@@ -851,6 +851,37 @@
         "local"
       ],
       "connectivity": [
+        "matter"
+      ],
+      "icon": "/drivers/shelly1g4_matter/assets/icon.svg",
+      "name": {
+        "en": "1 Gen4 - Matter"
+      },
+      "class": "socket",
+      "capabilities": [
+        "onoff"
+      ],
+      "matter": {
+        "vendorId": 5264,
+        "productId": 4136,
+        "learnmode": {
+          "instruction": {
+            "en": "Enable Matter in the Shelly web interface. The required information for pairing will be shown after enabling."
+          }
+        }
+      },
+      "images": {
+        "small": "/assets/drivers/shelly1g4/images/small.png",
+        "large": "/assets/drivers/shelly1g4/images/large.png",
+        "xlarge": "/assets/drivers/shelly1g4/images/xlarge.png"
+      },
+      "id": "shelly1g4_matter"
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
         "lan"
       ],
       "capabilities": [
@@ -1015,6 +1046,37 @@
           ]
         }
       ]
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "matter"
+      ],
+      "icon": "/drivers/shelly1minig4_matter/assets/icon.svg",
+      "name": {
+        "en": "1 Mini Gen4 - Matter"
+      },
+      "class": "socket",
+      "capabilities": [
+        "onoff"
+      ],
+      "matter": {
+        "vendorId": 5264,
+        "productId": 4144,
+        "learnmode": {
+          "instruction": {
+            "en": "Enable Matter in the Shelly web interface. The required information for pairing will be shown after enabling."
+          }
+        }
+      },
+      "images": {
+        "small": "/assets/drivers/shelly1minig4/images/small.png",
+        "large": "/assets/drivers/shelly1minig4/images/large.png",
+        "xlarge": "/assets/drivers/shelly1minig4/images/xlarge.png"
+      },
+      "id": "shelly1minig4_matter"
     },
     {
       "platforms": [
@@ -1252,6 +1314,43 @@
         "local"
       ],
       "connectivity": [
+        "matter"
+      ],
+      "icon": "/drivers/shelly1pmg4_matter/assets/icon.svg",
+      "name": {
+        "en": "1PM Gen4 - Matter"
+      },
+      "class": "socket",
+      "capabilities": [
+        "meter_power",
+        "meter_power.exported",
+        "measure_current",
+        "measure_frequency",
+        "measure_power",
+        "measure_voltage",
+        "onoff"
+      ],
+      "matter": {
+        "vendorId": 5264,
+        "productId": 4137,
+        "learnmode": {
+          "instruction": {
+            "en": "Enable Matter in the Shelly web interface. The required information for pairing will be shown after enabling."
+          }
+        }
+      },
+      "images": {
+        "small": "/assets/drivers/shelly1pmg4/images/small.png",
+        "large": "/assets/drivers/shelly1pmg4/images/large.png",
+        "xlarge": "/assets/drivers/shelly1pmg4/images/xlarge.png"
+      },
+      "id": "shelly1pmg4_matter"
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
         "lan"
       ],
       "capabilities": [
@@ -1477,6 +1576,43 @@
           }
         }
       ]
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "matter"
+      ],
+      "icon": "/drivers/shelly1pmminig4_matter/assets/icon.svg",
+      "name": {
+        "en": "1PM Mini Gen4 - Matter"
+      },
+      "class": "socket",
+      "capabilities": [
+        "meter_power",
+        "meter_power.exported",
+        "measure_current",
+        "measure_frequency",
+        "measure_power",
+        "measure_voltage",
+        "onoff"
+      ],
+      "matter": {
+        "vendorId": 5264,
+        "productId": 4145,
+        "learnmode": {
+          "instruction": {
+            "en": "Enable Matter in the Shelly web interface. The required information for pairing will be shown after enabling."
+          }
+        }
+      },
+      "images": {
+        "small": "/assets/drivers/shelly1pmminig4/images/small.png",
+        "large": "/assets/drivers/shelly1pmminig4/images/large.png",
+        "xlarge": "/assets/drivers/shelly1pmminig4/images/xlarge.png"
+      },
+      "id": "shelly1pmminig4_matter"
     },
     {
       "platforms": [
@@ -2066,6 +2202,38 @@
         "local"
       ],
       "connectivity": [
+        "matter"
+      ],
+      "icon": "/drivers/shelly2pmg4_cover_matter/assets/icon.svg",
+      "name": {
+        "en": "2PM Gen4 - Cover - Matter"
+      },
+      "class": "windowcoverings",
+      "capabilities": [
+        "windowcoverings_set",
+        "windowcoverings_closed"
+      ],
+      "matter": {
+        "vendorId": 5264,
+        "productId": 4146,
+        "learnmode": {
+          "instruction": {
+            "en": "Enable Matter in the Shelly web interface. The required information for pairing will be shown after enabling."
+          }
+        }
+      },
+      "images": {
+        "small": "/assets/drivers/shelly2pmg4/images/small.png",
+        "large": "/assets/drivers/shelly2pmg4/images/large.png",
+        "xlarge": "/assets/drivers/shelly2pmg4/images/xlarge.png"
+      },
+      "id": "shelly2pmg4_cover_matter"
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
         "lan"
       ],
       "capabilities": [
@@ -2307,6 +2475,42 @@
           }
         }
       ]
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "matter"
+      ],
+      "icon": "/drivers/shelly2pmg4_switch_matter/assets/icon.svg",
+      "name": {
+        "en": "2PM Gen4 Switch mode - Matter"
+      },
+      "class": "socket",
+      "capabilities": [
+        "meter_power",
+        "meter_power.exported",
+        "measure_current",
+        "measure_power",
+        "measure_voltage",
+        "onoff"
+      ],
+      "matter": {
+        "vendorId": 5264,
+        "productId": 4146,
+        "learnmode": {
+          "instruction": {
+            "en": "Enable Matter in the Shelly web interface. The required information for pairing will be shown after enabling."
+          }
+        }
+      },
+      "images": {
+        "small": "/assets/drivers/shelly2pmg4/images/small.png",
+        "large": "/assets/drivers/shelly2pmg4/images/large.png",
+        "xlarge": "/assets/drivers/shelly2pmg4/images/xlarge.png"
+      },
+      "id": "shelly2pmg4_switch_matter"
     },
     {
       "platforms": [
@@ -3149,6 +3353,81 @@
           "units": "%"
         }
       ]
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "matter"
+      ],
+      "icon": "/drivers/shellyemminig4_matter/assets/icon.svg",
+      "name": {
+        "en": "EM Mini Gen4 - Matter"
+      },
+      "class": "socket",
+      "capabilities": [
+        "meter_power",
+        "meter_power.exported",
+        "measure_current",
+        "measure_frequency",
+        "measure_power",
+        "measure_voltage"
+      ],
+      "matter": {
+        "vendorId": 5264,
+        "productId": 4147,
+        "learnmode": {
+          "instruction": {
+            "en": "Enable Matter in the Shelly web interface. The required information for pairing will be shown after enabling."
+          }
+        }
+      },
+      "images": {
+        "small": "/assets/drivers/shellyemminig4/images/small.png",
+        "large": "/assets/drivers/shellyemminig4/images/large.png",
+        "xlarge": "/assets/drivers/shellyemminig4/images/xlarge.png"
+      },
+      "id": "shellyemminig4_matter"
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "matter"
+      ],
+      "icon": "/drivers/shellyfloodg4_matter/assets/icon.svg",
+      "name": {
+        "en": "Flood Gen4 - Matter"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "alarm_water"
+      ],
+      "energy": {
+        "batteries": [
+          "AA",
+          "AA",
+          "AA",
+          "AA"
+        ]
+      },
+      "matter": {
+        "vendorId": 5264,
+        "productId": 6178,
+        "learnmode": {
+          "instruction": {
+            "en": "Enable Matter in the Shelly web interface. The required information for pairing will be shown after enabling."
+          }
+        }
+      },
+      "images": {
+        "small": "/assets/drivers/shellyfloodg4/images/small.png",
+        "large": "/assets/drivers/shellyfloodg4/images/large.png",
+        "xlarge": "/assets/drivers/shellyfloodg4/images/xlarge.png"
+      },
+      "id": "shellyfloodg4_matter"
     },
     {
       "platforms": [

@@ -1,0 +1,5 @@
+{
+  "platforms": [ "local" ],
+  "connectivity": [ "matter" ],
+  "icon": "{{driverAssetsPath}}/icon.svg"
+}

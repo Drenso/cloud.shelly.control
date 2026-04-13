@@ -1,0 +1,22 @@
+{
+  "$extends": ["matter"],
+  "name": {
+    "en": "1 Mini Gen4 - Matter"
+  },
+  "class": "socket",
+  "capabilities": ["onoff"],
+  "matter": {
+    "vendorId": 5264,
+    "productId": 4144,
+    "learnmode": {
+      "instruction": {
+        "en": "Enable Matter in the Shelly web interface. The required information for pairing will be shown after enabling."
+      }
+    }
+  },
+  "images": {
+    "small": "/assets/drivers/shelly1minig4/images/small.png",
+    "large": "/assets/drivers/shelly1minig4/images/large.png",
+    "xlarge": "/assets/drivers/shelly1minig4/images/xlarge.png"
+  }
+}

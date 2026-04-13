@@ -1,0 +1,29 @@
+{
+  "$extends": ["matter"],
+  "name": {
+    "en": "EM Mini Gen4 - Matter"
+  },
+  "class": "socket",
+  "capabilities": [
+    "meter_power",
+    "meter_power.exported",
+    "measure_current",
+    "measure_frequency",
+    "measure_power",
+    "measure_voltage"
+  ],
+  "matter": {
+    "vendorId": 5264,
+    "productId": 4147,
+    "learnmode": {
+      "instruction": {
+        "en": "Enable Matter in the Shelly web interface. The required information for pairing will be shown after enabling."
+      }
+    }
+  },
+  "images": {
+    "small": "/assets/drivers/shellyemminig4/images/small.png",
+    "large": "/assets/drivers/shellyemminig4/images/large.png",
+    "xlarge": "/assets/drivers/shellyemminig4/images/xlarge.png"
+  }
+}

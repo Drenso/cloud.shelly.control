@@ -1,0 +1,22 @@
+{
+  "$extends": ["matter"],
+  "name": {
+    "en": "2PM Gen4 - Cover - Matter"
+  },
+  "class": "windowcoverings",
+  "capabilities": ["windowcoverings_set", "windowcoverings_closed"],
+  "matter": {
+    "vendorId": 5264,
+    "productId": 4146,
+    "learnmode": {
+      "instruction": {
+        "en": "Enable Matter in the Shelly web interface. The required information for pairing will be shown after enabling."
+      }
+    }
+  },
+  "images": {
+    "small": "/assets/drivers/shelly2pmg4/images/small.png",
+    "large": "/assets/drivers/shelly2pmg4/images/large.png",
+    "xlarge": "/assets/drivers/shelly2pmg4/images/xlarge.png"
+  }
+}

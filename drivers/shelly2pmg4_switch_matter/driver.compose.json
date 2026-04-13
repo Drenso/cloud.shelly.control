@@ -1,0 +1,29 @@
+{
+  "$extends": ["matter"],
+  "name": {
+    "en": "2PM Gen4 Switch mode - Matter"
+  },
+  "class": "socket",
+  "capabilities": [
+    "meter_power",
+    "meter_power.exported",
+    "measure_current",
+    "measure_power",
+    "measure_voltage",
+    "onoff"
+  ],
+  "matter": {
+    "vendorId": 5264,
+    "productId": 4146,
+    "learnmode": {
+      "instruction": {
+        "en": "Enable Matter in the Shelly web interface. The required information for pairing will be shown after enabling."
+      }
+    }
+  },
+  "images": {
+    "small": "/assets/drivers/shelly2pmg4/images/small.png",
+    "large": "/assets/drivers/shelly2pmg4/images/large.png",
+    "xlarge": "/assets/drivers/shelly2pmg4/images/xlarge.png"
+  }
+}
