@@ -3967,6 +3967,42 @@
         "local"
       ],
       "connectivity": [
+        "matter"
+      ],
+      "icon": "/drivers/shellycolorblbg3_matter/assets/icon.svg",
+      "name": {
+        "en": "Multicolor Bulb Gen3 - Matter"
+      },
+      "class": "light",
+      "capabilities": [
+        "onoff",
+        "dim",
+        "light_mode",
+        "light_temperature",
+        "light_saturation",
+        "light_hue"
+      ],
+      "matter": {
+        "vendorId": 5264,
+        "productId": 6165,
+        "learnmode": {
+          "instruction": {
+            "en": "Enable Matter in the Shelly web interface. The required information for pairing will be shown after enabling."
+          }
+        }
+      },
+      "images": {
+        "small": "/assets/drivers/shellycolorblbg3/images/small.png",
+        "large": "/assets/drivers/shellycolorblbg3/images/large.png",
+        "xlarge": "/assets/drivers/shellycolorblbg3/images/xlarge.png"
+      },
+      "id": "shellycolorblbg3_matter"
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
         "lan"
       ],
       "capabilities": [
@@ -4619,6 +4655,39 @@
           "units": "%"
         }
       ]
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "matter"
+      ],
+      "icon": "/drivers/shellyduobulbg3_matter/assets/icon.svg",
+      "name": {
+        "en": "Duo Bulb Gen3 - Matter"
+      },
+      "class": "light",
+      "capabilities": [
+        "onoff",
+        "dim",
+        "light_temperature"
+      ],
+      "matter": {
+        "vendorId": 5264,
+        "productId": 6164,
+        "learnmode": {
+          "instruction": {
+            "en": "Enable Matter in the Shelly web interface. The required information for pairing will be shown after enabling."
+          }
+        }
+      },
+      "images": {
+        "small": "/assets/drivers/shellyduobulbg3/images/small.png",
+        "large": "/assets/drivers/shellyduobulbg3/images/large.png",
+        "xlarge": "/assets/drivers/shellyduobulbg3/images/xlarge.png"
+      },
+      "id": "shellyduobulbg3_matter"
     },
     {
       "platforms": [
