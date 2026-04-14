@@ -4,7 +4,7 @@ import initMeteringDevice from '@drenso/homey-zigbee-library/capabilities/meteri
 import initOnOffDevice from '@drenso/homey-zigbee-library/capabilities/onOff.mjs';
 import type { ZCLNode} from 'zigbee-clusters';
 import {OnOffCluster} from 'zigbee-clusters';
-import ShellyZigbeeDevice from '../../lib/ZigbeeDevice.mjs';
+import ShellyZigbeeDevice from '../../lib/zigbee/ZigbeeDevice.mjs';
 
 export default class Shelly2PMGen4SwitchZigbeeDevice extends ShellyZigbeeDevice {
   protected async configureDevice(zclNode: ZCLNode): Promise<void> {

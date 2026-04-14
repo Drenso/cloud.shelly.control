@@ -3,7 +3,7 @@ import initOnOffDevice from '@drenso/homey-zigbee-library/capabilities/onOff.mjs
 import initMeteringDevice from '@drenso/homey-zigbee-library/capabilities/metering.mjs';
 import initElectricalMeasurementDevice
   from '@drenso/homey-zigbee-library/capabilities/electricalMeasurement.mjs';
-import ShellyZigbeeDevice from '../../lib/ZigbeeDevice.mjs';
+import ShellyZigbeeDevice from '../../lib/zigbee/ZigbeeDevice.mjs';
 
 export default class ShellyPowerStrip4Gen4ZigbeeDevice extends ShellyZigbeeDevice {
   protected async configureDevice(zclNode: ZCLNode): Promise<void> {

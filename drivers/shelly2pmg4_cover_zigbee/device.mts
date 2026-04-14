@@ -1,6 +1,6 @@
 import initWindowCoveringsDevice from '@drenso/homey-zigbee-library/capabilities/windowCoverings.mjs';
 import { WindowCoveringCluster, type ZCLNode } from 'zigbee-clusters';
-import ShellyZigbeeDevice from '../../lib/ZigbeeDevice.mjs';
+import ShellyZigbeeDevice from '../../lib/zigbee/ZigbeeDevice.mjs';
 
 export default class Shelly2PMGen4CoverZigbeeDevice extends ShellyZigbeeDevice {
   protected async configureDevice(zclNode: ZCLNode): Promise<void> {
