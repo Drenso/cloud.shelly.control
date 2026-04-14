@@ -1,3 +1,3 @@
 import ShellyLocalDriver from '../../lib/Driver.mjs';
 
-export default class ShellyPresenceGen4Driver extends ShellyLocalDriver {}
+export default class ShellyPresenceGen4LocalDriver extends ShellyLocalDriver {}

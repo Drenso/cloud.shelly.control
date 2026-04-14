@@ -1,3 +1,3 @@
 import ShellyLocalDevice from '../../lib/Device.mjs';
 
-export default class ShellyPresenceGen4Device extends ShellyLocalDevice {}
+export default class ShellyPresenceGen4LocalDevice extends ShellyLocalDevice {}
