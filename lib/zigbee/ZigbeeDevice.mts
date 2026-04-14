@@ -1,8 +1,7 @@
 import type { ZigBeeNode } from 'homey';
 import Homey from 'homey';
 import { ZigBeeDevice } from 'homey-zigbeedriver';
-import type { ZCLNode } from 'zigbee-clusters';
-import { debug } from 'zigbee-clusters';
+import zbClusters, { type ZCLNode } from 'zigbee-clusters';
 import type ShellyZigbeeDriver from './ZigbeeDriver.mjs';
 
 export default abstract class ShellyZigbeeDevice extends ZigBeeDevice {
@@ -11,7 +10,7 @@ export default abstract class ShellyZigbeeDevice extends ZigBeeDevice {
   public async onNodeInit(payload: { zclNode: ZCLNode; node: ZigBeeNode }): Promise<void> {
     if (Homey.env.ZB_DEBUG === '1') {
       this.enableDebug();
-      debug();
+      zbClusters.debug();
     }
 
     // Mark as unavailable during startup

@@ -1,10 +1,9 @@
 import initMeasureTemperatureDevice from '@drenso/homey-zigbee-library/capabilities/measureTemperature.mjs';
 import initTargetTemperatureDevice from '@drenso/homey-zigbee-library/capabilities/targetTemperature.mjs';
-import type { Cluster, ZCLNode } from 'zigbee-clusters';
-import { type Bitmap, CLUSTER } from 'zigbee-clusters';
-import ShellyZigbeeDevice from '../../lib/zigbee/ZigbeeDevice.mjs';
-import ShellyCustomTRVCluster from '../../lib/zigbee/cluster/ShellyCustomTRVCluster.mjs';
 import { initReadOnlyCapability } from '@drenso/homey-zigbee-library/lib/attributeDevice.mjs';
+import zbClusters, { type Bitmap, type Cluster, type ZCLNode } from 'zigbee-clusters';
+import ShellyCustomTRVCluster from '../../lib/zigbee/cluster/ShellyCustomTRVCluster.mjs';
+import ShellyZigbeeDevice from '../../lib/zigbee/ZigbeeDevice.mjs';
 
 type BluTrvAlarmMask = Bitmap<'initializationFailure' | 'hardwareFailure' | 'selfCalibrationFailure'>;
 
@@ -21,23 +20,23 @@ export default class ShellyBluTrvZigbeeDevice extends ShellyZigbeeDevice {
   protected async configureDevice(zclNode: ZCLNode): Promise<void> {
     this.log(
       'Alarm',
-      await zclNode.endpoints[this.getClusterEndpoint(CLUSTER.THERMOSTAT) ?? 1].clusters[
-        CLUSTER.THERMOSTAT.NAME
+      await zclNode.endpoints[this.getClusterEndpoint(zbClusters.CLUSTER.THERMOSTAT) ?? 1].clusters[
+        zbClusters.CLUSTER.THERMOSTAT.NAME
       ].readAttributes(['alarmMask']),
     );
 
     await initMeasureTemperatureDevice(this, zclNode, {
       attributeName: 'localTemperature',
-      cluster: CLUSTER.THERMOSTAT,
+      cluster: zbClusters.CLUSTER.THERMOSTAT,
     });
     await initTargetTemperatureDevice(this, zclNode);
-    this.registerCapability('measure_battery', CLUSTER.POWER_CONFIGURATION);
+    this.registerCapability('measure_battery', zbClusters.CLUSTER.POWER_CONFIGURATION);
 
     await initReadOnlyCapability(
       this,
       zclNode,
       'alarm_problem',
-      CLUSTER.THERMOSTAT,
+      zbClusters.CLUSTER.THERMOSTAT,
       'alarmMask',
       (data: BluTrvAlarmMask) => data.getBits().includes('selfCalibrationFailure'),
     );
@@ -53,8 +52,8 @@ export default class ShellyBluTrvZigbeeDevice extends ShellyZigbeeDevice {
 
   protected async firstInitConfigureDevice(zclNode: ZCLNode): Promise<void> {
     await this.setCapabilityValue('thermostat_mode', 'heat');
-    const limits = await zclNode.endpoints[this.getClusterEndpoint(CLUSTER.THERMOSTAT) ?? 1].clusters[
-      CLUSTER.THERMOSTAT.NAME
+    const limits = await zclNode.endpoints[this.getClusterEndpoint(zbClusters.CLUSTER.THERMOSTAT) ?? 1].clusters[
+      zbClusters.CLUSTER.THERMOSTAT.NAME
     ].readAttributes(['minHeatSetpointLimit', 'maxHeatSetpointLimit']);
     const options = this.getCapabilityOptions('target_temperature');
     const settings = {
@@ -91,7 +90,7 @@ export default class ShellyBluTrvZigbeeDevice extends ShellyZigbeeDevice {
     }
 
     if (Object.keys(newAttributes).length > 0) {
-      await this.zclNode.endpoints[1].clusters[CLUSTER.THERMOSTAT.NAME]?.writeAttributes(newAttributes);
+      await this.zclNode.endpoints[1].clusters[zbClusters.CLUSTER.THERMOSTAT.NAME]?.writeAttributes(newAttributes);
       await this.setCapabilityOptions('target_temperature', options);
     }
 
