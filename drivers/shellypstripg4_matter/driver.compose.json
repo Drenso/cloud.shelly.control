@@ -1,0 +1,22 @@
+{
+  "$extends": ["matter"],
+  "name": {
+    "en": "Power Strip 4 Gen4 - Matter"
+  },
+  "class": "socket",
+  "capabilities": ["onoff", "measure_current", "measure_voltage", "measure_power", "meter_power"],
+  "matter": {
+    "vendorId": 5264,
+    "productId": 6225,
+    "learnmode": {
+      "instruction": {
+        "en": "Enable Matter in the Shelly web interface. The required information for pairing will be shown after enabling."
+      }
+    }
+  },
+  "images": {
+    "small": "/assets/drivers/shellypstripg4/images/small.png",
+    "large": "/assets/drivers/shellypstripg4/images/large.png",
+    "xlarge": "/assets/drivers/shellypstripg4/images/xlarge.png"
+  }
+}
