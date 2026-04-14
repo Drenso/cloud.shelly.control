@@ -64,6 +64,14 @@ export default class Temperature extends ComponentWithId<
     }
   }
 
+  protected async staticallyUnregisterHomeyDevice(
+    this: never,
+    homeyDevice: ShellyLocalDevice,
+    id: number,
+  ): Promise<void> {
+    await Temperature.unregisterCapability(homeyDevice, 'measure_temperature', id);
+  }
+
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Partial<TemperatureStatus>): Promise<void> {
     if (status.tC !== undefined) {
       await this.setCapability(homeyDevice, 'measure_temperature', status.tC);

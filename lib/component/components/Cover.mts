@@ -647,6 +647,27 @@ export default class Cover extends ComponentWithId<'Cover', CoverStatus, CoverCo
     await this.onConfigUpdate(homeyDevice, this.config);
   }
 
+  protected async staticallyUnregisterHomeyDevice(
+    this: never,
+    homeyDevice: ShellyLocalDevice,
+    id: number,
+  ): Promise<void> {
+    for (const capability of [
+      'windowcoverings_state',
+      'windowcoverings_set',
+      'windowcoverings_tilt_set',
+      'measure_power',
+      'measure_voltage',
+      'measure_current',
+      'measure_frequency',
+      'meter_power',
+      'measure_temperature.cover',
+      'button.reset_energy_counters',
+    ]) {
+      await Cover.unregisterCapability(homeyDevice, capability, id);
+    }
+  }
+
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Partial<CoverStatus>): Promise<void> {
     const state = this.status.state;
     if (state !== undefined) {

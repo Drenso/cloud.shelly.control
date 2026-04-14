@@ -33,10 +33,18 @@ export default class ShellyApp extends Homey.App {
   private async deserializeVirtualDevices(): Promise<void> {
     const virtualDeviceIds = this.homey.settings.get(VIRTUAL_DEVICE_IDS_SETTING_KEY) ?? ([] as readonly string[]);
     for (const virtualDeviceId of virtualDeviceIds) {
-      const { deviceId, ipAddress, components, homeyDeviceIds, ha1 } = this.homey.settings.get(
+      const { deviceId, ipAddress, components, driver, homeyDeviceIds, ha1 } = this.homey.settings.get(
         VIRTUAL_DEVICE_SETTING_KEY_PREFIX + virtualDeviceId,
       ) as SerializedVirtualDevice;
-      const virtualDevice = new VirtualDevice(this, deviceId, ipAddress, components, homeyDeviceIds as string[], ha1);
+      const virtualDevice = new VirtualDevice(
+        this,
+        deviceId,
+        ipAddress,
+        components,
+        driver,
+        homeyDeviceIds as string[],
+        ha1,
+      );
       this.virtualDevices.set(virtualDeviceId, virtualDevice);
     }
   }

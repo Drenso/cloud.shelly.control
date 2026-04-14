@@ -277,6 +277,24 @@ export default class CCT extends ComponentWithId<'CCT', CCTStatus, CCTConfig, CC
     await this.onConfigUpdate(homeyDevice, this.config);
   }
 
+  protected async staticallyUnregisterHomeyDevice(
+    this: never,
+    homeyDevice: ShellyLocalDevice,
+    id: number,
+  ): Promise<void> {
+    for (const capability of [
+      'onoff',
+      'dim',
+      'light_temperature',
+      'meter_power',
+      'measure_power',
+      'measure_voltage',
+      'measure_current',
+    ]) {
+      await CCT.unregisterCapability(homeyDevice, capability, id);
+    }
+  }
+
   public async onStatusUpdate(
     homeyDevice: ShellyLocalDevice,
     status: RecursivePartial<CCTStatus, AllowedPrimitives>,

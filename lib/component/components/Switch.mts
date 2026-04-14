@@ -291,6 +291,27 @@ export default class Switch extends ComponentWithId<'Switch', SwitchStatus, Swit
     await this.onConfigUpdate(homeyDevice, this.config);
   }
 
+  protected async staticallyUnregisterHomeyDevice(
+    this: never,
+    homeyDevice: ShellyLocalDevice,
+    id: number,
+  ): Promise<void> {
+    for (const capability of [
+      'onoff',
+      'measure_power',
+      'measure_voltage',
+      'measure_current',
+      'measure_frequency',
+      'meter_power.total',
+      'measure_temperature',
+      'meter_power.consumed',
+      'meter_power.returned',
+      'button.reset_energy_counters',
+    ]) {
+      await Switch.unregisterCapability(homeyDevice, capability, id);
+    }
+  }
+
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Partial<SwitchStatus>): Promise<void> {
     // Simple capabilities
     for (const [statusKey, homeyCapability] of [

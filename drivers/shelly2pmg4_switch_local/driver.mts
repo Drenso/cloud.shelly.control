@@ -9,7 +9,7 @@ export default class Shelly2PMGen4SwitchLocalDriver extends ShellyLocalDriver {
     return deviceInfo.id.toLowerCase().startsWith(this.baseDriverId) && deviceInfo.profile === 'switch';
   }
 
-  protected async assembleHomeyDevices(
+  public async assembleHomeyDevices(
     selectedDevice: ShellyLocalListDeviceProperties,
     components: ShellyGetComponentsResponseComponent[],
   ): Promise<ShellyLocalListDeviceProperties[]> {

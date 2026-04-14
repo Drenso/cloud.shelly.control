@@ -1,10 +1,11 @@
 import Homey from 'homey';
 import type { ShellyLocalDeviceData, ShellyLocalDeviceStore } from '../types.mjs';
 import type ShellyApp from '../../app.mjs';
-import type { VirtualDevice } from '../VirtualDevice.mjs';
+import { IGNORED_NO_IMPLEMENTATION_COMPONENTS, type VirtualDevice } from '../VirtualDevice.mjs';
 import type { ComponentMethod, NameSpace } from '../component/components/Shelly/ListMethods.mjs';
-import type { MappedComponent } from '../component/ComponentMapping.mjs';
+import { ComponentMapping, type MappedComponent } from '../component/ComponentMapping.mjs';
 import type ShellyLocalDriver from './LocalDriver.mjs';
+import { diffArrays } from '../util.mjs';
 
 export default class ShellyLocalDevice extends Homey.Device {
   declare public readonly __id: string;
@@ -36,18 +37,88 @@ export default class ShellyLocalDevice extends Homey.Device {
   // This is called by the parent virtual device
   public async initializeShelly(
     virtualDevice: VirtualDevice,
+    newComponents: string[],
     methodMapping: Partial<Record<NameSpace, ComponentMethod<NameSpace>[]>>,
   ): Promise<void> {
     this.virtualDevice = virtualDevice;
     await this.ready();
 
-    for (const componentId of this.getTypedStore().components) {
-      const virtualComponent = this.virtualDevice.virtualComponents.get(componentId);
-      if (virtualComponent === undefined) {
-        // TODO unregister
+    const oldComponents = this.getTypedStore().components;
+    const { added: addedComponents, removed: removedComponents } = diffArrays(oldComponents, newComponents);
+
+    this.debug('Removed components:', removedComponents);
+    this.debug('Added components:', addedComponents);
+
+    // Remove before adding, to avoid capability conflicts
+    for (const removedComponent of removedComponents) {
+      const [componentName, componentIdString] = removedComponent.split(':') as [string, `${number}` | undefined];
+      const componentConstructor = ComponentMapping[componentName as never] as MappedComponent | undefined;
+      if (componentConstructor === undefined) {
         continue;
       }
+      const componentId = componentIdString !== undefined ? parseInt(componentIdString) : componentIdString;
+      await componentConstructor.unregisterHomeyDevice(this, componentId);
+    }
+    await this.registerComponents(newComponents, methodMapping);
+    await this.setTypedStoreValue('components', newComponents);
 
+    this.log(this.getName(), 'initialized');
+    await this.setAvailable();
+  }
+
+  public async addComponent(
+    componentId: string,
+    methodMapping: Partial<Record<NameSpace, ComponentMethod<NameSpace>[]>>,
+  ): Promise<void> {
+    this.log(`Adding ${componentId}...`);
+    await this.registerComponents([componentId], methodMapping);
+    const oldComponents = this.getTypedStore().components;
+    await this.setTypedStoreValue('components', [...oldComponents, componentId]);
+    this.log('Added', componentId);
+  }
+
+  public async removeComponent(
+    componentId: string,
+    methodMapping: Partial<Record<NameSpace, ComponentMethod<NameSpace>[]>>,
+  ): Promise<void> {
+    this.log(`Removing ${componentId}...`);
+    const removedComponent = this.virtualComponents.get(componentId);
+    if (removedComponent === undefined) {
+      return;
+    }
+    await removedComponent.unregisterHomeyDevice(this);
+    this.virtualComponents.delete(componentId);
+    this.componentCounts.set(
+      removedComponent.namespace,
+      (this.componentCounts.get(removedComponent.namespace) ?? 1) - 1,
+    );
+
+    // Re-register so multi-component capabilities are fixed
+    for (const virtualComponent of this.virtualComponents.values()) {
+      await virtualComponent.registerHomeyDevice(this, (methodMapping[virtualComponent.namespace] ?? []) as never);
+    }
+
+    const oldComponents = this.getTypedStore().components;
+    await this.setTypedStoreValue(
+      'components',
+      oldComponents.filter(oldComponentId => oldComponentId !== componentId),
+    );
+    this.log('Removed', componentId);
+  }
+
+  private async registerComponents(
+    newComponents: string[],
+    methodMapping: Partial<Record<NameSpace, ComponentMethod<NameSpace>[]>>,
+  ): Promise<void> {
+    for (const componentId of newComponents) {
+      const virtualComponent = this.virtualDevice!.virtualComponents.get(componentId);
+      if (virtualComponent === undefined) {
+        const [componentName] = componentId.split(':') as [string, `${number}` | undefined];
+        if (!IGNORED_NO_IMPLEMENTATION_COMPONENTS.includes(componentName)) {
+          this.error('No virtual component found for', componentId);
+        }
+        continue;
+      }
       this.componentCounts.set(
         virtualComponent.namespace,
         (this.componentCounts.get(virtualComponent.namespace) ?? 0) + 1,
@@ -58,9 +129,6 @@ export default class ShellyLocalDevice extends Homey.Device {
     for (const virtualComponent of this.virtualComponents.values()) {
       await virtualComponent.registerHomeyDevice(this, (methodMapping[virtualComponent.namespace] ?? []) as never);
     }
-
-    this.log(this.getName(), 'initialized');
-    await this.setAvailable();
   }
 
   public get app(): ShellyApp {

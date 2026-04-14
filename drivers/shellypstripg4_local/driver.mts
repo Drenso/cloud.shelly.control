@@ -4,7 +4,7 @@ import type { ShellyGetComponentsResponseComponent } from '../../lib/component/c
 import Switch, { type SwitchConfig } from '../../lib/component/components/Switch.mjs';
 
 export default class ShellyPowerStripGen4LocalDriver extends ShellyLocalDriver {
-  protected async assembleHomeyDevices(
+  public async assembleHomeyDevices(
     selectedDevice: ShellyLocalListDeviceProperties,
     components: ShellyGetComponentsResponseComponent[],
   ): Promise<ShellyLocalListDeviceProperties[]> {

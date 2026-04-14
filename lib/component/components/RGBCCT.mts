@@ -274,6 +274,25 @@ export default class RGBCCT extends ComponentWithId<'RGBCCT', RGBCCTStatus, RGBC
     await this.onConfigUpdate(homeyDevice, this.config);
   }
 
+  protected async staticallyUnregisterHomeyDevice(
+    this: never,
+    homeyDevice: ShellyLocalDevice,
+    id: number,
+  ): Promise<void> {
+    for (const capability of [
+      'onoff',
+      'dim',
+      'light_mode',
+      'light_temperature',
+      'light_hue',
+      'light_saturation',
+      'meter_power',
+      'measure_power',
+    ]) {
+      await RGBCCT.unregisterCapability(homeyDevice, capability, id);
+    }
+  }
+
   public async onStatusUpdate(
     homeyDevice: ShellyLocalDevice,
     status: RecursivePartial<RGBCCTStatus, AllowedPrimitives>,

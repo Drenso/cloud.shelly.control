@@ -127,3 +127,36 @@ export function deepAssign<T, AllowedPrimitives>(
 export function includesAny<T>(changedKeys: Array<keyof T>, anyOf: Array<keyof T>): boolean {
   return anyOf.some(key => changedKeys.includes(key));
 }
+
+export function diffArrays<V>(
+  oldArray: ReadonlyArray<V>,
+  newArray: ReadonlyArray<V>,
+  { returnAdded = true, returnRemoved = true } = {},
+): {
+  added: Array<V>;
+  removed: Array<V>;
+} {
+  const added: Array<V> = [];
+  const removed: Array<V> = [];
+
+  if (returnRemoved) {
+    oldArray.forEach(oldValue => {
+      if (!newArray.includes(oldValue)) {
+        removed.push(oldValue);
+      }
+    });
+  }
+
+  if (returnAdded) {
+    newArray.forEach(newValue => {
+      if (!oldArray.includes(newValue)) {
+        added.push(newValue);
+      }
+    });
+  }
+
+  return {
+    added,
+    removed,
+  };
+}

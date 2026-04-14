@@ -88,6 +88,16 @@ export default class Illuminance extends ComponentWithId<
     await this.onConfigUpdate(homeyDevice, this.config);
   }
 
+  protected async staticallyUnregisterHomeyDevice(
+    this: never,
+    homeyDevice: ShellyLocalDevice,
+    id: number,
+  ): Promise<void> {
+    for (const capability of ['measure_luminance', 'shelly_illumination']) {
+      await Illuminance.unregisterCapability(homeyDevice, capability, id);
+    }
+  }
+
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: IlluminanceStatus): Promise<void> {
     for (const [statusKey, homeyCapability] of [
       ['lux', 'measure_luminance'],

@@ -49,21 +49,7 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
           authenticationDevice.store.ha1 = await authenticationPromise;
         } else {
           const components = await Shelly.getAllComponents(createHttpChannel(authenticationDevice.store.address));
-
-          const addonComponents = [];
-          const mainComponents = [];
-
-          for (const component of components) {
-            const [, componentId] = component.key.split(':') as [string, `${number}` | undefined];
-            if (componentId !== undefined) {
-              const componentIdNumber = parseInt(componentId);
-              if (100 <= componentIdNumber && componentIdNumber <= 199) {
-                addonComponents.push(component);
-                continue;
-              }
-            }
-            mainComponents.push(component);
-          }
+          const { addonComponents, mainComponents } = this.splitComponents(components);
 
           const homeyDevices = await this.assembleHomeyDevices(authenticationDevice, mainComponents);
 
@@ -116,6 +102,27 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
     });
   }
 
+  public splitComponents(components: ShellyGetComponentsResponseComponent[]): {
+    addonComponents: ShellyGetComponentsResponseComponent[];
+    mainComponents: ShellyGetComponentsResponseComponent[];
+  } {
+    const addonComponents: ShellyGetComponentsResponseComponent[] = [];
+    const mainComponents: ShellyGetComponentsResponseComponent[] = [];
+
+    for (const component of components) {
+      const [, componentId] = component.key.split(':') as [string, `${number}` | undefined];
+      if (componentId !== undefined) {
+        const componentIdNumber = parseInt(componentId);
+        if (100 <= componentIdNumber && componentIdNumber <= 199) {
+          addonComponents.push(component);
+          continue;
+        }
+      }
+      mainComponents.push(component);
+    }
+    return { addonComponents, mainComponents };
+  }
+
   private async createVirtualDevice(
     selectedDevice: ShellyLocalListDeviceProperties,
     components: ShellyGetComponentsResponseComponent[],
@@ -128,6 +135,7 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
       selectedDevice.data.id,
       selectedDevice.store.address,
       componentKeys,
+      this.id,
       homeyDeviceIds,
       selectedDevice.store.ha1,
       components,
@@ -146,7 +154,7 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
     return deviceInfo.id.toLowerCase().startsWith(this.baseDriverId);
   }
 
-  protected async assembleAddonHomeyDevices(
+  public async assembleAddonHomeyDevices(
     selectedDevice: ShellyLocalListDeviceProperties,
     components: ShellyGetComponentsResponseComponent[],
   ): Promise<ShellyLocalListDeviceProperties[]> {
@@ -166,7 +174,7 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
     return [device];
   }
 
-  protected async assembleHomeyDevices(
+  public async assembleHomeyDevices(
     selectedDevice: ShellyLocalListDeviceProperties,
     components: ShellyGetComponentsResponseComponent[],
   ): Promise<ShellyLocalListDeviceProperties[]> {

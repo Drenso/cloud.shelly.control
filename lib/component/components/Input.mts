@@ -362,8 +362,10 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
 
     // Add helper capability to show correct flows
     if (homeyDeviceInputComponents.length > 1) {
+      await homeyDevice.safeRemoveCapability(`hidden.has_input_${this.config.type}`);
       await homeyDevice.safeAddCapability(`hidden.has_input_multiple_${this.config.type}`);
     } else {
+      await homeyDevice.safeRemoveCapability(`hidden.has_input_multiple_${this.config.type}`);
       await homeyDevice.safeAddCapability(`hidden.has_input_${this.config.type}`);
     }
 
@@ -383,6 +385,26 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
     await this.onStatusUpdate(homeyDevice, this.status);
     // Set correct setting values
     await this.onConfigUpdate(homeyDevice, this.config);
+  }
+
+  public async unregisterHomeyDevice(homeyDevice: ShellyLocalDevice): Promise<void> {
+    this.buttonMitt.all.clear();
+    await this.staticallyUnregisterHomeyDevice.call(undefined as never, homeyDevice, this.id);
+  }
+
+  protected async staticallyUnregisterHomeyDevice(
+    this: never,
+    homeyDevice: ShellyLocalDevice,
+    id: number,
+  ): Promise<void> {
+    for (const type of ['switch', 'button', 'analog', 'count'] as const) {
+      await homeyDevice.safeRemoveCapability(`hidden.has_input_${type}`);
+      await homeyDevice.safeRemoveCapability(`hidden.has_input_multiple_${type}`);
+
+      const capabilityId = `${CAPABILITY_MAPPING[type]}.${id}`;
+      await homeyDevice.safeRemoveCapability(capabilityId);
+      await homeyDevice.setCapabilityOptions(capabilityId, {});
+    }
   }
 
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Partial<InputStatus>): Promise<void> {

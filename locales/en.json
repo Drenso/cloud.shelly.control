@@ -23,7 +23,10 @@
     "restarting": "Restarting...",
     "not_connected": "Not connected to device",
     "requires_restart": "The device needs to be restarted.",
-    "initialization_error": "An error occurred while initializing."
+    "initialization_error": "An error occurred while initializing.",
+    "components_changed": "The device needs to be repaired: components changed.",
+    "device_removed": "This device has no components and can be removed.",
+    "device_added": "This device has new components and needs to be repaired."
   },
   "component": {
     "CCT": {

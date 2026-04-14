@@ -6,6 +6,7 @@ import type { ComponentMethod } from './Shelly/ListMethods.mjs';
 import type ShellyLocalDevice from '../../local/LocalDevice.mjs';
 import { getIp } from '../../LocalIp.mjs';
 import { OUTBOUND_WS_PORT } from '../../config.mjs';
+import type { VirtualDevice } from '../../VirtualDevice.mjs';
 
 export type OutBoundWebsocketConfig = {
   // true if websocket outbound connection is enabled, false otherwise
@@ -50,7 +51,15 @@ export default class OutboundWebsocket extends ComponentWithoutId<
     this.device.log('Enabled outbound websocket');
   }
 
+  public static async unregister(virtualDevice: VirtualDevice): Promise<void> {
+    virtualDevice.log('Disabling outbound websocket...');
+    await SetConfig(virtualDevice.getChannel(), { config: { enable: false, server: null } }).catch(virtualDevice.error);
+    virtualDevice.log('Disabled outbound websocket');
+  }
+
   public async registerHomeyDevice(_homeyDevice: ShellyLocalDevice, _methods: ComponentMethod<'Ws'>[]): Promise<void> {}
+
+  protected async staticallyUnregisterHomeyDevice(this: never, _homeyDevice: ShellyLocalDevice): Promise<void> {}
 
   public async onStatusUpdate(_homeyDevice: ShellyLocalDevice, _status: OutboundWebsocketStatus): Promise<void> {}
 

@@ -5,6 +5,7 @@ import SetConfig from './System/SetConfig.mjs';
 import GetConfig from './System/GetConfig.mjs';
 import GetStatus from './System/GetStatus.mjs';
 import SetTime from './System/SetTime.mjs';
+import type { NotificationEventParam } from '../../rpc/Rpc.mjs';
 
 export type SystemConfig = {
   /** Information about the device */
@@ -211,6 +212,20 @@ export type SystemStatus = {
   utc_offset: number;
 };
 
+type ComponentAddedEvent = Omit<NotificationEventParam, 'id'> & {
+  /** ID of the added component */
+  target: string;
+  restart_required: boolean;
+  cfg_rev: number;
+};
+
+type ComponentRemovedEvent = Omit<NotificationEventParam, 'id'> & {
+  /** ID of the removed component */
+  target: string;
+  restart_required: boolean;
+  cfg_rev: number;
+};
+
 /**
  * The system component provides information about general device status, resource usage, availability of firmware updates, etc.
  */
@@ -227,7 +242,20 @@ export default class System extends ComponentWithoutId<'Sys', SystemStatus, Syst
     _methods: ComponentMethod<'Sys'>[],
   ): Promise<void> {}
 
+  protected async staticallyUnregisterHomeyDevice(this: never, _homeyDevice: ShellyLocalDevice): Promise<void> {}
+
   public async onStatusUpdate(_homeyDevice: ShellyLocalDevice, _status: Partial<SystemStatus>): Promise<void> {}
 
   public async onConfigUpdate(_homeyDevice: ShellyLocalDevice, _config: SystemConfig): Promise<void> {}
+
+  public async handleEvent(event: NotificationEventParam): Promise<void> {
+    if (event.event === 'component_added') {
+      const addedEvent = event as ComponentAddedEvent;
+      return this.device.onComponentAdded(addedEvent.target);
+    } else if (event.event === 'component_removed') {
+      const removedEvent = event as ComponentRemovedEvent;
+      return this.device.onComponentRemoved(removedEvent.target);
+    }
+    return super.handleEvent(event);
+  }
 }

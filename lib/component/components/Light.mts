@@ -391,6 +391,26 @@ export default class Light extends ComponentWithId<'Light', LightStatus, LightCo
     await this.onConfigUpdate(homeyDevice, this.config);
   }
 
+  protected async staticallyUnregisterHomeyDevice(
+    this: never,
+    homeyDevice: ShellyLocalDevice,
+    id: number,
+  ): Promise<void> {
+    for (const capability of [
+      'onoff',
+      'dim',
+      'measure_temperature',
+      'meter_power',
+      'measure_power',
+      'measure_voltage',
+      'measure_current',
+      'button.reset_energy_counters',
+      'button.calibrate',
+    ]) {
+      await Light.unregisterCapability(homeyDevice, capability, id);
+    }
+  }
+
   public async onStatusUpdate(
     homeyDevice: ShellyLocalDevice,
     status: RecursivePartial<LightStatus, AllowedPrimitives>,

@@ -259,6 +259,11 @@ export default class Presence extends ComponentWithoutId<
     }
   }
 
+  protected async staticallyUnregisterHomeyDevice(this: never, homeyDevice: ShellyLocalDevice): Promise<void> {
+    await homeyDevice.safeRemoveCapability('button.calibrate_presence_tilt');
+    await homeyDevice.setCapabilityOptions('button.calibrate_presence_tilt', {});
+  }
+
   public async onStatusUpdate(_homeyDevice: ShellyLocalDevice, _status: PresenceStatus): Promise<void> {
     return;
   }

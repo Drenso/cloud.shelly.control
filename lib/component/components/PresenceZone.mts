@@ -106,12 +106,7 @@ export default class PresenceZone extends ComponentWithId<
       !homeyDevice.hasCapability('hidden.has_presence_sensor') &&
       !homeyDevice.hasCapability('hidden.has_presence_sensor_multiple')
     ) {
-      let presenceZones = 0;
-      for (const component of homeyDevice.virtualDevice!.virtualComponents.values()) {
-        if (component instanceof PresenceZone) {
-          presenceZones += 1;
-        }
-      }
+      const presenceZones = homeyDevice.componentCounts.get(this.namespace)!;
       if (presenceZones > 1) {
         await homeyDevice.safeRemoveCapability('hidden.has_presence_sensor');
         await homeyDevice.safeAddCapability('hidden.has_presence_sensor_multiple');
@@ -142,6 +137,22 @@ export default class PresenceZone extends ComponentWithId<
 
     await this.onConfigUpdate(homeyDevice, this.config);
     await this.onStatusUpdate(homeyDevice, this.status);
+  }
+
+  public async unregisterHomeyDevice(homeyDevice: ShellyLocalDevice): Promise<void> {
+    this.presenceMitt.all.clear();
+    await this.staticallyUnregisterHomeyDevice.call(undefined as never, homeyDevice, this.id);
+  }
+
+  protected async staticallyUnregisterHomeyDevice(
+    this: never,
+    homeyDevice: ShellyLocalDevice,
+    id: number,
+  ): Promise<void> {
+    await PresenceZone.unregisterCapability(homeyDevice, 'alarm_presence', id);
+    await PresenceZone.unregisterCapability(homeyDevice, 'presence_count', id);
+    await homeyDevice.safeRemoveCapability('hidden.has_presence_sensor');
+    await homeyDevice.safeRemoveCapability('hidden.has_presence_sensor_multiple');
   }
 
   public static registerFlowCards(app: ShellyApp): void {
