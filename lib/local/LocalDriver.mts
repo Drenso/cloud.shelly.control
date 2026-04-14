@@ -1,12 +1,12 @@
 import Homey from 'homey';
-import { VirtualDevice } from './VirtualDevice.mjs';
-import type ShellyApp from '../app.mjs';
-import type { ShellyDiscoveryResult, ShellyLocalListDeviceProperties } from './types.mjs';
-import { HttpError } from './rpc/channel/HttpChannel.mjs';
-import type { ShellyGetComponentsResponseComponent } from './component/components/Shelly/GetComponents.mjs';
-import Shelly from './component/components/Shelly.mjs';
-import type { ShellyGetDeviceInfoResponse } from './component/components/Shelly/GetDeviceInfo.mjs';
-import { createHttpChannel } from './HomeyRPCChannels.mjs';
+import { VirtualDevice } from '../VirtualDevice.mjs';
+import type ShellyApp from '../../app.mjs';
+import type { ShellyDiscoveryResult, ShellyLocalListDeviceProperties } from '../types.mjs';
+import { HttpError } from '../rpc/channel/HttpChannel.mjs';
+import type { ShellyGetComponentsResponseComponent } from '../component/components/Shelly/GetComponents.mjs';
+import Shelly from '../component/components/Shelly.mjs';
+import type { ShellyGetDeviceInfoResponse } from '../component/components/Shelly/GetDeviceInfo.mjs';
+import { createHttpChannel } from '../HomeyRPCChannels.mjs';
 
 export default abstract class ShellyLocalDriver extends Homey.Driver {
   public get app(): ShellyApp {

@@ -1,4 +1,4 @@
-import type ShellyLocalDevice from '../Device.mjs';
+import type ShellyLocalDevice from '../local/LocalDevice.mjs';
 import type { RpcChannel } from '../rpc/channel/RpcChannel.mjs';
 import type { NotificationEventParam, ResponseSuccessFrame } from '../rpc/Rpc.mjs';
 import { deepAssign, type RecursivePartial } from '../util.mjs';

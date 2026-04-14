@@ -1,6 +1,6 @@
 import { type AllowedPrimitives, ComponentWithId } from '../Component.mjs';
 import capabilitiesOptions from './Switch/capabilitiesOptions.json' with { type: 'json' };
-import type ShellyLocalDevice from '../../Device.mjs';
+import type ShellyLocalDevice from '../../local/LocalDevice.mjs';
 import type { ComponentMethod } from './Shelly/ListMethods.mjs';
 import type { RecursivePartial } from '../../util.mjs';
 import SetConfig from './Temperature/SetConfig.mjs';

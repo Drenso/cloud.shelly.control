@@ -1,4 +1,4 @@
-import ShellyLocalDriver from '../../lib/Driver.mjs';
+import ShellyLocalDriver from '../../lib/local/LocalDriver.mjs';
 import type { ShellyLocalListDeviceProperties } from '../../lib/types.mjs';
 import type { ShellyGetComponentsResponseComponent } from '../../lib/component/components/Shelly/GetComponents.mjs';
 import Switch, { type SwitchConfig } from '../../lib/component/components/Switch.mjs';

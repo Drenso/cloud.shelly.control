@@ -1,4 +1,4 @@
-import ShellyLocalDevice from '../../lib/Device.mjs';
+import ShellyLocalDevice from '../../lib/local/LocalDevice.mjs';
 import type { NameSpace } from '../../lib/component/components/Shelly/ListMethods.mjs';
 
 // TODO refactor to reusable functions

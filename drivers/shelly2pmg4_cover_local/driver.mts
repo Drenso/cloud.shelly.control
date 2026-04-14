@@ -1,4 +1,4 @@
-import ShellyLocalDriver from '../../lib/Driver.mjs';
+import ShellyLocalDriver from '../../lib/local/LocalDriver.mjs';
 import type { ShellyGetDeviceInfoResponse } from '../../lib/component/components/Shelly/GetDeviceInfo.mjs';
 
 export default class Shelly2PMGen4CoverLocalDriver extends ShellyLocalDriver {

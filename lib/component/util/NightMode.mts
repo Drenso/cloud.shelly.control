@@ -1,4 +1,4 @@
-import type ShellyLocalDevice from '../../Device.mjs';
+import type ShellyLocalDevice from '../../local/LocalDevice.mjs';
 import type { NameSpace } from '../components/Shelly/ListMethods.mjs';
 
 export function parseNightModeActiveBetween(

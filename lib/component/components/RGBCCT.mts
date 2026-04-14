@@ -1,5 +1,5 @@
 import convert from 'color-convert';
-import type ShellyLocalDevice from '../../Device.mjs';
+import type ShellyLocalDevice from '../../local/LocalDevice.mjs';
 import type { RpcChannel } from '../../rpc/channel/RpcChannel.mjs';
 import { deepAssign, includesAny, type RecursivePartial } from '../../util.mjs';
 import { type AllowedPrimitives, ComponentWithId } from '../Component.mjs';

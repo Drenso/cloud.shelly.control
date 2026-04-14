@@ -1,5 +1,5 @@
 import { ComponentWithoutId } from '../Component.mjs';
-import type ShellyLocalDevice from '../../Device.mjs';
+import type ShellyLocalDevice from '../../local/LocalDevice.mjs';
 import type { ComponentMethod } from './Shelly/ListMethods.mjs';
 import SetConfig from './System/SetConfig.mjs';
 import GetConfig from './System/GetConfig.mjs';

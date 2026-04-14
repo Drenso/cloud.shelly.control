@@ -4,7 +4,7 @@ import sourceMapSupport from 'source-map-support';
 import { getIp } from './lib/LocalIp.mjs';
 import OutboundWsServer from './lib/rpc/OutboundWsServer.mjs';
 import { type SerializedVirtualDevice, VirtualDevice } from './lib/VirtualDevice.mjs';
-import type ShellyLocalDevice from './lib/Device.mjs';
+import type ShellyLocalDevice from './lib/local/LocalDevice.mjs';
 import Input from './lib/component/components/Input.mjs';
 import Illuminance from './lib/component/components/Illuminance.mjs';
 import PresenceZone from './lib/component/components/PresenceZone.mjs';

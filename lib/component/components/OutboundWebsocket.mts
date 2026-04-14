@@ -3,7 +3,7 @@ import SetConfig from './OutboundWebsocket/SetConfig.mjs';
 import GetConfig from './OutboundWebsocket/GetConfig.mjs';
 import GetStatus from './OutboundWebsocket/GetStatus.mjs';
 import type { ComponentMethod } from './Shelly/ListMethods.mjs';
-import type ShellyLocalDevice from '../../Device.mjs';
+import type ShellyLocalDevice from '../../local/LocalDevice.mjs';
 import { getIp } from '../../LocalIp.mjs';
 import { OUTBOUND_WS_PORT } from '../../config.mjs';
 

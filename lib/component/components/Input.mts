@@ -1,5 +1,5 @@
 import { type AllowedPrimitives, ComponentWithId } from '../Component.mjs';
-import type ShellyLocalDevice from '../../Device.mjs';
+import type ShellyLocalDevice from '../../local/LocalDevice.mjs';
 import type { ComponentMethod } from './Shelly/ListMethods.mjs';
 import { createMitt, fillTranslationTagsRecursively, type RecursivePartial, translate } from '../../util.mjs';
 import SetConfig from './Input/SetConfig.mjs';

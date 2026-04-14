@@ -8,7 +8,7 @@ import GetStatus from './Light/GetStatus.mjs';
 import type { LightResetCountersParams } from './Light/ResetCounters.mjs';
 import ResetCounters from './Light/ResetCounters.mjs';
 import type { ComponentMethod } from './Shelly/ListMethods.mjs';
-import type ShellyLocalDevice from '../../Device.mjs';
+import type ShellyLocalDevice from '../../local/LocalDevice.mjs';
 import { deepAssign, type RecursivePartial } from '../../util.mjs';
 import Set, { type LightSetParams } from './Light/Set.mjs';
 import Toggle from './Light/Toggle.mjs';

@@ -1,4 +1,4 @@
-import type ShellyLocalDevice from '../../Device.mjs';
+import type ShellyLocalDevice from '../../local/LocalDevice.mjs';
 import type { RecursivePartial } from '../../util.mjs';
 import { type AllowedPrimitives, ComponentWithId } from '../Component.mjs';
 import GetConfig from './Illuminance/GetConfig.mjs';

@@ -5,7 +5,7 @@ import SetConfig from './PowerStripUI/SetConfig.mjs';
 import GetStatus from './PowerStripUI/GetStatus.mjs';
 import type { ComponentMethod } from './Shelly/ListMethods.mjs';
 import { deepAssign, type RecursivePartial } from '../../util.mjs';
-import type ShellyLocalDevice from '../../Device.mjs';
+import type ShellyLocalDevice from '../../local/LocalDevice.mjs';
 
 export type PowerStripUIStatus = Record<string, never>;
 

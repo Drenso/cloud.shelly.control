@@ -10,7 +10,7 @@ import Shelly from './component/components/Shelly.mjs';
 import type { ComponentMethod, NameSpace } from './component/components/Shelly/ListMethods.mjs';
 import { RpcError } from './rpc/RpcError.mjs';
 import type { NotificationEventFrame, NotificationFrame, NotificationStatusFrame } from './rpc/Rpc.mjs';
-import type ShellyLocalDevice from './Device.mjs';
+import type ShellyLocalDevice from './local/LocalDevice.mjs';
 import RPC from './component/components/RPC.mjs';
 import { createHttpChannel, createInboundWsChannel, createOutboundWsChannel } from './HomeyRPCChannels.mjs';
 

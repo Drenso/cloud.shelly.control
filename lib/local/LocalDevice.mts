@@ -1,10 +1,10 @@
 import Homey from 'homey';
-import type { ShellyLocalDeviceData, ShellyLocalDeviceStore } from './types.mjs';
-import type ShellyApp from '../app.mjs';
-import type { VirtualDevice } from './VirtualDevice.mjs';
-import type { ComponentMethod, NameSpace } from './component/components/Shelly/ListMethods.mjs';
-import type { MappedComponent } from './component/ComponentMapping.mjs';
-import type ShellyLocalDriver from './Driver.mjs';
+import type { ShellyLocalDeviceData, ShellyLocalDeviceStore } from '../types.mjs';
+import type ShellyApp from '../../app.mjs';
+import type { VirtualDevice } from '../VirtualDevice.mjs';
+import type { ComponentMethod, NameSpace } from '../component/components/Shelly/ListMethods.mjs';
+import type { MappedComponent } from '../component/ComponentMapping.mjs';
+import type ShellyLocalDriver from './LocalDriver.mjs';
 
 export default class ShellyLocalDevice extends Homey.Device {
   declare public readonly __id: string;

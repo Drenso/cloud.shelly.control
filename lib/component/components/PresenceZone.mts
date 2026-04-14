@@ -1,4 +1,4 @@
-import type ShellyLocalDevice from '../../Device.mjs';
+import type ShellyLocalDevice from '../../local/LocalDevice.mjs';
 import type { NotificationEventParam } from '../../rpc/Rpc.mjs';
 import { createMitt, fillTranslationTagsRecursively, translate } from '../../util.mjs';
 import { ComponentWithId } from '../Component.mjs';

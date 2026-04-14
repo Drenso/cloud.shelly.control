@@ -1,4 +1,4 @@
-import type ShellyLocalDevice from '../../Device.mjs';
+import type ShellyLocalDevice from '../../local/LocalDevice.mjs';
 import type { NotificationEventParam } from '../../rpc/Rpc.mjs';
 import { type AllowedPrimitives, ComponentWithoutId } from '../Component.mjs';
 import SetConfig from './Presence/SetConfig.mjs';

@@ -1,6 +1,6 @@
 import { type AllowedPrimitives, ComponentWithId } from '../Component.mjs';
 import capabilitiesOptions from './Cover/capabilitiesOptions.json' with { type: 'json' };
-import type ShellyLocalDevice from '../../Device.mjs';
+import type ShellyLocalDevice from '../../local/LocalDevice.mjs';
 import type { ComponentMethod } from './Shelly/ListMethods.mjs';
 import { deepAssign, type RecursivePartial } from '../../util.mjs';
 import SetConfig from './Cover/SetConfig.mjs';
