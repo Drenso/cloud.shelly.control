@@ -1,0 +1,22 @@
+{
+  "$extends": ["matter"],
+  "name": {
+    "en": "Dimmer Gen4 - Matter"
+  },
+  "class": "light",
+  "capabilities": ["onoff", "dim", "measure_current", "measure_voltage", "measure_power", "meter_power"],
+  "matter": {
+    "vendorId": 5264,
+    "productId": 4213,
+    "learnmode": {
+      "instruction": {
+        "en": "Enable Matter in the Shelly web interface. The required information for pairing will be shown after enabling."
+      }
+    }
+  },
+  "images": {
+    "small": "/assets/drivers/shellydimmerg4/images/small.png",
+    "large": "/assets/drivers/shellydimmerg4/images/large.png",
+    "xlarge": "/assets/drivers/shellydimmerg4/images/xlarge.png"
+  }
+}
