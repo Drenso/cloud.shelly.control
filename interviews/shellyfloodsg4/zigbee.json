@@ -1,0 +1,77 @@
+{
+  "ids": {
+    "modelId": "Flood",
+    "manufacturerName": "Shelly"
+  },
+  "endpoints": {
+    "ieeeAddress": "58:e6:c5:ff:fe:06:75:88",
+    "networkAddress": 11499,
+    "modelId": "Flood",
+    "manufacturerName": "Shelly",
+    "endpointDescriptors": [
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 11499,
+        "_reserved": 18,
+        "endpointId": 1,
+        "applicationProfileId": 260,
+        "applicationDeviceId": 1026,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 0,
+        "inputClusters": [0, 1, 3, 1280],
+        "outputClusters": [25]
+      }
+    ],
+    "deviceType": "enddevice",
+    "receiveWhenIdle": false,
+    "swBuildId": "1.8.99-dev154678",
+    "capabilities": {
+      "alternatePANCoordinator": false,
+      "deviceType": false,
+      "powerSourceMains": false,
+      "receiveWhenIdle": false,
+      "security": false,
+      "allocateAddress": true
+    },
+    "iasZoneEnrollment": {
+      "1": {
+        "iasCieAddress": "88:1a:14:ff:fe:a1:a2:0f",
+        "enrolled": true,
+        "enrollAttempts": 0
+      }
+    },
+    "extendedEndpointDescriptors": {
+      "1": {
+        "clusters": {
+          "basic": {
+            "commandsGenerated": [],
+            "commandsReceived": ["factoryReset"]
+          },
+          "powerConfiguration": {
+            "attributes": [
+              {
+                "acl": ["readable"],
+                "id": 32,
+                "dataTypeId": 32,
+                "name": "batteryVoltage",
+                "value": 28
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 33,
+                "dataTypeId": 32,
+                "name": "batteryPercentageRemaining",
+                "value": 160
+              }
+            ]
+          },
+          "identify": {},
+          "iasZone": {}
+        },
+        "bindings": {
+          "ota": {}
+        }
+      }
+    }
+  }
+}

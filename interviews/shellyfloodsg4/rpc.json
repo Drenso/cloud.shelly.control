@@ -1,0 +1,207 @@
+[
+  {
+    "key": "ble",
+    "status": {},
+    "config": {
+      "enable": false,
+      "rpc": {
+        "enable": true
+      }
+    }
+  },
+  {
+    "key": "cloud",
+    "status": {
+      "connected": true
+    },
+    "config": {
+      "enable": true,
+      "server": "shelly-238-eu.shelly.cloud:6022/jrpc"
+    }
+  },
+  {
+    "key": "devicepower:0",
+    "status": {
+      "id": 0,
+      "battery": {
+        "V": 2.93,
+        "percent": 77
+      }
+    },
+    "config": {}
+  },
+  {
+    "key": "flood:0",
+    "status": {
+      "id": 0,
+      "alarm": false,
+      "mute": false
+    },
+    "config": {
+      "id": 0,
+      "name": null,
+      "alarm_mode": "normal",
+      "report_holdoff": 0
+    }
+  },
+  {
+    "key": "matter",
+    "status": {
+      "num_fabrics": 0,
+      "commissionable": true
+    },
+    "config": {
+      "enable": true
+    }
+  },
+  {
+    "key": "mqtt",
+    "status": {
+      "connected": false
+    },
+    "config": {
+      "enable": false,
+      "server": null,
+      "client_id": "shellyfloodsg4-58e6c5067588",
+      "user": null,
+      "ssl_ca": null,
+      "topic_prefix": "shellyfloodsg4-58e6c5067588",
+      "rpc_ntf": true,
+      "status_ntf": false,
+      "use_client_cert": false,
+      "enable_rpc": true,
+      "enable_control": true
+    }
+  },
+  {
+    "key": "sys",
+    "status": {
+      "mac": "58E6C5067588",
+      "restart_required": false,
+      "time": "11:31",
+      "unixtime": 1776072688,
+      "last_sync_ts": 1776072674,
+      "uptime": 15,
+      "ram_size": 307648,
+      "ram_free": 143332,
+      "ram_min_free": 132584,
+      "fs_size": 917504,
+      "fs_free": 557056,
+      "cfg_rev": 8,
+      "kvs_rev": 0,
+      "webhook_rev": 0,
+      "available_updates": {},
+      "wakeup_reason": {
+        "boot": "deepsleep_wake",
+        "cause": "button"
+      },
+      "wakeup_period": 43200,
+      "reset_reason": 8,
+      "backup": {},
+      "utc_offset": 7200
+    },
+    "config": {
+      "device": {
+        "name": null,
+        "mac": "58E6C5067588",
+        "fw_id": "20251114-133214/g47ef2a7",
+        "discoverable": true,
+        "eco_mode": false,
+        "tls_check_cert_validity_time": true,
+        "enhanced_security": false
+      },
+      "location": {
+        "tz": "Europe/Amsterdam",
+        "lat": 52.2486,
+        "lon": 6.7847
+      },
+      "debug": {
+        "level": 2,
+        "file_level": null,
+        "mqtt": {
+          "enable": false
+        },
+        "websocket": {
+          "enable": false
+        },
+        "file_log": {
+          "enable": false
+        },
+        "udp": {
+          "addr": null
+        }
+      },
+      "ui_data": {},
+      "rpc_udp": {
+        "dst_addr": null,
+        "listen_port": null
+      },
+      "sntp": {
+        "server": "time.cloudflare.com"
+      },
+      "cfg_rev": 8
+    }
+  },
+  {
+    "key": "wifi",
+    "status": {
+      "sta_ip": "192.168.222.166",
+      "status": "got ip",
+      "ssid": "DrensoDev",
+      "bssid": "76:ac:b9:2c:8c:03",
+      "rssi": -53,
+      "sta_ip6": ["fe80::5ae6:c5ff:fe06:7588", "fd03:8586:4012:ec48:5ae6:c5ff:fe06:7588"]
+    },
+    "config": {
+      "ap": {
+        "ssid": "ShellyFloodSG4-58E6C5067588",
+        "is_open": true,
+        "enable": false
+      },
+      "sta": {
+        "ssid": "DrensoDev",
+        "is_open": false,
+        "enable": true,
+        "ipv4mode": "dhcp",
+        "ip": null,
+        "netmask": null,
+        "gw": null,
+        "nameserver": null
+      },
+      "sta1": {
+        "ssid": null,
+        "is_open": true,
+        "enable": false,
+        "ipv4mode": "dhcp",
+        "ip": null,
+        "netmask": null,
+        "gw": null,
+        "nameserver": null
+      },
+      "roam": {
+        "rssi_thr": -80,
+        "interval": 60
+      }
+    }
+  },
+  {
+    "key": "ws",
+    "status": {
+      "connected": false
+    },
+    "config": {
+      "enable": false,
+      "server": null,
+      "ssl_ca": "ca.pem"
+    }
+  },
+  {
+    "key": "zigbee",
+    "status": {
+      "network_state": "disabled"
+    },
+    "config": {
+      "enable": false
+    }
+  }
+]
