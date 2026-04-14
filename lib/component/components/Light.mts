@@ -324,51 +324,65 @@ export default class Light extends ComponentWithId<'Light', LightStatus, LightCo
   }
 
   public async registerHomeyDevice(homeyDevice: ShellyLocalDevice, methods: ComponentMethod<'Light'>[]): Promise<void> {
-    {
-      // output
-      const capabilityId = 'onoff';
-      await this.registerCapability(homeyDevice, 'output', capabilityId).catch(homeyDevice.error);
+    if (this.status.output !== undefined) {
+      const homeyCapability = 'onoff';
+      const capabilityId = await this.registerCapability(
+        homeyDevice,
+        homeyCapability,
+        capabilitiesOptions[homeyCapability as never],
+      );
       homeyDevice.registerCapabilityListener(capabilityId, async (value: boolean) => {
         await this.Set(this.device.getChannel(), { on: value });
       });
     }
 
-    {
-      // brightness
-      const capabilityId = 'dim';
-      await this.registerCapability(homeyDevice, 'brightness', capabilityId).catch(homeyDevice.error);
+    if (this.status.brightness !== undefined) {
+      const homeyCapability = 'dim';
+      const capabilityId = await this.registerCapability(
+        homeyDevice,
+        homeyCapability,
+        capabilitiesOptions[homeyCapability as never],
+      );
       homeyDevice.registerCapabilityListener(capabilityId, async (value: number) => {
         await this.Set(this.device.getChannel(), { brightness: value * 100 });
       });
     }
 
-    await this.registerCapability(homeyDevice, 'temperature', 'measure_temperature').catch(homeyDevice.error);
-    await this.registerCapability(homeyDevice, 'aenergy', 'meter_power').catch(homeyDevice.error);
-    await this.registerCapability(homeyDevice, 'apower', 'measure_power').catch(homeyDevice.error);
-    await this.registerCapability(homeyDevice, 'voltage', 'measure_voltage').catch(homeyDevice.error);
-    await this.registerCapability(homeyDevice, 'current', 'measure_current').catch(homeyDevice.error);
+    for (const [statusKey, homeyCapability] of [
+      ['temperature', 'measure_temperature'],
+      ['aenergy', 'meter_power'],
+      ['apower', 'measure_power'],
+      ['voltage', 'measure_voltage'],
+      ['current', 'measure_current'],
+    ] as const) {
+      if (this.status[statusKey] !== undefined) {
+        await this.registerCapability(homeyDevice, homeyCapability, capabilitiesOptions[homeyCapability as never]);
+      }
+    }
     // TODO errors
 
     if (methods.includes('ResetCounters')) {
       const maintenanceActionId = 'button.reset_energy_counters';
-      await homeyDevice.safeAddCapability(maintenanceActionId);
-      homeyDevice.registerCapabilityListener(maintenanceActionId, async () => {
+      const capabilityId = await this.registerCapability(
+        homeyDevice,
+        maintenanceActionId,
+        capabilitiesOptions[maintenanceActionId],
+      );
+      homeyDevice.registerCapabilityListener(capabilityId, async () => {
         await this.ResetCounters(this.device.getChannel());
       });
-      await homeyDevice
-        .setCapabilityOptions(maintenanceActionId, capabilitiesOptions['button.reset_energy_counters'])
-        .catch(homeyDevice.error);
     }
 
     if (methods.includes('Calibrate')) {
       const maintenanceActionId = 'button.calibrate';
-      await homeyDevice.safeAddCapability(maintenanceActionId);
-      homeyDevice.registerCapabilityListener(maintenanceActionId, async () => {
+      const capabilityId = await this.registerCapability(
+        homeyDevice,
+        maintenanceActionId,
+        capabilitiesOptions[maintenanceActionId],
+      );
+      homeyDevice.registerCapabilityListener(capabilityId, async () => {
         await this.Calibrate(this.device.getChannel());
       });
-      await homeyDevice
-        .setCapabilityOptions(maintenanceActionId, capabilitiesOptions['button.calibrate'])
-        .catch(homeyDevice.error);
     }
 
     // Set correct capability values
@@ -518,24 +532,6 @@ export default class Light extends ComponentWithId<'Light', LightStatus, LightCo
 
     const result = await this.SetConfig(this.device.getChannel(), { config: changedConfig });
     return result.result.restart_required;
-  }
-
-  private async registerCapability(
-    homeyDevice: ShellyLocalDevice,
-    statusProperty: keyof LightStatus,
-    homeyCapability: string,
-  ): Promise<void> {
-    if (this.status[statusProperty] === undefined) {
-      return;
-    }
-
-    await homeyDevice.safeAddCapability(homeyCapability);
-    const capabilityOptions = capabilitiesOptions[homeyCapability as keyof typeof capabilitiesOptions];
-    if (capabilityOptions === undefined) {
-      return;
-    }
-
-    await homeyDevice.setCapabilityOptions(homeyCapability, capabilityOptions);
   }
 
   private async updateMeasured(

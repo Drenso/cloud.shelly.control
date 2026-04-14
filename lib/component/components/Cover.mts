@@ -564,10 +564,14 @@ export default class Cover extends ComponentWithId<'Cover', CoverStatus, CoverCo
   }
 
   public async registerHomeyDevice(homeyDevice: ShellyLocalDevice, methods: ComponentMethod<'Cover'>[]): Promise<void> {
-    {
+    if (this.status.state !== undefined) {
       const homeyCapability = 'windowcoverings_state';
-      await this.registerCapability(homeyDevice, 'state', homeyCapability).catch(homeyDevice.error);
-      homeyDevice.registerCapabilityListener(homeyCapability, async (value: 'up' | 'idle' | 'down') => {
+      const capabilityId = await this.registerCapability(
+        homeyDevice,
+        homeyCapability,
+        capabilitiesOptions[homeyCapability as never],
+      );
+      homeyDevice.registerCapabilityListener(capabilityId, async (value: 'up' | 'idle' | 'down') => {
         if (value === 'up') {
           await this.Open(this.device.getChannel());
         } else if (value === 'down') {
@@ -579,20 +583,28 @@ export default class Cover extends ComponentWithId<'Cover', CoverStatus, CoverCo
     }
 
     if (this.status.pos_control) {
-      {
+      if (this.status.current_pos !== undefined) {
         const homeyCapability = 'windowcoverings_set';
-        await this.registerCapability(homeyDevice, 'current_pos', homeyCapability).catch(homeyDevice.error);
-        homeyDevice.registerCapabilityListener(homeyCapability, async (value: number) => {
+        const capabilityId = await this.registerCapability(
+          homeyDevice,
+          homeyCapability,
+          capabilitiesOptions[homeyCapability as never],
+        );
+        homeyDevice.registerCapabilityListener(capabilityId, async (value: number) => {
           const percentage = value * 100;
           await this.GoToPosition(this.device.getChannel(), {
             pos: percentage,
           });
         });
       }
-      {
+      if (this.status.slat_pos !== undefined) {
         const homeyCapability = 'windowcoverings_tilt_set';
-        await this.registerCapability(homeyDevice, 'slat_pos', homeyCapability).catch(homeyDevice.error);
-        homeyDevice.registerCapabilityListener(homeyCapability, async (value: number) => {
+        const capabilityId = await this.registerCapability(
+          homeyDevice,
+          homeyCapability,
+          capabilitiesOptions[homeyCapability as never],
+        );
+        homeyDevice.registerCapabilityListener(capabilityId, async (value: number) => {
           const percentage = value * 100;
           await this.GoToPosition(this.device.getChannel(), {
             slat_pos: percentage,
@@ -601,24 +613,32 @@ export default class Cover extends ComponentWithId<'Cover', CoverStatus, CoverCo
       }
     }
 
-    await this.registerCapability(homeyDevice, 'apower', 'measure_power').catch(homeyDevice.error);
-    await this.registerCapability(homeyDevice, 'voltage', 'measure_voltage').catch(homeyDevice.error);
-    await this.registerCapability(homeyDevice, 'current', 'measure_current').catch(homeyDevice.error);
-    // TODO power factor
-    await this.registerCapability(homeyDevice, 'freq', 'measure_frequency').catch(homeyDevice.error);
-    await this.registerCapability(homeyDevice, 'aenergy', 'meter_power').catch(homeyDevice.error);
-    await this.registerCapability(homeyDevice, 'temperature', 'measure_temperature.cover').catch(homeyDevice.error);
+    // Simple capabilities
+    for (const [statusKey, homeyCapability] of [
+      ['apower', 'measure_power'],
+      ['voltage', 'measure_voltage'],
+      ['current', 'measure_current'],
+      // TODO power factor
+      ['freq', 'measure_frequency'],
+      ['aenergy', 'meter_power'],
+      ['temperature', 'measure_temperature.cover'],
+    ] as const) {
+      if (this.status[statusKey] !== undefined) {
+        await this.registerCapability(homeyDevice, homeyCapability, capabilitiesOptions[homeyCapability as never]);
+      }
+    }
     // TODO errors
 
     if (methods.includes('ResetCounters')) {
       const maintenanceActionId = 'button.reset_energy_counters';
-      await homeyDevice.safeAddCapability(maintenanceActionId);
-      homeyDevice.registerCapabilityListener(maintenanceActionId, async () => {
+      const capabilityId = await this.registerCapability(
+        homeyDevice,
+        maintenanceActionId,
+        capabilitiesOptions[maintenanceActionId],
+      );
+      homeyDevice.registerCapabilityListener(capabilityId, async () => {
         await this.ResetCounters(this.device.getChannel());
       });
-      await homeyDevice
-        .setCapabilityOptions(maintenanceActionId, capabilitiesOptions['button.reset_energy_counters'])
-        .catch(homeyDevice.error);
     }
 
     // Set correct capability values
@@ -639,33 +659,41 @@ export default class Cover extends ComponentWithId<'Cover', CoverStatus, CoverCo
         calibrating: null,
       } as const satisfies Record<CoverStatus['state'], 'up' | 'idle' | 'down' | null>;
       const value = stateMapping[state];
-      await homeyDevice.safeSetCapability('windowcoverings_state', value);
+      await this.setCapability(homeyDevice, 'windowcoverings_state', value);
     }
 
     const currentPos = status.current_pos;
     if (currentPos === null) {
-      await homeyDevice.safeSetCapability('windowcoverings_set', currentPos);
+      await this.setCapability(homeyDevice, 'windowcoverings_set', currentPos);
     } else if (currentPos !== undefined) {
       const value = currentPos / 100;
-      await homeyDevice.safeSetCapability('windowcoverings_set', value);
+      await this.setCapability(homeyDevice, 'windowcoverings_set', value);
     }
 
     const slatPos = status.slat_pos;
     if (slatPos !== undefined) {
       const value = slatPos / 100;
-      await homeyDevice.safeSetCapability('windowcoverings_tilt_set', value);
+      await this.setCapability(homeyDevice, 'windowcoverings_tilt_set', value);
     }
 
-    await this.updateMeasured(homeyDevice, status, 'apower', 'measure_power');
-    await this.updateMeasured(homeyDevice, status, 'voltage', 'measure_voltage');
-    await this.updateMeasured(homeyDevice, status, 'current', 'measure_current');
-    // TODO power factor
-    await this.updateMeasured(homeyDevice, status, 'freq', 'measure_frequency');
     if (status.aenergy?.total !== undefined) {
-      await homeyDevice.safeSetCapability('meter_power', status.aenergy.total / 1000);
+      await this.setCapability(homeyDevice, 'meter_power', status.aenergy.total / 1000);
     }
     if (status.temperature !== undefined) {
-      await homeyDevice.safeSetCapability('measure_temperature.cover', status.temperature.tC);
+      await this.setCapability(homeyDevice, 'measure_temperature.cover', status.temperature.tC);
+    }
+
+    // Simple capabilities
+    for (const [statusKey, homeyCapability] of [
+      ['apower', 'measure_power'],
+      ['voltage', 'measure_voltage'],
+      ['current', 'measure_current'],
+      // TODO power factor
+      ['freq', 'measure_frequency'],
+    ] as const) {
+      if (status[statusKey] !== undefined) {
+        await this.setCapability(homeyDevice, homeyCapability, status[statusKey]);
+      }
     }
     // TODO errors
   }
@@ -770,36 +798,5 @@ export default class Cover extends ComponentWithId<'Cover', CoverStatus, CoverCo
 
     const result = await this.SetConfig(this.device.getChannel(), { config: changedConfig });
     return result.result.restart_required;
-  }
-
-  private async registerCapability(
-    homeyDevice: ShellyLocalDevice,
-    statusProperty: keyof CoverStatus,
-    homeyCapability: string,
-  ): Promise<void> {
-    if (this.status[statusProperty] === undefined) {
-      return;
-    }
-
-    await homeyDevice.safeAddCapability(homeyCapability);
-    const capabilityOptions = capabilitiesOptions[homeyCapability as keyof typeof capabilitiesOptions];
-    if (capabilityOptions === undefined) {
-      return;
-    }
-
-    await homeyDevice.setCapabilityOptions(homeyCapability, capabilityOptions);
-  }
-
-  private async updateMeasured(
-    homeyDevice: ShellyLocalDevice,
-    status: Partial<CoverStatus>,
-    statusProperty: keyof CoverStatus,
-    homeyCapability: string,
-  ): Promise<void> {
-    if (status[statusProperty] === undefined) {
-      return;
-    }
-
-    await homeyDevice.safeSetCapability(homeyCapability, status[statusProperty]).catch(homeyDevice.error);
   }
 }

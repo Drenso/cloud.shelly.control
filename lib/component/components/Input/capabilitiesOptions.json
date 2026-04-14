@@ -1,33 +1,33 @@
 {
   "sensor_boolean.input_switch": {
     "title": {
-      "en": "Switch Input __number__"
+      "en": "Switch Input __name__"
     },
     "titleTrue": {
-      "en": "On"
+      "en": "Input __name__ On"
     },
     "titleFalse": {
-      "en": "Off"
+      "en": "Input __name__ Off"
     },
     "icon": "/assets/capabilities/input_switch.svg"
   },
   "sensor_number.input_analog": {
     "title": {
-      "en": "Analog Input __number__"
+      "en": "Analog Input __name__"
     },
     "units": "%",
     "icon": "/assets/capabilities/input_analog.svg"
   },
   "sensor_number.input_count": {
     "title": {
-      "en": "Count Input __number__"
+      "en": "Count Input __name__"
     },
     "decimals": 0,
     "icon": "/assets/capabilities/input_count.svg"
   },
   "sensor_string.input_button": {
     "title": {
-      "en": "Button Input __number__"
+      "en": "Button Input __name__"
     },
     "icon": "/assets/capabilities/input_button.svg"
   }

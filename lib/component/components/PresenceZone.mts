@@ -1,13 +1,12 @@
 import type ShellyLocalDevice from '../../local/LocalDevice.mjs';
 import type { NotificationEventParam } from '../../rpc/Rpc.mjs';
-import { createMitt, fillTranslationTagsRecursively, translate } from '../../util.mjs';
+import { createMitt, translate } from '../../util.mjs';
 import { ComponentWithId } from '../Component.mjs';
 import SetConfig from './PresenceZone/SetConfig.mjs';
 import GetConfig from './PresenceZone/GetConfig.mjs';
 import GetStatus from './PresenceZone/GetStatus.mjs';
 import type { ComponentMethod } from './Shelly/ListMethods.mjs';
 import capabilitiesOptions from './PresenceZone/capabilitiesOptions.json' with { type: 'json' };
-import type { JsonObject } from '../../../types/json.mjs';
 import type { IlluminanceStatus } from './Illuminance.mjs';
 import type ShellyApp from '../../../app.mjs';
 
@@ -100,8 +99,8 @@ export default class PresenceZone extends ComponentWithId<
     homeyDevice: ShellyLocalDevice,
     _methods: Array<ComponentMethod<'PresenceZone'>>,
   ): Promise<void> {
-    await this.registerCapability(homeyDevice, 'alarm_presence');
-    await this.registerCapability(homeyDevice, 'presence_count');
+    await this.registerCapability(homeyDevice, 'alarm_presence', capabilitiesOptions['alarm_presence']);
+    await this.registerCapability(homeyDevice, 'presence_count', capabilitiesOptions['presence_count']);
 
     if (
       !homeyDevice.hasCapability('hidden.has_presence_sensor') &&
@@ -219,28 +218,5 @@ export default class PresenceZone extends ComponentWithId<
     } else {
       return super.handleEvent(event);
     }
-  }
-
-  private async registerCapability(
-    homeyDevice: ShellyLocalDevice,
-    capability: 'alarm_presence' | 'presence_count',
-  ): Promise<void> {
-    const capabilityId = `${capability}.${this.id}`;
-    await homeyDevice.safeAddCapability(capabilityId);
-    const rawCapabilityOptions = capabilitiesOptions[capability];
-    const name = this.config.name !== null ? this.config.name : `${this.id}`;
-    const capabilityOptions = fillTranslationTagsRecursively(rawCapabilityOptions, {
-      name: name,
-    }) as JsonObject;
-    await homeyDevice.setCapabilityOptions(capabilityId, capabilityOptions);
-  }
-
-  private async setCapability(
-    homeyDevice: ShellyLocalDevice,
-    capability: 'alarm_presence' | 'presence_count',
-    value: unknown,
-  ): Promise<void> {
-    const capabilityId = `${capability}.${this.id}`;
-    await homeyDevice.safeSetCapability(capabilityId, value);
   }
 }

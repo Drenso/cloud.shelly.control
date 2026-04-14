@@ -213,26 +213,55 @@ export default class Switch extends ComponentWithId<'Switch', SwitchStatus, Swit
     methods: ComponentMethod<'Switch'>[],
   ): Promise<void> {
     {
-      // output
-      await this.registerCapability(homeyDevice, 'output', 'onoff').catch(homeyDevice.error);
-      const capabilityId = 'onoff' as const;
+      const homeyCapability = 'onoff';
+      const capabilityId = await this.registerCapability(
+        homeyDevice,
+        homeyCapability,
+        capabilitiesOptions[homeyCapability as never],
+      );
       const capabilityListener = async (value: boolean): Promise<void> => {
         await this.Set(this.device.getChannel(), { on: value });
       };
       homeyDevice.registerCapabilityListener(capabilityId, capabilityListener);
     }
 
-    await this.registerCapability(homeyDevice, 'apower', 'measure_power').catch(homeyDevice.error);
-    await this.registerCapability(homeyDevice, 'voltage', 'measure_voltage').catch(homeyDevice.error);
-    await this.registerCapability(homeyDevice, 'current', 'measure_current').catch(homeyDevice.error);
-    // TODO power factor
-    await this.registerCapability(homeyDevice, 'freq', 'measure_frequency').catch(homeyDevice.error);
-    await this.registerCapability(homeyDevice, 'aenergy', 'meter_power.consumed').catch(homeyDevice.error);
-    await this.registerCapability(homeyDevice, 'ret_aenergy', 'meter_power.returned').catch(homeyDevice.error);
-    await this.registerCapability(homeyDevice, 'aenergy', 'meter_power.total').catch(homeyDevice.error);
-    await this.registerCapability(homeyDevice, 'temperature', 'measure_temperature').catch(homeyDevice.error);
+    // Simple capabilities
+    for (const [statusKey, homeyCapability] of [
+      ['apower', 'measure_power'],
+      ['voltage', 'measure_voltage'],
+      ['current', 'measure_current'],
+      // TODO power factor
+      ['freq', 'measure_frequency'],
+      ['aenergy', 'meter_power.total'],
+      ['temperature', 'measure_temperature'],
+    ] as const) {
+      if (this.status[statusKey] !== undefined) {
+        await this.registerCapability(homeyDevice, homeyCapability, capabilitiesOptions[homeyCapability as never]);
+      }
+    }
     // TODO errors
 
+    const energyHomeyCapability = 'meter_power.consumed';
+    let energyCapabilityId = energyHomeyCapability;
+    if (this.status.aenergy !== undefined) {
+      energyCapabilityId = await this.registerCapability(
+        homeyDevice,
+        energyHomeyCapability,
+        capabilitiesOptions[energyHomeyCapability as never],
+      );
+    }
+
+    const returnedEnergyHomeyCapability = 'meter_power.returned';
+    let returnedEnergyCapabilityId = returnedEnergyHomeyCapability;
+    if (this.status.ret_aenergy !== undefined) {
+      returnedEnergyCapabilityId = await this.registerCapability(
+        homeyDevice,
+        returnedEnergyHomeyCapability,
+        capabilitiesOptions[returnedEnergyHomeyCapability as never],
+      );
+    }
+
+    // TODO fix this for multiple components on the same device
     if (this.status['aenergy'] !== undefined || this.status['ret_aenergy'] !== undefined) {
       let energy = homeyDevice.getEnergy();
       energy = {
@@ -246,13 +275,14 @@ export default class Switch extends ComponentWithId<'Switch', SwitchStatus, Swit
 
     if (methods.includes('ResetCounters')) {
       const maintenanceActionId = 'button.reset_energy_counters';
-      await homeyDevice.safeAddCapability(maintenanceActionId);
-      homeyDevice.registerCapabilityListener(maintenanceActionId, async () => {
+      const capabilityId = await this.registerCapability(
+        homeyDevice,
+        maintenanceActionId,
+        capabilitiesOptions[maintenanceActionId as never],
+      );
+      homeyDevice.registerCapabilityListener(capabilityId, async () => {
         await this.ResetCounters(this.device.getChannel());
       });
-      await homeyDevice
-        .setCapabilityOptions(maintenanceActionId, capabilitiesOptions['button.reset_energy_counters'])
-        .catch(homeyDevice.error);
     }
 
     // Set correct capability values
@@ -262,19 +292,28 @@ export default class Switch extends ComponentWithId<'Switch', SwitchStatus, Swit
   }
 
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Partial<SwitchStatus>): Promise<void> {
-    await this.updateMeasured(homeyDevice, status, 'output', 'onoff');
-    await this.updateMeasured(homeyDevice, status, 'apower', 'measure_power');
-    await this.updateMeasured(homeyDevice, status, 'voltage', 'measure_voltage');
-    await this.updateMeasured(homeyDevice, status, 'current', 'measure_current');
-    // TODO power factor
-    await this.updateMeasured(homeyDevice, status, 'freq', 'measure_frequency');
+    // Simple capabilities
+    for (const [statusKey, homeyCapability] of [
+      ['output', 'onoff'],
+      ['apower', 'measure_power'],
+      ['voltage', 'measure_voltage'],
+      ['current', 'measure_current'],
+      // TODO power factor
+      ['freq', 'measure_frequency'],
+    ] as const) {
+      if (status[statusKey] !== undefined) {
+        await this.setCapability(homeyDevice, homeyCapability, status[statusKey]);
+      }
+    }
+
+    // TODO fix this for multiple components on the same device
     if (status.aenergy !== undefined || status.ret_aenergy !== undefined) {
       const absoluteEnergy = this.status.aenergy?.total ?? 0;
       const returnedEnergy = this.status.ret_aenergy?.total ?? 0;
       const consumedEnergy = absoluteEnergy - returnedEnergy;
-      await homeyDevice.safeSetCapability('meter_power.consumed', consumedEnergy / 1000);
-      await homeyDevice.safeSetCapability('meter_power.returned', returnedEnergy / 1000);
-      await homeyDevice.safeSetCapability('meter_power.total', absoluteEnergy / 1000);
+      await this.setCapability(homeyDevice, 'meter_power.consumed', consumedEnergy / 1000);
+      await this.setCapability(homeyDevice, 'meter_power.returned', returnedEnergy / 1000);
+      await this.setCapability(homeyDevice, 'meter_power.total', absoluteEnergy / 1000);
     }
     if (status.temperature !== undefined) {
       await homeyDevice.safeSetCapability('measure_temperature', status.temperature.tC);
@@ -320,36 +359,5 @@ export default class Switch extends ComponentWithId<'Switch', SwitchStatus, Swit
 
     const result = await this.SetConfig(this.device.getChannel(), { config: changedConfig });
     return result.result.restart_required;
-  }
-
-  private async registerCapability(
-    homeyDevice: ShellyLocalDevice,
-    statusProperty: keyof SwitchStatus,
-    homeyCapability: string,
-  ): Promise<void> {
-    if (this.status[statusProperty] === undefined) {
-      return;
-    }
-
-    await homeyDevice.safeAddCapability(homeyCapability);
-    const capabilityOptions = capabilitiesOptions[homeyCapability as keyof typeof capabilitiesOptions];
-    if (capabilityOptions === undefined) {
-      return;
-    }
-
-    await homeyDevice.setCapabilityOptions(homeyCapability, capabilityOptions);
-  }
-
-  private async updateMeasured(
-    homeyDevice: ShellyLocalDevice,
-    status: Partial<SwitchStatus>,
-    statusProperty: keyof SwitchStatus,
-    homeyCapability: string,
-  ): Promise<void> {
-    if (status[statusProperty] === undefined) {
-      return;
-    }
-
-    await homeyDevice.safeSetCapability(homeyCapability, status[statusProperty]).catch(homeyDevice.error);
   }
 }

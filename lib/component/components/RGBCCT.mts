@@ -13,6 +13,7 @@ import Set, { type RGBCCTSetParams } from './RGBCCT/Set.mjs';
 import SetConfig from './RGBCCT/SetConfig.mjs';
 import Toggle from './RGBCCT/Toggle.mjs';
 import type { ComponentMethod } from './Shelly/ListMethods.mjs';
+import capabilitiesOptions from './RGBCCT/capabilitiesOptions.json' with { type: 'json' };
 
 export type RGBCCTConfig = {
   /** Id of the RGBCCT component instance */
@@ -185,19 +186,23 @@ export default class RGBCCT extends ComponentWithId<'RGBCCT', RGBCCTStatus, RGBC
     homeyDevice: ShellyLocalDevice,
     _methods: ComponentMethod<'RGBCCT'>[],
   ): Promise<void> {
-    {
-      // output
-      const capabilityId = 'onoff';
-      await this.registerCapability(homeyDevice, 'output', capabilityId);
-      homeyDevice.registerCapabilityListener(capabilityId, async (value: boolean) => {
-        await this.Set(this.device.getChannel(), { on: value });
-      });
-    }
+    const onOffHomeyCapability = 'onoff';
+    const onOffCapabilityId = await this.registerCapability(
+      homeyDevice,
+      onOffHomeyCapability,
+      capabilitiesOptions[onOffHomeyCapability as never],
+    );
+    homeyDevice.registerCapabilityListener(onOffCapabilityId, async (value: boolean) => {
+      await this.Set(this.device.getChannel(), { on: value });
+    });
 
-    {
-      // brightness
-      const capabilityId = 'dim';
-      await this.registerCapability(homeyDevice, 'brightness', capabilityId);
+    if (this.status.brightness !== undefined) {
+      const homeyCapability = 'dim';
+      const capabilityId = await this.registerCapability(
+        homeyDevice,
+        homeyCapability,
+        capabilitiesOptions[homeyCapability as never],
+      );
       homeyDevice.registerCapabilityListener(capabilityId, async (value: number) => {
         await this.Set(this.device.getChannel(), {
           brightness: value * 100,
@@ -207,32 +212,60 @@ export default class RGBCCT extends ComponentWithId<'RGBCCT', RGBCCTStatus, RGBC
 
     {
       // rgbcct
-      const capabilityIds = ['light_mode', 'light_temperature', 'light_hue', 'light_saturation'];
-      for (const capabilityId of capabilityIds) {
-        await homeyDevice.safeAddCapability(capabilityId);
+      {
+        const homeyCapability = 'light_mode';
+        const capabilityId = await this.registerCapability(
+          homeyDevice,
+          homeyCapability,
+          capabilitiesOptions[homeyCapability as never],
+        );
+        homeyDevice.registerCapabilityListener(capabilityId, async value => {
+          await this.Set(this.device.getChannel(), { mode: value === 'color' ? 'rgb' : 'cct' });
+        });
       }
 
-      homeyDevice.registerCapabilityListener('light_mode', async value => {
-        await this.Set(this.device.getChannel(), {
-          mode: value === 'color' ? 'rgb' : 'cct',
+      {
+        const homeyCapability = 'light_temperature';
+        const capabilityId = await this.registerCapability(
+          homeyDevice,
+          homeyCapability,
+          capabilitiesOptions[homeyCapability as never],
+        );
+        homeyDevice.registerCapabilityListener(capabilityId, async value => {
+          await this.Set(this.device.getChannel(), {
+            ct: Math.round(2700 + (1 - value) * (6500 - 2700)),
+          });
         });
-      });
+      }
 
-      homeyDevice.registerCapabilityListener('light_temperature', async value => {
-        await this.Set(this.device.getChannel(), {
-          ct: Math.round(2700 + (1 - value) * (6500 - 2700)),
-        });
-      });
-
-      homeyDevice.registerMultipleCapabilityListener(['light_hue', 'light_saturation'], async values => {
+      const hueHomeyCapability = 'light_hue';
+      const hueCapabilityId = await this.registerCapability(
+        homeyDevice,
+        hueHomeyCapability,
+        capabilitiesOptions[hueHomeyCapability as never],
+      );
+      const saturationHomeyCapability = 'light_saturation';
+      const saturationCapabilityId = await this.registerCapability(
+        homeyDevice,
+        saturationHomeyCapability,
+        capabilitiesOptions[saturationHomeyCapability as never],
+      );
+      homeyDevice.registerMultipleCapabilityListener([hueCapabilityId, saturationCapabilityId], async values => {
         await this.Set(this.device.getChannel(), {
           rgb: convert.hsv.rgb(values.light_hue * 360, values.light_saturation * 100, 100),
         });
       });
     }
 
-    await this.registerCapability(homeyDevice, 'aenergy', 'meter_power');
-    await this.registerCapability(homeyDevice, 'apower', 'measure_power');
+    // Simple capabilities
+    if (this.status.aenergy !== undefined) {
+      const homeyCapability = 'meter_power';
+      await this.registerCapability(homeyDevice, homeyCapability, capabilitiesOptions[homeyCapability as never]);
+    }
+    if (this.status.apower !== undefined) {
+      const homeyCapability = 'measure_power';
+      await this.registerCapability(homeyDevice, homeyCapability, capabilitiesOptions[homeyCapability as never]);
+    }
     // TODO errors
 
     // Set correct capability values
@@ -245,26 +278,32 @@ export default class RGBCCT extends ComponentWithId<'RGBCCT', RGBCCTStatus, RGBC
     homeyDevice: ShellyLocalDevice,
     status: RecursivePartial<RGBCCTStatus, AllowedPrimitives>,
   ): Promise<void> {
-    await this.updateMeasured(homeyDevice, status, 'output', 'onoff');
     if (status.brightness !== undefined) {
-      await homeyDevice.safeSetCapability('dim', status.brightness / 100);
+      await this.setCapability(homeyDevice, 'dim', status.brightness / 100);
     }
     if (status.ct !== undefined) {
-      await homeyDevice.safeSetCapability('light_temperature', 1 - (status.ct - 2700) / (6500 - 2700));
+      await this.setCapability(homeyDevice, 'light_temperature', 1 - (status.ct - 2700) / (6500 - 2700));
     }
     if (status.rgb !== undefined) {
       const hsv = convert.rgb.hsv(status.rgb[0], status.rgb[1], status.rgb[2]);
-      await homeyDevice.safeSetCapability('light_hue', hsv[0] / 360);
-      await homeyDevice.safeSetCapability('light_saturation', hsv[1] / 100);
+      await this.setCapability(homeyDevice, 'light_hue', hsv[0] / 360);
+      await this.setCapability(homeyDevice, 'light_saturation', hsv[1] / 100);
     }
     if (status.mode !== undefined) {
-      await homeyDevice.safeSetCapability('light_mode', status.mode === 'rgb' ? 'color' : 'temperature');
+      await this.setCapability(homeyDevice, 'light_mode', status.mode === 'rgb' ? 'color' : 'temperature');
     }
     if (status.aenergy?.total !== undefined) {
       const consumedEnergy = status.aenergy.total;
-      await homeyDevice.safeSetCapability('meter_power', consumedEnergy / 1000);
+      await this.setCapability(homeyDevice, 'meter_power', consumedEnergy / 1000);
     }
-    await this.updateMeasured(homeyDevice, status, 'apower', 'measure_power');
+
+    // Simple capabilities
+    if (status.output !== undefined) {
+      await this.setCapability(homeyDevice, 'onoff', status.output);
+    }
+    if (status.apower !== undefined) {
+      await this.setCapability(homeyDevice, 'measure_power', status.apower);
+    }
   }
 
   public async onConfigUpdate(homeyDevice: ShellyLocalDevice, config: RGBCCTConfig): Promise<void> {
@@ -374,30 +413,5 @@ export default class RGBCCT extends ComponentWithId<'RGBCCT', RGBCCTStatus, RGBC
 
     const result = await this.SetConfig(this.device.getChannel(), { config: changedConfig });
     return result.result.restart_required;
-  }
-
-  protected async registerCapability(
-    homeyDevice: ShellyLocalDevice,
-    statusProperty: keyof RGBCCTStatus,
-    homeyCapability: string,
-  ): Promise<void> {
-    if (this.status[statusProperty] === undefined) {
-      return;
-    }
-
-    await homeyDevice.safeAddCapability(homeyCapability);
-  }
-
-  private async updateMeasured(
-    homeyDevice: ShellyLocalDevice,
-    status: RecursivePartial<RGBCCTStatus, AllowedPrimitives>,
-    statusProperty: keyof RGBCCTStatus,
-    homeyCapability: string,
-  ): Promise<void> {
-    if (status[statusProperty] === undefined) {
-      return;
-    }
-
-    await homeyDevice.safeSetCapability(homeyCapability, status[statusProperty]).catch(homeyDevice.error);
   }
 }

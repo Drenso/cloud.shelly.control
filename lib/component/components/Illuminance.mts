@@ -6,6 +6,7 @@ import GetStatus from './Illuminance/GetStatus.mjs';
 import SetConfig from './Illuminance/SetConfig.mjs';
 import type { ComponentMethod } from './Shelly/ListMethods.mjs';
 import type ShellyApp from '../../../app.mjs';
+import capabilitiesOptions from './Illuminance/capabilitiesOptions.json' with { type: 'json' };
 
 export type IlluminanceConfig = {
   /**
@@ -72,8 +73,14 @@ export default class Illuminance extends ComponentWithId<
     homeyDevice: ShellyLocalDevice,
     _methods: ComponentMethod<'Illuminance'>[],
   ): Promise<void> {
-    await this.registerCapability(homeyDevice, 'lux', 'measure_luminance');
-    await this.registerCapability(homeyDevice, 'illumination', 'shelly_illumination');
+    for (const [statusKey, homeyCapability] of [
+      ['lux', 'measure_luminance'],
+      ['illumination', 'shelly_illumination'],
+    ] as const) {
+      if (this.status[statusKey] !== undefined) {
+        await this.registerCapability(homeyDevice, homeyCapability, capabilitiesOptions[homeyCapability as never]);
+      }
+    }
 
     // Set correct capability values
     await this.onStatusUpdate(homeyDevice, this.status);
@@ -82,8 +89,14 @@ export default class Illuminance extends ComponentWithId<
   }
 
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: IlluminanceStatus): Promise<void> {
-    await this.updateMeasured(homeyDevice, status, 'lux', 'measure_luminance');
-    await this.updateMeasured(homeyDevice, status, 'illumination', 'shelly_illumination');
+    for (const [statusKey, homeyCapability] of [
+      ['lux', 'measure_luminance'],
+      ['illumination', 'shelly_illumination'],
+    ] as const) {
+      if (status[statusKey] !== undefined) {
+        await this.setCapability(homeyDevice, homeyCapability, status[statusKey]);
+      }
+    }
   }
 
   public async onConfigUpdate(homeyDevice: ShellyLocalDevice, config: IlluminanceConfig): Promise<void> {
@@ -118,31 +131,6 @@ export default class Illuminance extends ComponentWithId<
 
     const result = await this.SetConfig(this.device.getChannel(), { config: changedConfig });
     return result.result.restart_required;
-  }
-
-  private async registerCapability(
-    homeyDevice: ShellyLocalDevice,
-    statusProperty: keyof IlluminanceStatus,
-    homeyCapability: string,
-  ): Promise<void> {
-    if (this.status[statusProperty] === undefined) {
-      return;
-    }
-
-    await homeyDevice.safeAddCapability(homeyCapability);
-  }
-
-  private async updateMeasured(
-    homeyDevice: ShellyLocalDevice,
-    status: RecursivePartial<IlluminanceStatus, AllowedPrimitives>,
-    statusProperty: keyof IlluminanceStatus,
-    homeyCapability: string,
-  ): Promise<void> {
-    if (status[statusProperty] === undefined) {
-      return;
-    }
-
-    await homeyDevice.safeSetCapability(homeyCapability, status[statusProperty]).catch(homeyDevice.error);
   }
 
   public static registerFlowCards(app: ShellyApp): void {

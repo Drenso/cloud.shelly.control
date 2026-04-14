@@ -368,7 +368,8 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
     }
 
     if (['switch', 'analog', 'count'].includes(this.config.type)) {
-      await this.registerCapability(homeyDevice, CAPABILITY_MAPPING[this.config.type as 'switch' | 'analog' | 'count']);
+      const homeyCapability = CAPABILITY_MAPPING[this.config.type as 'switch' | 'analog' | 'count'];
+      await this.registerInputCapability(homeyDevice, homeyCapability, capabilitiesOptions[homeyCapability]);
     }
 
     // TODO unregister
@@ -386,14 +387,14 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
 
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Partial<InputStatus>): Promise<void> {
     if (status.state !== undefined && status.state !== null) {
-      await homeyDevice.safeSetCapability(`sensor_boolean.input_switch_${this.id}`, status.state);
+      await this.setInputCapability(homeyDevice, 'sensor_boolean.input_switch', status.state);
       const switchUpdate = { value: status.state, input: this.id };
       await homeyDevice.safeTriggerDeviceCard('input_switch_changed', switchUpdate, switchUpdate);
       await homeyDevice.safeTriggerDeviceCard('input_switch_changed_multiple', switchUpdate, switchUpdate);
     }
 
     if (status.percent !== undefined) {
-      await homeyDevice.safeSetCapability(`sensor_number.input_analog_${this.id}`, status.percent);
+      await this.setInputCapability(homeyDevice, 'sensor_number.input_analog', status.percent);
       if (status.percent === null) {
         const analogUpdate = { input: this.id };
         await homeyDevice.safeTriggerDeviceCard('input_analog_became_null', analogUpdate, analogUpdate);
@@ -406,7 +407,7 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
     }
 
     if (status.counts !== undefined) {
-      await homeyDevice.safeSetCapability(`sensor_number.input_count_${this.id}`, status.counts.total);
+      await this.setInputCapability(homeyDevice, 'sensor_number.input_count', status.counts.total);
       const countUpdate = { value: status.counts.total, input: this.id };
       await homeyDevice.safeTriggerDeviceCard('input_count_changed', countUpdate, countUpdate);
       await homeyDevice.safeTriggerDeviceCard('input_count_changed_multiple', countUpdate, countUpdate);
@@ -479,20 +480,31 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
     }
   }
 
-  private async registerCapability(
+  private async registerInputCapability(
     homeyDevice: ShellyLocalDevice,
-    capability: 'sensor_boolean.input_switch' | 'sensor_number.input_analog' | 'sensor_number.input_count',
-  ): Promise<void> {
-    const capabilityId = `${capability}_${this.id}`;
+    homeyCapability: string,
+    rawCapabilityOptions: JsonObject | undefined,
+  ): Promise<string> {
+    const capabilityId = `${homeyCapability}.${this.id}`;
     await homeyDevice.safeAddCapability(capabilityId);
-    const rawCapabilityOptions = capabilitiesOptions[capability];
-    const capabilityOptions = fillTranslationTagsRecursively(rawCapabilityOptions, {
-      number: `${this.id}`,
-    }) as JsonObject;
-    if (this.config.name !== null) {
-      capabilityOptions.title = this.config.name;
+    if (rawCapabilityOptions === undefined) {
+      return capabilityId;
     }
-    await homeyDevice.setCapabilityOptions(capabilityId, capabilityOptions as object);
+    const name = this.config.name !== null ? this.config.name : `${this.id}`;
+    const capabilityOptions = fillTranslationTagsRecursively(rawCapabilityOptions, {
+      name: name,
+    }) as JsonObject;
+    await homeyDevice.setCapabilityOptions(capabilityId, capabilityOptions);
+    return capabilityId;
+  }
+
+  private async setInputCapability(
+    homeyDevice: ShellyLocalDevice,
+    homeyCapability: string,
+    value: unknown,
+  ): Promise<void> {
+    const capabilityId = `${homeyCapability}.${this.id}`;
+    await homeyDevice.safeSetCapability(capabilityId, value);
   }
 
   /**

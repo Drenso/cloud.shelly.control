@@ -1,9 +1,10 @@
 import type ShellyLocalDevice from '../local/LocalDevice.mjs';
 import type { RpcChannel } from '../rpc/channel/RpcChannel.mjs';
 import type { NotificationEventParam, ResponseSuccessFrame } from '../rpc/Rpc.mjs';
-import { deepAssign, type RecursivePartial } from '../util.mjs';
+import { deepAssign, fillTranslationTagsRecursively, type RecursivePartial } from '../util.mjs';
 import type { VirtualDevice } from '../VirtualDevice.mjs';
 import type { ComponentMethod, NameSpace } from './components/Shelly/ListMethods.mjs';
+import type { JsonObject } from '../../types/json.mjs';
 
 export class Service {}
 
@@ -101,7 +102,7 @@ export abstract class ComponentWithoutId<
 export abstract class ComponentWithId<
   ComponentNameSpace extends NameSpace,
   Status extends object,
-  Config extends { id: number },
+  Config extends { id: number; name: string | null },
   Settings extends object,
 > extends Component<ComponentNameSpace, Status, Config, Settings> {
   public static readonly uiName: string;
@@ -139,5 +140,34 @@ export abstract class ComponentWithId<
     const response = await this._GetStatus(channel, this.id);
     this.status = response.result;
     return response;
+  }
+
+  protected async registerCapability(
+    homeyDevice: ShellyLocalDevice,
+    homeyCapability: string,
+    rawCapabilityOptions: JsonObject | undefined,
+  ): Promise<string> {
+    const capabilityId =
+      homeyDevice.componentCounts.get(this.namespace) === 1 ? homeyCapability : `${homeyCapability}.${this.id}`;
+    await homeyDevice.safeAddCapability(capabilityId);
+    if (rawCapabilityOptions === undefined) {
+      return capabilityId;
+    }
+    const name = this.config.name !== null ? this.config.name : `${this.id}`;
+    const capabilityOptions = fillTranslationTagsRecursively(rawCapabilityOptions, {
+      name: name,
+    }) as JsonObject;
+    await homeyDevice.setCapabilityOptions(capabilityId, capabilityOptions);
+    return capabilityId;
+  }
+
+  protected async setCapability(
+    homeyDevice: ShellyLocalDevice,
+    homeyCapability: string,
+    value: unknown,
+  ): Promise<void> {
+    const capabilityId =
+      homeyDevice.componentCounts.get(this.namespace) === 1 ? homeyCapability : `${homeyCapability}.${this.id}`;
+    await homeyDevice.safeSetCapability(capabilityId, value);
   }
 }

@@ -1,7 +1,7 @@
 {
   "button.reset_energy_counters": {
     "title": {
-      "en": "Reset Energy"
+      "en": "Reset Cover __name__ Energy"
     },
     "desc": {
       "en": "Reset the consumed and returned energy counters."
@@ -10,7 +10,7 @@
   },
   "measure_temperature.cover": {
     "title": {
-      "en": "Cover Temperature"
+      "en": "Cover __name__ Temperature"
     }
   }
 }

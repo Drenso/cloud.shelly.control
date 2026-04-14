@@ -10,6 +10,7 @@ export default class ShellyLocalDevice extends Homey.Device {
   declare public readonly __id: string;
   public virtualDevice?: VirtualDevice;
   public readonly virtualComponents = new Map<string, InstanceType<MappedComponent>>();
+  public readonly componentCounts = new Map<NameSpace, number>();
 
   public async onInit(): Promise<void> {
     await this.setUnavailable(this.homey.__('device.initializing'));
@@ -46,7 +47,15 @@ export default class ShellyLocalDevice extends Homey.Device {
         // TODO unregister
         continue;
       }
+
+      this.componentCounts.set(
+        virtualComponent.namespace,
+        (this.componentCounts.get(virtualComponent.namespace) ?? 0) + 1,
+      );
       this.virtualComponents.set(componentId, virtualComponent);
+    }
+
+    for (const virtualComponent of this.virtualComponents.values()) {
       await virtualComponent.registerHomeyDevice(this, (methodMapping[virtualComponent.namespace] ?? []) as never);
     }
 

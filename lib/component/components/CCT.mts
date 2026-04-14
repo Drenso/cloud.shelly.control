@@ -12,6 +12,7 @@ import Set, { type CCTSetParams } from './CCT/Set.mjs';
 import SetConfig from './CCT/SetConfig.mjs';
 import Toggle from './CCT/Toggle.mjs';
 import type { ComponentMethod } from './Shelly/ListMethods.mjs';
+import capabilitiesOptions from './CCT/capabilitiesOptions.json' with { type: 'json' };
 
 export type CCTConfig = {
   /** Id of the CCT component instance */
@@ -220,38 +221,54 @@ export default class CCT extends ComponentWithId<'CCT', CCTStatus, CCTConfig, CC
   }
 
   public async registerHomeyDevice(homeyDevice: ShellyLocalDevice, _methods: ComponentMethod<'CCT'>[]): Promise<void> {
-    {
-      // output
-      const capabilityId = 'onoff';
-      await this.registerCapability(homeyDevice, 'output', capabilityId);
+    if (this.status.output !== undefined) {
+      const homeyCapability = 'onoff';
+      const capabilityId = await this.registerCapability(
+        homeyDevice,
+        homeyCapability,
+        capabilitiesOptions[homeyCapability as never],
+      );
       homeyDevice.registerCapabilityListener(capabilityId, async (value: boolean) => {
         await this.Set(this.device.getChannel(), { on: value });
       });
     }
 
-    {
-      // brightness
-      const capabilityId = 'dim';
-      await this.registerCapability(homeyDevice, 'brightness', capabilityId);
+    if (this.status.brightness !== undefined) {
+      const homeyCapability = 'dim';
+      const capabilityId = await this.registerCapability(
+        homeyDevice,
+        homeyCapability,
+        capabilitiesOptions[homeyCapability as never],
+      );
       homeyDevice.registerCapabilityListener(capabilityId, async (value: number) => {
         await this.Set(this.device.getChannel(), { brightness: value * 100 });
       });
     }
 
-    {
-      // color temperature
-      const capabilityId = 'light_temperature';
-      await this.registerCapability(homeyDevice, 'ct', capabilityId);
+    if (this.status.ct !== undefined) {
+      const homeyCapability = 'light_temperature';
+      const capabilityId = await this.registerCapability(
+        homeyDevice,
+        homeyCapability,
+        capabilitiesOptions[homeyCapability as never],
+      );
       homeyDevice.registerCapabilityListener(capabilityId, async (value: number) => {
         // todo: use configured ct_range, or default value (device specific)
         await this.Set(this.device.getChannel(), { ct: Math.round(2700 + (1 - value) * (6500 - 2700)) });
       });
     }
 
-    await this.registerCapability(homeyDevice, 'aenergy', 'meter_power');
-    await this.registerCapability(homeyDevice, 'apower', 'measure_power');
-    await this.registerCapability(homeyDevice, 'voltage', 'measure_voltage');
-    await this.registerCapability(homeyDevice, 'current', 'measure_current');
+    // Simple capabilities
+    for (const [statusKey, homeyCapability] of [
+      ['aenergy', 'meter_power'],
+      ['apower', 'measure_power'],
+      ['voltage', 'measure_voltage'],
+      ['current', 'measure_current'],
+    ] as const) {
+      if (this.status[statusKey] !== undefined) {
+        await this.registerCapability(homeyDevice, homeyCapability, capabilitiesOptions[homeyCapability as never]);
+      }
+    }
     // TODO errors
 
     // Set correct capability values
@@ -264,21 +281,29 @@ export default class CCT extends ComponentWithId<'CCT', CCTStatus, CCTConfig, CC
     homeyDevice: ShellyLocalDevice,
     status: RecursivePartial<CCTStatus, AllowedPrimitives>,
   ): Promise<void> {
-    await this.updateMeasured(homeyDevice, status, 'output', 'onoff');
     if (status.brightness !== undefined) {
-      await homeyDevice.safeSetCapability('dim', status.brightness / 100);
+      await this.setCapability(homeyDevice, 'dim', status.brightness / 100);
     }
     if (status.ct !== undefined) {
       // todo: use configured ct_range, or default value (device specific)
-      await homeyDevice.safeSetCapability('light_temperature', 1 - (status.ct - 2700) / (6500 - 2700));
+      await this.setCapability(homeyDevice, 'light_temperature', 1 - (status.ct - 2700) / (6500 - 2700));
     }
     if (status.aenergy?.total !== undefined) {
       const consumedEnergy = status.aenergy.total;
-      await homeyDevice.safeSetCapability('meter_power', consumedEnergy / 1000);
+      await this.setCapability(homeyDevice, 'meter_power', consumedEnergy / 1000);
     }
-    await this.updateMeasured(homeyDevice, status, 'apower', 'measure_power');
-    await this.updateMeasured(homeyDevice, status, 'voltage', 'measure_voltage');
-    await this.updateMeasured(homeyDevice, status, 'current', 'measure_current');
+
+    // Simple capabilities
+    for (const [statusKey, homeyCapability] of [
+      ['output', 'onoff'],
+      ['apower', 'measure_power'],
+      ['voltage', 'measure_voltage'],
+      ['current', 'measure_current'],
+    ] as const) {
+      if (status[statusKey] !== undefined) {
+        await this.setCapability(homeyDevice, homeyCapability, status[statusKey]);
+      }
+    }
     // TODO errors
   }
 
@@ -427,30 +452,5 @@ export default class CCT extends ComponentWithId<'CCT', CCTStatus, CCTConfig, CC
 
     const result = await this.SetConfig(this.device.getChannel(), { config: changedConfig });
     return result.result.restart_required;
-  }
-
-  protected async registerCapability(
-    homeyDevice: ShellyLocalDevice,
-    statusProperty: keyof CCTStatus,
-    homeyCapability: string,
-  ): Promise<void> {
-    if (this.status[statusProperty] === undefined) {
-      return;
-    }
-
-    await homeyDevice.safeAddCapability(homeyCapability).catch(homeyDevice.error);
-  }
-
-  private async updateMeasured(
-    homeyDevice: ShellyLocalDevice,
-    status: RecursivePartial<CCTStatus, AllowedPrimitives>,
-    statusProperty: keyof CCTStatus,
-    homeyCapability: string,
-  ): Promise<void> {
-    if (status[statusProperty] === undefined) {
-      return;
-    }
-
-    await homeyDevice.safeSetCapability(homeyCapability, status[statusProperty]).catch(homeyDevice.error);
   }
 }

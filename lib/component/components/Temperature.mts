@@ -1,5 +1,5 @@
 import { type AllowedPrimitives, ComponentWithId } from '../Component.mjs';
-import capabilitiesOptions from './Switch/capabilitiesOptions.json' with { type: 'json' };
+import capabilitiesOptions from './Temperature/capabilitiesOptions.json' with { type: 'json' };
 import type ShellyLocalDevice from '../../local/LocalDevice.mjs';
 import type { ComponentMethod } from './Shelly/ListMethods.mjs';
 import type { RecursivePartial } from '../../util.mjs';
@@ -58,11 +58,16 @@ export default class Temperature extends ComponentWithId<
     homeyDevice: ShellyLocalDevice,
     _methods: ComponentMethod<'Temperature'>[],
   ): Promise<void> {
-    await this.registerCapability(homeyDevice, 'tC', 'measure_temperature').catch(homeyDevice.error);
+    if (this.status.tC !== undefined) {
+      const homeyCapability = 'measure_temperature';
+      await this.registerCapability(homeyDevice, homeyCapability, capabilitiesOptions[homeyCapability as never]);
+    }
   }
 
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Partial<TemperatureStatus>): Promise<void> {
-    await this.updateMeasured(homeyDevice, status, 'tC', 'measure_temperature');
+    if (status.tC !== undefined) {
+      await this.setCapability(homeyDevice, 'measure_temperature', status.tC);
+    }
   }
 
   public async onConfigUpdate(homeyDevice: ShellyLocalDevice, config: TemperatureConfig): Promise<void> {
@@ -96,36 +101,5 @@ export default class Temperature extends ComponentWithId<
 
     const result = await this.SetConfig(this.device.getChannel(), { config: changedConfig });
     return result.result.restart_required;
-  }
-
-  private async registerCapability(
-    homeyDevice: ShellyLocalDevice,
-    statusProperty: keyof TemperatureStatus,
-    homeyCapability: string,
-  ): Promise<void> {
-    if (this.status[statusProperty] === undefined) {
-      return;
-    }
-
-    await homeyDevice.safeAddCapability(homeyCapability);
-    const capabilityOptions = capabilitiesOptions[homeyCapability as keyof typeof capabilitiesOptions];
-    if (capabilityOptions === undefined) {
-      return;
-    }
-
-    await homeyDevice.setCapabilityOptions(homeyCapability, capabilityOptions);
-  }
-
-  private async updateMeasured(
-    homeyDevice: ShellyLocalDevice,
-    status: Partial<TemperatureStatus>,
-    statusProperty: keyof TemperatureStatus,
-    homeyCapability: string,
-  ): Promise<void> {
-    if (status[statusProperty] === undefined) {
-      return;
-    }
-
-    await homeyDevice.safeSetCapability(homeyCapability, status[statusProperty]).catch(homeyDevice.error);
   }
 }
