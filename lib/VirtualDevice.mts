@@ -184,7 +184,13 @@ export class VirtualDevice {
         continue;
       }
       this.initializedHomeyDevices.set(homeyDeviceId, homeyDevice);
-      initializers.push(homeyDevice.initializeShelly(this, methodMapping));
+      // Catch errors here so one device throwing an error does not prevent others initializing
+      initializers.push(
+        homeyDevice.initializeShelly(this, methodMapping).catch(error => {
+          homeyDevice.error(error);
+          homeyDevice.setUnavailable(homeyDevice.homey.__('device.initialization_error'));
+        }),
+      );
     }
     this.homeyDeviceIds = [...this.initializedHomeyDevices.keys()];
     this.log(this.homeyDeviceIds.length, 'children found again');

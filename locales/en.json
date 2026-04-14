@@ -22,7 +22,8 @@
     "initializing": "Initializing...",
     "restarting": "Restarting...",
     "not_connected": "Not connected to device",
-    "requires_restart": "The device needs to be restarted."
+    "requires_restart": "The device needs to be restarted.",
+    "initialization_error": "An error occurred while initializing."
   },
   "component": {
     "CCT": {
