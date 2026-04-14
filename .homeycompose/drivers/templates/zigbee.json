@@ -1,5 +1,5 @@
 {
-  "platforms": [ "local", "cloud" ],
-  "connectivity": [ "zigbee" ],
+  "platforms": ["local", "cloud"],
+  "connectivity": ["zigbee"],
   "icon": "{{driverAssetsPath}}/icon.svg"
 }

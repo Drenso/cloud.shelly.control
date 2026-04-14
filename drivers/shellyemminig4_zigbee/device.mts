@@ -1,7 +1,6 @@
-import initElectricalMeasurementDevice
-  from '@drenso/homey-zigbee-library/capabilities/electricalMeasurement.mjs';
+import initElectricalMeasurementDevice from '@drenso/homey-zigbee-library/capabilities/electricalMeasurement.mjs';
 import initMeteringDevice from '@drenso/homey-zigbee-library/capabilities/metering.mjs';
-import type {ZCLNode} from 'zigbee-clusters';
+import type { ZCLNode } from 'zigbee-clusters';
 import ShellyZigbeeDevice from '../../lib/zigbee/ZigbeeDevice.mjs';
 
 export default class ShellyEMMiniGen4ZigbeeDevice extends ShellyZigbeeDevice {

@@ -1,5 +1,5 @@
 import { Cluster, ZCLDataTypes } from 'zigbee-clusters';
-import type {DefaultResponseCommand} from '@drenso/homey-zigbee-library/lib/clusters/ZCL.mts';
+import type { DefaultResponseCommand } from '@drenso/homey-zigbee-library/lib/clusters/ZCL.mts';
 
 const Attributes = {
   manualMode: {
@@ -26,7 +26,7 @@ const CommandsReceived = {
 
 class ShellyCustomTRVCluster extends Cluster {
   public static get ID(): number {
-    return 0xFC24;
+    return 0xfc24;
   }
 
   public static get NAME(): string {

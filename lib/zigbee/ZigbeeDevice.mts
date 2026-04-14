@@ -1,8 +1,8 @@
-import type {ZigBeeNode} from 'homey';
+import type { ZigBeeNode } from 'homey';
 import Homey from 'homey';
 import { ZigBeeDevice } from 'homey-zigbeedriver';
-import type { ZCLNode} from 'zigbee-clusters';
-import {debug} from 'zigbee-clusters';
+import type { ZCLNode } from 'zigbee-clusters';
+import { debug } from 'zigbee-clusters';
 import type ShellyZigbeeDriver from './ZigbeeDriver.mjs';
 
 export default abstract class ShellyZigbeeDevice extends ZigBeeDevice {

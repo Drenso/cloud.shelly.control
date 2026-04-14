@@ -18,13 +18,7 @@
         "applicationDeviceId": 266,
         "applicationDeviceVersion": 0,
         "_reserved1": 0,
-        "inputClusters": [
-          0,
-          3,
-          4,
-          5,
-          6
-        ],
+        "inputClusters": [0, 3, 4, 5, 6],
         "outputClusters": []
       },
       {
@@ -36,10 +30,7 @@
         "applicationDeviceId": 8193,
         "applicationDeviceVersion": 0,
         "_reserved1": 0,
-        "inputClusters": [
-          64513,
-          64514
-        ],
+        "inputClusters": [64513, 64514],
         "outputClusters": []
       },
       {
@@ -52,9 +43,7 @@
         "applicationDeviceVersion": 0,
         "_reserved1": 0,
         "inputClusters": [],
-        "outputClusters": [
-          33
-        ]
+        "outputClusters": [33]
       }
     ],
     "deviceType": "router",
@@ -73,77 +62,54 @@
           "basic": {
             "attributes": [
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 0,
                 "name": "zclVersion",
                 "value": 8
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 7,
                 "name": "powerSource",
                 "value": "unknown"
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 4,
                 "name": "manufacturerName",
                 "value": "Shelly"
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 5,
                 "name": "modelId",
                 "value": "Mini1"
               }
             ],
             "commandsGenerated": [],
-            "commandsReceived": [
-              "factoryReset"
-            ]
+            "commandsReceived": ["factoryReset"]
           },
           "identify": {
             "attributes": [
               {
-                "acl": [
-                  "readable",
-                  "writable"
-                ],
+                "acl": ["readable", "writable"],
                 "id": 0,
                 "name": "identifyTime",
                 "value": 0
               }
             ],
-            "commandsGenerated": [
-              "identifyQuery.response"
-            ],
-            "commandsReceived": [
-              "identify",
-              "identifyQuery",
-              "triggerEffect"
-            ]
+            "commandsGenerated": ["identifyQuery.response"],
+            "commandsReceived": ["identify", "identifyQuery", "triggerEffect"]
           },
           "groups": {
             "attributes": [
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 0,
                 "name": "nameSupport",
                 "value": {
                   "type": "Buffer",
-                  "data": [
-                    0
-                  ]
+                  "data": [0]
                 }
               }
             ],
@@ -165,61 +131,33 @@
           "scenes": {
             "attributes": [
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 0
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 1
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 2
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 3
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 4
               }
             ],
-            "commandsGenerated": [
-              0,
-              1,
-              2,
-              3,
-              4,
-              6
-            ],
-            "commandsReceived": [
-              0,
-              1,
-              2,
-              3,
-              4,
-              5,
-              6
-            ]
+            "commandsGenerated": [0, 1, 2, 3, 4, 6],
+            "commandsReceived": [0, 1, 2, 3, 4, 5, 6]
           },
           "onOff": {
             "attributes": [
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 0,
                 "name": "onOff",
                 "value": false,

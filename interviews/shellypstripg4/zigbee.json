@@ -18,18 +18,8 @@
         "applicationDeviceId": 266,
         "applicationDeviceVersion": 0,
         "_reserved1": 0,
-        "inputClusters": [
-          0,
-          3,
-          4,
-          5,
-          6,
-          2820,
-          1794
-        ],
-        "outputClusters": [
-          25
-        ]
+        "inputClusters": [0, 3, 4, 5, 6, 2820, 1794],
+        "outputClusters": [25]
       },
       {
         "status": "SUCCESS",
@@ -40,13 +30,7 @@
         "applicationDeviceId": 266,
         "applicationDeviceVersion": 0,
         "_reserved1": 0,
-        "inputClusters": [
-          4,
-          5,
-          6,
-          2820,
-          1794
-        ],
+        "inputClusters": [4, 5, 6, 2820, 1794],
         "outputClusters": []
       },
       {
@@ -58,13 +42,7 @@
         "applicationDeviceId": 266,
         "applicationDeviceVersion": 0,
         "_reserved1": 0,
-        "inputClusters": [
-          4,
-          5,
-          6,
-          2820,
-          1794
-        ],
+        "inputClusters": [4, 5, 6, 2820, 1794],
         "outputClusters": []
       },
       {
@@ -76,13 +54,7 @@
         "applicationDeviceId": 266,
         "applicationDeviceVersion": 0,
         "_reserved1": 0,
-        "inputClusters": [
-          4,
-          5,
-          6,
-          2820,
-          1794
-        ],
+        "inputClusters": [4, 5, 6, 2820, 1794],
         "outputClusters": []
       },
       {
@@ -94,10 +66,7 @@
         "applicationDeviceId": 8193,
         "applicationDeviceVersion": 0,
         "_reserved1": 0,
-        "inputClusters": [
-          64513,
-          64514
-        ],
+        "inputClusters": [64513, 64514],
         "outputClusters": []
       },
       {
@@ -110,9 +79,7 @@
         "applicationDeviceVersion": 0,
         "_reserved1": 0,
         "inputClusters": [],
-        "outputClusters": [
-          33
-        ]
+        "outputClusters": [33]
       }
     ],
     "deviceType": "router",
@@ -132,135 +99,96 @@
           "basic": {
             "attributes": [
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 0,
                 "name": "zclVersion",
                 "value": 8
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 7,
                 "name": "powerSource",
                 "value": "unknown"
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 4,
                 "name": "manufacturerName",
                 "value": "Shelly"
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 5,
                 "name": "modelId",
                 "value": "Power Strip"
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 1,
                 "name": "appVersion",
                 "value": 0
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 2,
                 "name": "stackVersion",
                 "value": 3
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 3,
                 "name": "hwVersion",
                 "value": 0
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 6,
                 "name": "dateCode",
                 "value": "20260210"
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 8,
                 "name": "appProfileVersion",
                 "value": 0
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 9
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 10
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 11
               }
             ],
             "commandsGenerated": [],
-            "commandsReceived": [
-              "factoryReset"
-            ]
+            "commandsReceived": ["factoryReset"]
           },
           "identify": {
             "attributes": [
               {
-                "acl": [
-                  "readable",
-                  "writable"
-                ],
+                "acl": ["readable", "writable"],
                 "id": 0,
                 "name": "identifyTime",
                 "value": 0
               }
             ],
-            "commandsGenerated": [
-              "identifyQuery.response"
-            ],
-            "commandsReceived": [
-              "identify",
-              "identifyQuery",
-              "triggerEffect"
-            ]
+            "commandsGenerated": ["identifyQuery.response"],
+            "commandsReceived": ["identify", "identifyQuery", "triggerEffect"]
           },
           "groups": {
             "attributes": [
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 0,
                 "name": "nameSupport",
                 "value": {
                   "type": "Buffer",
-                  "data": [
-                    0
-                  ]
+                  "data": [0]
                 }
               }
             ],
@@ -282,61 +210,33 @@
           "scenes": {
             "attributes": [
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 0
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 1
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 2
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 3
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 4
               }
             ],
-            "commandsGenerated": [
-              0,
-              1,
-              2,
-              3,
-              4,
-              6
-            ],
-            "commandsReceived": [
-              0,
-              1,
-              2,
-              3,
-              4,
-              5,
-              6
-            ]
+            "commandsGenerated": [0, 1, 2, 3, 4, 6],
+            "commandsReceived": [0, 1, 2, 3, 4, 5, 6]
           },
           "onOff": {
             "attributes": [
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 0,
                 "name": "onOff",
                 "value": false,
@@ -362,26 +262,16 @@
           "electricalMeasurement": {
             "attributes": [
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 0,
                 "name": "measurementType",
                 "value": {
                   "type": "Buffer",
-                  "data": [
-                    1,
-                    0,
-                    0,
-                    0
-                  ]
+                  "data": [1, 0, 0, 0]
                 }
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1285,
                 "name": "rmsVoltage",
                 "value": 22885,
@@ -395,10 +285,7 @@
                 }
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1536,
                 "name": "acVoltageMultiplier",
                 "value": 1,
@@ -412,10 +299,7 @@
                 }
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1537,
                 "name": "acVoltageDivisor",
                 "value": 100,
@@ -429,10 +313,7 @@
                 }
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 768,
                 "name": "acFrequency",
                 "value": 4997,
@@ -446,10 +327,7 @@
                 }
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1024,
                 "name": "acFrequencyMultiplier",
                 "value": 1,
@@ -463,10 +341,7 @@
                 }
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1025,
                 "name": "acFrequencyDivisor",
                 "value": 100,
@@ -480,10 +355,7 @@
                 }
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1288,
                 "name": "rmsCurrent",
                 "value": 0,
@@ -497,68 +369,44 @@
                 }
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1538,
                 "name": "acCurrentMultiplier",
                 "value": 1
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1539,
                 "name": "acCurrentDivisor",
                 "value": 1000
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1296
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1291,
                 "name": "activePower",
                 "value": 0
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1540,
                 "name": "acPowerMultiplier",
                 "value": 1
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1541,
                 "name": "acPowerDivisor"
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1295
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1294,
                 "name": "reactivePower",
                 "value": 0
@@ -570,77 +418,48 @@
           "metering": {
             "attributes": [
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 0,
                 "name": "currentSummationDelivered",
                 "value": 84001
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 512
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 768
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 771
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 774
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1,
                 "name": "currentSummationReceived",
                 "value": 0
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 770,
                 "name": "divisor",
                 "value": 1000000
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 769,
                 "name": "multiplier",
                 "value": 1
               }
             ],
-            "commandsGenerated": [
-              0,
-              3,
-              6,
-              7
-            ],
-            "commandsReceived": [
-              0,
-              3,
-              6,
-              8
-            ]
+            "commandsGenerated": [0, 3, 6, 7],
+            "commandsReceived": [0, 3, 6, 8]
           }
         },
         "bindings": {
@@ -652,16 +471,12 @@
           "groups": {
             "attributes": [
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 0,
                 "name": "nameSupport",
                 "value": {
                   "type": "Buffer",
-                  "data": [
-                    0
-                  ]
+                  "data": [0]
                 }
               }
             ],
@@ -683,61 +498,33 @@
           "scenes": {
             "attributes": [
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 0
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 1
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 2
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 3
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 4
               }
             ],
-            "commandsGenerated": [
-              0,
-              1,
-              2,
-              3,
-              4,
-              6
-            ],
-            "commandsReceived": [
-              0,
-              1,
-              2,
-              3,
-              4,
-              5,
-              6
-            ]
+            "commandsGenerated": [0, 1, 2, 3, 4, 6],
+            "commandsReceived": [0, 1, 2, 3, 4, 5, 6]
           },
           "onOff": {
             "attributes": [
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 0,
                 "name": "onOff",
                 "value": false,
@@ -763,26 +550,16 @@
           "electricalMeasurement": {
             "attributes": [
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 0,
                 "name": "measurementType",
                 "value": {
                   "type": "Buffer",
-                  "data": [
-                    1,
-                    0,
-                    0,
-                    0
-                  ]
+                  "data": [1, 0, 0, 0]
                 }
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1285,
                 "name": "rmsVoltage",
                 "value": 22930,
@@ -796,10 +573,7 @@
                 }
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1536,
                 "name": "acVoltageMultiplier",
                 "value": 1,
@@ -813,10 +587,7 @@
                 }
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1537,
                 "name": "acVoltageDivisor",
                 "value": 100,
@@ -830,10 +601,7 @@
                 }
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 768,
                 "name": "acFrequency",
                 "value": 4997,
@@ -847,10 +615,7 @@
                 }
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1024,
                 "name": "acFrequencyMultiplier",
                 "value": 1,
@@ -864,10 +629,7 @@
                 }
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1025,
                 "name": "acFrequencyDivisor",
                 "value": 100,
@@ -881,10 +643,7 @@
                 }
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1288,
                 "name": "rmsCurrent",
                 "value": 0,
@@ -898,68 +657,44 @@
                 }
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1538,
                 "name": "acCurrentMultiplier",
                 "value": 1
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1539,
                 "name": "acCurrentDivisor",
                 "value": 1000
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1296
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1291,
                 "name": "activePower",
                 "value": 0
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1540,
                 "name": "acPowerMultiplier",
                 "value": 1
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1541,
                 "name": "acPowerDivisor"
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1295
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1294,
                 "name": "reactivePower",
                 "value": 0
@@ -971,77 +706,48 @@
           "metering": {
             "attributes": [
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 0,
                 "name": "currentSummationDelivered",
                 "value": 0
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 512
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 768
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 771
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 774
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1,
                 "name": "currentSummationReceived",
                 "value": 0
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 770,
                 "name": "divisor",
                 "value": 1000000
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 769,
                 "name": "multiplier",
                 "value": 1
               }
             ],
-            "commandsGenerated": [
-              0,
-              3,
-              6,
-              7
-            ],
-            "commandsReceived": [
-              0,
-              3,
-              6,
-              8
-            ]
+            "commandsGenerated": [0, 3, 6, 7],
+            "commandsReceived": [0, 3, 6, 8]
           }
         },
         "bindings": {}
@@ -1051,16 +757,12 @@
           "groups": {
             "attributes": [
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 0,
                 "name": "nameSupport",
                 "value": {
                   "type": "Buffer",
-                  "data": [
-                    0
-                  ]
+                  "data": [0]
                 }
               }
             ],
@@ -1082,61 +784,33 @@
           "scenes": {
             "attributes": [
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 0
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 1
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 2
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 3
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 4
               }
             ],
-            "commandsGenerated": [
-              0,
-              1,
-              2,
-              3,
-              4,
-              6
-            ],
-            "commandsReceived": [
-              0,
-              1,
-              2,
-              3,
-              4,
-              5,
-              6
-            ]
+            "commandsGenerated": [0, 1, 2, 3, 4, 6],
+            "commandsReceived": [0, 1, 2, 3, 4, 5, 6]
           },
           "onOff": {
             "attributes": [
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 0,
                 "name": "onOff",
                 "value": false,
@@ -1162,26 +836,16 @@
           "electricalMeasurement": {
             "attributes": [
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 0,
                 "name": "measurementType",
                 "value": {
                   "type": "Buffer",
-                  "data": [
-                    1,
-                    0,
-                    0,
-                    0
-                  ]
+                  "data": [1, 0, 0, 0]
                 }
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1285,
                 "name": "rmsVoltage",
                 "value": 22713,
@@ -1195,10 +859,7 @@
                 }
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1536,
                 "name": "acVoltageMultiplier",
                 "value": 1,
@@ -1212,10 +873,7 @@
                 }
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1537,
                 "name": "acVoltageDivisor",
                 "value": 100,
@@ -1229,10 +887,7 @@
                 }
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 768,
                 "name": "acFrequency",
                 "value": 4997,
@@ -1246,10 +901,7 @@
                 }
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1024,
                 "name": "acFrequencyMultiplier",
                 "value": 1,
@@ -1263,10 +915,7 @@
                 }
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1025,
                 "name": "acFrequencyDivisor",
                 "value": 100,
@@ -1280,10 +929,7 @@
                 }
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1288,
                 "name": "rmsCurrent",
                 "value": 0,
@@ -1297,68 +943,44 @@
                 }
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1538,
                 "name": "acCurrentMultiplier",
                 "value": 1
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1539,
                 "name": "acCurrentDivisor",
                 "value": 1000
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1296
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1291,
                 "name": "activePower",
                 "value": 0
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1540,
                 "name": "acPowerMultiplier",
                 "value": 1
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1541,
                 "name": "acPowerDivisor"
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1295
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1294,
                 "name": "reactivePower",
                 "value": 0
@@ -1370,77 +992,48 @@
           "metering": {
             "attributes": [
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 0,
                 "name": "currentSummationDelivered",
                 "value": 0
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 512
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 768
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 771
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 774
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1,
                 "name": "currentSummationReceived",
                 "value": 0
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 770,
                 "name": "divisor",
                 "value": 1000000
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 769,
                 "name": "multiplier",
                 "value": 1
               }
             ],
-            "commandsGenerated": [
-              0,
-              3,
-              6,
-              7
-            ],
-            "commandsReceived": [
-              0,
-              3,
-              6,
-              8
-            ]
+            "commandsGenerated": [0, 3, 6, 7],
+            "commandsReceived": [0, 3, 6, 8]
           }
         },
         "bindings": {}
@@ -1450,16 +1043,12 @@
           "groups": {
             "attributes": [
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 0,
                 "name": "nameSupport",
                 "value": {
                   "type": "Buffer",
-                  "data": [
-                    0
-                  ]
+                  "data": [0]
                 }
               }
             ],
@@ -1481,61 +1070,33 @@
           "scenes": {
             "attributes": [
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 0
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 1
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 2
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 3
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 4
               }
             ],
-            "commandsGenerated": [
-              0,
-              1,
-              2,
-              3,
-              4,
-              6
-            ],
-            "commandsReceived": [
-              0,
-              1,
-              2,
-              3,
-              4,
-              5,
-              6
-            ]
+            "commandsGenerated": [0, 1, 2, 3, 4, 6],
+            "commandsReceived": [0, 1, 2, 3, 4, 5, 6]
           },
           "onOff": {
             "attributes": [
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 0,
                 "name": "onOff",
                 "value": false,
@@ -1561,26 +1122,16 @@
           "electricalMeasurement": {
             "attributes": [
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 0,
                 "name": "measurementType",
                 "value": {
                   "type": "Buffer",
-                  "data": [
-                    1,
-                    0,
-                    0,
-                    0
-                  ]
+                  "data": [1, 0, 0, 0]
                 }
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1285,
                 "name": "rmsVoltage",
                 "value": 22725,
@@ -1594,10 +1145,7 @@
                 }
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1536,
                 "name": "acVoltageMultiplier",
                 "value": 1,
@@ -1611,10 +1159,7 @@
                 }
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1537,
                 "name": "acVoltageDivisor",
                 "value": 100,
@@ -1628,10 +1173,7 @@
                 }
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 768,
                 "name": "acFrequency",
                 "value": 4998,
@@ -1645,10 +1187,7 @@
                 }
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1024,
                 "name": "acFrequencyMultiplier",
                 "value": 1,
@@ -1662,10 +1201,7 @@
                 }
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1025,
                 "name": "acFrequencyDivisor",
                 "value": 100,
@@ -1679,10 +1215,7 @@
                 }
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1288,
                 "name": "rmsCurrent",
                 "value": 0,
@@ -1696,68 +1229,44 @@
                 }
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1538,
                 "name": "acCurrentMultiplier",
                 "value": 1
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1539,
                 "name": "acCurrentDivisor",
                 "value": 1000
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1296
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1291,
                 "name": "activePower",
                 "value": 0
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1540,
                 "name": "acPowerMultiplier",
                 "value": 1
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1541,
                 "name": "acPowerDivisor"
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1295
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1294,
                 "name": "reactivePower",
                 "value": 0
@@ -1769,77 +1278,48 @@
           "metering": {
             "attributes": [
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 0,
                 "name": "currentSummationDelivered",
                 "value": 0
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 512
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 768
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 771
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 774
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 1,
                 "name": "currentSummationReceived",
                 "value": 0
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 770,
                 "name": "divisor",
                 "value": 1000000
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 769,
                 "name": "multiplier",
                 "value": 1
               }
             ],
-            "commandsGenerated": [
-              0,
-              3,
-              6,
-              7
-            ],
-            "commandsReceived": [
-              0,
-              3,
-              6,
-              8
-            ]
+            "commandsGenerated": [0, 3, 6, 7],
+            "commandsReceived": [0, 3, 6, 8]
           }
         },
         "bindings": {}

@@ -18,12 +18,7 @@
         "applicationDeviceId": 1026,
         "applicationDeviceVersion": 0,
         "_reserved1": 0,
-        "inputClusters": [
-          0,
-          1,
-          3,
-          1280
-        ],
+        "inputClusters": [0, 1, 3, 1280],
         "outputClusters": []
       }
     ],
@@ -44,18 +39,13 @@
           "powerConfiguration": {
             "attributes": [
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 32,
                 "name": "batteryVoltage",
                 "value": 62
               },
               {
-                "acl": [
-                  "readable",
-                  "reportable"
-                ],
+                "acl": ["readable", "reportable"],
                 "id": 33,
                 "name": "batteryPercentageRemaining",
                 "value": 200
@@ -63,47 +53,32 @@
             ]
           },
           "identify": {
-            "commandsReceived": [
-              "identify",
-              "identifyQuery",
-              "triggerEffect"
-            ]
+            "commandsReceived": ["identify", "identifyQuery", "triggerEffect"]
           },
           "iasZone": {
             "attributes": [
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 0,
                 "name": "zoneState"
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 1,
                 "name": "zoneType"
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 2,
                 "name": "zoneStatus"
               },
               {
-                "acl": [
-                  "readable",
-                  "writable"
-                ],
+                "acl": ["readable", "writable"],
                 "id": 16,
                 "name": "iasCIEAddress"
               },
               {
-                "acl": [
-                  "readable"
-                ],
+                "acl": ["readable"],
                 "id": 17,
                 "name": "zoneId"
               }

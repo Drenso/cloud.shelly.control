@@ -36,9 +36,7 @@
       "id": 0,
       "alarm": null,
       "mute": false,
-      "errors": [
-        "cable_unplugged"
-      ]
+      "errors": ["cable_unplugged"]
     },
     "config": {
       "id": 0,
@@ -153,10 +151,7 @@
       "ssid": "DrensoDev",
       "bssid": "76:ac:b9:2c:8c:03",
       "rssi": -48,
-      "sta_ip6": [
-        "fe80::7e2c:67ff:fe64:16c8",
-        "fd03:8586:4012:ec48:7e2c:67ff:fe64:16c8"
-      ]
+      "sta_ip6": ["fe80::7e2c:67ff:fe64:16c8", "fd03:8586:4012:ec48:7e2c:67ff:fe64:16c8"]
     },
     "config": {
       "ap": {
