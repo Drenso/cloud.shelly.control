@@ -4,6 +4,10 @@ import type { ZCLNode } from 'zigbee-clusters';
 import ShellyZigbeeDevice from '../../lib/zigbee/ZigbeeDevice.mjs';
 
 export default class ShellyFloodGen4ZigbeeDevice extends ShellyZigbeeDevice {
+  protected async firstInitConfigureDevice(_zclNode: ZCLNode): Promise<void> {
+    await this.setCapabilityValue('alarm_water', false).catch(this.error);
+  }
+
   protected async configureDevice(zclNode: ZCLNode): Promise<void> {
     await initPowerConfigurationDevice(this, zclNode).catch((e: unknown) =>
       this.error('Power configuration init failed', e),
