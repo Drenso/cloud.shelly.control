@@ -32,7 +32,12 @@ type Only<T, U> = {
 export type Either<T, U> = Only<T, U> | Only<U, T>;
 export type Either3<T, U, V> = Only<T, U & V> | Only<U, T & V> | Only<V, T & U>;
 export type Either4<T, U, V, X> = Only<T, U & V & X> | Only<U, T & V & X> | Only<V, T & U & X> | Only<X, T & U & V>;
-export type Either5<T, U, V, X, Y> = Only<T, U & V & X & Y> | Only<U, T & V & X & Y> | Only<V, T & U & X & Y> | Only<X, T & U & V & Y> | Only<Y, T & U & V & X>;
+export type Either5<T, U, V, X, Y> =
+  | Only<T, U & V & X & Y>
+  | Only<U, T & V & X & Y>
+  | Only<V, T & U & X & Y>
+  | Only<X, T & U & V & Y>
+  | Only<Y, T & U & V & X>;
 
 export function fillStringTemplateTags(template: string, tags: Record<string, string>): string {
   let filledTemplate = template;
