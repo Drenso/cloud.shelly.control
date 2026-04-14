@@ -9,7 +9,7 @@ export default abstract class ShellyZigbeeDevice extends ZigBeeDevice {
   private startupTimeout: NodeJS.Timeout | null = null;
 
   public async onNodeInit(payload: { zclNode: ZCLNode; node: ZigBeeNode }): Promise<void> {
-    if (Homey.env.DEBUG === '1') {
+    if (Homey.env.ZB_DEBUG === '1') {
       this.enableDebug();
       debug();
     }
