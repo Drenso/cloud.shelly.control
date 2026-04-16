@@ -53,7 +53,7 @@ export default class OutboundWebsocket extends ComponentWithoutId<
 
   public static async unregister(virtualDevice: VirtualDevice): Promise<void> {
     virtualDevice.log('Disabling outbound websocket...');
-    await SetConfig(virtualDevice.getChannel(), { config: { enable: false, server: null } }).catch(virtualDevice.error);
+    await SetConfig(virtualDevice.getChannel(), { config: { enable: false, server: '' } }).catch(virtualDevice.error);
     virtualDevice.log('Disabled outbound websocket');
   }
 
