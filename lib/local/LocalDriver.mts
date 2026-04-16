@@ -169,6 +169,7 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
         ...selectedDevice.store,
         components: components.map(component => component.key),
       },
+      capabilities: [],
     };
 
     return [device];
@@ -188,6 +189,7 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
         ...selectedDevice.store,
         components: components.map(component => component.key),
       },
+      capabilities: [],
     };
 
     return [device];

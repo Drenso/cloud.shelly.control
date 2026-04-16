@@ -40,6 +40,7 @@ export default class ShellyPowerStripGen4LocalDriver extends ShellyLocalDriver {
             ...selectedDevice.store,
             components: splitComponents.map(splitComponent => `${splitComponent}:${componentId}`),
           },
+          capabilities: [],
         });
       }
     }
