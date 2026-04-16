@@ -1,0 +1,16 @@
+{
+  "name": {
+    "en": "Flood Gen4 - LAN"
+  },
+  "class": "sensor",
+  "capabilities": ["alarm_water"],
+  "energy": {
+    "batteries": ["AA", "AA", "AA", "AA"]
+  },
+  "images": {
+    "small": "/assets/drivers/shellypstripg4/images/small.png",
+    "large": "/assets/drivers/shellypstripg4/images/large.png",
+    "xlarge": "/assets/drivers/shellypstripg4/images/xlarge.png"
+  },
+  "$extends": "local"
+}

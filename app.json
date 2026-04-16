@@ -4268,6 +4268,78 @@
         "local"
       ],
       "connectivity": [
+        "lan"
+      ],
+      "capabilities": [
+        "alarm_water"
+      ],
+      "capabilitiesOptions": {
+        "button.restart": {
+          "maintenanceAction": true,
+          "title": {
+            "en": "Restart Device"
+          }
+        }
+      },
+      "pair": [
+        {
+          "id": "pairing_information",
+          "navigation": {
+            "next": "list_devices"
+          }
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "authenticate_devices"
+          }
+        },
+        {
+          "id": "authenticate_devices",
+          "template": "loading",
+          "options": {
+            "text": "pair.loading_devices"
+          }
+        },
+        {
+          "id": "loading_devices",
+          "template": "loading",
+          "options": {
+            "text": "pair.loading_devices"
+          }
+        },
+        {
+          "id": "device_password"
+        },
+        {
+          "id": "add_subdevices"
+        }
+      ],
+      "name": {
+        "en": "Flood Gen4 - LAN"
+      },
+      "class": "sensor",
+      "energy": {
+        "batteries": [
+          "AA",
+          "AA",
+          "AA",
+          "AA"
+        ]
+      },
+      "images": {
+        "small": "/assets/drivers/shellypstripg4/images/small.png",
+        "large": "/assets/drivers/shellypstripg4/images/large.png",
+        "xlarge": "/assets/drivers/shellypstripg4/images/xlarge.png"
+      },
+      "id": "shellyfloodg4_local"
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
         "matter"
       ],
       "icon": "/drivers/shellyfloodg4_matter/assets/icon.svg",
