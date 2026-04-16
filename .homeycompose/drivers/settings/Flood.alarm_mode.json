@@ -1,0 +1,56 @@
+{
+  "type": "group",
+  "label": "Flood Sensor - Alarm",
+  "children": [
+    {
+      "id": "Flood:alarm_mode:mode",
+      "type": "dropdown",
+      "label": {
+        "en": "Mode"
+      },
+      "value": "flood",
+      "values": [
+        {
+          "id": "rain",
+          "label": {
+            "en": "Rain"
+          }
+        },
+        {
+          "id": "flood",
+          "label": {
+            "en": "Flood"
+          }
+        }
+      ]
+    },
+    {
+      "id": "Flood:alarm_mode:sound",
+      "type": "dropdown",
+      "label": {
+        "en": "Flood Mode Sound"
+      },
+      "value": "normal",
+      "values": [
+        {
+          "id": "disabled",
+          "label": {
+            "en": "Off"
+          }
+        },
+        {
+          "id": "normal",
+          "label": {
+            "en": "On"
+          }
+        },
+        {
+          "id": "intense",
+          "label": {
+            "en": "Frequent"
+          }
+        }
+      ]
+    }
+  ]
+}

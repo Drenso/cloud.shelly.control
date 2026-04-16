@@ -12,11 +12,13 @@ import Temperature from './components/Temperature.mjs';
 import PresenceZone from './components/PresenceZone.mjs';
 import Presence from './components/Presence.mjs';
 import DevicePower from './components/DevicePower.mjs';
+import Flood from './components/Flood.mjs';
 
 export const ComponentWithIdMapping = {
   cct: CCT,
   cover: Cover,
   devicepower: DevicePower,
+  flood: Flood,
   illuminance: Illuminance,
   input: Input,
   light: Light,

@@ -1,0 +1,15 @@
+{
+  "id": "Flood:report_holdoff",
+  "type": "number",
+  "label": {
+    "en": "Flood Sensor - Report Holdoff"
+  },
+  "hint": {
+    "en": "For how long the status needs to be steady before it is reported."
+  },
+  "units": "s",
+  "min": 0,
+  "max": 60,
+  "step": 5,
+  "value": 0
+}
