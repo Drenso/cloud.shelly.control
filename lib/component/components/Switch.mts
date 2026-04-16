@@ -242,9 +242,8 @@ export default class Switch extends ComponentWithId<'Switch', SwitchStatus, Swit
     // TODO errors
 
     const energyHomeyCapability = 'meter_power.consumed';
-    let energyCapabilityId = energyHomeyCapability;
     if (this.status.aenergy !== undefined) {
-      energyCapabilityId = await this.registerCapability(
+      await this.registerCapability(
         homeyDevice,
         energyHomeyCapability,
         capabilitiesOptions[energyHomeyCapability as never],
@@ -252,23 +251,21 @@ export default class Switch extends ComponentWithId<'Switch', SwitchStatus, Swit
     }
 
     const returnedEnergyHomeyCapability = 'meter_power.returned';
-    let returnedEnergyCapabilityId = returnedEnergyHomeyCapability;
     if (this.status.ret_aenergy !== undefined) {
-      returnedEnergyCapabilityId = await this.registerCapability(
+      await this.registerCapability(
         homeyDevice,
         returnedEnergyHomeyCapability,
         capabilitiesOptions[returnedEnergyHomeyCapability as never],
       );
     }
 
-    // TODO fix this for multiple components on the same device
     if (this.status['aenergy'] !== undefined || this.status['ret_aenergy'] !== undefined) {
       let energy = homeyDevice.getEnergy();
       energy = {
         ...energy,
         cumulative: false,
-        meterPowerImportedCapability: 'meter_power.consumed',
-        meterPowerExportedCapability: 'meter_power.returned',
+        meterPowerImportedCapability: energyHomeyCapability,
+        meterPowerExportedCapability: returnedEnergyHomeyCapability,
       };
       await homeyDevice.setEnergy(energy).catch(homeyDevice.error);
     }
