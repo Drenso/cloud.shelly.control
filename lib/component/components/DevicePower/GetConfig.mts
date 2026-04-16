@@ -1,0 +1,14 @@
+import type { RpcChannel } from '../../../rpc/channel/RpcChannel.mjs';
+import { createRequestFrame, type ResponseSuccessFrame } from '../../../rpc/Rpc.mjs';
+import type { DevicePowerConfig } from '../DevicePower.mjs';
+
+/**
+ * Obtain the component's configuration
+ */
+export default async function GetConfig(
+  channel: RpcChannel,
+  id: number,
+): Promise<ResponseSuccessFrame<DevicePowerConfig>> {
+  const requestFrame = createRequestFrame('DevicePower.GetConfig', { id: id });
+  return channel.sendRequestFrame(requestFrame);
+}
