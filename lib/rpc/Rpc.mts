@@ -9,6 +9,14 @@ export function createRequestFrame(method: string, params?: object): RequestFram
   };
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function prettyError(err: any, translate: (key: string, variables?: Record<string, string>) => string): Error {
+  if (err.code === 'EHOSTUNREACH') {
+    err.message = translate('error.host_unreachable');
+  }
+  throw err;
+}
+
 export type RequestFrame = {
   // The version of jsonrpc used.
   jsonrpc?: '2.0';

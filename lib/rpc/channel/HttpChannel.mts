@@ -1,5 +1,11 @@
 import type { RpcChannel } from './RpcChannel.mjs';
-import type { RequestFrame, ResponseErrorFrame, ResponseFrame, ResponseSuccessFrame } from '../Rpc.mjs';
+import {
+  prettyError,
+  type RequestFrame,
+  type ResponseErrorFrame,
+  type ResponseFrame,
+  type ResponseSuccessFrame,
+} from '../Rpc.mjs';
 import { RpcError } from '../RpcError.mjs';
 import { createAuthenticationResponse, NoPassword } from '../Authentication.mjs';
 
@@ -22,6 +28,7 @@ export default class HttpChannel implements RpcChannel {
   public constructor(
     public readonly address: string,
     public readonly debug: (...args: unknown[]) => void,
+    private readonly translate: (key: string, variables?: Record<string, string>) => string,
     public ha1?: string,
   ) {}
 
@@ -30,60 +37,63 @@ export default class HttpChannel implements RpcChannel {
   public async sendRequestFrame<Result extends object | null>(
     requestFrame: RequestFrame,
   ): Promise<ResponseSuccessFrame<Result>> {
-    if (requestFrame.auth === undefined) {
-      this.debug(`Sending ${requestFrame.id}:`, requestFrame.method);
-    } else {
-      this.debug(`Resending ${requestFrame.id} with auth:`, requestFrame.method);
-    }
-    // TODO change to HTTPS
-    const addressString = this.address;
-    const response = await fetch(`http://${addressString}/rpc`, {
-      method: 'POST',
-      body: JSON.stringify(requestFrame),
-    }).catch(err => {
-      if (err instanceof TypeError) {
-        this.debug('Unwrapped undici TypeError');
-        const wrappedError = (err as unknown as { cause: Error }).cause;
-        Error.captureStackTrace(wrappedError);
-        throw wrappedError;
+    try {
+      if (requestFrame.auth === undefined) {
+        this.debug(`Sending ${requestFrame.id}:`, requestFrame.method);
       } else {
-        throw err;
+        this.debug(`Resending ${requestFrame.id} with auth:`, requestFrame.method);
       }
-    });
-    // this.debug(`Response ${requestFrame.id}:`, response);
-
-    if (response.status === 401 && requestFrame.auth === undefined) {
-      // We need to re-send authenticated with the given authentication information
-      if (this.ha1 === undefined) {
-        throw new NoPassword();
-      }
-
-      const authenticationHeader = response.headers.get('WWW-Authenticate');
-      const authenticationChallenge = this.parseAuthenticationHeader(authenticationHeader);
-      const authenticationResponse = createAuthenticationResponse(
-        authenticationChallenge.realm,
-        authenticationChallenge.nonce,
-        this.ha1,
-      );
-      return this.sendRequestFrame({
-        ...requestFrame,
-        auth: authenticationResponse,
+      // TODO change to HTTPS
+      const addressString = this.address;
+      const response = await fetch(`http://${addressString}/rpc`, {
+        method: 'POST',
+        body: JSON.stringify(requestFrame),
+      }).catch(err => {
+        if (err instanceof TypeError) {
+          this.debug('Unwrapped undici TypeError');
+          const wrappedError = (err as unknown as { cause: Error }).cause;
+          Error.captureStackTrace(wrappedError);
+          throw wrappedError;
+        } else {
+          throw err;
+        }
       });
-    }
+      // this.debug(`Response ${requestFrame.id}:`, response);
 
-    if (response.status !== 200) {
-      throw new HttpError(response.status, response.statusText);
-    }
+      if (response.status === 401 && requestFrame.auth === undefined) {
+        // We need to re-send authenticated with the given authentication information
+        if (this.ha1 === undefined) {
+          throw new NoPassword();
+        }
 
-    // TODO create a reusable method that handles errors properly
-    const json = (await response.json()) as ResponseFrame<Result>;
-    const error = json as ResponseErrorFrame;
-    const result = json as ResponseSuccessFrame<Result>;
-    if (error.error !== undefined) {
-      const { code, message } = error.error;
-      throw new RpcError(code, message);
+        const authenticationHeader = response.headers.get('WWW-Authenticate');
+        const authenticationChallenge = this.parseAuthenticationHeader(authenticationHeader);
+        const authenticationResponse = createAuthenticationResponse(
+          authenticationChallenge.realm,
+          authenticationChallenge.nonce,
+          this.ha1,
+        );
+        return this.sendRequestFrame({
+          ...requestFrame,
+          auth: authenticationResponse,
+        });
+      }
+
+      if (response.status !== 200) {
+        throw new HttpError(response.status, response.statusText);
+      }
+
+      const json = (await response.json()) as ResponseFrame<Result>;
+      const error = json as ResponseErrorFrame;
+      const result = json as ResponseSuccessFrame<Result>;
+      if (error.error !== undefined) {
+        const { code, message } = error.error;
+        throw new RpcError(code, message);
+      }
+      return result;
+    } catch (e) {
+      throw prettyError(e, this.translate);
     }
-    return result;
   }
 
   private parseAuthenticationHeader(header: string | null): AuthenticationChallenge {

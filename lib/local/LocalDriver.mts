@@ -50,7 +50,9 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
             .catch(this.error);
           authenticationDevice.store.ha1 = await authenticationPromise;
         } else {
-          const components = await Shelly.getAllComponents(createHttpChannel(authenticationDevice.store.address));
+          const components = await Shelly.getAllComponents(
+            createHttpChannel(authenticationDevice.store.address, this.homey.__),
+          );
           const { addonComponents, mainComponents } = this.splitComponents(components);
 
           const homeyDevices = await this.assembleHomeyDevices(authenticationDevice, mainComponents);
@@ -87,7 +89,9 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
         throw new Error('No device being authenticated');
       }
       try {
-        const components = await Shelly.getAllComponents(createHttpChannel(authenticationDevice.store.address, ha1));
+        const components = await Shelly.getAllComponents(
+          createHttpChannel(authenticationDevice.store.address, this.homey.__, ha1),
+        );
         const homeyDevices = await this.assembleHomeyDevices(authenticationDevice, components);
         allHomeyDevices.push(...homeyDevices);
         deviceComponents.set(authenticationDevice.data.id, components);
@@ -215,7 +219,7 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
     discoveryResult: ShellyDiscoveryResult,
   ): Promise<ShellyLocalListDeviceProperties | undefined> {
     try {
-      const deviceInfoResponse = await Shelly.GetDeviceInfo(createHttpChannel(discoveryResult.address));
+      const deviceInfoResponse = await Shelly.GetDeviceInfo(createHttpChannel(discoveryResult.address, this.homey.__));
       const deviceInfo = deviceInfoResponse.result;
 
       // Filter out devices that are already paired

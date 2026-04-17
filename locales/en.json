@@ -57,5 +57,9 @@
         "start_and_end": "Invalid start time and end time for Light - Night Mode"
       }
     }
+  },
+  "error": {
+    "host_unreachable": "Could not reach device",
+    "authorization": "Failed to authorize"
   }
 }

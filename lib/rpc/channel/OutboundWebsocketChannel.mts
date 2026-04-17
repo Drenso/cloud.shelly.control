@@ -1,7 +1,13 @@
 import type { RpcChannel } from './RpcChannel.mjs';
 import type mitt from 'mitt';
 import WebSocket from 'ws';
-import type { NotificationFrame, RequestFrame, ResponseErrorFrame, ResponseSuccessFrame } from '../Rpc.mjs';
+import {
+  type NotificationFrame,
+  prettyError,
+  type RequestFrame,
+  type ResponseErrorFrame,
+  type ResponseSuccessFrame,
+} from '../Rpc.mjs';
 import { createMitt, type UnionToIntersection } from '../../util.mjs';
 import { RpcError } from '../RpcError.mjs';
 import type { WsClosedEvent, WsMessageEvent, WsMittEvents } from '../OutboundWsServer.mjs';
@@ -32,6 +38,7 @@ export default class OutboundWebsocketChannel implements RpcChannel {
     public readonly log: (...args: unknown[]) => void,
     public readonly error: (...args: unknown[]) => void,
     public readonly debug: (...args: unknown[]) => void,
+    private readonly translate: (key: string, variables?: Record<string, string>) => string,
   ) {
     this.outboundWsMitt = outboundWsMitt;
     this.wsPromise = new Promise(resolve => {
@@ -107,11 +114,15 @@ export default class OutboundWebsocketChannel implements RpcChannel {
   public async sendRequestFrame<Result extends object | null>(
     requestFrame: RequestFrame,
   ): Promise<ResponseSuccessFrame<Result>> {
-    const ws = await this.getWs();
-    this.debug('Sending', requestFrame.method);
-    ws.send(JSON.stringify(requestFrame));
-    return new Promise((resolve, reject) => {
-      this.awaitingResponse.set(requestFrame.id as number, { resolve, reject });
-    });
+    try {
+      const ws = await this.getWs();
+      this.debug('Sending', requestFrame.method);
+      ws.send(JSON.stringify(requestFrame));
+      return new Promise((resolve, reject) => {
+        this.awaitingResponse.set(requestFrame.id as number, { resolve, reject });
+      });
+    } catch (e) {
+      throw prettyError(e, this.translate);
+    }
   }
 }

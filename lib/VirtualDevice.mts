@@ -79,10 +79,16 @@ export class VirtualDevice {
 
     // Initialize channels
     {
-      this.httpChannel = createHttpChannel(ipAddress, this.ha1);
+      this.httpChannel = createHttpChannel(ipAddress, this.app.homey.__, this.ha1);
 
       if (!this.batteryDevice) {
-        this.inboundWsChannel = createInboundWsChannel(this.ipAddress, this.log, this.error, this.ha1);
+        this.inboundWsChannel = createInboundWsChannel(
+          this.ipAddress,
+          this.log,
+          this.error,
+          this.app.homey.__,
+          this.ha1,
+        );
         this.inboundWsChannel.eventEmitter.on('notification', this.handleWsNotification.bind(this));
         this.inboundWsChannel.eventEmitter.on('opened', this.safeInitialize.bind(this));
       }
@@ -92,6 +98,7 @@ export class VirtualDevice {
         this.app.outboundWsServer.outboundWsMitt,
         this.log,
         this.error,
+        this.app.homey.__,
       );
       this.outboundWsChannel.eventEmitter.on('notification', this.handleOutboundWsNotification.bind(this));
       this.outboundWsChannel.eventEmitter.on('opened', this.safeInitialize.bind(this));

@@ -5,19 +5,24 @@ import OutboundWebsocketChannel from './rpc/channel/OutboundWebsocketChannel.mjs
 import type mitt from 'mitt';
 import type { WsMittEvents } from './rpc/OutboundWsServer.mjs';
 
-export function createHttpChannel(address: string, ha1?: string): HttpChannel {
+export function createHttpChannel(
+  address: string,
+  translate: (key: string, variables?: Record<string, string>) => string,
+  ha1?: string,
+): HttpChannel {
   const debug = (...args: unknown[]): void => {
     if (Homey.env['DEBUG'] === '1') {
       console.log(new Date(), '[dbg]', '[ShellyApp]', `[HttpChannel:${address}]`, ...args);
     }
   };
-  return new HttpChannel(address, debug, ha1);
+  return new HttpChannel(address, debug, translate, ha1);
 }
 
 export function createInboundWsChannel(
   address: string,
   log: (...args: unknown[]) => void,
   error: (...args: unknown[]) => void,
+  translate: (key: string, variables?: Record<string, string>) => string,
   ha1?: string,
 ): InboundWebsocketChannel {
   const debug = (...args: unknown[]): void => {
@@ -33,7 +38,7 @@ export function createInboundWsChannel(
     error(`[InboundWS:${address}]`, ...args);
   };
 
-  return new InboundWebsocketChannel(address, wsLog, wsError, debug, ha1);
+  return new InboundWebsocketChannel(address, wsLog, wsError, debug, translate, ha1);
 }
 
 export function createOutboundWsChannel(
@@ -41,6 +46,7 @@ export function createOutboundWsChannel(
   outboundWsMitt: mitt.Emitter<WsMittEvents>,
   log: (...args: unknown[]) => void,
   error: (...args: unknown[]) => void,
+  translate: (key: string, variables?: Record<string, string>) => string,
 ): OutboundWebsocketChannel {
   const debug = (...args: unknown[]): void => {
     if (Homey.env['DEBUG'] === '1') {
@@ -48,5 +54,5 @@ export function createOutboundWsChannel(
     }
   };
 
-  return new OutboundWebsocketChannel(identifier, outboundWsMitt, log, error, debug);
+  return new OutboundWebsocketChannel(identifier, outboundWsMitt, log, error, debug, translate);
 }

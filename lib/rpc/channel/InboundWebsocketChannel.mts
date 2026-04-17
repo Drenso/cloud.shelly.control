@@ -1,9 +1,10 @@
-import type {
-  NotificationFrame,
-  RequestFrame,
-  ResponseErrorFrame,
-  ResponseSuccessFrame,
-  UnknownFrame,
+import {
+  type NotificationFrame,
+  prettyError,
+  type RequestFrame,
+  type ResponseErrorFrame,
+  type ResponseSuccessFrame,
+  type UnknownFrame,
 } from '../Rpc.mjs';
 import type { RpcChannel } from './RpcChannel.mjs';
 import WebSocket, { type RawData } from 'ws';
@@ -46,6 +47,7 @@ export default class InboundWebsocketChannel implements RpcChannel {
     public readonly log: (...args: unknown[]) => void,
     public readonly error: (...args: unknown[]) => void,
     public readonly debug: (...args: unknown[]) => void,
+    private readonly translate: (key: string, variables?: Record<string, string>) => string,
     public ha1?: string,
   ) {
     this.connect();
@@ -141,31 +143,35 @@ export default class InboundWebsocketChannel implements RpcChannel {
   public async sendRequestFrame<Result extends object | null>(
     requestFrame: RequestFrame,
   ): Promise<ResponseSuccessFrame<Result>> {
-    if (this.auth !== undefined && this.ha1 !== undefined) {
-      this.debug('Sending', requestFrame.method, 'with auth');
-      this.auth = createAuthenticationResponse(this.auth.realm, this.auth.nonce, this.ha1, ++this.nonce_count);
-      this.ws.send(JSON.stringify({ ...requestFrame, auth: this.auth }));
-    } else {
-      this.debug('Sending', requestFrame.method);
-      this.ws.send(JSON.stringify(requestFrame));
-    }
-    return new Promise<ResponseSuccessFrame<Result>>((resolve, reject) => {
-      this.awaitingResponse.set(requestFrame.id as number, { resolve, reject });
-    }).catch(error => {
-      if (error instanceof UnauthenticatedWS && requestFrame.auth === undefined) {
-        if (this.ha1 === undefined) {
-          throw new NoPassword();
-        }
-        const challenge = parseWsChallenge(error.challenge);
-        this.auth = createAuthenticationResponse(challenge.realm, challenge.nonce, this.ha1);
-        this.nonce_count = 0;
-        this.log('Authenticating...');
-        const response = this.sendRequestFrame<Result>({ ...requestFrame, auth: this.auth });
-        this.log('Authenticated');
-        return response;
+    try {
+      if (this.auth !== undefined && this.ha1 !== undefined) {
+        this.debug('Sending', requestFrame.method, 'with auth');
+        this.auth = createAuthenticationResponse(this.auth.realm, this.auth.nonce, this.ha1, ++this.nonce_count);
+        this.ws.send(JSON.stringify({ ...requestFrame, auth: this.auth }));
       } else {
-        throw error;
+        this.debug('Sending', requestFrame.method);
+        this.ws.send(JSON.stringify(requestFrame));
       }
-    });
+      return new Promise<ResponseSuccessFrame<Result>>((resolve, reject) => {
+        this.awaitingResponse.set(requestFrame.id as number, { resolve, reject });
+      }).catch(error => {
+        if (error instanceof UnauthenticatedWS && requestFrame.auth === undefined) {
+          if (this.ha1 === undefined) {
+            throw new NoPassword();
+          }
+          const challenge = parseWsChallenge(error.challenge);
+          this.auth = createAuthenticationResponse(challenge.realm, challenge.nonce, this.ha1);
+          this.nonce_count = 0;
+          this.log('Authenticating...');
+          const response = this.sendRequestFrame<Result>({ ...requestFrame, auth: this.auth });
+          this.log('Authenticated');
+          return response;
+        } else {
+          throw error;
+        }
+      });
+    } catch (e) {
+      throw prettyError(e, this.translate);
+    }
   }
 }
