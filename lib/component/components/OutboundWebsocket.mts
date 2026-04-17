@@ -38,7 +38,7 @@ export default class OutboundWebsocket extends ComponentWithoutId<
   protected readonly _GetStatus = GetStatus;
   public readonly namespace = 'Ws';
 
-  // TODO ensure this works for battery/BLE devices
+  // TODO ensure this works for BLE devices
   public async register(_methods: ComponentMethod<'Ws'>[]): Promise<void> {
     const server = `ws://${await getIp(this.device.app.homey)}:${OUTBOUND_WS_PORT}`;
     if (this.config.enable && this.config.server === server) {

@@ -427,7 +427,7 @@ export class VirtualDevice {
     return methodMapping;
   }
 
-  // TODO ensure this works for battery/BLE devices
+  // TODO ensure this works for BLE devices
   public async reboot({
     awaitRestart = true,
     initialWaitTime = REBOOT_INITIAL_WAIT,

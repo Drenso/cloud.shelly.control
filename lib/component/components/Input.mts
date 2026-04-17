@@ -374,7 +374,6 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
       await this.registerInputCapability(homeyDevice, homeyCapability, capabilitiesOptions[homeyCapability]);
     }
 
-    // TODO unregister
     this.buttonMitt.on('button', type => {
       const buttonUpdate = { value: type, input: this.id };
       homeyDevice.safeTriggerDeviceCard('input_button_event', buttonUpdate, buttonUpdate);
