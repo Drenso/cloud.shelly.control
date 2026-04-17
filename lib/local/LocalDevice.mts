@@ -25,7 +25,7 @@ export default class ShellyLocalDevice extends Homey.Device {
 
   public async onDeleted(): Promise<void> {
     if (this.virtualDevice !== undefined) {
-      await this.virtualDevice.removeHomeyDevice(this.getTypedData().id);
+      void this.virtualDevice.removeHomeyDevice(this.getTypedData().id);
     } else {
       this.error('Removed without a virtual device.');
       // NOTE: In theory, a data race could happen here if the device is removed while the app is still starting.

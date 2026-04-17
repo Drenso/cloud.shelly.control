@@ -12,6 +12,7 @@ export type ShellyLocalDeviceData = {
   id: string;
   parent?: string;
   subdevice_id?: number;
+  battery_device?: boolean;
 };
 
 export type ListDeviceProperties = {

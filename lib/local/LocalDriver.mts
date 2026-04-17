@@ -9,6 +9,8 @@ import type { ShellyGetDeviceInfoResponse } from '../component/components/Shelly
 import { createHttpChannel } from '../HomeyRPCChannels.mjs';
 
 export default abstract class ShellyLocalDriver extends Homey.Driver {
+  protected batteryDevice = false;
+
   public get app(): ShellyApp {
     return this.homey.app as ShellyApp;
   }
@@ -134,6 +136,7 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
       this.app,
       selectedDevice.data.id,
       selectedDevice.store.address,
+      this.batteryDevice,
       componentKeys,
       this.id,
       homeyDeviceIds,

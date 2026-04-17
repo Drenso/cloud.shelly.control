@@ -255,6 +255,10 @@ export default class System extends ComponentWithoutId<'Sys', SystemStatus, Syst
     } else if (event.event === 'component_removed') {
       const removedEvent = event as ComponentRemovedEvent;
       return this.device.onComponentRemoved(removedEvent.target);
+    } else if (event.event === 'sleep') {
+      this.device.sleeping = true;
+    } else if (['sys_btn_down', 'sys_btn_up', 'sys_btn_push'].includes(event.event)) {
+      // Ignore
     }
     return super.handleEvent(event);
   }

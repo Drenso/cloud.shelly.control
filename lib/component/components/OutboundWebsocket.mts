@@ -46,7 +46,8 @@ export default class OutboundWebsocket extends ComponentWithoutId<
       return;
     }
     this.device.log('Enabling outbound websocket...');
-    await this.SetConfig(this.device.httpChannel, { config: { enable: true, server: server } });
+    // TODO enable TLS certificates
+    await this.SetConfig(this.device.getChannel(), { config: { ssl_ca: '*', enable: true, server: server } });
     await this.device.reboot().catch(err => this.device.debug('Error during Outbound WS reboot:', err));
     this.device.log('Enabled outbound websocket');
   }

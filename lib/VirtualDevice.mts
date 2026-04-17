@@ -37,6 +37,7 @@ const REBOOT_TIMEOUT = 30 * 1000;
 export type SerializedVirtualDevice = {
   readonly deviceId: string;
   readonly ipAddress: string;
+  readonly batteryDevice: boolean;
   readonly components: readonly string[];
   readonly homeyDeviceIds: readonly string[];
   readonly ha1: string | undefined;
@@ -44,9 +45,9 @@ export type SerializedVirtualDevice = {
 };
 
 export class VirtualDevice {
-  public readonly httpChannel: HttpChannel;
-  public readonly inboundWsChannel: InboundWebsocketChannel;
-  public readonly outboundWsChannel: OutboundWebsocketChannel;
+  private readonly httpChannel: HttpChannel;
+  private readonly inboundWsChannel?: InboundWebsocketChannel;
+  private readonly outboundWsChannel?: OutboundWebsocketChannel;
 
   private initialized = false;
   private readonly initializedComponents = new Map<string, InstanceType<MappedComponent>>();
@@ -56,10 +57,13 @@ export class VirtualDevice {
     return this.initializedComponents;
   }
 
+  public sleeping: boolean;
+
   public constructor(
     public readonly app: ShellyApp,
     public readonly deviceId: string,
     private ipAddress: string,
+    private batteryDevice: boolean,
     private components: readonly string[],
     private readonly driver: string,
     private homeyDeviceIds: string[],
@@ -71,13 +75,17 @@ export class VirtualDevice {
     this.error = (...args): void => this.app.error(`[Virtual:${deviceId}]`, ...args);
     this.debug = (...args): void => this.app.debug(`[Virtual:${deviceId}]`, ...args);
 
+    this.sleeping = !this.batteryDevice;
+
     // Initialize channels
     {
       this.httpChannel = createHttpChannel(ipAddress, this.ha1);
 
-      this.inboundWsChannel = createInboundWsChannel(this.ipAddress, this.log, this.error, this.ha1);
-      this.inboundWsChannel.eventEmitter.on('notification', this.handleWsNotification.bind(this));
-      this.inboundWsChannel.eventEmitter.on('opened', this.safeInitialize.bind(this));
+      if (!this.batteryDevice) {
+        this.inboundWsChannel = createInboundWsChannel(this.ipAddress, this.log, this.error, this.ha1);
+        this.inboundWsChannel.eventEmitter.on('notification', this.handleWsNotification.bind(this));
+        this.inboundWsChannel.eventEmitter.on('opened', this.safeInitialize.bind(this));
+      }
 
       this.outboundWsChannel = createOutboundWsChannel(
         this.deviceId,
@@ -101,6 +109,7 @@ export class VirtualDevice {
     return {
       deviceId: this.deviceId,
       ipAddress: this.ipAddress,
+      batteryDevice: this.batteryDevice,
       components: this.components,
       driver: this.driver,
       homeyDeviceIds: this.homeyDeviceIds,
@@ -483,8 +492,8 @@ export class VirtualDevice {
   }
 
   public async disconnect(): Promise<void> {
-    this.inboundWsChannel.disconnect();
-    this.outboundWsChannel.disconnect();
+    this.inboundWsChannel?.disconnect();
+    this.outboundWsChannel?.disconnect();
   }
 
   private handleWsNotification(notification: NotificationFrame): void {
@@ -541,6 +550,8 @@ export class VirtualDevice {
   }
 
   private handleOutboundWsNotification(notification: NotificationFrame): void {
+    this.sleeping = false;
+
     if (!(this.inboundWsChannel === undefined || this.inboundWsChannel.ws.readyState !== WebSocket.OPEN)) {
       return;
     }
