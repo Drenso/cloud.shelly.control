@@ -21,6 +21,7 @@ export default class ShellyApp extends Homey.App {
 
   public async onInit(): Promise<void> {
     this.log('Initializing App...');
+
     this.outboundWsServer.open(await getIp(this.homey));
     this.registerFlowCards();
     await this.deserializeVirtualDevices();
