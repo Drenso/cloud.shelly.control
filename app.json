@@ -5526,6 +5526,17 @@
         }
       ]
     },
+    "shelly_power_factor": {
+      "type": "number",
+      "title": {
+        "en": "Power Factor"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "insights": true,
+      "icon": "/assets/capabilities/shelly_power_factor.svg"
+    },
     "shelly_presence_count": {
       "title": {
         "en": "Object Count"

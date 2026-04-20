@@ -615,6 +615,7 @@ export default class Cover extends ComponentWithId<'Cover', CoverStatus, CoverCo
       ['voltage', 'measure_voltage'],
       ['current', 'measure_current'],
       ['freq', 'measure_frequency'],
+      ['pf', 'shelly_power_factor'],
       ['aenergy', 'meter_power'],
       ['temperature', 'measure_temperature.cover'],
     ] as const) {
@@ -649,6 +650,7 @@ export default class Cover extends ComponentWithId<'Cover', CoverStatus, CoverCo
       'measure_voltage',
       'measure_current',
       'measure_frequency',
+      'shelly_power_factor',
       'meter_power',
       'measure_temperature.cover',
       'button.reset_energy_counters',
@@ -698,8 +700,8 @@ export default class Cover extends ComponentWithId<'Cover', CoverStatus, CoverCo
       ['apower', 'measure_power'],
       ['voltage', 'measure_voltage'],
       ['current', 'measure_current'],
-      // TODO power factor
       ['freq', 'measure_frequency'],
+      ['pf', 'shelly_power_factor'],
     ] as const) {
       if (status[statusKey] !== undefined) {
         await this.setCapability(homeyDevice, homeyCapability, status[statusKey]);
