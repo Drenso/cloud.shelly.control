@@ -4,7 +4,7 @@
       "en": "Reset Energy"
     },
     "desc": {
-      "en": "Reset the consumed energy counter."
+      "en": "Reset the imported energy counter."
     },
     "maintenanceAction": true
   },

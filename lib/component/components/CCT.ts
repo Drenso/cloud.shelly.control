@@ -284,8 +284,8 @@ export default class CCT extends ComponentWithId<'CCT', CCTStatus, CCTConfig, CC
       await this.setCapability(homeyDevice, 'light_temperature', 1 - (status.ct - 2700) / (6500 - 2700));
     }
     if (status.aenergy?.total !== undefined) {
-      const consumedEnergy = status.aenergy.total;
-      await this.setCapability(homeyDevice, 'meter_power', consumedEnergy / 1000);
+      const importedEnergy = status.aenergy.total;
+      await this.setCapability(homeyDevice, 'meter_power', importedEnergy / 1000);
     }
 
     // Simple capabilities

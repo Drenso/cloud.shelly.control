@@ -1,13 +1,13 @@
 {
-  "meter_power.consumed": {
+  "meter_power.imported": {
     "title": {
-      "en": "Consumed Energy"
+      "en": "Imported Energy"
     },
     "decimals": 3
   },
-  "meter_power.returned": {
+  "meter_power.exported": {
     "title": {
-      "en": "Returned Energy"
+      "en": "Exported Energy"
     },
     "decimals": 3
   },
@@ -22,7 +22,7 @@
       "en": "Reset Energy"
     },
     "desc": {
-      "en": "Reset the consumed and returned energy counters."
+      "en": "Reset the imported and exported energy counters."
     },
     "maintenanceAction": true
   }

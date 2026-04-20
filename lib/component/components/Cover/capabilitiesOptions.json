@@ -4,7 +4,7 @@
       "en": "Reset Cover __name__ Energy"
     },
     "desc": {
-      "en": "Reset the consumed and returned energy counters."
+      "en": "Reset the imported and exported energy counters."
     },
     "maintenanceAction": true
   },

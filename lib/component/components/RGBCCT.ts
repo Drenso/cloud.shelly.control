@@ -286,8 +286,8 @@ export default class RGBCCT extends ComponentWithId<'RGBCCT', RGBCCTStatus, RGBC
       await this.setCapability(homeyDevice, 'light_mode', status.mode === 'rgb' ? 'color' : 'temperature');
     }
     if (status.aenergy?.total !== undefined) {
-      const consumedEnergy = status.aenergy.total;
-      await this.setCapability(homeyDevice, 'meter_power', consumedEnergy / 1000);
+      const importedEnergy = status.aenergy.total;
+      await this.setCapability(homeyDevice, 'meter_power', importedEnergy / 1000);
     }
 
     // Simple capabilities

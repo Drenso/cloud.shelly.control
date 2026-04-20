@@ -38,7 +38,7 @@ export default class EM1Data extends ComponentWithId<'EM1Data', EM1DataStatus, E
   ): Promise<void> {
     for (const [statusKey, homeyCapability] of [
       ['total_act_energy', 'meter_power'],
-      ['total_act_ret_energy', 'meter_power.returned'],
+      ['total_act_ret_energy', 'meter_power.exported'],
     ] as const) {
       if (this.status[statusKey] !== undefined) {
         await this.registerCapability(homeyDevice, homeyCapability, capabilitiesOptions[homeyCapability as never]);
@@ -49,7 +49,7 @@ export default class EM1Data extends ComponentWithId<'EM1Data', EM1DataStatus, E
   }
 
   protected async staticallyUnregisterHomeyDevice(homeyDevice: ShellyLocalDevice, id: number): Promise<void> {
-    for (const capability of ['meter_power', 'meter_power.returned']) {
+    for (const capability of ['meter_power', 'meter_power.exported']) {
       await EM1Data.unregisterCapability(homeyDevice, capability, id);
     }
   }
@@ -57,7 +57,7 @@ export default class EM1Data extends ComponentWithId<'EM1Data', EM1DataStatus, E
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: EM1DataStatus): Promise<void> {
     for (const [statusKey, homeyCapability] of [
       ['total_act_energy', 'meter_power'],
-      ['total_act_ret_energy', 'meter_power.returned'],
+      ['total_act_ret_energy', 'meter_power.exported'],
     ] as const) {
       if (status[statusKey] !== undefined) {
         await this.setCapability(homeyDevice, homeyCapability, status[statusKey] / 1000);

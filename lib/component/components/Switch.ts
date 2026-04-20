@@ -212,6 +212,10 @@ export default class Switch extends ComponentWithId<'Switch', SwitchStatus, Swit
     homeyDevice: ShellyLocalDevice,
     methods: ComponentMethod<'Switch'>[],
   ): Promise<void> {
+    // todo: remove with 1.0. Migration to remove old consumed/returned capabilities
+    await Switch.unregisterCapability(homeyDevice, 'meter_power.consumed', this.id);
+    await Switch.unregisterCapability(homeyDevice, 'meter_power.returned', this.id);
+
     const onOffCapabilityListener = async (value: boolean): Promise<void> => {
       await this.Set(this.device.getChannel(), { on: value });
     };
@@ -225,8 +229,8 @@ export default class Switch extends ComponentWithId<'Switch', SwitchStatus, Swit
       ['freq', 'measure_frequency'],
       ['pf', 'shelly_power_factor'],
       ['aenergy', 'meter_power.total'],
-      ['aenergy', 'meter_power.consumed'],
-      ['ret_aenergy', 'meter_power.returned'],
+      ['aenergy', 'meter_power.imported'],
+      ['ret_aenergy', 'meter_power.exported'],
       ['temperature', 'measure_temperature'],
     ] as const) {
       if (this.status[statusKey] !== undefined) {
@@ -244,8 +248,8 @@ export default class Switch extends ComponentWithId<'Switch', SwitchStatus, Swit
       energy = {
         ...energy,
         cumulative: false,
-        meterPowerImportedCapability: 'meter_power.consumed',
-        meterPowerExportedCapability: 'meter_power.returned',
+        meterPowerImportedCapability: 'meter_power.imported',
+        meterPowerExportedCapability: 'meter_power.exported',
       };
       await homeyDevice.setEnergy(energy).catch(homeyDevice.error);
     }
@@ -279,8 +283,8 @@ export default class Switch extends ComponentWithId<'Switch', SwitchStatus, Swit
       'shelly_power_factor',
       'meter_power.total',
       'measure_temperature',
-      'meter_power.consumed',
-      'meter_power.returned',
+      'meter_power.imported',
+      'meter_power.exported',
       'button.reset_energy_counters',
     ]) {
       await Switch.unregisterCapability(homeyDevice, capability, id);
@@ -305,10 +309,10 @@ export default class Switch extends ComponentWithId<'Switch', SwitchStatus, Swit
     // TODO fix this for multiple components on the same device
     if (status.aenergy !== undefined || status.ret_aenergy !== undefined) {
       const absoluteEnergy = this.status.aenergy?.total ?? 0;
-      const returnedEnergy = this.status.ret_aenergy?.total ?? 0;
-      const consumedEnergy = absoluteEnergy - returnedEnergy;
-      await this.setCapability(homeyDevice, 'meter_power.consumed', consumedEnergy / 1000);
-      await this.setCapability(homeyDevice, 'meter_power.returned', returnedEnergy / 1000);
+      const exportedEnergy = this.status.ret_aenergy?.total ?? 0;
+      const importedEnergy = absoluteEnergy - exportedEnergy;
+      await this.setCapability(homeyDevice, 'meter_power.imported', importedEnergy / 1000);
+      await this.setCapability(homeyDevice, 'meter_power.exported', exportedEnergy / 1000);
       await this.setCapability(homeyDevice, 'meter_power.total', absoluteEnergy / 1000);
     }
     if (status.temperature !== undefined) {

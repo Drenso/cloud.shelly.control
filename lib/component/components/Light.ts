@@ -404,8 +404,8 @@ export default class Light extends ComponentWithId<'Light', LightStatus, LightCo
       await homeyDevice.safeSetCapability('measure_temperature', status.temperature.tC);
     }
     if (status.aenergy?.total !== undefined) {
-      const consumedEnergy = status.aenergy.total;
-      await homeyDevice.safeSetCapability('meter_power', consumedEnergy / 1000);
+      const importedEnergy = status.aenergy.total;
+      await homeyDevice.safeSetCapability('meter_power', importedEnergy / 1000);
     }
     await this.updateMeasured(homeyDevice, status, 'apower', 'measure_power');
     await this.updateMeasured(homeyDevice, status, 'voltage', 'measure_voltage');

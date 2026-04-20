@@ -8,7 +8,7 @@
     "measure_power",
     "measure_current",
     "meter_power",
-    "meter_power.returned",
+    "meter_power.exported",
     "measure_voltage",
     "measure_frequency"
   ],
