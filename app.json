@@ -4179,6 +4179,88 @@
         "local"
       ],
       "connectivity": [
+        "lan"
+      ],
+      "capabilities": [
+        "measure_power",
+        "measure_current",
+        "meter_power",
+        "meter_power.returned",
+        "measure_voltage",
+        "measure_frequency"
+      ],
+      "capabilitiesOptions": {
+        "button.restart": {
+          "maintenanceAction": true,
+          "title": {
+            "en": "Restart Device"
+          }
+        }
+      },
+      "pair": [
+        {
+          "id": "pairing_information",
+          "navigation": {
+            "next": "list_devices"
+          }
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "authenticate_devices"
+          }
+        },
+        {
+          "id": "authenticate_devices",
+          "template": "loading",
+          "options": {
+            "text": "pair.loading_devices"
+          }
+        },
+        {
+          "id": "loading_devices",
+          "template": "loading",
+          "options": {
+            "text": "pair.loading_devices"
+          }
+        },
+        {
+          "id": "device_password"
+        },
+        {
+          "id": "add_subdevices"
+        }
+      ],
+      "name": {
+        "en": "EM Mini Gen4 - LAN"
+      },
+      "class": "socket",
+      "images": {
+        "small": "/assets/drivers/shellyemminig4/images/small.png",
+        "large": "/assets/drivers/shellyemminig4/images/large.png",
+        "xlarge": "/assets/drivers/shellyemminig4/images/xlarge.png"
+      },
+      "id": "shellyemminig4_local",
+      "settings": [
+        {
+          "id": "EM1:reverse",
+          "type": "checkbox",
+          "label": {
+            "en": "Electrical Measurement - Reverse"
+          },
+          "hint": {
+            "en": "Reverse the measurement direction of active power and energy."
+          },
+          "value": false
+        }
+      ]
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
         "matter"
       ],
       "icon": "/drivers/shellyemminig4_matter/assets/icon.svg",

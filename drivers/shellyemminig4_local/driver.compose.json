@@ -1,0 +1,20 @@
+{
+  "$extends": ["local"],
+  "name": {
+    "en": "EM Mini Gen4 - LAN"
+  },
+  "class": "socket",
+  "capabilities": [
+    "measure_power",
+    "measure_current",
+    "meter_power",
+    "meter_power.returned",
+    "measure_voltage",
+    "measure_frequency"
+  ],
+  "images": {
+    "small": "/assets/drivers/shellyemminig4/images/small.png",
+    "large": "/assets/drivers/shellyemminig4/images/large.png",
+    "xlarge": "/assets/drivers/shellyemminig4/images/xlarge.png"
+  }
+}

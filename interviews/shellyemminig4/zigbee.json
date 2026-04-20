@@ -1,0 +1,373 @@
+{
+  "ids": {
+    "modelId": "EM Mini",
+    "manufacturerName": "Shelly"
+  },
+  "endpoints": {
+    "ieeeAddress": "d8:85:ac:ff:fe:e8:9f:8c",
+    "networkAddress": 51978,
+    "modelId": "EM Mini",
+    "manufacturerName": "Shelly",
+    "endpointDescriptors": [
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 51978,
+        "_reserved": 20,
+        "endpointId": 1,
+        "applicationProfileId": 260,
+        "applicationDeviceId": 83,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 0,
+        "inputClusters": [0, 3, 1794, 2817, 2820],
+        "outputClusters": [3]
+      },
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 51978,
+        "_reserved": 12,
+        "endpointId": 239,
+        "applicationProfileId": 49153,
+        "applicationDeviceId": 8193,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 0,
+        "inputClusters": [64513, 64514],
+        "outputClusters": []
+      },
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 51978,
+        "_reserved": 10,
+        "endpointId": 242,
+        "applicationProfileId": 41440,
+        "applicationDeviceId": 97,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 0,
+        "inputClusters": [],
+        "outputClusters": [33]
+      }
+    ],
+    "deviceType": "router",
+    "receiveWhenIdle": true,
+    "capabilities": {
+      "alternatePANCoordinator": false,
+      "deviceType": true,
+      "powerSourceMains": true,
+      "receiveWhenIdle": true,
+      "security": false,
+      "allocateAddress": true
+    },
+    "extendedEndpointDescriptors": {
+      "1": {
+        "clusters": {
+          "basic": {
+            "attributes": [
+              {
+                "acl": ["readable"],
+                "id": 0,
+                "dataTypeId": 32,
+                "name": "zclVersion",
+                "value": 8
+              },
+              {
+                "acl": ["readable"],
+                "id": 7,
+                "dataTypeId": 48,
+                "name": "powerSource",
+                "value": "unknown"
+              },
+              {
+                "acl": ["readable"],
+                "id": 4,
+                "dataTypeId": 66,
+                "name": "manufacturerName",
+                "value": "Shelly"
+              },
+              {
+                "acl": ["readable"],
+                "id": 5,
+                "dataTypeId": 66,
+                "name": "modelId",
+                "value": "EM Mini"
+              }
+            ],
+            "commandsGenerated": [],
+            "commandsReceived": ["factoryReset"]
+          },
+          "identify": {
+            "attributes": [
+              {
+                "acl": ["readable", "writable"],
+                "id": 0,
+                "dataTypeId": 33,
+                "name": "identifyTime",
+                "value": 0
+              }
+            ],
+            "commandsGenerated": ["identifyQuery.response"],
+            "commandsReceived": ["identify", "identifyQuery", "triggerEffect"]
+          },
+          "metering": {
+            "attributes": [
+              {
+                "acl": ["readable", "reportable"],
+                "id": 0,
+                "dataTypeId": 37,
+                "name": "currentSummationDelivered"
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 512,
+                "dataTypeId": 24,
+                "name": "status"
+              },
+              {
+                "acl": ["readable"],
+                "id": 768,
+                "dataTypeId": 48,
+                "name": "unitOfMeasure"
+              },
+              {
+                "acl": ["readable"],
+                "id": 771,
+                "dataTypeId": 24
+              },
+              {
+                "acl": ["readable"],
+                "id": 774,
+                "dataTypeId": 24
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 1,
+                "dataTypeId": 37,
+                "name": "currentSummationReceived"
+              },
+              {
+                "acl": ["readable"],
+                "id": 770,
+                "dataTypeId": 37,
+                "name": "divisor"
+              },
+              {
+                "acl": ["readable"],
+                "id": 769,
+                "dataTypeId": 37,
+                "name": "multiplier"
+              }
+            ],
+            "commandsGenerated": [0, 3, 6, 7],
+            "commandsReceived": [0, 3, 6, 8]
+          },
+          "electricalMeasurement": {
+            "attributes": [
+              {
+                "acl": ["readable"],
+                "id": 0,
+                "dataTypeId": 27,
+                "name": "measurementType",
+                "value": {
+                  "type": "Buffer",
+                  "data": [1, 0, 0, 0]
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 1285,
+                "dataTypeId": 33,
+                "name": "rmsVoltage",
+                "value": 23280,
+                "reportingConfiguration": {
+                  "direction": "reported",
+                  "attributeDataType": 33,
+                  "minInterval": 10,
+                  "maxInterval": 3600,
+                  "minChange": 1,
+                  "status": "SUCCESS"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 1536,
+                "dataTypeId": 33,
+                "name": "acVoltageMultiplier",
+                "value": 1,
+                "reportingConfiguration": {
+                  "direction": "reported",
+                  "attributeDataType": 33,
+                  "minInterval": 0,
+                  "maxInterval": 3600,
+                  "minChange": 1,
+                  "status": "SUCCESS"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 1537,
+                "dataTypeId": 33,
+                "name": "acVoltageDivisor",
+                "value": 100,
+                "reportingConfiguration": {
+                  "direction": "reported",
+                  "attributeDataType": 33,
+                  "minInterval": 0,
+                  "maxInterval": 3600,
+                  "minChange": 1,
+                  "status": "SUCCESS"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 768,
+                "dataTypeId": 33,
+                "name": "acFrequency",
+                "value": 4995,
+                "reportingConfiguration": {
+                  "direction": "reported",
+                  "attributeDataType": 33,
+                  "minInterval": 10,
+                  "maxInterval": 3600,
+                  "minChange": 1,
+                  "status": "SUCCESS"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 1024,
+                "dataTypeId": 33,
+                "name": "acFrequencyMultiplier",
+                "value": 1,
+                "reportingConfiguration": {
+                  "direction": "reported",
+                  "attributeDataType": 33,
+                  "minInterval": 0,
+                  "maxInterval": 3600,
+                  "minChange": 1,
+                  "status": "SUCCESS"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 1025,
+                "dataTypeId": 33,
+                "name": "acFrequencyDivisor",
+                "value": 100,
+                "reportingConfiguration": {
+                  "direction": "reported",
+                  "attributeDataType": 33,
+                  "minInterval": 0,
+                  "maxInterval": 3600,
+                  "minChange": 1,
+                  "status": "SUCCESS"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 1288,
+                "dataTypeId": 33,
+                "name": "rmsCurrent",
+                "value": 0,
+                "reportingConfiguration": {
+                  "direction": "reported",
+                  "attributeDataType": 33,
+                  "minInterval": 10,
+                  "maxInterval": 3600,
+                  "minChange": 1,
+                  "status": "SUCCESS"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 1538,
+                "dataTypeId": 33,
+                "name": "acCurrentMultiplier",
+                "value": 1
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 1539,
+                "dataTypeId": 33,
+                "name": "acCurrentDivisor",
+                "value": 1000
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 1291,
+                "dataTypeId": 41,
+                "name": "activePower",
+                "value": 0
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 1540,
+                "dataTypeId": 33,
+                "name": "acPowerMultiplier",
+                "value": 1
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 1541,
+                "dataTypeId": 33,
+                "name": "acPowerDivisor"
+              },
+              {
+                "acl": ["readable"],
+                "id": 1293,
+                "dataTypeId": 33
+              },
+              {
+                "acl": ["readable"],
+                "id": 1292,
+                "dataTypeId": 33
+              },
+              {
+                "acl": ["readable"],
+                "id": 1287,
+                "dataTypeId": 33
+              },
+              {
+                "acl": ["readable"],
+                "id": 1286,
+                "dataTypeId": 33
+              },
+              {
+                "acl": ["readable"],
+                "id": 1290,
+                "dataTypeId": 33
+              },
+              {
+                "acl": ["readable"],
+                "id": 1289,
+                "dataTypeId": 33
+              }
+            ],
+            "commandsGenerated": [],
+            "commandsReceived": []
+          }
+        },
+        "bindings": {
+          "identify": {
+            "attributes": [
+              {
+                "acl": ["readable", "writable"],
+                "id": 0,
+                "dataTypeId": 33,
+                "name": "identifyTime",
+                "value": 0
+              }
+            ],
+            "commandsGenerated": ["identifyQuery.response"],
+            "commandsReceived": ["identify", "identifyQuery", "triggerEffect"]
+          }
+        }
+      },
+      "239": {
+        "clusters": {},
+        "bindings": {}
+      },
+      "242": {
+        "clusters": {},
+        "bindings": {}
+      }
+    }
+  }
+}
