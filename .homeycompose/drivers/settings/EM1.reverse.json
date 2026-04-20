@@ -1,0 +1,11 @@
+{
+  "id": "EM1:reverse",
+  "type": "checkbox",
+  "label": {
+    "en": "Electrical Measurement - Reverse"
+  },
+  "hint": {
+    "en": "Reverse the measurement direction of active power and energy."
+  },
+  "value": false
+}

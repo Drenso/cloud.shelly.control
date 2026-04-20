@@ -1,0 +1,9 @@
+{
+  "id": "EM1:ct_type",
+  "type": "dropdown",
+  "label": {
+    "en": "Electrical Measurement - CT Type"
+  },
+  "value": "placeholder: override when using in device definition",
+  "values": []
+}

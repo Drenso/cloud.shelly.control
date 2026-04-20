@@ -1,5 +1,7 @@
 import CCT from './components/CCT.js';
 import Cover from './components/Cover.js';
+import EM1 from './components/EM1.js';
+import EM1Data from './components/EM1Data.js';
 import Illuminance from './components/Illuminance.js';
 import Input from './components/Input.js';
 import Light from './components/Light.js';
@@ -18,6 +20,8 @@ export const ComponentWithIdMapping = {
   cct: CCT,
   cover: Cover,
   devicepower: DevicePower,
+  em1: EM1,
+  em1data: EM1Data,
   flood: Flood,
   illuminance: Illuminance,
   input: Input,
