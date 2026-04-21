@@ -8294,6 +8294,57 @@
       "connectivity": [
         "zigbee"
       ],
+      "icon": "/drivers/shellyblurc_zigbee/assets/icon.svg",
+      "name": {
+        "en": "BLU Remote Control ZB - Zigbee"
+      },
+      "class": "remote",
+      "capabilities": [
+        "measure_battery"
+      ],
+      "energy": {
+        "batteries": [
+          "AAA",
+          "AAA"
+        ]
+      },
+      "zigbee": {
+        "manufacturerName": "Shelly",
+        "productId": [
+          "BLU Remote Control ZB"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              1
+            ],
+            "bindings": [
+              0
+            ]
+          }
+        },
+        "learnmode": {
+          "image": "/drivers/shellyblurc_zigbee/assets/learnmode.svg",
+          "instruction": {
+            "en": "Press any button five times to initialize Zigbee pairing."
+          }
+        }
+      },
+      "images": {
+        "small": "/assets/drivers/shellyblurc/images/small.png",
+        "large": "/assets/drivers/shellyblurc/images/large.png",
+        "xlarge": "/assets/drivers/shellyblurc/images/xlarge.png"
+      },
+      "id": "shellyblurc_zigbee"
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
       "icon": "/drivers/shellyblutrv_zigbee/assets/icon.svg",
       "name": {
         "en": "BLU TRV - Zigbee"
