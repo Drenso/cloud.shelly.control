@@ -4,6 +4,5 @@
   "label": {
     "en": "Electrical Measurement - CT Type"
   },
-  "value": "placeholder: override when using in device definition",
-  "values": []
+  "value": "placeholder: override when using in device definition"
 }
