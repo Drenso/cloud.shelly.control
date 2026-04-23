@@ -1,9 +1,9 @@
 {
   "title": {
-    "en": "A presence exited"
+    "en": "An object left a zone"
   },
   "titleFormatted": {
-    "en": "A presence exited [[zone]]"
+    "en": "An object left zone [[zone]]"
   },
   "tokens": [
     {

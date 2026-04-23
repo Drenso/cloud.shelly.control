@@ -1,6 +1,6 @@
 {
   "title": {
-    "en": "Presence Count"
+    "en": "Object Count"
   },
   "icon": "/assets/capabilities/alarm_presence.svg",
   "type": "number",

@@ -10,9 +10,9 @@
       "en": "Presence Alarm __name__ turned off"
     }
   },
-  "presence_count": {
+  "shelly_presence_count": {
     "title": {
-      "en": "Presence Count __name__"
+      "en": "Object Count __name__"
     }
   },
   "presenceZoneName": {

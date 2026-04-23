@@ -1,6 +1,6 @@
 {
   "title": {
-    "en": "Illumination status"
+    "en": "Illumination Status"
   },
   "type": "enum",
   "uiComponent": "sensor",

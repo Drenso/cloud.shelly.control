@@ -1,9 +1,9 @@
 {
   "title": {
-    "en": "A presence entered"
+    "en": "An object entered a zone"
   },
   "titleFormatted": {
-    "en": "A presence entered [[zone]]"
+    "en": "An object entered zone [[zone]]"
   },
   "tokens": [
     {

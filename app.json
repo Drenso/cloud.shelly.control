@@ -67,7 +67,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypresence_local|shellypstripg4_local",
+              "driver_id": "shelly1g4_local|shelly1g4_matter|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_matter|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_matter|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_matter|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_matter|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_matter|shelly2pmg4_switch_zigbee|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_matter|shellyduobulbg3_local|shellyemminig4_matter|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_matter|shellyfloodg4_zigbee|shellypresence_local|shellypstripg4_local|shellypstripg4_zigbee",
               "capabilities": "hidden.has_input_analog"
             },
             "title": {
@@ -99,7 +99,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypresence_local|shellypstripg4_local",
+              "driver_id": "shelly1g4_local|shelly1g4_matter|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_matter|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_matter|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_matter|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_matter|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_matter|shelly2pmg4_switch_zigbee|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_matter|shellyduobulbg3_local|shellyemminig4_matter|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_matter|shellyfloodg4_zigbee|shellypresence_local|shellypstripg4_local|shellypstripg4_zigbee",
               "capabilities": "hidden.has_input_multiple_analog"
             },
             "title": {
@@ -142,7 +142,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypresence_local|shellypstripg4_local",
+              "driver_id": "shelly1g4_local|shelly1g4_matter|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_matter|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_matter|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_matter|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_matter|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_matter|shelly2pmg4_switch_zigbee|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_matter|shellyduobulbg3_local|shellyemminig4_matter|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_matter|shellyfloodg4_zigbee|shellypresence_local|shellypstripg4_local|shellypstripg4_zigbee",
               "capabilities": "hidden.has_input_analog"
             },
             "title": {
@@ -181,7 +181,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypresence_local|shellypstripg4_local",
+              "driver_id": "shelly1g4_local|shelly1g4_matter|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_matter|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_matter|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_matter|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_matter|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_matter|shelly2pmg4_switch_zigbee|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_matter|shellyduobulbg3_local|shellyemminig4_matter|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_matter|shellyfloodg4_zigbee|shellypresence_local|shellypstripg4_local|shellypstripg4_zigbee",
               "capabilities": "hidden.has_input_multiple_analog"
             },
             "title": {
@@ -227,7 +227,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypresence_local|shellypstripg4_local",
+              "driver_id": "shelly1g4_local|shelly1g4_matter|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_matter|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_matter|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_matter|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_matter|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_matter|shelly2pmg4_switch_zigbee|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_matter|shellyduobulbg3_local|shellyemminig4_matter|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_matter|shellyfloodg4_zigbee|shellypresence_local|shellypstripg4_local|shellypstripg4_zigbee",
               "capabilities": "hidden.has_input_button"
             },
             "title": {
@@ -312,7 +312,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypresence_local|shellypstripg4_local",
+              "driver_id": "shelly1g4_local|shelly1g4_matter|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_matter|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_matter|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_matter|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_matter|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_matter|shelly2pmg4_switch_zigbee|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_matter|shellyduobulbg3_local|shellyemminig4_matter|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_matter|shellyfloodg4_zigbee|shellypresence_local|shellypstripg4_local|shellypstripg4_zigbee",
               "capabilities": "hidden.has_input_multiple_button"
             },
             "title": {
@@ -401,7 +401,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypresence_local|shellypstripg4_local",
+              "driver_id": "shelly1g4_local|shelly1g4_matter|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_matter|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_matter|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_matter|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_matter|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_matter|shelly2pmg4_switch_zigbee|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_matter|shellyduobulbg3_local|shellyemminig4_matter|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_matter|shellyfloodg4_zigbee|shellypresence_local|shellypstripg4_local|shellypstripg4_zigbee",
               "capabilities": "hidden.has_input_count"
             },
             "title": {
@@ -440,7 +440,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypresence_local|shellypstripg4_local",
+              "driver_id": "shelly1g4_local|shelly1g4_matter|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_matter|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_matter|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_matter|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_matter|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_matter|shelly2pmg4_switch_zigbee|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_matter|shellyduobulbg3_local|shellyemminig4_matter|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_matter|shellyfloodg4_zigbee|shellypresence_local|shellypstripg4_local|shellypstripg4_zigbee",
               "capabilities": "hidden.has_input_multiple_analog"
             },
             "title": {
@@ -486,7 +486,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypresence_local|shellypstripg4_local",
+              "driver_id": "shelly1g4_local|shelly1g4_matter|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_matter|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_matter|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_matter|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_matter|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_matter|shelly2pmg4_switch_zigbee|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_matter|shellyduobulbg3_local|shellyemminig4_matter|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_matter|shellyfloodg4_zigbee|shellypresence_local|shellypstripg4_local|shellypstripg4_zigbee",
               "capabilities": "hidden.has_input_switch"
             },
             "title": {
@@ -547,7 +547,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypresence_local|shellypstripg4_local",
+              "driver_id": "shelly1g4_local|shelly1g4_matter|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_matter|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_matter|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_matter|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_matter|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_matter|shelly2pmg4_switch_zigbee|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_matter|shellyduobulbg3_local|shellyemminig4_matter|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_matter|shellyfloodg4_zigbee|shellypresence_local|shellypstripg4_local|shellypstripg4_zigbee",
               "capabilities": "hidden.has_input_multiple_switch"
             },
             "title": {
@@ -605,7 +605,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypresence_local|shellypstripg4_local",
+              "driver_id": "shelly1g4_local|shelly1g4_matter|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_matter|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_matter|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_matter|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_matter|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_matter|shelly2pmg4_switch_zigbee|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_matter|shellyduobulbg3_local|shellyemminig4_matter|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_matter|shellyfloodg4_zigbee|shellypresence_local|shellypstripg4_local|shellypstripg4_zigbee",
               "capabilities": "meter_power.consumed"
             },
             "title": {
@@ -634,7 +634,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypresence_local|shellypstripg4_local",
+              "driver_id": "shelly1g4_local|shelly1g4_matter|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_matter|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_matter|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_matter|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_matter|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_matter|shelly2pmg4_switch_zigbee|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_matter|shellyduobulbg3_local|shellyemminig4_matter|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_matter|shellyfloodg4_zigbee|shellypresence_local|shellypstripg4_local|shellypstripg4_zigbee",
               "capabilities": "meter_power.returned"
             },
             "title": {
@@ -663,7 +663,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypresence_local|shellypstripg4_local",
+              "driver_id": "shelly1g4_local|shelly1g4_matter|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_matter|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_matter|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_matter|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_matter|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_matter|shelly2pmg4_switch_zigbee|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_matter|shellyduobulbg3_local|shellyemminig4_matter|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_matter|shellyfloodg4_zigbee|shellypresence_local|shellypstripg4_local|shellypstripg4_zigbee",
               "capabilities": "meter_power.total"
             },
             "title": {
@@ -675,7 +675,7 @@
       },
       {
         "title": {
-          "en": "Presence count changed"
+          "en": "Object count changed"
         },
         "tokens": [
           {
@@ -699,7 +699,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypresence_local|shellypstripg4_local",
+              "driver_id": "shelly1g4_local|shelly1g4_matter|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_matter|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_matter|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_matter|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_matter|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_matter|shelly2pmg4_switch_zigbee|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_matter|shellyduobulbg3_local|shellyemminig4_matter|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_matter|shellyfloodg4_zigbee|shellypresence_local|shellypstripg4_local|shellypstripg4_zigbee",
               "capabilities": "hidden.has_presence_sensor"
             },
             "title": {
@@ -711,10 +711,10 @@
       },
       {
         "title": {
-          "en": "Presence count changed"
+          "en": "Object count changed"
         },
         "titleFormatted": {
-          "en": "Presence count [[zone]] changed"
+          "en": "Object count in zone [[zone]] changed"
         },
         "tokens": [
           {
@@ -738,7 +738,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypresence_local|shellypstripg4_local",
+              "driver_id": "shelly1g4_local|shelly1g4_matter|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_matter|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_matter|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_matter|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_matter|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_matter|shelly2pmg4_switch_zigbee|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_matter|shellyduobulbg3_local|shellyemminig4_matter|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_matter|shellyfloodg4_zigbee|shellypresence_local|shellypstripg4_local|shellypstripg4_zigbee",
               "capabilities": "hidden.has_presence_sensor_multiple"
             },
             "title": {
@@ -757,7 +757,7 @@
       },
       {
         "title": {
-          "en": "A presence entered"
+          "en": "An object entered the zone"
         },
         "tokens": [
           {
@@ -774,7 +774,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypresence_local|shellypstripg4_local",
+              "driver_id": "shelly1g4_local|shelly1g4_matter|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_matter|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_matter|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_matter|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_matter|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_matter|shelly2pmg4_switch_zigbee|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_matter|shellyduobulbg3_local|shellyemminig4_matter|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_matter|shellyfloodg4_zigbee|shellypresence_local|shellypstripg4_local|shellypstripg4_zigbee",
               "capabilities": "hidden.has_presence_sensor"
             },
             "title": {
@@ -786,10 +786,10 @@
       },
       {
         "title": {
-          "en": "A presence entered"
+          "en": "An object entered a zone"
         },
         "titleFormatted": {
-          "en": "A presence entered [[zone]]"
+          "en": "An object entered zone [[zone]]"
         },
         "tokens": [
           {
@@ -806,7 +806,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypresence_local|shellypstripg4_local",
+              "driver_id": "shelly1g4_local|shelly1g4_matter|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_matter|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_matter|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_matter|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_matter|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_matter|shelly2pmg4_switch_zigbee|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_matter|shellyduobulbg3_local|shellyemminig4_matter|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_matter|shellyfloodg4_zigbee|shellypresence_local|shellypstripg4_local|shellypstripg4_zigbee",
               "capabilities": "hidden.has_presence_sensor_multiple"
             },
             "title": {
@@ -825,7 +825,7 @@
       },
       {
         "title": {
-          "en": "A presence exited"
+          "en": "An object left the zone"
         },
         "tokens": [
           {
@@ -842,7 +842,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypresence_local|shellypstripg4_local",
+              "driver_id": "shelly1g4_local|shelly1g4_matter|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_matter|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_matter|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_matter|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_matter|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_matter|shelly2pmg4_switch_zigbee|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_matter|shellyduobulbg3_local|shellyemminig4_matter|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_matter|shellyfloodg4_zigbee|shellypresence_local|shellypstripg4_local|shellypstripg4_zigbee",
               "capabilities": "hidden.has_presence_sensor"
             },
             "title": {
@@ -854,10 +854,10 @@
       },
       {
         "title": {
-          "en": "A presence exited"
+          "en": "An object left a zone"
         },
         "titleFormatted": {
-          "en": "A presence exited [[zone]]"
+          "en": "An object left zone [[zone]]"
         },
         "tokens": [
           {
@@ -874,7 +874,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypresence_local|shellypstripg4_local",
+              "driver_id": "shelly1g4_local|shelly1g4_matter|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_matter|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_matter|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_matter|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_matter|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_matter|shelly2pmg4_switch_zigbee|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_matter|shellyduobulbg3_local|shellyemminig4_matter|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_matter|shellyfloodg4_zigbee|shellypresence_local|shellypstripg4_local|shellypstripg4_zigbee",
               "capabilities": "hidden.has_presence_sensor_multiple"
             },
             "title": {
@@ -913,7 +913,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypresence_local|shellypstripg4_local",
+              "driver_id": "shelly1g4_local|shelly1g4_matter|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_matter|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_matter|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_matter|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_matter|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_matter|shelly2pmg4_switch_zigbee|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_matter|shellyduobulbg3_local|shellyemminig4_matter|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_matter|shellyfloodg4_zigbee|shellypresence_local|shellypstripg4_local|shellypstripg4_zigbee",
               "capabilities": "shelly_illumination"
             },
             "title": {
@@ -965,7 +965,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypresence_local|shellypstripg4_local",
+              "driver_id": "shelly1g4_local|shelly1g4_matter|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_matter|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_matter|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_matter|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_matter|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_matter|shelly2pmg4_switch_zigbee|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_matter|shellyduobulbg3_local|shellyemminig4_matter|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_matter|shellyfloodg4_zigbee|shellypresence_local|shellypstripg4_local|shellypstripg4_zigbee",
               "capabilities": "shelly_illumination"
             },
             "title": {
@@ -5336,15 +5336,6 @@
       "setable": false,
       "uiComponent": null
     },
-    "presence_count": {
-      "title": {
-        "en": "Presence Count"
-      },
-      "icon": "/assets/capabilities/alarm_presence.svg",
-      "type": "number",
-      "getable": true,
-      "setable": false
-    },
     "sensor_boolean": {
       "title": "Boolean",
       "type": "boolean",
@@ -5359,7 +5350,7 @@
     },
     "shelly_illumination": {
       "title": {
-        "en": "Illumination status"
+        "en": "Illumination Status"
       },
       "type": "enum",
       "uiComponent": "sensor",
@@ -5386,6 +5377,15 @@
           }
         }
       ]
+    },
+    "shelly_presence_count": {
+      "title": {
+        "en": "Presence Count"
+      },
+      "icon": "/assets/capabilities/alarm_presence.svg",
+      "type": "number",
+      "getable": true,
+      "setable": false
     }
   },
   "discovery": {

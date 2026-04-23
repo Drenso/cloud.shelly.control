@@ -100,7 +100,7 @@ export default class PresenceZone extends ComponentWithId<
     _methods: Array<ComponentMethod<'PresenceZone'>>,
   ): Promise<void> {
     await this.registerCapability(homeyDevice, 'alarm_presence', capabilitiesOptions['alarm_presence']);
-    await this.registerCapability(homeyDevice, 'presence_count', capabilitiesOptions['presence_count']);
+    await this.registerCapability(homeyDevice, 'shelly_presence_count', capabilitiesOptions['shelly_presence_count']);
 
     if (
       !homeyDevice.hasCapability('hidden.has_presence_sensor') &&
@@ -120,7 +120,7 @@ export default class PresenceZone extends ComponentWithId<
       this.setCapability(homeyDevice, 'alarm_presence', state);
     });
     this.presenceMitt.on('detailed_presence', objects => {
-      this.setCapability(homeyDevice, 'presence_count', objects.length);
+      this.setCapability(homeyDevice, 'shelly_presence_count', objects.length);
       this.setCapability(homeyDevice, 'alarm_presence', objects.length > 0);
       const countUpdate = { zone: this.id, value: objects.length };
       homeyDevice.safeTriggerDeviceCard('presence_count_changed', countUpdate);
@@ -150,7 +150,7 @@ export default class PresenceZone extends ComponentWithId<
     id: number,
   ): Promise<void> {
     await PresenceZone.unregisterCapability(homeyDevice, 'alarm_presence', id);
-    await PresenceZone.unregisterCapability(homeyDevice, 'presence_count', id);
+    await PresenceZone.unregisterCapability(homeyDevice, 'shelly_presence_count', id);
     await homeyDevice.safeRemoveCapability('hidden.has_presence_sensor');
     await homeyDevice.safeRemoveCapability('hidden.has_presence_sensor_multiple');
   }
@@ -207,7 +207,7 @@ export default class PresenceZone extends ComponentWithId<
       await this.setCapability(homeyDevice, 'alarm_presence', status.value);
     }
     if (status.num_objects !== undefined) {
-      await this.setCapability(homeyDevice, 'presence_count', status.num_objects);
+      await this.setCapability(homeyDevice, 'shelly_presence_count', status.num_objects);
     }
   }
 

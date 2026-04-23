@@ -155,9 +155,9 @@ export class VirtualDevice {
       return;
     }
 
-    // Before version 3.0.0 the Homey driver associated with the virtual device was not stored
+    // Before version 0.3.0 the Homey driver associated with the virtual device was not stored
     if (this.driver === undefined) {
-      // TODO remove this in 4.0.0
+      // TODO remove this in 1.0.0
       const homeyDevice = homeyDevices[0];
       await homeyDevice.ready();
       // @ts-expect-error this.driver is readonly

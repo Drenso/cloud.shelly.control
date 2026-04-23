@@ -1,9 +1,9 @@
 {
   "title": {
-    "en": "Presence count changed"
+    "en": "Object count changed"
   },
   "titleFormatted": {
-    "en": "Presence count [[zone]] changed"
+    "en": "Object count in zone [[zone]] changed"
   },
   "tokens": [
     {

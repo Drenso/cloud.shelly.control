@@ -258,14 +258,15 @@ export default class RGBCCT extends ComponentWithId<'RGBCCT', RGBCCTStatus, RGBC
     }
 
     // Simple capabilities
-    if (this.status.aenergy !== undefined) {
-      const homeyCapability = 'meter_power';
-      await this.registerCapability(homeyDevice, homeyCapability, capabilitiesOptions[homeyCapability as never]);
+    for (const [statusKey, homeyCapability] of [
+      ['aenergy', 'meter_power'],
+      ['apower', 'measure_power'],
+    ] as const) {
+      if (this.status[statusKey] !== undefined) {
+        await this.registerCapability(homeyDevice, homeyCapability, capabilitiesOptions[homeyCapability as never]);
+      }
     }
-    if (this.status.apower !== undefined) {
-      const homeyCapability = 'measure_power';
-      await this.registerCapability(homeyDevice, homeyCapability, capabilitiesOptions[homeyCapability as never]);
-    }
+
     // TODO errors
 
     // Set correct capability values
