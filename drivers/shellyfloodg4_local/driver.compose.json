@@ -3,7 +3,7 @@
     "en": "Flood Gen4 - LAN"
   },
   "class": "sensor",
-  "capabilities": ["alarm_water"],
+  "capabilities": ["alarm_water", "measure_battery"],
   "energy": {
     "batteries": ["AA", "AA", "AA", "AA"]
   },

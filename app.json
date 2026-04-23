@@ -4271,7 +4271,8 @@
         "lan"
       ],
       "capabilities": [
-        "alarm_water"
+        "alarm_water",
+        "measure_battery"
       ],
       "capabilitiesOptions": {
         "button.restart": {
