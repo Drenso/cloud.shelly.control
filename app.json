@@ -46,6 +46,7 @@
     ]
   },
   "api": {},
+  "esm": true,
   "flow": {
     "triggers": [
       {
@@ -4441,9 +4442,9 @@
         ]
       },
       "images": {
-        "small": "/assets/drivers/shellypstripg4/images/small.png",
-        "large": "/assets/drivers/shellypstripg4/images/large.png",
-        "xlarge": "/assets/drivers/shellypstripg4/images/xlarge.png"
+        "small": "/assets/drivers/shellyfloodg4/images/small.png",
+        "large": "/assets/drivers/shellyfloodg4/images/large.png",
+        "xlarge": "/assets/drivers/shellyfloodg4/images/xlarge.png"
       },
       "id": "shellyfloodg4_local",
       "settings": [
