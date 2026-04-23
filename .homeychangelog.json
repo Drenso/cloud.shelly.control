@@ -13,5 +13,8 @@
   },
   "0.3.0": {
     "en": "Add LAN support for EM Mini Gen4, Flood Gen4 & Presence Gen4. Add Zigbee support for 1 (Mini) Gen4, 1PM (Mini) Gen4, 2PM Gen4, BLU TRV, EM Mini Gen4, Flood Gen4 & Power Strip 4 Gen4. Add Matter definitions for 1 (Mini) Gen4, 1PM (mini) Gen4, 2PM Gen4, Dimmer Gen4, EM Mini Gen4 & Flood Gen4."
+  },
+  "0.3.1": {
+    "en": "Add LAN support for EM Mini Gen4, Flood Gen4 & Presence Gen4. Add Zigbee support for 1 (Mini) Gen4, 1PM (Mini) Gen4, 2PM Gen4, BLU TRV, EM Mini Gen4, Flood Gen4 & Power Strip 4 Gen4. Add Matter definitions for 1 (Mini) Gen4, 1PM (mini) Gen4, 2PM Gen4, Dimmer Gen4, EM Mini Gen4 & Flood Gen4."
   }
 }
