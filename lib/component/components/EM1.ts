@@ -32,17 +32,17 @@ export type EM1Status = {
   /** Active power measurement value, [W] */
   act_power: number | null;
   /** Apparent power measurement value, [VA] (if applicable) */
-  aprt_power: number | null;
+  aprt_power?: number | null;
   /** Power factor measurement value (if applicable) */
-  pf: number | null;
+  pf?: number | null;
   /** Network frequency measurement value (if applicable) */
-  freq: number | null;
+  freq?: number | null;
   /** Indicates factory calibration or which EM1:id is the source for calibration */
   calibration: string;
   /** EM1 component error conditions. May contain power_meter_failure, out_of_range:act_power, out_of_range:aprt_power, out_of_range:voltage, out_of_range:current or ct_type_not_set. Present in status only if not empty. */
-  errors: string[];
+  errors?: string[];
   /** Communicates present conditions, shown if at least one flag is set. Depending on component capabilites may contain: count_disabled */
-  flags: string[];
+  flags?: string[];
 };
 
 export type EM1HomeySettings = {

@@ -16,7 +16,7 @@ export type EM1DataStatus = {
   /** Total active returned energy, Wh */
   total_act_ret_energy: number;
   /** Error condition occurred. May contain database_error or ct_type_not_set, (shown if the error is present). */
-  errors: string[];
+  errors?: string[];
 };
 
 export type EM1DataHomeySettings = Record<never, never>;
