@@ -6,11 +6,19 @@ export type GetRecordsParams = {
   ts?: number;
 };
 
+export type GetRecordsResponse = {
+  data_blocks: Array<{
+    ts: number;
+    period: number;
+    records: number;
+  }>;
+};
+
 export default function GetRecords(
   channel: RpcChannel,
   id: number,
   params: GetRecordsParams = {},
-): Promise<ResponseSuccessFrame<null>> {
+): Promise<ResponseSuccessFrame<GetRecordsResponse>> {
   const requestFrame = createRequestFrame('EM1Data.GetRecords', { ...params, id: id });
   return channel.sendRequestFrame(requestFrame);
 }
