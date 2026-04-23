@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "cloud.shelly.control",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "compatibility": ">=12.5.0",
   "sdk": 3,
   "brandColor": "#4f8dc8",
@@ -46,7 +46,6 @@
     ]
   },
   "api": {},
-  "esm": true,
   "flow": {
     "triggers": [
       {
@@ -606,7 +605,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypresence_local|shellypstripg4_local",
+              "driver_id": "shelly1g4_local|shelly1g4_matter|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_matter|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_matter|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_matter|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_matter|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_matter|shelly2pmg4_switch_zigbee|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_matter|shellyduobulbg3_local|shellyemminig4_local|shellyemminig4_matter|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_matter|shellyfloodg4_zigbee|shellypresence_local|shellypstripg4_local|shellypstripg4_zigbee",
               "capabilities": "meter_power.exported"
             },
             "title": {
@@ -635,7 +634,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "shelly1g4_local|shelly1minig4_local|shelly1pmg4_local|shelly1pmminig4_local|shelly2pmg4_cover_local|shelly2pmg4_switch_local|shellycolorblbg3_local|shellydimmerg4_local|shellyduobulbg3_local|shellypresence_local|shellypstripg4_local",
+              "driver_id": "shelly1g4_local|shelly1g4_matter|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_matter|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_matter|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_matter|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_matter|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_matter|shelly2pmg4_switch_zigbee|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_matter|shellyduobulbg3_local|shellyemminig4_local|shellyemminig4_matter|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_matter|shellyfloodg4_zigbee|shellypresence_local|shellypstripg4_local|shellypstripg4_zigbee",
               "capabilities": "meter_power.imported"
             },
             "title": {
