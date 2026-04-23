@@ -40,7 +40,7 @@ export default class ShellyApp extends Homey.App {
         this,
         deviceId,
         ipAddress,
-        // TODO remove this migration
+        // TODO remove this migration in 1.0.0
         batteryDevice ?? false,
         components,
         driver,
