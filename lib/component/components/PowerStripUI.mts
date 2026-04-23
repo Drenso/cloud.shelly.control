@@ -104,12 +104,9 @@ export default class PowerStripUI extends ComponentWithoutId<
   public readonly namespace = 'POWERSTRIP_UI';
 
   public async registerHomeyDevice(
-    homeyDevice: ShellyLocalDevice,
+    _homeyDevice: ShellyLocalDevice,
     _methods: ComponentMethod<'POWERSTRIP_UI'>[],
-  ): Promise<void> {
-    // Set correct setting values
-    await this.onConfigUpdate(homeyDevice, this.config);
-  }
+  ): Promise<void> {}
 
   protected async staticallyUnregisterHomeyDevice(this: never, _homeyDevice: ShellyLocalDevice): Promise<void> {}
 

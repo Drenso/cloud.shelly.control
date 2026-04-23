@@ -221,60 +221,35 @@ export default class CCT extends ComponentWithId<'CCT', CCTStatus, CCTConfig, CC
   }
 
   public async registerHomeyDevice(homeyDevice: ShellyLocalDevice, _methods: ComponentMethod<'CCT'>[]): Promise<void> {
-    if (this.status.output !== undefined) {
-      const homeyCapability = 'onoff';
-      const capabilityId = await this.registerCapability(
-        homeyDevice,
-        homeyCapability,
-        capabilitiesOptions[homeyCapability as never],
-      );
-      homeyDevice.registerCapabilityListener(capabilityId, async (value: boolean) => {
-        await this.Set(this.device.getChannel(), { on: value });
-      });
-    }
+    const onOffCapabilityListener = async (value: boolean): Promise<void> => {
+      await this.Set(this.device.getChannel(), { on: value });
+    };
 
-    if (this.status.brightness !== undefined) {
-      const homeyCapability = 'dim';
-      const capabilityId = await this.registerCapability(
-        homeyDevice,
-        homeyCapability,
-        capabilitiesOptions[homeyCapability as never],
-      );
-      homeyDevice.registerCapabilityListener(capabilityId, async (value: number) => {
-        await this.Set(this.device.getChannel(), { brightness: value * 100 });
-      });
-    }
+    const dimCapabilityListener = async (value: number): Promise<void> => {
+      await this.Set(this.device.getChannel(), { brightness: value * 100 });
+    };
 
-    if (this.status.ct !== undefined) {
-      const homeyCapability = 'light_temperature';
-      const capabilityId = await this.registerCapability(
-        homeyDevice,
-        homeyCapability,
-        capabilitiesOptions[homeyCapability as never],
-      );
-      homeyDevice.registerCapabilityListener(capabilityId, async (value: number) => {
-        // todo: use configured ct_range, or default value (device specific)
-        await this.Set(this.device.getChannel(), { ct: Math.round(2700 + (1 - value) * (6500 - 2700)) });
-      });
-    }
+    const lightTemperatureCapabilityListener = async (value: number): Promise<void> => {
+      // todo: use configured ct_range, or default value (device specific)
+      await this.Set(this.device.getChannel(), { ct: Math.round(2700 + (1 - value) * (6500 - 2700)) });
+    };
 
-    // Simple capabilities
-    for (const [statusKey, homeyCapability] of [
+    for (const [statusKey, homeyCapability, capabilityListener] of [
+      ['output', 'onoff', onOffCapabilityListener],
+      ['brightness', 'dim', dimCapabilityListener],
+      ['ct', 'light_temperature', lightTemperatureCapabilityListener],
       ['aenergy', 'meter_power'],
       ['apower', 'measure_power'],
       ['voltage', 'measure_voltage'],
       ['current', 'measure_current'],
     ] as const) {
       if (this.status[statusKey] !== undefined) {
-        await this.registerCapability(homeyDevice, homeyCapability, capabilitiesOptions[homeyCapability as never]);
+        const capabilityOptions = capabilitiesOptions[homeyCapability as never];
+        await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions, capabilityListener);
       }
     }
-    // TODO errors
 
-    // Set correct capability values
-    await this.onStatusUpdate(homeyDevice, this.status);
-    // Set correct setting values
-    await this.onConfigUpdate(homeyDevice, this.config);
+    // TODO errors
   }
 
   protected async staticallyUnregisterHomeyDevice(

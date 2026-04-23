@@ -186,58 +186,43 @@ export default class RGBCCT extends ComponentWithId<'RGBCCT', RGBCCTStatus, RGBC
     homeyDevice: ShellyLocalDevice,
     _methods: ComponentMethod<'RGBCCT'>[],
   ): Promise<void> {
-    const onOffHomeyCapability = 'onoff';
-    const onOffCapabilityId = await this.registerCapability(
-      homeyDevice,
-      onOffHomeyCapability,
-      capabilitiesOptions[onOffHomeyCapability as never],
-    );
-    homeyDevice.registerCapabilityListener(onOffCapabilityId, async (value: boolean) => {
+    const onOffCapabilityListener = async (value: boolean): Promise<void> => {
       await this.Set(this.device.getChannel(), { on: value });
-    });
+    };
 
-    if (this.status.brightness !== undefined) {
-      const homeyCapability = 'dim';
-      const capabilityId = await this.registerCapability(
-        homeyDevice,
-        homeyCapability,
-        capabilitiesOptions[homeyCapability as never],
-      );
-      homeyDevice.registerCapabilityListener(capabilityId, async (value: number) => {
-        await this.Set(this.device.getChannel(), {
-          brightness: value * 100,
-        });
+    const dimCapabilityListener = async (value: number): Promise<void> => {
+      await this.Set(this.device.getChannel(), {
+        brightness: value * 100,
       });
+    };
+
+    const lightModeCapabilityListener = async (value: string): Promise<void> => {
+      await this.Set(this.device.getChannel(), { mode: value === 'color' ? 'rgb' : 'cct' });
+    };
+
+    const lightTemperatureCapabilityListener = async (value: number): Promise<void> => {
+      await this.Set(this.device.getChannel(), {
+        ct: Math.round(2700 + (1 - value) * (6500 - 2700)),
+      });
+    };
+
+    for (const [statusKey, homeyCapability, capabilityListener] of [
+      ['output', 'onoff', onOffCapabilityListener],
+      ['brightness', 'dim', dimCapabilityListener],
+      ['mode', 'light_mode', lightModeCapabilityListener],
+      ['ct', 'light_temperature', lightTemperatureCapabilityListener],
+      ['aenergy', 'meter_power'],
+      ['apower', 'measure_power'],
+    ] as const) {
+      if (this.status[statusKey] !== undefined) {
+        const capabilityOptions = capabilitiesOptions[homeyCapability as never];
+        await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions, capabilityListener);
+      }
     }
 
-    {
-      // rgbcct
-      {
-        const homeyCapability = 'light_mode';
-        const capabilityId = await this.registerCapability(
-          homeyDevice,
-          homeyCapability,
-          capabilitiesOptions[homeyCapability as never],
-        );
-        homeyDevice.registerCapabilityListener(capabilityId, async value => {
-          await this.Set(this.device.getChannel(), { mode: value === 'color' ? 'rgb' : 'cct' });
-        });
-      }
+    // TODO errors
 
-      {
-        const homeyCapability = 'light_temperature';
-        const capabilityId = await this.registerCapability(
-          homeyDevice,
-          homeyCapability,
-          capabilitiesOptions[homeyCapability as never],
-        );
-        homeyDevice.registerCapabilityListener(capabilityId, async value => {
-          await this.Set(this.device.getChannel(), {
-            ct: Math.round(2700 + (1 - value) * (6500 - 2700)),
-          });
-        });
-      }
-
+    if (this.status.rgb !== undefined) {
       const hueHomeyCapability = 'light_hue';
       const hueCapabilityId = await this.registerCapability(
         homeyDevice,
@@ -256,23 +241,6 @@ export default class RGBCCT extends ComponentWithId<'RGBCCT', RGBCCTStatus, RGBC
         });
       });
     }
-
-    // Simple capabilities
-    for (const [statusKey, homeyCapability] of [
-      ['aenergy', 'meter_power'],
-      ['apower', 'measure_power'],
-    ] as const) {
-      if (this.status[statusKey] !== undefined) {
-        await this.registerCapability(homeyDevice, homeyCapability, capabilitiesOptions[homeyCapability as never]);
-      }
-    }
-
-    // TODO errors
-
-    // Set correct capability values
-    await this.onStatusUpdate(homeyDevice, this.status);
-    // Set correct setting values
-    await this.onConfigUpdate(homeyDevice, this.config);
   }
 
   protected async staticallyUnregisterHomeyDevice(

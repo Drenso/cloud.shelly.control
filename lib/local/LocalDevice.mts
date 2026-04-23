@@ -96,6 +96,7 @@ export default class ShellyLocalDevice extends Homey.Device {
     // Re-register so multi-component capabilities are fixed
     for (const virtualComponent of this.virtualComponents.values()) {
       await virtualComponent.registerHomeyDevice(this, (methodMapping[virtualComponent.namespace] ?? []) as never);
+      await virtualComponent.setInitialValues(this);
     }
 
     const oldComponents = this.getTypedStore().components;
@@ -128,6 +129,7 @@ export default class ShellyLocalDevice extends Homey.Device {
 
     for (const virtualComponent of this.virtualComponents.values()) {
       await virtualComponent.registerHomeyDevice(this, (methodMapping[virtualComponent.namespace] ?? []) as never);
+      await virtualComponent.setInitialValues(this);
     }
   }
 

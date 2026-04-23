@@ -59,16 +59,15 @@ export default class DevicePower extends ComponentWithId<
     homeyDevice: ShellyLocalDevice,
     _methods: ComponentMethod<'DevicePower'>[],
   ): Promise<void> {
-    {
+    if (this.status.battery?.percent !== undefined) {
       const homeyCapability = 'measure_battery';
-      await this.registerCapability(homeyDevice, homeyCapability, capabilitiesOptions[homeyCapability as never]);
+      const capabilityOptions = capabilitiesOptions[homeyCapability as never];
+      await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions);
     }
 
     if (this.status.external !== undefined) {
       // TODO
     }
-
-    await this.onStatusUpdate(homeyDevice, this.status);
   }
 
   protected async staticallyUnregisterHomeyDevice(
@@ -80,7 +79,7 @@ export default class DevicePower extends ComponentWithId<
   }
 
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: DevicePowerStatus): Promise<void> {
-    if (status.battery.percent !== undefined) {
+    if (status.battery?.percent !== undefined) {
       await this.setCapability(homeyDevice, 'measure_battery', status.battery.percent);
     }
   }

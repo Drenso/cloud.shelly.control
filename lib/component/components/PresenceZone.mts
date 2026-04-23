@@ -99,21 +99,23 @@ export default class PresenceZone extends ComponentWithId<
     homeyDevice: ShellyLocalDevice,
     _methods: Array<ComponentMethod<'PresenceZone'>>,
   ): Promise<void> {
-    await this.registerCapability(homeyDevice, 'alarm_presence', capabilitiesOptions['alarm_presence']);
-    await this.registerCapability(homeyDevice, 'shelly_presence_count', capabilitiesOptions['shelly_presence_count']);
-
-    if (
-      !homeyDevice.hasCapability('hidden.has_presence_sensor') &&
-      !homeyDevice.hasCapability('hidden.has_presence_sensor_multiple')
-    ) {
-      const presenceZones = homeyDevice.componentCounts.get(this.namespace)!;
-      if (presenceZones > 1) {
-        await homeyDevice.safeRemoveCapability('hidden.has_presence_sensor');
-        await homeyDevice.safeAddCapability('hidden.has_presence_sensor_multiple');
-      } else {
-        await homeyDevice.safeRemoveCapability('hidden.has_presence_sensor_multiple');
-        await homeyDevice.safeAddCapability('hidden.has_presence_sensor');
+    for (const [statusKey, homeyCapability] of [
+      ['value', 'alarm_presence'],
+      ['num_objects', 'shelly_presence_count'],
+    ] as const) {
+      if (this.status[statusKey] !== undefined) {
+        const capabilityOptions = capabilitiesOptions[homeyCapability];
+        await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions);
       }
+    }
+
+    const presenceZones = homeyDevice.componentCounts.get(this.namespace)!;
+    if (presenceZones > 1) {
+      await homeyDevice.safeRemoveCapability('hidden.has_presence_sensor');
+      await homeyDevice.safeAddCapability('hidden.has_presence_sensor_multiple');
+    } else {
+      await homeyDevice.safeRemoveCapability('hidden.has_presence_sensor_multiple');
+      await homeyDevice.safeAddCapability('hidden.has_presence_sensor');
     }
 
     this.presenceMitt.on('presence', state => {
@@ -134,9 +136,6 @@ export default class PresenceZone extends ComponentWithId<
       homeyDevice.safeTriggerDeviceCard('presence_exit', { zone: this.id });
       homeyDevice.safeTriggerDeviceCard('presence_exit_multiple', { zone: this.id }, { zone: this.id });
     });
-
-    await this.onConfigUpdate(homeyDevice, this.config);
-    await this.onStatusUpdate(homeyDevice, this.status);
   }
 
   public async unregisterHomeyDevice(homeyDevice: ShellyLocalDevice): Promise<void> {

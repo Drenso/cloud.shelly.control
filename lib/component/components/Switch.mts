@@ -212,80 +212,53 @@ export default class Switch extends ComponentWithId<'Switch', SwitchStatus, Swit
     homeyDevice: ShellyLocalDevice,
     methods: ComponentMethod<'Switch'>[],
   ): Promise<void> {
-    {
-      const homeyCapability = 'onoff';
-      const capabilityId = await this.registerCapability(
-        homeyDevice,
-        homeyCapability,
-        capabilitiesOptions[homeyCapability as never],
-      );
-      const capabilityListener = async (value: boolean): Promise<void> => {
-        await this.Set(this.device.getChannel(), { on: value });
-      };
-      homeyDevice.registerCapabilityListener(capabilityId, capabilityListener);
-    }
+    const onOffCapabilityListener = async (value: boolean): Promise<void> => {
+      await this.Set(this.device.getChannel(), { on: value });
+    };
 
     // Simple capabilities
-    for (const [statusKey, homeyCapability] of [
+    for (const [statusKey, homeyCapability, capabilityListener] of [
+      ['output', 'onoff', onOffCapabilityListener],
       ['apower', 'measure_power'],
       ['voltage', 'measure_voltage'],
       ['current', 'measure_current'],
-      // TODO power factor
       ['freq', 'measure_frequency'],
       ['aenergy', 'meter_power.total'],
+      ['aenergy', 'meter_power.consumed'],
+      ['ret_aenergy', 'meter_power.returned'],
       ['temperature', 'measure_temperature'],
     ] as const) {
       if (this.status[statusKey] !== undefined) {
-        await this.registerCapability(homeyDevice, homeyCapability, capabilitiesOptions[homeyCapability as never]);
+        const capabilityOptions = capabilitiesOptions[homeyCapability as never];
+        await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions, capabilityListener);
       }
     }
+
+    // TODO power factor
     // TODO errors
-
-    const energyHomeyCapability = 'meter_power.consumed';
-    if (this.status.aenergy !== undefined) {
-      await this.registerCapability(
-        homeyDevice,
-        energyHomeyCapability,
-        capabilitiesOptions[energyHomeyCapability as never],
-      );
-    }
-
-    const returnedEnergyHomeyCapability = 'meter_power.returned';
-    if (this.status.ret_aenergy !== undefined) {
-      await this.registerCapability(
-        homeyDevice,
-        returnedEnergyHomeyCapability,
-        capabilitiesOptions[returnedEnergyHomeyCapability as never],
-      );
-    }
 
     if (this.status['aenergy'] !== undefined || this.status['ret_aenergy'] !== undefined) {
       let energy = homeyDevice.getEnergy();
       energy = {
         ...energy,
         cumulative: false,
-        meterPowerImportedCapability: energyHomeyCapability,
-        meterPowerExportedCapability: returnedEnergyHomeyCapability,
+        meterPowerImportedCapability: 'meter_power.consumed',
+        meterPowerExportedCapability: 'meter_power.returned',
       };
       await homeyDevice.setEnergy(energy).catch(homeyDevice.error);
     }
 
     if (methods.includes('ResetCounters')) {
       const maintenanceActionId = 'button.reset_energy_counters';
-      const capabilityId = await this.registerCapability(
+      await this.registerCapability(
         homeyDevice,
         maintenanceActionId,
         capabilitiesOptions[maintenanceActionId as never],
+        async () => {
+          await this.ResetCounters(this.device.getChannel());
+        },
       );
-      homeyDevice.registerCapabilityListener(capabilityId, async () => {
-        await this.ResetCounters(this.device.getChannel());
-      });
     }
-
-    // Set correct capability values
-    await this.onStatusUpdate(homeyDevice, this.status);
-    // Set correct setting values
-    await this.onConfigUpdate(homeyDevice, this.config);
   }
 
   protected async staticallyUnregisterHomeyDevice(

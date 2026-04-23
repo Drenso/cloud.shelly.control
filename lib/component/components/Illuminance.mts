@@ -78,14 +78,10 @@ export default class Illuminance extends ComponentWithId<
       ['illumination', 'shelly_illumination'],
     ] as const) {
       if (this.status[statusKey] !== undefined) {
-        await this.registerCapability(homeyDevice, homeyCapability, capabilitiesOptions[homeyCapability as never]);
+        const capabilityOptions = capabilitiesOptions[homeyCapability as never];
+        await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions);
       }
     }
-
-    // Set correct capability values
-    await this.onStatusUpdate(homeyDevice, this.status);
-    // Set correct setting values
-    await this.onConfigUpdate(homeyDevice, this.config);
   }
 
   protected async staticallyUnregisterHomeyDevice(

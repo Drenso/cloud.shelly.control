@@ -379,11 +379,6 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
       homeyDevice.safeTriggerDeviceCard('input_button_event', buttonUpdate, buttonUpdate);
       homeyDevice.safeTriggerDeviceCard('input_button_event_multiple', buttonUpdate, buttonUpdate);
     });
-
-    // Set correct capability values
-    await this.onStatusUpdate(homeyDevice, this.status);
-    // Set correct setting values
-    await this.onConfigUpdate(homeyDevice, this.config);
   }
 
   public async unregisterHomeyDevice(homeyDevice: ShellyLocalDevice): Promise<void> {

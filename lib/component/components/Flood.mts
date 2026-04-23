@@ -57,13 +57,11 @@ export default class Flood extends ComponentWithId<'Flood', FloodStatus, FloodCo
     homeyDevice: ShellyLocalDevice,
     _methods: ComponentMethod<'Flood'>[],
   ): Promise<void> {
-    {
+    if (this.status.alarm !== undefined) {
       const homeyCapability = 'alarm_water';
-      await this.registerCapability(homeyDevice, homeyCapability, capabilitiesOptions[homeyCapability as never]);
+      const capabilityOptions = capabilitiesOptions[homeyCapability as never];
+      await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions);
     }
-
-    await this.onStatusUpdate(homeyDevice, this.status);
-    await this.onConfigUpdate(homeyDevice, this.config);
   }
 
   protected async staticallyUnregisterHomeyDevice(

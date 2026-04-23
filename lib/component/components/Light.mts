@@ -324,31 +324,25 @@ export default class Light extends ComponentWithId<'Light', LightStatus, LightCo
   }
 
   public async registerHomeyDevice(homeyDevice: ShellyLocalDevice, methods: ComponentMethod<'Light'>[]): Promise<void> {
-    if (this.status.output !== undefined) {
-      const homeyCapability = 'onoff';
-      const capabilityId = await this.registerCapability(
-        homeyDevice,
-        homeyCapability,
-        capabilitiesOptions[homeyCapability as never],
-      );
-      homeyDevice.registerCapabilityListener(capabilityId, async (value: boolean) => {
-        await this.Set(this.device.getChannel(), { on: value });
-      });
-    }
+    const onOffCapabilityListener = async (value: boolean): Promise<void> => {
+      await this.Set(this.device.getChannel(), { on: value });
+    };
 
-    if (this.status.brightness !== undefined) {
-      const homeyCapability = 'dim';
-      const capabilityId = await this.registerCapability(
-        homeyDevice,
-        homeyCapability,
-        capabilitiesOptions[homeyCapability as never],
-      );
-      homeyDevice.registerCapabilityListener(capabilityId, async (value: number) => {
-        await this.Set(this.device.getChannel(), { brightness: value * 100 });
-      });
-    }
+    const dimCapabilityListener = async (value: number): Promise<void> => {
+      await this.Set(this.device.getChannel(), { brightness: value * 100 });
+    };
 
-    for (const [statusKey, homeyCapability] of [
+    const resetEnergyListener = async (): Promise<void> => {
+      await this.ResetCounters(this.device.getChannel());
+    };
+
+    const calibrateListener = async (): Promise<void> => {
+      await this.Calibrate(this.device.getChannel());
+    };
+
+    for (const [statusKey, homeyCapability, capabilityListener] of [
+      ['output', 'onoff', onOffCapabilityListener],
+      ['brightness', 'dim', dimCapabilityListener],
       ['temperature', 'measure_temperature'],
       ['aenergy', 'meter_power'],
       ['apower', 'measure_power'],
@@ -356,39 +350,22 @@ export default class Light extends ComponentWithId<'Light', LightStatus, LightCo
       ['current', 'measure_current'],
     ] as const) {
       if (this.status[statusKey] !== undefined) {
-        await this.registerCapability(homeyDevice, homeyCapability, capabilitiesOptions[homeyCapability as never]);
+        const capabilityOptions = capabilitiesOptions[homeyCapability as never];
+        await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions, capabilityListener);
       }
     }
+
     // TODO errors
 
-    if (methods.includes('ResetCounters')) {
-      const maintenanceActionId = 'button.reset_energy_counters';
-      const capabilityId = await this.registerCapability(
-        homeyDevice,
-        maintenanceActionId,
-        capabilitiesOptions[maintenanceActionId],
-      );
-      homeyDevice.registerCapabilityListener(capabilityId, async () => {
-        await this.ResetCounters(this.device.getChannel());
-      });
+    for (const [method, homeyCapability, capabilityListener] of [
+      ['ResetCounters', 'button.reset_energy_counters', resetEnergyListener],
+      ['Calibrate', 'button.calibrate', calibrateListener],
+    ] as const) {
+      if (methods.includes(method)) {
+        const capabilityOptions = capabilitiesOptions[homeyCapability];
+        await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions, capabilityListener);
+      }
     }
-
-    if (methods.includes('Calibrate')) {
-      const maintenanceActionId = 'button.calibrate';
-      const capabilityId = await this.registerCapability(
-        homeyDevice,
-        maintenanceActionId,
-        capabilitiesOptions[maintenanceActionId],
-      );
-      homeyDevice.registerCapabilityListener(capabilityId, async () => {
-        await this.Calibrate(this.device.getChannel());
-      });
-    }
-
-    // Set correct capability values
-    await this.onStatusUpdate(homeyDevice, this.status);
-    // Set correct setting values
-    await this.onConfigUpdate(homeyDevice, this.config);
   }
 
   protected async staticallyUnregisterHomeyDevice(

@@ -564,87 +564,69 @@ export default class Cover extends ComponentWithId<'Cover', CoverStatus, CoverCo
   }
 
   public async registerHomeyDevice(homeyDevice: ShellyLocalDevice, methods: ComponentMethod<'Cover'>[]): Promise<void> {
-    if (this.status.state !== undefined) {
-      const homeyCapability = 'windowcoverings_state';
-      const capabilityId = await this.registerCapability(
-        homeyDevice,
-        homeyCapability,
-        capabilitiesOptions[homeyCapability as never],
-      );
-      homeyDevice.registerCapabilityListener(capabilityId, async (value: 'up' | 'idle' | 'down') => {
-        if (value === 'up') {
-          await this.Open(this.device.getChannel());
-        } else if (value === 'down') {
-          await this.Close(this.device.getChannel());
-        } else {
-          await this.Stop(this.device.getChannel());
-        }
+    const windowCoveringsStateCapabilityListener = async (value: 'up' | 'idle' | 'down'): Promise<void> => {
+      if (value === 'up') {
+        await this.Open(this.device.getChannel());
+      } else if (value === 'down') {
+        await this.Close(this.device.getChannel());
+      } else {
+        await this.Stop(this.device.getChannel());
+      }
+    };
+
+    const windowCoveringsSetCapabilityListener = async (value: number): Promise<void> => {
+      const percentage = value * 100;
+      await this.GoToPosition(this.device.getChannel(), {
+        pos: percentage,
       });
-    }
+    };
+
+    const windowCoveringsTiltSetCapabilityListener = async (value: number): Promise<void> => {
+      const percentage = value * 100;
+      await this.GoToPosition(this.device.getChannel(), {
+        slat_pos: percentage,
+      });
+    };
+
+    const resetEnergyCapabilityListener = async (): Promise<void> => {
+      await this.ResetCounters(this.device.getChannel());
+    };
 
     if (this.status.pos_control) {
-      if (this.status.current_pos !== undefined) {
-        const homeyCapability = 'windowcoverings_set';
-        const capabilityId = await this.registerCapability(
-          homeyDevice,
-          homeyCapability,
-          capabilitiesOptions[homeyCapability as never],
-        );
-        homeyDevice.registerCapabilityListener(capabilityId, async (value: number) => {
-          const percentage = value * 100;
-          await this.GoToPosition(this.device.getChannel(), {
-            pos: percentage,
-          });
-        });
-      }
-      if (this.status.slat_pos !== undefined) {
-        const homeyCapability = 'windowcoverings_tilt_set';
-        const capabilityId = await this.registerCapability(
-          homeyDevice,
-          homeyCapability,
-          capabilitiesOptions[homeyCapability as never],
-        );
-        homeyDevice.registerCapabilityListener(capabilityId, async (value: number) => {
-          const percentage = value * 100;
-          await this.GoToPosition(this.device.getChannel(), {
-            slat_pos: percentage,
-          });
-        });
+      for (const [statusKey, homeyCapability, capabilityListener] of [
+        ['current_pos', 'windowcoverings_set', windowCoveringsSetCapabilityListener],
+        ['slat_pos', 'windowcoverings_tilt_set', windowCoveringsTiltSetCapabilityListener],
+      ] as const) {
+        if (this.status[statusKey] !== undefined) {
+          const capabilityOptions = capabilitiesOptions[homeyCapability as never];
+          await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions, capabilityListener);
+        }
       }
     }
 
-    // Simple capabilities
-    for (const [statusKey, homeyCapability] of [
+    for (const [statusKey, homeyCapability, capabilityListener] of [
+      ['state', 'windowcoverings_state', windowCoveringsStateCapabilityListener],
       ['apower', 'measure_power'],
       ['voltage', 'measure_voltage'],
       ['current', 'measure_current'],
-      // TODO power factor
       ['freq', 'measure_frequency'],
       ['aenergy', 'meter_power'],
       ['temperature', 'measure_temperature.cover'],
     ] as const) {
       if (this.status[statusKey] !== undefined) {
-        await this.registerCapability(homeyDevice, homeyCapability, capabilitiesOptions[homeyCapability as never]);
+        const capabilityOptions = capabilitiesOptions[homeyCapability as never];
+        await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions, capabilityListener);
       }
     }
+
+    // TODO power factor
     // TODO errors
 
     if (methods.includes('ResetCounters')) {
       const maintenanceActionId = 'button.reset_energy_counters';
-      const capabilityId = await this.registerCapability(
-        homeyDevice,
-        maintenanceActionId,
-        capabilitiesOptions[maintenanceActionId],
-      );
-      homeyDevice.registerCapabilityListener(capabilityId, async () => {
-        await this.ResetCounters(this.device.getChannel());
-      });
+      const capabilityOptions = capabilitiesOptions[maintenanceActionId];
+      await this.registerCapability(homeyDevice, maintenanceActionId, capabilityOptions, resetEnergyCapabilityListener);
     }
-
-    // Set correct capability values
-    await this.onStatusUpdate(homeyDevice, this.status);
-    // Set correct setting values
-    await this.onConfigUpdate(homeyDevice, this.config);
   }
 
   protected async staticallyUnregisterHomeyDevice(
