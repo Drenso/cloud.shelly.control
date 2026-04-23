@@ -53,10 +53,6 @@ export default class Flood extends ComponentWithId<'Flood', FloodStatus, FloodCo
   public readonly namespace = 'Flood';
   public static readonly uiName = 'Flood Sensor';
 
-  protected staticallyUnregisterHomeyDevice(this: never, _homeyDevice: ShellyLocalDevice, _id: number): Promise<void> {
-    throw new Error('Method not implemented.');
-  }
-
   public async registerHomeyDevice(
     homeyDevice: ShellyLocalDevice,
     _methods: ComponentMethod<'Flood'>[],
@@ -69,6 +65,15 @@ export default class Flood extends ComponentWithId<'Flood', FloodStatus, FloodCo
     await this.onStatusUpdate(homeyDevice, this.status);
     await this.onConfigUpdate(homeyDevice, this.config);
   }
+
+  protected async staticallyUnregisterHomeyDevice(
+    this: never,
+    homeyDevice: ShellyLocalDevice,
+    id: number,
+  ): Promise<void> {
+    await Flood.unregisterCapability(homeyDevice, 'alarm_water', id);
+  }
+
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: FloodStatus): Promise<void> {
     if (status.alarm !== undefined) {
       await this.setCapability(homeyDevice, 'alarm_water', status.alarm);
