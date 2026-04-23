@@ -70,6 +70,7 @@ export default class DevicePower extends ComponentWithId<
 
     await this.onStatusUpdate(homeyDevice, this.status);
   }
+
   protected async staticallyUnregisterHomeyDevice(
     this: never,
     homeyDevice: ShellyLocalDevice,
@@ -77,10 +78,12 @@ export default class DevicePower extends ComponentWithId<
   ): Promise<void> {
     await DevicePower.unregisterCapability(homeyDevice, 'measure_battery', id);
   }
+
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: DevicePowerStatus): Promise<void> {
     if (status.battery.percent !== undefined) {
       await this.setCapability(homeyDevice, 'measure_battery', status.battery.percent);
     }
   }
+
   public async onConfigUpdate(_homeyDevice: ShellyLocalDevice, _config: DevicePowerConfig): Promise<void> {}
 }

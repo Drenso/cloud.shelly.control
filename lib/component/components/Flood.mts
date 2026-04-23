@@ -79,6 +79,7 @@ export default class Flood extends ComponentWithId<'Flood', FloodStatus, FloodCo
       await this.setCapability(homeyDevice, 'alarm_water', status.alarm);
     }
   }
+
   public async onConfigUpdate(homeyDevice: ShellyLocalDevice, config: FloodConfig): Promise<void> {
     const newSettings: Partial<FloodHomeySettings> = {};
 
