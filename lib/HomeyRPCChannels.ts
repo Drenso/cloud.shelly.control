@@ -1,3 +1,4 @@
+import type ShellyApp from '../app.js';
 import HttpChannel from './rpc/channel/HttpChannel.js';
 import Homey from 'homey';
 import InboundWebsocketChannel from './rpc/channel/InboundWebsocketChannel.js';
@@ -19,10 +20,10 @@ export function createHttpChannel(
 }
 
 export function createInboundWsChannel(
+  app: ShellyApp,
   address: string,
   log: (...args: unknown[]) => void,
   error: (...args: unknown[]) => void,
-  translate: (key: string, variables?: Record<string, string>) => string,
   ha1?: string,
 ): InboundWebsocketChannel {
   const debug = (...args: unknown[]): void => {
@@ -38,15 +39,15 @@ export function createInboundWsChannel(
     error(`[InboundWS:${address}]`, ...args);
   };
 
-  return new InboundWebsocketChannel(address, wsLog, wsError, debug, translate, ha1);
+  return new InboundWebsocketChannel(app, address, wsLog, wsError, debug, ha1);
 }
 
 export function createOutboundWsChannel(
+  app: ShellyApp,
   identifier: string,
   outboundWsMitt: mitt.Emitter<WsMittEvents>,
   log: (...args: unknown[]) => void,
   error: (...args: unknown[]) => void,
-  translate: (key: string, variables?: Record<string, string>) => string,
 ): OutboundWebsocketChannel {
   const debug = (...args: unknown[]): void => {
     if (Homey.env['DEBUG'] === '1') {
@@ -54,5 +55,5 @@ export function createOutboundWsChannel(
     }
   };
 
-  return new OutboundWebsocketChannel(identifier, outboundWsMitt, log, error, debug, translate);
+  return new OutboundWebsocketChannel(app, identifier, outboundWsMitt, log, error, debug);
 }

@@ -82,23 +82,17 @@ export class VirtualDevice {
       this.httpChannel = createHttpChannel(ipAddress, this.app.homey.__, this.ha1);
 
       if (!this.batteryDevice) {
-        this.inboundWsChannel = createInboundWsChannel(
-          this.ipAddress,
-          this.log,
-          this.error,
-          this.app.homey.__,
-          this.ha1,
-        );
+        this.inboundWsChannel = createInboundWsChannel(this.app, this.ipAddress, this.log, this.error, this.ha1);
         this.inboundWsChannel.eventEmitter.on('notification', this.handleWsNotification.bind(this));
         this.inboundWsChannel.eventEmitter.on('opened', this.safeInitialize.bind(this));
       }
 
       this.outboundWsChannel = createOutboundWsChannel(
+        this.app,
         this.deviceId,
         this.app.outboundWsServer.outboundWsMitt,
         this.log,
         this.error,
-        this.app.homey.__,
       );
       this.outboundWsChannel.eventEmitter.on('notification', this.handleOutboundWsNotification.bind(this));
       this.outboundWsChannel.eventEmitter.on('opened', this.safeInitialize.bind(this));
@@ -452,10 +446,10 @@ export class VirtualDevice {
 
   private async resolveReboot(initialWaitTime: number, pingTime: number, timeout = REBOOT_TIMEOUT): Promise<void> {
     let timedOut = false;
-    const rebootTimeout = setTimeout(() => (timedOut = true), timeout);
+    const rebootTimeout = this.app.homey.setTimeout(() => (timedOut = true), timeout);
     try {
       // Give the device time to shut down
-      await new Promise(resolve => setTimeout(resolve, initialWaitTime));
+      await new Promise(resolve => this.app.homey.setTimeout(resolve, initialWaitTime));
       while (!timedOut) {
         try {
           await RPC.Ping(this.httpChannel);
@@ -468,7 +462,7 @@ export class VirtualDevice {
           ) {
             this.log('Still rebooting...');
             // Wait before trying again
-            await new Promise(resolve => setTimeout(resolve, pingTime));
+            await new Promise(resolve => this.app.homey.setTimeout(resolve, pingTime));
             continue;
           }
           throw e;
@@ -476,7 +470,7 @@ export class VirtualDevice {
       }
       throw new Error('Reboot timed out');
     } finally {
-      clearTimeout(rebootTimeout);
+      this.app.homey.clearTimeout(rebootTimeout);
     }
   }
 

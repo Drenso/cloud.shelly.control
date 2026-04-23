@@ -1,3 +1,4 @@
+import type ShellyApp from '../../../app.js';
 import {
   type NotificationFrame,
   prettyError,
@@ -43,11 +44,11 @@ export default class InboundWebsocketChannel implements RpcChannel {
   public readonly eventEmitter = createMitt<InboundWsChannelMittEvents>();
 
   public constructor(
+    private readonly app: ShellyApp,
     public readonly address: string,
     public readonly log: (...args: unknown[]) => void,
     public readonly error: (...args: unknown[]) => void,
     public readonly debug: (...args: unknown[]) => void,
-    private readonly translate: (key: string, variables?: Record<string, string>) => string,
     public ha1?: string,
   ) {
     this.connect();
@@ -58,7 +59,7 @@ export default class InboundWebsocketChannel implements RpcChannel {
 
     this.ws.on('open', async () => {
       // Delay greeting to allow some time for the device to be responsive
-      await new Promise(resolve => setTimeout(resolve, GREETING_DELAY));
+      await new Promise(resolve => this.app.homey.setTimeout(resolve, GREETING_DELAY));
       // Send a message to enable receiving
       RPC.Ping(this)
         .then(() => {
@@ -171,7 +172,7 @@ export default class InboundWebsocketChannel implements RpcChannel {
         }
       });
     } catch (e) {
-      throw prettyError(e, this.translate);
+      throw prettyError(e, this.app.homey.__);
     }
   }
 }

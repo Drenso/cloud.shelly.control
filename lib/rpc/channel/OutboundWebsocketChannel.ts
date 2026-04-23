@@ -1,3 +1,4 @@
+import type ShellyApp from '../../../app.js';
 import type { RpcChannel } from './RpcChannel.js';
 import type mitt from 'mitt';
 import WebSocket from 'ws';
@@ -33,12 +34,12 @@ export default class OutboundWebsocketChannel implements RpcChannel {
   private readonly boundHandler: OmitThisParameter<(event: WsMessageEvent | WsClosedEvent) => void>;
 
   public constructor(
+    private readonly app: ShellyApp,
     public readonly identifier: string,
     private readonly outboundWsMitt: mitt.Emitter<WsMittEvents>,
     public readonly log: (...args: unknown[]) => void,
     public readonly error: (...args: unknown[]) => void,
     public readonly debug: (...args: unknown[]) => void,
-    private readonly translate: (key: string, variables?: Record<string, string>) => string,
   ) {
     this.outboundWsMitt = outboundWsMitt;
     this.wsPromise = new Promise(resolve => {
@@ -122,7 +123,7 @@ export default class OutboundWebsocketChannel implements RpcChannel {
         this.awaitingResponse.set(requestFrame.id as number, { resolve, reject });
       });
     } catch (e) {
-      throw prettyError(e, this.translate);
+      throw prettyError(e, this.app.homey.__);
     }
   }
 }
