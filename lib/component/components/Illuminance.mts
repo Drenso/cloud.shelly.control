@@ -80,6 +80,8 @@ export default class Illuminance extends ComponentWithId<
       if (this.status[statusKey] !== undefined) {
         const capabilityOptions = capabilitiesOptions[homeyCapability as never];
         await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions);
+      } else {
+        await Illuminance.unregisterCapability(homeyDevice, homeyCapability, this.id);
       }
     }
   }

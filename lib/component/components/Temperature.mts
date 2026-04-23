@@ -61,6 +61,8 @@ export default class Temperature extends ComponentWithId<
     if (this.status.tC !== undefined) {
       const homeyCapability = 'measure_temperature';
       await this.registerCapability(homeyDevice, homeyCapability, capabilitiesOptions[homeyCapability as never]);
+    } else {
+      await Temperature.unregisterCapability(homeyDevice, 'measure_temperature', this.id);
     }
   }
 

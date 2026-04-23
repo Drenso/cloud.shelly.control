@@ -246,6 +246,8 @@ export default class CCT extends ComponentWithId<'CCT', CCTStatus, CCTConfig, CC
       if (this.status[statusKey] !== undefined) {
         const capabilityOptions = capabilitiesOptions[homeyCapability as never];
         await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions, capabilityListener);
+      } else {
+        await CCT.unregisterCapability(homeyDevice, homeyCapability, this.id);
       }
     }
 

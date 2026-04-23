@@ -354,24 +354,38 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
     homeyDevice: ShellyLocalDevice,
     _methods: ComponentMethod<'Input'>[],
   ): Promise<void> {
-    const inputTypes = Input.getInputTypes(homeyDevice.virtualDevice!);
-    const sameTypeInputComponents = inputTypes[this.config.type];
-    const homeyDeviceInputComponents = sameTypeInputComponents.filter(component =>
-      homeyDevice.getTypedStore().components.includes(component),
-    );
+    const inputTypeComponents = Input.getInputTypes(homeyDevice.virtualDevice!);
 
-    // Add helper capability to show correct flows
-    if (homeyDeviceInputComponents.length > 1) {
-      await homeyDevice.safeRemoveCapability(`hidden.has_input_${this.config.type}`);
-      await homeyDevice.safeAddCapability(`hidden.has_input_multiple_${this.config.type}`);
-    } else {
-      await homeyDevice.safeRemoveCapability(`hidden.has_input_multiple_${this.config.type}`);
-      await homeyDevice.safeAddCapability(`hidden.has_input_${this.config.type}`);
-    }
+    // Go through all types so capabilities for types that are no longer used also get cleaned up.
+    // On subsequent Input components this does not cost much due to the hasCapability checks in safeAddCapability and safeRemoveCapability.
+    for (const inputType of ['switch', 'button', 'analog', 'count'] as const) {
+      const components = inputTypeComponents[inputType] ?? [];
+      const homeyDeviceInputComponents = components.filter(component =>
+        homeyDevice.getTypedStore().components.includes(component),
+      );
 
-    if (['switch', 'analog', 'count'].includes(this.config.type)) {
-      const homeyCapability = CAPABILITY_MAPPING[this.config.type as 'switch' | 'analog' | 'count'];
-      await this.registerInputCapability(homeyDevice, homeyCapability, capabilitiesOptions[homeyCapability]);
+      if (homeyDeviceInputComponents.length === 0) {
+        await homeyDevice.safeRemoveCapability(`hidden.has_input_${inputType}`);
+        await homeyDevice.safeRemoveCapability(`hidden.has_input_multiple_${inputType}`);
+        const capabilityId = `${CAPABILITY_MAPPING[inputType]}.${this.id}`;
+        await homeyDevice.safeRemoveCapability(capabilityId);
+        await homeyDevice.setCapabilityOptions(capabilityId, {});
+        continue;
+      }
+
+      // Add helper capability to show correct flows
+      if (homeyDeviceInputComponents.length > 1) {
+        await homeyDevice.safeRemoveCapability(`hidden.has_input_${inputType}`);
+        await homeyDevice.safeAddCapability(`hidden.has_input_multiple_${inputType}`);
+      } else {
+        await homeyDevice.safeRemoveCapability(`hidden.has_input_multiple_${inputType}`);
+        await homeyDevice.safeAddCapability(`hidden.has_input_${inputType}`);
+      }
+
+      if (['switch', 'analog', 'count'].includes(inputType)) {
+        const homeyCapability = CAPABILITY_MAPPING[inputType as 'switch' | 'analog' | 'count'];
+        await this.registerInputCapability(homeyDevice, homeyCapability, capabilitiesOptions[homeyCapability]);
+      }
     }
 
     this.buttonMitt.on('button', type => {

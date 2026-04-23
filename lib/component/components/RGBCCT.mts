@@ -217,6 +217,8 @@ export default class RGBCCT extends ComponentWithId<'RGBCCT', RGBCCTStatus, RGBC
       if (this.status[statusKey] !== undefined) {
         const capabilityOptions = capabilitiesOptions[homeyCapability as never];
         await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions, capabilityListener);
+      } else {
+        await RGBCCT.unregisterCapability(homeyDevice, homeyCapability, this.id);
       }
     }
 
@@ -240,6 +242,9 @@ export default class RGBCCT extends ComponentWithId<'RGBCCT', RGBCCTStatus, RGBC
           rgb: convert.hsv.rgb(values.light_hue * 360, values.light_saturation * 100, 100),
         });
       });
+    } else {
+      await RGBCCT.unregisterCapability(homeyDevice, 'light_hue', this.id);
+      await RGBCCT.unregisterCapability(homeyDevice, 'light_saturation', this.id);
     }
   }
 

@@ -63,6 +63,8 @@ export default class DevicePower extends ComponentWithId<
       const homeyCapability = 'measure_battery';
       const capabilityOptions = capabilitiesOptions[homeyCapability as never];
       await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions);
+    } else {
+      await DevicePower.unregisterCapability(homeyDevice, 'measure_battery', this.id);
     }
 
     if (this.status.external !== undefined) {

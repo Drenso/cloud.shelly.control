@@ -61,6 +61,8 @@ export default class Flood extends ComponentWithId<'Flood', FloodStatus, FloodCo
       const homeyCapability = 'alarm_water';
       const capabilityOptions = capabilitiesOptions[homeyCapability as never];
       await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions);
+    } else {
+      await Flood.unregisterCapability(homeyDevice, 'alarm_water', this.id);
     }
   }
 

@@ -231,6 +231,8 @@ export default class Switch extends ComponentWithId<'Switch', SwitchStatus, Swit
       if (this.status[statusKey] !== undefined) {
         const capabilityOptions = capabilitiesOptions[homeyCapability as never];
         await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions, capabilityListener);
+      } else {
+        await Switch.unregisterCapability(homeyDevice, homeyCapability, this.id);
       }
     }
 
@@ -258,6 +260,8 @@ export default class Switch extends ComponentWithId<'Switch', SwitchStatus, Swit
           await this.ResetCounters(this.device.getChannel());
         },
       );
+    } else {
+      await Switch.unregisterCapability(homeyDevice, 'button.reset_energy_counters', this.id);
     }
   }
 

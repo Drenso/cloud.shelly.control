@@ -352,6 +352,8 @@ export default class Light extends ComponentWithId<'Light', LightStatus, LightCo
       if (this.status[statusKey] !== undefined) {
         const capabilityOptions = capabilitiesOptions[homeyCapability as never];
         await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions, capabilityListener);
+      } else {
+        await Light.unregisterCapability(homeyDevice, homeyCapability, this.id);
       }
     }
 
@@ -364,6 +366,8 @@ export default class Light extends ComponentWithId<'Light', LightStatus, LightCo
       if (methods.includes(method)) {
         const capabilityOptions = capabilitiesOptions[homeyCapability];
         await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions, capabilityListener);
+      } else {
+        await Light.unregisterCapability(homeyDevice, homeyCapability, this.id);
       }
     }
   }

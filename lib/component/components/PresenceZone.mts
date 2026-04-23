@@ -106,6 +106,8 @@ export default class PresenceZone extends ComponentWithId<
       if (this.status[statusKey] !== undefined) {
         const capabilityOptions = capabilitiesOptions[homeyCapability];
         await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions);
+      } else {
+        await PresenceZone.unregisterCapability(homeyDevice, homeyCapability, this.id);
       }
     }
 

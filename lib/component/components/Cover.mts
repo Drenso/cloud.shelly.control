@@ -600,8 +600,13 @@ export default class Cover extends ComponentWithId<'Cover', CoverStatus, CoverCo
         if (this.status[statusKey] !== undefined) {
           const capabilityOptions = capabilitiesOptions[homeyCapability as never];
           await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions, capabilityListener);
+        } else {
+          await Cover.unregisterCapability(homeyDevice, homeyCapability, this.id);
         }
       }
+    } else {
+      await Cover.unregisterCapability(homeyDevice, 'windowcoverings_set', this.id);
+      await Cover.unregisterCapability(homeyDevice, 'windowcoverings_tilt_set', this.id);
     }
 
     for (const [statusKey, homeyCapability, capabilityListener] of [
@@ -616,6 +621,8 @@ export default class Cover extends ComponentWithId<'Cover', CoverStatus, CoverCo
       if (this.status[statusKey] !== undefined) {
         const capabilityOptions = capabilitiesOptions[homeyCapability as never];
         await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions, capabilityListener);
+      } else {
+        await Cover.unregisterCapability(homeyDevice, homeyCapability, this.id);
       }
     }
 

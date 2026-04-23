@@ -256,6 +256,9 @@ export default class Presence extends ComponentWithoutId<
       homeyDevice.registerCapabilityListener('button.calibrate_presence_tilt', async () => {
         await this.TiltCalibrate(this.device.getChannel());
       });
+    } else {
+      await homeyDevice.safeRemoveCapability('button.calibrate_presence_tilt');
+      await homeyDevice.setCapabilityOptions('button.calibrate_presence_tilt', {});
     }
   }
 
