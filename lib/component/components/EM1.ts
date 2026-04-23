@@ -80,7 +80,13 @@ export default class EM1 extends ComponentWithId<'EM1', EM1Status, EM1Config, EM
     homeyDevice: ShellyLocalDevice,
     id: number,
   ): Promise<void> {
-    for (const capability of ['measure_current', 'measure_voltage', 'measure_power', 'measure_frequency']) {
+    for (const capability of [
+      'measure_current',
+      'measure_voltage',
+      'measure_power',
+      'measure_frequency',
+      'shelly_power_factor',
+    ]) {
       await EM1.unregisterCapability(homeyDevice, capability, id);
     }
   }

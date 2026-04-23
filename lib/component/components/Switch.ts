@@ -223,6 +223,7 @@ export default class Switch extends ComponentWithId<'Switch', SwitchStatus, Swit
       ['voltage', 'measure_voltage'],
       ['current', 'measure_current'],
       ['freq', 'measure_frequency'],
+      ['pf', 'shelly_power_factor'],
       ['aenergy', 'meter_power.total'],
       ['aenergy', 'meter_power.consumed'],
       ['ret_aenergy', 'meter_power.returned'],
@@ -236,7 +237,6 @@ export default class Switch extends ComponentWithId<'Switch', SwitchStatus, Swit
       }
     }
 
-    // TODO power factor
     // TODO errors
 
     if (this.status['aenergy'] !== undefined || this.status['ret_aenergy'] !== undefined) {
@@ -276,6 +276,7 @@ export default class Switch extends ComponentWithId<'Switch', SwitchStatus, Swit
       'measure_voltage',
       'measure_current',
       'measure_frequency',
+      'shelly_power_factor',
       'meter_power.total',
       'measure_temperature',
       'meter_power.consumed',
@@ -293,7 +294,7 @@ export default class Switch extends ComponentWithId<'Switch', SwitchStatus, Swit
       ['apower', 'measure_power'],
       ['voltage', 'measure_voltage'],
       ['current', 'measure_current'],
-      // TODO power factor
+      ['pf', 'shelly_power_factor'],
       ['freq', 'measure_frequency'],
     ] as const) {
       if (status[statusKey] !== undefined) {

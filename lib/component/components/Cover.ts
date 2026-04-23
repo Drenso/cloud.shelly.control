@@ -627,7 +627,6 @@ export default class Cover extends ComponentWithId<'Cover', CoverStatus, CoverCo
       }
     }
 
-    // TODO power factor
     // TODO errors
 
     if (methods.includes('ResetCounters')) {
