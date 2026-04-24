@@ -21,21 +21,21 @@ export default abstract class ShellyZigbeeDevice extends ZigBeeDevice {
       this.enableDebug();
     }
 
+    await super.onNodeInit(payload);
+
     // Mark as unavailable during startup
     await this.setUnavailable(this.homey.__('device.initializing'));
 
     this.queuedWorker = queueWorker('zigbee', async () => {
       try {
         this.debug('Running queued worker');
-        await this.doConfiguration(payload.zclNode).catch(this.error);
+        await this.doConfiguration(payload.zclNode);
       } catch (e) {
-        this.error(e);
-        this.setUnavailable(this.homey.__('device.failed_to_initialize')).catch(this.error);
+        this.error('Failed initialisation', e);
+        this.setUnavailable(this.homey.__('device.initialization_error')).catch(this.error);
       }
     });
     this.queuedWorker.promise.then(() => delete this.queuedWorker);
-
-    return super.onNodeInit(payload);
   }
 
   public async onUninit(): Promise<void> {
