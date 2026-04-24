@@ -9,31 +9,26 @@ declare module 'homey-zwavedriver' {
 
   class ZwaveDevice extends Homey.Device {
     thermostatSetpointType: string;
-
-    async onNodeInit(payload: { node: ZwaveNode }): Promise<void>;
-
+    async onNodeInit({ node: ZwaveNode }): Promise<void>;
     registerCapability(capabilityId: string, commandClassId: string, userOpts?: any): void;
-
     node: ZwaveNode;
-
     registerReportListener(commandClassId: string, commandId: string, triggerFn: (report: any) => void): void;
-
+    registerMultiChannelReportListener(
+      multiChannelNodeId: number,
+      commandClassId: string,
+      commandId: string,
+      triggerFn: (report: any) => void,
+    ): void;
     enableDebug(): void;
-
     async configurationGet(options: { index: number }): Promise<any>;
-
     async configurationSet(
-      options: {
-        id: number;
-        index: number;
-        size: number;
-        signed: boolean;
-      },
+      options: { index: number; size: number; signed?: boolean; useSettingParser?: boolean },
       value: any,
     );
-
-    async getCommandClass(commandClassId: string): any;
-
+    getCommandClass(commandClassId: string, opts?: { multiChannelNodeId?: number }): ZwaveCommandClass;
     printNode(): void;
+    meterReset(payload?: { multiChannelNodeId?: number }, options?: any): Promise<void>;
+    refreshCapabilityValue(capabilityId: string, commandClassId: string): Promise<any>;
+    async executeCapabilitySetCommand(capabilityId, commandClassId, value, opts = {}): Promise<void>;
   }
 }

@@ -60,8 +60,9 @@
     }
   },
   "error": {
-    "host_unreachable": "Could not reach device",
     "authorization": "Failed to authorize",
+    "cannot_enable_breaker_remotely": "The breaker cannot be enabled remotely.",
+    "host_unreachable": "Could not reach device",
     "uncalibrated": "The device is not calibrated"
   }
 }

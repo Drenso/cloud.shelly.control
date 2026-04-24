@@ -1,0 +1,5 @@
+{
+  "platforms": ["local", "cloud"],
+  "connectivity": ["zwave"],
+  "icon": "{{driverAssetsPath}}/icon.svg"
+}
