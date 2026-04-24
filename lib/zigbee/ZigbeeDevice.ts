@@ -3,11 +3,20 @@ import Homey from 'homey';
 import { ZigBeeDevice } from 'homey-zigbeedriver';
 import type { ZCLNode } from 'zigbee-clusters';
 import { type QueuedWorker, queueWorker } from '../global-promise-queue.js';
+import Logger from '../log/Logger.js';
 
 export default abstract class ShellyZigbeeDevice extends ZigBeeDevice {
+  protected logger?: Logger = undefined;
   private queuedWorker?: QueuedWorker;
 
   public async onNodeInit(payload: { zclNode: ZCLNode; node: ZigBeeNode }): Promise<void> {
+    this.logger = new Logger(
+      this,
+      super.log,
+      super.error,
+      this.isSubDevice() ? `sub:${this.getData().subDeviceId}` : 'main',
+    );
+
     if (Homey.env.ZB_DEBUG === '1') {
       this.enableDebug();
     }
@@ -58,5 +67,25 @@ export default abstract class ShellyZigbeeDevice extends ZigBeeDevice {
   /** Use this method to configure anything that needs to be configured at first initialization */
   protected async firstInitConfigureDevice(_zclNode: ZCLNode): Promise<void> {
     // To override
+  }
+
+  public log(...args: unknown[]): void {
+    if (this.logger) {
+      this.logger.log(...args);
+    } else {
+      super.log(...args);
+    }
+  }
+
+  public error(...args: unknown[]): void {
+    if (this.logger) {
+      this.logger.error(...args);
+    } else {
+      super.error(...args);
+    }
+  }
+
+  public debug(...args: unknown[]): void {
+    this.logger?.debug(...args);
   }
 }

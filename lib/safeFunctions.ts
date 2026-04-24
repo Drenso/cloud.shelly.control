@@ -1,34 +1,38 @@
 import type Homey from 'homey';
 
-export async function safeAddCapability(device: Homey.Device, id: string): Promise<void> {
-  if (device.hasCapability(id)) {
+export async function safeAddCapability(device: Homey.Device, capabilityId: string): Promise<void> {
+  if (device.hasCapability(capabilityId)) {
     return;
   }
 
-  await device.addCapability(id).catch(device.error);
+  await device.addCapability(capabilityId).catch(device.error);
 }
 
-export async function safeRemoveCapability(device: Homey.Device, id: string): Promise<void> {
-  if (!device.hasCapability(id)) {
+export async function safeRemoveCapability(device: Homey.Device, capabilityId: string): Promise<void> {
+  if (!device.hasCapability(capabilityId)) {
     return;
   }
 
-  await device.removeCapability(id).catch(device.error);
+  await device.removeCapability(capabilityId).catch(device.error);
 }
 
-export async function safeSetCapabilityValue(device: Homey.Device, id: string, value: unknown): Promise<void> {
-  if (!device.hasCapability(id)) {
+export async function safeSetCapabilityValue(
+  device: Homey.Device,
+  capabilityId: string,
+  value: unknown,
+): Promise<void> {
+  if (!device.hasCapability(capabilityId)) {
     return;
   }
 
-  await device.setCapabilityValue(id, value).catch(device.error);
+  await device.setCapabilityValue(capabilityId, value).catch(device.error);
 }
 
 export async function safeTriggerDeviceCard(
   device: Homey.Device,
-  id: string,
+  flowId: string,
   tokens?: Record<string, unknown>,
   triggerArgs?: Record<string, unknown>,
 ): Promise<void> {
-  return device.homey.flow.getDeviceTriggerCard(id).trigger(device, tokens, triggerArgs).catch(device.error);
+  return device.homey.flow.getDeviceTriggerCard(flowId).trigger(device, tokens, triggerArgs).catch(device.error);
 }
