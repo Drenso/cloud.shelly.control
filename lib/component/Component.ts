@@ -225,10 +225,7 @@ export abstract class ComponentWithId<
     await homeyDevice.setCapabilityOptions(homeyCapability, {}).catch(homeyDevice.error);
   }
 
-  protected getCapabilityId(
-    homeyDevice: ShellyLocalDevice,
-    homeyCapability: string,
-  ): string {
+  protected getCapabilityId(homeyDevice: ShellyLocalDevice, homeyCapability: string): string {
     return homeyDevice.componentCounts.get(this.namespace) === 1 ? homeyCapability : `${homeyCapability}.${this.id}`;
   }
 

@@ -103,7 +103,10 @@ export default class ShellyApp extends Homey.App {
     Illuminance.registerFlowCards(this);
     PresenceZone.registerFlowCards(this);
 
-    const alarmPresenceZoneRunListener = async (args: { zones: string[] }, state: { zone: number }): Promise<boolean> => {
+    const alarmPresenceZoneRunListener = async (
+      args: { zones: string[] },
+      state: { zone: number },
+    ): Promise<boolean> => {
       return args.zones.map(z => Number(z)).includes(state.zone);
     };
     this.homey.flow

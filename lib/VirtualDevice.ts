@@ -515,10 +515,9 @@ export class VirtualDevice {
             continue;
           }
 
-          (componentInstance as unknown as Component<never, never, never, never>).updateStatus(
-            homeyDevice,
-            statusUpdate as never,
-          ).catch(this.error);
+          (componentInstance as unknown as Component<never, never, never, never>)
+            .updateStatus(homeyDevice, statusUpdate as never)
+            .catch(this.error);
         }
       }
     } else if (notification.method === 'NotifyEvent') {
