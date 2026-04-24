@@ -1,9 +1,9 @@
 {
   "title": {
-    "en": "Illumination status is"
+    "en": "Illumination status !{{is|isn't}}"
   },
   "titleFormatted": {
-    "en": "Illumination status is [[value]]"
+    "en": "Illumination status !{{is|isn't}} [[value]]"
   },
   "args": [
     {

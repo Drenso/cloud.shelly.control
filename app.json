@@ -985,10 +985,10 @@
     "conditions": [
       {
         "title": {
-          "en": "Illumination status is"
+          "en": "An object !{{is|isn't}} detected in a zone"
         },
         "titleFormatted": {
-          "en": "Illumination status is [[value]]"
+          "en": "An object !{{is|isn't}} detected in one of the zones [[zones]]"
         },
         "args": [
           {
