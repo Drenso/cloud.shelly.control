@@ -149,7 +149,7 @@ export class VirtualDevice {
     const homeyDevices: ShellyLocalDevice[] = [];
 
     for (const homeyDeviceId of this.homeyDeviceIds) {
-      const homeyDevice = this.app.getDevice(homeyDeviceId);
+      const homeyDevice = this.app.getLocalDevice(homeyDeviceId);
       if (homeyDevice !== undefined) {
         homeyDevices.push(homeyDevice);
       } else {
@@ -285,7 +285,7 @@ export class VirtualDevice {
     await this.initializeComponents(components, methodMapping);
 
     for (const homeyDeviceId of newDeviceIds) {
-      const homeyDevice = this.app.getDevice(homeyDeviceId);
+      const homeyDevice = this.app.getLocalDevice(homeyDeviceId);
       if (homeyDevice === undefined) {
         throw new Error(`Could not find a Homey device for id ${homeyDevice}`);
       }
@@ -312,7 +312,7 @@ export class VirtualDevice {
     // Set the ones that are no longer used to unavailable with a message saying they can be removed,
     // since we cannot do that ourselves.
     for (const homeyDeviceId of deviceIdsToRemove) {
-      const homeyDevice = this.app.getDevice(homeyDeviceId);
+      const homeyDevice = this.app.getLocalDevice(homeyDeviceId);
       if (homeyDevice === undefined) {
         throw new Error(`Could not find a Homey device for id ${homeyDevice}`);
       }
@@ -323,7 +323,7 @@ export class VirtualDevice {
     await this.unregisterComponents([componentId]);
 
     for (const homeyDeviceId of newDeviceIds) {
-      const homeyDevice = this.app.getDevice(homeyDeviceId);
+      const homeyDevice = this.app.getLocalDevice(homeyDeviceId);
       if (homeyDevice === undefined) {
         throw new Error(`Could not find a Homey device for id ${homeyDevice}`);
       }

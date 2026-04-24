@@ -1,6 +1,7 @@
 import { Log } from '@drenso/homey-log';
 import Homey from 'homey';
 import sourceMapSupport from 'source-map-support';
+import ShellyLocalDriver from './lib/local/LocalDriver.js';
 import { getIp } from './lib/LocalIp.js';
 import OutboundWsServer from './lib/rpc/OutboundWsServer.js';
 import { type SerializedVirtualDevice, VirtualDevice } from './lib/VirtualDevice.js';
@@ -72,10 +73,14 @@ export default class ShellyApp extends Homey.App {
     this.homey.settings.set(deviceSettingKey, device.serialize());
   }
 
-  public getDevice(id: string): ShellyLocalDevice | undefined {
+  public getLocalDevice(id: string): ShellyLocalDevice | undefined {
     const drivers = this.homey.drivers.getDrivers();
     for (const driverId in drivers) {
       const driver = drivers[driverId];
+      if (!(driver instanceof ShellyLocalDriver)) {
+        continue;
+      }
+
       const devices = driver.getDevices() as ShellyLocalDevice[];
       for (const device of devices) {
         if (device.getTypedData().id === id) {
