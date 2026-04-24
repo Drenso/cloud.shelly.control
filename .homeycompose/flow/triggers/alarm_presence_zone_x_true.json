@@ -1,25 +1,18 @@
 {
   "title": {
-    "en": "Button input fired"
+    "en": "An object entered a zone"
   },
   "titleFormatted": {
-    "en": "Button input fired [[value]]"
+    "en": "An object entered one of the zones [[zones]]"
   },
   "tokens": [
     {
-      "name": "input",
+      "name": "zone",
       "type": "number",
       "title": {
-        "en": "Input ID"
+        "en": "Zone ID"
       },
-      "example": 0
-    },
-    {
-      "name": "value",
-      "type": "string",
-      "title": {
-        "en": "Input Value"
-      }
+      "example": 1
     }
   ],
   "args": [
@@ -28,54 +21,78 @@
       "type": "device",
       "filter": {
         "driver_id": "shelly1g4_local|shelly1g4_matter|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_matter|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_matter|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_matter|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_matter|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_matter|shelly2pmg4_switch_zigbee|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_matter|shellyduobulbg3_local|shellyemminig4_local|shellyemminig4_matter|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_matter|shellyfloodg4_zigbee|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee",
-        "capabilities": "hidden.has_input_button"
+        "capabilities": "hidden.has_presence_zones"
       },
       "title": {
         "en": "Device"
       }
     },
     {
-      "name": "value",
+      "name": "zones",
       "title": {
-        "en": "Value"
+        "en": "Zones"
       },
       "type": "multiselect",
       "conjunction": "or",
       "values": [
         {
-          "id": "btn_down",
+          "id": "1",
           "title": {
-            "en": "Button Down"
+            "en": "Zone 1"
           }
         },
         {
-          "id": "btn_up",
+          "id": "2",
           "title": {
-            "en": "Button Up"
+            "en": "Zone 2"
           }
         },
         {
-          "id": "single_push",
+          "id": "3",
           "title": {
-            "en": "Single Push"
+            "en": "Zone 3"
           }
         },
         {
-          "id": "double_push",
+          "id": "4",
           "title": {
-            "en": "Double Push"
+            "en": "Zone 4"
           }
         },
         {
-          "id": "triple_push",
+          "id": "5",
           "title": {
-            "en": "Triple Push"
+            "en": "Zone 5"
           }
         },
         {
-          "id": "long_push",
+          "id": "6",
           "title": {
-            "en": "Long Push"
+            "en": "Zone 6"
+          }
+        },
+        {
+          "id": "7",
+          "title": {
+            "en": "Zone 7"
+          }
+        },
+        {
+          "id": "8",
+          "title": {
+            "en": "Zone 8"
+          }
+        },
+        {
+          "id": "9",
+          "title": {
+            "en": "Zone 9"
+          }
+        },
+        {
+          "id": "10",
+          "title": {
+            "en": "Zone 10"
           }
         }
       ]

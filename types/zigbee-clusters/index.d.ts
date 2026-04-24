@@ -118,6 +118,8 @@ declare module 'zigbee-clusters' {
     getBits(): T[];
 
     setBit(index: number, value = true): void;
+
+    getBit(index: number): boolean;
   }
 
   class WindowCoveringCluster extends Cluster {}

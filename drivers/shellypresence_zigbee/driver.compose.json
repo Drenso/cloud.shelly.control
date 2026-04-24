@@ -1,0 +1,188 @@
+{
+  "$extends": ["zigbee"],
+  "name": {
+    "en": "Presence Gen4 - Zigbee"
+  },
+  "class": "sensor",
+  "capabilities": [
+    "alarm_presence.zone_1",
+    "alarm_presence.zone_2",
+    "alarm_presence.zone_3",
+    "alarm_presence.zone_4",
+    "alarm_presence.zone_5",
+    "alarm_presence.zone_6",
+    "alarm_presence.zone_7",
+    "alarm_presence.zone_8",
+    "alarm_presence.zone_9",
+    "alarm_presence.zone_10",
+    "hidden.has_presence_zones"
+  ],
+  "images": {
+    "small": "/assets/drivers/shellypresence/images/small.png",
+    "large": "/assets/drivers/shellypresence/images/large.png",
+    "xlarge": "/assets/drivers/shellypresence/images/xlarge.png"
+  },
+  "capabilitiesOptions": {
+    "alarm_presence.zone_1": {
+      "title": {
+        "en": "Zone 1 Presence"
+      },
+      "insightsTitleTrue": {
+        "en": "Object detected in zone 1"
+      },
+      "insightsTitleFalse": {
+        "en": "No objects detected in zone 1"
+      }
+    },
+    "alarm_presence.zone_2": {
+      "title": {
+        "en": "Zone 2 Presence"
+      },
+      "insightsTitleTrue": {
+        "en": "Object detected in zone 2"
+      },
+      "insightsTitleFalse": {
+        "en": "No objects detected in zone 2"
+      }
+    },
+    "alarm_presence.zone_3": {
+      "title": {
+        "en": "Zone 3 Presence"
+      },
+      "insightsTitleTrue": {
+        "en": "Object detected in zone 3"
+      },
+      "insightsTitleFalse": {
+        "en": "No objects detected in zone 3"
+      }
+    },
+    "alarm_presence.zone_4": {
+      "title": {
+        "en": "Zone 4 Presence"
+      },
+      "insightsTitleTrue": {
+        "en": "Object detected in zone 4"
+      },
+      "insightsTitleFalse": {
+        "en": "No objects detected in zone 4"
+      }
+    },
+    "alarm_presence.zone_5": {
+      "title": {
+        "en": "Zone 5 Presence"
+      },
+      "insightsTitleTrue": {
+        "en": "Object detected in zone 5"
+      },
+      "insightsTitleFalse": {
+        "en": "No objects detected in zone 5"
+      }
+    },
+    "alarm_presence.zone_6": {
+      "title": {
+        "en": "Zone 6 Presence"
+      },
+      "insightsTitleTrue": {
+        "en": "Object detected in zone 6"
+      },
+      "insightsTitleFalse": {
+        "en": "No objects detected in zone 6"
+      }
+    },
+    "alarm_presence.zone_7": {
+      "title": {
+        "en": "Zone 7 Presence"
+      },
+      "insightsTitleTrue": {
+        "en": "Object detected in zone 7"
+      },
+      "insightsTitleFalse": {
+        "en": "No objects detected in zone 7"
+      }
+    },
+    "alarm_presence.zone_8": {
+      "title": {
+        "en": "Zone 8 Presence"
+      },
+      "insightsTitleTrue": {
+        "en": "Object detected in zone 8"
+      },
+      "insightsTitleFalse": {
+        "en": "No objects detected in zone 8"
+      }
+    },
+    "alarm_presence.zone_9": {
+      "title": {
+        "en": "Zone 9 Presence"
+      },
+      "insightsTitleTrue": {
+        "en": "Object detected in zone 9"
+      },
+      "insightsTitleFalse": {
+        "en": "No objects detected in zone 9"
+      }
+    },
+    "alarm_presence.zone_10": {
+      "title": {
+        "en": "Zone 10 Presence"
+      },
+      "insightsTitleTrue": {
+        "en": "Object detected in zone 10"
+      },
+      "insightsTitleFalse": {
+        "en": "No objects detected in zone 10"
+      }
+    }
+  },
+  "zigbee": {
+    "manufacturerName": "Shelly",
+    "productId": ["Presence"],
+    "endpoints": {
+      "1": {
+        "clusters": [1030],
+        "bindings": [1030]
+      },
+      "2": {
+        "clusters": [1030],
+        "bindings": [1030]
+      },
+      "3": {
+        "clusters": [1030],
+        "bindings": [1030]
+      },
+      "4": {
+        "clusters": [1030],
+        "bindings": [1030]
+      },
+      "5": {
+        "clusters": [1030],
+        "bindings": [1030]
+      },
+      "6": {
+        "clusters": [1030],
+        "bindings": [1030]
+      },
+      "7": {
+        "clusters": [1030],
+        "bindings": [1030]
+      },
+      "8": {
+        "clusters": [1030],
+        "bindings": [1030]
+      },
+      "9": {
+        "clusters": [1030],
+        "bindings": [1030]
+      },
+      "10": {
+        "clusters": [1030],
+        "bindings": [1030]
+      }
+    },
+    "learnmode": {
+      "instruction": {
+        "en": "Verify that the device is in Zigbee mode (you can enable Zigbee mode by pressing the button five times).\n\nPress the button three times rapidly to initialize pairing."
+      }
+    }
+  }
+}

@@ -1,0 +1,82 @@
+[
+  {
+    "id": "alarm_presence.zone_1.enabled",
+    "type": "checkbox",
+    "label": {
+      "en": "Enable Presence Zone 1"
+    },
+    "value": true
+  },
+  {
+    "id": "alarm_presence.zone_2.enabled",
+    "type": "checkbox",
+    "label": {
+      "en": "Enable Presence Zone 2"
+    },
+    "value": true
+  },
+  {
+    "id": "alarm_presence.zone_3.enabled",
+    "type": "checkbox",
+    "label": {
+      "en": "Enable Presence Zone 3"
+    },
+    "value": true
+  },
+  {
+    "id": "alarm_presence.zone_4.enabled",
+    "type": "checkbox",
+    "label": {
+      "en": "Enable Presence Zone 4"
+    },
+    "value": true
+  },
+  {
+    "id": "alarm_presence.zone_5.enabled",
+    "type": "checkbox",
+    "label": {
+      "en": "Enable Presence Zone 5"
+    },
+    "value": true
+  },
+  {
+    "id": "alarm_presence.zone_6.enabled",
+    "type": "checkbox",
+    "label": {
+      "en": "Enable Presence Zone 6"
+    },
+    "value": true
+  },
+  {
+    "id": "alarm_presence.zone_7.enabled",
+    "type": "checkbox",
+    "label": {
+      "en": "Enable Presence Zone 7"
+    },
+    "value": true
+  },
+  {
+    "id": "alarm_presence.zone_8.enabled",
+    "type": "checkbox",
+    "label": {
+      "en": "Enable Presence Zone 8"
+    },
+    "value": true
+  },
+  {
+    "id": "alarm_presence.zone_9.enabled",
+    "type": "checkbox",
+    "label": {
+      "en": "Enable Presence Zone 9"
+    },
+    "value": true
+  },
+  {
+    "id": "alarm_presence.zone_10.enabled",
+    "type": "checkbox",
+    "label": {
+      "en": "Enable Presence Zone 10"
+    },
+    "value": true
+  }
+]

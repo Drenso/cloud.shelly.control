@@ -1,6 +1,7 @@
 import { Log } from '@drenso/homey-log';
 import Homey from 'homey';
 import sourceMapSupport from 'source-map-support';
+import type { MultiZoneCapabilityDeviceInterface } from './lib/capabilityInterfaces.js';
 import ShellyLocalDriver from './lib/local/LocalDriver.js';
 import { getIp } from './lib/LocalIp.js';
 import OutboundWsServer from './lib/rpc/OutboundWsServer.js';
@@ -101,5 +102,20 @@ export default class ShellyApp extends Homey.App {
     Input.registerFlowCards(this);
     Illuminance.registerFlowCards(this);
     PresenceZone.registerFlowCards(this);
+
+    const alarmPresenceZoneRunListener = async (args: { zones: string[] }, state: { zone: number }): Promise<boolean> => {
+      return args.zones.map(z => Number(z)).includes(state.zone);
+    };
+    this.homey.flow
+      .getDeviceTriggerCard('alarm_presence_zone_x_false')
+      .registerRunListener(alarmPresenceZoneRunListener);
+    this.homey.flow
+      .getDeviceTriggerCard('alarm_presence_zone_x_true')
+      .registerRunListener(alarmPresenceZoneRunListener);
+    this.homey.flow
+      .getConditionCard('alarm_presence_zone_x_has')
+      .registerRunListener((args: { zones: string[]; device: MultiZoneCapabilityDeviceInterface }) => {
+        return args.zones.some(zone => args.device.isZoneOccupied(Number(zone)));
+      });
   }
 }

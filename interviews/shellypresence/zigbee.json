@@ -1,0 +1,671 @@
+{
+  "ids": {
+    "modelId": "Presence",
+    "manufacturerName": "Shelly"
+  },
+  "endpoints": {
+    "ieeeAddress": "cc:ba:97:ff:fe:eb:f0:64",
+    "networkAddress": 59927,
+    "modelId": "Presence",
+    "manufacturerName": "Shelly",
+    "endpointDescriptors": [
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 59927,
+        "_reserved": 20,
+        "endpointId": 1,
+        "applicationProfileId": 260,
+        "applicationDeviceId": 1030,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 1,
+        "inputClusters": [0, 3, 1030, 64545],
+        "outputClusters": [25, 3]
+      },
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 59927,
+        "_reserved": 10,
+        "endpointId": 2,
+        "applicationProfileId": 260,
+        "applicationDeviceId": 1030,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 1,
+        "inputClusters": [1030],
+        "outputClusters": []
+      },
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 59927,
+        "_reserved": 10,
+        "endpointId": 3,
+        "applicationProfileId": 260,
+        "applicationDeviceId": 1030,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 1,
+        "inputClusters": [1030],
+        "outputClusters": []
+      },
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 59927,
+        "_reserved": 10,
+        "endpointId": 4,
+        "applicationProfileId": 260,
+        "applicationDeviceId": 1030,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 1,
+        "inputClusters": [1030],
+        "outputClusters": []
+      },
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 59927,
+        "_reserved": 10,
+        "endpointId": 5,
+        "applicationProfileId": 260,
+        "applicationDeviceId": 1030,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 1,
+        "inputClusters": [1030],
+        "outputClusters": []
+      },
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 59927,
+        "_reserved": 10,
+        "endpointId": 6,
+        "applicationProfileId": 260,
+        "applicationDeviceId": 1030,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 1,
+        "inputClusters": [1030],
+        "outputClusters": []
+      },
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 59927,
+        "_reserved": 10,
+        "endpointId": 7,
+        "applicationProfileId": 260,
+        "applicationDeviceId": 1030,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 1,
+        "inputClusters": [1030],
+        "outputClusters": []
+      },
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 59927,
+        "_reserved": 10,
+        "endpointId": 8,
+        "applicationProfileId": 260,
+        "applicationDeviceId": 1030,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 1,
+        "inputClusters": [1030],
+        "outputClusters": []
+      },
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 59927,
+        "_reserved": 10,
+        "endpointId": 9,
+        "applicationProfileId": 260,
+        "applicationDeviceId": 1030,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 1,
+        "inputClusters": [1030],
+        "outputClusters": []
+      },
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 59927,
+        "_reserved": 10,
+        "endpointId": 10,
+        "applicationProfileId": 260,
+        "applicationDeviceId": 1030,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 1,
+        "inputClusters": [1030],
+        "outputClusters": []
+      },
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 59927,
+        "_reserved": 12,
+        "endpointId": 239,
+        "applicationProfileId": 49153,
+        "applicationDeviceId": 8193,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 0,
+        "inputClusters": [64513, 64514],
+        "outputClusters": []
+      },
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 59927,
+        "_reserved": 10,
+        "endpointId": 242,
+        "applicationProfileId": 41440,
+        "applicationDeviceId": 97,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 0,
+        "inputClusters": [],
+        "outputClusters": [33]
+      }
+    ],
+    "deviceType": "router",
+    "receiveWhenIdle": true,
+    "swBuildId": "1.8.99-dev167929",
+    "capabilities": {
+      "alternatePANCoordinator": false,
+      "deviceType": true,
+      "powerSourceMains": true,
+      "receiveWhenIdle": true,
+      "security": false,
+      "allocateAddress": true
+    },
+    "extendedEndpointDescriptors": {
+      "1": {
+        "clusters": {
+          "basic": {
+            "attributes": [
+              {
+                "acl": ["readable"],
+                "id": 0,
+                "dataTypeId": 32,
+                "name": "zclVersion",
+                "value": 8
+              },
+              {
+                "acl": ["readable"],
+                "id": 7,
+                "dataTypeId": 48,
+                "name": "powerSource",
+                "value": "mains"
+              },
+              {
+                "acl": ["readable"],
+                "id": 4,
+                "dataTypeId": 66,
+                "name": "manufacturerName",
+                "value": "Shelly"
+              },
+              {
+                "acl": ["readable"],
+                "id": 5,
+                "dataTypeId": 66,
+                "name": "modelId",
+                "value": "Presence"
+              },
+              {
+                "acl": ["readable"],
+                "id": 1,
+                "dataTypeId": 32,
+                "name": "appVersion",
+                "value": 0
+              },
+              {
+                "acl": ["readable"],
+                "id": 2,
+                "dataTypeId": 32,
+                "name": "stackVersion",
+                "value": 3
+              },
+              {
+                "acl": ["readable"],
+                "id": 3,
+                "dataTypeId": 32,
+                "name": "hwVersion",
+                "value": 0
+              },
+              {
+                "acl": ["readable"],
+                "id": 6,
+                "dataTypeId": 66,
+                "name": "dateCode",
+                "value": "20260409"
+              },
+              {
+                "acl": ["readable"],
+                "id": 8,
+                "dataTypeId": 48,
+                "name": "appProfileVersion",
+                "value": 0
+              },
+              {
+                "acl": ["readable"],
+                "id": 9,
+                "dataTypeId": 48
+              },
+              {
+                "acl": ["readable"],
+                "id": 10,
+                "dataTypeId": 65
+              },
+              {
+                "acl": ["readable"],
+                "id": 11,
+                "dataTypeId": 66
+              }
+            ],
+            "commandsGenerated": [],
+            "commandsReceived": ["factoryReset"]
+          },
+          "identify": {
+            "attributes": [
+              {
+                "acl": ["readable", "writable"],
+                "id": 0,
+                "dataTypeId": 33,
+                "name": "identifyTime",
+                "value": 0
+              }
+            ],
+            "commandsGenerated": ["identifyQuery.response"],
+            "commandsReceived": ["identify", "identifyQuery", "triggerEffect"]
+          },
+          "occupancySensing": {
+            "attributes": [
+              {
+                "acl": ["readable", "reportable"],
+                "id": 0,
+                "dataTypeId": 24,
+                "name": "occupancy",
+                "value": {
+                  "type": "Buffer",
+                  "data": [0]
+                }
+              },
+              {
+                "acl": ["readable"],
+                "id": 1,
+                "dataTypeId": 48,
+                "name": "occupancySensorType",
+                "value": "pir"
+              },
+              {
+                "acl": ["readable"],
+                "id": 2,
+                "dataTypeId": 24,
+                "name": "occupancySensorTypeBitmap",
+                "value": {
+                  "type": "Buffer",
+                  "data": [1]
+                }
+              }
+            ],
+            "commandsGenerated": [],
+            "commandsReceived": []
+          }
+        },
+        "bindings": {
+          "identify": {
+            "attributes": [
+              {
+                "acl": ["readable", "writable"],
+                "id": 0,
+                "dataTypeId": 33,
+                "name": "identifyTime",
+                "value": 0
+              }
+            ],
+            "commandsGenerated": ["identifyQuery.response"],
+            "commandsReceived": ["identify", "identifyQuery", "triggerEffect"]
+          },
+          "ota": {}
+        }
+      },
+      "2": {
+        "clusters": {
+          "occupancySensing": {
+            "attributes": [
+              {
+                "acl": ["readable", "reportable"],
+                "id": 0,
+                "dataTypeId": 24,
+                "name": "occupancy",
+                "value": {
+                  "type": "Buffer",
+                  "data": [0]
+                }
+              },
+              {
+                "acl": ["readable"],
+                "id": 1,
+                "dataTypeId": 48,
+                "name": "occupancySensorType",
+                "value": "pir"
+              },
+              {
+                "acl": ["readable"],
+                "id": 2,
+                "dataTypeId": 24,
+                "name": "occupancySensorTypeBitmap",
+                "value": {
+                  "type": "Buffer",
+                  "data": [1]
+                }
+              }
+            ],
+            "commandsGenerated": [],
+            "commandsReceived": []
+          }
+        },
+        "bindings": {}
+      },
+      "3": {
+        "clusters": {
+          "occupancySensing": {
+            "attributes": [
+              {
+                "acl": ["readable", "reportable"],
+                "id": 0,
+                "dataTypeId": 24,
+                "name": "occupancy",
+                "value": {
+                  "type": "Buffer",
+                  "data": [0]
+                }
+              },
+              {
+                "acl": ["readable"],
+                "id": 1,
+                "dataTypeId": 48,
+                "name": "occupancySensorType",
+                "value": "pir"
+              },
+              {
+                "acl": ["readable"],
+                "id": 2,
+                "dataTypeId": 24,
+                "name": "occupancySensorTypeBitmap",
+                "value": {
+                  "type": "Buffer",
+                  "data": [1]
+                }
+              }
+            ],
+            "commandsGenerated": [],
+            "commandsReceived": []
+          }
+        },
+        "bindings": {}
+      },
+      "4": {
+        "clusters": {
+          "occupancySensing": {
+            "attributes": [
+              {
+                "acl": ["readable", "reportable"],
+                "id": 0,
+                "dataTypeId": 24,
+                "name": "occupancy",
+                "value": {
+                  "type": "Buffer",
+                  "data": [0]
+                }
+              },
+              {
+                "acl": ["readable"],
+                "id": 1,
+                "dataTypeId": 48,
+                "name": "occupancySensorType",
+                "value": "pir"
+              },
+              {
+                "acl": ["readable"],
+                "id": 2,
+                "dataTypeId": 24,
+                "name": "occupancySensorTypeBitmap",
+                "value": {
+                  "type": "Buffer",
+                  "data": [0]
+                }
+              }
+            ],
+            "commandsGenerated": [],
+            "commandsReceived": []
+          }
+        },
+        "bindings": {}
+      },
+      "5": {
+        "clusters": {
+          "occupancySensing": {
+            "attributes": [
+              {
+                "acl": ["readable", "reportable"],
+                "id": 0,
+                "dataTypeId": 24,
+                "name": "occupancy",
+                "value": {
+                  "type": "Buffer",
+                  "data": [0]
+                }
+              },
+              {
+                "acl": ["readable"],
+                "id": 1,
+                "dataTypeId": 48,
+                "name": "occupancySensorType",
+                "value": "pir"
+              },
+              {
+                "acl": ["readable"],
+                "id": 2,
+                "dataTypeId": 24,
+                "name": "occupancySensorTypeBitmap",
+                "value": {
+                  "type": "Buffer",
+                  "data": [0]
+                }
+              }
+            ],
+            "commandsGenerated": [],
+            "commandsReceived": []
+          }
+        },
+        "bindings": {}
+      },
+      "6": {
+        "clusters": {
+          "occupancySensing": {
+            "attributes": [
+              {
+                "acl": ["readable", "reportable"],
+                "id": 0,
+                "dataTypeId": 24,
+                "name": "occupancy",
+                "value": {
+                  "type": "Buffer",
+                  "data": [0]
+                }
+              },
+              {
+                "acl": ["readable"],
+                "id": 1,
+                "dataTypeId": 48,
+                "name": "occupancySensorType",
+                "value": "pir"
+              },
+              {
+                "acl": ["readable"],
+                "id": 2,
+                "dataTypeId": 24,
+                "name": "occupancySensorTypeBitmap",
+                "value": {
+                  "type": "Buffer",
+                  "data": [0]
+                }
+              }
+            ],
+            "commandsGenerated": [],
+            "commandsReceived": []
+          }
+        },
+        "bindings": {}
+      },
+      "7": {
+        "clusters": {
+          "occupancySensing": {
+            "attributes": [
+              {
+                "acl": ["readable", "reportable"],
+                "id": 0,
+                "dataTypeId": 24,
+                "name": "occupancy",
+                "value": {
+                  "type": "Buffer",
+                  "data": [0]
+                }
+              },
+              {
+                "acl": ["readable"],
+                "id": 1,
+                "dataTypeId": 48,
+                "name": "occupancySensorType",
+                "value": "pir"
+              },
+              {
+                "acl": ["readable"],
+                "id": 2,
+                "dataTypeId": 24,
+                "name": "occupancySensorTypeBitmap",
+                "value": {
+                  "type": "Buffer",
+                  "data": [0]
+                }
+              }
+            ],
+            "commandsGenerated": [],
+            "commandsReceived": []
+          }
+        },
+        "bindings": {}
+      },
+      "8": {
+        "clusters": {
+          "occupancySensing": {
+            "attributes": [
+              {
+                "acl": ["readable", "reportable"],
+                "id": 0,
+                "dataTypeId": 24,
+                "name": "occupancy",
+                "value": {
+                  "type": "Buffer",
+                  "data": [0]
+                }
+              },
+              {
+                "acl": ["readable"],
+                "id": 1,
+                "dataTypeId": 48,
+                "name": "occupancySensorType",
+                "value": "pir"
+              },
+              {
+                "acl": ["readable"],
+                "id": 2,
+                "dataTypeId": 24,
+                "name": "occupancySensorTypeBitmap",
+                "value": {
+                  "type": "Buffer",
+                  "data": [0]
+                }
+              }
+            ],
+            "commandsGenerated": [],
+            "commandsReceived": []
+          }
+        },
+        "bindings": {}
+      },
+      "9": {
+        "clusters": {
+          "occupancySensing": {
+            "attributes": [
+              {
+                "acl": ["readable", "reportable"],
+                "id": 0,
+                "dataTypeId": 24,
+                "name": "occupancy",
+                "value": {
+                  "type": "Buffer",
+                  "data": [0]
+                }
+              },
+              {
+                "acl": ["readable"],
+                "id": 1,
+                "dataTypeId": 48,
+                "name": "occupancySensorType",
+                "value": "pir"
+              },
+              {
+                "acl": ["readable"],
+                "id": 2,
+                "dataTypeId": 24,
+                "name": "occupancySensorTypeBitmap",
+                "value": {
+                  "type": "Buffer",
+                  "data": [0]
+                }
+              }
+            ],
+            "commandsGenerated": [],
+            "commandsReceived": []
+          }
+        },
+        "bindings": {}
+      },
+      "10": {
+        "clusters": {
+          "occupancySensing": {
+            "attributes": [
+              {
+                "acl": ["readable", "reportable"],
+                "id": 0,
+                "dataTypeId": 24,
+                "name": "occupancy",
+                "value": {
+                  "type": "Buffer",
+                  "data": [0]
+                }
+              },
+              {
+                "acl": ["readable"],
+                "id": 1,
+                "dataTypeId": 48,
+                "name": "occupancySensorType",
+                "value": "pir"
+              },
+              {
+                "acl": ["readable"],
+                "id": 2,
+                "dataTypeId": 24,
+                "name": "occupancySensorTypeBitmap",
+                "value": {
+                  "type": "Buffer",
+                  "data": [0]
+                }
+              }
+            ],
+            "commandsGenerated": [],
+            "commandsReceived": []
+          }
+        },
+        "bindings": {}
+      },
+      "239": {
+        "clusters": {},
+        "bindings": {}
+      },
+      "242": {
+        "clusters": {},
+        "bindings": {}
+      }
+    }
+  }
+}
