@@ -58,6 +58,11 @@ export abstract class Component<
     await this.onConfigUpdate(homeyDevice, this.config);
   }
 
+  public async updateStatus(homeyDevice: ShellyLocalDevice, status: Status): Promise<void> {
+    deepAssign(this.status, status);
+    await this.onStatusUpdate(homeyDevice, status);
+  }
+
   public static async unregisterHomeyDevice(homeyDevice: ShellyLocalDevice, id?: number): Promise<void> {
     // @ts-expect-error We are using this hack to make a static abstract method, so the 'this' context won't match
     await this.prototype.staticallyUnregisterHomeyDevice(homeyDevice, id);
@@ -220,13 +225,19 @@ export abstract class ComponentWithId<
     await homeyDevice.setCapabilityOptions(homeyCapability, {}).catch(homeyDevice.error);
   }
 
+  protected getCapabilityId(
+    homeyDevice: ShellyLocalDevice,
+    homeyCapability: string,
+  ): string {
+    return homeyDevice.componentCounts.get(this.namespace) === 1 ? homeyCapability : `${homeyCapability}.${this.id}`;
+  }
+
   protected async setCapability(
     homeyDevice: ShellyLocalDevice,
     homeyCapability: string,
     value: unknown,
   ): Promise<void> {
-    const capabilityId =
-      homeyDevice.componentCounts.get(this.namespace) === 1 ? homeyCapability : `${homeyCapability}.${this.id}`;
+    const capabilityId = this.getCapabilityId(homeyDevice, homeyCapability);
     await safeSetCapabilityValue(homeyDevice, capabilityId, value);
   }
 }

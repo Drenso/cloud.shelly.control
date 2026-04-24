@@ -1,4 +1,5 @@
 import type ShellyApp from '../app.js';
+import type { Component } from './component/Component.js';
 import type { RpcChannel } from './rpc/channel/RpcChannel.js';
 import type HttpChannel from './rpc/channel/HttpChannel.js';
 import type InboundWebsocketChannel from './rpc/channel/InboundWebsocketChannel.js';
@@ -509,7 +510,15 @@ export class VirtualDevice {
           ts?: number;
         };
         for (const homeyDevice of this.initializedHomeyDevices.values()) {
-          homeyDevice.virtualComponents.get(component)?.onStatusUpdate(homeyDevice, statusUpdate as never);
+          const componentInstance = homeyDevice.virtualComponents.get(component);
+          if (!componentInstance) {
+            continue;
+          }
+
+          (componentInstance as unknown as Component<never, never, never, never>).updateStatus(
+            homeyDevice,
+            statusUpdate as never,
+          ).catch(this.error);
         }
       }
     } else if (notification.method === 'NotifyEvent') {
