@@ -1,3 +1,4 @@
+import Homey from 'homey';
 import type ShellyLocalDevice from '../../local/LocalDevice.js';
 import type { NotificationEventParam } from '../../rpc/Rpc.js';
 import { safeAddCapability, safeRemoveCapability, safeTriggerDeviceCard } from '../../safeFunctions.js';
@@ -158,36 +159,29 @@ export default class PresenceZone extends ComponentWithId<
   }
 
   public static registerFlowCards(app: ShellyApp): void {
-    const autoCompleteListener = (
-      query: string,
-      { device }: { device: ShellyLocalDevice },
-    ): { name: string; id: number }[] => {
+    const getZones = (device: ShellyLocalDevice): PresenceZone[] => {
       if (device.virtualDevice === undefined) {
         return [];
       }
 
-      const presenceZones: string[] = [];
-      for (const [componentId, component] of device.virtualDevice.virtualComponents.entries()) {
-        if (component instanceof PresenceZone) {
-          presenceZones.push(componentId);
-        }
-      }
+      return [...device.virtualComponents.values()]
+        .filter(component => component instanceof PresenceZone);
+    }
 
-      const devicePresenceZones: PresenceZone[] = [];
-      for (const inputId of presenceZones) {
-        const presenceZone = device.virtualComponents.get(inputId) as PresenceZone | undefined;
-        if (presenceZone !== undefined) {
-          devicePresenceZones.push(presenceZone);
-        }
-      }
-      return devicePresenceZones.map(presenceZone => ({
-        name:
-          presenceZone.config.name ??
-          translate(app.homey.__('locale'), capabilitiesOptions['presenceZoneName'], {
-            number: `${presenceZone.id}`,
-          }),
-        id: presenceZone.id,
-      }));
+    const autoCompleteListener = (
+      query: string,
+      { device }: { device: ShellyLocalDevice },
+    ): { name: string; id: number }[] => {
+      return getZones(device)
+        .map(presenceZone => ({
+          name:
+            presenceZone.config.name ??
+            translate(app.homey.__('locale'), capabilitiesOptions['presenceZoneName'], {
+              number: `${presenceZone.id}`,
+            }),
+          id: presenceZone.id,
+        }))
+        .filter(presenceZone => presenceZone.name.toLowerCase().includes(query.toLowerCase()));
     };
 
     for (const flow of [
@@ -202,6 +196,19 @@ export default class PresenceZone extends ComponentWithId<
         })
         .registerArgumentAutocompleteListener('zone', autoCompleteListener);
     }
+
+    app.homey.flow.getConditionCard('presence_has').registerRunListener((flowArgs: { device: ShellyLocalDevice }) => {
+      return getZones(flowArgs.device).some(presenceZone => presenceZone.status.value);
+    });
+
+    app.homey.flow
+      .getConditionCard('presence_has_multiple')
+      .registerRunListener((flowArgs: { zone: { id: number }, device: ShellyLocalDevice }) => {
+        return getZones(flowArgs.device)
+          .filter(presenceZone => presenceZone.id === flowArgs.zone.id)
+          .some(presenceZone => presenceZone.status.value);
+      })
+      .registerArgumentAutocompleteListener('zone', autoCompleteListener);
   }
 
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: PresenceZoneStatus): Promise<void> {
