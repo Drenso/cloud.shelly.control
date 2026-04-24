@@ -1,5 +1,6 @@
 import type ShellyLocalDevice from '../../local/LocalDevice.js';
 import type { NotificationEventParam } from '../../rpc/Rpc.js';
+import { safeAddCapability, safeRemoveCapability, safeTriggerDeviceCard } from '../../safeFunctions.js';
 import { createMitt, translate } from '../../util.js';
 import { ComponentWithId } from '../Component.js';
 import SetConfig from './PresenceZone/SetConfig.js';
@@ -113,11 +114,11 @@ export default class PresenceZone extends ComponentWithId<
 
     const presenceZones = homeyDevice.componentCounts.get(this.namespace)!;
     if (presenceZones > 1) {
-      await homeyDevice.safeRemoveCapability('hidden.has_presence_sensor');
-      await homeyDevice.safeAddCapability('hidden.has_presence_sensor_multiple');
+      await safeRemoveCapability(homeyDevice, 'hidden.has_presence_sensor');
+      await safeAddCapability(homeyDevice, 'hidden.has_presence_sensor_multiple');
     } else {
-      await homeyDevice.safeRemoveCapability('hidden.has_presence_sensor_multiple');
-      await homeyDevice.safeAddCapability('hidden.has_presence_sensor');
+      await safeRemoveCapability(homeyDevice, 'hidden.has_presence_sensor_multiple');
+      await safeAddCapability(homeyDevice, 'hidden.has_presence_sensor');
     }
 
     this.presenceMitt.on('presence', state => {
@@ -127,16 +128,16 @@ export default class PresenceZone extends ComponentWithId<
       this.setCapability(homeyDevice, 'shelly_presence_count', objects.length);
       this.setCapability(homeyDevice, 'alarm_presence', objects.length > 0);
       const countUpdate = { zone: this.id, value: objects.length };
-      homeyDevice.safeTriggerDeviceCard('presence_count_changed', countUpdate);
-      homeyDevice.safeTriggerDeviceCard('presence_count_changed_multiple', countUpdate, { zone: this.id });
+      safeTriggerDeviceCard(homeyDevice, 'presence_count_changed', countUpdate);
+      safeTriggerDeviceCard(homeyDevice, 'presence_count_changed_multiple', countUpdate, { zone: this.id });
     });
     this.presenceMitt.on('enter', () => {
-      homeyDevice.safeTriggerDeviceCard('presence_enter', { zone: this.id });
-      homeyDevice.safeTriggerDeviceCard('presence_enter_multiple', { zone: this.id }, { zone: this.id });
+      safeTriggerDeviceCard(homeyDevice, 'presence_enter', { zone: this.id });
+      safeTriggerDeviceCard(homeyDevice, 'presence_enter_multiple', { zone: this.id }, { zone: this.id });
     });
     this.presenceMitt.on('leave', () => {
-      homeyDevice.safeTriggerDeviceCard('presence_exit', { zone: this.id });
-      homeyDevice.safeTriggerDeviceCard('presence_exit_multiple', { zone: this.id }, { zone: this.id });
+      safeTriggerDeviceCard(homeyDevice, 'presence_exit', { zone: this.id });
+      safeTriggerDeviceCard(homeyDevice, 'presence_exit_multiple', { zone: this.id }, { zone: this.id });
     });
   }
 
@@ -152,8 +153,8 @@ export default class PresenceZone extends ComponentWithId<
   ): Promise<void> {
     await PresenceZone.unregisterCapability(homeyDevice, 'alarm_presence', id);
     await PresenceZone.unregisterCapability(homeyDevice, 'shelly_presence_count', id);
-    await homeyDevice.safeRemoveCapability('hidden.has_presence_sensor');
-    await homeyDevice.safeRemoveCapability('hidden.has_presence_sensor_multiple');
+    await safeRemoveCapability(homeyDevice, 'hidden.has_presence_sensor');
+    await safeRemoveCapability(homeyDevice, 'hidden.has_presence_sensor_multiple');
   }
 
   public static registerFlowCards(app: ShellyApp): void {

@@ -1,3 +1,4 @@
+import { safeSetCapabilityValue } from '../../safeFunctions.js';
 import { type AllowedPrimitives, ComponentWithId } from '../Component.js';
 import type { RpcChannel } from '../../rpc/channel/RpcChannel.js';
 import { parseNightModeActiveBetween } from '../util/NightMode.js';
@@ -398,14 +399,14 @@ export default class Light extends ComponentWithId<'Light', LightStatus, LightCo
   ): Promise<void> {
     await this.updateMeasured(homeyDevice, status, 'output', 'onoff');
     if (status.brightness !== undefined) {
-      await homeyDevice.safeSetCapability('dim', status.brightness / 100);
+      await safeSetCapabilityValue(homeyDevice, 'dim', status.brightness / 100);
     }
     if (status.temperature !== undefined) {
-      await homeyDevice.safeSetCapability('measure_temperature', status.temperature.tC);
+      await safeSetCapabilityValue(homeyDevice, 'measure_temperature', status.temperature.tC);
     }
     if (status.aenergy?.total !== undefined) {
       const importedEnergy = status.aenergy.total;
-      await homeyDevice.safeSetCapability('meter_power', importedEnergy / 1000);
+      await safeSetCapabilityValue(homeyDevice, 'meter_power', importedEnergy / 1000);
     }
     await this.updateMeasured(homeyDevice, status, 'apower', 'measure_power');
     await this.updateMeasured(homeyDevice, status, 'voltage', 'measure_voltage');
@@ -545,6 +546,6 @@ export default class Light extends ComponentWithId<'Light', LightStatus, LightCo
       return;
     }
 
-    await homeyDevice.safeSetCapability(homeyCapability, status[statusProperty]).catch(homeyDevice.error);
+    await safeSetCapabilityValue(homeyDevice, homeyCapability, status[statusProperty]).catch(homeyDevice.error);
   }
 }

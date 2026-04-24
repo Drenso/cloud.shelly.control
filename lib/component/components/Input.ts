@@ -1,3 +1,9 @@
+import {
+  safeAddCapability,
+  safeRemoveCapability,
+  safeSetCapabilityValue,
+  safeTriggerDeviceCard,
+} from '../../safeFunctions.js';
 import { type AllowedPrimitives, ComponentWithId } from '../Component.js';
 import type ShellyLocalDevice from '../../local/LocalDevice.js';
 import type { ComponentMethod } from './Shelly/ListMethods.js';
@@ -365,21 +371,21 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
       );
 
       if (homeyDeviceInputComponents.length === 0) {
-        await homeyDevice.safeRemoveCapability(`hidden.has_input_${inputType}`);
-        await homeyDevice.safeRemoveCapability(`hidden.has_input_multiple_${inputType}`);
+        await safeRemoveCapability(homeyDevice, `hidden.has_input_${inputType}`);
+        await safeRemoveCapability(homeyDevice, `hidden.has_input_multiple_${inputType}`);
         const capabilityId = `${CAPABILITY_MAPPING[inputType]}.${this.id}`;
-        await homeyDevice.safeRemoveCapability(capabilityId);
+        await safeRemoveCapability(homeyDevice, capabilityId);
         await homeyDevice.setCapabilityOptions(capabilityId, {});
         continue;
       }
 
       // Add helper capability to show correct flows
       if (homeyDeviceInputComponents.length > 1) {
-        await homeyDevice.safeRemoveCapability(`hidden.has_input_${inputType}`);
-        await homeyDevice.safeAddCapability(`hidden.has_input_multiple_${inputType}`);
+        await safeRemoveCapability(homeyDevice, `hidden.has_input_${inputType}`);
+        await safeAddCapability(homeyDevice, `hidden.has_input_multiple_${inputType}`);
       } else {
-        await homeyDevice.safeRemoveCapability(`hidden.has_input_multiple_${inputType}`);
-        await homeyDevice.safeAddCapability(`hidden.has_input_${inputType}`);
+        await safeRemoveCapability(homeyDevice, `hidden.has_input_multiple_${inputType}`);
+        await safeAddCapability(homeyDevice, `hidden.has_input_${inputType}`);
       }
 
       if (['switch', 'analog', 'count'].includes(inputType)) {
@@ -390,8 +396,8 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
 
     this.buttonMitt.on('button', type => {
       const buttonUpdate = { value: type, input: this.id };
-      homeyDevice.safeTriggerDeviceCard('input_button_event', buttonUpdate, buttonUpdate);
-      homeyDevice.safeTriggerDeviceCard('input_button_event_multiple', buttonUpdate, buttonUpdate);
+      safeTriggerDeviceCard(homeyDevice, 'input_button_event', buttonUpdate, buttonUpdate);
+      safeTriggerDeviceCard(homeyDevice, 'input_button_event_multiple', buttonUpdate, buttonUpdate);
     });
   }
 
@@ -406,11 +412,11 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
     id: number,
   ): Promise<void> {
     for (const type of ['switch', 'button', 'analog', 'count'] as const) {
-      await homeyDevice.safeRemoveCapability(`hidden.has_input_${type}`);
-      await homeyDevice.safeRemoveCapability(`hidden.has_input_multiple_${type}`);
+      await safeRemoveCapability(homeyDevice, `hidden.has_input_${type}`);
+      await safeRemoveCapability(homeyDevice, `hidden.has_input_multiple_${type}`);
 
       const capabilityId = `${CAPABILITY_MAPPING[type]}.${id}`;
-      await homeyDevice.safeRemoveCapability(capabilityId);
+      await safeRemoveCapability(homeyDevice, capabilityId);
       await homeyDevice.setCapabilityOptions(capabilityId, {});
     }
   }
@@ -419,28 +425,28 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
     if (status.state !== undefined && status.state !== null) {
       await this.setInputCapability(homeyDevice, 'sensor_boolean.input_switch', status.state);
       const switchUpdate = { value: status.state, input: this.id };
-      await homeyDevice.safeTriggerDeviceCard('input_switch_changed', switchUpdate, switchUpdate);
-      await homeyDevice.safeTriggerDeviceCard('input_switch_changed_multiple', switchUpdate, switchUpdate);
+      await safeTriggerDeviceCard(homeyDevice, 'input_switch_changed', switchUpdate, switchUpdate);
+      await safeTriggerDeviceCard(homeyDevice, 'input_switch_changed_multiple', switchUpdate, switchUpdate);
     }
 
     if (status.percent !== undefined) {
       await this.setInputCapability(homeyDevice, 'sensor_number.input_analog', status.percent);
       if (status.percent === null) {
         const analogUpdate = { input: this.id };
-        await homeyDevice.safeTriggerDeviceCard('input_analog_became_null', analogUpdate, analogUpdate);
-        await homeyDevice.safeTriggerDeviceCard('input_analog_became_null_multiple', analogUpdate, analogUpdate);
+        await safeTriggerDeviceCard(homeyDevice, 'input_analog_became_null', analogUpdate, analogUpdate);
+        await safeTriggerDeviceCard(homeyDevice, 'input_analog_became_null_multiple', analogUpdate, analogUpdate);
       } else {
         const analogUpdate = { value: status.percent, input: this.id };
-        await homeyDevice.safeTriggerDeviceCard('input_analog_changed', analogUpdate, analogUpdate);
-        await homeyDevice.safeTriggerDeviceCard('input_analog_changed_multiple', analogUpdate, analogUpdate);
+        await safeTriggerDeviceCard(homeyDevice, 'input_analog_changed', analogUpdate, analogUpdate);
+        await safeTriggerDeviceCard(homeyDevice, 'input_analog_changed_multiple', analogUpdate, analogUpdate);
       }
     }
 
     if (status.counts !== undefined) {
       await this.setInputCapability(homeyDevice, 'sensor_number.input_count', status.counts.total);
       const countUpdate = { value: status.counts.total, input: this.id };
-      await homeyDevice.safeTriggerDeviceCard('input_count_changed', countUpdate, countUpdate);
-      await homeyDevice.safeTriggerDeviceCard('input_count_changed_multiple', countUpdate, countUpdate);
+      await safeTriggerDeviceCard(homeyDevice, 'input_count_changed', countUpdate, countUpdate);
+      await safeTriggerDeviceCard(homeyDevice, 'input_count_changed_multiple', countUpdate, countUpdate);
     }
   }
 
@@ -516,7 +522,7 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
     rawCapabilityOptions: JsonObject | undefined,
   ): Promise<string> {
     const capabilityId = `${homeyCapability}.${this.id}`;
-    await homeyDevice.safeAddCapability(capabilityId);
+    await safeAddCapability(homeyDevice, capabilityId);
     if (rawCapabilityOptions === undefined) {
       return capabilityId;
     }
@@ -534,7 +540,7 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
     value: unknown,
   ): Promise<void> {
     const capabilityId = `${homeyCapability}.${this.id}`;
-    await homeyDevice.safeSetCapability(capabilityId, value);
+    await safeSetCapabilityValue(homeyDevice, capabilityId, value);
   }
 
   /**

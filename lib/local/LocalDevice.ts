@@ -137,14 +137,6 @@ export default class ShellyLocalDevice extends Homey.Device {
     return this.homey.app as ShellyApp;
   }
 
-  public async safeAddCapability(id: string): Promise<void> {
-    if (this.hasCapability(id)) {
-      return;
-    }
-
-    await this.addCapability(id).catch(this.error);
-  }
-
   public getTypedStore(): ShellyLocalDeviceStore {
     return this.getStore();
   }
@@ -158,30 +150,6 @@ export default class ShellyLocalDevice extends Homey.Device {
 
   public getTypedData(): ShellyLocalDeviceData {
     return this.getData();
-  }
-
-  public async safeRemoveCapability(id: string): Promise<void> {
-    if (!this.hasCapability(id)) {
-      return;
-    }
-
-    await this.removeCapability(id).catch(this.error);
-  }
-
-  public async safeSetCapability(id: string, value: unknown): Promise<void> {
-    if (!this.hasCapability(id)) {
-      return;
-    }
-
-    await this.setCapabilityValue(id, value).catch(this.error);
-  }
-
-  public async safeTriggerDeviceCard(
-    id: string,
-    tokens?: Record<string, unknown>,
-    triggerArgs?: Record<string, unknown>,
-  ): Promise<void> {
-    return this.homey.flow.getDeviceTriggerCard(id).trigger(this, tokens, triggerArgs).catch(this.error);
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

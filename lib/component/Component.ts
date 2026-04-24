@@ -1,6 +1,7 @@
 import type ShellyLocalDevice from '../local/LocalDevice.js';
 import type { RpcChannel } from '../rpc/channel/RpcChannel.js';
 import type { NotificationEventParam, ResponseSuccessFrame } from '../rpc/Rpc.js';
+import { safeAddCapability, safeRemoveCapability, safeSetCapabilityValue } from '../safeFunctions.js';
 import { deepAssign, fillTranslationTagsRecursively, type RecursivePartial } from '../util.js';
 import type { VirtualDevice } from '../VirtualDevice.js';
 import type { ComponentMethod, NameSpace } from './components/Shelly/ListMethods.js';
@@ -191,7 +192,7 @@ export abstract class ComponentWithId<
   ): Promise<string> {
     const capabilityId =
       homeyDevice.componentCounts.get(this.namespace) === 1 ? homeyCapability : `${homeyCapability}.${this.id}`;
-    await homeyDevice.safeAddCapability(capabilityId);
+    await safeAddCapability(homeyDevice, capabilityId);
     if (capabilityListener !== undefined) {
       homeyDevice.registerCapabilityListener(capabilityId, capabilityListener);
     }
@@ -214,8 +215,8 @@ export abstract class ComponentWithId<
     id: number,
   ): Promise<void> {
     const multipleCapabilityId = `${homeyCapability}.${id}`;
-    await homeyDevice.safeRemoveCapability(homeyCapability);
-    await homeyDevice.safeRemoveCapability(multipleCapabilityId);
+    await safeRemoveCapability(homeyDevice, homeyCapability);
+    await safeRemoveCapability(homeyDevice, multipleCapabilityId);
     await homeyDevice.setCapabilityOptions(homeyCapability, {}).catch(homeyDevice.error);
   }
 
@@ -226,6 +227,6 @@ export abstract class ComponentWithId<
   ): Promise<void> {
     const capabilityId =
       homeyDevice.componentCounts.get(this.namespace) === 1 ? homeyCapability : `${homeyCapability}.${this.id}`;
-    await homeyDevice.safeSetCapability(capabilityId, value);
+    await safeSetCapabilityValue(homeyDevice, capabilityId, value);
   }
 }

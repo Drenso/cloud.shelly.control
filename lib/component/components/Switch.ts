@@ -1,3 +1,4 @@
+import { safeSetCapabilityValue } from '../../safeFunctions.js';
 import { type AllowedPrimitives, ComponentWithId } from '../Component.js';
 import GetConfig from './Switch/GetConfig.js';
 import GetStatus from './Switch/GetStatus.js';
@@ -316,7 +317,7 @@ export default class Switch extends ComponentWithId<'Switch', SwitchStatus, Swit
       await this.setCapability(homeyDevice, 'meter_power.total', absoluteEnergy / 1000);
     }
     if (status.temperature !== undefined) {
-      await homeyDevice.safeSetCapability('measure_temperature', status.temperature.tC);
+      await safeSetCapabilityValue(homeyDevice, 'measure_temperature', status.temperature.tC);
     }
     // TODO errors
   }
