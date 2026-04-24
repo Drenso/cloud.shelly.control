@@ -1,4 +1,5 @@
 {
+  "$extends": ["local"],
   "name": {
     "en": "Multicolor Bulb Gen3 - LAN"
   },
@@ -7,6 +8,5 @@
     "small": "/assets/drivers/shellycolorblbg3/images/small.png",
     "large": "/assets/drivers/shellycolorblbg3/images/large.png",
     "xlarge": "/assets/drivers/shellycolorblbg3/images/xlarge.png"
-  },
-  "$extends": "local"
+  }
 }

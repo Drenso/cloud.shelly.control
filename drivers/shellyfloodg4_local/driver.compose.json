@@ -1,4 +1,5 @@
 {
+  "$extends": ["local"],
   "name": {
     "en": "Flood Gen4 - LAN"
   },
@@ -11,6 +12,5 @@
     "small": "/assets/drivers/shellyfloodg4/images/small.png",
     "large": "/assets/drivers/shellyfloodg4/images/large.png",
     "xlarge": "/assets/drivers/shellyfloodg4/images/xlarge.png"
-  },
-  "$extends": "local"
+  }
 }

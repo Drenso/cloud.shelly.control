@@ -1,4 +1,5 @@
 {
+  "$extends": ["local"],
   "name": {
     "en": "Dimmer Gen4 - LAN"
   },
@@ -7,6 +8,5 @@
     "small": "/assets/drivers/shellydimmerg4/images/small.png",
     "large": "/assets/drivers/shellydimmerg4/images/large.png",
     "xlarge": "/assets/drivers/shellydimmerg4/images/xlarge.png"
-  },
-  "$extends": "local"
+  }
 }

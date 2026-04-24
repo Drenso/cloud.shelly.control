@@ -1,4 +1,5 @@
 {
+  "$extends": ["local"],
   "name": {
     "en": "2PM Gen4 - Cover - LAN"
   },
@@ -7,6 +8,5 @@
     "small": "/assets/drivers/shelly2pmg4/images/small.png",
     "large": "/assets/drivers/shelly2pmg4/images/large.png",
     "xlarge": "/assets/drivers/shelly2pmg4/images/xlarge.png"
-  },
-  "$extends": "local"
+  }
 }

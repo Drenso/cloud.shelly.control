@@ -46,6 +46,7 @@
     ]
   },
   "api": {},
+  "esm": true,
   "flow": {
     "triggers": [
       {
