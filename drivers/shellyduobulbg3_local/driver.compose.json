@@ -4,6 +4,7 @@
     "en": "Duo Bulb Gen3 - LAN"
   },
   "class": "light",
+  "capabilities": ["onoff", "dim", "light_temperature", "meter_power", "measure_power"],
   "images": {
     "small": "/assets/drivers/shellyduobulbg3/images/small.png",
     "large": "/assets/drivers/shellyduobulbg3/images/large.png",

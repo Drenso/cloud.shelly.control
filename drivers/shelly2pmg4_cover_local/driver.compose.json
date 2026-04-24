@@ -4,6 +4,21 @@
     "en": "2PM Gen4 - Cover - LAN"
   },
   "class": "windowcoverings",
+  "capabilities": [
+    "hidden.has_input_multiple_switch",
+    "sensor_boolean.input_switch",
+    "hidden.has_input_multiple_button",
+    "windowcoverings_set",
+    "windowcoverings_tilt_set",
+    "windowcoverings_state",
+    "measure_power",
+    "measure_voltage",
+    "measure_current",
+    "measure_frequency",
+    "shelly_power_factor",
+    "meter_power",
+    "measure_temperature.cover"
+  ],
   "images": {
     "small": "/assets/drivers/shelly2pmg4/images/small.png",
     "large": "/assets/drivers/shelly2pmg4/images/large.png",

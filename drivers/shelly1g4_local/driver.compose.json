@@ -8,5 +8,12 @@
     "small": "/assets/drivers/shelly1g4/images/small.png",
     "large": "/assets/drivers/shelly1g4/images/large.png",
     "xlarge": "/assets/drivers/shelly1g4/images/xlarge.png"
-  }
+  },
+  "capabilities": [
+    "hidden.has_input_switch",
+    "sensor_boolean.input_switch",
+    "hidden.has_input_button",
+    "onoff",
+    "measure_temperature"
+  ]
 }

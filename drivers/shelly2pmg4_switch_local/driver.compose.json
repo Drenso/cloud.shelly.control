@@ -4,6 +4,21 @@
     "en": "2PM Gen4 - Switch - LAN"
   },
   "class": "socket",
+  "capabilities": [
+    "hidden.has_input_multiple_switch",
+    "sensor_boolean.input_switch",
+    "hidden.has_input_multiple_button",
+    "onoff",
+    "measure_power",
+    "measure_voltage",
+    "measure_current",
+    "measure_frequency",
+    "shelly_power_factor",
+    "meter_power.total",
+    "meter_power.consumed",
+    "meter_power.returned",
+    "measure_temperature"
+  ],
   "images": {
     "small": "/assets/drivers/shelly2pmg4/images/small.png",
     "large": "/assets/drivers/shelly2pmg4/images/large.png",

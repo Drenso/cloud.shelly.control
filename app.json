@@ -1388,7 +1388,11 @@
         "lan"
       ],
       "capabilities": [
-        "button.restart"
+        "hidden.has_input_switch",
+        "sensor_boolean.input_switch",
+        "hidden.has_input_button",
+        "onoff",
+        "measure_temperature"
       ],
       "capabilitiesOptions": {
         "button.restart": {
@@ -1637,7 +1641,11 @@
         "lan"
       ],
       "capabilities": [
-        "button.restart"
+        "hidden.has_input_switch",
+        "sensor_boolean.input_switch",
+        "hidden.has_input_button",
+        "onoff",
+        "measure_temperature"
       ],
       "capabilitiesOptions": {
         "button.restart": {
@@ -1886,7 +1894,18 @@
         "lan"
       ],
       "capabilities": [
-        "button.restart"
+        "hidden.has_input_switch",
+        "sensor_boolean.input_switch",
+        "hidden.has_input_button",
+        "onoff",
+        "measure_power",
+        "measure_voltage",
+        "measure_current",
+        "measure_frequency",
+        "meter_power.total",
+        "meter_power.consumed",
+        "meter_power.returned",
+        "measure_temperature"
       ],
       "capabilitiesOptions": {
         "button.restart": {
@@ -2211,7 +2230,18 @@
         "lan"
       ],
       "capabilities": [
-        "button.restart"
+        "hidden.has_input_switch",
+        "sensor_boolean.input_switch",
+        "hidden.has_input_button",
+        "onoff",
+        "measure_power",
+        "measure_voltage",
+        "measure_current",
+        "measure_frequency",
+        "meter_power.total",
+        "meter_power.consumed",
+        "meter_power.returned",
+        "measure_temperature"
       ],
       "capabilitiesOptions": {
         "button.restart": {
@@ -2536,7 +2566,19 @@
         "lan"
       ],
       "capabilities": [
-        "button.restart"
+        "hidden.has_input_multiple_switch",
+        "sensor_boolean.input_switch",
+        "hidden.has_input_multiple_button",
+        "windowcoverings_set",
+        "windowcoverings_tilt_set",
+        "windowcoverings_state",
+        "measure_power",
+        "measure_voltage",
+        "measure_current",
+        "measure_frequency",
+        "shelly_power_factor",
+        "meter_power",
+        "measure_temperature.cover"
       ],
       "capabilitiesOptions": {
         "button.restart": {
@@ -3200,7 +3242,19 @@
         "lan"
       ],
       "capabilities": [
-        "button.restart"
+        "hidden.has_input_multiple_switch",
+        "sensor_boolean.input_switch",
+        "hidden.has_input_multiple_button",
+        "onoff",
+        "measure_power",
+        "measure_voltage",
+        "measure_current",
+        "measure_frequency",
+        "shelly_power_factor",
+        "meter_power.total",
+        "meter_power.consumed",
+        "meter_power.returned",
+        "measure_temperature"
       ],
       "capabilitiesOptions": {
         "button.restart": {
@@ -3677,7 +3731,14 @@
         "lan"
       ],
       "capabilities": [
-        "button.restart"
+        "onoff",
+        "dim",
+        "light_mode",
+        "light_temperature",
+        "light_hue",
+        "light_saturation",
+        "meter_power",
+        "measure_power"
       ],
       "capabilitiesOptions": {
         "button.restart": {
@@ -3910,7 +3971,16 @@
         "lan"
       ],
       "capabilities": [
-        "button.restart"
+        "hidden.has_input_multiple_switch",
+        "sensor_boolean.input_switch",
+        "hidden.has_input_multiple_button",
+        "onoff",
+        "dim",
+        "measure_temperature",
+        "meter_power",
+        "measure_power",
+        "measure_voltage",
+        "measure_current"
       ],
       "capabilitiesOptions": {
         "button.restart": {
@@ -4338,7 +4408,11 @@
         "lan"
       ],
       "capabilities": [
-        "button.restart"
+        "onoff",
+        "dim",
+        "light_temperature",
+        "meter_power",
+        "measure_power"
       ],
       "capabilitiesOptions": {
         "button.restart": {
@@ -4555,12 +4629,13 @@
         "lan"
       ],
       "capabilities": [
-        "measure_power",
-        "measure_current",
         "meter_power",
-        "meter_power.exported",
         "measure_voltage",
-        "measure_frequency"
+        "measure_power",
+        "measure_frequency",
+        "shelly_power_factor",
+        "measure_current",
+        "meter_power.exported"
       ],
       "capabilitiesOptions": {
         "button.restart": {
@@ -4968,7 +5043,9 @@
         "lan"
       ],
       "capabilities": [
-        "button.restart"
+        "shelly_illumination",
+        "alarm_presence",
+        "shelly_presence_count"
       ],
       "capabilitiesOptions": {
         "button.restart": {
@@ -5753,7 +5830,15 @@
         "lan"
       ],
       "capabilities": [
-        "button.restart"
+        "onoff",
+        "measure_power",
+        "measure_voltage",
+        "measure_current",
+        "measure_frequency",
+        "shelly_power_factor",
+        "meter_power.total",
+        "meter_power.consumed",
+        "meter_power.returned"
       ],
       "capabilitiesOptions": {
         "button.restart": {

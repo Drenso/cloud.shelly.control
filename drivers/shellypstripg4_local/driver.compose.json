@@ -4,6 +4,17 @@
     "en": "Power Strip 4 Gen4 - LAN"
   },
   "class": "socket",
+  "capabilities": [
+    "onoff",
+    "measure_power",
+    "measure_voltage",
+    "measure_current",
+    "measure_frequency",
+    "shelly_power_factor",
+    "meter_power.total",
+    "meter_power.consumed",
+    "meter_power.returned"
+  ],
   "images": {
     "small": "/assets/drivers/shellypstripg4/images/small.png",
     "large": "/assets/drivers/shellypstripg4/images/large.png",

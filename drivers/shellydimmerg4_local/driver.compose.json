@@ -4,6 +4,18 @@
     "en": "Dimmer Gen4 - LAN"
   },
   "class": "light",
+  "capabilities": [
+    "hidden.has_input_multiple_switch",
+    "sensor_boolean.input_switch",
+    "hidden.has_input_multiple_button",
+    "onoff",
+    "dim",
+    "measure_temperature",
+    "meter_power",
+    "measure_power",
+    "measure_voltage",
+    "measure_current"
+  ],
   "images": {
     "small": "/assets/drivers/shellydimmerg4/images/small.png",
     "large": "/assets/drivers/shellydimmerg4/images/large.png",

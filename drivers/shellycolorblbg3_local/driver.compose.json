@@ -4,6 +4,16 @@
     "en": "Multicolor Bulb Gen3 - LAN"
   },
   "class": "light",
+  "capabilities": [
+    "onoff",
+    "dim",
+    "light_mode",
+    "light_temperature",
+    "light_hue",
+    "light_saturation",
+    "meter_power",
+    "measure_power"
+  ],
   "images": {
     "small": "/assets/drivers/shellycolorblbg3/images/small.png",
     "large": "/assets/drivers/shellycolorblbg3/images/large.png",

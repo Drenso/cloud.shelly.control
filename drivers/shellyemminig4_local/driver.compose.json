@@ -5,12 +5,13 @@
   },
   "class": "socket",
   "capabilities": [
-    "measure_power",
-    "measure_current",
     "meter_power",
-    "meter_power.exported",
     "measure_voltage",
-    "measure_frequency"
+    "measure_power",
+    "measure_frequency",
+    "shelly_power_factor",
+    "measure_current",
+    "meter_power.exported"
   ],
   "images": {
     "small": "/assets/drivers/shellyemminig4/images/small.png",
