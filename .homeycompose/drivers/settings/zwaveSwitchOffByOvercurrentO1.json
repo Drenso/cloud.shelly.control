@@ -1,0 +1,235 @@
+{
+  "zwave": {
+    "index": 142,
+    "size": 1
+  },
+  "type": "dropdown",
+  "label": {
+    "en": "Switch off by overcurrent (O1)",
+    "nl": "Uitschakelen bij te hoge stroom (O1)"
+  },
+  "hint": {
+    "en": "The device will switch off automatically when the current exceeds the value set for the time configured in the timer delay.",
+    "nl": "Het apparaat zal automatisch uitschakelen wanneer de stroom de ingestelde waarde overschrijdt voor de geconfigureerde vertragingstijd."
+  },
+  "value": "0",
+  "values": [
+    {
+      "id": "0",
+      "label": {
+        "en": "Disabled",
+        "nl": "Uitgeschakeld"
+      }
+    },
+    {
+      "id": "1",
+      "label": {
+        "en": "1A"
+      }
+    },
+    {
+      "id": "2",
+      "label": {
+        "en": "2A"
+      }
+    },
+    {
+      "id": "3",
+      "label": {
+        "en": "3A"
+      }
+    },
+    {
+      "id": "4",
+      "label": {
+        "en": "4A"
+      }
+    },
+    {
+      "id": "5",
+      "label": {
+        "en": "5A"
+      }
+    },
+    {
+      "id": "6",
+      "label": {
+        "en": "6A"
+      }
+    },
+    {
+      "id": "7",
+      "label": {
+        "en": "7A"
+      }
+    },
+    {
+      "id": "8",
+      "label": {
+        "en": "8A"
+      }
+    },
+    {
+      "id": "9",
+      "label": {
+        "en": "9A"
+      }
+    },
+    {
+      "id": "10",
+      "label": {
+        "en": "10A"
+      }
+    },
+    {
+      "id": "11",
+      "label": {
+        "en": "11A"
+      }
+    },
+    {
+      "id": "12",
+      "label": {
+        "en": "12A"
+      }
+    },
+    {
+      "id": "13",
+      "label": {
+        "en": "13A"
+      }
+    },
+    {
+      "id": "14",
+      "label": {
+        "en": "14A"
+      }
+    },
+    {
+      "id": "15",
+      "label": {
+        "en": "15A"
+      }
+    },
+    {
+      "id": "16",
+      "label": {
+        "en": "16A"
+      }
+    },
+    {
+      "id": "17",
+      "label": {
+        "en": "17A"
+      }
+    },
+    {
+      "id": "18",
+      "label": {
+        "en": "18A"
+      }
+    },
+    {
+      "id": "19",
+      "label": {
+        "en": "19A"
+      }
+    },
+    {
+      "id": "20",
+      "label": {
+        "en": "20A"
+      }
+    },
+    {
+      "id": "21",
+      "label": {
+        "en": "21A"
+      }
+    },
+    {
+      "id": "22",
+      "label": {
+        "en": "22A"
+      }
+    },
+    {
+      "id": "23",
+      "label": {
+        "en": "23A"
+      }
+    },
+    {
+      "id": "24",
+      "label": {
+        "en": "24A"
+      }
+    },
+    {
+      "id": "25",
+      "label": {
+        "en": "25A"
+      }
+    },
+    {
+      "id": "26",
+      "label": {
+        "en": "26A"
+      }
+    },
+    {
+      "id": "27",
+      "label": {
+        "en": "27A"
+      }
+    },
+    {
+      "id": "28",
+      "label": {
+        "en": "28A"
+      }
+    },
+    {
+      "id": "29",
+      "label": {
+        "en": "29A"
+      }
+    },
+    {
+      "id": "30",
+      "label": {
+        "en": "30A"
+      }
+    },
+    {
+      "id": "31",
+      "label": {
+        "en": "31A"
+      }
+    },
+    {
+      "id": "32",
+      "label": {
+        "en": "32A"
+      }
+    },
+    {
+      "id": "33",
+      "label": {
+        "en": "33A"
+      }
+    },
+    {
+      "id": "34",
+      "label": {
+        "en": "34A"
+      }
+    },
+    {
+      "id": "35",
+      "label": {
+        "en": "35A"
+      }
+    }
+  ]
+}

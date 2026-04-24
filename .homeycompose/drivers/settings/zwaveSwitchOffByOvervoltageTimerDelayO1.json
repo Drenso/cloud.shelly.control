@@ -1,0 +1,23 @@
+{
+  "zwave": {
+    "index": 145,
+    "size": 2
+  },
+  "type": "number",
+  "label": {
+    "en": "Switch off by overvoltage timer delay (O1)",
+    "nl": "Uitschakelvertraging bij te hoge spanning (O1)"
+  },
+  "hint": {
+    "en": "The device will switch off automatically when the voltage exceeds the value set for the time configured in the timer delay.",
+    "nl": "Het apparaat zal automatisch uitschakelen wanneer de spanning de ingestelde waarde overschrijdt voor de geconfigureerde vertragingstijd."
+  },
+  "value": 0,
+  "attr": {
+    "min": 0,
+    "max": 32535
+  },
+  "unit": {
+    "en": "s"
+  }
+}

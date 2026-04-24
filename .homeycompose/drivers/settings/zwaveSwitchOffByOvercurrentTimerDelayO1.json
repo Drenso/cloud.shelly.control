@@ -1,0 +1,23 @@
+{
+  "zwave": {
+    "index": 143,
+    "size": 2
+  },
+  "type": "number",
+  "label": {
+    "en": "Switch off by overcurrent timer delay (O1)",
+    "nl": "Uitschakelvertraging bij te hoge stroom (O1)"
+  },
+  "hint": {
+    "en": "The device will switch off automatically when the current exceeds the value set for the time configured in the timer delay.",
+    "nl": "Het apparaat zal automatisch uitschakelen wanneer de stroom de ingestelde waarde overschrijdt voor de geconfigureerde vertragingstijd."
+  },
+  "value": 5,
+  "attr": {
+    "min": 1,
+    "max": 32535
+  },
+  "unit": {
+    "en": "s"
+  }
+}

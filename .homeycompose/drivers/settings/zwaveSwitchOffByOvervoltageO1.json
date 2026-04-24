@@ -1,0 +1,271 @@
+{
+  "zwave": {
+    "index": 144,
+    "size": 2
+  },
+  "type": "dropdown",
+  "label": {
+    "en": "Switch off by overvoltage (O1)",
+    "nl": "Uitschakelen bij te hoge spanning (O1)"
+  },
+  "hint": {
+    "en": "The device will switch off automatically when the voltage exceeds the value set for the time configured in the timer delay.",
+    "nl": "Het apparaat zal automatisch uitschakelen wanneer de spanning de ingestelde waarde overschrijdt voor de geconfigureerde vertragingstijd."
+  },
+  "value": "0",
+  "values": [
+    {
+      "id": "0",
+      "label": {
+        "en": "Disabled",
+        "nl": "Uitgeschakeld"
+      }
+    },
+    {
+      "id": "240",
+      "label": {
+        "en": "240V"
+      }
+    },
+    {
+      "id": "241",
+      "label": {
+        "en": "241V"
+      }
+    },
+    {
+      "id": "242",
+      "label": {
+        "en": "242V"
+      }
+    },
+    {
+      "id": "243",
+      "label": {
+        "en": "243V"
+      }
+    },
+    {
+      "id": "244",
+      "label": {
+        "en": "244V"
+      }
+    },
+    {
+      "id": "245",
+      "label": {
+        "en": "245V"
+      }
+    },
+    {
+      "id": "246",
+      "label": {
+        "en": "246V"
+      }
+    },
+    {
+      "id": "247",
+      "label": {
+        "en": "247V"
+      }
+    },
+    {
+      "id": "248",
+      "label": {
+        "en": "248V"
+      }
+    },
+    {
+      "id": "249",
+      "label": {
+        "en": "249V"
+      }
+    },
+    {
+      "id": "250",
+      "label": {
+        "en": "250V"
+      }
+    },
+    {
+      "id": "251",
+      "label": {
+        "en": "251V"
+      }
+    },
+    {
+      "id": "252",
+      "label": {
+        "en": "252V"
+      }
+    },
+    {
+      "id": "253",
+      "label": {
+        "en": "253V"
+      }
+    },
+    {
+      "id": "254",
+      "label": {
+        "en": "254V"
+      }
+    },
+    {
+      "id": "255",
+      "label": {
+        "en": "255V"
+      }
+    },
+    {
+      "id": "256",
+      "label": {
+        "en": "256V"
+      }
+    },
+    {
+      "id": "257",
+      "label": {
+        "en": "257V"
+      }
+    },
+    {
+      "id": "258",
+      "label": {
+        "en": "258V"
+      }
+    },
+    {
+      "id": "259",
+      "label": {
+        "en": "259V"
+      }
+    },
+    {
+      "id": "260",
+      "label": {
+        "en": "260V"
+      }
+    },
+    {
+      "id": "261",
+      "label": {
+        "en": "261V"
+      }
+    },
+    {
+      "id": "262",
+      "label": {
+        "en": "262V"
+      }
+    },
+    {
+      "id": "263",
+      "label": {
+        "en": "263V"
+      }
+    },
+    {
+      "id": "264",
+      "label": {
+        "en": "264V"
+      }
+    },
+    {
+      "id": "265",
+      "label": {
+        "en": "265V"
+      }
+    },
+    {
+      "id": "266",
+      "label": {
+        "en": "266V"
+      }
+    },
+    {
+      "id": "267",
+      "label": {
+        "en": "267V"
+      }
+    },
+    {
+      "id": "268",
+      "label": {
+        "en": "268V"
+      }
+    },
+    {
+      "id": "269",
+      "label": {
+        "en": "269V"
+      }
+    },
+    {
+      "id": "270",
+      "label": {
+        "en": "270V"
+      }
+    },
+    {
+      "id": "271",
+      "label": {
+        "en": "271V"
+      }
+    },
+    {
+      "id": "272",
+      "label": {
+        "en": "272V"
+      }
+    },
+    {
+      "id": "273",
+      "label": {
+        "en": "273V"
+      }
+    },
+    {
+      "id": "274",
+      "label": {
+        "en": "274V"
+      }
+    },
+    {
+      "id": "275",
+      "label": {
+        "en": "275V"
+      }
+    },
+    {
+      "id": "276",
+      "label": {
+        "en": "276V"
+      }
+    },
+    {
+      "id": "277",
+      "label": {
+        "en": "277V"
+      }
+    },
+    {
+      "id": "278",
+      "label": {
+        "en": "278V"
+      }
+    },
+    {
+      "id": "279",
+      "label": {
+        "en": "279V"
+      }
+    },
+    {
+      "id": "280",
+      "label": {
+        "en": "280V"
+      }
+    }
+  ]
+}

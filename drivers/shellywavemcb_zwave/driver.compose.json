@@ -1,0 +1,56 @@
+{
+  "$extends": "zwave",
+  "name": {
+    "en": "Wave MCB"
+  },
+  "class": "socket",
+  "capabilities": [
+    "onoff",
+    "measure_power",
+    "measure_voltage",
+    "measure_current",
+    "meter_power",
+    "meter_power.import",
+    "meter_power.export",
+    "button.restart",
+    "button.reset_meter",
+    "button.reset_device"
+  ],
+  "energy": {
+    "cumulative": true,
+    "cumulativeImportedCapability": "meter_power.import",
+    "cumulativeExportedCapability": "meter_power.export"
+  },
+  "capabilitiesOptions": {
+    "meter_power.import": {
+      "title": { "en": "Imported Energy" }
+    },
+    "meter_power.export": {
+      "title": { "en": "Exported Energy" }
+    }
+  },
+  "zwave": {
+    "manufacturerId": 1120,
+    "productTypeId": [7],
+    "productId": [130],
+    "learnmode": {
+      "image": "./assets/learnmode/mcb.svg",
+      "instruction": {
+        "en": "Press and hold the S button on the device until the LED turns solid blue. Release the button and press and hold it again (> 2s) until the blue LED starts blinking. Repeat this for step 2 in the pairing process and enter the device key (pincode).",
+        "nl": "Houd de S-knop op het apparaat ingedrukt totdat de LED continu blauw wordt. Laat de knop los en druk er opnieuw op en houd deze ingedrukt (> 2s) totdat de blauwe LED begint te knipperen. Herhaal dit voor stap 2 in het koppelingsproces en voer de apparaatsleutel (pincode) in."
+      }
+    },
+    "unlearnmode": {
+      "image": "./assets/learnmode/mcb.svg",
+      "instruction": {
+        "en": "Press and hold the S button on the device until the LED turns solid blue. Release the button and press and hold it again (> 2s) until the blue LED starts blinking.",
+        "nl": "Houd de S-knop op het apparaat ingedrukt totdat de LED continu blauw wordt. Laat de knop los en druk er opnieuw op en houd deze ingedrukt (> 2s) totdat de blauwe LED begint te knipperen."
+      }
+    }
+  },
+  "images": {
+    "small": "/assets/drivers/shellywavemcb/images/small.png",
+    "large": "/assets/drivers/shellywavemcb/images/large.png",
+    "xlarge": "/assets/drivers/shellywavemcb/images/xlarge.png"
+  }
+}

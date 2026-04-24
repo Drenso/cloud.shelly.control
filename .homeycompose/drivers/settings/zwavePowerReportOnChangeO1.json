@@ -1,0 +1,24 @@
+{
+  "zwave": {
+    "index": 36,
+    "size": 1
+  },
+  "type": "number",
+  "label": {
+    "en": "Power report on change for O1",
+    "nl": "Power report bij wijziging voor O1"
+  },
+  "value": 50,
+  "attr": {
+    "min": 0,
+    "max": 100
+  },
+  "units": {
+    "en": "%",
+    "nl": "%"
+  },
+  "hint": {
+    "en": "Defines the minimum change in consumed power for output 1 that will result in sending new report to Homey.",
+    "nl": "Bepaalt de minimum wijziging in stroomverbruik voor output 1 dat nodig is om een status update naar Homey te versturen."
+  }
+}

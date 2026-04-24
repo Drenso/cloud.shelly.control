@@ -1,0 +1,55 @@
+[
+  {
+    "type": "group",
+    "label": {
+      "en": "Output Settings",
+      "nl": "Output-instellingen"
+    },
+    "children": [
+      {
+        "zwave": {
+          "index": 141,
+          "size": 1
+        },
+        "id": "allow_remote_off",
+        "type": "checkbox",
+        "value": false,
+        "label": {
+          "en": "Allow the breaker to be turned off remotely",
+          "nl": "Sta toe de stop op afstand uit te zetten"
+        },
+        "hint": {
+          "en": "For safety reasons, this option will be disabled after the breaker has been turned off",
+          "nl": "Om veiligheidsredenen wordt deze optie automatisch weer uitgeschakeld na het uit gaan van de stop"
+        }
+      },
+      {
+        "$extends": "zwaveSwitchOffByOvercurrentO1"
+      },
+      {
+        "$extends": "zwaveSwitchOffByOvercurrentTimerDelayO1"
+      },
+      {
+        "$extends": "zwaveSwitchOffByOvervoltageO1"
+      },
+      {
+        "$extends": "zwaveSwitchOffByOvervoltageTimerDelayO1"
+      }
+    ]
+  },
+  {
+    "type": "group",
+    "label": {
+      "en": "Reporting Settings",
+      "nl": "Reporting-instellingen"
+    },
+    "children": [
+      {
+        "$extends": "zwavePowerReportOnChangeO1"
+      },
+      {
+        "$extends": "zwaveMinimalTimePowerReportO1"
+      }
+    ]
+  }
+]

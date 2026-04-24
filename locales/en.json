@@ -61,6 +61,7 @@
   },
   "error": {
     "authorization": "Failed to authorize",
+    "breaker_control_disabled": "Breaker control is disabled in the device settings.",
     "cannot_enable_breaker_remotely": "The breaker cannot be enabled remotely.",
     "host_unreachable": "Could not reach device",
     "uncalibrated": "The device is not calibrated"
