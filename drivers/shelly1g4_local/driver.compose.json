@@ -11,7 +11,7 @@
   },
   "capabilities": [
     "hidden.has_input_switch",
-    "sensor_boolean.input_switch",
+    "shelly_input_switch",
     "hidden.has_input_button",
     "onoff",
     "measure_temperature"

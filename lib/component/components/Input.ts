@@ -315,10 +315,10 @@ type ButtonMittEvents = {
 };
 
 const CAPABILITY_MAPPING = {
-  switch: 'sensor_boolean.input_switch',
-  analog: 'sensor_number.input_analog',
-  count: 'sensor_number.input_count',
-  button: 'sensor_string.input_button',
+  switch: 'shelly_input_switch',
+  analog: 'shelly_input_analog',
+  count: 'shelly_input_count',
+  button: 'BUTTON_TITLE',
 } as const satisfies Record<InputConfig['type'], keyof typeof capabilitiesOptions>;
 
 type RateLimitEvent = {
@@ -361,6 +361,16 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
     _methods: ComponentMethod<'Input'>[],
   ): Promise<void> {
     const inputTypeComponents = Input.getInputTypes(homeyDevice.virtualDevice!);
+
+    // Migration to remove old sub-capabilities
+    // todo: Remove in 1.0
+    for (const capability of [
+      'sensor_boolean.input_switch',
+      'sensor_number.input_analog',
+      'sensor_number.input_count',
+    ]) {
+      await safeRemoveCapability(homeyDevice, capability);
+    }
 
     // Go through all types so capabilities for types that are no longer used also get cleaned up.
     // On subsequent Input components this does not cost much due to the hasCapability checks in safeAddCapability and safeRemoveCapability.
@@ -423,14 +433,14 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
 
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Partial<InputStatus>): Promise<void> {
     if (status.state !== undefined && status.state !== null) {
-      await this.setInputCapability(homeyDevice, 'sensor_boolean.input_switch', status.state);
+      await this.setInputCapability(homeyDevice, 'input_switch', status.state);
       const switchUpdate = { value: status.state, input: this.id };
       await safeTriggerDeviceCard(homeyDevice, 'input_switch_changed', switchUpdate, switchUpdate);
       await safeTriggerDeviceCard(homeyDevice, 'input_switch_changed_multiple', switchUpdate, switchUpdate);
     }
 
     if (status.percent !== undefined) {
-      await this.setInputCapability(homeyDevice, 'sensor_number.input_analog', status.percent);
+      await this.setInputCapability(homeyDevice, 'input_analog', status.percent);
       if (status.percent === null) {
         const analogUpdate = { input: this.id };
         await safeTriggerDeviceCard(homeyDevice, 'input_analog_became_null', analogUpdate, analogUpdate);
@@ -443,7 +453,7 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
     }
 
     if (status.counts !== undefined) {
-      await this.setInputCapability(homeyDevice, 'sensor_number.input_count', status.counts.total);
+      await this.setInputCapability(homeyDevice, 'input_count', status.counts.total);
       const countUpdate = { value: status.counts.total, input: this.id };
       await safeTriggerDeviceCard(homeyDevice, 'input_count_changed', countUpdate, countUpdate);
       await safeTriggerDeviceCard(homeyDevice, 'input_count_changed_multiple', countUpdate, countUpdate);

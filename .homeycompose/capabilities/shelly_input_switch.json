@@ -1,0 +1,15 @@
+{
+  "title": {
+    "en": "Switch Input"
+  },
+  "titleTrue": {
+    "en": "Input On"
+  },
+  "titleFalse": {
+    "en": "Input Off"
+  },
+  "icon": "/assets/capabilities/input_switch.svg",
+  "type": "boolean",
+  "getable": true,
+  "setable": false
+}

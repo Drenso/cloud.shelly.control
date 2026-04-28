@@ -1,0 +1,10 @@
+{
+  "title": {
+    "en": "Count Input"
+  },
+  "decimals": 0,
+  "icon": "/assets/capabilities/input_count.svg",
+  "type": "number",
+  "getable": true,
+  "setable": false
+}

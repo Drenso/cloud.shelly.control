@@ -1,0 +1,10 @@
+{
+  "title": {
+    "en": "Analog Input"
+  },
+  "units": "%",
+  "icon": "/assets/capabilities/input_analog.svg",
+  "type": "number",
+  "getable": true,
+  "setable": false
+}

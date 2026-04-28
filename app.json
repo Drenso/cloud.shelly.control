@@ -1389,7 +1389,7 @@
       ],
       "capabilities": [
         "hidden.has_input_switch",
-        "sensor_boolean.input_switch",
+        "shelly_input_switch",
         "hidden.has_input_button",
         "onoff",
         "measure_temperature"
@@ -1642,7 +1642,7 @@
       ],
       "capabilities": [
         "hidden.has_input_switch",
-        "sensor_boolean.input_switch",
+        "shelly_input_switch",
         "hidden.has_input_button",
         "onoff",
         "measure_temperature"
@@ -1895,7 +1895,7 @@
       ],
       "capabilities": [
         "hidden.has_input_switch",
-        "sensor_boolean.input_switch",
+        "shelly_input_switch",
         "hidden.has_input_button",
         "onoff",
         "measure_power",
@@ -2231,7 +2231,7 @@
       ],
       "capabilities": [
         "hidden.has_input_switch",
-        "sensor_boolean.input_switch",
+        "shelly_input_switch",
         "hidden.has_input_button",
         "onoff",
         "measure_power",
@@ -2567,7 +2567,7 @@
       ],
       "capabilities": [
         "hidden.has_input_multiple_switch",
-        "sensor_boolean.input_switch",
+        "shelly_input_switch",
         "hidden.has_input_multiple_button",
         "windowcoverings_set",
         "windowcoverings_tilt_set",
@@ -3243,7 +3243,7 @@
       ],
       "capabilities": [
         "hidden.has_input_multiple_switch",
-        "sensor_boolean.input_switch",
+        "shelly_input_switch",
         "hidden.has_input_multiple_button",
         "onoff",
         "measure_power",
@@ -3972,7 +3972,7 @@
       ],
       "capabilities": [
         "hidden.has_input_multiple_switch",
-        "sensor_boolean.input_switch",
+        "shelly_input_switch",
         "hidden.has_input_multiple_button",
         "onoff",
         "dim",
@@ -6344,18 +6344,6 @@
       "setable": false,
       "uiComponent": null
     },
-    "sensor_boolean": {
-      "title": "Boolean",
-      "type": "boolean",
-      "getable": true,
-      "setable": false
-    },
-    "sensor_number": {
-      "title": "Number",
-      "type": "number",
-      "getable": true,
-      "setable": false
-    },
     "shelly_illumination": {
       "title": {
         "en": "Illumination Status"
@@ -6385,6 +6373,41 @@
           }
         }
       ]
+    },
+    "shelly_input_analog": {
+      "title": {
+        "en": "Analog Input"
+      },
+      "units": "%",
+      "icon": "/assets/capabilities/input_analog.svg",
+      "type": "number",
+      "getable": true,
+      "setable": false
+    },
+    "shelly_input_count": {
+      "title": {
+        "en": "Count Input"
+      },
+      "decimals": 0,
+      "icon": "/assets/capabilities/input_count.svg",
+      "type": "number",
+      "getable": true,
+      "setable": false
+    },
+    "shelly_input_switch": {
+      "title": {
+        "en": "Switch Input"
+      },
+      "titleTrue": {
+        "en": "Input On"
+      },
+      "titleFalse": {
+        "en": "Input Off"
+      },
+      "icon": "/assets/capabilities/input_switch.svg",
+      "type": "boolean",
+      "getable": true,
+      "setable": false
     },
     "shelly_power_factor": {
       "type": "number",

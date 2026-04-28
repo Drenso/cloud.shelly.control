@@ -6,7 +6,7 @@
   "class": "light",
   "capabilities": [
     "hidden.has_input_multiple_switch",
-    "sensor_boolean.input_switch",
+    "shelly_input_switch",
     "hidden.has_input_multiple_button",
     "onoff",
     "dim",
