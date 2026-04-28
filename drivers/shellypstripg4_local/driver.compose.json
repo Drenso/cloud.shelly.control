@@ -7,8 +7,8 @@
   "capabilities": [
     "onoff",
     "measure_power",
-    "measure_voltage",
     "measure_current",
+    "measure_voltage",
     "measure_frequency",
     "shelly_power_factor",
     "meter_power.total",

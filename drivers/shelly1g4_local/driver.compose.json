@@ -10,10 +10,10 @@
     "xlarge": "/assets/drivers/shelly1g4/images/xlarge.png"
   },
   "capabilities": [
-    "hidden.has_input_switch",
-    "shelly_input_switch",
-    "hidden.has_input_button",
     "onoff",
-    "measure_temperature"
+    "shelly_input_switch",
+    "measure_temperature",
+    "hidden.has_input_button",
+    "hidden.has_input_switch"
   ]
 }

@@ -4,7 +4,7 @@
     "en": "Dimmer Gen4 - Matter"
   },
   "class": "light",
-  "capabilities": ["onoff", "dim", "measure_current", "measure_voltage", "measure_power", "meter_power"],
+  "capabilities": ["onoff", "dim", "measure_power", "measure_current", "measure_voltage", "meter_power"],
   "matter": {
     "vendorId": 5264,
     "productId": 4213,

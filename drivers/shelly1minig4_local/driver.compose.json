@@ -5,11 +5,11 @@
   },
   "class": "socket",
   "capabilities": [
-    "hidden.has_input_switch",
-    "shelly_input_switch",
-    "hidden.has_input_button",
     "onoff",
-    "measure_temperature"
+    "shelly_input_switch",
+    "measure_temperature",
+    "hidden.has_input_button",
+    "hidden.has_input_switch"
   ],
   "images": {
     "small": "/assets/drivers/shelly1minig4/images/small.png",

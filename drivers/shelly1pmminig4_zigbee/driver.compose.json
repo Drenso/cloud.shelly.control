@@ -4,7 +4,7 @@
     "en": "1PM Mini Gen4 - Zigbee"
   },
   "class": "socket",
-  "capabilities": ["meter_power", "measure_current", "measure_frequency", "measure_power", "measure_voltage", "onoff"],
+  "capabilities": ["onoff", "measure_power", "measure_current", "measure_voltage", "measure_frequency", "meter_power"],
   "zigbee": {
     "manufacturerName": "Shelly",
     "productId": ["Mini1PM"],

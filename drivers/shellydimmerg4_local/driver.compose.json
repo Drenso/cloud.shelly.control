@@ -5,16 +5,16 @@
   },
   "class": "light",
   "capabilities": [
-    "hidden.has_input_multiple_switch",
-    "shelly_input_switch",
-    "hidden.has_input_multiple_button",
     "onoff",
     "dim",
-    "measure_temperature",
-    "meter_power",
+    "shelly_input_switch",
     "measure_power",
+    "measure_current",
     "measure_voltage",
-    "measure_current"
+    "meter_power",
+    "measure_temperature",
+    "hidden.has_input_multiple_switch",
+    "hidden.has_input_multiple_button"
   ],
   "images": {
     "small": "/assets/drivers/shellydimmerg4/images/small.png",

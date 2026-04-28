@@ -5,12 +5,12 @@
   },
   "class": "socket",
   "capabilities": [
-    "meter_power",
-    "meter_power.exported",
-    "measure_current",
+    "onoff",
     "measure_power",
+    "measure_current",
     "measure_voltage",
-    "onoff"
+    "meter_power",
+    "meter_power.exported"
   ],
   "matter": {
     "vendorId": 5264,

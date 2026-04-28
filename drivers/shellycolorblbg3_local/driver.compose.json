@@ -11,8 +11,8 @@
     "light_temperature",
     "light_hue",
     "light_saturation",
-    "meter_power",
-    "measure_power"
+    "measure_power",
+    "meter_power"
   ],
   "images": {
     "small": "/assets/drivers/shellycolorblbg3/images/small.png",

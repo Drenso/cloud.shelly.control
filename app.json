@@ -1388,11 +1388,11 @@
         "lan"
       ],
       "capabilities": [
-        "hidden.has_input_switch",
-        "shelly_input_switch",
-        "hidden.has_input_button",
         "onoff",
-        "measure_temperature"
+        "shelly_input_switch",
+        "measure_temperature",
+        "hidden.has_input_button",
+        "hidden.has_input_switch"
       ],
       "capabilitiesOptions": {
         "button.restart": {
@@ -1641,11 +1641,11 @@
         "lan"
       ],
       "capabilities": [
-        "hidden.has_input_switch",
-        "shelly_input_switch",
-        "hidden.has_input_button",
         "onoff",
-        "measure_temperature"
+        "shelly_input_switch",
+        "measure_temperature",
+        "hidden.has_input_button",
+        "hidden.has_input_switch"
       ],
       "capabilitiesOptions": {
         "button.restart": {
@@ -1894,18 +1894,18 @@
         "lan"
       ],
       "capabilities": [
-        "hidden.has_input_switch",
-        "shelly_input_switch",
-        "hidden.has_input_button",
         "onoff",
+        "shelly_input_switch",
         "measure_power",
-        "measure_voltage",
         "measure_current",
+        "measure_voltage",
         "measure_frequency",
         "meter_power.total",
         "meter_power.consumed",
         "meter_power.returned",
-        "measure_temperature"
+        "measure_temperature",
+        "hidden.has_input_button",
+        "hidden.has_input_switch"
       ],
       "capabilitiesOptions": {
         "button.restart": {
@@ -2141,13 +2141,13 @@
       },
       "class": "socket",
       "capabilities": [
-        "meter_power",
-        "meter_power.exported",
-        "measure_current",
-        "measure_frequency",
+        "onoff",
         "measure_power",
+        "measure_current",
         "measure_voltage",
-        "onoff"
+        "measure_frequency",
+        "meter_power",
+        "meter_power.exported"
       ],
       "matter": {
         "vendorId": 5264,
@@ -2179,12 +2179,12 @@
       },
       "class": "socket",
       "capabilities": [
-        "meter_power",
-        "measure_current",
-        "measure_frequency",
+        "onoff",
         "measure_power",
+        "measure_current",
         "measure_voltage",
-        "onoff"
+        "measure_frequency",
+        "meter_power"
       ],
       "zigbee": {
         "manufacturerName": "Shelly",
@@ -2230,18 +2230,18 @@
         "lan"
       ],
       "capabilities": [
-        "hidden.has_input_switch",
-        "shelly_input_switch",
-        "hidden.has_input_button",
         "onoff",
+        "shelly_input_switch",
         "measure_power",
-        "measure_voltage",
         "measure_current",
+        "measure_voltage",
         "measure_frequency",
         "meter_power.total",
         "meter_power.consumed",
         "meter_power.returned",
-        "measure_temperature"
+        "measure_temperature",
+        "hidden.has_input_button",
+        "hidden.has_input_switch"
       ],
       "capabilitiesOptions": {
         "button.restart": {
@@ -2477,13 +2477,13 @@
       },
       "class": "socket",
       "capabilities": [
-        "meter_power",
-        "meter_power.exported",
-        "measure_current",
-        "measure_frequency",
+        "onoff",
         "measure_power",
+        "measure_current",
         "measure_voltage",
-        "onoff"
+        "measure_frequency",
+        "meter_power",
+        "meter_power.exported"
       ],
       "matter": {
         "vendorId": 5264,
@@ -2515,12 +2515,12 @@
       },
       "class": "socket",
       "capabilities": [
-        "meter_power",
-        "measure_current",
-        "measure_frequency",
+        "onoff",
         "measure_power",
+        "measure_current",
         "measure_voltage",
-        "onoff"
+        "measure_frequency",
+        "meter_power"
       ],
       "zigbee": {
         "manufacturerName": "Shelly",
@@ -2566,19 +2566,19 @@
         "lan"
       ],
       "capabilities": [
-        "hidden.has_input_multiple_switch",
-        "shelly_input_switch",
-        "hidden.has_input_multiple_button",
+        "windowcoverings_state",
         "windowcoverings_set",
         "windowcoverings_tilt_set",
-        "windowcoverings_state",
+        "shelly_input_switch",
         "measure_power",
-        "measure_voltage",
         "measure_current",
+        "measure_voltage",
         "measure_frequency",
         "shelly_power_factor",
         "meter_power",
-        "measure_temperature.cover"
+        "measure_temperature.cover",
+        "hidden.has_input_multiple_button",
+        "hidden.has_input_multiple_switch"
       ],
       "capabilitiesOptions": {
         "button.restart": {
@@ -3242,19 +3242,19 @@
         "lan"
       ],
       "capabilities": [
-        "hidden.has_input_multiple_switch",
-        "shelly_input_switch",
-        "hidden.has_input_multiple_button",
         "onoff",
+        "shelly_input_switch",
         "measure_power",
-        "measure_voltage",
         "measure_current",
+        "measure_voltage",
         "measure_frequency",
         "shelly_power_factor",
         "meter_power.total",
         "meter_power.consumed",
         "meter_power.returned",
-        "measure_temperature"
+        "measure_temperature",
+        "hidden.has_input_multiple_button",
+        "hidden.has_input_multiple_switch"
       ],
       "capabilitiesOptions": {
         "button.restart": {
@@ -3506,12 +3506,12 @@
       },
       "class": "socket",
       "capabilities": [
-        "meter_power",
-        "meter_power.exported",
-        "measure_current",
+        "onoff",
         "measure_power",
+        "measure_current",
         "measure_voltage",
-        "onoff"
+        "meter_power",
+        "meter_power.exported"
       ],
       "matter": {
         "vendorId": 5264,
@@ -3543,12 +3543,12 @@
       },
       "class": "socket",
       "capabilities": [
-        "meter_power",
-        "measure_current",
-        "measure_frequency",
+        "onoff",
         "measure_power",
+        "measure_current",
         "measure_voltage",
-        "onoff"
+        "measure_frequency",
+        "meter_power"
       ],
       "zigbee": {
         "manufacturerName": "Shelly",
@@ -3561,10 +3561,10 @@
               "en": "2PM Gen4 - Switch - Zigbee (2)"
             },
             "capabilities": [
-              "meter_power",
-              "measure_current",
+              "onoff",
               "measure_power",
-              "onoff"
+              "measure_current",
+              "meter_power"
             ]
           }
         },
@@ -3737,8 +3737,8 @@
         "light_temperature",
         "light_hue",
         "light_saturation",
-        "meter_power",
-        "measure_power"
+        "measure_power",
+        "meter_power"
       ],
       "capabilitiesOptions": {
         "button.restart": {
@@ -3971,16 +3971,16 @@
         "lan"
       ],
       "capabilities": [
-        "hidden.has_input_multiple_switch",
-        "shelly_input_switch",
-        "hidden.has_input_multiple_button",
         "onoff",
         "dim",
-        "measure_temperature",
-        "meter_power",
+        "shelly_input_switch",
         "measure_power",
+        "measure_current",
         "measure_voltage",
-        "measure_current"
+        "meter_power",
+        "measure_temperature",
+        "hidden.has_input_multiple_switch",
+        "hidden.has_input_multiple_button"
       ],
       "capabilitiesOptions": {
         "button.restart": {
@@ -4379,9 +4379,9 @@
       "capabilities": [
         "onoff",
         "dim",
+        "measure_power",
         "measure_current",
         "measure_voltage",
-        "measure_power",
         "meter_power"
       ],
       "matter": {
@@ -4411,8 +4411,8 @@
         "onoff",
         "dim",
         "light_temperature",
-        "meter_power",
-        "measure_power"
+        "measure_power",
+        "meter_power"
       ],
       "capabilitiesOptions": {
         "button.restart": {
@@ -4629,12 +4629,12 @@
         "lan"
       ],
       "capabilities": [
-        "meter_power",
-        "measure_voltage",
         "measure_power",
+        "measure_current",
+        "measure_voltage",
         "measure_frequency",
         "shelly_power_factor",
-        "measure_current",
+        "meter_power",
         "meter_power.exported"
       ],
       "capabilitiesOptions": {
@@ -4717,12 +4717,12 @@
       },
       "class": "socket",
       "capabilities": [
-        "meter_power",
-        "meter_power.exported",
-        "measure_current",
-        "measure_frequency",
         "measure_power",
-        "measure_voltage"
+        "measure_current",
+        "measure_voltage",
+        "measure_frequency",
+        "meter_power",
+        "meter_power.exported"
       ],
       "matter": {
         "vendorId": 5264,
@@ -4754,11 +4754,11 @@
       },
       "class": "socket",
       "capabilities": [
-        "meter_power",
-        "measure_current",
-        "measure_frequency",
         "measure_power",
-        "measure_voltage"
+        "measure_current",
+        "measure_voltage",
+        "measure_frequency",
+        "meter_power"
       ],
       "zigbee": {
         "manufacturerName": "Shelly",
@@ -5043,9 +5043,9 @@
         "lan"
       ],
       "capabilities": [
-        "shelly_illumination",
         "alarm_presence",
-        "shelly_presence_count"
+        "shelly_presence_count",
+        "shelly_illumination"
       ],
       "capabilitiesOptions": {
         "button.restart": {
@@ -5832,8 +5832,8 @@
       "capabilities": [
         "onoff",
         "measure_power",
-        "measure_voltage",
         "measure_current",
+        "measure_voltage",
         "measure_frequency",
         "shelly_power_factor",
         "meter_power.total",
@@ -6215,12 +6215,12 @@
       },
       "class": "socket",
       "capabilities": [
-        "meter_power",
-        "measure_current",
-        "measure_frequency",
+        "onoff",
         "measure_power",
+        "measure_current",
         "measure_voltage",
-        "onoff"
+        "measure_frequency",
+        "meter_power"
       ],
       "zigbee": {
         "manufacturerName": "Shelly",
@@ -6233,10 +6233,10 @@
               "en": "Power Strip 4 Gen4 - Zigbee (2)"
             },
             "capabilities": [
-              "meter_power",
-              "measure_current",
+              "onoff",
               "measure_power",
-              "onoff"
+              "measure_current",
+              "meter_power"
             ]
           },
           "channel3": {
@@ -6244,10 +6244,10 @@
               "en": "Power Strip 4 Gen4 - Zigbee (3)"
             },
             "capabilities": [
-              "meter_power",
-              "measure_current",
+              "onoff",
               "measure_power",
-              "onoff"
+              "measure_current",
+              "meter_power"
             ]
           },
           "channel4": {
@@ -6255,10 +6255,10 @@
               "en": "Power Strip 4 Gen4 - Zigbee (4)"
             },
             "capabilities": [
-              "meter_power",
-              "measure_current",
+              "onoff",
               "measure_power",
-              "onoff"
+              "measure_current",
+              "meter_power"
             ]
           }
         },

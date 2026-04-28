@@ -5,19 +5,19 @@
   },
   "class": "socket",
   "capabilities": [
-    "hidden.has_input_multiple_switch",
-    "shelly_input_switch",
-    "hidden.has_input_multiple_button",
     "onoff",
+    "shelly_input_switch",
     "measure_power",
-    "measure_voltage",
     "measure_current",
+    "measure_voltage",
     "measure_frequency",
     "shelly_power_factor",
     "meter_power.total",
     "meter_power.consumed",
     "meter_power.returned",
-    "measure_temperature"
+    "measure_temperature",
+    "hidden.has_input_multiple_button",
+    "hidden.has_input_multiple_switch"
   ],
   "images": {
     "small": "/assets/drivers/shelly2pmg4/images/small.png",

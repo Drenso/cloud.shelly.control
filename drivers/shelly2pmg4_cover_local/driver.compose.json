@@ -5,19 +5,19 @@
   },
   "class": "windowcoverings",
   "capabilities": [
-    "hidden.has_input_multiple_switch",
-    "shelly_input_switch",
-    "hidden.has_input_multiple_button",
+    "windowcoverings_state",
     "windowcoverings_set",
     "windowcoverings_tilt_set",
-    "windowcoverings_state",
+    "shelly_input_switch",
     "measure_power",
-    "measure_voltage",
     "measure_current",
+    "measure_voltage",
     "measure_frequency",
     "shelly_power_factor",
     "meter_power",
-    "measure_temperature.cover"
+    "measure_temperature.cover",
+    "hidden.has_input_multiple_button",
+    "hidden.has_input_multiple_switch"
   ],
   "images": {
     "small": "/assets/drivers/shelly2pmg4/images/small.png",

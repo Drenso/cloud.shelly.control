@@ -5,18 +5,18 @@
   },
   "class": "socket",
   "capabilities": [
-    "hidden.has_input_switch",
-    "shelly_input_switch",
-    "hidden.has_input_button",
     "onoff",
+    "shelly_input_switch",
     "measure_power",
-    "measure_voltage",
     "measure_current",
+    "measure_voltage",
     "measure_frequency",
     "meter_power.total",
     "meter_power.consumed",
     "meter_power.returned",
-    "measure_temperature"
+    "measure_temperature",
+    "hidden.has_input_button",
+    "hidden.has_input_switch"
   ],
   "images": {
     "small": "/assets/drivers/shelly1pmminig4/images/small.png",

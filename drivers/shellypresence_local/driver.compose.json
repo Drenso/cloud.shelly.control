@@ -4,7 +4,7 @@
     "en": "Presence Gen4 - LAN"
   },
   "class": "sensor",
-  "capabilities": ["shelly_illumination", "alarm_presence", "shelly_presence_count"],
+  "capabilities": ["alarm_presence", "shelly_presence_count", "shelly_illumination"],
   "images": {
     "small": "/assets/drivers/shellypresence/images/small.png",
     "large": "/assets/drivers/shellypresence/images/large.png",

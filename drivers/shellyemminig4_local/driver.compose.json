@@ -5,12 +5,12 @@
   },
   "class": "socket",
   "capabilities": [
-    "meter_power",
-    "measure_voltage",
     "measure_power",
+    "measure_current",
+    "measure_voltage",
     "measure_frequency",
     "shelly_power_factor",
-    "measure_current",
+    "meter_power",
     "meter_power.exported"
   ],
   "images": {
