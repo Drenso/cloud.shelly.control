@@ -21,6 +21,7 @@ import {
   UnauthenticatedWS,
 } from '../Authentication.js';
 
+const BASE_RECONNECT_TIMEOUT = 1000;
 const GREETING_DELAY = 500;
 
 type InboundWsChannelMittEvents = {
@@ -36,6 +37,8 @@ export default class InboundWebsocketChannel implements RpcChannel {
   public ws!: WebSocket;
   private auth?: AuthenticationResponse;
   private nonce_count = 0;
+  private reconnect_timeout_time = BASE_RECONNECT_TIMEOUT;
+  private reconnect_timeout?: NodeJS.Timeout;
 
   private readonly awaitingResponse = new Map<
     number,
@@ -58,6 +61,7 @@ export default class InboundWebsocketChannel implements RpcChannel {
     this.ws = new WebSocket(`ws://${this.address}/rpc`);
 
     this.ws.on('open', async () => {
+      this.resetReconnectTimeout();
       // Delay greeting to allow some time for the device to be responsive
       await new Promise(resolve => this.app.homey.setTimeout(resolve, GREETING_DELAY));
       // Send a message to enable receiving
@@ -86,7 +90,9 @@ export default class InboundWebsocketChannel implements RpcChannel {
       this.log('Waiting for connection...');
       return;
     }
-    this.log('Reconnecting...');
+
+    this.log(`Reconnecting in ${this.reconnect_timeout_time} ms`);
+
     try {
       const oldWs = this.ws;
       oldWs.removeAllListeners();
@@ -94,7 +100,14 @@ export default class InboundWebsocketChannel implements RpcChannel {
     } catch (error) {
       this.error('Error while closing old WS:', error);
     }
-    this.connect();
+
+    this.app.homey.clearTimeout(this.reconnect_timeout);
+    this.reconnect_timeout = this.app.homey.setTimeout(() => {
+      this.log('Reconnecting...');
+      this.connect();
+    }, this.reconnect_timeout_time);
+
+    this.reconnect_timeout_time *= 2;
   }
 
   public disconnect(): void {
@@ -102,6 +115,17 @@ export default class InboundWebsocketChannel implements RpcChannel {
     this.ws.removeAllListeners();
     this.ws.close();
     this.log('WS closed');
+  }
+
+  public resetReconnectTimeout(): void {
+    this.reconnect_timeout_time = BASE_RECONNECT_TIMEOUT;
+    this.app.homey.clearTimeout(this.reconnect_timeout);
+  }
+
+  public safeConnect(): void {
+    if (this.ws.readyState === this.ws.CLOSED) {
+      this.connect();
+    }
   }
 
   private handleMessage(message: RawData): void {

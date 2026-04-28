@@ -100,7 +100,11 @@ export class VirtualDevice {
         this.error,
       );
       this.outboundWsChannel.eventEmitter.on('notification', this.handleOutboundWsNotification.bind(this));
-      this.outboundWsChannel.eventEmitter.on('opened', this.safeInitialize.bind(this));
+      this.outboundWsChannel.eventEmitter.on('opened', (...args) => {
+        this.inboundWsChannel?.resetReconnectTimeout();
+        this.inboundWsChannel?.safeConnect();
+        return this.safeInitialize(...args);
+      });
     }
 
     // TODO does this need a nextTick?
