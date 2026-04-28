@@ -19,7 +19,7 @@ export default class ShellyLocalDevice extends Homey.Device {
       if (this.virtualDevice === undefined) {
         throw new Error(this.homey.__('device.not_connected'));
       }
-      return this.virtualDevice.reboot({ awaitRestart: false });
+      return this.virtualDevice.reboot();
     });
   }
 

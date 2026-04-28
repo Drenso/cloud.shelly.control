@@ -20,6 +20,7 @@
   },
   "device": {
     "initializing": "Initializing...",
+    "offline": "Offline",
     "restarting": "Restarting...",
     "not_connected": "Not connected to device",
     "requires_restart": "The device needs to be restarted.",

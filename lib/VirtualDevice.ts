@@ -9,10 +9,8 @@ import { ComponentMapping, type MappedComponent } from './component/ComponentMap
 import type { ShellyGetComponentsResponseComponent } from './component/components/Shelly/GetComponents.js';
 import Shelly from './component/components/Shelly.js';
 import type { ComponentMethod, NameSpace } from './component/components/Shelly/ListMethods.js';
-import { RpcError } from './rpc/RpcError.js';
 import type { NotificationEventFrame, NotificationFrame, NotificationStatusFrame } from './rpc/Rpc.js';
 import type ShellyLocalDevice from './local/LocalDevice.js';
-import RPC from './component/components/RPC.js';
 import { createHttpChannel, createInboundWsChannel, createOutboundWsChannel } from './HomeyRPCChannels.js';
 import type ShellyLocalDriver from './local/LocalDriver.js';
 import type { ShellyLocalListDeviceProperties } from './types.js';
@@ -30,10 +28,6 @@ export const IGNORED_NO_IMPLEMENTATION_COMPONENTS = [
   'zigbee',
 ];
 
-const REBOOT_INITIAL_WAIT = 1000;
-const REBOOT_PING_TIME = 500;
-const REBOOT_TIMEOUT = 30 * 1000;
-
 // TODO password change on re-pair
 export type SerializedVirtualDevice = {
   readonly deviceId: string;
@@ -44,6 +38,16 @@ export type SerializedVirtualDevice = {
   readonly ha1: string | undefined;
   readonly driver: string;
 };
+
+type StateData = {
+  uninitialized: [];
+  online: [Array<ShellyGetComponentsResponseComponent> | undefined] | [];
+  offline: [];
+  sleeping: [];
+  error: [string];
+};
+
+type State = keyof StateData;
 
 export class VirtualDevice {
   private readonly httpChannel: HttpChannel;
@@ -58,7 +62,7 @@ export class VirtualDevice {
     return this.initializedComponents;
   }
 
-  public sleeping: boolean;
+  private state: State;
 
   public constructor(
     public readonly app: ShellyApp,
@@ -72,11 +76,11 @@ export class VirtualDevice {
     // Allow passing these in the pairing flow so we do not need to retrieve them twice
     componentResponses?: ShellyGetComponentsResponseComponent[],
   ) {
+    this.state = 'uninitialized';
+
     this.log = (...args): void => this.app.log(`[Virtual:${deviceId}]`, ...args);
     this.error = (...args): void => this.app.error(`[Virtual:${deviceId}]`, ...args);
     this.debug = (...args): void => this.app.debug(`[Virtual:${deviceId}]`, ...args);
-
-    this.sleeping = !this.batteryDevice;
 
     // Initialize channels
     {
@@ -107,6 +111,39 @@ export class VirtualDevice {
   public readonly error: (...args: unknown[]) => void;
   public readonly debug: (...args: unknown[]) => void;
 
+  public async transition<NewState extends Exclude<State, 'uninitialized'>>(
+    newState: NewState,
+    ...args: StateData[NewState]
+  ): Promise<void> {
+    if (this.state === 'uninitialized') {
+      return;
+    }
+
+    switch (newState) {
+      case 'sleeping':
+      case 'online':
+        if (this.state !== 'online' && this.state !== 'sleeping') {
+          await this.setAvailable();
+        }
+        break;
+      case 'offline':
+        if (this.state !== 'offline') {
+          await this.setUnavailable(this.app.homey.__('device.offline'));
+        }
+        break;
+      case 'error': {
+        const [message] = args as StateData['error'];
+        await this.setUnavailable(message);
+        break;
+      }
+    }
+
+    if (this.state !== newState) {
+      this.debug(this.state, '->', newState);
+    }
+    this.state = newState;
+  }
+
   public serialize(): SerializedVirtualDevice {
     return {
       deviceId: this.deviceId,
@@ -121,14 +158,25 @@ export class VirtualDevice {
 
   private async safeInitialize(components?: ShellyGetComponentsResponseComponent[]): Promise<void> {
     if (this.initialized) {
+      await this.transition('online');
       return;
     }
     this.log('Initializing...');
     try {
       this.initialized = true;
       await this.initialize(components);
-    } catch (error) {
+      this.state = 'online';
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
       this.initialized = false;
+
+      if (error.code === 'UND_ERR_CONNECT_TIMEOUT' || error.code === 'EHOSTUNREACH') {
+        // Set devices unavailable
+        for (const homeyDeviceId of this.homeyDeviceIds) {
+          this.app.getLocalDevice(homeyDeviceId)?.setUnavailable(this.app.homey.__('device.offline')).catch(this.error);
+        }
+      }
+
       this.error('Error while initializing components:', error);
     }
   }
@@ -156,6 +204,10 @@ export class VirtualDevice {
       } else {
         this.log('No homeyDevice found for', homeyDeviceId);
       }
+    }
+
+    for (const homeyDevice of homeyDevices) {
+      await homeyDevice.setUnavailable(this.app.homey.__('device.initializing'));
     }
 
     this.log(homeyDevices.length, 'children found again');
@@ -429,50 +481,9 @@ export class VirtualDevice {
     return methodMapping;
   }
 
-  // TODO ensure this works for BLE devices
-  public async reboot({
-    awaitRestart = true,
-    initialWaitTime = REBOOT_INITIAL_WAIT,
-    pingTime = REBOOT_PING_TIME,
-  } = {}): Promise<void> {
-    await this.setUnavailable(this.app.homey.__('device.restarting'));
+  public async reboot({ initialWaitTime = undefined } = {}): Promise<void> {
+    this.log('Rebooting...');
     await Shelly.Reboot(this.httpChannel, { delay_ms: initialWaitTime });
-    const restart = this.resolveReboot(initialWaitTime, pingTime).finally(async () => {
-      await this.setAvailable().catch(this.error);
-    });
-    if (awaitRestart) {
-      await restart;
-    }
-  }
-
-  private async resolveReboot(initialWaitTime: number, pingTime: number, timeout = REBOOT_TIMEOUT): Promise<void> {
-    let timedOut = false;
-    const rebootTimeout = this.app.homey.setTimeout(() => (timedOut = true), timeout);
-    try {
-      // Give the device time to shut down
-      await new Promise(resolve => this.app.homey.setTimeout(resolve, initialWaitTime));
-      while (!timedOut) {
-        try {
-          await RPC.Ping(this.httpChannel);
-          this.log('Finished rebooting');
-          return;
-        } catch (e) {
-          if (
-            (e instanceof RpcError && e.code === -109) ||
-            (e as { code: string }).code === 'UND_ERR_CONNECT_TIMEOUT'
-          ) {
-            this.log('Still rebooting...');
-            // Wait before trying again
-            await new Promise(resolve => this.app.homey.setTimeout(resolve, pingTime));
-            continue;
-          }
-          throw e;
-        }
-      }
-      throw new Error('Reboot timed out');
-    } finally {
-      this.app.homey.clearTimeout(rebootTimeout);
-    }
   }
 
   public async removeHomeyDevice(id: string): Promise<void> {
@@ -499,6 +510,8 @@ export class VirtualDevice {
   }
 
   private handleWsNotification(notification: NotificationFrame): void {
+    this.transition('online').catch(this.error);
+
     if (notification.method === 'NotifyStatus' || notification.method === 'NotifyFullStatus') {
       const statusNotification = notification as NotificationStatusFrame<string, object>;
       for (const component in statusNotification.params) {
@@ -534,6 +547,7 @@ export class VirtualDevice {
         await this.handleConfigChangedEvent(event.component).catch(this.error);
       } else if (event.event === 'scheduled_restart') {
         this.log('Device is restarting');
+        await this.transition('offline');
       } else {
         const component = this.virtualComponents.get(event.component);
         if (component !== undefined) {
@@ -559,8 +573,6 @@ export class VirtualDevice {
   }
 
   private handleOutboundWsNotification(notification: NotificationFrame): void {
-    this.sleeping = false;
-
     if (!(this.inboundWsChannel === undefined || this.inboundWsChannel.ws.readyState !== WebSocket.OPEN)) {
       return;
     }
