@@ -6343,6 +6343,22 @@
       "setable": false,
       "uiComponent": null
     },
+    "sensor_boolean": {
+      "title": "DEPRECATED",
+      "type": "boolean",
+      "uiComponent": null,
+      "getable": false,
+      "setable": false,
+      "deprecated": true
+    },
+    "sensor_number": {
+      "title": "DEPRECATED",
+      "type": "number",
+      "uiComponent": null,
+      "getable": false,
+      "setable": false,
+      "deprecated": true
+    },
     "shelly_illumination": {
       "title": {
         "en": "Illumination Status"

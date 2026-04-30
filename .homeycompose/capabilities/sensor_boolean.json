@@ -1,0 +1,8 @@
+{
+  "title": "DEPRECATED",
+  "type": "boolean",
+  "uiComponent": null,
+  "getable": false,
+  "setable": false,
+  "deprecated": true
+}
