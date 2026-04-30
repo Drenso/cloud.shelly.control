@@ -369,7 +369,7 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
       'sensor_number.input_analog',
       'sensor_number.input_count',
     ]) {
-      await safeRemoveCapability(homeyDevice, capability);
+      await safeRemoveCapability(homeyDevice, `${capability}.${this.id}`);
     }
 
     // Go through all types so capabilities for types that are no longer used also get cleaned up.
@@ -428,6 +428,16 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
       const capabilityId = `${CAPABILITY_MAPPING[type]}.${id}`;
       await safeRemoveCapability(homeyDevice, capabilityId);
       await homeyDevice.setCapabilityOptions(capabilityId, {});
+    }
+
+    // Migration to remove old sub-capabilities
+    // todo: Remove in 1.0
+    for (const capability of [
+      'sensor_boolean.input_switch',
+      'sensor_number.input_analog',
+      'sensor_number.input_count',
+    ]) {
+      await safeRemoveCapability(homeyDevice, `${capability}.${id}`);
     }
   }
 
