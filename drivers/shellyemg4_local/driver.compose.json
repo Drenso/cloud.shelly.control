@@ -4,7 +4,18 @@
     "en": "EM Gen4 - LAN"
   },
   "class": "socket",
-  "capabilities": [],
+  "capabilities": [
+    "measure_current",
+    "measure_voltage",
+    "measure_power",
+    "measure_frequency",
+    "shelly_power_factor",
+    "meter_power",
+    "meter_power.imported",
+    "meter_power.exported",
+    "onoff",
+    "measure_temperature"
+  ],
   "images": {
     "small": "/assets/drivers/shellyemg4/images/small.png",
     "large": "/assets/drivers/shellyemg4/images/large.png",
