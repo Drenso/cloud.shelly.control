@@ -1,0 +1,13 @@
+{
+  "$extends": ["local"],
+  "name": {
+    "en": "EM Gen4 - LAN"
+  },
+  "class": "socket",
+  "capabilities": [],
+  "images": {
+    "small": "/assets/drivers/shellyemg4/images/small.png",
+    "large": "/assets/drivers/shellyemg4/images/large.png",
+    "xlarge": "/assets/drivers/shellyemg4/images/xlarge.png"
+  }
+}
