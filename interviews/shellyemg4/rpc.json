@@ -12,9 +12,7 @@
   {
     "key": "bthome",
     "status": {
-      "errors": [
-        "bluetooth_disabled"
-      ]
+      "errors": ["bluetooth_disabled"]
     },
     "config": {}
   },
@@ -238,10 +236,7 @@
       "ssid": "DrensoDev",
       "bssid": "76:ac:b9:2c:8c:03",
       "rssi": -40,
-      "sta_ip6": [
-        "fe80::5632:4ff:fe0b:c784",
-        "fd03:8586:4012:ec48:5632:4ff:fe0b:c784"
-      ]
+      "sta_ip6": ["fe80::5632:4ff:fe0b:c784", "fd03:8586:4012:ec48:5632:4ff:fe0b:c784"]
     },
     "config": {
       "ap": {
