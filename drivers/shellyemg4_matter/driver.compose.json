@@ -1,0 +1,30 @@
+{
+  "$extends": ["matter"],
+  "name": {
+    "en": "EM Gen4 - Matter"
+  },
+  "class": "socket",
+  "capabilities": [
+    "onoff",
+    "measure_power",
+    "measure_current",
+    "measure_voltage",
+    "measure_frequency",
+    "meter_power",
+    "meter_power.exported"
+  ],
+  "matter": {
+    "vendorId": 5264,
+    "productId": 4150,
+    "learnmode": {
+      "instruction": {
+        "en": "Enable Matter in the Shelly web interface. The required information for pairing will be shown after enabling."
+      }
+    }
+  },
+  "images": {
+    "small": "/assets/drivers/shellyduobulbg3/images/small.png",
+    "large": "/assets/drivers/shellyduobulbg3/images/large.png",
+    "xlarge": "/assets/drivers/shellyduobulbg3/images/xlarge.png"
+  }
+}
