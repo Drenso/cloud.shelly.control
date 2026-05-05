@@ -1,6 +1,6 @@
 import type ShellyLocalDevice from '../../local/LocalDevice.js';
 import type { RpcChannel } from '../../rpc/channel/RpcChannel.js';
-import type { ResponseSuccessFrame } from '../../rpc/Rpc.js';
+import type { NotificationEventParam, ResponseSuccessFrame } from '../../rpc/Rpc.js';
 import { ComponentWithId } from '../Component.js';
 import capabilitiesOptions from './EM1/capabilitiesOptions.json' with { type: 'json' };
 import GetConfig from './EM1Data/GetConfig.js';
@@ -23,6 +23,25 @@ export type EM1DataStatus = {
 };
 
 export type EM1DataHomeySettings = Record<never, never>;
+
+type DataEvent = {
+  component: string;
+  id: number;
+  event: 'data';
+  ts: number;
+  /**
+   * Contains the data collected during the indicated period
+   */
+  data: {
+    ts: number;
+    period: number;
+    /**
+     * Usually this array contains only a single array of values,
+     * but multiple can occur if the measurement period was interrupted.
+     */
+    values: Array<Array<number>>;
+  };
+};
 
 export default class EM1Data extends ComponentWithId<'EM1Data', EM1DataStatus, EM1DataConfig, EM1DataHomeySettings> {
   protected _SetConfig = SetConfig;
@@ -100,5 +119,16 @@ export default class EM1Data extends ComponentWithId<'EM1Data', EM1DataStatus, E
 
   public async onConfigUpdate(_homeyDevice: ShellyLocalDevice, _config: EM1DataConfig): Promise<void> {
     return;
+  }
+
+  public async handleEvent(event: NotificationEventParam): Promise<void> {
+    if (event.event === 'data') {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const dataEvent = event as DataEvent;
+      // Ignore, since we do not use period data.
+      // The cumulative data gets updated with a StatusChange vent at the same time.
+    } else {
+      return super.handleEvent(event);
+    }
   }
 }
