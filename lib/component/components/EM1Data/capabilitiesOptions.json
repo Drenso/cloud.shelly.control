@@ -1,1 +1,20 @@
-{}
+{
+  "meter_power.imported": {
+    "title": {
+      "en": "Imported Energy"
+    },
+    "decimals": 3
+  },
+  "meter_power.exported": {
+    "title": {
+      "en": "Exported Energy"
+    },
+    "decimals": 3
+  },
+  "meter_power.total": {
+    "title": {
+      "en": "Total Energy"
+    },
+    "decimals": 3
+  }
+}

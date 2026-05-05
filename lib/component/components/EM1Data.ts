@@ -2,7 +2,7 @@ import type ShellyLocalDevice from '../../local/LocalDevice.js';
 import type { RpcChannel } from '../../rpc/channel/RpcChannel.js';
 import type { NotificationEventParam, ResponseSuccessFrame } from '../../rpc/Rpc.js';
 import { ComponentWithId } from '../Component.js';
-import capabilitiesOptions from './EM1/capabilitiesOptions.json' with { type: 'json' };
+import capabilitiesOptions from './EM1Data/capabilitiesOptions.json' with { type: 'json' };
 import GetConfig from './EM1Data/GetConfig.js';
 import GetStatus from './EM1Data/GetStatus.js';
 import ResetCounters from './EM1Data/ResetCounters.js';
