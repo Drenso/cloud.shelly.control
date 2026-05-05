@@ -1,0 +1,52 @@
+[
+  {
+    "$extends": "EM1.reverse"
+  },
+  {
+    "$extends": "EM1.ct_type",
+    "value": "50AEMG3",
+    "values": [
+      {
+        "id": "50AEMG3",
+        "label": {
+          "en": "50 A"
+        }
+      },
+      {
+        "id": "80A",
+        "label": {
+          "en": "80 A"
+        }
+      },
+      {
+        "id": "120A",
+        "label": {
+          "en": "120 A"
+        }
+      }
+    ]
+  },
+  {
+    "$extends": "Switch.initial_state",
+    "values": [
+      {
+        "id": "off",
+        "label": {
+          "en": "Off"
+        }
+      },
+      {
+        "id": "on",
+        "label": {
+          "en": "On"
+        }
+      },
+      {
+        "id": "restore_last",
+        "label": {
+          "en": "Restore Last"
+        }
+      }
+    ]
+  }
+]
