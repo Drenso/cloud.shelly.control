@@ -309,8 +309,8 @@ export default class Switch extends ComponentWithId<'Switch', SwitchStatus, Swit
 
     // TODO fix this for multiple components on the same device
     if (status.aenergy !== undefined || status.ret_aenergy !== undefined) {
-      const absoluteEnergy = this.status.aenergy?.total ?? 0;
-      const exportedEnergy = this.status.ret_aenergy?.total ?? 0;
+      const absoluteEnergy = status.aenergy?.total ?? this.status.aenergy?.total ?? 0;
+      const exportedEnergy = status.ret_aenergy?.total ?? this.status.ret_aenergy?.total ?? 0;
       const importedEnergy = absoluteEnergy - exportedEnergy;
       await this.setCapability(homeyDevice, 'meter_power.imported', importedEnergy / 1000);
       await this.setCapability(homeyDevice, 'meter_power.exported', exportedEnergy / 1000);

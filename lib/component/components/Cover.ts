@@ -659,7 +659,7 @@ export default class Cover extends ComponentWithId<'Cover', CoverStatus, CoverCo
   }
 
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Partial<CoverStatus>): Promise<void> {
-    const state = this.status.state;
+    const state = status.state;
     if (state !== undefined) {
       const stateMapping = {
         open: 'up',

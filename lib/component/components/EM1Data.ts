@@ -108,8 +108,8 @@ export default class EM1Data extends ComponentWithId<'EM1Data', EM1DataStatus, E
 
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: EM1DataStatus): Promise<void> {
     if (status.total_act_energy !== undefined || status.total_act_ret_energy !== undefined) {
-      const absoluteEnergy = this.status.total_act_energy ?? 0;
-      const exportedEnergy = this.status.total_act_ret_energy ?? 0;
+      const absoluteEnergy = status.total_act_energy ?? this.status.total_act_energy ?? 0;
+      const exportedEnergy = status.total_act_ret_energy ?? this.status.total_act_ret_energy ?? 0;
       const importedEnergy = absoluteEnergy - exportedEnergy;
       await this.setCapability(homeyDevice, 'meter_power.imported', importedEnergy / 1000);
       await this.setCapability(homeyDevice, 'meter_power.exported', exportedEnergy / 1000);
