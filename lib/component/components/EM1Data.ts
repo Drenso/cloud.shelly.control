@@ -101,7 +101,7 @@ export default class EM1Data extends ComponentWithId<'EM1Data', EM1DataStatus, E
   }
 
   protected async staticallyUnregisterHomeyDevice(homeyDevice: ShellyLocalDevice, id: number): Promise<void> {
-    for (const capability of ['meter_power', 'meter_power.imported', 'meter_power.exported']) {
+    for (const capability of ['meter_power.total', 'meter_power.imported', 'meter_power.exported']) {
       await EM1Data.unregisterCapability(homeyDevice, capability, id);
     }
   }
