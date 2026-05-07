@@ -1,0 +1,407 @@
+{
+  "ids": {
+    "modelId": "EM",
+    "manufacturerName": "Shelly"
+  },
+  "endpoints": {
+    "ieeeAddress": "54:32:04:ff:fe:0b:c7:84",
+    "networkAddress": 48404,
+    "modelId": "EM",
+    "manufacturerName": "Shelly",
+    "endpointDescriptors": [
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 48404,
+        "_reserved": 20,
+        "endpointId": 1,
+        "applicationProfileId": 260,
+        "applicationDeviceId": 266,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 0,
+        "inputClusters": [0, 3, 4, 5, 6],
+        "outputClusters": [25]
+      },
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 48404,
+        "_reserved": 14,
+        "endpointId": 2,
+        "applicationProfileId": 260,
+        "applicationDeviceId": 83,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 0,
+        "inputClusters": [1794, 2817, 2820],
+        "outputClusters": []
+      },
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 48404,
+        "_reserved": 14,
+        "endpointId": 3,
+        "applicationProfileId": 260,
+        "applicationDeviceId": 83,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 0,
+        "inputClusters": [1794, 2817, 2820],
+        "outputClusters": []
+      },
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 48404,
+        "_reserved": 12,
+        "endpointId": 239,
+        "applicationProfileId": 49153,
+        "applicationDeviceId": 8193,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 0,
+        "inputClusters": [64513, 64514],
+        "outputClusters": []
+      },
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 48404,
+        "_reserved": 10,
+        "endpointId": 242,
+        "applicationProfileId": 41440,
+        "applicationDeviceId": 97,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 0,
+        "inputClusters": [],
+        "outputClusters": [33]
+      }
+    ],
+    "deviceType": "router",
+    "receiveWhenIdle": true,
+    "swBuildId": "1.8.99-emg4prod0",
+    "capabilities": {
+      "alternatePANCoordinator": false,
+      "deviceType": true,
+      "powerSourceMains": true,
+      "receiveWhenIdle": true,
+      "security": false,
+      "allocateAddress": true
+    },
+    "extendedEndpointDescriptors": {
+      "1": {
+        "clusters": {
+          "basic": {
+            "attributes": [
+              {
+                "acl": ["readable"],
+                "id": 0,
+                "dataTypeId": 32,
+                "name": "zclVersion",
+                "value": 8
+              },
+              {
+                "acl": ["readable"],
+                "id": 7,
+                "dataTypeId": 48,
+                "name": "powerSource",
+                "value": "unknown"
+              },
+              {
+                "acl": ["readable"],
+                "id": 4,
+                "dataTypeId": 66,
+                "name": "manufacturerName",
+                "value": "Shelly"
+              },
+              {
+                "acl": ["readable"],
+                "id": 5,
+                "dataTypeId": 66,
+                "name": "modelId",
+                "value": "EM"
+              },
+              {
+                "acl": ["readable"],
+                "id": 1,
+                "dataTypeId": 32,
+                "name": "appVersion",
+                "value": 0
+              },
+              {
+                "acl": ["readable"],
+                "id": 2,
+                "dataTypeId": 32,
+                "name": "stackVersion",
+                "value": 3
+              },
+              {
+                "acl": ["readable"],
+                "id": 3,
+                "dataTypeId": 32,
+                "name": "hwVersion",
+                "value": 0
+              },
+              {
+                "acl": ["readable"],
+                "id": 6,
+                "dataTypeId": 66,
+                "name": "dateCode",
+                "value": "20260120"
+              },
+              {
+                "acl": ["readable"],
+                "id": 8,
+                "dataTypeId": 48,
+                "name": "appProfileVersion",
+                "value": 0
+              },
+              {
+                "acl": ["readable"],
+                "id": 9,
+                "dataTypeId": 48
+              },
+              {
+                "acl": ["readable"],
+                "id": 10,
+                "dataTypeId": 65
+              },
+              {
+                "acl": ["readable"],
+                "id": 11,
+                "dataTypeId": 66
+              }
+            ],
+            "commandsGenerated": [],
+            "commandsReceived": ["factoryReset"]
+          },
+          "identify": {
+            "attributes": [
+              {
+                "acl": ["readable", "writable"],
+                "id": 0,
+                "dataTypeId": 33,
+                "name": "identifyTime",
+                "value": 0
+              }
+            ],
+            "commandsGenerated": ["identifyQuery.response"],
+            "commandsReceived": ["identify", "identifyQuery", "triggerEffect"]
+          },
+          "groups": {
+            "attributes": [
+              {
+                "acl": ["readable"],
+                "id": 0,
+                "dataTypeId": 24,
+                "name": "nameSupport",
+                "value": {
+                  "type": "Buffer",
+                  "data": [0]
+                }
+              }
+            ],
+            "commandsGenerated": [
+              "addGroup.response",
+              "viewGroup.response",
+              "getGroupMembership.response",
+              "removeGroup.response"
+            ],
+            "commandsReceived": [
+              "addGroup",
+              "viewGroup",
+              "getGroupMembership",
+              "removeGroup",
+              "removeAllGroups",
+              "addGroupIfIdentify"
+            ]
+          },
+          "scenes": {
+            "attributes": [
+              {
+                "acl": ["readable"],
+                "id": 0,
+                "dataTypeId": 32
+              },
+              {
+                "acl": ["readable"],
+                "id": 1,
+                "dataTypeId": 32
+              },
+              {
+                "acl": ["readable"],
+                "id": 2,
+                "dataTypeId": 33
+              },
+              {
+                "acl": ["readable"],
+                "id": 3,
+                "dataTypeId": 16
+              },
+              {
+                "acl": ["readable"],
+                "id": 4,
+                "dataTypeId": 24
+              }
+            ],
+            "commandsGenerated": [0, 1, 2, 3, 4, 6],
+            "commandsReceived": [0, 1, 2, 3, 4, 5, 6]
+          },
+          "onOff": {
+            "attributes": [
+              {
+                "acl": ["readable", "reportable"],
+                "id": 0,
+                "dataTypeId": 16,
+                "name": "onOff",
+                "value": true,
+                "reportingConfiguration": {
+                  "direction": "reported",
+                  "attributeDataType": 16,
+                  "minInterval": 0,
+                  "maxInterval": 900,
+                  "status": "SUCCESS"
+                }
+              }
+            ],
+            "commandsGenerated": [],
+            "commandsReceived": [
+              "setOff",
+              "setOn",
+              "toggle",
+              "offWithEffect",
+              "onWithRecallGlobalScene",
+              "onWithTimedOff"
+            ]
+          }
+        },
+        "bindings": {
+          "ota": {}
+        }
+      },
+      "2": {
+        "clusters": {
+          "metering": {
+            "attributes": [
+              {
+                "acl": ["readable", "reportable"],
+                "id": 0,
+                "dataTypeId": 37,
+                "name": "currentSummationDelivered"
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 512,
+                "dataTypeId": 24,
+                "name": "status"
+              },
+              {
+                "acl": ["readable"],
+                "id": 768,
+                "dataTypeId": 48,
+                "name": "unitOfMeasure"
+              },
+              {
+                "acl": ["readable"],
+                "id": 771,
+                "dataTypeId": 24
+              },
+              {
+                "acl": ["readable"],
+                "id": 774,
+                "dataTypeId": 24
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 1,
+                "dataTypeId": 37,
+                "name": "currentSummationReceived"
+              },
+              {
+                "acl": ["readable"],
+                "id": 770,
+                "dataTypeId": 34,
+                "name": "divisor"
+              },
+              {
+                "acl": ["readable"],
+                "id": 769,
+                "dataTypeId": 34,
+                "name": "multiplier"
+              }
+            ],
+            "commandsGenerated": [0, 3, 6, 7],
+            "commandsReceived": [0, 3, 6, 8]
+          },
+          "electricalMeasurement": {
+            "commandsGenerated": [],
+            "commandsReceived": []
+          }
+        },
+        "bindings": {}
+      },
+      "3": {
+        "clusters": {
+          "metering": {
+            "attributes": [
+              {
+                "acl": ["readable", "reportable"],
+                "id": 0,
+                "dataTypeId": 37,
+                "name": "currentSummationDelivered"
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 512,
+                "dataTypeId": 24,
+                "name": "status"
+              },
+              {
+                "acl": ["readable"],
+                "id": 768,
+                "dataTypeId": 48,
+                "name": "unitOfMeasure"
+              },
+              {
+                "acl": ["readable"],
+                "id": 771,
+                "dataTypeId": 24
+              },
+              {
+                "acl": ["readable"],
+                "id": 774,
+                "dataTypeId": 24
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 1,
+                "dataTypeId": 37,
+                "name": "currentSummationReceived"
+              },
+              {
+                "acl": ["readable"],
+                "id": 770,
+                "dataTypeId": 34,
+                "name": "divisor"
+              },
+              {
+                "acl": ["readable"],
+                "id": 769,
+                "dataTypeId": 34,
+                "name": "multiplier"
+              }
+            ],
+            "commandsGenerated": [0, 3, 6, 7],
+            "commandsReceived": [0, 3, 6, 8]
+          },
+          "electricalMeasurement": {
+            "commandsGenerated": [],
+            "commandsReceived": []
+          }
+        },
+        "bindings": {}
+      },
+      "239": {
+        "clusters": {},
+        "bindings": {}
+      },
+      "242": {
+        "clusters": {},
+        "bindings": {}
+      }
+    }
+  }
+}
