@@ -3,9 +3,11 @@ declare module 'homey-zigbeedriver' {
   import Homey, { type ZigBeeNode } from 'homey';
   import { Cluster, ZCLNode } from 'zigbee-clusters';
 
-  class Util {
-    static calculateLevelControlTransitionTime: (opts: { duration?: number }) => number;
-    static wait: (timeout: number) => Promise<void>;
+  namespace Util {
+    function calculateLevelControlTransitionTime(opts: { duration?: number }): number;
+    function wait(timeout: number): Promise<void>;
+    function assertClusterSpecification(cluster: ClusterSpecification): void;
+    function assertCapabilityId(capabilityId: string, hasCapability: (capabilityId: string) => boolean): void;
   }
 
   interface ClusterSpecification {
@@ -76,6 +78,21 @@ declare module 'homey-zigbeedriver' {
     isSubDevice(): boolean;
     isFirstInit(): boolean;
     zclNode: ZCLNode;
+
+    public zigbeedriverI18n: (localeKey: string) => string;
+
+    protected _mergeSystemAndUserClusterCapabilityConfigurations(
+      capabilityId: string,
+      cluster: ClusterSpecification,
+      userClusterCapabilityConfiguration: ClusterCapabilityConfiguration,
+    ): void;
+    protected _getClusterCapabilityConfiguration(
+      capabilityId: string,
+      cluster: ClusterSpecification,
+    ): ClusterCapabilityConfiguration;
+    protected _registerCapabilitySet(capabilityId: string, cluster: ClusterSpecification): void;
+    protected _registerCapabilityReport(capabilityId: string, cluster: ClusterSpecification): void;
+    protected _registerCapabilityGet(capabilityId: string, cluster: ClusterSpecification): void;
   }
 
   class ZigBeeDriver extends Homey.Driver {

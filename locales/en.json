@@ -61,6 +61,7 @@
   },
   "error": {
     "host_unreachable": "Could not reach device",
-    "authorization": "Failed to authorize"
+    "authorization": "Failed to authorize",
+    "uncalibrated": "The device is not calibrated"
   }
 }

@@ -1,0 +1,39 @@
+{
+  "$extends": ["zigbee"],
+  "name": {
+    "en": "Dimmer Gen4 - Zigbee"
+  },
+  "class": "light",
+  "capabilities": ["onoff", "dim", "measure_power", "measure_current", "measure_voltage", "meter_power"],
+  "capabilitiesOptions": {
+    "measure_current": {
+      "decimals": 3
+    },
+    "measure_voltage": {
+      "decimals": 2
+    },
+    "meter_power": {
+      "decimals": 6
+    }
+  },
+  "zigbee": {
+    "manufacturerName": "Shelly",
+    "productId": ["Dimmer"],
+    "endpoints": {
+      "1": {
+        "clusters": [0, 3, 4, 5, 6, 8, 1794, 2820],
+        "bindings": [6, 8, 1794, 2820]
+      }
+    },
+    "learnmode": {
+      "instruction": {
+        "en": "Verify that the device is in Zigbee mode (you can enable Zigbee mode by pressing the reset button five times).\n\nPress the reset button three times to initialize pairing."
+      }
+    }
+  },
+  "images": {
+    "small": "/assets/drivers/shellydimmerg4/images/small.png",
+    "large": "/assets/drivers/shellydimmerg4/images/large.png",
+    "xlarge": "/assets/drivers/shellydimmerg4/images/xlarge.png"
+  }
+}
