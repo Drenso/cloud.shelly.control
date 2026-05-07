@@ -5643,6 +5643,37 @@
     },
     {
       "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "matter"
+      ],
+      "icon": "/drivers/shellypresence_matter/assets/icon.svg",
+      "name": {
+        "en": "Presence Gen4 - Matter"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "alarm_motion"
+      ],
+      "matter": {
+        "vendorId": 5264,
+        "productId": 6177,
+        "learnmode": {
+          "instruction": {
+            "en": "Enable Matter in the Shelly web interface. The required information for pairing will be shown after enabling."
+          }
+        }
+      },
+      "images": {
+        "small": "/assets/drivers/shellypresence/images/small.png",
+        "large": "/assets/drivers/shellypresence/images/large.png",
+        "xlarge": "/assets/drivers/shellypresence/images/xlarge.png"
+      },
+      "id": "shellypresence_matter"
+    },
+    {
+      "platforms": [
         "local",
         "cloud"
       ],
