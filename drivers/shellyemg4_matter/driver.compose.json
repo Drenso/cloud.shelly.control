@@ -23,8 +23,8 @@
     }
   },
   "images": {
-    "small": "/assets/drivers/shellyduobulbg3/images/small.png",
-    "large": "/assets/drivers/shellyduobulbg3/images/large.png",
-    "xlarge": "/assets/drivers/shellyduobulbg3/images/xlarge.png"
+    "small": "/assets/drivers/shellyemg4/images/small.png",
+    "large": "/assets/drivers/shellyemg4/images/large.png",
+    "xlarge": "/assets/drivers/shellyemg4/images/xlarge.png"
   }
 }
