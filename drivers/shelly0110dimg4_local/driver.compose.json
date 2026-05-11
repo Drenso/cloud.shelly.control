@@ -17,8 +17,8 @@
     "hidden.has_input_multiple_button"
   ],
   "images": {
-    "small": "/assets/drivers/shelly0110g4/images/small.png",
-    "large": "/assets/drivers/shelly0110g4/images/large.png",
-    "xlarge": "/assets/drivers/shelly0110g4/images/xlarge.png"
+    "small": "/assets/drivers/shelly0110dimg4/images/small.png",
+    "large": "/assets/drivers/shelly0110dimg4/images/large.png",
+    "xlarge": "/assets/drivers/shelly0110dimg4/images/xlarge.png"
   }
 }
