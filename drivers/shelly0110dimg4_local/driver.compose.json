@@ -1,0 +1,24 @@
+{
+  "$extends": ["local"],
+  "name": {
+    "en": "Dimmer 0/1-10V Gen4 - LAN"
+  },
+  "class": "light",
+  "capabilities": [
+    "onoff",
+    "dim",
+    "shelly_input_switch",
+    "measure_power",
+    "measure_current",
+    "measure_voltage",
+    "meter_power",
+    "measure_temperature",
+    "hidden.has_input_multiple_switch",
+    "hidden.has_input_multiple_button"
+  ],
+  "images": {
+    "small": "/assets/drivers/shelly0110g4/images/small.png",
+    "large": "/assets/drivers/shelly0110g4/images/large.png",
+    "xlarge": "/assets/drivers/shelly0110g4/images/xlarge.png"
+  }
+}
