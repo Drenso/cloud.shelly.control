@@ -330,7 +330,12 @@ export default class Light extends ComponentWithId<'Light', LightStatus, LightCo
     };
 
     const dimCapabilityListener = async (value: number): Promise<void> => {
-      await this.Set(this.device.getChannel(), { brightness: value * 100 });
+      await this.Set(this.device.getChannel(), { brightness: value * 100 }).catch(err => {
+        if (err.code === -109) {
+          throw new Error(homeyDevice.homey.__('error.uncalibrated'));
+        }
+        throw err;
+      });
     };
 
     const resetEnergyListener = async (): Promise<void> => {
