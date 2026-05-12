@@ -27,19 +27,26 @@ export class LocalPairingHandler {
   ) {}
 
   public async setup(): Promise<void> {
+    // Store the devices selected by the user
+    this.session.setHandler('list_devices_selection', async (data: ShellyLocalListVirtualDeviceProperties[]) => {
+      this.selectedDevices = data;
+    });
+    // Ask for a password for devices that use them
+    // Assemble Homey devices directly for those that do not
     this.session.setHandler('showView', async (view: string) => {
       if (view !== 'authenticate_devices') {
         return;
       }
       await this.processSelectedDevices();
     });
-
-    this.session.setHandler('done', this.addVirtualDevices.bind(this));
+    // Check a given password is correct
+    // Assemble Homey devices for the now authenticated device
     this.session.setHandler('credentials', this.checkCredentials.bind(this));
+    // Add all assembled Homey devices
     this.session.setHandler('add_subdevices', async () => this.allHomeyDevices);
-    this.session.setHandler('list_devices_selection', async (data: ShellyLocalListVirtualDeviceProperties[]) => {
-      this.selectedDevices = data;
-    });
+    // Add virtual devices for the added devices
+    this.session.setHandler('done', this.addVirtualDevices.bind(this));
+    // Abort any authentication attempts if the session is disconnected
     this.session.setHandler('disconnect', async () => {
       this.rejectAuthentication?.('session disconnected');
     });
