@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "cloud.shelly.control",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "compatibility": ">=12.5.0",
   "sdk": 3,
   "brandColor": "#4f8dc8",
@@ -46,7 +46,6 @@
     ]
   },
   "api": {},
-  "esm": true,
   "flow": {
     "triggers": [
       {
@@ -1805,6 +1804,42 @@
     },
     {
       "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "matter"
+      ],
+      "icon": "/drivers/shelly0110dimg4_matter/assets/icon.svg",
+      "name": {
+        "en": "Dimmer 0/1-10V Gen4 - Matter"
+      },
+      "class": "light",
+      "capabilities": [
+        "onoff",
+        "dim",
+        "measure_power",
+        "measure_current",
+        "measure_voltage",
+        "meter_power"
+      ],
+      "matter": {
+        "vendorId": 5264,
+        "productId": 4212,
+        "learnmode": {
+          "instruction": {
+            "en": "Enable Matter in the Shelly web interface. The required information for pairing will be shown after enabling."
+          }
+        }
+      },
+      "images": {
+        "small": "/assets/drivers/shelly0110dimg4/images/small.png",
+        "large": "/assets/drivers/shelly0110dimg4/images/large.png",
+        "xlarge": "/assets/drivers/shelly0110dimg4/images/xlarge.png"
+      },
+      "id": "shelly0110dimg4_matter"
+    },
+    {
+      "platforms": [
         "local",
         "cloud"
       ],
@@ -1872,42 +1907,6 @@
         "xlarge": "/assets/drivers/shelly0110dimg4/images/xlarge.png"
       },
       "id": "shelly0110dimg4_zigbee"
-    },
-    {
-      "platforms": [
-        "local"
-      ],
-      "connectivity": [
-        "matter"
-      ],
-      "icon": "/drivers/shelly0110dimg4_matter/assets/icon.svg",
-      "name": {
-        "en": "Dimmer 0/1-10V Gen4 - Matter"
-      },
-      "class": "light",
-      "capabilities": [
-        "onoff",
-        "dim",
-        "measure_power",
-        "measure_current",
-        "measure_voltage",
-        "meter_power"
-      ],
-      "matter": {
-        "vendorId": 5264,
-        "productId": 4212,
-        "learnmode": {
-          "instruction": {
-            "en": "Enable Matter in the Shelly web interface. The required information for pairing will be shown after enabling."
-          }
-        }
-      },
-      "images": {
-        "small": "/assets/drivers/shelly0110dimg4/images/small.png",
-        "large": "/assets/drivers/shelly0110dimg4/images/large.png",
-        "xlarge": "/assets/drivers/shelly0110dimg4/images/xlarge.png"
-      },
-      "id": "shelly0110dimg4_matter"
     },
     {
       "platforms": [
@@ -5433,6 +5432,43 @@
     },
     {
       "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "matter"
+      ],
+      "icon": "/drivers/shellyemg4_matter/assets/icon.svg",
+      "name": {
+        "en": "EM Gen4 - Matter"
+      },
+      "class": "socket",
+      "capabilities": [
+        "onoff",
+        "measure_power",
+        "measure_current",
+        "measure_voltage",
+        "measure_frequency",
+        "meter_power",
+        "meter_power.exported"
+      ],
+      "matter": {
+        "vendorId": 5264,
+        "productId": 4150,
+        "learnmode": {
+          "instruction": {
+            "en": "Enable Matter in the Shelly web interface. The required information for pairing will be shown after enabling."
+          }
+        }
+      },
+      "images": {
+        "small": "/assets/drivers/shellyemg4/images/small.png",
+        "large": "/assets/drivers/shellyemg4/images/large.png",
+        "xlarge": "/assets/drivers/shellyemg4/images/xlarge.png"
+      },
+      "id": "shellyemg4_matter"
+    },
+    {
+      "platforms": [
         "local",
         "cloud"
       ],
@@ -5577,43 +5613,6 @@
         }
       },
       "id": "shellyemg4_zigbee"
-    },
-    {
-      "platforms": [
-        "local"
-      ],
-      "connectivity": [
-        "matter"
-      ],
-      "icon": "/drivers/shellyemg4_matter/assets/icon.svg",
-      "name": {
-        "en": "EM Gen4 - Matter"
-      },
-      "class": "socket",
-      "capabilities": [
-        "onoff",
-        "measure_power",
-        "measure_current",
-        "measure_voltage",
-        "measure_frequency",
-        "meter_power",
-        "meter_power.exported"
-      ],
-      "matter": {
-        "vendorId": 5264,
-        "productId": 4150,
-        "learnmode": {
-          "instruction": {
-            "en": "Enable Matter in the Shelly web interface. The required information for pairing will be shown after enabling."
-          }
-        }
-      },
-      "images": {
-        "small": "/assets/drivers/shellyemg4/images/small.png",
-        "large": "/assets/drivers/shellyemg4/images/large.png",
-        "xlarge": "/assets/drivers/shellyemg4/images/xlarge.png"
-      },
-      "id": "shellyemg4_matter"
     },
     {
       "platforms": [

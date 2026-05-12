@@ -22,5 +22,8 @@
   },
   "0.4.1": {
     "en": "Fix issue with devices having an Input component after updating to 0.4.0"
+  },
+  "0.5.0": {
+    "en": "Add LAN support for 0/1-10V Dimmer Gen4 & EM Gen4.\\nAdd Zigbee support for 0/1-10V Dimmer Gen4, Dimmer Gen4 & EM Gen4.\\n.Add Z-Wave support for Wave MCB.\\nAdd Matter definitions for 0/1-10V Dimmer Gen4, Duo/Multicolor Bulb E27 Gen3, EM Gen4 & Presence Gen4.\\nUse TLS encryption for communication when possible.\\nStability improvements and bug fixes."
   }
 }
