@@ -30,8 +30,12 @@ export default class ShellyApp extends Homey.App {
       .then(ip => {
         this.outboundWsServer.open(ip);
       })
-      .catch(() => {
-        this.log('Running in the cloud, no outbound WS server started.');
+      .catch(err => {
+        if (err === 'Invalid Event: getLocalAddress') {
+          this.log('Running in the cloud, no outbound WS server started.');
+        } else {
+          this.error('Error while getting local IP for outbound WS server:', err);
+        }
       });
 
     this.registerFlowCards();
