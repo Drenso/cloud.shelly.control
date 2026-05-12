@@ -211,18 +211,6 @@ export class VirtualDevice {
   }
 
   private async initialize(components: ShellyGetComponentsResponseComponent[] | undefined): Promise<void> {
-    if (components === undefined) {
-      components = await this.retrieveComponents();
-    }
-
-    // Check which changes were made to the components since last time
-    const oldComponents = this.components as string[];
-    const newComponents = components.map(component => component.key) as string[];
-    const { added: addedComponents, removed: removedComponents } = diffArrays(oldComponents, newComponents);
-
-    this.debug('Removed components:', removedComponents);
-    this.debug('Added components:', addedComponents);
-
     // Retrieve the Homey devices associated with this virtual device
     const homeyDevices: ShellyLocalDevice[] = [];
 
@@ -246,6 +234,18 @@ export class VirtualDevice {
       await this.unregister();
       return;
     }
+
+    if (components === undefined) {
+      components = await this.retrieveComponents();
+    }
+
+    // Check which changes were made to the components since last time
+    const oldComponents = this.components as string[];
+    const newComponents = components.map(component => component.key) as string[];
+    const { added: addedComponents, removed: removedComponents } = diffArrays(oldComponents, newComponents);
+
+    this.debug('Removed components:', removedComponents);
+    this.debug('Added components:', addedComponents);
 
     // Before version 0.3.0 the Homey driver associated with the virtual device was not stored
     if (this.driver === undefined) {
@@ -528,10 +528,13 @@ export class VirtualDevice {
   }
 
   private async unregister(): Promise<void> {
-    await this.unregisterComponents(this.components);
-    await this.disconnect();
-    await this.app.removeVirtualDevice(this);
-    this.log('Uninitialized');
+    try {
+      await this.unregisterComponents(this.components);
+      await this.disconnect();
+    } finally {
+      await this.app.removeVirtualDevice(this);
+      this.log('Uninitialized');
+    }
   }
 
   public async disconnect(): Promise<void> {
