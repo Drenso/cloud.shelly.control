@@ -40,13 +40,12 @@ export default class OutboundWebsocket extends ComponentWithoutId<
 
   // TODO ensure this works for BLE devices
   public async register(_methods: ComponentMethod<'Ws'>[]): Promise<void> {
-    const server = `ws://${await getIp(this.device.app.homey)}:${OUTBOUND_WS_PORT}`;
+    const server = `wss://${await getIp(this.device.app.homey)}:${OUTBOUND_WS_PORT}`;
     if (this.config.enable && this.config.server === server) {
       this.device.log('Outbound websocket already enabled');
       return;
     }
     this.device.log('Enabling outbound websocket...');
-    // TODO enable TLS certificates
     await this.SetConfig(this.device.getChannel(), { config: { ssl_ca: '*', enable: true, server: server } });
     await this.device.reboot().catch(err => this.device.debug('Error during Outbound WS reboot:', err));
     this.device.log('Enabled outbound websocket');

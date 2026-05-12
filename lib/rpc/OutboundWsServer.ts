@@ -3,6 +3,9 @@ import { type RawData, WebSocketServer } from 'ws';
 import { OUTBOUND_WS_PORT } from '../config.js';
 import type { NotificationFrame, UnknownFrame } from './Rpc.js';
 import { createMitt } from '../util.js';
+import { createServer } from 'node:https';
+import { readFileSync } from 'fs';
+import path from 'node:path';
 
 export type WsMessageEvent = { json: UnknownFrame; ws: WebSocket };
 export type WsClosedEvent = { ws: WebSocket };
@@ -13,7 +16,6 @@ export type WsMittEvents = {
   [src: string]: WsMessageEvent | WsClosedEvent;
 };
 
-// TODO enable wss and authentication
 export default class OutboundWsServer {
   public readonly outboundWsMitt = createMitt<WsMittEvents>();
 
@@ -23,7 +25,11 @@ export default class OutboundWsServer {
   ) {}
 
   public open(ip: string): void {
-    const wss = new WebSocketServer({ port: OUTBOUND_WS_PORT });
+    const server = createServer({
+      cert: readFileSync(path.join(import.meta.dirname, 'server.crt')),
+      key: readFileSync(path.join(import.meta.dirname, 'server.key')),
+    });
+    const wss = new WebSocketServer({ server: server });
 
     wss.on('connection', (ws, request) => {
       this.log('Outbound WS connected:', request.socket.remoteAddress);
@@ -31,7 +37,8 @@ export default class OutboundWsServer {
       ws.on('error', error => this.error('Outbound WS connection error', error.toString()));
     });
 
-    this.log('Started WS server on:', `ws://${ip}:${OUTBOUND_WS_PORT}`);
+    server.listen(OUTBOUND_WS_PORT);
+    this.log('Started WS server on:', `wss://${ip}:${OUTBOUND_WS_PORT}`);
   }
 
   private handleOutboundWsMessage(ws: WebSocket, message: RawData): void {
