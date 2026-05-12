@@ -9,6 +9,7 @@ import type { WsMittEvents } from './rpc/OutboundWsServer.js';
 export function createHttpChannel(
   address: string,
   translate: (key: string, variables?: Record<string, string>) => string,
+  useHttps: boolean,
   ha1?: string,
 ): HttpChannel {
   const debug = (...args: unknown[]): void => {
@@ -16,7 +17,7 @@ export function createHttpChannel(
       console.log(new Date(), '[dbg]', '[ShellyApp]', `[HttpChannel:${address}]`, ...args);
     }
   };
-  return new HttpChannel(address, debug, translate, ha1);
+  return new HttpChannel(address, debug, translate, useHttps, ha1);
 }
 
 export function createInboundWsChannel(

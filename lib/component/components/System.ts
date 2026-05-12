@@ -42,6 +42,27 @@ export type SystemConfig = {
      * (shown if applicable).
      */
     sys_btn_toggle?: boolean;
+    /**
+     * When true, TLS certificate date/time validation is enforced for outbound connections.
+     *
+     * (Since 2.0.0)
+     *
+     * Can only be set to false when enhanced_security is false.
+     * This is a temporary option for users experiencing certificate validation issues
+     * due to time synchronization problems; subject to deprecation in future releases.
+     */
+    tls_check_cert_validity_time?: boolean;
+    /**
+     * When enabled, enforces additional security measures
+     * (see https://shelly-api-docs.shelly.cloud/gen2/ComponentsAndServices/Sys#enhanced-security).
+     *
+     * (Since 2.0.0)
+     *
+     * Read-only on devices shipped with firmware 2.0.0+ from the factory (always true).
+     * On devices with factory firmware prior to 2.0.0,
+     * it can be set to true but can only be reset to false via factory reset.
+     */
+    enhanced_security?: boolean;
   };
   /** Information about the current location of the device */
   readonly location: {

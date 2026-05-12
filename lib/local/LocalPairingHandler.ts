@@ -1,5 +1,5 @@
 import type Homey from 'homey';
-import type { ShellyLocalListDeviceProperties } from '../types.js';
+import type { ShellyLocalListDeviceProperties, ShellyLocalListVirtualDeviceProperties } from '../types.js';
 import Shelly from '../component/components/Shelly.js';
 import { createHttpChannel } from '../HomeyRPCChannels.js';
 import type ShellyLocalDriver from './LocalDriver.js';
@@ -7,9 +7,9 @@ import type { ShellyGetComponentsResponseComponent } from '../component/componen
 import { HttpError } from '../rpc/channel/HttpChannel.js';
 
 export class LocalPairingHandler {
-  private selectedDevices: ShellyLocalListDeviceProperties[] = [];
+  private selectedDevices: ShellyLocalListVirtualDeviceProperties[] = [];
 
-  private authenticationDevice?: ShellyLocalListDeviceProperties;
+  private authenticationDevice?: ShellyLocalListVirtualDeviceProperties;
   private authenticationPromise?: Promise<string>;
   private resolveAuthentication?: (password: string) => void;
   private rejectAuthentication?: (reason?: unknown) => void;
@@ -37,7 +37,7 @@ export class LocalPairingHandler {
     this.session.setHandler('done', this.addVirtualDevices.bind(this));
     this.session.setHandler('credentials', this.checkCredentials.bind(this));
     this.session.setHandler('add_subdevices', async () => this.allHomeyDevices);
-    this.session.setHandler('list_devices_selection', async (data: ShellyLocalListDeviceProperties[]) => {
+    this.session.setHandler('list_devices_selection', async (data: ShellyLocalListVirtualDeviceProperties[]) => {
       this.selectedDevices = data;
     });
     this.session.setHandler('disconnect', async () => {
@@ -66,7 +66,7 @@ export class LocalPairingHandler {
     }
   }
 
-  private async authenticateDevice(selectedDevice: ShellyLocalListDeviceProperties): Promise<void> {
+  private async authenticateDevice(selectedDevice: ShellyLocalListVirtualDeviceProperties): Promise<void> {
     this.authenticationDevice = selectedDevice;
     this.authenticationPromise = new Promise((resolve, reject) => {
       this.resolveAuthentication = resolve;
@@ -86,9 +86,9 @@ export class LocalPairingHandler {
     this.rejectAuthentication = undefined;
   }
 
-  private async assembleDevice(selectedDevice: ShellyLocalListDeviceProperties, ha1?: string): Promise<void> {
+  private async assembleDevice(selectedDevice: ShellyLocalListVirtualDeviceProperties, ha1?: string): Promise<void> {
     const components = await Shelly.getAllComponents(
-      createHttpChannel(selectedDevice.store.address, this.driver.homey.__, ha1),
+      createHttpChannel(selectedDevice.store.address, this.driver.homey.__, selectedDevice.data.useHttps, ha1),
     );
     const { addonComponents, mainComponents } = this.driver.splitComponents(components);
     const homeyDevices = await this.driver.assembleHomeyDevices(selectedDevice, mainComponents);

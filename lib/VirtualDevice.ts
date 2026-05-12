@@ -13,7 +13,7 @@ import type { NotificationEventFrame, NotificationFrame, NotificationStatusFrame
 import type ShellyLocalDevice from './local/LocalDevice.js';
 import { createHttpChannel, createInboundWsChannel, createOutboundWsChannel } from './HomeyRPCChannels.js';
 import type ShellyLocalDriver from './local/LocalDriver.js';
-import type { ShellyLocalListDeviceProperties } from './types.js';
+import type { ShellyLocalListDeviceProperties, ShellyLocalListVirtualDeviceProperties } from './types.js';
 import { diffArrays } from './util.js';
 
 export const IGNORED_NO_IMPLEMENTATION_COMPONENTS = [
@@ -36,6 +36,7 @@ export type SerializedVirtualDevice = {
   readonly components: readonly string[];
   readonly homeyDeviceIds: readonly string[];
   readonly ha1: string | undefined;
+  readonly useHttps: boolean;
   readonly driver: string;
 };
 
@@ -72,6 +73,7 @@ export class VirtualDevice {
     private components: readonly string[],
     private readonly driver: string,
     private homeyDeviceIds: string[],
+    private useHttps: boolean,
     private ha1: string | undefined,
     // Allow passing these in the pairing flow so we do not need to retrieve them twice
     componentResponses?: ShellyGetComponentsResponseComponent[],
@@ -84,7 +86,10 @@ export class VirtualDevice {
 
     // Initialize channels
     {
-      this.httpChannel = createHttpChannel(ipAddress, this.app.homey.__, this.ha1);
+      if (this.useHttps) {
+        this.log('Using HTTPS');
+      }
+      this.httpChannel = createHttpChannel(ipAddress, this.app.homey.__, this.useHttps, this.ha1);
 
       if (!this.batteryDevice) {
         this.inboundWsChannel = createInboundWsChannel(this.app, this.ipAddress, this.log, this.error, this.ha1);
@@ -156,6 +161,7 @@ export class VirtualDevice {
       components: this.components,
       driver: this.driver,
       homeyDeviceIds: this.homeyDeviceIds,
+      useHttps: this.httpChannel.useHttps,
       ha1: this.ha1,
     };
   }
@@ -398,10 +404,11 @@ export class VirtualDevice {
     const driver = this.app.homey.drivers.getDriver(this.driver) as ShellyLocalDriver;
 
     const { mainComponents, addonComponents } = driver.splitComponents(components);
-    const virtualHomeyDevice: ShellyLocalListDeviceProperties = {
+    const virtualHomeyDevice: ShellyLocalListVirtualDeviceProperties = {
       name: 'Virtual',
       data: {
         id: this.deviceId,
+        useHttps: this.httpChannel.useHttps,
       },
       store: {
         address: this.ipAddress,

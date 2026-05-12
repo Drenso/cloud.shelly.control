@@ -1,7 +1,11 @@
 import Homey from 'homey';
 import { VirtualDevice } from '../VirtualDevice.js';
 import type ShellyApp from '../../app.js';
-import type { ShellyDiscoveryResult, ShellyLocalListDeviceProperties } from '../types.js';
+import type {
+  ShellyDiscoveryResult,
+  ShellyLocalListDeviceProperties,
+  ShellyLocalListVirtualDeviceProperties,
+} from '../types.js';
 import type { ShellyGetComponentsResponseComponent } from '../component/components/Shelly/GetComponents.js';
 import Shelly from '../component/components/Shelly.js';
 import type { ShellyGetDeviceInfoResponse } from '../component/components/Shelly/GetDeviceInfo.js';
@@ -48,7 +52,7 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
   }
 
   public async createVirtualDevice(
-    selectedDevice: ShellyLocalListDeviceProperties,
+    selectedDevice: ShellyLocalListVirtualDeviceProperties,
     components: ShellyGetComponentsResponseComponent[],
     homeyDevices: ShellyLocalListDeviceProperties[],
   ): Promise<VirtualDevice> {
@@ -62,6 +66,7 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
       componentKeys,
       this.id,
       homeyDeviceIds,
+      selectedDevice.data.useHttps,
       selectedDevice.store.ha1,
       components,
     );
@@ -80,7 +85,7 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
   }
 
   public async assembleAddonHomeyDevices(
-    selectedDevice: ShellyLocalListDeviceProperties,
+    selectedDevice: ShellyLocalListVirtualDeviceProperties,
     components: ShellyGetComponentsResponseComponent[],
   ): Promise<ShellyLocalListDeviceProperties[]> {
     const device: ShellyLocalListDeviceProperties = {
@@ -101,7 +106,7 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
   }
 
   public async assembleHomeyDevices(
-    selectedDevice: ShellyLocalListDeviceProperties,
+    selectedDevice: ShellyLocalListVirtualDeviceProperties,
     components: ShellyGetComponentsResponseComponent[],
   ): Promise<ShellyLocalListDeviceProperties[]> {
     const device: ShellyLocalListDeviceProperties = {
@@ -120,8 +125,8 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
     return [device];
   }
 
-  public async onPairListDevices(): Promise<ShellyLocalListDeviceProperties[]> {
-    const results: Promise<ShellyLocalListDeviceProperties | undefined>[] = [];
+  public async onPairListDevices(): Promise<ShellyLocalListVirtualDeviceProperties[]> {
+    const results: Promise<ShellyLocalListVirtualDeviceProperties | undefined>[] = [];
 
     const discoveryStrategy = this.homey.discovery.getStrategy('shelly');
     const discoveryResults = discoveryStrategy.getDiscoveryResults();
@@ -135,9 +140,10 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
 
   private async getPairDevice(
     discoveryResult: ShellyDiscoveryResult,
-  ): Promise<ShellyLocalListDeviceProperties | undefined> {
+  ): Promise<ShellyLocalListVirtualDeviceProperties | undefined> {
     try {
-      const deviceInfoResponse = await Shelly.GetDeviceInfo(createHttpChannel(discoveryResult.address, this.homey.__));
+      const httpChannel = createHttpChannel(discoveryResult.address, this.homey.__, false);
+      const deviceInfoResponse = await Shelly.GetDeviceInfo(httpChannel);
       const deviceInfo = deviceInfoResponse.result;
 
       // Filter out devices that are already paired
@@ -154,6 +160,7 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
         name: deviceInfo.name ?? this.getDefaultName(),
         data: {
           id: deviceInfo.id,
+          useHttps: httpChannel.useHttps,
         },
         store: {
           address: discoveryResult.address,

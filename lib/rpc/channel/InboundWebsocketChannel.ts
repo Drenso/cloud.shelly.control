@@ -58,7 +58,7 @@ export default class InboundWebsocketChannel implements RpcChannel {
   }
 
   private connect(): void {
-    this.ws = new WebSocket(`ws://${this.address}/rpc`);
+    this.ws = new WebSocket(`ws://${this.address}/rpc`, { followRedirects: true, rejectUnauthorized: false });
 
     this.ws.on('open', async () => {
       this.resetReconnectTimeout();

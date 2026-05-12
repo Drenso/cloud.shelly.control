@@ -8,6 +8,7 @@ import {
 } from '../Rpc.js';
 import { RpcError } from '../RpcError.js';
 import { createAuthenticationResponse, NoPassword } from '../Authentication.js';
+import { Agent, type Dispatcher } from 'undici';
 
 type AuthenticationChallenge = {
   qop: 'auth' | 'auth-int';
@@ -25,12 +26,21 @@ export class HttpError extends Error {
 }
 
 export default class HttpChannel implements RpcChannel {
+  private dispatcher: Dispatcher;
+
   public constructor(
     public readonly address: string,
     public readonly debug: (...args: unknown[]) => void,
     private readonly translate: (key: string, variables?: Record<string, string>) => string,
+    public useHttps: boolean,
     public ha1?: string,
-  ) {}
+  ) {
+    this.dispatcher = new Agent({
+      connect: {
+        rejectUnauthorized: false,
+      },
+    });
+  }
 
   public disconnect(): void {}
 
@@ -43,30 +53,37 @@ export default class HttpChannel implements RpcChannel {
       } else {
         this.debug(`Resending ${requestFrame.id} with auth:`, requestFrame.method);
       }
-      // TODO change to HTTPS
-      const addressString = this.address;
-      const response = await fetch(`http://${addressString}/rpc`, {
+      const withHttps = this.useHttps;
+      const response = await this.dispatcher.request<Result>({
+        origin: withHttps ? `https://${this.address}` : `http://${this.address}`,
+        path: '/rpc',
         method: 'POST',
         body: JSON.stringify(requestFrame),
-      }).catch(err => {
-        if (err instanceof TypeError) {
-          this.debug('Unwrapped undici TypeError');
-          const wrappedError = (err as unknown as { cause: Error }).cause;
-          Error.captureStackTrace(wrappedError);
-          throw wrappedError;
-        } else {
-          throw err;
-        }
       });
       // this.debug(`Response ${requestFrame.id}:`, response);
 
-      if (response.status === 401 && requestFrame.auth === undefined) {
+      if (response.statusCode === 307) {
+        // We already upgraded to HTTPS and do not expect another redirect
+        if (withHttps) {
+          throw new HttpError(response.statusCode, response.statusText);
+        }
+        const redirect = response.headers['location'] as string;
+        if (redirect.startsWith('https://') && redirect.slice('https://'.length, -'/rpc'.length) === this.address) {
+          this.debug('Redirected to HTTPS');
+          this.useHttps = true;
+          return this.sendRequestFrame(requestFrame);
+        } else {
+          throw new HttpError(response.statusCode, response.statusText);
+        }
+      }
+
+      if (response.statusCode === 401 && requestFrame.auth === undefined) {
         // We need to re-send authenticated with the given authentication information
         if (this.ha1 === undefined) {
           throw new NoPassword();
         }
 
-        const authenticationHeader = response.headers.get('WWW-Authenticate');
+        const authenticationHeader = response.headers['www-authenticate'] as string | undefined;
         const authenticationChallenge = this.parseAuthenticationHeader(authenticationHeader);
         const authenticationResponse = createAuthenticationResponse(
           authenticationChallenge.realm,
@@ -79,11 +96,11 @@ export default class HttpChannel implements RpcChannel {
         });
       }
 
-      if (response.status !== 200) {
-        throw new HttpError(response.status, response.statusText);
+      if (response.statusCode !== 200) {
+        throw new HttpError(response.statusCode, response.statusText);
       }
 
-      const json = (await response.json()) as ResponseFrame<Result>;
+      const json = (await response.body.json()) as ResponseFrame<Result>;
       const error = json as ResponseErrorFrame;
       const result = json as ResponseSuccessFrame<Result>;
       if (error.error !== undefined) {
@@ -96,8 +113,8 @@ export default class HttpChannel implements RpcChannel {
     }
   }
 
-  private parseAuthenticationHeader(header: string | null): AuthenticationChallenge {
-    if (header === null) {
+  private parseAuthenticationHeader(header: string | Array<string> | undefined): AuthenticationChallenge {
+    if (header === undefined || Array.isArray(header)) {
       throw new Error('Expected WWW-Authenticate header for 401 response');
     }
 
