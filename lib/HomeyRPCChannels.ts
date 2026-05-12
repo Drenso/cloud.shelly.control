@@ -11,13 +11,14 @@ export function createHttpChannel(
   translate: (key: string, variables?: Record<string, string>) => string,
   useHttps: boolean,
   ha1?: string,
+  onHttpsUpgrade?: () => Promise<void>,
 ): HttpChannel {
   const debug = (...args: unknown[]): void => {
     if (Homey.env['DEBUG'] === '1') {
       console.log(new Date(), '[dbg]', '[ShellyApp]', `[HttpChannel:${address}]`, ...args);
     }
   };
-  return new HttpChannel(address, debug, translate, useHttps, ha1);
+  return new HttpChannel(address, debug, translate, useHttps, onHttpsUpgrade, ha1);
 }
 
 export function createInboundWsChannel(

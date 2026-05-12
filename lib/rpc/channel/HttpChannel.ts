@@ -33,6 +33,7 @@ export default class HttpChannel implements RpcChannel {
     public readonly debug: (...args: unknown[]) => void,
     private readonly translate: (key: string, variables?: Record<string, string>) => string,
     public useHttps: boolean,
+    private onHttpsUpgrade?: () => Promise<void>,
     public ha1?: string,
   ) {
     this.dispatcher = new Agent({
@@ -71,6 +72,7 @@ export default class HttpChannel implements RpcChannel {
         if (redirect.startsWith('https://') && redirect.slice('https://'.length, -'/rpc'.length) === this.address) {
           this.debug('Redirected to HTTPS');
           this.useHttps = true;
+          await this.onHttpsUpgrade?.();
           return this.sendRequestFrame(requestFrame);
         } else {
           throw new HttpError(response.statusCode, response.statusText);

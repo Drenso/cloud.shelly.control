@@ -89,7 +89,9 @@ export class VirtualDevice {
       if (this.useHttps) {
         this.log('Using HTTPS');
       }
-      this.httpChannel = createHttpChannel(ipAddress, this.app.homey.__, this.useHttps, this.ha1);
+      this.httpChannel = createHttpChannel(ipAddress, this.app.homey.__, this.useHttps, this.ha1, async () =>
+        this.app.updateVirtualDevice(this),
+      );
 
       if (!this.batteryDevice) {
         this.inboundWsChannel = createInboundWsChannel(this.app, this.ipAddress, this.log, this.error, this.ha1);
