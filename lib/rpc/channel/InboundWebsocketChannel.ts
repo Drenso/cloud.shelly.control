@@ -52,14 +52,27 @@ export default class InboundWebsocketChannel implements RpcChannel {
     public readonly log: (...args: unknown[]) => void,
     public readonly error: (...args: unknown[]) => void,
     public readonly debug: (...args: unknown[]) => void,
+    public useHttps: boolean,
+    private onHttpsUpgrade?: () => Promise<void>,
     public ha1?: string,
   ) {
     this.connect();
   }
 
   private connect(): void {
-    this.ws = new WebSocket(`ws://${this.address}/rpc`, { followRedirects: true, rejectUnauthorized: false });
+    this.ws = new WebSocket(this.useHttps ? `wss://${this.address}/rpc` : `ws://${this.address}/rpc`, {
+      followRedirects: true,
+      rejectUnauthorized: false,
+    });
 
+    this.ws.on('redirect', async url => {
+      if (url.startsWith('wss://') && url.slice('wss://'.length, -'/rpc'.length) === this.address) {
+        this.debug('Redirected to HTTPS');
+        await this.onHttpsUpgrade?.();
+      } else {
+        throw new Error(`Unexpected ws redirect to ${url}`);
+      }
+    });
     this.ws.on('open', async () => {
       this.resetReconnectTimeout();
       // Delay greeting to allow some time for the device to be responsive

@@ -26,6 +26,8 @@ export function createInboundWsChannel(
   address: string,
   log: (...args: unknown[]) => void,
   error: (...args: unknown[]) => void,
+  useHttps: boolean,
+  onHttpsUpgrade?: () => Promise<void>,
   ha1?: string,
 ): InboundWebsocketChannel {
   const debug = (...args: unknown[]): void => {
@@ -41,7 +43,7 @@ export function createInboundWsChannel(
     error(`[InboundWS:${address}]`, ...args);
   };
 
-  return new InboundWebsocketChannel(app, address, wsLog, wsError, debug, ha1);
+  return new InboundWebsocketChannel(app, address, wsLog, wsError, debug, useHttps, onHttpsUpgrade, ha1);
 }
 
 export function createOutboundWsChannel(
