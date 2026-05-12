@@ -61,6 +61,16 @@
           name="password"
           type="password"
           value="" />
+        <label class="homey-form-checkbox">
+          <input
+            class="homey-form-checkbox-input"
+            id="login-credeniials-use-for-all"
+            type="checkbox"
+            name="useForAll" />
+          <span class="homey-form-checkbox-checkmark"></span>
+          <span class="homey-form-checkbox-text">use for all devices</span>
+          <!-- TODO translate -->
+        </label>
       </div>
     </div>
     <div class="__private__homey-login-credentials__footer">
@@ -77,6 +87,18 @@
 </div>
 
 <script type="text/javascript">
+  /** @type {HTMLInputElement} */
+  const passwordField = document.getElementById('login-credentials-password');
+  /** @type {HTMLInputElement} */
+  const useForAllCheckbox = document.getElementById('login-credeniials-use-for-all');
+  /** @type {HTMLFormElement} */
+  const submitForm = document.getElementById('login-credentials-form');
+
+  /**
+   * @param {string} realm
+   * @param {string} password
+   * @returns {Promise<string>}
+   */
   async function ha1Digest(realm, password) {
     const encoder = new TextEncoder();
     const ha1 = await window.crypto.subtle.digest('SHA-256', encoder.encode(`admin:${realm}:${password}`));
@@ -84,31 +106,71 @@
     return ha1String;
   }
 
-  let deviceId = undefined;
-
   Homey.setTitle(Homey.__('pair.device_credentials.title'));
   const credentialsTitle = document.getElementById('login-credentials-title');
-  Homey.on('credentials_device', ({ title, id }) => {
-    credentialsTitle.innerText = title;
-    deviceId = id;
+
+  /**
+   * @typedef {object} Device
+   * @property {string} id
+   * @property {string} title
+   */
+
+  /** @type {Array<Device> | undefined} */
+  let devices;
+  /** @type {Device | undefined} */
+  let currentDevice;
+
+  Homey.on('all_credentials_devices', list => {
+    console.log('Authenticating', list);
+    devices = list;
+    nextDevice();
   });
 
-  const passwordField = document.getElementById('login-credentials-password');
+  // TODO refactor to peek first device instead of popping immediately
+  function nextDevice() {
+    currentDevice = devices?.pop();
+    if (currentDevice === undefined) {
+      Homey.emit('authentication_done');
+      return;
+    }
+    console.log('Authenticating', currentDevice);
+    credentialsTitle.innerText = currentDevice.title;
+  }
 
-  const submitForm = document.getElementById('login-credentials-form');
+  /**
+   * @returns {Promise<boolean>}
+   */
+  async function checkDevice(id, password) {
+    const ha1 = await ha1Digest(id, password);
+    return Homey.emit('credentials', { id: id, ha1: ha1 });
+  }
 
   submitForm.onsubmit = async e => {
     e.preventDefault();
     Homey.showLoadingOverlay(Homey.__('pair.device_credentials.validating'));
     try {
-      const password = passwordField.value;
-      const ha1 = await ha1Digest(deviceId, password);
-      const valid = await Homey.emit('credentials', ha1);
-      if (valid) {
-        await Homey.showView('loading_devices');
+      const useForAll = useForAllCheckbox.checked;
+      if (useForAll) {
+        const password = passwordField.value;
+        const invalidDevices = [];
+        devices.push(currentDevice);
+        for (const device of devices) {
+          const valid = await checkDevice(device.id, password);
+          if (!valid) {
+            invalidDevices.push(device);
+          }
+        }
+        devices = invalidDevices;
+        nextDevice();
       } else {
-        Homey.error(Homey.__('pair.device_credentials.invalid'));
-        Homey.hideLoadingOverlay();
+        const valid = await checkDevice(currentDevice.id, passwordField.value);
+        console.log('Credentials for', currentDevice.id, 'are', valid ? 'valid' : 'invalid');
+        if (valid) {
+          nextDevice();
+        } else {
+          Homey.error(Homey.__('pair.device_credentials.invalid'));
+          Homey.hideLoadingOverlay();
+        }
       }
     } catch (error) {
       Homey.error(error);
