@@ -14,7 +14,8 @@
       "password": "Password",
       "authenticate": "Authenticate",
       "validating": "Validating credentials...",
-      "invalid": "Invalid password"
+      "invalid": "Invalid password",
+      "try_for_all": "Try password for all devices"
     },
     "loading_devices": "Assembling device information..."
   },
