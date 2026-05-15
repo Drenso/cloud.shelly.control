@@ -15,6 +15,13 @@ import { LocalPairingHandler } from './LocalPairingHandler.js';
 export default abstract class ShellyLocalDriver extends Homey.Driver {
   protected batteryDevice = false;
 
+  public async onInit(): Promise<void> {
+    await super.onInit();
+    const readyResolver = this.app.localDriverResolvers[this.id];
+    readyResolver();
+    this.debug('ready');
+  }
+
   public get app(): ShellyApp {
     return this.homey.app as ShellyApp;
   }

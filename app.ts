@@ -23,6 +23,30 @@ export default class ShellyApp extends Homey.App {
 
   public readonly virtualDevices = new Map<string, VirtualDevice>();
 
+  public readonly localDriverResolvers: Record<string, () => void>;
+  public readonly localDriversReady: Promise<void>;
+
+  public constructor(...args: Array<never>) {
+    super(...args);
+
+    this.localDriverResolvers = {};
+    const localDriversReadyPromises: Array<Promise<void>> = [];
+
+    // Dynamically get the names of local drivers based on their suffix
+    const localDriverNames = this.manifest.drivers
+      .map((driver: { id: string }) => driver.id)
+      .filter((id: string) => id.endsWith('local'));
+
+    for (const driverName of localDriverNames) {
+      localDriversReadyPromises.push(
+        new Promise<void>(resolve => {
+          this.localDriverResolvers[driverName] = resolve;
+        }),
+      );
+    }
+    this.localDriversReady = Promise.all(localDriversReadyPromises).then();
+  }
+
   public async onInit(): Promise<void> {
     this.log('Initializing App...');
 
@@ -39,8 +63,11 @@ export default class ShellyApp extends Homey.App {
       });
 
     this.registerFlowCards();
-    await this.deserializeVirtualDevices();
-    this.log('Finished initializing App');
+    // Wait for local drivers to be ready to avoid a race condition
+    this.localDriversReady.then(async () => {
+      await this.deserializeVirtualDevices();
+      this.log('Finished initializing App');
+    });
   }
 
   private async deserializeVirtualDevices(): Promise<void> {
