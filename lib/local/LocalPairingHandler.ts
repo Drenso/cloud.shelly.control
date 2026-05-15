@@ -110,6 +110,7 @@ export class LocalPairingHandler {
       return true;
     } catch (err) {
       if (err instanceof HttpError && err.code === 401) {
+        this.debug('Wrong password');
         return false;
       } else {
         throw err;
