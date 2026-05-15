@@ -161,6 +161,9 @@
           }
         }
         devices = invalidDevices;
+        if (devices.length > 0) {
+          Homey.hideLoadingOverlay();
+        }
         nextDevice();
       } else {
         const valid = await checkDevice(currentDevice.id, passwordField.value);
