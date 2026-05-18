@@ -11,6 +11,10 @@ import Input from './lib/component/components/Input.js';
 import Illuminance from './lib/component/components/Illuminance.js';
 import PresenceZone from './lib/component/components/PresenceZone.js';
 
+process.on('uncaughtException', (error, origin) => {
+  console.error('Uncaught exception:', error, '\nfrom', origin);
+});
+
 sourceMapSupport.install();
 
 const VIRTUAL_DEVICE_IDS_SETTING_KEY = 'virtual_device_ids';
