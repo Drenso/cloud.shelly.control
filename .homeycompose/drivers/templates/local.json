@@ -43,5 +43,11 @@
       "id": "add_subdevices",
       "$template": "add_subdevices"
     }
+  ],
+  "repair": [
+    {
+      "id": "repair",
+      "$template": "repair"
+    }
   ]
 }

@@ -1441,6 +1441,11 @@
           "id": "add_subdevices"
         }
       ],
+      "repair": [
+        {
+          "id": "repair"
+        }
+      ],
       "name": {
         "en": "Dimmer 0/1-10V Gen4 - LAN"
       },
@@ -1965,6 +1970,11 @@
           "id": "add_subdevices"
         }
       ],
+      "repair": [
+        {
+          "id": "repair"
+        }
+      ],
       "name": {
         "en": "1 Gen4 - LAN"
       },
@@ -2216,6 +2226,11 @@
         },
         {
           "id": "add_subdevices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "repair"
         }
       ],
       "name": {
@@ -2476,6 +2491,11 @@
         },
         {
           "id": "add_subdevices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "repair"
         }
       ],
       "name": {
@@ -2814,6 +2834,11 @@
           "id": "add_subdevices"
         }
       ],
+      "repair": [
+        {
+          "id": "repair"
+        }
+      ],
       "name": {
         "en": "1PM Mini Gen4 - LAN"
       },
@@ -3149,6 +3174,11 @@
         },
         {
           "id": "add_subdevices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "repair"
         }
       ],
       "name": {
@@ -3827,6 +3857,11 @@
           "id": "add_subdevices"
         }
       ],
+      "repair": [
+        {
+          "id": "repair"
+        }
+      ],
       "name": {
         "en": "2PM Gen4 - Switch - LAN"
       },
@@ -4311,6 +4346,11 @@
           "id": "add_subdevices"
         }
       ],
+      "repair": [
+        {
+          "id": "repair"
+        }
+      ],
       "name": {
         "en": "Multicolor Bulb Gen3 - LAN"
       },
@@ -4587,6 +4627,11 @@
         },
         {
           "id": "add_subdevices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "repair"
         }
       ],
       "name": {
@@ -5091,6 +5136,11 @@
           "id": "add_subdevices"
         }
       ],
+      "repair": [
+        {
+          "id": "repair"
+        }
+      ],
       "name": {
         "en": "Duo Bulb Gen3 - LAN"
       },
@@ -5348,6 +5398,11 @@
         },
         {
           "id": "add_subdevices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "repair"
         }
       ],
       "name": {
@@ -5673,6 +5728,11 @@
           "id": "add_subdevices"
         }
       ],
+      "repair": [
+        {
+          "id": "repair"
+        }
+      ],
       "name": {
         "en": "EM Mini Gen4 - LAN"
       },
@@ -5839,6 +5899,11 @@
         },
         {
           "id": "add_subdevices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "repair"
         }
       ],
       "name": {
@@ -6081,6 +6146,11 @@
         },
         {
           "id": "add_subdevices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "repair"
         }
       ],
       "name": {
@@ -6905,6 +6975,11 @@
         },
         {
           "id": "add_subdevices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "repair"
         }
       ],
       "name": {

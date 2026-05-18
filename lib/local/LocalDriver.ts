@@ -11,6 +11,8 @@ import Shelly from '../component/components/Shelly.js';
 import type { ShellyGetDeviceInfoResponse } from '../component/components/Shelly/GetDeviceInfo.js';
 import { createHttpChannel } from '../HomeyRPCChannels.js';
 import { LocalPairingHandler } from './LocalPairingHandler.js';
+import type ShellyLocalDevice from './LocalDevice.js';
+import { LocalRePairingHandler } from './LocalRePairingHandler.js';
 
 export default abstract class ShellyLocalDriver extends Homey.Driver {
   protected batteryDevice = false;
@@ -30,6 +32,17 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
     await super.onPair(session);
     await new LocalPairingHandler(
       session,
+      this,
+      (...args: Array<unknown>) => this.log('[Pairing Handler]', ...args),
+      (...args: Array<unknown>) => this.error('[Pairing Handler]', ...args),
+      (...args: Array<unknown>) => this.debug('[Pairing Handler]', ...args),
+    ).setup();
+  }
+
+  public async onRepair(session: Homey.Driver.PairSession, device: ShellyLocalDevice): Promise<void> {
+    await new LocalRePairingHandler(
+      session,
+      device,
       this,
       (...args: Array<unknown>) => this.log('[Pairing Handler]', ...args),
       (...args: Array<unknown>) => this.error('[Pairing Handler]', ...args),
@@ -79,7 +92,7 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
     );
   }
 
-  protected getDefaultName(): string {
+  public getDefaultName(): string {
     return this.manifest.name.en.split('-')[0].trim();
   }
 

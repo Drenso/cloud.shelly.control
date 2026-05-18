@@ -1,0 +1,214 @@
+<style>
+  .__private__homey-login-credentials {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .__private__homey-login-credentials__form {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .__private__homey-login-credentials__center {
+    width: 100%;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+
+  .__private__homey-login-credentials__footer {
+    width: 100%;
+  }
+
+  .__private__homey-login-credentials__button {
+    white-space: nowrap; /* Safari fix for strange bug which makes button extra high */
+  }
+
+  .logo {
+    display: block;
+    width: 50vw;
+    margin: 1em auto;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+
+  .__hidden {
+    display: none !important;
+  }
+</style>
+
+<div class="__private__homey-login-credentials" id="$HY_TMPL_ID">
+  <form
+    id="login-credentials-form"
+    class="__private__homey-login-credentials__form homey-form"
+    action="/"
+    method="post">
+    <div class="__private__homey-login-credentials__center">
+      <img id="login-credentials-logo" class="logo" src="../../../assets/icon.svg" alt="Shelly logo" />
+      <h1 id="login-credentials-title" class="homey-title homey-text-align-center">Device ID</h1>
+      <div class="homey-form-group-large">
+        <label class="homey-form-label" for="login-credentials-password" data-i18n="pair.device_credentials.password">
+          Password
+        </label>
+        <input
+          class="homey-form-input-large"
+          id="login-credentials-password"
+          name="password"
+          type="password"
+          value="" />
+        <label class="homey-form-checkbox __hidden">
+          <input
+            class="homey-form-checkbox-input"
+            id="login-credeniials-use-for-all"
+            type="checkbox"
+            name="useForAll"
+            checked />
+          <span class="homey-form-checkbox-checkmark"></span>
+          <span class="homey-form-checkbox-text" data-i18n="pair.device_credentials.try_for_all"></span>
+        </label>
+      </div>
+    </div>
+    <div class="__private__homey-login-credentials__footer">
+      <button
+        id="device_credentials_submit_button"
+        tabindex="0"
+        class="homey-button-primary-shadow-full __private__homey-login-credentials__button"
+        type="submit"
+        data-i18n="pair.device_credentials.authenticate">
+        Authenticate
+      </button>
+    </div>
+  </form>
+</div>
+
+<script type="text/javascript">
+  // authenticate_devices
+  Homey.showLoadingOverlay(Homey.__('pair.loading_devices'));
+
+  // add_subdevices
+  Homey.on('add_subdevices', () => {
+    Homey.setTitle(Homey.__('pair.add_devices.title'));
+    Homey.showLoadingOverlay(Homey.__('pair.add_devices.loading'));
+
+    Homey.emit('add_subdevices', undefined)
+      .then(async result => {
+        console.log('Adding devices:', JSON.stringify(result));
+        for (const device of result) {
+          await Homey.createDevice(device);
+        }
+        await Homey.emit('done');
+      })
+      .catch(err => Homey.alert(err))
+      .finally(() => {
+        return Homey.done();
+      });
+  });
+
+  // device_password
+  /** @type {HTMLInputElement} */
+  const passwordField = document.getElementById('login-credentials-password');
+  /** @type {HTMLInputElement} */
+  const useForAllCheckbox = document.getElementById('login-credeniials-use-for-all');
+  /** @type {HTMLFormElement} */
+  const submitForm = document.getElementById('login-credentials-form');
+
+  /**
+   * @param {string} realm
+   * @param {string} password
+   * @returns {Promise<string>}
+   */
+  async function ha1Digest(realm, password) {
+    const encoder = new TextEncoder();
+    const ha1 = await window.crypto.subtle.digest('SHA-256', encoder.encode(`admin:${realm}:${password}`));
+    const ha1String = Array.prototype.map.call(new Uint8Array(ha1), n => n.toString(16).padStart(2, '0')).join('');
+    return ha1String;
+  }
+
+  Homey.setTitle(Homey.__('pair.device_credentials.title'));
+  const credentialsTitle = document.getElementById('login-credentials-title');
+
+  /**
+   * @typedef {object} Device
+   * @property {string} id
+   * @property {string} title
+   */
+
+  /** @type {Array<Device> | undefined} */
+  let devices;
+  /** @type {Device | undefined} */
+  let currentDevice;
+
+  Homey.on('all_credentials_devices', list => {
+    console.log('Authenticating', list);
+    devices = list;
+    const checkBoxParent = useForAllCheckbox.parentElement;
+    if (devices.length > 1) {
+      checkBoxParent.classList.remove('__hidden');
+    } else {
+      checkBoxParent.classList.add('__hidden');
+    }
+    nextDevice();
+  });
+
+  // TODO refactor to peek first device instead of popping immediately
+  function nextDevice() {
+    currentDevice = devices?.pop();
+    if (currentDevice === undefined) {
+      Homey.emit('authentication_done');
+      return;
+    }
+    console.log('Authenticating', currentDevice);
+    credentialsTitle.innerText = currentDevice.title;
+    Homey.hideLoadingOverlay();
+  }
+
+  /**
+   * @returns {Promise<boolean>}
+   */
+  async function checkDevice(id, password) {
+    const ha1 = await ha1Digest(id, password);
+    return Homey.emit('credentials', { id: id, ha1: ha1 });
+  }
+
+  submitForm.onsubmit = async e => {
+    e.preventDefault();
+    Homey.showLoadingOverlay(Homey.__('pair.device_credentials.validating'));
+    try {
+      const useForAll = useForAllCheckbox.checked;
+      if (useForAll) {
+        const password = passwordField.value;
+        const invalidDevices = [];
+        devices.push(currentDevice);
+        for (const device of devices) {
+          const valid = await checkDevice(device.id, password);
+          if (!valid) {
+            invalidDevices.push(device);
+          }
+        }
+        devices = invalidDevices;
+        if (devices.length > 0) {
+          Homey.hideLoadingOverlay();
+        }
+        nextDevice();
+      } else {
+        const valid = await checkDevice(currentDevice.id, passwordField.value);
+        console.log('Credentials for', currentDevice.id, 'are', valid ? 'valid' : 'invalid');
+        if (valid) {
+          nextDevice();
+        } else {
+          Homey.error(Homey.__('pair.device_credentials.invalid'));
+          Homey.hideLoadingOverlay();
+        }
+      }
+    } catch (error) {
+      Homey.error(error);
+      Homey.hideLoadingOverlay();
+    }
+  };
+</script>
