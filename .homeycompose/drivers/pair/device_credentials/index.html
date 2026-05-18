@@ -29,14 +29,10 @@
     white-space: nowrap; /* Safari fix for strange bug which makes button extra high */
   }
 
-  .__private__homey-login-credentials__logo.is-visible {
+  .logo {
     display: block;
-    position: relative;
-    width: 66%;
-    height: 100px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: var(--homey-su-4);
+    width: 50vw;
+    margin: 1em auto;
     background-position: center center;
     background-repeat: no-repeat;
     background-size: contain;
@@ -54,6 +50,7 @@
     action="/"
     method="post">
     <div class="__private__homey-login-credentials__center">
+      <img id="login-credentials-logo" class="logo" src="../../../assets/icon.svg" alt="Shelly logo" />
       <h1 id="login-credentials-title" class="homey-title homey-text-align-center">Device ID</h1>
       <div class="homey-form-group-large">
         <label class="homey-form-label" for="login-credentials-password" data-i18n="pair.device_credentials.password">
