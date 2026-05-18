@@ -41,6 +41,10 @@
     background-repeat: no-repeat;
     background-size: contain;
   }
+
+  .__hidden {
+    display: none !important;
+  }
 </style>
 
 <div class="__private__homey-login-credentials" id="$HY_TMPL_ID">
@@ -61,7 +65,7 @@
           name="password"
           type="password"
           value="" />
-        <label class="homey-form-checkbox">
+        <label class="homey-form-checkbox __hidden">
           <input
             class="homey-form-checkbox-input"
             id="login-credeniials-use-for-all"
@@ -123,6 +127,12 @@
   Homey.on('all_credentials_devices', list => {
     console.log('Authenticating', list);
     devices = list;
+    const checkBoxParent = useForAllCheckbox.parentElement;
+    if (devices.length > 1) {
+      checkBoxParent.classList.remove('__hidden');
+    } else {
+      checkBoxParent.classList.add('__hidden');
+    }
     nextDevice();
   });
 
