@@ -277,7 +277,7 @@ export class VirtualDevice {
         throw new Error(`Unknown transition for uninitializing: ${action}`);
       },
       enter: async (): Promise<void> => {
-        this.state = 'error';
+        this.state = 'uninitializing';
         this.debugState('Uninitializing...');
         return this.unregister();
       },
