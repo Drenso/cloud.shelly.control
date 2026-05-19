@@ -113,7 +113,7 @@ export default class ShellyLocalDevice extends Homey.Device {
   ): Promise<void> {
     for (const componentId of newComponents) {
       if (this.virtualComponents.has(componentId)) {
-        this.log('Already registered component:', componentId);
+        this.debug('Already registered component:', componentId);
         continue;
       }
       const virtualComponent = this.virtualDevice!.virtualComponents.get(componentId);

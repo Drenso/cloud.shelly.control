@@ -364,7 +364,7 @@ export class VirtualDevice {
   ): Promise<void> {
     for (const component of components) {
       if (this.initializedComponents.has(component.key)) {
-        this.log('Already initialized component:', component.key);
+        this.debug('Already registered component:', component.key);
         continue;
       }
       const [componentName] = component.key.split(':') as [string, `${number}` | undefined];
