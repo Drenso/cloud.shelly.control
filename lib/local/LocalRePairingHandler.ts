@@ -88,8 +88,7 @@ export class LocalRePairingHandler {
     }
 
     if (deviceInfo === undefined || httpChannel === undefined || discoveryResult === undefined) {
-      // TODO translate
-      throw new Error('Could not find device again');
+      throw new Error(this.driver.homey.__('pair.not_found'));
     }
 
     // Update device info

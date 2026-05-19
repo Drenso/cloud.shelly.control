@@ -17,7 +17,8 @@
       "invalid": "Invalid password",
       "try_for_all": "Try password for all devices"
     },
-    "loading_devices": "Assembling device information..."
+    "loading_devices": "Assembling device information...",
+    "not_found": "Could not find the device"
   },
   "device": {
     "initializing": "Initializing...",
