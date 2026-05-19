@@ -266,6 +266,9 @@ export class VirtualDevice {
     methodMapping: Partial<Record<NameSpace, ComponentMethod<NameSpace>[]>>,
   ): Promise<void> {
     for (const component of components) {
+      if (this.initializedComponents.has(component.key)) {
+        throw new Error(`Component ${component.key} already initialized`);
+      }
       const [componentName] = component.key.split(':') as [string, `${number}` | undefined];
       const componentConstructor = ComponentMapping[componentName as never] as MappedComponent | undefined;
       // Ignore components for which we have no implementation
