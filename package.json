@@ -25,7 +25,7 @@
     "semver": "7.8.0",
     "source-map-support": "0.5.21",
     "undici": "8.2.0",
-    "ws": "8.20.0",
+    "ws": "8.20.1",
     "zigbee-clusters": "3.0.2"
   },
   "devDependencies": {
@@ -38,7 +38,7 @@
     "@types/semver": "7.7.1",
     "@types/source-map-support": "0.5.10",
     "@types/ws": "8.18.1",
-    "eslint": "9.26.0",
+    "eslint": "9.39.4",
     "eslint-config-prettier": "10.1.5",
     "prettier": "3.8.1",
     "tsx": "4.21.0",
