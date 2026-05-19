@@ -49,6 +49,7 @@ export default class ShellyApp extends Homey.App {
       );
     }
     this.localDriversReady = Promise.all(localDriversReadyPromises).then();
+    this.deserializeVirtualDevices().catch(this.error);
   }
 
   public async onInit(): Promise<void> {
@@ -68,8 +69,7 @@ export default class ShellyApp extends Homey.App {
 
     this.registerFlowCards();
     // Wait for local drivers to be ready to avoid a race condition
-    this.localDriversReady.then(async () => {
-      await this.deserializeVirtualDevices();
+    this.localDriversReady.then(() => {
       this.log('Finished initializing App');
     });
   }

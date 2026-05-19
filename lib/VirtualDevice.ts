@@ -39,18 +39,26 @@ export type SerializedVirtualDevice = {
   readonly driver: string;
 };
 
-type StateData = {
-  uninitialized: [];
-  online: [Array<ShellyGetComponentsResponseComponent> | undefined] | [];
-  offline: [];
-  sleeping: [];
-  error: [string];
+type StateAction = 'app_initialized' | 'device_connected' | 'going_to_sleep' | 'going_offline' | 'repair';
+
+type State = {
+  transition(action: StateAction): Promise<void>;
+  enter: () => Promise<void>;
 };
 
-type State = keyof StateData;
+type StateName =
+  | 'waiting_for_app_init'
+  | 'checking_initial_homey_devices'
+  | 'waiting_for_initial_connection'
+  | 'initializing'
+  | 'online'
+  | 'offline'
+  | 'sleeping'
+  | 'error'
+  | 'uninitializing';
 
 export class VirtualDevice {
-  private httpChannel!: HttpChannel;
+  private httpChannel: HttpChannel;
   private inboundWsChannel?: InboundWebsocketChannel;
   private outboundWsChannel?: OutboundWebsocketChannel;
 
@@ -58,11 +66,14 @@ export class VirtualDevice {
   private readonly initializedComponents = new Map<string, InstanceType<MappedComponent>>();
   private readonly initializedHomeyDevices = new Map<string, ShellyLocalDevice>();
 
+  private homeyDeviceIds: string[];
+
   public get virtualComponents(): ReadonlyMap<string, InstanceType<MappedComponent>> {
     return this.initializedComponents;
   }
 
-  private state: State;
+  private state: StateName;
+  private errorMessage?: string = undefined;
 
   public constructor(
     public readonly app: ShellyApp,
@@ -71,23 +82,31 @@ export class VirtualDevice {
     private batteryDevice: boolean,
     private components: readonly string[],
     private readonly driver: string,
-    private homeyDeviceIds: string[],
-    private useHttps: boolean,
+    private initialHomeyDeviceIds: string[],
+    useHttps: boolean,
     private ha1: string | undefined,
     // Allow passing these in the pairing flow so we do not need to retrieve them twice
-    componentResponses?: ShellyGetComponentsResponseComponent[],
+    private initialComponentResponses?: ShellyGetComponentsResponseComponent[],
   ) {
-    this.state = 'uninitialized';
-
     this.log = (...args): void => this.app.log(`[Virtual:${deviceId}]`, ...args);
     this.error = (...args): void => this.app.error(`[Virtual:${deviceId}]`, ...args);
     this.debug = (...args): void => this.app.debug(`[Virtual:${deviceId}]`, ...args);
 
-    // Initialize channels
-    this.connect();
+    this.httpChannel = createHttpChannel(
+      this.ipAddress,
+      this.app.homey.__,
+      useHttps,
+      this.ha1,
+      this.onHttpsUpgrade.bind(this),
+    );
 
-    // TODO does this need a nextTick?
-    void this.safeInitialize(componentResponses);
+    this.homeyDeviceIds = initialHomeyDeviceIds;
+
+    this.state = 'waiting_for_app_init';
+    this.debugState('Waiting for app initialization...');
+    this.app.localDriversReady.then(() => {
+      this.transition('app_initialized').catch(this.error);
+    });
   }
 
   public readonly log: (...args: unknown[]) => void;
@@ -99,37 +118,147 @@ export class VirtualDevice {
     await this.app.updateVirtualDevice(this);
   }
 
-  public async transition<NewState extends Exclude<State, 'uninitialized'>>(
-    newState: NewState,
-    ...args: StateData[NewState]
-  ): Promise<void> {
-    if (this.state === 'uninitialized') {
-      return;
+  public debugStates: boolean = true;
+  private debugState(...args: unknown[]): void {
+    if (this.debugStates) {
+      this.debug('[State]', ...args);
     }
+  }
 
-    switch (newState) {
-      case 'sleeping':
-      case 'online':
-        if (this.state !== 'online' && this.state !== 'sleeping') {
-          await this.setAvailable();
+  // TODO optimize
+  // TODO use this.initialComponents after pairing
+  // TODO use this.initialHomeyDevices after app initialization
+  private readonly states: Record<StateName, State> = {
+    waiting_for_app_init: {
+      transition: async (action: StateAction): Promise<void> => {
+        if (action === 'app_initialized') {
+          this.debugState('App initialized');
+          return this.states.checking_initial_homey_devices.enter();
+        } else {
+          throw new Error(`Unknown transition for waiting_for_app_init: ${action}`);
         }
-        break;
-      case 'offline':
-        if (this.state !== 'offline') {
-          await this.setUnavailable(this.app.homey.__('device.offline'));
+      },
+      enter: async (): Promise<void> => {
+        throw new Error('Cannot enter waiting_for_app_init');
+      },
+    },
+    checking_initial_homey_devices: {
+      transition: async (action: StateAction): Promise<void> => {
+        throw new Error(`Unknown transition for checking_initial_homey_devices: ${action}`);
+      },
+      enter: async (): Promise<void> => {
+        this.state = 'checking_initial_homey_devices';
+        this.debugState('Checking initial Homey devices...');
+        // Check if any Homey devices remain
+        const homeyDevices = this.getHomeyDevices();
+        this.debug('Found', homeyDevices.length, 'Homey devices');
+        if (homeyDevices.length === 0) {
+          // If not, remove this virtual device
+          return this.states.uninitializing.enter();
         }
-        break;
-      case 'error': {
-        const [message] = args as StateData['error'];
-        await this.setUnavailable(message);
-        break;
-      }
-    }
+        // If yes, transition to waiting for connection
+        return this.states.waiting_for_initial_connection.enter();
+      },
+    },
+    waiting_for_initial_connection: {
+      transition: async (action: StateAction): Promise<void> => {
+        if (action === 'device_connected') {
+          this.debugState('Initial connection established');
+          return this.states.initializing.enter();
+        } else {
+          throw new Error(`Unknown transition for waiting_for_initial_connection: ${action}`);
+        }
+      },
+      enter: async (): Promise<void> => {
+        this.state = 'waiting_for_initial_connection';
+        this.debugState('Waiting for initial connection...');
+        await Promise.all(
+          // TODO use this.initialHomeyDevices after app initialization
+          this.getHomeyDevices().map(homeyDevice => homeyDevice.setUnavailable(this.app.homey.__('device.offline'))),
+        );
+        this.connect();
+      },
+    },
+    initializing: {
+      transition: async (action: StateAction): Promise<void> => {
+        throw new Error(`Unknown transition for initializing: ${action}`);
+      },
+      enter: async (): Promise<void> => {
+        this.state = 'initializing';
+        this.debugState('Initializing...');
+        await this.initialize(this.initialComponentResponses);
+        this.debugState('Initialized');
+        return this.states.online.enter();
+      },
+    },
+    online: {
+      transition: async (action: StateAction): Promise<void> => {
+        // TODO handle new config and device removal
+        if (action === 'device_connected') {
+          return;
+        } else if (action === 'going_offline') {
+          return this.states.offline.enter();
+        } else {
+          throw new Error(`Unknown transition for online: ${action}`);
+        }
+      },
+      enter: async (): Promise<void> => {
+        this.state = 'online';
+        this.debugState('Device online');
+        return this.setAvailable();
+      },
+    },
+    offline: {
+      transition: async (action: StateAction): Promise<void> => {
+        if (action === 'device_connected') {
+          return this.states.online.enter();
+        } else {
+          throw new Error(`Unknown transition for offline: ${action}`);
+        }
+      },
+      enter: async (): Promise<void> => {
+        this.state = 'offline';
+        this.debugState('Device offline');
+        return this.setUnavailable(this.app.homey.__('device.offline'));
+      },
+    },
+    sleeping: {
+      transition: async (action: StateAction): Promise<void> => {
+        if (action === 'device_connected') {
+          return this.states.online.enter();
+        } else {
+          throw new Error(`Unknown transition for sleeping: ${action}`);
+        }
+      },
+      enter: async (): Promise<void> => {
+        this.state = 'sleeping';
+        this.debugState('Device sleeping');
+      },
+    },
+    error: {
+      transition: async (action: StateAction): Promise<void> => {
+        throw new Error(`Unknown transition for error: ${action}`);
+      },
+      enter: async (): Promise<void> => {
+        this.state = 'error';
+        this.error('Entered error state with error:', this.errorMessage);
+        return this.setUnavailable(this.errorMessage ?? 'Error');
+      },
+    },
+    uninitializing: {
+      transition: async (action: StateAction): Promise<void> => {
+        throw new Error(`Unknown transition for uninitializing: ${action}`);
+      },
+      enter: async (): Promise<void> => {
+        this.state = 'error';
+        this.debugState('Uninitializing...');
+        return this.unregister();
+      },
+    },
+  };
 
-    if (this.state !== newState) {
-      this.debug(this.state, '->', newState);
-    }
-    this.state = newState;
+  public transition(action: StateAction): Promise<void> {
+    return this.states[this.state].transition(action);
   }
 
   public serialize(): SerializedVirtualDevice {
@@ -145,55 +274,37 @@ export class VirtualDevice {
     };
   }
 
-  private async safeInitialize(components?: ShellyGetComponentsResponseComponent[]): Promise<void> {
-    if (this.initialized) {
-      await this.transition('online');
-      return;
-    }
-    this.log('Initializing...');
-    try {
-      this.initialized = true;
-      await this.initialize(components);
-      this.state = 'online';
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      this.initialized = false;
-
-      if (error.code === 'UND_ERR_CONNECT_TIMEOUT' || error.code === 'EHOSTUNREACH') {
-        // Set devices unavailable
-        for (const homeyDeviceId of this.homeyDeviceIds) {
-          this.app.getLocalDevice(homeyDeviceId)?.setUnavailable(this.app.homey.__('device.offline')).catch(this.error);
-        }
-      }
-
-      this.error('Error while initializing components:', error);
-    }
-  }
-
-  private async initialize(components: ShellyGetComponentsResponseComponent[] | undefined): Promise<void> {
-    // Retrieve the Homey devices associated with this virtual device
+  private getHomeyDevices(): ShellyLocalDevice[] {
+    // TODO only look at driver devices once this.driver is guaranteed after 1.0.0
     const homeyDevices: ShellyLocalDevice[] = [];
 
     for (const homeyDeviceId of this.homeyDeviceIds) {
       const homeyDevice = this.app.getLocalDevice(homeyDeviceId);
       if (homeyDevice !== undefined) {
         homeyDevices.push(homeyDevice);
-      } else {
-        this.log('No homeyDevice found for', homeyDeviceId);
       }
     }
 
-    for (const homeyDevice of homeyDevices) {
-      await homeyDevice.setUnavailable(this.app.homey.__('device.initializing'));
+    return homeyDevices;
+  }
+
+  private async initialize(components?: ShellyGetComponentsResponseComponent[]): Promise<void> {
+    // TODO use this.initialHomeyDevices after app initialization
+    const homeyDevices: ShellyLocalDevice[] = this.getHomeyDevices();
+
+    // TODO remove this in 1.0.0
+    // Before version 0.3.0 the Homey driver associated with the virtual device was not stored
+    if (this.driver === undefined) {
+      const homeyDevice = homeyDevices[0];
+      await homeyDevice.ready();
+      // @ts-expect-error this.driver is readonly
+      this.driver = homeyDevice.driver.id;
     }
 
-    this.log(homeyDevices.length, 'children found again');
-
-    // If no Homey devices remain the virtual device should also be removed
-    if (homeyDevices.length === 0) {
-      await this.unregister();
-      return;
-    }
+    // Mark Homey devices as initializing
+    const markInitializingPromise = Promise.all(
+      homeyDevices.map(homeyDevice => homeyDevice.setUnavailable(this.app.homey.__('device.offline'))),
+    );
 
     if (components === undefined) {
       components = await this.retrieveComponents();
@@ -207,52 +318,39 @@ export class VirtualDevice {
     this.debug('Removed components:', removedComponents);
     this.debug('Added components:', addedComponents);
 
-    // Before version 0.3.0 the Homey driver associated with the virtual device was not stored
-    if (this.driver === undefined) {
-      // TODO remove this in 1.0.0
-      const homeyDevice = homeyDevices[0];
-      await homeyDevice.ready();
-      // @ts-expect-error this.driver is readonly
-      this.driver = homeyDevice.driver.id;
-    }
-
-    // Check whether changes to the components require adding/removing Homey devices
-    const newDevices = await this.assembleDevices(components);
-
-    const oldDeviceIds = this.homeyDeviceIds;
-    const newDeviceIds: string[] = newDevices.map(device => device.data.id);
-
-    const { added: deviceIdsToAdd, removed: deviceIdsToRemove } = diffArrays(oldDeviceIds, newDeviceIds);
-
-    this.debug('Homey devices to remove:', deviceIdsToRemove);
-    this.debug('Homey devices to add:', deviceIdsToAdd);
-
-    // Only initialize Homey devices that are still used.
-    // Set the ones that are not to unavailable with a message saying they can be removed,
-    // since we cannot do that ourselves.
-    const filteredDevices: ShellyLocalDevice[] = [];
-
-    for (const homeyDevice of homeyDevices) {
-      if (deviceIdsToRemove.includes(homeyDevice.getTypedData().id)) {
-        await homeyDevice.setUnavailable(this.app.homey.__('device.device_removed'));
-      } else {
-        filteredDevices.push(homeyDevice);
-      }
-    }
-
-    // If a Homey device needs to be added, set all current Homey devices to unavailable
-    // with a message saying the user needs to re-pair one, since we cannot add one ourselves.
-    if (deviceIdsToAdd.length > 0) {
-      await this.setUnavailable(this.app.homey.__('device.device_added'));
-      return;
-    }
-
     const methodMapping = await this.getMethodMapping();
 
     // Remove before adding, to avoid conflicts
     await this.unregisterComponents(removedComponents);
     await this.initializeComponents(components, methodMapping);
-    await this.initializeHomeyDevices(filteredDevices, newDevices, methodMapping);
+
+    // Check whether changes to the components require adding/removing Homey devices
+    const newDevices = await this.assembleDevices(components);
+
+    const oldDeviceIds = this.initialHomeyDeviceIds;
+    const newDeviceIds: string[] = newDevices.map(device => device.data.id);
+
+    const { added: deviceIdsToAdd, removed: deviceIdsToRemove } = diffArrays(oldDeviceIds, newDeviceIds);
+
+    this.debug('Homey devices to remove:', deviceIdsToRemove);
+    this.debug('Homey devices not used:', deviceIdsToAdd);
+
+    await markInitializingPromise;
+
+    // Only initialize Homey devices that are still used.
+    // Set the ones that are not to unavailable with a message saying they can be removed,
+    // since we cannot do that ourselves.
+    const usedDevices: ShellyLocalDevice[] = [];
+
+    for (const homeyDevice of homeyDevices) {
+      if (deviceIdsToRemove.includes(homeyDevice.getTypedData().id)) {
+        homeyDevice.setUnavailable(this.app.homey.__('device.device_removed')).catch(this.error);
+      } else {
+        usedDevices.push(homeyDevice);
+      }
+    }
+
+    await this.initializeHomeyDevices(usedDevices, newDevices, methodMapping);
 
     this.components = newComponents;
     this.homeyDeviceIds = newDeviceIds;
@@ -266,7 +364,8 @@ export class VirtualDevice {
   ): Promise<void> {
     for (const component of components) {
       if (this.initializedComponents.has(component.key)) {
-        throw new Error(`Component ${component.key} already initialized`);
+        this.log('Already initialized component:', component.key);
+        continue;
       }
       const [componentName] = component.key.split(':') as [string, `${number}` | undefined];
       const componentConstructor = ComponentMapping[componentName as never] as MappedComponent | undefined;
@@ -303,56 +402,29 @@ export class VirtualDevice {
   ): Promise<void> {
     this.log('Recreating...');
 
+    // TODO re-use device definitions and component definitions
+    this.homeyDeviceIds = homeyDeviceDefinitions.map(device => device.data.id);
+
     if (
       this.ipAddress !== connectionSpecification.ipAddress ||
-      this.useHttps !== connectionSpecification.useHttps ||
+      this.httpChannel.useHttps !== connectionSpecification.useHttps ||
       this.ha1 !== connectionSpecification.ha1
     ) {
       // Reconnect RPC channels
       await this.disconnect();
       this.ipAddress = connectionSpecification.ipAddress;
-      this.useHttps = connectionSpecification.useHttps;
       this.ha1 = connectionSpecification.ha1;
-      this.connect();
+      this.httpChannel = createHttpChannel(
+        this.ipAddress,
+        this.app.homey.__,
+        connectionSpecification.useHttps,
+        this.ha1,
+        this.onHttpsUpgrade.bind(this),
+      );
+      return this.states.waiting_for_initial_connection.enter();
     }
 
-    const componentIds = componentDefinitions.map(component => component.key);
-    const { added: addedComponentIds, removed: removedComponentIds } = diffArrays(this.components, componentIds);
-
-    this.debug('Removed components:', removedComponentIds);
-    this.debug('Added components:', addedComponentIds);
-
-    const addedComponents = await this.retrieveComponents(addedComponentIds);
-
-    const homeyDeviceIds = homeyDeviceDefinitions.map(device => device.data.id);
-    const { added: addedHomeyDeviceIds, removed: removedHomeyDeviceIds } = diffArrays(
-      this.homeyDeviceIds,
-      homeyDeviceIds,
-    );
-
-    this.debug('Removed Homey devices:', removedHomeyDeviceIds);
-    this.debug('Added Homey devices:', addedHomeyDeviceIds);
-    const driverDevices = (
-      this.app.homey.drivers.getDrivers()[this.driver] as ShellyLocalDriver
-    ).getDevices() as ShellyLocalDevice[];
-    const devicesById: Record<string, ShellyLocalDevice> = {};
-    driverDevices.forEach(device => (devicesById[device.getData().id] = device));
-
-    const addedHomeyDevices = addedHomeyDeviceIds.map(deviceId => devicesById[deviceId]);
-
-    const methodMapping = await this.getMethodMapping();
-
-    // Remove before adding, to avoid conflicts
-    await this.unregisterComponents(removedComponentIds);
-    await this.initializeComponents(addedComponents, methodMapping);
-    await this.initializeHomeyDevices(addedHomeyDevices, homeyDeviceDefinitions, methodMapping);
-    // TODO do new components need to be added, and do existing devices need to be re-initialized
-
-    this.components = componentIds;
-    this.homeyDeviceIds = homeyDeviceIds;
-    await this.app.updateVirtualDevice(this);
-
-    this.log('Recreated');
+    return this.states.initializing.enter();
   }
 
   private async unregisterComponents(componentIds: ReadonlyArray<string>): Promise<void> {
@@ -367,6 +439,7 @@ export class VirtualDevice {
   }
 
   // TODO use this for non-dynamic components as well
+  // TODO rework this with the new states
   public async onComponentAdded(newComponentId: string): Promise<void> {
     this.log(`Adding ${newComponentId}...`);
     const components = await this.retrieveComponents();
@@ -406,6 +479,7 @@ export class VirtualDevice {
   }
 
   // TODO use this for non-dynamic components as well
+  // TODO rework this with the new states
   public async onComponentRemoved(componentId: string): Promise<void> {
     this.log(`Removing ${componentId}...`);
     const components = await this.retrieveComponents();
@@ -503,7 +577,7 @@ export class VirtualDevice {
   private async retrieveComponents(keys?: string[]): Promise<ShellyGetComponentsResponseComponent[]> {
     const components: ShellyGetComponentsResponseComponent[] = [];
     while (true) {
-      const componentsResponse = await Shelly.GetComponents(this.httpChannel, {
+      const componentsResponse = await Shelly.GetComponents(this.getChannel(), {
         offset: components.length,
         keys: keys,
       });
@@ -516,16 +590,9 @@ export class VirtualDevice {
   }
 
   private connect(): void {
-    if (this.useHttps) {
+    if (this.httpChannel.useHttps) {
       this.log('Using HTTPS');
     }
-    this.httpChannel = createHttpChannel(
-      this.ipAddress,
-      this.app.homey.__,
-      this.useHttps,
-      this.ha1,
-      this.onHttpsUpgrade.bind(this),
-    );
 
     if (!this.batteryDevice) {
       this.inboundWsChannel = createInboundWsChannel(
@@ -533,12 +600,14 @@ export class VirtualDevice {
         this.ipAddress,
         this.log,
         this.error,
-        this.useHttps,
+        this.httpChannel.useHttps,
         this.onHttpsUpgrade.bind(this),
         this.ha1,
       );
       this.inboundWsChannel.eventEmitter.on('notification', this.handleWsNotification.bind(this));
-      this.inboundWsChannel.eventEmitter.on('opened', this.safeInitialize.bind(this));
+      this.inboundWsChannel.eventEmitter.on('opened', () => {
+        this.transition('device_connected').catch(this.error);
+      });
     }
 
     this.outboundWsChannel = createOutboundWsChannel(
@@ -549,10 +618,10 @@ export class VirtualDevice {
       this.error,
     );
     this.outboundWsChannel.eventEmitter.on('notification', this.handleOutboundWsNotification.bind(this));
-    this.outboundWsChannel.eventEmitter.on('opened', (...args) => {
+    this.outboundWsChannel.eventEmitter.on('opened', () => {
       this.inboundWsChannel?.resetReconnectTimeout();
       this.inboundWsChannel?.safeConnect();
-      return this.safeInitialize(...args);
+      this.transition('device_connected').catch(this.error);
     });
   }
 
@@ -581,7 +650,7 @@ export class VirtualDevice {
 
   public async reboot({ initialWaitTime = undefined } = {}): Promise<void> {
     this.log('Rebooting...');
-    await Shelly.Reboot(this.httpChannel, { delay_ms: initialWaitTime });
+    await Shelly.Reboot(this.getChannel(), { delay_ms: initialWaitTime });
   }
 
   public async removeHomeyDevice(id: string): Promise<void> {
@@ -592,7 +661,7 @@ export class VirtualDevice {
       return this.app.updateVirtualDevice(this);
     }
     // Remove if no child devices remain
-    await this.unregister();
+    await this.states.uninitializing.enter();
   }
 
   private async unregister(): Promise<void> {
@@ -611,7 +680,7 @@ export class VirtualDevice {
   }
 
   private handleWsNotification(notification: NotificationFrame): void {
-    this.transition('online').catch(this.error);
+    this.transition('device_connected').catch(this.error);
 
     if (notification.method === 'NotifyStatus' || notification.method === 'NotifyFullStatus') {
       const statusNotification = notification as NotificationStatusFrame<string, object>;
@@ -648,7 +717,7 @@ export class VirtualDevice {
         await this.handleConfigChangedEvent(event.component).catch(this.error);
       } else if (event.event === 'scheduled_restart') {
         this.log('Device is restarting');
-        await this.transition('offline');
+        await this.transition('going_offline');
       } else {
         const component = this.virtualComponents.get(event.component);
         if (component !== undefined) {

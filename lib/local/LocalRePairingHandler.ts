@@ -178,17 +178,19 @@ export class LocalRePairingHandler {
     const app = this.driver.app;
     const virtualDevice = app.virtualDevices.get(this.selectedDevice.data.id);
     if (virtualDevice === undefined) {
-      // TODO add completely new virtual device
+      throw new Error(`No virtual device with ID: ${this.selectedDevice.data.id}`);
     } else {
-      await virtualDevice.recreate(
-        {
-          ipAddress: this.selectedDevice.store.address,
-          useHttps: this.selectedDevice.data.useHttps,
-          ha1: this.selectedDevice.store.ha1,
-        },
-        this.homeyDevices,
-        this.deviceComponents,
-      );
+      virtualDevice
+        .recreate(
+          {
+            ipAddress: this.selectedDevice.store.address,
+            useHttps: this.selectedDevice.data.useHttps,
+            ha1: this.selectedDevice.store.ha1,
+          },
+          this.homeyDevices,
+          this.deviceComponents,
+        )
+        .catch(this.error);
     }
   }
 }
