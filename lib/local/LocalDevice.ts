@@ -112,6 +112,10 @@ export default class ShellyLocalDevice extends Homey.Device {
     methodMapping: Partial<Record<NameSpace, ComponentMethod<NameSpace>[]>>,
   ): Promise<void> {
     for (const componentId of newComponents) {
+      if (this.virtualComponents.has(componentId)) {
+        this.log('Already registered component:', componentId);
+        continue;
+      }
       const virtualComponent = this.virtualDevice!.virtualComponents.get(componentId);
       if (virtualComponent === undefined) {
         const [componentName] = componentId.split(':') as [string, `${number}` | undefined];
