@@ -39,11 +39,18 @@ export type SerializedVirtualDevice = {
   readonly driver: string;
 };
 
-type StateAction = 'app_initialized' | 'device_connected' | 'going_to_sleep' | 'going_offline' | 'repair';
+type StateAction =
+  | { action: 'app_initialized' }
+  | { action: 'device_connected' }
+  | { action: 'going_to_sleep' }
+  | { action: 'going_offline' }
+  | { action: 'repair' };
 
 type State = {
-  transition(action: StateAction): Promise<void>;
-  enter: () => Promise<void>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  transition(action: StateAction, ...args: Array<any>): Promise<void>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  enter: (...args: Array<any>) => Promise<void>;
 };
 
 type StateName =
@@ -117,7 +124,7 @@ export class VirtualDevice {
     this.state = 'waiting_for_app_init';
     this.debugState('Waiting for app initialization...');
     this.app.localDriversReady.then(() => {
-      void this.transition('app_initialized');
+      void this.transition({ action: 'app_initialized' });
     });
   }
 
@@ -137,9 +144,9 @@ export class VirtualDevice {
     }
   }
 
-  private readonly states: Record<StateName, State> = {
+  private readonly states = {
     waiting_for_app_init: {
-      transition: async (action: StateAction): Promise<void> => {
+      transition: async ({ action }: StateAction): Promise<void> => {
         if (action === 'app_initialized') {
           this.debugState('App initialized');
           return this.states.checking_initial_homey_devices.enter();
@@ -152,7 +159,7 @@ export class VirtualDevice {
       },
     },
     checking_initial_homey_devices: {
-      transition: async (action: StateAction): Promise<void> => {
+      transition: async ({ action }: StateAction): Promise<void> => {
         throw new Error(`Unknown transition for checking_initial_homey_devices: ${action}`);
       },
       enter: async (): Promise<void> => {
@@ -185,7 +192,7 @@ export class VirtualDevice {
       },
     },
     waiting_for_initial_connection: {
-      transition: async (action: StateAction): Promise<void> => {
+      transition: async ({ action }: StateAction): Promise<void> => {
         if (action === 'device_connected') {
           this.debugState('Initial connection established');
           return this.states.initializing.enter();
@@ -208,7 +215,7 @@ export class VirtualDevice {
       },
     },
     initializing: {
-      transition: async (action: StateAction): Promise<void> => {
+      transition: async ({ action }: StateAction): Promise<void> => {
         throw new Error(`Unknown transition for initializing: ${action}`);
       },
       enter: async (): Promise<void> => {
@@ -220,7 +227,7 @@ export class VirtualDevice {
       },
     },
     online: {
-      transition: async (action: StateAction): Promise<void> => {
+      transition: async ({ action, ...args }: StateAction): Promise<void> => {
         if (action === 'device_connected') {
           return;
         } else if (action === 'going_offline') {
@@ -236,7 +243,7 @@ export class VirtualDevice {
       },
     },
     offline: {
-      transition: async (action: StateAction): Promise<void> => {
+      transition: async ({ action, ...args }: StateAction): Promise<void> => {
         if (action === 'device_connected') {
           return this.states.online.enter();
         } else {
@@ -250,7 +257,7 @@ export class VirtualDevice {
       },
     },
     sleeping: {
-      transition: async (action: StateAction): Promise<void> => {
+      transition: async ({ action, ...args }: StateAction): Promise<void> => {
         if (action === 'device_connected') {
           return this.states.online.enter();
         } else {
@@ -263,7 +270,7 @@ export class VirtualDevice {
       },
     },
     error: {
-      transition: async (action: StateAction): Promise<void> => {
+      transition: async ({ action }: StateAction): Promise<void> => {
         throw new Error(`Unknown transition for error: ${action}`);
       },
       enter: async (): Promise<void> => {
@@ -273,7 +280,7 @@ export class VirtualDevice {
       },
     },
     uninitializing: {
-      transition: async (action: StateAction): Promise<void> => {
+      transition: async ({ action }: StateAction): Promise<void> => {
         throw new Error(`Unknown transition for uninitializing: ${action}`);
       },
       enter: async (): Promise<void> => {
@@ -282,7 +289,7 @@ export class VirtualDevice {
         return this.unregister();
       },
     },
-  };
+  } as const satisfies Record<StateName, State>;
 
   public transition(action: StateAction): Promise<void> {
     return this.states[this.state].transition(action).catch(err => this.error(err.message));
@@ -633,7 +640,7 @@ export class VirtualDevice {
       );
       this.inboundWsChannel.eventEmitter.on('notification', this.handleWsNotification.bind(this));
       this.inboundWsChannel.eventEmitter.on('opened', () => {
-        void this.transition('device_connected');
+        void this.transition({ action: 'device_connected' });
       });
     }
 
@@ -648,7 +655,7 @@ export class VirtualDevice {
     this.outboundWsChannel.eventEmitter.on('opened', () => {
       this.inboundWsChannel?.resetReconnectTimeout();
       this.inboundWsChannel?.safeConnect();
-      void this.transition('device_connected');
+      void this.transition({ action: 'device_connected' });
     });
   }
 
@@ -707,7 +714,7 @@ export class VirtualDevice {
   }
 
   private handleWsNotification(notification: NotificationFrame): void {
-    void this.transition('device_connected');
+    void this.transition({ action: 'device_connected' });
 
     if (notification.method === 'NotifyStatus' || notification.method === 'NotifyFullStatus') {
       const statusNotification = notification as NotificationStatusFrame<string, object>;
@@ -744,7 +751,7 @@ export class VirtualDevice {
         await this.handleConfigChangedEvent(event.component).catch(this.error);
       } else if (event.event === 'scheduled_restart') {
         this.log('Device is restarting');
-        void this.transition('going_offline');
+        void this.transition({ action: 'going_offline' });
       } else {
         const component = this.virtualComponents.get(event.component);
         if (component !== undefined) {
