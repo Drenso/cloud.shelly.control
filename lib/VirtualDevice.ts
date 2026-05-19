@@ -66,7 +66,17 @@ export class VirtualDevice {
   private readonly initializedComponents = new Map<string, InstanceType<MappedComponent>>();
   private readonly initializedHomeyDevices = new Map<string, ShellyLocalDevice>();
 
-  private homeyDeviceIds: string[];
+  // This variable should only be used after initialization
+  private homeyDeviceIds?: string[];
+
+  // This variable should only be used during initialization
+  private initialHomeyDeviceIds?: string[];
+  // This variable should only be used during initialization
+  private initialHomeyDevices?: ShellyLocalDevice[];
+  // This variable should only be used during initialization
+  private initialHomeyDeviceDefinitions?: ShellyLocalListDeviceProperties[];
+  // This variable should only be used during initialization
+  private initialComponentResponses?: ShellyGetComponentsResponseComponent[];
 
   public get virtualComponents(): ReadonlyMap<string, InstanceType<MappedComponent>> {
     return this.initializedComponents;
@@ -82,11 +92,12 @@ export class VirtualDevice {
     private batteryDevice: boolean,
     private components: readonly string[],
     private readonly driver: string,
-    private initialHomeyDeviceIds: string[],
+    initialHomeyDeviceIds: string[],
     useHttps: boolean,
     private ha1: string | undefined,
     // Allow passing these in the pairing flow so we do not need to retrieve them twice
-    private initialComponentResponses?: ShellyGetComponentsResponseComponent[],
+    initialComponentResponses?: ShellyGetComponentsResponseComponent[],
+    initialHomeyDeviceDefinitions?: ShellyLocalListDeviceProperties[],
   ) {
     this.log = (...args): void => this.app.log(`[Virtual:${deviceId}]`, ...args);
     this.error = (...args): void => this.app.error(`[Virtual:${deviceId}]`, ...args);
@@ -100,7 +111,9 @@ export class VirtualDevice {
       this.onHttpsUpgrade.bind(this),
     );
 
-    this.homeyDeviceIds = initialHomeyDeviceIds;
+    this.initialHomeyDeviceIds = initialHomeyDeviceIds;
+    this.initialHomeyDeviceDefinitions = initialHomeyDeviceDefinitions;
+    this.initialComponentResponses = initialComponentResponses;
 
     this.state = 'waiting_for_app_init';
     this.debugState('Waiting for app initialization...');
@@ -125,9 +138,6 @@ export class VirtualDevice {
     }
   }
 
-  // TODO optimize
-  // TODO use this.initialComponents after pairing
-  // TODO use this.initialHomeyDevices after app initialization
   private readonly states: Record<StateName, State> = {
     waiting_for_app_init: {
       transition: async (action: StateAction): Promise<void> => {
@@ -149,9 +159,24 @@ export class VirtualDevice {
       enter: async (): Promise<void> => {
         this.state = 'checking_initial_homey_devices';
         this.debugState('Checking initial Homey devices...');
+
+        if (this.initialHomeyDeviceIds === undefined) {
+          throw new Error('No initial Homey device ids specified.');
+        }
+
         // Check if any Homey devices remain
-        const homeyDevices = this.getHomeyDevices();
+        // TODO only look at driver devices once this.driver is guaranteed after 1.0.0
+        const homeyDevices = [];
+        for (const homeyDeviceId of this.initialHomeyDeviceIds) {
+          const homeyDevice = this.app.getLocalDevice(homeyDeviceId);
+          if (homeyDevice !== undefined) {
+            homeyDevices.push(homeyDevice);
+          }
+        }
+
+        this.initialHomeyDevices = homeyDevices;
         this.debug('Found', homeyDevices.length, 'Homey devices');
+
         if (homeyDevices.length === 0) {
           // If not, remove this virtual device
           return this.states.uninitializing.enter();
@@ -172,9 +197,13 @@ export class VirtualDevice {
       enter: async (): Promise<void> => {
         this.state = 'waiting_for_initial_connection';
         this.debugState('Waiting for initial connection...');
+
+        if (this.initialHomeyDevices === undefined) {
+          throw new Error('No initial Homey devices specified.');
+        }
+
         await Promise.all(
-          // TODO use this.initialHomeyDevices after app initialization
-          this.getHomeyDevices().map(homeyDevice => homeyDevice.setUnavailable(this.app.homey.__('device.offline'))),
+          this.initialHomeyDevices.map(homeyDevice => homeyDevice.setUnavailable(this.app.homey.__('device.offline'))),
         );
         this.connect();
       },
@@ -186,7 +215,7 @@ export class VirtualDevice {
       enter: async (): Promise<void> => {
         this.state = 'initializing';
         this.debugState('Initializing...');
-        await this.initialize(this.initialComponentResponses);
+        await this.initialize();
         this.debugState('Initialized');
         return this.states.online.enter();
       },
@@ -262,6 +291,9 @@ export class VirtualDevice {
   }
 
   public serialize(): SerializedVirtualDevice {
+    if (this.homeyDeviceIds === undefined) {
+      throw new Error('No Homey devices initialized');
+    }
     return {
       deviceId: this.deviceId,
       ipAddress: this.ipAddress,
@@ -274,23 +306,11 @@ export class VirtualDevice {
     };
   }
 
-  private getHomeyDevices(): ShellyLocalDevice[] {
-    // TODO only look at driver devices once this.driver is guaranteed after 1.0.0
-    const homeyDevices: ShellyLocalDevice[] = [];
-
-    for (const homeyDeviceId of this.homeyDeviceIds) {
-      const homeyDevice = this.app.getLocalDevice(homeyDeviceId);
-      if (homeyDevice !== undefined) {
-        homeyDevices.push(homeyDevice);
-      }
+  private async initialize(): Promise<void> {
+    if (this.initialHomeyDevices === undefined || this.initialHomeyDeviceIds === undefined) {
+      throw new Error('No initial Homey devices defined');
     }
-
-    return homeyDevices;
-  }
-
-  private async initialize(components?: ShellyGetComponentsResponseComponent[]): Promise<void> {
-    // TODO use this.initialHomeyDevices after app initialization
-    const homeyDevices: ShellyLocalDevice[] = this.getHomeyDevices();
+    const homeyDevices: ShellyLocalDevice[] = this.initialHomeyDevices;
 
     // TODO remove this in 1.0.0
     // Before version 0.3.0 the Homey driver associated with the virtual device was not stored
@@ -306,9 +326,7 @@ export class VirtualDevice {
       homeyDevices.map(homeyDevice => homeyDevice.setUnavailable(this.app.homey.__('device.offline'))),
     );
 
-    if (components === undefined) {
-      components = await this.retrieveComponents();
-    }
+    const components = this.initialComponentResponses ?? (await this.retrieveComponents());
 
     // Check which changes were made to the components since last time
     const oldComponents = this.components as string[];
@@ -325,7 +343,7 @@ export class VirtualDevice {
     await this.initializeComponents(components, methodMapping);
 
     // Check whether changes to the components require adding/removing Homey devices
-    const newDevices = await this.assembleDevices(components);
+    const newDevices = this.initialHomeyDeviceDefinitions ?? (await this.assembleDevices(components));
 
     const oldDeviceIds = this.initialHomeyDeviceIds;
     const newDeviceIds: string[] = newDevices.map(device => device.data.id);
@@ -402,8 +420,9 @@ export class VirtualDevice {
   ): Promise<void> {
     this.log('Recreating...');
 
-    // TODO re-use device definitions and component definitions
-    this.homeyDeviceIds = homeyDeviceDefinitions.map(device => device.data.id);
+    this.initialHomeyDeviceDefinitions = homeyDeviceDefinitions;
+    this.initialComponentResponses = componentDefinitions;
+    this.initialHomeyDeviceIds = homeyDeviceDefinitions.map(device => device.data.id);
 
     if (
       this.ipAddress !== connectionSpecification.ipAddress ||
@@ -442,6 +461,11 @@ export class VirtualDevice {
   // TODO rework this with the new states
   public async onComponentAdded(newComponentId: string): Promise<void> {
     this.log(`Adding ${newComponentId}...`);
+
+    if (this.homeyDeviceIds === undefined) {
+      throw new Error('No Homey devices initialized');
+    }
+
     const components = await this.retrieveComponents();
     const newDeviceDefinitions = await this.assembleDevices(components);
 
@@ -482,6 +506,11 @@ export class VirtualDevice {
   // TODO rework this with the new states
   public async onComponentRemoved(componentId: string): Promise<void> {
     this.log(`Removing ${componentId}...`);
+
+    if (this.homeyDeviceIds === undefined) {
+      throw new Error('No Homey devices initialized');
+    }
+
     const components = await this.retrieveComponents();
     const newDeviceDefinitions = await this.assembleDevices(components);
     const newDeviceIds = newDeviceDefinitions.map(device => device.data.id);
