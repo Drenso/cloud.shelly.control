@@ -62,7 +62,6 @@ export class VirtualDevice {
   private inboundWsChannel?: InboundWebsocketChannel;
   private outboundWsChannel?: OutboundWebsocketChannel;
 
-  private initialized = false;
   private readonly initializedComponents = new Map<string, InstanceType<MappedComponent>>();
   private readonly initializedHomeyDevices = new Map<string, ShellyLocalDevice>();
 
@@ -222,7 +221,6 @@ export class VirtualDevice {
     },
     online: {
       transition: async (action: StateAction): Promise<void> => {
-        // TODO handle new config and device removal
         if (action === 'device_connected') {
           return;
         } else if (action === 'going_offline') {
