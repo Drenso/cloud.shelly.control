@@ -375,6 +375,11 @@ export class VirtualDevice {
 
     await this.initializeHomeyDevices(usedDevices, newDevices, methodMapping);
 
+    this.initialHomeyDeviceIds = undefined;
+    this.initialHomeyDevices = undefined;
+    this.initialHomeyDeviceDefinitions = undefined;
+    this.initialComponentResponses = undefined;
+
     this.components = newComponents;
     this.homeyDeviceIds = newDeviceIds;
     await this.app.updateVirtualDevice(this);
@@ -428,6 +433,12 @@ export class VirtualDevice {
     this.initialHomeyDeviceDefinitions = homeyDeviceDefinitions;
     this.initialComponentResponses = componentDefinitions;
     this.initialHomeyDeviceIds = homeyDeviceDefinitions.map(device => device.data.id);
+
+    const driverDevices = this.app.homey.drivers.getDrivers()[this.driver].getDevices() as ShellyLocalDevice[];
+    const driverDevicesById: Record<string, ShellyLocalDevice> = {};
+    driverDevices.forEach(device => (driverDevicesById[device.getTypedData().id] = device));
+
+    this.initialHomeyDevices = homeyDeviceDefinitions.map(definition => driverDevicesById[definition.data.id]);
 
     if (
       this.ipAddress !== connectionSpecification.ipAddress ||
