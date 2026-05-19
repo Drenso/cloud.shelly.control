@@ -39,6 +39,7 @@ export default class InboundWebsocketChannel implements RpcChannel {
   private nonce_count = 0;
   private reconnect_timeout_time = BASE_RECONNECT_TIMEOUT;
   private reconnect_timeout?: NodeJS.Timeout;
+  private closed = false;
 
   private readonly awaitingResponse = new Map<
     number,
@@ -94,7 +95,9 @@ export default class InboundWebsocketChannel implements RpcChannel {
     });
     this.ws.on('close', () => {
       this.log('WS closed');
-      this.reconnect();
+      if (!this.closed) {
+        this.reconnect();
+      }
     });
   }
 
@@ -124,6 +127,7 @@ export default class InboundWebsocketChannel implements RpcChannel {
   }
 
   public disconnect(): void {
+    this.closed = true;
     this.eventEmitter.all.clear();
     this.ws.removeAllListeners();
     try {
