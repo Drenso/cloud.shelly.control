@@ -85,46 +85,7 @@ export class VirtualDevice {
     this.debug = (...args): void => this.app.debug(`[Virtual:${deviceId}]`, ...args);
 
     // Initialize channels
-    {
-      if (this.useHttps) {
-        this.log('Using HTTPS');
-      }
-      this.httpChannel = createHttpChannel(
-        ipAddress,
-        this.app.homey.__,
-        this.useHttps,
-        this.ha1,
-        this.onHttpsUpgrade.bind(this),
-      );
-
-      if (!this.batteryDevice) {
-        this.inboundWsChannel = createInboundWsChannel(
-          this.app,
-          this.ipAddress,
-          this.log,
-          this.error,
-          this.useHttps,
-          this.onHttpsUpgrade.bind(this),
-          this.ha1,
-        );
-        this.inboundWsChannel.eventEmitter.on('notification', this.handleWsNotification.bind(this));
-        this.inboundWsChannel.eventEmitter.on('opened', this.safeInitialize.bind(this));
-      }
-
-      this.outboundWsChannel = createOutboundWsChannel(
-        this.app,
-        this.deviceId,
-        this.app.outboundWsServer.outboundWsMitt,
-        this.log,
-        this.error,
-      );
-      this.outboundWsChannel.eventEmitter.on('notification', this.handleOutboundWsNotification.bind(this));
-      this.outboundWsChannel.eventEmitter.on('opened', (...args) => {
-        this.inboundWsChannel?.resetReconnectTimeout();
-        this.inboundWsChannel?.safeConnect();
-        return this.safeInitialize(...args);
-      });
-    }
+    this.connect();
 
     // TODO does this need a nextTick?
     void this.safeInitialize(componentResponses);
@@ -486,6 +447,47 @@ export class VirtualDevice {
       }
     }
     return components;
+  }
+
+  private connect(): void {
+    if (this.useHttps) {
+      this.log('Using HTTPS');
+    }
+    this.httpChannel = createHttpChannel(
+      this.ipAddress,
+      this.app.homey.__,
+      this.useHttps,
+      this.ha1,
+      this.onHttpsUpgrade.bind(this),
+    );
+
+    if (!this.batteryDevice) {
+      this.inboundWsChannel = createInboundWsChannel(
+        this.app,
+        this.ipAddress,
+        this.log,
+        this.error,
+        this.useHttps,
+        this.onHttpsUpgrade.bind(this),
+        this.ha1,
+      );
+      this.inboundWsChannel.eventEmitter.on('notification', this.handleWsNotification.bind(this));
+      this.inboundWsChannel.eventEmitter.on('opened', this.safeInitialize.bind(this));
+    }
+
+    this.outboundWsChannel = createOutboundWsChannel(
+      this.app,
+      this.deviceId,
+      this.app.outboundWsServer.outboundWsMitt,
+      this.log,
+      this.error,
+    );
+    this.outboundWsChannel.eventEmitter.on('notification', this.handleOutboundWsNotification.bind(this));
+    this.outboundWsChannel.eventEmitter.on('opened', (...args) => {
+      this.inboundWsChannel?.resetReconnectTimeout();
+      this.inboundWsChannel?.safeConnect();
+      return this.safeInitialize(...args);
+    });
   }
 
   public getChannel(): RpcChannel {
