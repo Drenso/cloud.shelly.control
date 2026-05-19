@@ -105,7 +105,7 @@ export class VirtualDevice {
     this.state = 'waiting_for_app_init';
     this.debugState('Waiting for app initialization...');
     this.app.localDriversReady.then(() => {
-      this.transition('app_initialized').catch(this.error);
+      void this.transition('app_initialized');
     });
   }
 
@@ -258,7 +258,7 @@ export class VirtualDevice {
   };
 
   public transition(action: StateAction): Promise<void> {
-    return this.states[this.state].transition(action);
+    return this.states[this.state].transition(action).catch(err => this.error(err.message));
   }
 
   public serialize(): SerializedVirtualDevice {
@@ -606,7 +606,7 @@ export class VirtualDevice {
       );
       this.inboundWsChannel.eventEmitter.on('notification', this.handleWsNotification.bind(this));
       this.inboundWsChannel.eventEmitter.on('opened', () => {
-        this.transition('device_connected').catch(this.error);
+        void this.transition('device_connected');
       });
     }
 
@@ -621,7 +621,7 @@ export class VirtualDevice {
     this.outboundWsChannel.eventEmitter.on('opened', () => {
       this.inboundWsChannel?.resetReconnectTimeout();
       this.inboundWsChannel?.safeConnect();
-      this.transition('device_connected').catch(this.error);
+      void this.transition('device_connected');
     });
   }
 
@@ -680,7 +680,7 @@ export class VirtualDevice {
   }
 
   private handleWsNotification(notification: NotificationFrame): void {
-    this.transition('device_connected').catch(this.error);
+    void this.transition('device_connected');
 
     if (notification.method === 'NotifyStatus' || notification.method === 'NotifyFullStatus') {
       const statusNotification = notification as NotificationStatusFrame<string, object>;
@@ -717,7 +717,7 @@ export class VirtualDevice {
         await this.handleConfigChangedEvent(event.component).catch(this.error);
       } else if (event.event === 'scheduled_restart') {
         this.log('Device is restarting');
-        await this.transition('going_offline');
+        void this.transition('going_offline');
       } else {
         const component = this.virtualComponents.get(event.component);
         if (component !== undefined) {
