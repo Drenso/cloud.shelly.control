@@ -39,12 +39,19 @@ export type SerializedVirtualDevice = {
   readonly driver: string;
 };
 
+type StateActionInstance<Action extends string> = {
+  action: Action;
+  id?: undefined;
+  error?: string;
+};
+
 type StateAction =
-  | { action: 'app_initialized' }
-  | { action: 'device_connected' }
-  | { action: 'going_to_sleep' }
-  | { action: 'going_offline' }
-  | { action: 'repair' };
+  | StateActionInstance<'app_initialized'>
+  | StateActionInstance<'device_connected'>
+  | StateActionInstance<'going_to_sleep'>
+  | StateActionInstance<'going_offline'>
+  | StateActionInstance<'repair'>
+  | (Omit<StateActionInstance<'removed_homey_device'>, 'id'> & { id: string });
 
 type State = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -62,6 +69,7 @@ type StateName =
   | 'offline'
   | 'sleeping'
   | 'error'
+  | 'removing_homey_device'
   | 'uninitializing';
 
 export class VirtualDevice {
@@ -231,6 +239,8 @@ export class VirtualDevice {
           return;
         } else if (action === 'going_offline') {
           return this.states.offline.enter();
+        } else if (action === 'removed_homey_device') {
+          return this.states.removing_homey_device.enter(args.id!);
         } else {
           throw new Error(`Unknown transition for online: ${action}`);
         }
@@ -245,6 +255,8 @@ export class VirtualDevice {
       transition: async ({ action, ...args }: StateAction): Promise<void> => {
         if (action === 'device_connected') {
           return this.states.online.enter();
+        } else if (action === 'removed_homey_device') {
+          return this.states.removing_homey_device.enter(args.id!);
         } else {
           throw new Error(`Unknown transition for offline: ${action}`);
         }
@@ -259,6 +271,8 @@ export class VirtualDevice {
       transition: async ({ action, ...args }: StateAction): Promise<void> => {
         if (action === 'device_connected') {
           return this.states.online.enter();
+        } else if (action === 'removed_homey_device') {
+          return this.states.removing_homey_device.enter(args.id!);
         } else {
           throw new Error(`Unknown transition for sleeping: ${action}`);
         }
@@ -276,6 +290,25 @@ export class VirtualDevice {
         this.state = 'error';
         this.error('Entered error state with error:', message);
         return this.setUnavailable(message);
+      },
+    },
+    removing_homey_device: {
+      transition: async ({ action }: StateAction): Promise<void> => {
+        throw new Error(`Unknown transition for removing_homey_device: ${action}`);
+      },
+      enter: async (id: string): Promise<void> => {
+        this.state = 'removing_homey_device';
+        this.debugState('Removing Homey device:', id);
+
+        this.initializedHomeyDevices.delete(id);
+        this.homeyDeviceIds = [...this.initializedHomeyDevices.keys()];
+        this.log(this.homeyDeviceIds.length, 'children remaining');
+        if (this.homeyDeviceIds.length > 0) {
+          await this.app.updateVirtualDevice(this);
+          return this.states.online.enter();
+        }
+        // Remove if no child devices remain
+        await this.states.uninitializing.enter();
       },
     },
     uninitializing: {
@@ -695,17 +728,6 @@ export class VirtualDevice {
   public async reboot({ initialWaitTime = undefined } = {}): Promise<void> {
     this.log('Rebooting...');
     await Shelly.Reboot(this.getChannel(), { delay_ms: initialWaitTime });
-  }
-
-  public async removeHomeyDevice(id: string): Promise<void> {
-    this.initializedHomeyDevices.delete(id);
-    this.homeyDeviceIds = [...this.initializedHomeyDevices.keys()];
-    this.log(this.homeyDeviceIds.length, 'children remaining');
-    if (this.homeyDeviceIds.length > 0) {
-      return this.app.updateVirtualDevice(this);
-    }
-    // Remove if no child devices remain
-    await this.states.uninitializing.enter();
   }
 
   private async unregister(): Promise<void> {
