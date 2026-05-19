@@ -96,14 +96,6 @@ export default class ShellyApp extends Homey.App {
     }
   }
 
-  public async addVirtualDevice(device: VirtualDevice): Promise<void> {
-    this.virtualDevices.set(device.deviceId, device);
-    const virtualDeviceIds: readonly string[] = [...this.virtualDevices.keys()];
-    this.homey.settings.set(VIRTUAL_DEVICE_IDS_SETTING_KEY, virtualDeviceIds);
-    const deviceSettingKey = VIRTUAL_DEVICE_SETTING_KEY_PREFIX + device.deviceId;
-    this.homey.settings.set(deviceSettingKey, device.serialize());
-  }
-
   public async removeVirtualDevice(device: VirtualDevice): Promise<void> {
     this.virtualDevices.delete(device.deviceId);
     const virtualDeviceIds: readonly string[] = [...this.virtualDevices.keys()];
@@ -113,6 +105,11 @@ export default class ShellyApp extends Homey.App {
   }
 
   public async updateVirtualDevice(device: VirtualDevice): Promise<void> {
+    if (!this.virtualDevices.has(device.deviceId)) {
+      this.virtualDevices.set(device.deviceId, device);
+      const virtualDeviceIds: readonly string[] = [...this.virtualDevices.keys()];
+      this.homey.settings.set(VIRTUAL_DEVICE_IDS_SETTING_KEY, virtualDeviceIds);
+    }
     const deviceSettingKey = VIRTUAL_DEVICE_SETTING_KEY_PREFIX + device.deviceId;
     this.homey.settings.set(deviceSettingKey, device.serialize());
   }

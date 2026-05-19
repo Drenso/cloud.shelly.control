@@ -64,8 +64,7 @@ export class LocalPairingHandler {
     for (const selectedDevice of this.selectedDevices) {
       const components = this.deviceComponents.get(selectedDevice.data.id)!;
       const homeyDevices = this.childHomeyDevices.get(selectedDevice.data.id)!;
-      const virtualDevice = await this.driver.createVirtualDevice(selectedDevice, components, homeyDevices);
-      await this.driver.app.addVirtualDevice(virtualDevice);
+      await this.driver.createVirtualDevice(selectedDevice, components, homeyDevices);
     }
   }
 

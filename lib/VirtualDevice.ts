@@ -329,7 +329,7 @@ export class VirtualDevice {
 
   public serialize(): SerializedVirtualDevice {
     if (this.homeyDeviceIds === undefined) {
-      throw new Error('No Homey devices initialized');
+      throw new Error('No Homey devices initialized while saving virtual device');
     }
     return {
       deviceId: this.deviceId,
@@ -511,7 +511,7 @@ export class VirtualDevice {
     this.log(`Adding ${newComponentId}...`);
 
     if (this.homeyDeviceIds === undefined) {
-      throw new Error('No Homey devices initialized');
+      throw new Error('No Homey devices initialized while adding component');
     }
 
     const components = await this.retrieveComponents();
@@ -556,7 +556,7 @@ export class VirtualDevice {
     this.log(`Removing ${componentId}...`);
 
     if (this.homeyDeviceIds === undefined) {
-      throw new Error('No Homey devices initialized');
+      throw new Error('No Homey devices initialized while removing component');
     }
 
     const components = await this.retrieveComponents();
