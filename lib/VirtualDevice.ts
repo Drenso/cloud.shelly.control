@@ -89,7 +89,6 @@ export class VirtualDevice {
   }
 
   private state: StateName;
-  private errorMessage?: string = undefined;
 
   public constructor(
     public readonly app: ShellyApp,
@@ -273,10 +272,10 @@ export class VirtualDevice {
       transition: async ({ action }: StateAction): Promise<void> => {
         throw new Error(`Unknown transition for error: ${action}`);
       },
-      enter: async (): Promise<void> => {
+      enter: async (message: string): Promise<void> => {
         this.state = 'error';
-        this.error('Entered error state with error:', this.errorMessage);
-        return this.setUnavailable(this.errorMessage ?? 'Error');
+        this.error('Entered error state with error:', message);
+        return this.setUnavailable(message);
       },
     },
     uninitializing: {
