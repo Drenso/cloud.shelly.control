@@ -435,11 +435,12 @@ export class VirtualDevice {
     await Promise.all(initializers);
   }
 
-  private async retrieveComponents(): Promise<ShellyGetComponentsResponseComponent[]> {
+  private async retrieveComponents(keys?: string[]): Promise<ShellyGetComponentsResponseComponent[]> {
     const components: ShellyGetComponentsResponseComponent[] = [];
     while (true) {
       const componentsResponse = await Shelly.GetComponents(this.httpChannel, {
         offset: components.length,
+        keys: keys,
       });
       components.push(...componentsResponse.result.components);
       if (components.length >= componentsResponse.result.total) {
