@@ -28,7 +28,6 @@ export const IGNORED_NO_IMPLEMENTATION_COMPONENTS = [
   'zigbee',
 ];
 
-// TODO password change on re-pair
 export type SerializedVirtualDevice = {
   readonly deviceId: string;
   readonly ipAddress: string;
@@ -51,9 +50,9 @@ type StateData = {
 type State = keyof StateData;
 
 export class VirtualDevice {
-  private readonly httpChannel: HttpChannel;
-  private readonly inboundWsChannel?: InboundWebsocketChannel;
-  private readonly outboundWsChannel?: OutboundWebsocketChannel;
+  private httpChannel!: HttpChannel;
+  private inboundWsChannel?: InboundWebsocketChannel;
+  private outboundWsChannel?: OutboundWebsocketChannel;
 
   private initialized = false;
   private readonly initializedComponents = new Map<string, InstanceType<MappedComponent>>();
@@ -291,6 +290,69 @@ export class VirtualDevice {
       const methods = methodMapping[component.namespace] ?? [];
       await component.register(methods as never).catch(this.error);
     }
+  }
+
+  public async recreate(
+    connectionSpecification: {
+      ipAddress: string;
+      ha1: string | undefined;
+      useHttps: boolean;
+    },
+    homeyDeviceDefinitions: ShellyLocalListDeviceProperties[],
+    componentDefinitions: ShellyGetComponentsResponseComponent[],
+  ): Promise<void> {
+    this.log('Recreating...');
+
+    if (
+      this.ipAddress !== connectionSpecification.ipAddress ||
+      this.useHttps !== connectionSpecification.useHttps ||
+      this.ha1 !== connectionSpecification.ha1
+    ) {
+      // Reconnect RPC channels
+      await this.disconnect();
+      this.ipAddress = connectionSpecification.ipAddress;
+      this.useHttps = connectionSpecification.useHttps;
+      this.ha1 = connectionSpecification.ha1;
+      this.connect();
+    }
+
+    const componentIds = componentDefinitions.map(component => component.key);
+    const { added: addedComponentIds, removed: removedComponentIds } = diffArrays(this.components, componentIds);
+
+    this.debug('Removed components:', removedComponentIds);
+    this.debug('Added components:', addedComponentIds);
+
+    const addedComponents = await this.retrieveComponents(addedComponentIds);
+
+    const homeyDeviceIds = homeyDeviceDefinitions.map(device => device.data.id);
+    const { added: addedHomeyDeviceIds, removed: removedHomeyDeviceIds } = diffArrays(
+      this.homeyDeviceIds,
+      homeyDeviceIds,
+    );
+
+    this.debug('Removed Homey devices:', removedHomeyDeviceIds);
+    this.debug('Added Homey devices:', addedHomeyDeviceIds);
+    const driverDevices = (
+      this.app.homey.drivers.getDrivers()[this.driver] as ShellyLocalDriver
+    ).getDevices() as ShellyLocalDevice[];
+    const devicesById: Record<string, ShellyLocalDevice> = {};
+    driverDevices.forEach(device => (devicesById[device.getData().id] = device));
+
+    const addedHomeyDevices = addedHomeyDeviceIds.map(deviceId => devicesById[deviceId]);
+
+    const methodMapping = await this.getMethodMapping();
+
+    // Remove before adding, to avoid conflicts
+    await this.unregisterComponents(removedComponentIds);
+    await this.initializeComponents(addedComponents, methodMapping);
+    await this.initializeHomeyDevices(addedHomeyDevices, homeyDeviceDefinitions, methodMapping);
+    // TODO do new components need to be added, and do existing devices need to be re-initialized
+
+    this.components = componentIds;
+    this.homeyDeviceIds = homeyDeviceIds;
+    await this.app.updateVirtualDevice(this);
+
+    this.log('Recreated');
   }
 
   private async unregisterComponents(componentIds: ReadonlyArray<string>): Promise<void> {

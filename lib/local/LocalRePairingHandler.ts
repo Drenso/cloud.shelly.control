@@ -44,7 +44,7 @@ export class LocalRePairingHandler {
       return this.homeyDevicesToAdd ?? [];
     });
     // Recreate the virtual device with the new password and devices
-    // TODO
+    this.session.setHandler('done', this.recreateVirtualDevice.bind(this));
   }
 
   private async addSubdevices(): Promise<void> {
@@ -170,6 +170,25 @@ export class LocalRePairingHandler {
       } else {
         throw err;
       }
+    }
+  }
+
+  private async recreateVirtualDevice(): Promise<void> {
+    this.debug('recreating virtual device');
+    const app = this.driver.app;
+    const virtualDevice = app.virtualDevices.get(this.selectedDevice.data.id);
+    if (virtualDevice === undefined) {
+      // TODO add completely new virtual device
+    } else {
+      await virtualDevice.recreate(
+        {
+          ipAddress: this.selectedDevice.store.address,
+          useHttps: this.selectedDevice.data.useHttps,
+          ha1: this.selectedDevice.store.ha1,
+        },
+        this.homeyDevices,
+        this.deviceComponents,
+      );
     }
   }
 }
