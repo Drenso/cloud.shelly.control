@@ -72,6 +72,12 @@ type StateName =
   | 'removing_homey_device'
   | 'uninitializing';
 
+type ConnectionSpecification = {
+  ipAddress: string;
+  ha1: string | undefined;
+  useHttps: boolean;
+};
+
 export class VirtualDevice {
   private httpChannel: HttpChannel;
   private inboundWsChannel?: InboundWebsocketChannel;
@@ -452,11 +458,7 @@ export class VirtualDevice {
   }
 
   public async recreate(
-    connectionSpecification: {
-      ipAddress: string;
-      ha1: string | undefined;
-      useHttps: boolean;
-    },
+    connectionSpecification: ConnectionSpecification,
     homeyDeviceDefinitions: ShellyLocalListDeviceProperties[],
     componentDefinitions: ShellyGetComponentsResponseComponent[],
   ): Promise<void> {
@@ -477,18 +479,7 @@ export class VirtualDevice {
       this.httpChannel.useHttps !== connectionSpecification.useHttps ||
       this.ha1 !== connectionSpecification.ha1
     ) {
-      // Reconnect RPC channels
-      await this.disconnect();
-      this.ipAddress = connectionSpecification.ipAddress;
-      this.ha1 = connectionSpecification.ha1;
-      this.httpChannel = createHttpChannel(
-        this.ipAddress,
-        this.app.homey.__,
-        connectionSpecification.useHttps,
-        this.ha1,
-        this.onHttpsUpgrade.bind(this),
-      );
-      this.connect();
+      await this.reconnect(connectionSpecification);
       return this.states.waiting_for_initial_connection.enter();
     }
 
@@ -703,6 +694,25 @@ export class VirtualDevice {
     });
   }
 
+  public async disconnect(): Promise<void> {
+    this.inboundWsChannel?.disconnect();
+    this.outboundWsChannel?.disconnect();
+  }
+
+  public async reconnect(connectionSpecification: ConnectionSpecification): Promise<void> {
+    await this.disconnect();
+    this.ipAddress = connectionSpecification.ipAddress;
+    this.ha1 = connectionSpecification.ha1;
+    this.httpChannel = createHttpChannel(
+      this.ipAddress,
+      this.app.homey.__,
+      connectionSpecification.useHttps,
+      this.ha1,
+      this.onHttpsUpgrade.bind(this),
+    );
+    this.connect();
+  }
+
   public getChannel(): RpcChannel {
     // For sending, prefer inbound WS channel > httpChannel > outbound WS channel
     if (this.inboundWsChannel !== undefined && this.inboundWsChannel.ws.readyState === WebSocket.OPEN) {
@@ -739,11 +749,6 @@ export class VirtualDevice {
       await this.app.removeVirtualDevice(this);
       this.log('Uninitialized');
     }
-  }
-
-  public async disconnect(): Promise<void> {
-    this.inboundWsChannel?.disconnect();
-    this.outboundWsChannel?.disconnect();
   }
 
   private handleWsNotification(notification: NotificationFrame): void {
