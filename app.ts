@@ -1,5 +1,5 @@
 import { Log } from '@drenso/homey-log';
-import Homey from 'homey';
+import Homey, { type DiscoveryResultMDNSSD } from 'homey';
 import sourceMapSupport from 'source-map-support';
 import type { MultiZoneCapabilityDeviceInterface } from './lib/capabilityInterfaces.js';
 import ShellyLocalDriver from './lib/local/LocalDriver.js';
@@ -10,6 +10,8 @@ import type ShellyLocalDevice from './lib/local/LocalDevice.js';
 import Input from './lib/component/components/Input.js';
 import Illuminance from './lib/component/components/Illuminance.js';
 import PresenceZone from './lib/component/components/PresenceZone.js';
+import { createHttpChannel } from './lib/HomeyRPCChannels.js';
+import Shelly from './lib/component/components/Shelly.js';
 
 process.on('uncaughtException', (error, origin) => {
   console.error('Uncaught exception:', error, '\nfrom', origin);
@@ -49,7 +51,11 @@ export default class ShellyApp extends Homey.App {
       );
     }
     this.localDriversReady = Promise.all(localDriversReadyPromises).then();
-    this.deserializeVirtualDevices().catch(this.error);
+
+    this.deserializeVirtualDevices()
+      .catch(this.error)
+      .then(() => this.setupVirtualDeviceRediscovery())
+      .catch(this.error);
   }
 
   public async onInit(): Promise<void> {
@@ -95,6 +101,34 @@ export default class ShellyApp extends Homey.App {
       );
       this.virtualDevices.set(virtualDeviceId, virtualDevice);
     }
+  }
+
+  private async setupVirtualDeviceRediscovery(): Promise<void> {
+    const discoveryStrategy = this.homey.discovery.getStrategy('shelly');
+
+    discoveryStrategy.on('result', discoveryResult => this.handleRediscovery(discoveryResult));
+
+    const initialDiscoveryResults = discoveryStrategy.getDiscoveryResults() as Record<string, DiscoveryResultMDNSSD>;
+    for (const initialDiscoveryResultsKey in initialDiscoveryResults) {
+      await this.handleRediscovery(initialDiscoveryResults[initialDiscoveryResultsKey]);
+    }
+  }
+
+  private async handleRediscovery(discoveryResult: DiscoveryResultMDNSSD): Promise<void> {
+    const httpChannel = createHttpChannel(discoveryResult.address, this.homey.__, false);
+    const deviceInfoResponse = await Shelly.GetDeviceInfo(httpChannel);
+    const deviceInfo = deviceInfoResponse.result;
+
+    const virtualDevice = this.virtualDevices.get(deviceInfo.id);
+
+    if (virtualDevice === undefined) {
+      return;
+    }
+
+    await virtualDevice.reconnect({
+      ipAddress: discoveryResult.address,
+      useHttps: httpChannel.useHttps,
+    });
   }
 
   public async removeVirtualDevice(device: VirtualDevice): Promise<void> {
