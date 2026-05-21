@@ -488,6 +488,7 @@ export class VirtualDevice {
         this.ha1,
         this.onHttpsUpgrade.bind(this),
       );
+      this.connect();
       return this.states.waiting_for_initial_connection.enter();
     }
 
