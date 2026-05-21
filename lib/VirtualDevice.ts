@@ -79,9 +79,7 @@ type ConnectionSpecification = {
 };
 
 export class VirtualDevice {
-  private httpChannel: HttpChannel;
-  private inboundWsChannel?: InboundWebsocketChannel;
-  private outboundWsChannel?: OutboundWebsocketChannel;
+  private localConnection: LocalConnection;
 
   private readonly initializedComponents = new Map<string, InstanceType<MappedComponent>>();
   private readonly initializedHomeyDevices = new Map<string, ShellyLocalDevice>();
@@ -107,13 +105,13 @@ export class VirtualDevice {
   public constructor(
     public readonly app: ShellyApp,
     public readonly deviceId: string,
-    private ipAddress: string,
-    private batteryDevice: boolean,
+    ipAddress: string,
+    public readonly batteryDevice: boolean,
     private components: readonly string[],
     private readonly driver: string,
     initialHomeyDeviceIds: string[],
     useHttps: boolean,
-    private ha1: string | undefined,
+    ha1: string | undefined,
     // Allow passing these in the pairing flow so we do not need to retrieve them twice
     initialComponentResponses?: ShellyGetComponentsResponseComponent[],
     initialHomeyDeviceDefinitions?: ShellyLocalListDeviceProperties[],
@@ -122,13 +120,7 @@ export class VirtualDevice {
     this.error = (...args): void => this.app.error(`[Virtual:${deviceId}]`, ...args);
     this.debug = (...args): void => this.app.debug(`[Virtual:${deviceId}]`, ...args);
 
-    this.httpChannel = createHttpChannel(
-      this.ipAddress,
-      this.app.homey.__,
-      useHttps,
-      this.ha1,
-      this.onHttpsUpgrade.bind(this),
-    );
+    this.localConnection = new LocalConnection(this, this.handleWsNotification.bind(this), ipAddress, useHttps, ha1);
 
     this.initialHomeyDeviceIds = initialHomeyDeviceIds;
     this.initialHomeyDeviceDefinitions = initialHomeyDeviceDefinitions;
@@ -144,11 +136,6 @@ export class VirtualDevice {
   public readonly log: (...args: unknown[]) => void;
   public readonly error: (...args: unknown[]) => void;
   public readonly debug: (...args: unknown[]) => void;
-
-  private async onHttpsUpgrade(): Promise<void> {
-    this.httpChannel.useHttps = true;
-    await this.app.updateVirtualDevice(this);
-  }
 
   public debugStates: boolean = true;
   private debugState(...args: unknown[]): void {
@@ -339,13 +326,13 @@ export class VirtualDevice {
     }
     return {
       deviceId: this.deviceId,
-      ipAddress: this.ipAddress,
+      ipAddress: this.localConnection.ipAddress,
       batteryDevice: this.batteryDevice,
       components: this.components,
       driver: this.driver,
       homeyDeviceIds: this.homeyDeviceIds,
-      useHttps: this.httpChannel.useHttps,
-      ha1: this.ha1,
+      useHttps: this.localConnection.useHttps,
+      ha1: this.localConnection.ha1,
     };
   }
 
@@ -475,9 +462,9 @@ export class VirtualDevice {
     this.initialHomeyDevices = homeyDeviceDefinitions.map(definition => driverDevicesById[definition.data.id]);
 
     if (
-      this.ipAddress !== connectionSpecification.ipAddress ||
-      this.httpChannel.useHttps !== connectionSpecification.useHttps ||
-      this.ha1 !== connectionSpecification.ha1
+      this.localConnection.ipAddress !== connectionSpecification.ipAddress ||
+      this.localConnection.useHttps !== connectionSpecification.useHttps ||
+      this.localConnection.ha1 !== connectionSpecification.ha1
     ) {
       await this.reconnect(connectionSpecification);
       return this.states.waiting_for_initial_connection.enter();
@@ -596,10 +583,10 @@ export class VirtualDevice {
       name: 'Virtual',
       data: {
         id: this.deviceId,
-        useHttps: this.httpChannel.useHttps,
+        useHttps: this.localConnection.useHttps,
       },
       store: {
-        address: this.ipAddress,
+        address: this.localConnection.ipAddress,
         port: -1,
         components: [],
       },
@@ -659,67 +646,19 @@ export class VirtualDevice {
   }
 
   private connect(): void {
-    if (this.httpChannel.useHttps) {
-      this.log('Using HTTPS');
-    }
-
-    if (!this.batteryDevice) {
-      this.inboundWsChannel = createInboundWsChannel(
-        this.app,
-        this.ipAddress,
-        this.log,
-        this.error,
-        this.httpChannel.useHttps,
-        this.onHttpsUpgrade.bind(this),
-        this.ha1,
-      );
-      this.inboundWsChannel.eventEmitter.on('notification', this.handleWsNotification.bind(this));
-      this.inboundWsChannel.eventEmitter.on('opened', () => {
-        void this.transition({ action: 'device_connected' });
-      });
-    }
-
-    this.outboundWsChannel = createOutboundWsChannel(
-      this.app,
-      this.deviceId,
-      this.app.outboundWsServer.outboundWsMitt,
-      this.log,
-      this.error,
-    );
-    this.outboundWsChannel.eventEmitter.on('notification', this.handleOutboundWsNotification.bind(this));
-    this.outboundWsChannel.eventEmitter.on('opened', () => {
-      this.inboundWsChannel?.resetReconnectTimeout();
-      this.inboundWsChannel?.safeConnect();
-      void this.transition({ action: 'device_connected' });
-    });
+    this.localConnection.connect();
   }
 
   public async disconnect(): Promise<void> {
-    this.inboundWsChannel?.disconnect();
-    this.outboundWsChannel?.disconnect();
+    return this.localConnection.disconnect();
   }
 
   public async reconnect(connectionSpecification: ConnectionSpecification): Promise<void> {
-    await this.disconnect();
-    this.ipAddress = connectionSpecification.ipAddress;
-    this.ha1 = connectionSpecification.ha1;
-    this.httpChannel = createHttpChannel(
-      this.ipAddress,
-      this.app.homey.__,
-      connectionSpecification.useHttps,
-      this.ha1,
-      this.onHttpsUpgrade.bind(this),
-    );
-    this.connect();
+    return this.localConnection.reconnect(connectionSpecification);
   }
 
   public getChannel(): RpcChannel {
-    // For sending, prefer inbound WS channel > httpChannel > outbound WS channel
-    if (this.inboundWsChannel !== undefined && this.inboundWsChannel.ws.readyState === WebSocket.OPEN) {
-      return this.inboundWsChannel;
-    }
-
-    return this.httpChannel;
+    return this.localConnection.getChannel();
   }
 
   private async getMethodMapping(): Promise<Partial<Record<NameSpace, ComponentMethod<NameSpace>[]>>> {
@@ -814,14 +753,6 @@ export class VirtualDevice {
     }
   }
 
-  private handleOutboundWsNotification(notification: NotificationFrame): void {
-    if (!(this.inboundWsChannel === undefined || this.inboundWsChannel.ws.readyState !== WebSocket.OPEN)) {
-      return;
-    }
-
-    this.handleWsNotification(notification);
-  }
-
   public async setUnavailable(message: string): Promise<void> {
     const promises = [];
     for (const homeyDevice of this.initializedHomeyDevices.values()) {
@@ -836,5 +767,109 @@ export class VirtualDevice {
       promises.push(homeyDevice.setAvailable());
     }
     await Promise.all(promises);
+  }
+}
+
+class LocalConnection {
+  private httpChannel: HttpChannel;
+  private inboundWsChannel?: InboundWebsocketChannel;
+  private outboundWsChannel?: OutboundWebsocketChannel;
+
+  public get useHttps(): boolean {
+    return this.httpChannel.useHttps;
+  }
+
+  public constructor(
+    private virtualDevice: VirtualDevice,
+    private handleWsNotification: (notification: NotificationFrame) => void,
+    public ipAddress: string,
+    useHttps: boolean,
+    public ha1: string | undefined,
+  ) {
+    this.httpChannel = createHttpChannel(
+      this.ipAddress,
+      virtualDevice.app.homey.__,
+      useHttps,
+      this.ha1,
+      this.onHttpsUpgrade.bind(this),
+    );
+  }
+
+  public getChannel(): RpcChannel {
+    // For sending, prefer inbound WS channel > httpChannel > outbound WS channel
+    if (this.inboundWsChannel !== undefined && this.inboundWsChannel.ws.readyState === WebSocket.OPEN) {
+      return this.inboundWsChannel;
+    }
+
+    return this.httpChannel;
+  }
+
+  public connect(): void {
+    if (this.httpChannel.useHttps) {
+      this.virtualDevice.log('Using HTTPS');
+    }
+
+    if (!this.virtualDevice.batteryDevice) {
+      this.inboundWsChannel = createInboundWsChannel(
+        this.virtualDevice.app,
+        this.ipAddress,
+        this.virtualDevice.log,
+        this.virtualDevice.error,
+        this.httpChannel.useHttps,
+        this.onHttpsUpgrade.bind(this),
+        this.ha1,
+      );
+      // handleWsNotification should already be bound by virtual device
+      this.inboundWsChannel.eventEmitter.on('notification', this.handleWsNotification.bind(this));
+      this.inboundWsChannel.eventEmitter.on('opened', () => {
+        void this.virtualDevice.transition({ action: 'device_connected' });
+      });
+    }
+
+    this.outboundWsChannel = createOutboundWsChannel(
+      this.virtualDevice.app,
+      this.virtualDevice.deviceId,
+      this.virtualDevice.app.outboundWsServer.outboundWsMitt,
+      this.virtualDevice.log,
+      this.virtualDevice.error,
+    );
+    this.outboundWsChannel.eventEmitter.on('notification', this.handleOutboundWsNotification.bind(this));
+    this.outboundWsChannel.eventEmitter.on('opened', () => {
+      this.inboundWsChannel?.resetReconnectTimeout();
+      this.inboundWsChannel?.safeConnect();
+      void this.virtualDevice.transition({ action: 'device_connected' });
+    });
+  }
+
+  public async disconnect(): Promise<void> {
+    this.inboundWsChannel?.disconnect();
+    this.outboundWsChannel?.disconnect();
+  }
+
+  public async reconnect(connectionSpecification: ConnectionSpecification): Promise<void> {
+    await this.disconnect();
+    this.ipAddress = connectionSpecification.ipAddress;
+    this.ha1 = connectionSpecification.ha1;
+    this.httpChannel = createHttpChannel(
+      this.ipAddress,
+      this.virtualDevice.app.homey.__,
+      connectionSpecification.useHttps,
+      this.ha1,
+      this.onHttpsUpgrade.bind(this),
+    );
+    this.connect();
+  }
+
+  private handleOutboundWsNotification(notification: NotificationFrame): void {
+    if (!(this.inboundWsChannel === undefined || this.inboundWsChannel.ws.readyState !== WebSocket.OPEN)) {
+      return;
+    }
+
+    this.handleWsNotification(notification);
+  }
+
+  private async onHttpsUpgrade(): Promise<void> {
+    this.httpChannel.useHttps = true;
+    await this.virtualDevice.app.updateVirtualDevice(this.virtualDevice);
   }
 }
