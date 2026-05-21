@@ -771,7 +771,7 @@ export class VirtualDevice {
 }
 
 class LocalConnection {
-  private httpChannel: HttpChannel;
+  private httpChannel!: HttpChannel;
   private inboundWsChannel?: InboundWebsocketChannel;
   private outboundWsChannel?: OutboundWebsocketChannel;
 
@@ -786,13 +786,7 @@ class LocalConnection {
     useHttps: boolean,
     public ha1: string | undefined,
   ) {
-    this.httpChannel = createHttpChannel(
-      this.ipAddress,
-      virtualDevice.app.homey.__,
-      useHttps,
-      this.ha1,
-      this.onHttpsUpgrade.bind(this),
-    );
+    this.connect(useHttps);
   }
 
   public getChannel(): RpcChannel {
@@ -804,8 +798,16 @@ class LocalConnection {
     return this.httpChannel;
   }
 
-  public connect(): void {
-    if (this.httpChannel.useHttps) {
+  public connect(useInitialHttps: boolean): void {
+    this.httpChannel = createHttpChannel(
+      this.ipAddress,
+      this.virtualDevice.app.homey.__,
+      useInitialHttps,
+      this.ha1,
+      this.onHttpsUpgrade.bind(this),
+    );
+
+    if (useInitialHttps) {
       this.virtualDevice.log('Using HTTPS');
     }
 
@@ -815,7 +817,7 @@ class LocalConnection {
         this.ipAddress,
         this.virtualDevice.log,
         this.virtualDevice.error,
-        this.httpChannel.useHttps,
+        useInitialHttps,
         this.onHttpsUpgrade.bind(this),
         this.ha1,
       );
@@ -850,14 +852,7 @@ class LocalConnection {
     await this.disconnect();
     this.ipAddress = connectionSpecification.ipAddress;
     this.ha1 = connectionSpecification.ha1;
-    this.httpChannel = createHttpChannel(
-      this.ipAddress,
-      this.virtualDevice.app.homey.__,
-      connectionSpecification.useHttps,
-      this.ha1,
-      this.onHttpsUpgrade.bind(this),
-    );
-    this.connect();
+    this.connect(connectionSpecification.useHttps);
   }
 
   private handleOutboundWsNotification(notification: NotificationFrame): void {
