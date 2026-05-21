@@ -211,7 +211,7 @@ export class VirtualDevice {
         await Promise.all(
           this.initialHomeyDevices.map(homeyDevice => homeyDevice.setUnavailable(this.app.homey.__('device.offline'))),
         );
-        this.connect();
+        this.localConnection.waitForConnection();
       },
     },
     initializing: {
@@ -633,7 +633,7 @@ export class VirtualDevice {
   private async retrieveComponents(keys?: string[]): Promise<ShellyGetComponentsResponseComponent[]> {
     const components: ShellyGetComponentsResponseComponent[] = [];
     while (true) {
-      const componentsResponse = await Shelly.GetComponents(this.getChannel(), {
+      const componentsResponse = await Shelly.GetComponents(this.localConnection.httpChannel, {
         offset: components.length,
         keys: keys,
       });
@@ -643,10 +643,6 @@ export class VirtualDevice {
       }
     }
     return components;
-  }
-
-  private connect(): void {
-    this.localConnection.connect();
   }
 
   public async disconnect(): Promise<void> {
@@ -662,7 +658,7 @@ export class VirtualDevice {
   }
 
   private async getMethodMapping(): Promise<Partial<Record<NameSpace, ComponentMethod<NameSpace>[]>>> {
-    const methodsResponse = await Shelly.ListMethods(this.getChannel());
+    const methodsResponse = await Shelly.ListMethods(this.localConnection.httpChannel);
     const methods = methodsResponse.result.methods;
 
     const methodMapping: Partial<Record<NameSpace, ComponentMethod<NameSpace>[]>> = {};
@@ -771,9 +767,11 @@ export class VirtualDevice {
 }
 
 class LocalConnection {
-  private httpChannel!: HttpChannel;
+  public httpChannel!: HttpChannel;
   private inboundWsChannel?: InboundWebsocketChannel;
   private outboundWsChannel?: OutboundWebsocketChannel;
+
+  private state: 'waiting_for_initial_connection' | 'open' = 'waiting_for_initial_connection';
 
   public get useHttps(): boolean {
     return this.httpChannel.useHttps;
@@ -789,6 +787,14 @@ class LocalConnection {
     this.connect(useHttps);
   }
 
+  public waitForConnection(): void {
+    // If the virtual device opens the connection while we are already connected, we signal immediately
+    if (this.state === 'open') {
+      void this.virtualDevice.transition({ action: 'device_connected' });
+    }
+    // If the virtual device opens the connection while not yet connected, we just wait for the signal normally
+  }
+
   public getChannel(): RpcChannel {
     // For sending, prefer inbound WS channel > httpChannel > outbound WS channel
     if (this.inboundWsChannel !== undefined && this.inboundWsChannel.ws.readyState === WebSocket.OPEN) {
@@ -799,6 +805,8 @@ class LocalConnection {
   }
 
   public connect(useInitialHttps: boolean): void {
+    this.state = 'waiting_for_initial_connection';
+
     this.httpChannel = createHttpChannel(
       this.ipAddress,
       this.virtualDevice.app.homey.__,
@@ -824,7 +832,7 @@ class LocalConnection {
       // handleWsNotification should already be bound by virtual device
       this.inboundWsChannel.eventEmitter.on('notification', this.handleWsNotification.bind(this));
       this.inboundWsChannel.eventEmitter.on('opened', () => {
-        void this.virtualDevice.transition({ action: 'device_connected' });
+        this.handleDeviceConnected();
       });
     }
 
@@ -839,7 +847,7 @@ class LocalConnection {
     this.outboundWsChannel.eventEmitter.on('opened', () => {
       this.inboundWsChannel?.resetReconnectTimeout();
       this.inboundWsChannel?.safeConnect();
-      void this.virtualDevice.transition({ action: 'device_connected' });
+      this.handleDeviceConnected();
     });
   }
 
@@ -853,6 +861,11 @@ class LocalConnection {
     this.ipAddress = connectionSpecification.ipAddress;
     this.ha1 = connectionSpecification.ha1;
     this.connect(connectionSpecification.useHttps);
+  }
+
+  private handleDeviceConnected(): void {
+    this.state = 'open';
+    void this.virtualDevice.transition({ action: 'device_connected' });
   }
 
   private handleOutboundWsNotification(notification: NotificationFrame): void {
