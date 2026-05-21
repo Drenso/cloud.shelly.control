@@ -44,9 +44,9 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
       session,
       device,
       this,
-      (...args: Array<unknown>) => this.log('[Pairing Handler]', ...args),
-      (...args: Array<unknown>) => this.error('[Pairing Handler]', ...args),
-      (...args: Array<unknown>) => this.debug('[Pairing Handler]', ...args),
+      (...args: Array<unknown>) => this.log('[Re-Pairing Handler]', ...args),
+      (...args: Array<unknown>) => this.error('[Re-Pairing Handler]', ...args),
+      (...args: Array<unknown>) => this.debug('[Re-Pairing Handler]', ...args),
     ).setup();
   }
 
