@@ -10,7 +10,7 @@ export function createHttpChannel(
   address: string,
   translate: (key: string, variables?: Record<string, string>) => string,
   useHttps: boolean,
-  ha1?: string,
+  ha1: string | null = null,
   onHttpsUpgrade?: () => Promise<void>,
 ): HttpChannel {
   const debug = (...args: unknown[]): void => {
@@ -18,7 +18,7 @@ export function createHttpChannel(
       console.log(new Date(), '[dbg]', '[ShellyApp]', `[HttpChannel:${address}]`, ...args);
     }
   };
-  return new HttpChannel(address, debug, translate, useHttps, onHttpsUpgrade, ha1);
+  return new HttpChannel(address, debug, translate, useHttps, ha1, onHttpsUpgrade);
 }
 
 export function createInboundWsChannel(
@@ -27,8 +27,8 @@ export function createInboundWsChannel(
   log: (...args: unknown[]) => void,
   error: (...args: unknown[]) => void,
   useHttps: boolean,
+  ha1: string | null = null,
   onHttpsUpgrade?: () => Promise<void>,
-  ha1?: string,
 ): InboundWebsocketChannel {
   const debug = (...args: unknown[]): void => {
     if (Homey.env['DEBUG'] === '1') {
@@ -43,7 +43,7 @@ export function createInboundWsChannel(
     error(`[InboundWS:${address}]`, ...args);
   };
 
-  return new InboundWebsocketChannel(app, address, wsLog, wsError, debug, useHttps, onHttpsUpgrade, ha1);
+  return new InboundWebsocketChannel(app, address, wsLog, wsError, debug, useHttps, ha1, onHttpsUpgrade);
 }
 
 export function createOutboundWsChannel(

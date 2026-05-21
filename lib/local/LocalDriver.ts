@@ -87,7 +87,7 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
       this.id,
       homeyDeviceIds,
       selectedDevice.data.useHttps,
-      selectedDevice.store.ha1,
+      selectedDevice.store.ha1 ?? null,
       components,
       homeyDevices,
     );

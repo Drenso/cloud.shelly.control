@@ -33,8 +33,8 @@ export default class HttpChannel implements RpcChannel {
     public readonly debug: (...args: unknown[]) => void,
     private readonly translate: (key: string, variables?: Record<string, string>) => string,
     public useHttps: boolean,
+    public ha1: string | null,
     private onHttpsUpgrade?: () => Promise<void>,
-    public ha1?: string,
   ) {
     this.dispatcher = new Agent({
       connect: {
@@ -81,7 +81,7 @@ export default class HttpChannel implements RpcChannel {
 
       if (response.statusCode === 401 && requestFrame.auth === undefined) {
         // We need to re-send authenticated with the given authentication information
-        if (this.ha1 === undefined) {
+        if (this.ha1 === null) {
           throw new NoPassword();
         }
 

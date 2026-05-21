@@ -34,7 +34,7 @@ export type SerializedVirtualDevice = {
   readonly batteryDevice: boolean;
   readonly components: readonly string[];
   readonly homeyDeviceIds: readonly string[];
-  readonly ha1: string | undefined;
+  readonly ha1: string | null;
   readonly useHttps: boolean;
   readonly driver: string;
 };
@@ -74,7 +74,7 @@ type StateName =
 
 type ConnectionSpecification = {
   ipAddress: string;
-  ha1: string | undefined;
+  ha1?: string | null;
   useHttps: boolean;
 };
 
@@ -111,7 +111,7 @@ export class VirtualDevice {
     private readonly driver: string,
     initialHomeyDeviceIds: string[],
     useHttps: boolean,
-    ha1: string | undefined,
+    ha1: string | null,
     // Allow passing these in the pairing flow so we do not need to retrieve them twice
     initialComponentResponses?: ShellyGetComponentsResponseComponent[],
     initialHomeyDeviceDefinitions?: ShellyLocalListDeviceProperties[],
@@ -782,7 +782,7 @@ class LocalConnection {
     private handleWsNotification: (notification: NotificationFrame) => void,
     public ipAddress: string,
     useHttps: boolean,
-    public ha1: string | undefined,
+    public ha1: string | null,
   ) {
     this.connect(useHttps);
   }
@@ -826,8 +826,8 @@ class LocalConnection {
         this.virtualDevice.log,
         this.virtualDevice.error,
         useInitialHttps,
-        this.onHttpsUpgrade.bind(this),
         this.ha1,
+        this.onHttpsUpgrade.bind(this),
       );
       // handleWsNotification should already be bound by virtual device
       this.inboundWsChannel.eventEmitter.on('notification', this.handleWsNotification.bind(this));
@@ -859,7 +859,9 @@ class LocalConnection {
   public async reconnect(connectionSpecification: ConnectionSpecification): Promise<void> {
     await this.disconnect();
     this.ipAddress = connectionSpecification.ipAddress;
-    this.ha1 = connectionSpecification.ha1;
+    if (connectionSpecification.ha1 !== undefined) {
+      this.ha1 = connectionSpecification.ha1;
+    }
     this.connect(connectionSpecification.useHttps);
   }
 

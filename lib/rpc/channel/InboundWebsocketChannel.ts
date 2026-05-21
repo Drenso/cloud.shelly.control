@@ -51,8 +51,8 @@ export default class InboundWebsocketChannel implements RpcChannel {
     public readonly error: (...args: unknown[]) => void,
     public readonly debug: (...args: unknown[]) => void,
     public useHttps: boolean,
+    public ha1: string | null,
     private onHttpsUpgrade?: () => Promise<void>,
-    public ha1?: string,
   ) {
     this.connect();
   }
@@ -187,7 +187,7 @@ export default class InboundWebsocketChannel implements RpcChannel {
     requestFrame: RequestFrame,
   ): Promise<ResponseSuccessFrame<Result>> {
     try {
-      if (this.auth !== undefined && this.ha1 !== undefined) {
+      if (this.auth !== undefined && this.ha1 !== null) {
         this.debug('Sending', requestFrame.method, 'with auth');
         this.auth = createAuthenticationResponse(this.auth.realm, this.auth.nonce, this.ha1, ++this.nonce_count);
         this.ws.send(JSON.stringify({ ...requestFrame, auth: this.auth }));
@@ -199,7 +199,7 @@ export default class InboundWebsocketChannel implements RpcChannel {
         this.awaitingResponse.set(requestFrame.id as number, { resolve, reject });
       }).catch(error => {
         if (error instanceof UnauthenticatedWS && requestFrame.auth === undefined) {
-          if (this.ha1 === undefined) {
+          if (this.ha1 === null) {
             throw new NoPassword();
           }
           const challenge = parseWsChallenge(error.challenge);

@@ -90,7 +90,8 @@ export default class ShellyApp extends Homey.App {
         homeyDeviceIds as string[],
         // TODO remove this migration in 1.0.0
         useHttps ?? false,
-        ha1,
+        // TODO remove this migration in 1.0.0
+        ha1 ?? null,
       );
       this.virtualDevices.set(virtualDeviceId, virtualDevice);
     }
