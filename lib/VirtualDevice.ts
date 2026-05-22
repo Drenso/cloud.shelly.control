@@ -81,6 +81,10 @@ type ConnectionSpecification = {
 export class VirtualDevice {
   private localConnection: LocalConnection;
 
+  public get ipAddress(): string {
+    return this.localConnection.ipAddress;
+  }
+
   private readonly initializedComponents = new Map<string, InstanceType<MappedComponent>>();
   private readonly initializedHomeyDevices = new Map<string, ShellyLocalDevice>();
 
@@ -862,6 +866,10 @@ class LocalConnection {
     if (connectionSpecification.ha1 !== undefined) {
       this.ha1 = connectionSpecification.ha1;
     }
+    // Ideally, the connection specification would be persisted using app.updateVirtualDevice,
+    // but since the virtual device may not actually be initialized yet, this is not always available.
+    // The worst that could happen is the new config not being saved before the app is restarted,
+    // In which case the connection will just be reset once during startup.
     this.connect(connectionSpecification.useHttps);
   }
 
