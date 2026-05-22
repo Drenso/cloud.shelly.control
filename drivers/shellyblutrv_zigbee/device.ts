@@ -60,9 +60,9 @@ export default class ShellyBluTrvZigbeeDevice extends ShellyZigbeeDevice {
       minSetpoint: 4,
       maxSetpoint: 30,
     };
-    if (limits.minheatSetpointLimit) {
-      options.min = limits.minheatSetpointLimit / 100;
-      settings.minSetpoint = limits.minheatSetpointLimit / 100;
+    if (limits.minHeatSetpointLimit) {
+      options.min = limits.minHeatSetpointLimit / 100;
+      settings.minSetpoint = limits.minHeatSetpointLimit / 100;
     }
     if (limits.maxHeatSetpointLimit) {
       options.max = limits.maxHeatSetpointLimit / 100;
