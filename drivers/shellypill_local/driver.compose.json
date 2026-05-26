@@ -1,0 +1,13 @@
+{
+  "$extends": ["local"],
+  "name": {
+    "en": "The Pill - LAN"
+  },
+  "class": "other",
+  "capabilities": [],
+  "images": {
+    "small": "/assets/drivers/shellypill/images/small.png",
+    "large": "/assets/drivers/shellypill/images/large.png",
+    "xlarge": "/assets/drivers/shellypill/images/xlarge.png"
+  }
+}

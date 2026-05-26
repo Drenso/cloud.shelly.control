@@ -46,6 +46,7 @@
     ]
   },
   "api": {},
+  "esm": true,
   "flow": {
     "triggers": [
       {
@@ -6092,6 +6093,74 @@
         "xlarge": "/assets/drivers/shellyfloodg4/images/xlarge.png"
       },
       "id": "shellyfloodg4_zigbee"
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "lan"
+      ],
+      "capabilities": [],
+      "capabilitiesOptions": {
+        "button.restart": {
+          "maintenanceAction": true,
+          "title": {
+            "en": "Restart Device"
+          }
+        }
+      },
+      "pair": [
+        {
+          "id": "pairing_information",
+          "navigation": {
+            "next": "list_devices"
+          }
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "authenticate_devices"
+          }
+        },
+        {
+          "id": "authenticate_devices",
+          "template": "loading",
+          "options": {
+            "text": "pair.loading_devices"
+          }
+        },
+        {
+          "id": "loading_devices",
+          "template": "loading",
+          "options": {
+            "text": "pair.loading_devices"
+          }
+        },
+        {
+          "id": "device_password"
+        },
+        {
+          "id": "add_subdevices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "repair"
+        }
+      ],
+      "name": {
+        "en": "The Pill - LAN"
+      },
+      "class": "other",
+      "images": {
+        "small": "/assets/drivers/shellypill/images/small.png",
+        "large": "/assets/drivers/shellypill/images/large.png",
+        "xlarge": "/assets/drivers/shellypill/images/xlarge.png"
+      },
+      "id": "shellypill_local",
+      "settings": []
     },
     {
       "platforms": [
