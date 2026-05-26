@@ -32,6 +32,7 @@ type NamespaceMethodMapping = {
     'Calibrate',
     'ResetCounters',
   ];
+  Pill: ['SetConfig', 'GetConfig', 'GetStatus'];
   POWERSTRIP_UI: ['SetConfig', 'GetConfig', 'GetStatus'];
   Presence: ['SetConfig', 'GetConfig', 'GetStatus', 'AddZone', 'DeleteZone', 'TiltCalibrate', 'LiveTrack', 'SetSensor'];
   PresenceZone: ['SetConfig', 'GetConfig', 'GetStatus'];
