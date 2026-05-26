@@ -16,6 +16,7 @@
     "update-flow-driver-filters": "tsx .fixFlows.ts"
   },
   "dependencies": {
+    "@athombv/data-types": "1.2.2",
     "@drenso/homey-log": "10.5301.0",
     "@drenso/homey-zigbee-library": "2.3.0",
     "color-convert": "3.1.3",
