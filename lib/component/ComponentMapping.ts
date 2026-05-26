@@ -15,6 +15,7 @@ import PresenceZone from './components/PresenceZone.js';
 import Presence from './components/Presence.js';
 import DevicePower from './components/DevicePower.js';
 import Flood from './components/Flood.js';
+import Pill from './components/Pill.js';
 
 export const ComponentWithIdMapping = {
   cct: CCT,
@@ -32,6 +33,7 @@ export const ComponentWithIdMapping = {
   temperature: Temperature,
 } as const;
 export const ComponentWithoutIdMapping = {
+  pill: Pill,
   powerstrip_ui: PowerStripUI,
   presence: Presence,
   sys: System,

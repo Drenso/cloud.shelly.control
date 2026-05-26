@@ -62,18 +62,11 @@ export default class Pill extends ComponentWithoutId<'Pill', PillStatus, PillCon
   protected readonly _GetStatus = GetStatus;
   public readonly namespace = 'Pill';
 
-  public registerHomeyDevice(homeyDevice: ShellyLocalDevice, methods: unknown[]): Promise<void> {
-    throw new Error('Method not implemented.');
-  }
+  public async registerHomeyDevice(homeyDevice: ShellyLocalDevice, methods: unknown[]): Promise<void> {}
 
-  protected staticallyUnregisterHomeyDevice(this: never, _homeyDevice: ShellyLocalDevice): Promise<void> {
-    throw new Error('Method not implemented.');
-  }
+  protected async staticallyUnregisterHomeyDevice(this: never, _homeyDevice: ShellyLocalDevice): Promise<void> {}
 
-  public onStatusUpdate(homeyDevice: ShellyLocalDevice, status: PillStatus): Promise<void> {
-    throw new Error('Method not implemented.');
-  }
-  public onConfigUpdate(homeyDevice: ShellyLocalDevice, config: PillConfig): Promise<void> {
-    throw new Error('Method not implemented.');
-  }
+  public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: PillStatus): Promise<void> {}
+
+  public async onConfigUpdate(homeyDevice: ShellyLocalDevice, config: PillConfig): Promise<void> {}
 }
