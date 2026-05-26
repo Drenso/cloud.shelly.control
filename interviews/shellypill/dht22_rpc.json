@@ -20,6 +20,20 @@
     }
   },
   {
+    "key": "humidity:200",
+    "status": {
+      "id": 200,
+      "rh": null,
+      "errors": ["read"]
+    },
+    "config": {
+      "id": 200,
+      "name": null,
+      "report_thr": 1,
+      "offset": 0
+    }
+  },
+  {
     "key": "mqtt",
     "status": {
       "connected": false
@@ -42,8 +56,8 @@
     "key": "pill",
     "status": {},
     "config": {
-      "mode": "digital_io",
-      "pin0_mode": "none",
+      "mode": "dht22",
+      "pin0_mode": "reserved",
       "pin1_mode": "none",
       "pin2_mode": "none"
     }
@@ -53,16 +67,16 @@
     "status": {
       "mac": "48F6EE90E3CC",
       "restart_required": false,
-      "time": "15:48",
-      "unixtime": 1779803280,
-      "last_sync_ts": 1779802639,
-      "uptime": 2514,
-      "ram_size": 267596,
-      "ram_free": 143744,
-      "ram_min_free": 94620,
+      "time": "16:04",
+      "unixtime": 1779804263,
+      "last_sync_ts": 1779803453,
+      "uptime": 813,
+      "ram_size": 267656,
+      "ram_free": 145528,
+      "ram_min_free": 131420,
       "fs_size": 1048576,
       "fs_free": 634880,
-      "cfg_rev": 26,
+      "cfg_rev": 32,
       "kvs_rev": 0,
       "schedule_rev": 0,
       "webhook_rev": 0,
@@ -114,7 +128,22 @@
       "sntp": {
         "server": "time.cloudflare.com"
       },
-      "cfg_rev": 26
+      "cfg_rev": 32
+    }
+  },
+  {
+    "key": "temperature:200",
+    "status": {
+      "id": 200,
+      "tC": null,
+      "tF": null,
+      "errors": ["read"]
+    },
+    "config": {
+      "id": 200,
+      "name": null,
+      "report_thr_C": 0.1,
+      "offset_C": 0
     }
   },
   {
@@ -124,11 +153,8 @@
       "status": "got ip",
       "ssid": "DrensoDev",
       "bssid": "76:ac:b9:2c:8c:03",
-      "rssi": -38,
-      "sta_ip6": [
-        "fe80::4af6:eeff:fe90:e3cc",
-        "fd44:6977:d13f:2e91:4af6:eeff:fe90:e3cc"
-      ]
+      "rssi": -40,
+      "sta_ip6": ["fe80::4af6:eeff:fe90:e3cc", "fd44:6977:d13f:2e91:4af6:eeff:fe90:e3cc"]
     },
     "config": {
       "ap": {

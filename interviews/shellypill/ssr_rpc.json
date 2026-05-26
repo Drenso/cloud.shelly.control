@@ -42,10 +42,46 @@
     "key": "pill",
     "status": {},
     "config": {
-      "mode": "digital_io",
-      "pin0_mode": "none",
-      "pin1_mode": "none",
+      "mode": "ssr",
+      "pin0_mode": "reserved",
+      "pin1_mode": "reserved",
       "pin2_mode": "none"
+    }
+  },
+  {
+    "key": "switch:200",
+    "status": {
+      "id": 200,
+      "source": "init",
+      "tag": null,
+      "output": false
+    },
+    "config": {
+      "id": 200,
+      "name": null,
+      "initial_state": "match_input",
+      "auto_on": false,
+      "auto_on_delay": 60,
+      "auto_off": false,
+      "auto_off_delay": 60
+    }
+  },
+  {
+    "key": "switch:201",
+    "status": {
+      "id": 201,
+      "source": "init",
+      "tag": null,
+      "output": false
+    },
+    "config": {
+      "id": 201,
+      "name": null,
+      "initial_state": "match_input",
+      "auto_on": false,
+      "auto_on_delay": 60,
+      "auto_off": false,
+      "auto_off_delay": 60
     }
   },
   {
@@ -53,16 +89,16 @@
     "status": {
       "mac": "48F6EE90E3CC",
       "restart_required": false,
-      "time": "15:48",
-      "unixtime": 1779803280,
-      "last_sync_ts": 1779802639,
-      "uptime": 2514,
-      "ram_size": 267596,
-      "ram_free": 143744,
-      "ram_min_free": 94620,
+      "time": "16:02",
+      "unixtime": 1779804168,
+      "last_sync_ts": 1779803453,
+      "uptime": 719,
+      "ram_size": 267764,
+      "ram_free": 146220,
+      "ram_min_free": 138940,
       "fs_size": 1048576,
       "fs_free": 634880,
-      "cfg_rev": 26,
+      "cfg_rev": 29,
       "kvs_rev": 0,
       "schedule_rev": 0,
       "webhook_rev": 0,
@@ -114,7 +150,7 @@
       "sntp": {
         "server": "time.cloudflare.com"
       },
-      "cfg_rev": 26
+      "cfg_rev": 29
     }
   },
   {
@@ -124,11 +160,8 @@
       "status": "got ip",
       "ssid": "DrensoDev",
       "bssid": "76:ac:b9:2c:8c:03",
-      "rssi": -38,
-      "sta_ip6": [
-        "fe80::4af6:eeff:fe90:e3cc",
-        "fd44:6977:d13f:2e91:4af6:eeff:fe90:e3cc"
-      ]
+      "rssi": -35,
+      "sta_ip6": ["fe80::4af6:eeff:fe90:e3cc", "fd44:6977:d13f:2e91:4af6:eeff:fe90:e3cc"]
     },
     "config": {
       "ap": {
