@@ -1,5 +1,4 @@
 import { Cluster, ZCLDataTypes } from 'zigbee-clusters';
-import type { DefaultResponseCommand } from '@drenso/homey-zigbee-library/lib/clusters/ZCL.mjs';
 
 const Attributes = {
   manualMode: {
@@ -24,7 +23,10 @@ const CommandsReceived = {
   },
 } as const;
 
-class ShellyCustomTRVCluster extends Cluster {
+export type ShellyCustomTRVClusterAttributes = typeof Attributes;
+export type ShellyCustomTRVClusterCommands = typeof CommandsReceived;
+
+class ShellyCustomTRVCluster extends Cluster<ShellyCustomTRVClusterAttributes, ShellyCustomTRVClusterCommands> {
   public static get ID(): number {
     return 0xfc24;
   }
@@ -33,35 +35,14 @@ class ShellyCustomTRVCluster extends Cluster {
     return 'ShellyCustomTRVCluster';
   }
 
-  public static get ATTRIBUTES(): typeof Attributes {
+  public static get ATTRIBUTES(): ShellyCustomTRVClusterAttributes {
     return Attributes;
   }
 
-  public static get COMMANDS(): typeof CommandsReceived {
+  public static get COMMANDS(): ShellyCustomTRVClusterCommands {
     return {
       ...CommandsReceived,
     };
-  }
-
-  public readAttributes<T extends keyof typeof Attributes>(
-    attributeNames: T[],
-    opts?: { timeout: number },
-  ): Promise<{
-    [p in T]: (typeof Attributes)[p]['type'];
-  }> {
-    return super.readAttributes(attributeNames, opts) as unknown as Promise<{
-      [p in T]: (typeof Attributes)[p]['type'];
-    }>;
-  }
-
-  public writeAttributes<T extends keyof typeof Attributes>(attributes: {
-    [p in T]: (typeof Attributes)[p]['type'];
-  }): Promise<{
-    [p in T]: DefaultResponseCommand;
-  }> {
-    return super.writeAttributes(attributes) as unknown as Promise<{
-      [p in T]: DefaultResponseCommand;
-    }>;
   }
 }
 

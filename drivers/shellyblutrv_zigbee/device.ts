@@ -1,9 +1,10 @@
 import initMeasureTemperatureDevice from '@drenso/homey-zigbee-library/capabilities/measureTemperature.mjs';
 import initTargetTemperatureDevice from '@drenso/homey-zigbee-library/capabilities/targetTemperature.mjs';
 import { initReadOnlyCapability } from '@drenso/homey-zigbee-library/lib/attributeDevice.mjs';
-import zbClusters, { type Bitmap, type Cluster, type ZCLNode } from 'zigbee-clusters';
+import zbClusters, { type Cluster, type ThermostatCluster, type ZCLNode } from 'zigbee-clusters';
 import ShellyCustomTRVCluster from '../../lib/zigbee/cluster/ShellyCustomTRVCluster.js';
 import ShellyZigbeeDevice from '../../lib/zigbee/ZigbeeDevice.js';
+import type { Bitmap } from '@athombv/data-types';
 
 type BluTrvAlarmMask = Bitmap<'initializationFailure' | 'hardwareFailure' | 'selfCalibrationFailure'>;
 
@@ -20,9 +21,11 @@ export default class ShellyBluTrvZigbeeDevice extends ShellyZigbeeDevice {
   protected async configureDevice(zclNode: ZCLNode): Promise<void> {
     this.log(
       'Alarm',
-      await zclNode.endpoints[this.getClusterEndpoint(zbClusters.CLUSTER.THERMOSTAT) ?? 1].clusters[
-        zbClusters.CLUSTER.THERMOSTAT.NAME
-      ].readAttributes(['alarmMask']),
+      await (
+        zclNode.endpoints[this.getClusterEndpoint(zbClusters.CLUSTER.THERMOSTAT) ?? 1].clusters[
+          zbClusters.CLUSTER.THERMOSTAT.NAME
+        ] as ThermostatCluster
+      ).readAttributes(['alarmMask']),
     );
 
     await initMeasureTemperatureDevice(this, zclNode, {
@@ -52,9 +55,11 @@ export default class ShellyBluTrvZigbeeDevice extends ShellyZigbeeDevice {
 
   protected async firstInitConfigureDevice(zclNode: ZCLNode): Promise<void> {
     await this.setCapabilityValue('thermostat_mode', 'heat');
-    const limits = await zclNode.endpoints[this.getClusterEndpoint(zbClusters.CLUSTER.THERMOSTAT) ?? 1].clusters[
-      zbClusters.CLUSTER.THERMOSTAT.NAME
-    ].readAttributes(['minHeatSetpointLimit', 'maxHeatSetpointLimit']);
+    const limits = await (
+      zclNode.endpoints[this.getClusterEndpoint(zbClusters.CLUSTER.THERMOSTAT) ?? 1].clusters[
+        zbClusters.CLUSTER.THERMOSTAT.NAME
+      ] as ThermostatCluster
+    ).readAttributes(['minHeatSetpointLimit', 'maxHeatSetpointLimit']);
     const options = this.getCapabilityOptions('target_temperature');
     const settings = {
       minSetpoint: 4,

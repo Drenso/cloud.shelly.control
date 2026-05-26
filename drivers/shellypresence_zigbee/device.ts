@@ -2,7 +2,7 @@ import {
   addCapabilityIfNotExists,
   removeCapabilityIfExists,
 } from '@drenso/homey-zigbee-library/lib/helper/capability.mjs';
-import type { Bitmap } from 'zigbee-clusters';
+import type { Bitmap } from '@athombv/data-types';
 import zbClusters from 'zigbee-clusters';
 import type { MultiZoneCapabilityDeviceInterface } from '../../lib/capabilityInterfaces.js';
 import ShellyZigbeeDevice from '../../lib/zigbee/ZigbeeDevice.js';
