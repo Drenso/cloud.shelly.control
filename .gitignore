@@ -10,3 +10,4 @@ translations-out.csv
 
 /lib/component/**/examples/
 /drivers/*/pair/
+/drivers/*/repair/
