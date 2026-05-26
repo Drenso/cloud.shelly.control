@@ -53,16 +53,16 @@
     "status": {
       "mac": "48F6EE90E3CC",
       "restart_required": false,
-      "time": "15:53",
-      "unixtime": 1779803635,
-      "last_sync_ts": 1779803453,
-      "uptime": 185,
-      "ram_size": 267792,
-      "ram_free": 148832,
-      "ram_min_free": 138940,
+      "time": "17:01",
+      "unixtime": 1779807711,
+      "last_sync_ts": 1779807530,
+      "uptime": 184,
+      "ram_size": 267380,
+      "ram_free": 139180,
+      "ram_min_free": 119160,
       "fs_size": 1048576,
-      "fs_free": 634880,
-      "cfg_rev": 27,
+      "fs_free": 630784,
+      "cfg_rev": 56,
       "kvs_rev": 0,
       "schedule_rev": 0,
       "webhook_rev": 0,
@@ -70,19 +70,16 @@
       "available_updates": {
         "beta": {
           "version": "1.8.99-dev152568"
-        },
-        "stable": {
-          "version": "1.8.99-pillprod0"
         }
       },
-      "reset_reason": 1,
+      "reset_reason": 3,
       "utc_offset": 7200
     },
     "config": {
       "device": {
         "name": null,
         "mac": "48F6EE90E3CC",
-        "fw_id": "20251030-160520/g0e480cb",
+        "fw_id": "20251024-125919/g3d9429c",
         "discoverable": true,
         "eco_mode": false,
         "tls_check_cert_validity_time": true,
@@ -114,18 +111,74 @@
       "sntp": {
         "server": "time.cloudflare.com"
       },
-      "cfg_rev": 27
+      "cfg_rev": 56
+    }
+  },
+  {
+    "key": "temperature:200",
+    "status": {
+      "id": 200,
+      "tC": 25.9,
+      "tF": 78.7
+    },
+    "config": {
+      "id": 200,
+      "name": null,
+      "report_thr_C": 0.1,
+      "offset_C": 0
     }
   },
   {
     "key": "temperature:201",
     "status": {
       "id": 201,
-      "tC": 25.6,
-      "tF": 78.1
+      "tC": 28.9,
+      "tF": 84
     },
     "config": {
       "id": 201,
+      "name": null,
+      "report_thr_C": 0.1,
+      "offset_C": 0
+    }
+  },
+  {
+    "key": "temperature:202",
+    "status": {
+      "id": 202,
+      "tC": 25.2,
+      "tF": 77.3
+    },
+    "config": {
+      "id": 202,
+      "name": null,
+      "report_thr_C": 0.1,
+      "offset_C": 0
+    }
+  },
+  {
+    "key": "temperature:203",
+    "status": {
+      "id": 203,
+      "tC": 26,
+      "tF": 78.8
+    },
+    "config": {
+      "id": 203,
+      "name": null,
+      "report_thr_C": 0.1,
+      "offset_C": 0
+    }
+  },
+  {
+    "key": "temperature:204",
+    "status": {
+      "id": 204,
+      "tC": 47.1,
+      "tF": 116.8
+    },
+    "config": {
+      "id": 204,
       "name": null,
       "report_thr_C": 0.1,
       "offset_C": 0
@@ -138,7 +191,7 @@
       "status": "got ip",
       "ssid": "DrensoDev",
       "bssid": "76:ac:b9:2c:8c:03",
-      "rssi": -40,
+      "rssi": -47,
       "sta_ip6": ["fe80::4af6:eeff:fe90:e3cc", "fd44:6977:d13f:2e91:4af6:eeff:fe90:e3cc"]
     },
     "config": {
@@ -179,12 +232,12 @@
   {
     "key": "ws",
     "status": {
-      "connected": false
+      "connected": true
     },
     "config": {
-      "enable": false,
-      "server": null,
-      "ssl_ca": "ca.pem"
+      "enable": true,
+      "server": "wss://192.168.123.103:6114",
+      "ssl_ca": "*"
     }
   }
 ]
