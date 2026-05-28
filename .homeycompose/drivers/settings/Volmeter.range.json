@@ -1,0 +1,22 @@
+{
+  "id": "Voltmeter:range",
+  "type": "dropdown",
+  "label": {
+    "en": "Voltmeter - Range"
+  },
+  "value": "-1",
+  "values": [
+    {
+      "id": -1,
+      "label": {
+        "en": "Range 0"
+      }
+    },
+    {
+      "id": -1,
+      "label": {
+        "en": "Range 1"
+      }
+    }
+  ]
+}

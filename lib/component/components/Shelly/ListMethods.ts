@@ -40,6 +40,7 @@ type NamespaceMethodMapping = {
   Switch: ['Set', 'Toggle', 'SetConfig', 'GetConfig', 'GetStatus', 'ResetCounters'];
   Sys: ['SetConfig', 'GetConfig', 'GetStatus', 'SetTime'];
   Temperature: ['GetConfig', 'SetConfig', 'GetStatus'];
+  Voltmeter: ['GetConfig', 'SetConfig', 'GetStatus', 'CheckExpression'];
   Ws: ['SetConfig', 'GetConfig', 'GetStatus'];
 };
 

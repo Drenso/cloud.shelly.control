@@ -16,6 +16,7 @@ import Presence from './components/Presence.js';
 import DevicePower from './components/DevicePower.js';
 import Flood from './components/Flood.js';
 import Pill from './components/Pill.js';
+import Voltmeter from './components/Voltmeter.js';
 
 export const ComponentWithIdMapping = {
   cct: CCT,
@@ -31,6 +32,7 @@ export const ComponentWithIdMapping = {
   rgbcct: RGBCCT,
   switch: Switch,
   temperature: Temperature,
+  voltmeter: Voltmeter,
 } as const;
 export const ComponentWithoutIdMapping = {
   pill: Pill,

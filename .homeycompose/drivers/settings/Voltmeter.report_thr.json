@@ -1,0 +1,11 @@
+{
+  "id": "Voltmeter:report_thr",
+  "type": "number",
+  "label": {
+    "en": "Voltmeter - Report Threshold"
+  },
+  "value": 1,
+  "min": 0,
+  "max": 30,
+  "units": "V"
+}
