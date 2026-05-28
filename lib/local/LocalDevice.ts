@@ -53,6 +53,7 @@ export default class ShellyLocalDevice extends Homey.Device {
 
     // Remove before adding, to avoid capability conflicts
     for (const removedComponent of removedComponents) {
+      this.virtualComponents.delete(removedComponent);
       const [componentName, componentIdString] = removedComponent.split(':') as [string, `${number}` | undefined];
       const componentConstructor = ComponentMapping[componentName as never] as MappedComponent | undefined;
       if (componentConstructor === undefined) {
