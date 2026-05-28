@@ -8,12 +8,6 @@ export default class ShellyPowerStripGen4LocalDriver extends ShellyLocalDriver {
     selectedDevice: ShellyLocalListDeviceProperties,
     components: ShellyGetComponentsResponseComponent[],
   ): Promise<ShellyLocalListDeviceProperties[]> {
-    const componentMapping: Record<string, ShellyGetComponentsResponseComponent> = {};
-
-    for (const component of components) {
-      componentMapping[component.key] = component;
-    }
-
     const splitComponents = ['switch'];
 
     const subDevices: ShellyLocalListDeviceProperties[] = [];
