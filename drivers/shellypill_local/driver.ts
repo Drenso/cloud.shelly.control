@@ -13,7 +13,6 @@ export default class ShellyPillLocalDriver extends ShellyLocalDriver {
     components: ShellyGetComponentsResponseComponent[],
   ): Promise<ShellyLocalListDeviceProperties[]> {
     const splitComponents = [
-      'pill',
       'input',
       'voltmeter',
       'switch',
