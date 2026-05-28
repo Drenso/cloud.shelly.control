@@ -180,15 +180,11 @@ export class LocalRePairingHandler {
       throw new Error(`No virtual device with ID: ${this.selectedDevice.data.id}`);
     } else {
       virtualDevice
-        .recreate(
-          {
-            ipAddress: this.selectedDevice.store.address,
-            useHttps: this.selectedDevice.data.useHttps,
-            ha1: this.selectedDevice.store.ha1,
-          },
-          this.homeyDevices,
-          this.deviceComponents,
-        )
+        .recreate(this.homeyDevices, this.deviceComponents, {
+          ipAddress: this.selectedDevice.store.address,
+          useHttps: this.selectedDevice.data.useHttps,
+          ha1: this.selectedDevice.store.ha1,
+        })
         .catch(this.error);
     }
   }

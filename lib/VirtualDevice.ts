@@ -449,9 +449,9 @@ export class VirtualDevice {
   }
 
   public async recreate(
-    connectionSpecification: ConnectionSpecification,
     homeyDeviceDefinitions: ShellyLocalListDeviceProperties[],
     componentDefinitions: ShellyGetComponentsResponseComponent[],
+    connectionSpecification?: ConnectionSpecification,
   ): Promise<void> {
     this.log('Recreating...');
 
@@ -466,9 +466,10 @@ export class VirtualDevice {
     this.initialHomeyDevices = homeyDeviceDefinitions.map(definition => driverDevicesById[definition.data.id]);
 
     if (
-      this.localConnection.ipAddress !== connectionSpecification.ipAddress ||
-      this.localConnection.useHttps !== connectionSpecification.useHttps ||
-      this.localConnection.ha1 !== connectionSpecification.ha1
+      connectionSpecification !== undefined &&
+      (this.localConnection.ipAddress !== connectionSpecification.ipAddress ||
+        this.localConnection.useHttps !== connectionSpecification.useHttps ||
+        this.localConnection.ha1 !== connectionSpecification.ha1)
     ) {
       await this.reconnect(connectionSpecification);
       return this.states.waiting_for_initial_connection.enter();
