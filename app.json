@@ -6160,7 +6160,283 @@
         "xlarge": "/assets/drivers/shellypill/images/xlarge.png"
       },
       "id": "shellypill_local",
-      "settings": []
+      "settings": [
+        {
+          "id": "Pill:mode",
+          "type": "dropdown",
+          "label": {
+            "en": "Pill - Peripheral Mode"
+          },
+          "value": "onewire",
+          "values": [
+            {
+              "id": "onewire",
+              "label": {
+                "en": "Temperature (DS18B20) + 2x IO"
+              }
+            },
+            {
+              "id": "dht22",
+              "label": {
+                "en": "Temperature & Humidity (DHT22) + 2x IO"
+              }
+            },
+            {
+              "id": "analog_in",
+              "label": {
+                "en": "Analog input + 2x IO"
+              }
+            },
+            {
+              "id": "ssr",
+              "label": {
+                "en": "SSR Addon + 1x IO"
+              }
+            },
+            {
+              "id": "digital_io",
+              "label": {
+                "en": "3x Digital IO"
+              }
+            }
+          ]
+        },
+        {
+          "id": "Pill:pin0_mode",
+          "label": {
+            "en": "Pill - Pin 1 Mode"
+          },
+          "type": "dropdown",
+          "value": "none",
+          "values": [
+            {
+              "id": "none",
+              "label": {
+                "en": "IO not used"
+              }
+            },
+            {
+              "id": "digital_in",
+              "label": {
+                "en": "Digital input"
+              }
+            },
+            {
+              "id": "digital_out",
+              "label": {
+                "en": "Digital output"
+              }
+            },
+            {
+              "id": "reserved",
+              "label": {
+                "en": "Reserved by peripheral"
+              }
+            }
+          ]
+        },
+        {
+          "id": "Pill:pin1_mode",
+          "label": {
+            "en": "Pill - Pin 2 Mode"
+          },
+          "type": "dropdown",
+          "value": "none",
+          "values": [
+            {
+              "id": "none",
+              "label": {
+                "en": "IO not used"
+              }
+            },
+            {
+              "id": "digital_in",
+              "label": {
+                "en": "Digital input"
+              }
+            },
+            {
+              "id": "digital_out",
+              "label": {
+                "en": "Digital output"
+              }
+            },
+            {
+              "id": "reserved",
+              "label": {
+                "en": "Reserved by peripheral"
+              }
+            }
+          ]
+        },
+        {
+          "id": "Pill:pin2_mode",
+          "label": {
+            "en": "Pill - Pin 3 Mode"
+          },
+          "type": "dropdown",
+          "value": "none",
+          "values": [
+            {
+              "id": "none",
+              "label": {
+                "en": "IO not used"
+              }
+            },
+            {
+              "id": "digital_in",
+              "label": {
+                "en": "Digital input"
+              }
+            },
+            {
+              "id": "digital_out",
+              "label": {
+                "en": "Digital output"
+              }
+            },
+            {
+              "id": "reserved",
+              "label": {
+                "en": "Reserved by peripheral"
+              }
+            }
+          ]
+        },
+        {
+          "id": "Input:enable",
+          "type": "checkbox",
+          "label": {
+            "en": "Input - Enabled"
+          },
+          "value": true
+        },
+        {
+          "id": "Input:invert",
+          "type": "checkbox",
+          "label": {
+            "en": "Input - Invert"
+          },
+          "value": true
+        },
+        {
+          "values": [
+            {
+              "id": "0",
+              "label": {
+                "en": "0 - 2.5 VDC"
+              }
+            },
+            {
+              "id": "1",
+              "label": {
+                "en": "0 - 30 VDC (external addon)"
+              }
+            }
+          ],
+          "id": "Voltmeter:range",
+          "type": "dropdown",
+          "label": {
+            "en": "Voltmeter - Range"
+          },
+          "value": "0"
+        },
+        {
+          "min": 0.01,
+          "max": 5,
+          "id": "Voltmeter:report_thr",
+          "type": "number",
+          "label": {
+            "en": "Voltmeter - Report Threshold"
+          },
+          "value": 1,
+          "units": "V"
+        },
+        {
+          "id": "Switch:initial_state",
+          "type": "dropdown",
+          "label": {
+            "en": "Switch - Startup State"
+          },
+          "value": "off",
+          "values": [
+            {
+              "id": "off",
+              "label": {
+                "en": "Off"
+              }
+            },
+            {
+              "id": "on",
+              "label": {
+                "en": "On"
+              }
+            },
+            {
+              "id": "restore_last",
+              "label": {
+                "en": "Restore Last"
+              }
+            },
+            {
+              "id": "match_input",
+              "label": {
+                "en": "Match Input"
+              }
+            }
+          ]
+        },
+        {
+          "id": "Temperature:offset_C",
+          "type": "number",
+          "label": {
+            "en": "Temperature - Offset"
+          },
+          "hint": {
+            "en": "Offset to be applied to the measured temperature."
+          },
+          "value": 0,
+          "min": -50,
+          "max": 50,
+          "units": "°C"
+        },
+        {
+          "min": 0.1,
+          "id": "Temperature:report_thr_C",
+          "type": "number",
+          "label": {
+            "en": "Temperature - Report Threshold"
+          },
+          "value": 0.5,
+          "max": 5,
+          "units": "°C"
+        },
+        {
+          "id": "Humidity:offset",
+          "type": "number",
+          "label": {
+            "en": "Humidity - Offset"
+          },
+          "hint": {
+            "en": "Offset to be applied to the measured humidity."
+          },
+          "value": 0,
+          "min": -50,
+          "max": 50,
+          "units": "%pt."
+        },
+        {
+          "id": "Humidity:report_thr",
+          "type": "number",
+          "label": {
+            "en": "Humidity - Report Threshold"
+          },
+          "value": 1,
+          "min": 1,
+          "max": 20,
+          "units": "%pt."
+        }
+      ]
     },
     {
       "platforms": [

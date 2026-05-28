@@ -1,8 +1,10 @@
 import type ShellyLocalDevice from '../../local/LocalDevice.js';
-import { ComponentWithoutId } from '../Component.js';
+import { type AllowedPrimitives, ComponentWithoutId } from '../Component.js';
 import SetConfig from './Pill/SetConfig.js';
 import GetConfig from './Pill/GetConfig.js';
 import GetStatus from './Pill/GetStatus.js';
+import type { ComponentMethod } from './Shelly/ListMethods.js';
+import type { RecursivePartial } from '../../util.js';
 
 export type PillStatus = Record<string, never>;
 
@@ -22,6 +24,7 @@ export type PillConfig = {
    *
    * - `serial`: Serial port. Creates a [Serial](https://shelly-api-docs.shelly.cloud/gen2/ComponentsAndServices/Serial)
    *    component instance for UART, Modbus RTU Client, or Server.
+   *    **NOTE: this value does not seem to get accepted**
    *
    * Modes affect the current set of device components.
    * Switching a mode may cause new components to emerge,
@@ -54,7 +57,14 @@ export type PillConfig = {
  */
 type PinMode = 'none' | 'reserved' | 'digital_in' | 'digital_out';
 
-export type PillHomeySettings = Record<string, never>;
+export type PillHomeySettings = {
+  'Pill:mode': 'onewire' | 'dht22' | 'analog_in' | 'ssr' | 'digital_io';
+  'Pill:pin0_mode': 'none' | 'digital_in' | 'digital_out' | 'reserved';
+  'Pill:pin1_mode': 'none' | 'digital_in' | 'digital_out' | 'reserved';
+  'Pill:pin2_mode': 'none' | 'digital_in' | 'digital_out' | 'reserved';
+};
+
+const simpleSettingKeys = ['mode', 'pin0_mode', 'pin1_mode', 'pin2_mode'] as const satisfies (keyof PillConfig)[];
 
 export default class Pill extends ComponentWithoutId<'Pill', PillStatus, PillConfig, PillHomeySettings> {
   protected readonly _SetConfig = SetConfig;
@@ -63,11 +73,45 @@ export default class Pill extends ComponentWithoutId<'Pill', PillStatus, PillCon
   public readonly namespace = 'Pill';
   public static readonly uiName = 'The Pill';
 
-  public async registerHomeyDevice(homeyDevice: ShellyLocalDevice, methods: unknown[]): Promise<void> {}
+  public async registerHomeyDevice(
+    _homeyDevice: ShellyLocalDevice,
+    _methods: ComponentMethod<'Pill'>[],
+  ): Promise<void> {}
 
   protected async staticallyUnregisterHomeyDevice(this: never, _homeyDevice: ShellyLocalDevice): Promise<void> {}
 
-  public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: PillStatus): Promise<void> {}
+  public async onStatusUpdate(_homeyDevice: ShellyLocalDevice, _status: PillStatus): Promise<void> {}
 
-  public async onConfigUpdate(homeyDevice: ShellyLocalDevice, config: PillConfig): Promise<void> {}
+  public async onConfigUpdate(homeyDevice: ShellyLocalDevice, config: PillConfig): Promise<void> {
+    const newSettings: Partial<PillHomeySettings> = {};
+
+    for (const settingKey of simpleSettingKeys) {
+      if (config[settingKey] !== undefined) {
+        newSettings[`Pill:${settingKey}`] = config[settingKey] as never;
+      }
+    }
+
+    await homeyDevice.setComponentSettings(this.namespace, undefined, newSettings);
+  }
+
+  public async handleSettings(
+    _homeyDevice: ShellyLocalDevice,
+    { changedKeys, newSettings }: SettingsEvent<PillHomeySettings>,
+  ): Promise<boolean> {
+    const changedConfig: RecursivePartial<PillConfig, AllowedPrimitives> = {};
+
+    for (const settingKey of simpleSettingKeys) {
+      const homeySettingKey = `Pill:${settingKey}` as const;
+      if (changedKeys.includes(homeySettingKey)) {
+        changedConfig[settingKey] = newSettings[homeySettingKey] as never;
+      }
+    }
+
+    if (Object.keys(changedConfig).length <= 0) {
+      return false;
+    }
+
+    const result = await this.SetConfig(this.device.getChannel(), { config: changedConfig });
+    return result.result.restart_required;
+  }
 }

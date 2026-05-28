@@ -1,0 +1,14 @@
+{
+  "id": "Temperature:offset_C",
+  "type": "number",
+  "label": {
+    "en": "Temperature - Offset"
+  },
+  "hint": {
+    "en": "Offset to be applied to the measured temperature."
+  },
+  "value": 0,
+  "min": -50.0,
+  "max": 50.0,
+  "units": "°C"
+}

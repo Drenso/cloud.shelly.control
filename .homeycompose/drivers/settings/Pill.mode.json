@@ -1,0 +1,40 @@
+{
+  "id": "Pill:mode",
+  "type": "dropdown",
+  "label": {
+    "en": "Pill - Peripheral Mode"
+  },
+  "value": "onewire",
+  "values": [
+    {
+      "id": "onewire",
+      "label": {
+        "en": "Temperature (DS18B20) + 2x IO"
+      }
+    },
+    {
+      "id": "dht22",
+      "label": {
+        "en": "Temperature & Humidity (DHT22) + 2x IO"
+      }
+    },
+    {
+      "id": "analog_in",
+      "label": {
+        "en": "Analog input + 2x IO"
+      }
+    },
+    {
+      "id": "ssr",
+      "label": {
+        "en": "SSR Addon + 1x IO"
+      }
+    },
+    {
+      "id": "digital_io",
+      "label": {
+        "en": "3x Digital IO"
+      }
+    }
+  ]
+}

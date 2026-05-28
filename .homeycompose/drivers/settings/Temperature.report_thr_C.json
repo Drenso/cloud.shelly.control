@@ -1,0 +1,11 @@
+{
+  "id": "Temperature:report_thr_C",
+  "type": "number",
+  "label": {
+    "en": "Temperature - Report Threshold"
+  },
+  "value": 0.5,
+  "min": 0.5,
+  "max": 5.0,
+  "units": "°C"
+}

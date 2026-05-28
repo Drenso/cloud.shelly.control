@@ -1,0 +1,14 @@
+{
+  "id": "Humidity:offset",
+  "type": "number",
+  "label": {
+    "en": "Humidity - Offset"
+  },
+  "hint": {
+    "en": "Offset to be applied to the measured humidity."
+  },
+  "value": 0,
+  "min": -50.0,
+  "max": 50.0,
+  "units": "%pt."
+}

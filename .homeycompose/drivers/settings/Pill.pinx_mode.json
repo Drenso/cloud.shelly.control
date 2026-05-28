@@ -1,0 +1,33 @@
+{
+  "type": "dropdown",
+  "label": {
+    "en": "Pill - Pin x Mode"
+  },
+  "value": "none",
+  "values": [
+    {
+      "id": "none",
+      "label": {
+        "en": "IO not used"
+      }
+    },
+    {
+      "id": "digital_in",
+      "label": {
+        "en": "Digital input"
+      }
+    },
+    {
+      "id": "digital_out",
+      "label": {
+        "en": "Digital output"
+      }
+    },
+    {
+      "id": "reserved",
+      "label": {
+        "en": "Reserved by peripheral"
+      }
+    }
+  ]
+}

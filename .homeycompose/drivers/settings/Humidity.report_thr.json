@@ -1,0 +1,11 @@
+{
+  "id": "Humidity:report_thr",
+  "type": "number",
+  "label": {
+    "en": "Humidity - Report Threshold"
+  },
+  "value": 1.0,
+  "min": 1.0,
+  "max": 20.0,
+  "units": "%pt."
+}

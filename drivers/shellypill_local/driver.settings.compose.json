@@ -1,1 +1,70 @@
-[]
+[
+  {
+    "$extends": "Pill.mode"
+  },
+  {
+    "$extends": "Pill.pinx_mode",
+    "id": "Pill:pin0_mode",
+    "label": {
+      "en": "Pill - Pin 1 Mode"
+    }
+  },
+  {
+    "$extends": "Pill.pinx_mode",
+    "id": "Pill:pin1_mode",
+    "label": {
+      "en": "Pill - Pin 2 Mode"
+    }
+  },
+  {
+    "$extends": "Pill.pinx_mode",
+    "id": "Pill:pin2_mode",
+    "label": {
+      "en": "Pill - Pin 3 Mode"
+    }
+  },
+  {
+    "$extends": "Input.enable"
+  },
+  {
+    "$extends": "Input.invert"
+  },
+  {
+    "$extends": "Voltmeter.range",
+    "values": [
+      {
+        "id": "0",
+        "label": {
+          "en": "0 - 2.5 VDC"
+        }
+      },
+      {
+        "id": "1",
+        "label": {
+          "en": "0 - 30 VDC (external addon)"
+        }
+      }
+    ]
+  },
+  {
+    "$extends": "Voltmeter.report_thr",
+    "min": 0.01,
+    "max": 5
+  },
+  {
+    "$extends": "Switch.initial_state"
+  },
+  {
+    "$extends": "Temperature.offset_C"
+  },
+  {
+    "$extends": "Temperature.report_thr_C",
+    "min": 0.1
+  },
+  {
+    "$extends": "Humidity.offset"
+  },
+  {
+    "$extends": "Humidity.report_thr"
+  }
+]
