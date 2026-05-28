@@ -124,6 +124,41 @@ export function deepAssign<T, AllowedPrimitives>(
   }
 }
 
+const ANSI_COLOR = {
+  black: 30,
+  red: 31,
+  green: 32,
+  yellow: 33,
+  blue: 34,
+  magenta: 35,
+  cyan: 36,
+  white: 37,
+};
+
+type AnsiColor = keyof typeof ANSI_COLOR;
+
+export function logColor(
+  { backgroundColor, foregroundColor }: { backgroundColor?: AnsiColor; foregroundColor?: AnsiColor },
+  ...args: unknown[]
+): string {
+  const foregroundColorCode = foregroundColor === undefined ? undefined : ANSI_COLOR[foregroundColor];
+  const backgroundColorCode = backgroundColor === undefined ? undefined : 10 + ANSI_COLOR[backgroundColor];
+
+  if (foregroundColorCode === undefined) {
+    if (backgroundColorCode === undefined) {
+      return args.join(' ');
+    } else {
+      return `\x1b[${backgroundColorCode}m` + args.join(' ') + '\x1b[0m';
+    }
+  } else {
+    if (backgroundColorCode === undefined) {
+      return `\x1b[${foregroundColorCode}m` + args.join(' ') + '\x1b[0m';
+    } else {
+      return `\x1b[${backgroundColorCode};${foregroundColorCode}m` + args.join(' ') + '\x1b[0m';
+    }
+  }
+}
+
 export function includesAny<T>(changedKeys: Array<keyof T>, anyOf: Array<keyof T>): boolean {
   return anyOf.some(key => changedKeys.includes(key));
 }
