@@ -194,8 +194,10 @@ export abstract class ComponentWithId<
     rawCapabilityOptions: JsonObject | undefined,
     capabilityListener?: Parameters<typeof homeyDevice.registerCapabilityListener>[1],
   ): Promise<string> {
-    const capabilityId =
-      homeyDevice.componentCounts.get(this.namespace) === 1 ? homeyCapability : `${homeyCapability}.${this.id}`;
+    const singleComponent = homeyDevice.componentCounts.get(this.namespace) === 1;
+    const capabilityId = singleComponent ? homeyCapability : `${homeyCapability}.${this.id}`;
+    const unusedCapabilityId = singleComponent ? `${homeyCapability}.${this.id}` : homeyCapability;
+    await safeRemoveCapability(homeyDevice, unusedCapabilityId);
     await safeAddCapability(homeyDevice, capabilityId);
     if (capabilityListener !== undefined) {
       homeyDevice.registerCapabilityListener(capabilityId, capabilityListener);
