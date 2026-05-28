@@ -125,10 +125,7 @@
       "ssid": "DrensoDev",
       "bssid": "76:ac:b9:2c:8c:03",
       "rssi": -38,
-      "sta_ip6": [
-        "fe80::4af6:eeff:fe90:e3cc",
-        "fd44:6977:d13f:2e91:4af6:eeff:fe90:e3cc"
-      ]
+      "sta_ip6": ["fe80::4af6:eeff:fe90:e3cc", "fd44:6977:d13f:2e91:4af6:eeff:fe90:e3cc"]
     },
     "config": {
       "ap": {
