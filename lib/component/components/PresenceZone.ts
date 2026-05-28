@@ -82,6 +82,9 @@ type PresenceMittEvents = {
   leave: never;
 };
 
+/**
+ * The PresenceZone is a component stands for an individual physical sensor
+ */
 export default class PresenceZone extends ComponentWithId<
   'PresenceZone',
   PresenceZoneStatus,

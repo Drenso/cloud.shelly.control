@@ -46,6 +46,9 @@ export type FloodHomeySettings = {
   'Flood:report_holdoff': number;
 };
 
+/**
+ * The Flood component handles the monitoring of the device's flood sensors.
+ */
 export default class Flood extends ComponentWithId<'Flood', FloodStatus, FloodConfig, FloodHomeySettings> {
   protected _SetConfig = SetConfig;
   protected _GetConfig = GetConfig;

@@ -27,6 +27,11 @@ export type OutboundWebsocketStatus = {
 
 export type OutboundWebsocketHomeySettings = Record<string, never>;
 
+/**
+ * The Outbound Webscoket component makes it possible to configure a Gen2+ Shelly device to establish and maintain an outbound websocket connection.
+ * An RPC channel is available over said connection, supporting all features of inbound WS and MQTT channels,
+ * along with unsolicited complete status notifications on connection.
+ */
 export default class OutboundWebsocket extends ComponentWithoutId<
   'Ws',
   OutboundWebsocketStatus,

@@ -39,6 +39,9 @@ export type DevicePowerStatus = {
 
 export type DevicePowerHomeySettings = Record<never, never>;
 
+/**
+ * The DevicePower component handles the monitoring of device's battery charge and is only available on battery-operated devices.
+ */
 export default class DevicePower extends ComponentWithId<
   'DevicePower',
   DevicePowerStatus,

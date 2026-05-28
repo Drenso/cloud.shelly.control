@@ -193,6 +193,9 @@ const simpleSettingKeys = [
   'voltage_limit',
 ] as const satisfies (keyof CCTConfig)[];
 
+/**
+ * The CCT component handles a dimmable light output with adjustable hues of white (cold/warm) and on/off control.
+ */
 export default class CCT extends ComponentWithId<'CCT', CCTStatus, CCTConfig, CCTHomeySettings> {
   protected _SetConfig = SetConfig;
   protected _GetConfig = GetConfig;

@@ -43,6 +43,9 @@ type DataEvent = {
   };
 };
 
+/**
+ * The EM1Data component stores data from an energy meter.
+ */
 export default class EM1Data extends ComponentWithId<'EM1Data', EM1DataStatus, EM1DataConfig, EM1DataHomeySettings> {
   protected _SetConfig = SetConfig;
   protected _GetConfig = GetConfig;

@@ -155,6 +155,13 @@ const simpleSettingKeys = [
   'min_brightness_on_toggle',
 ] as const satisfies (keyof RGBCCTConfig)[];
 
+/**
+ * The RGBCCT component handles a dimmable light output with the possibility to change color,
+ * brightness and adjustable hues of white (cold/warm) and on/off control.
+ *
+ * Component has additional on/off control.
+ * It has a night mode capability that can reduce brightness in a selected period of time.
+ */
 export default class RGBCCT extends ComponentWithId<'RGBCCT', RGBCCTStatus, RGBCCTConfig, RGBCCTHomeySettings> {
   protected _SetConfig = SetConfig;
   protected _GetConfig = GetConfig;

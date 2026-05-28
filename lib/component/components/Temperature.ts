@@ -40,7 +40,7 @@ export type TemperatureHomeySettings = {
 const settingKeys = ['report_thr_C', 'offset_C'] as const satisfies (keyof TemperatureConfig)[];
 
 /**
- * The Temperature component handles the monitoring of device's temperature sensors.
+ * The Temperature component handles the monitoring of the device's temperature sensors.
  */
 export default class Temperature extends ComponentWithId<
   'Temperature',

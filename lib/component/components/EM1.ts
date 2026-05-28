@@ -52,6 +52,9 @@ export type EM1HomeySettings = {
 
 const simpleSettingKeys = ['reverse', 'ct_type'] as const satisfies (keyof EM1Config)[];
 
+/**
+ * EM1 component handles the data collection and processing from energy meter devices like the ShellyProEM.
+ */
 export default class EM1 extends ComponentWithId<'EM1', EM1Status, EM1Config, EM1HomeySettings> {
   protected _SetConfig = SetConfig;
   protected _GetConfig = GetConfig;

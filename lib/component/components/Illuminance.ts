@@ -57,6 +57,9 @@ export type IlluminanceHomeySettings = {
 
 const simpleSettingKeys = ['dark_thr', 'bright_thr'] as const satisfies (keyof IlluminanceConfig)[];
 
+/**
+ * The Illuminance component handles the monitoring of the device's illuminance sensors.
+ */
 export default class Illuminance extends ComponentWithId<
   'Illuminance',
   IlluminanceStatus,

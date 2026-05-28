@@ -530,7 +530,7 @@ const slatSettingKeys = [
 ] as const satisfies (keyof Required<CoverConfig>['slat'])[];
 
 /**
- * The Cover component handles the operation of motorized garage doors, window blinds, roof skylights etc.
+ * The Cover component handles the operation of motorized garage doors, window blinds, roof skylights, etc.
  */
 export default class Cover extends ComponentWithId<'Cover', CoverStatus, CoverConfig, CoverHomeySettings> {
   protected readonly _SetConfig = SetConfig;
