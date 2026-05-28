@@ -17,6 +17,7 @@ import DevicePower from './components/DevicePower.js';
 import Flood from './components/Flood.js';
 import Pill from './components/Pill.js';
 import Voltmeter from './components/Voltmeter.js';
+import Humidity from './components/Humidity.js';
 
 export const ComponentWithIdMapping = {
   cct: CCT,
@@ -25,6 +26,7 @@ export const ComponentWithIdMapping = {
   em1: EM1,
   em1data: EM1Data,
   flood: Flood,
+  humidity: Humidity,
   illuminance: Illuminance,
   input: Input,
   light: Light,

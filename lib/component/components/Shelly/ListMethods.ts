@@ -17,6 +17,7 @@ type NamespaceMethodMapping = {
     'GetNetEnergies',
   ];
   Flood: ['SetConfig', 'GetConfig', 'GetStatus'];
+  Humidity: ['SetConfig', 'GetConfig', 'GetStatus'];
   Illuminance: ['GetConfig', 'SetConfig', 'GetStatus'];
   Input: ['SetConfig', 'GetConfig', 'GetStatus', 'CheckExpression', 'ResetCounters', 'Trigger'];
   Light: [
