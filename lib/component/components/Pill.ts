@@ -61,6 +61,7 @@ export default class Pill extends ComponentWithoutId<'Pill', PillStatus, PillCon
   protected readonly _GetConfig = GetConfig;
   protected readonly _GetStatus = GetStatus;
   public readonly namespace = 'Pill';
+  public static readonly uiName = 'The Pill';
 
   public async registerHomeyDevice(homeyDevice: ShellyLocalDevice, methods: unknown[]): Promise<void> {}
 

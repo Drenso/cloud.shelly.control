@@ -102,6 +102,7 @@ export default class PowerStripUI extends ComponentWithoutId<
   protected readonly _GetConfig = GetConfig;
   protected readonly _GetStatus = GetStatus;
   public readonly namespace = 'POWERSTRIP_UI';
+  public static readonly uiName = 'PowerStrip';
 
   public async registerHomeyDevice(
     _homeyDevice: ShellyLocalDevice,

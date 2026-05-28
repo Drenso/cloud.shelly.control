@@ -42,6 +42,7 @@ export default class OutboundWebsocket extends ComponentWithoutId<
   protected readonly _GetConfig = GetConfig;
   protected readonly _GetStatus = GetStatus;
   public readonly namespace = 'Ws';
+  public static readonly uiName = 'Outbound Websocket';
 
   // TODO ensure this works for BLE devices
   public async register(_methods: ComponentMethod<'Ws'>[]): Promise<void> {

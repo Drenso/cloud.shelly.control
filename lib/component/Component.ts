@@ -26,6 +26,7 @@ export abstract class Component<
   Settings extends object,
 > {
   public abstract readonly namespace: ComponentNameSpace;
+  public static readonly uiName: string;
 
   public constructor(
     protected device: VirtualDevice,
@@ -141,8 +142,6 @@ export abstract class ComponentWithId<
   Config extends { id: number; name: string | null },
   Settings extends object,
 > extends Component<ComponentNameSpace, Status, Config, Settings> {
-  public static readonly uiName: string;
-
   protected abstract _SetConfig: (
     channel: RpcChannel,
     id: number,
