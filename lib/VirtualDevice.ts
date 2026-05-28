@@ -50,7 +50,7 @@ type StateAction =
   | StateActionInstance<'device_connected'>
   | StateActionInstance<'going_to_sleep'>
   | StateActionInstance<'going_offline'>
-  | StateActionInstance<'repair'>
+  | StateActionInstance<'reinitialize'>
   | (Omit<StateActionInstance<'removed_homey_device'>, 'id'> & { id: string });
 
 type State = {
@@ -241,6 +241,8 @@ export class VirtualDevice {
           return this.states.offline.enter();
         } else if (action === 'removed_homey_device') {
           return this.states.removing_homey_device.enter(args.id!);
+        } else if (action === 'reinitialize') {
+          return this.reInitialize();
         } else {
           throw new Error(`Unknown transition for online: ${action}`);
         }
@@ -257,6 +259,8 @@ export class VirtualDevice {
           return this.states.online.enter();
         } else if (action === 'removed_homey_device') {
           return this.states.removing_homey_device.enter(args.id!);
+        } else if (action === 'reinitialize') {
+          return this.reInitialize();
         } else {
           throw new Error(`Unknown transition for offline: ${action}`);
         }
@@ -273,6 +277,8 @@ export class VirtualDevice {
           return this.states.online.enter();
         } else if (action === 'removed_homey_device') {
           return this.states.removing_homey_device.enter(args.id!);
+        } else if (action === 'reinitialize') {
+          return this.reInitialize();
         } else {
           throw new Error(`Unknown transition for sleeping: ${action}`);
         }
@@ -341,6 +347,13 @@ export class VirtualDevice {
       useHttps: this.localConnection.useHttps,
       ha1: this.localConnection.ha1,
     };
+  }
+
+  private reInitialize(): Promise<void> {
+    this.initialHomeyDeviceIds = [...this.initializedHomeyDevices.keys()];
+    this.initialHomeyDevices = this.app.homey.drivers.getDrivers()[this.driver].getDevices() as ShellyLocalDevice[];
+    this.initialComponents = [...this.initializedComponents.keys()];
+    return this.states.initializing.enter();
   }
 
   private async initialize(): Promise<void> {
@@ -501,92 +514,25 @@ export class VirtualDevice {
   }
 
   // TODO use this for non-dynamic components as well
-  // TODO rework this with the new states
   public async onComponentAdded(newComponentId: string): Promise<void> {
-    this.log(`Adding ${newComponentId}...`);
+    this.log(`Added ${newComponentId}`);
 
-    if (this.homeyDeviceIds === undefined) {
+    if (this.initializedHomeyDevices.size === 0) {
       throw new Error('No Homey devices initialized while adding component');
     }
 
-    const components = await this.retrieveComponents();
-    const newDeviceDefinitions = await this.assembleDevices(components);
-
-    // Only update Homey devices that get the new component
-    const filteredNewDevices = newDeviceDefinitions.filter(newDevice =>
-      newDevice.store.components.includes(newComponentId),
-    );
-    const newDeviceIds: string[] = filteredNewDevices.map(device => device.data.id);
-
-    // Check whether new Homey devices are required for the new component
-    const { added: deviceIdsToAdd } = diffArrays(this.homeyDeviceIds, newDeviceIds, { returnRemoved: false });
-    this.debug('Homey devices to add:', deviceIdsToAdd);
-
-    // If a Homey device needs to be added, set all current Homey devices to unavailable
-    // with a message saying the user needs to re-pair one, since we cannot add one ourselves.
-    if (deviceIdsToAdd.length > 0) {
-      await this.setUnavailable(this.app.homey.__('device.device_added'));
-      return;
-    }
-
-    const methodMapping = await this.getMethodMapping();
-    await this.initializeComponents(components, methodMapping);
-
-    for (const homeyDeviceId of newDeviceIds) {
-      const homeyDevice = this.app.getLocalDevice(homeyDeviceId);
-      if (homeyDevice === undefined) {
-        throw new Error(`Could not find a Homey device for id ${homeyDevice}`);
-      }
-      await homeyDevice.addComponent(newComponentId, methodMapping);
-    }
-
-    this.components = [...this.components, newComponentId];
-    await this.app.updateVirtualDevice(this);
-    this.log(`Added ${newComponentId}`);
+    return this.transition({ action: 'reinitialize' });
   }
 
   // TODO use this for non-dynamic components as well
-  // TODO rework this with the new states
   public async onComponentRemoved(componentId: string): Promise<void> {
-    this.log(`Removing ${componentId}...`);
+    this.log(`Removed ${componentId}`);
 
-    if (this.homeyDeviceIds === undefined) {
+    if (this.initializedHomeyDevices.size === 0) {
       throw new Error('No Homey devices initialized while removing component');
     }
 
-    const components = await this.retrieveComponents();
-    const newDeviceDefinitions = await this.assembleDevices(components);
-    const newDeviceIds = newDeviceDefinitions.map(device => device.data.id);
-
-    // Check whether any Homey devices are no longer needed without this component
-    const { removed: deviceIdsToRemove } = diffArrays(this.homeyDeviceIds, newDeviceIds, { returnAdded: false });
-
-    this.debug('Homey devices to remove:', deviceIdsToRemove);
-
-    // Set the ones that are no longer used to unavailable with a message saying they can be removed,
-    // since we cannot do that ourselves.
-    for (const homeyDeviceId of deviceIdsToRemove) {
-      const homeyDevice = this.app.getLocalDevice(homeyDeviceId);
-      if (homeyDevice === undefined) {
-        throw new Error(`Could not find a Homey device for id ${homeyDevice}`);
-      }
-      await homeyDevice.setUnavailable(this.app.homey.__('device.device_removed'));
-    }
-
-    const methodMapping = await this.getMethodMapping();
-    await this.unregisterComponents([componentId]);
-
-    for (const homeyDeviceId of newDeviceIds) {
-      const homeyDevice = this.app.getLocalDevice(homeyDeviceId);
-      if (homeyDevice === undefined) {
-        throw new Error(`Could not find a Homey device for id ${homeyDevice}`);
-      }
-      await homeyDevice.removeComponent(componentId, methodMapping);
-    }
-
-    this.components = this.components.filter(oldComponentId => oldComponentId !== componentId);
-    await this.app.updateVirtualDevice(this);
-    this.log(`Removed ${componentId}`);
+    return this.transition({ action: 'reinitialize' });
   }
 
   private async assembleDevices(
