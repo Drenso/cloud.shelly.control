@@ -84,8 +84,8 @@ export type VoltmeterStatus = {
 };
 
 export type VoltmeterHomeySettings = {
-  'Voltage:report_thr': number;
-  'Voltage:range': '0' | '1';
+  'Voltmeter:report_thr': number;
+  'Voltmeter:range': '0' | '1';
 };
 
 const simpleSettingKeys = ['report_thr'] as const satisfies (keyof VoltmeterConfig)[];
@@ -138,12 +138,12 @@ export default class Voltmeter extends ComponentWithId<
 
     for (const settingKey of simpleSettingKeys) {
       if (config[settingKey] !== undefined) {
-        newSettings[`Voltage:${settingKey}`] = config[settingKey] as never;
+        newSettings[`Voltmeter:${settingKey}`] = config[settingKey] as never;
       }
     }
 
     if (config['range'] !== undefined) {
-      newSettings['Voltage:range'] = config['range'].toFixed() as '0' | '1';
+      newSettings['Voltmeter:range'] = config['range'].toFixed() as '0' | '1';
     }
 
     await homeyDevice.setComponentSettings(this.namespace, this.id, newSettings);
@@ -156,14 +156,14 @@ export default class Voltmeter extends ComponentWithId<
     const changedConfig: RecursivePartial<VoltmeterConfig, AllowedPrimitives> = {};
 
     for (const settingKey of simpleSettingKeys) {
-      const homeySettingKey = `Voltage:${settingKey}` as const;
+      const homeySettingKey = `Voltmeter:${settingKey}` as const;
       if (changedKeys.includes(homeySettingKey)) {
         changedConfig[settingKey] = newSettings[homeySettingKey] as never;
       }
     }
 
-    if (changedKeys.includes('Voltage:range')) {
-      changedConfig['range'] = parseInt(newSettings['Voltage:range']) as 0 | 1;
+    if (changedKeys.includes('Voltmeter:range')) {
+      changedConfig['range'] = parseInt(newSettings['Voltmeter:range']) as 0 | 1;
     }
 
     if (Object.keys(changedConfig).length <= 0) {
