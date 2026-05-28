@@ -133,7 +133,7 @@ const ANSI_COLOR = {
   magenta: 35,
   cyan: 36,
   white: 37,
-};
+} as const;
 
 type AnsiColor = keyof typeof ANSI_COLOR;
 
@@ -158,6 +158,33 @@ export function logColor(
     }
   }
 }
+
+export const color = {
+  black(...args: unknown[]): string {
+    return logColor({ foregroundColor: 'black' }, ...args);
+  },
+  red(...args: unknown[]): string {
+    return logColor({ foregroundColor: 'red' }, ...args);
+  },
+  green(...args: unknown[]): string {
+    return logColor({ foregroundColor: 'green' }, ...args);
+  },
+  yellow(...args: unknown[]): string {
+    return logColor({ foregroundColor: 'yellow' }, ...args);
+  },
+  blue(...args: unknown[]): string {
+    return logColor({ foregroundColor: 'blue' }, ...args);
+  },
+  magenta(...args: unknown[]): string {
+    return logColor({ foregroundColor: 'magenta' }, ...args);
+  },
+  cyan(...args: unknown[]): string {
+    return logColor({ foregroundColor: 'cyan' }, ...args);
+  },
+  white(...args: unknown[]): string {
+    return logColor({ foregroundColor: 'white' }, ...args);
+  },
+} as const;
 
 export function includesAny<T>(changedKeys: Array<keyof T>, anyOf: Array<keyof T>): boolean {
   return anyOf.some(key => changedKeys.includes(key));
