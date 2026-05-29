@@ -4,7 +4,6 @@ import type { ShellyLocalListDeviceProperties, ShellyLocalListVirtualDevicePrope
 import type { InputConfig } from '../../lib/component/components/Input.js';
 import type { SwitchConfig } from '../../lib/component/components/Switch.js';
 import type { TemperatureConfig } from '../../lib/component/components/Temperature.js';
-import { color } from '../../lib/util.js';
 import { ComponentMapping } from '../../lib/component/ComponentMapping.js';
 
 export default class ShellyPillLocalDriver extends ShellyLocalDriver {
@@ -71,15 +70,6 @@ export default class ShellyPillLocalDriver extends ShellyLocalDriver {
     for (const homeyDevice of homeyDevices) {
       homeyDevice.store.components = [...homeyDevice.store.components, ...sharedComponentKeys];
     }
-
-    this.log(
-      color.red(
-        'Homey devices:',
-        homeyDevices.map(device => device.data.id),
-      ),
-    );
-
-    this.log(color.red('Shared components:', sharedComponentKeys));
 
     return homeyDevices;
   }
