@@ -28,5 +28,8 @@
   },
   "0.5.1": {
     "en": "Resolve race condition during app initialisation"
+  },
+  "0.6.0": {
+    "en": "Add LAN Support for The Pill. Updates for LAN devices: added automated rediscovery, added repair flow, use password for multiple devices during add. Stability improvements and bug fixes."
   }
 }
