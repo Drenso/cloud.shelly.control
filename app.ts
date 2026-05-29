@@ -115,24 +115,28 @@ export default class ShellyApp extends Homey.App {
   }
 
   private async handleRediscovery({ address: newAddress }: DiscoveryResultMDNSSD): Promise<void> {
-    const httpChannel = createHttpChannel(newAddress, this.homey.__, false);
-    const deviceInfoResponse = await Shelly.GetDeviceInfo(httpChannel);
-    const deviceInfo = deviceInfoResponse.result;
+    try {
+      const httpChannel = createHttpChannel(newAddress, this.homey.__, false);
+      const deviceInfoResponse = await Shelly.GetDeviceInfo(httpChannel);
+      const deviceInfo = deviceInfoResponse.result;
 
-    const virtualDevice = this.virtualDevices.get(deviceInfo.id);
+      const virtualDevice = this.virtualDevices.get(deviceInfo.id);
 
-    if (virtualDevice === undefined) {
-      return;
-    }
+      if (virtualDevice === undefined) {
+        return;
+      }
 
-    const oldAddress = virtualDevice.ipAddress;
+      const oldAddress = virtualDevice.ipAddress;
 
-    if (oldAddress !== newAddress) {
-      this.log(`Rediscovered ${virtualDevice.deviceId} from ${oldAddress} at ${newAddress}`);
-      await virtualDevice.reconnect({
-        ipAddress: newAddress,
-        useHttps: httpChannel.useHttps,
-      });
+      if (oldAddress !== newAddress) {
+        this.log(`Rediscovered ${virtualDevice.deviceId} from ${oldAddress} at ${newAddress}`);
+        await virtualDevice.reconnect({
+          ipAddress: newAddress,
+          useHttps: httpChannel.useHttps,
+        });
+      }
+    } catch (e) {
+      this.error('Error during rediscovery:', e);
     }
   }
 
