@@ -15,6 +15,7 @@ import { createHttpChannel, createInboundWsChannel, createOutboundWsChannel } fr
 import type ShellyLocalDriver from './local/LocalDriver.js';
 import type { ShellyLocalListDeviceProperties, ShellyLocalListVirtualDeviceProperties } from './types.js';
 import { diffArrays } from './util.js';
+import OutboundWebsocket from './component/components/OutboundWebsocket.js';
 
 export const IGNORED_NO_IMPLEMENTATION_COMPONENTS = [
   'ble',
@@ -392,9 +393,7 @@ export class VirtualDevice {
 
     const methodMapping = await this.getMethodMapping();
 
-    // Remove before adding, to avoid conflicts
-    await this.unregisterComponents(removedComponents);
-    await this.initializeComponents(components, methodMapping);
+    await this.initializeComponents(components);
 
     // Check whether changes to the components require adding/removing Homey devices
     const newDevices =
@@ -438,10 +437,7 @@ export class VirtualDevice {
     this.log('Initialized');
   }
 
-  private async initializeComponents(
-    components: ShellyGetComponentsResponseComponent[],
-    methodMapping: Partial<Record<NameSpace, ComponentMethod<NameSpace>[]>>,
-  ): Promise<void> {
+  private async initializeComponents(components: ShellyGetComponentsResponseComponent[]): Promise<void> {
     for (const component of components) {
       if (this.initializedComponents.has(component.key)) {
         this.debug('Already registered component:', component.key);
@@ -463,11 +459,6 @@ export class VirtualDevice {
         component.config as ConstructorParameters<MappedComponent>[2],
       );
       this.initializedComponents.set(component.key, componentInstance);
-    }
-
-    for (const component of this.initializedComponents.values()) {
-      const methods = methodMapping[component.namespace] ?? [];
-      await component.register(methods as never).catch(this.error);
     }
   }
 
@@ -500,17 +491,6 @@ export class VirtualDevice {
     }
 
     return this.states.initializing.enter();
-  }
-
-  private async unregisterComponents(componentIds: ReadonlyArray<string>): Promise<void> {
-    for (const componentId of componentIds) {
-      const [componentName] = componentId.split(':') as [string, `${number}` | undefined];
-      const componentConstructor = ComponentMapping[componentName as never] as MappedComponent | undefined;
-      if (componentConstructor === undefined) {
-        continue;
-      }
-      await componentConstructor.unregister(this);
-    }
   }
 
   // TODO use this for non-dynamic components as well
@@ -640,7 +620,6 @@ export class VirtualDevice {
 
   private async unregister(): Promise<void> {
     try {
-      await this.unregisterComponents([...this.initializedComponents.keys()]);
       await this.disconnect();
     } finally {
       await this.app.removeVirtualDevice(this);
@@ -811,6 +790,10 @@ class LocalConnection {
       this.inboundWsChannel?.safeConnect();
       this.handleDeviceConnected();
     });
+
+    OutboundWebsocket.register(this.virtualDevice).catch(err =>
+      this.virtualDevice.error('Error while registering outbound websocket:', err),
+    );
   }
 
   public async disconnect(): Promise<void> {

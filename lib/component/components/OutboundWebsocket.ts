@@ -45,16 +45,17 @@ export default class OutboundWebsocket extends ComponentWithoutId<
   public static readonly uiName = 'Outbound Websocket';
 
   // TODO ensure this works for BLE devices
-  public async register(_methods: ComponentMethod<'Ws'>[]): Promise<void> {
-    const server = `wss://${await getIp(this.device.app.homey)}:${OUTBOUND_WS_PORT}`;
-    if (this.config.enable && this.config.server === server) {
-      this.device.log('Outbound websocket already enabled');
+  public static async register(virtualDevice: VirtualDevice): Promise<void> {
+    const server = `wss://${await getIp(virtualDevice.app.homey)}:${OUTBOUND_WS_PORT}`;
+    const config = (await GetConfig(virtualDevice.getChannel())).result;
+    if (config.enable && config.server === server) {
+      virtualDevice.log('Outbound websocket already enabled');
       return;
     }
-    this.device.log('Enabling outbound websocket...');
-    await this.SetConfig(this.device.getChannel(), { config: { ssl_ca: '*', enable: true, server: server } });
-    await this.device.reboot().catch(err => this.device.debug('Error during Outbound WS reboot:', err));
-    this.device.log('Enabled outbound websocket');
+    virtualDevice.log('Enabling outbound websocket...');
+    await SetConfig(virtualDevice.getChannel(), { config: { ssl_ca: '*', enable: true, server: server } });
+    await virtualDevice.reboot().catch(err => virtualDevice.debug('Error during Outbound WS reboot:', err));
+    virtualDevice.log('Enabled outbound websocket');
   }
 
   public static async unregister(virtualDevice: VirtualDevice): Promise<void> {

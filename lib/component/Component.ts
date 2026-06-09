@@ -43,10 +43,6 @@ export abstract class Component<
 
   public abstract GetStatus(channel: RpcChannel): Promise<ResponseSuccessFrame<Status>>;
 
-  public async register(_methods: ComponentMethod<ComponentNameSpace>[]): Promise<void> {}
-
-  public static async unregister(_virtualDevice: VirtualDevice): Promise<void> {}
-
   public abstract registerHomeyDevice(
     homeyDevice: ShellyLocalDevice,
     methods: ComponentMethod<ComponentNameSpace>[],
