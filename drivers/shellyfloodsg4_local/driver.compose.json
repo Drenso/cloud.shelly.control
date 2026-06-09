@@ -1,0 +1,16 @@
+{
+  "$extends": ["local"],
+  "name": {
+    "en": "Flood S Gen4 - LAN"
+  },
+  "class": "sensor",
+  "capabilities": ["alarm_water", "measure_battery"],
+  "energy": {
+    "batteries": ["CR123A"]
+  },
+  "images": {
+    "small": "/assets/drivers/shellyfloodsg4/images/small.png",
+    "large": "/assets/drivers/shellyfloodsg4/images/large.png",
+    "xlarge": "/assets/drivers/shellyfloodsg4/images/xlarge.png"
+  }
+}

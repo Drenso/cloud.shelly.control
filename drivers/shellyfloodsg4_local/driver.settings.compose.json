@@ -1,0 +1,8 @@
+[
+  {
+    "$extends": "Flood.report_holdoff"
+  },
+  {
+    "$extends": "Flood.alarm_mode"
+  }
+]
