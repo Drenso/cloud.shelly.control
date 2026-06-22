@@ -27,7 +27,6 @@ type ShellyGetComponentsResponse = {
   total: number;
 };
 
-// TODO make presence of status and config dependent on request params
 export type ShellyGetComponentsResponseComponent = {
   // Component's key (in format <type>:<cid>, for example boolean:200)
   key: keyof typeof ComponentWithoutIdMapping | `${keyof typeof ComponentWithIdMapping}:${number}`;
@@ -35,6 +34,13 @@ export type ShellyGetComponentsResponseComponent = {
   status?: InstanceType<MappedComponent>['status'];
   // Component's config, will be omitted if "config" is not specified in the include property.
   config?: InstanceType<MappedComponent>['config'];
+  /** Virtual component attributes */
+  attrs?: {
+    /** The component controlling the value of this virtual component */
+    owner: string;
+    /** The role the value of this component fulfills on the device */
+    role: string;
+  };
 };
 
 /**

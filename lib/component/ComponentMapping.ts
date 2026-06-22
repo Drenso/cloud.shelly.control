@@ -19,8 +19,10 @@ import Pill from './components/Pill.js';
 import Voltmeter from './components/Voltmeter.js';
 import Humidity from './components/Humidity.js';
 import PlugsUI from './components/PlugsUI.js';
+import Boolean from './components/Boolean.js';
 
 export const ComponentWithIdMapping = {
+  boolean: Boolean,
   cct: CCT,
   cover: Cover,
   devicepower: DevicePower,

@@ -2,6 +2,7 @@ import type { RpcChannel } from '../../../rpc/channel/RpcChannel.js';
 import { createRequestFrame, type ResponseSuccessFrame } from '../../../rpc/Rpc.js';
 
 type NamespaceMethodMapping = {
+  Boolean: ['GetConfig', 'SetConfig', 'GetStatus', 'Set'];
   CCT: ['GetConfig', 'SetConfig', 'GetStatus', 'Set', 'Toggle', 'DimUp', 'DimDown', 'DimStop'];
   Cover: ['SetConfig', 'GetConfig', 'GetStatus', 'Calibrate', 'Open', 'Close', 'Stop', 'GoToPosition', 'ResetCounters'];
   DevicePower: ['SetConfig', 'GetConfig', 'GetStatus'];

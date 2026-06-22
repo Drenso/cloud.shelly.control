@@ -9743,6 +9743,15 @@
       "type": "number",
       "getable": true,
       "setable": false
+    },
+    "virtual_boolean": {
+      "title": {
+        "en": "Boolean"
+      },
+      "type": "boolean",
+      "getable": true,
+      "setable": true,
+      "uiComponent": "button"
     }
   },
   "discovery": {
