@@ -19,6 +19,11 @@ type ComponentSetConfigResponse = {
   restart_required: boolean;
 };
 
+export type VirtualComponentAttributes = {
+  owner: string;
+  role: string;
+};
+
 export abstract class Component<
   ComponentNameSpace extends NameSpace,
   Status extends object,
@@ -32,6 +37,7 @@ export abstract class Component<
     protected device: VirtualDevice,
     public status: Status,
     public config: Config,
+    public attrs: undefined | VirtualComponentAttributes,
   ) {}
 
   public abstract SetConfig(

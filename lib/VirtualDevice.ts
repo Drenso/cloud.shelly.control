@@ -560,6 +560,7 @@ export class VirtualDevice {
         // @ts-expect-error For some reason this gives the union instead of the intersection
         component.status as ConstructorParameters<MappedComponent>[1],
         component.config as ConstructorParameters<MappedComponent>[2],
+        component.attrs,
       );
       this.initializedComponents.set(component.key, componentInstance);
     }
