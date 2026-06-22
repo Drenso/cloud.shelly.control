@@ -9751,7 +9751,8 @@
       "type": "boolean",
       "getable": true,
       "setable": true,
-      "uiComponent": "button"
+      "uiComponent": "button",
+      "icon": "/assets/capabilities/boolean.svg"
     },
     "virtual_button": {
       "title": {
@@ -9760,7 +9761,8 @@
       "type": "boolean",
       "getable": false,
       "setable": true,
-      "uiComponent": "button"
+      "uiComponent": "button",
+      "icon": "/assets/capabilities/boolean.svg"
     },
     "virtual_number": {
       "title": {
@@ -9769,7 +9771,8 @@
       "type": "number",
       "getable": true,
       "setable": true,
-      "uiComponent": "slider"
+      "uiComponent": "slider",
+      "icon": "/assets/capabilities/number.svg"
     }
   },
   "discovery": {
