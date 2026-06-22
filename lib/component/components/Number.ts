@@ -7,6 +7,10 @@ import GetStatus from './Number/GetStatus.js';
 import type { RpcChannel } from '../../rpc/channel/RpcChannel.js';
 import Set, { type NumberSetParams } from './Number/Set.js';
 import type { JsonObject } from '../../../types/json.js';
+import { safeTriggerDeviceCard } from '../../safeFunctions.js';
+import type ShellyApp from '../../../app.js';
+import { fillTranslationTagsRecursively, translate } from '../../util.js';
+import capabilitiesOptions from './Number/capabilitiesOptions.json' with { type: 'json' };
 
 export type NumberConfig = {
   /** Identifier of the Number component instance */
@@ -75,7 +79,7 @@ export default class Number extends ComponentWithId<'Number', NumberStatus, Numb
   ): Promise<void> {
     const homeyCapability = 'virtual_number';
     const capabilityOptions: JsonObject = {
-      title: '__name__',
+      title: this.getTitleTranslations(),
       min: this.config.min,
       max: this.config.max,
     };
@@ -112,8 +116,67 @@ export default class Number extends ComponentWithId<'Number', NumberStatus, Numb
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Partial<NumberStatus>): Promise<void> {
     if (status.value !== undefined) {
       await this.setCapability(homeyDevice, 'virtual_number', status.value);
+      await safeTriggerDeviceCard(
+        homeyDevice,
+        'virtual_number_changed',
+        { id: this.id, value: status.value },
+        { id: this.id },
+      );
     }
   }
 
+  public getTitleTranslations(): string | { en: string; [p: string]: string } {
+    if (this.config.name !== null) {
+      return this.config.name;
+    }
+    return fillTranslationTagsRecursively(capabilitiesOptions['numberName'], {
+      name: `${this.id}`,
+    }) as string | { en: string; [p: string]: string };
+  }
+
   public async onConfigUpdate(_homeyDevice: ShellyLocalDevice, _config: NumberConfig): Promise<void> {}
+
+  public static registerFlowCards(app: ShellyApp): void {
+    const getNumbers = (device: ShellyLocalDevice): Number[] => {
+      if (device.virtualDevice === undefined) {
+        return [];
+      }
+
+      return [...device.virtualComponents.values()].filter(component => component instanceof Number);
+    };
+
+    const autoCompleteListener = (
+      query: string,
+      { device }: { device: ShellyLocalDevice },
+    ): { name: string; id: number }[] => {
+      return getNumbers(device)
+        .map(number => ({
+          name: translate(app.homey.__('locale'), number.getTitleTranslations()),
+          id: number.id,
+        }))
+        .filter(number => number.name.toLowerCase().includes(query.toLowerCase()));
+    };
+
+    app.homey.flow
+      .getDeviceTriggerCard('virtual_number_changed')
+      .registerArgumentAutocompleteListener('number', autoCompleteListener)
+      .registerRunListener((cardArgs: { number: { name: string; id: number } }, triggerArgs: { id: number }) => {
+        return cardArgs.number.id === triggerArgs.id;
+      });
+
+    app.homey.flow
+      .getActionCard('set_virtual_number')
+      .registerArgumentAutocompleteListener('number', autoCompleteListener)
+      .registerRunListener(
+        (cardArgs: { device: ShellyLocalDevice; number: { name: string; id: number }; value: number }) => {
+          const numberComponent = cardArgs.device.virtualComponents.get(`number:${cardArgs.number.id}`) as
+            | Number
+            | undefined;
+          const channel = cardArgs.device.virtualDevice?.getChannel();
+          if (numberComponent !== undefined && channel !== undefined) {
+            return numberComponent.Set(channel, { value: cardArgs.value });
+          }
+        },
+      );
+  }
 }

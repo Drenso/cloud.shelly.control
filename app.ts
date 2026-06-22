@@ -12,6 +12,7 @@ import Illuminance from './lib/component/components/Illuminance.js';
 import PresenceZone from './lib/component/components/PresenceZone.js';
 import { createHttpChannel } from './lib/HomeyRPCChannels.js';
 import Shelly from './lib/component/components/Shelly.js';
+import NumberComponent from './lib/component/components/Number.js';
 
 // TODO remove in 1.0.0
 process.on('uncaughtException', (error, origin) => {
@@ -190,6 +191,7 @@ export default class ShellyApp extends Homey.App {
     Input.registerFlowCards(this);
     Illuminance.registerFlowCards(this);
     PresenceZone.registerFlowCards(this);
+    NumberComponent.registerFlowCards(this);
 
     const alarmPresenceZoneRunListener = async (
       args: { zones: string[] },
