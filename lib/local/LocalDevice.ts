@@ -139,9 +139,16 @@ export default class ShellyLocalDevice extends Homey.Device {
     }
 
     for (const virtualComponent of this.virtualComponents.values()) {
-      await virtualComponent.registerHomeyDevice(this, (methodMapping[virtualComponent.namespace] ?? []) as never);
-      await virtualComponent.setInitialValues(this);
+      await this.registerComponent(virtualComponent, methodMapping[virtualComponent.namespace] ?? []);
     }
+  }
+
+  protected async registerComponent(
+    virtualComponent: InstanceType<MappedComponent>,
+    methods: ComponentMethod<NameSpace>[],
+  ): Promise<void> {
+    await virtualComponent.registerHomeyDevice(this, methods as never);
+    await virtualComponent.setInitialValues(this);
   }
 
   public get app(): ShellyApp {
