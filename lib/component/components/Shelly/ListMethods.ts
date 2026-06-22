@@ -35,6 +35,7 @@ type NamespaceMethodMapping = {
     'Calibrate',
     'ResetCounters',
   ];
+  Number: ['GetConfig', 'SetConfig', 'GetStatus', 'Set'];
   Pill: ['SetConfig', 'GetConfig', 'GetStatus'];
   PLUGS_UI: ['SetConfig', 'GetConfig', 'GetStatus'];
   POWERSTRIP_UI: ['SetConfig', 'GetConfig', 'GetStatus'];

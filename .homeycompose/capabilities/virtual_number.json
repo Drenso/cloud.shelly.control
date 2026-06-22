@@ -1,0 +1,9 @@
+{
+  "title": {
+    "en": "Number"
+  },
+  "type": "number",
+  "getable": true,
+  "setable": true,
+  "uiComponent": "slider"
+}
