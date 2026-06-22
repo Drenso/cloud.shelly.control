@@ -1,0 +1,290 @@
+[
+  {
+    "key": "ble",
+    "status": {},
+    "config": {
+      "enable": true,
+      "rpc": {
+        "enable": true
+      }
+    }
+  },
+  {
+    "key": "boolean:200",
+    "status": {
+      "value": true,
+      "source": "sys",
+      "last_update_ts": 1781880481
+    },
+    "config": {
+      "id": 200,
+      "name": "Power supply",
+      "meta": {
+        "cloud": ["log"],
+        "ui": {
+          "view": "label",
+          "titles": ["Disconnected", "Connected"]
+        }
+      },
+      "persisted": false,
+      "default_value": true,
+      "owner": "service:0",
+      "access": "cr"
+    },
+    "attrs": {
+      "owner": "service:0",
+      "role": "has_power"
+    }
+  },
+  {
+    "key": "bthome",
+    "status": {
+      "errors": ["bluetooth_disabled"]
+    },
+    "config": {}
+  },
+  {
+    "key": "button:200",
+    "status": {},
+    "config": {
+      "id": 200,
+      "name": "Close",
+      "meta": {
+        "ui": {
+          "view": "button"
+        }
+      },
+      "owner": "service:0",
+      "access": "crw"
+    },
+    "attrs": {
+      "owner": "service:0",
+      "role": "close"
+    }
+  },
+  {
+    "key": "button:201",
+    "status": {},
+    "config": {
+      "id": 201,
+      "name": "Open",
+      "meta": {
+        "ui": {
+          "view": "button"
+        }
+      },
+      "owner": "service:0",
+      "access": "crw"
+    },
+    "attrs": {
+      "owner": "service:0",
+      "role": "open"
+    }
+  },
+  {
+    "key": "cloud",
+    "status": {
+      "connected": true
+    },
+    "config": {
+      "enable": true,
+      "server": "repo.shelly.cloud:6022/jrpc"
+    }
+  },
+  {
+    "key": "mqtt",
+    "status": {
+      "connected": false
+    },
+    "config": {
+      "enable": false,
+      "server": null,
+      "client_id": "watervalve-8cbfeaa6c8b0",
+      "user": null,
+      "ssl_ca": null,
+      "topic_prefix": "watervalve-8cbfeaa6c8b0",
+      "rpc_ntf": true,
+      "status_ntf": false,
+      "use_client_cert": false,
+      "enable_rpc": true,
+      "enable_control": true
+    }
+  },
+  {
+    "key": "number:200",
+    "status": {
+      "value": 100,
+      "source": "sys",
+      "last_update_ts": 1782114210
+    },
+    "config": {
+      "id": 200,
+      "name": "Position",
+      "min": 0,
+      "max": 100,
+      "meta": {
+        "cloud": ["measurement", "log"],
+        "ui": {
+          "step": 10,
+          "view": "slider",
+          "unit": "%"
+        }
+      },
+      "persisted": true,
+      "default_value": 0,
+      "owner": "service:0",
+      "access": "crw"
+    },
+    "attrs": {
+      "owner": "service:0",
+      "role": "position"
+    }
+  },
+  {
+    "key": "service:0",
+    "status": {
+      "etag": "5b64b8fa2aae4737895a70fd9f324266",
+      "state": "running",
+      "stats": {
+        "mem": 694,
+        "mem_peak": 795
+      }
+    },
+    "config": {
+      "on_power_loss": "none",
+      "on_power_restore": "none",
+      "power_restored_pos": 0,
+      "power_loss_pos": 0,
+      "name": null,
+      "id": 0
+    }
+  },
+  {
+    "key": "sys",
+    "status": {
+      "mac": "8CBFEAA6C8B0",
+      "restart_required": false,
+      "time": "09:59",
+      "unixtime": 1782115155,
+      "last_sync_ts": 1782113947,
+      "uptime": 1213,
+      "ram_size": 252888,
+      "ram_free": 106588,
+      "ram_min_free": 87552,
+      "fs_size": 1048576,
+      "fs_free": 593920,
+      "cfg_rev": 16,
+      "kvs_rev": 0,
+      "schedule_rev": 0,
+      "webhook_rev": 1,
+      "btrelay_rev": 0,
+      "available_updates": {},
+      "reset_reason": 1
+    },
+    "config": {
+      "device": {
+        "name": null,
+        "mac": "8CBFEAA6C8B0",
+        "fw_id": "20241121-103618/1.4.99-xt-prod1-gc6448fb",
+        "discoverable": true,
+        "eco_mode": false,
+        "addon_type": "sensor"
+      },
+      "location": {
+        "tz": "Europe/Amsterdam",
+        "lat": 52.2486,
+        "lon": 6.7847
+      },
+      "debug": {
+        "level": 2,
+        "file_level": null,
+        "mqtt": {
+          "enable": false
+        },
+        "websocket": {
+          "enable": false
+        },
+        "udp": {
+          "addr": null
+        }
+      },
+      "ui_data": {},
+      "rpc_udp": {
+        "dst_addr": null,
+        "listen_port": null
+      },
+      "sntp": {
+        "server": "time.cloudflare.com"
+      },
+      "cfg_rev": 16
+    }
+  },
+  {
+    "key": "temperature:100",
+    "status": {
+      "id": 100,
+      "tC": 23.8,
+      "tF": 74.8
+    },
+    "config": {
+      "id": 100,
+      "name": null,
+      "report_thr_C": 0.1,
+      "offset_C": 0
+    }
+  },
+  {
+    "key": "wifi",
+    "status": {
+      "sta_ip": "192.168.222.131",
+      "status": "got ip",
+      "ssid": "DrensoDev",
+      "rssi": -40
+    },
+    "config": {
+      "ap": {
+        "ssid": "WaterValve-8CBFEAA6C8B0",
+        "is_open": true,
+        "enable": false,
+        "range_extender": {
+          "enable": false
+        }
+      },
+      "sta": {
+        "ssid": "DrensoDev",
+        "is_open": false,
+        "enable": true,
+        "ipv4mode": "dhcp",
+        "ip": null,
+        "netmask": null,
+        "gw": null,
+        "nameserver": null
+      },
+      "sta1": {
+        "ssid": null,
+        "is_open": true,
+        "enable": false,
+        "ipv4mode": "dhcp",
+        "ip": null,
+        "netmask": null,
+        "gw": null,
+        "nameserver": null
+      },
+      "roam": {
+        "rssi_thr": -80,
+        "interval": 60
+      }
+    }
+  },
+  {
+    "key": "ws",
+    "status": {
+      "connected": false
+    },
+    "config": {
+      "enable": false,
+      "server": null,
+      "ssl_ca": "ca.pem"
+    }
+  }
+]
