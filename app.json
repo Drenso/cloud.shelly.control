@@ -9752,6 +9752,15 @@
       "getable": true,
       "setable": true,
       "uiComponent": "button"
+    },
+    "virtual_button": {
+      "title": {
+        "en": "Button"
+      },
+      "type": "boolean",
+      "getable": false,
+      "setable": true,
+      "uiComponent": "button"
     }
   },
   "discovery": {

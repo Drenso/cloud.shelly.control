@@ -20,9 +20,11 @@ import Voltmeter from './components/Voltmeter.js';
 import Humidity from './components/Humidity.js';
 import PlugsUI from './components/PlugsUI.js';
 import Boolean from './components/Boolean.js';
+import Button from './components/Button.js';
 
 export const ComponentWithIdMapping = {
   boolean: Boolean,
+  button: Button,
   cct: CCT,
   cover: Cover,
   devicepower: DevicePower,
