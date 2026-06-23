@@ -1,0 +1,13 @@
+{
+  "$extends": ["local"],
+  "name": {
+    "en": "FrankEver Smart water valve - LAN"
+  },
+  "class": "watervalve",
+  "images": {
+    "small": "/assets/drivers/watervalve/images/small.png",
+    "large": "/assets/drivers/watervalve/images/large.png",
+    "xlarge": "/assets/drivers/watervalve/images/xlarge.png"
+  },
+  "capabilities": []
+}

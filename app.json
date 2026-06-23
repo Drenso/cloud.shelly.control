@@ -71,7 +71,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave",
+              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave|watervalve_local",
               "capabilities": "hidden.has_presence_zones"
             },
             "title": {
@@ -173,7 +173,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave",
+              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave|watervalve_local",
               "capabilities": "hidden.has_presence_zones"
             },
             "title": {
@@ -272,7 +272,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave",
+              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave|watervalve_local",
               "capabilities": "hidden.has_input_analog"
             },
             "title": {
@@ -304,7 +304,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave",
+              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave|watervalve_local",
               "capabilities": "hidden.has_input_multiple_analog"
             },
             "title": {
@@ -347,7 +347,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave",
+              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave|watervalve_local",
               "capabilities": "hidden.has_input_analog"
             },
             "title": {
@@ -386,7 +386,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave",
+              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave|watervalve_local",
               "capabilities": "hidden.has_input_multiple_analog"
             },
             "title": {
@@ -432,7 +432,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave",
+              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave|watervalve_local",
               "capabilities": "hidden.has_input_button"
             },
             "title": {
@@ -517,7 +517,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave",
+              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave|watervalve_local",
               "capabilities": "hidden.has_input_multiple_button"
             },
             "title": {
@@ -606,7 +606,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave",
+              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave|watervalve_local",
               "capabilities": "hidden.has_input_count"
             },
             "title": {
@@ -645,7 +645,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave",
+              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave|watervalve_local",
               "capabilities": "hidden.has_input_multiple_analog"
             },
             "title": {
@@ -691,7 +691,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave",
+              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave|watervalve_local",
               "capabilities": "hidden.has_input_switch"
             },
             "title": {
@@ -752,7 +752,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave",
+              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave|watervalve_local",
               "capabilities": "hidden.has_input_multiple_switch"
             },
             "title": {
@@ -810,7 +810,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave",
+              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave|watervalve_local",
               "capabilities": "meter_power.exported"
             },
             "title": {
@@ -839,7 +839,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave",
+              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave|watervalve_local",
               "capabilities": "meter_power.imported"
             },
             "title": {
@@ -868,7 +868,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave",
+              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave|watervalve_local",
               "capabilities": "meter_power.total"
             },
             "title": {
@@ -904,7 +904,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave",
+              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave|watervalve_local",
               "capabilities": "hidden.has_presence_sensor"
             },
             "title": {
@@ -943,7 +943,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave",
+              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave|watervalve_local",
               "capabilities": "hidden.has_presence_sensor_multiple"
             },
             "title": {
@@ -979,7 +979,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave",
+              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave|watervalve_local",
               "capabilities": "hidden.has_presence_sensor"
             },
             "title": {
@@ -1011,7 +1011,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave",
+              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave|watervalve_local",
               "capabilities": "hidden.has_presence_sensor_multiple"
             },
             "title": {
@@ -1047,7 +1047,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave",
+              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave|watervalve_local",
               "capabilities": "hidden.has_presence_sensor"
             },
             "title": {
@@ -1079,7 +1079,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave",
+              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave|watervalve_local",
               "capabilities": "hidden.has_presence_sensor_multiple"
             },
             "title": {
@@ -1118,7 +1118,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave",
+              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave|watervalve_local",
               "capabilities": "shelly_illumination"
             },
             "title": {
@@ -1175,7 +1175,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave",
+              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave|watervalve_local",
               "capabilities": "shelly_power_factor"
             },
             "title": {
@@ -1224,7 +1224,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "shelly0110dimg4_local|shelly0110dimg4_matter|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_matter|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_matter|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_matter|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_matter|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_matter|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_matter|shelly2pmg4_switch_zigbee|shellyblutrv_zigbee|shellycolorblbg3_local|shellycolorblbg3_matter|shellydimmerg4_local|shellydimmerg4_matter|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyduobulbg3_matter|shellyemg4_local|shellyemg4_matter|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_matter|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_matter|shellyfloodg4_zigbee|shellypill_local|shellypresence_local|shellypresence_matter|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_matter|shellypstripg4_zigbee|shellywavemcb_zwave|watervalve_local",
+              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave|watervalve_local",
               "capabilities": "virtual_number"
             },
             "title": {
@@ -1248,7 +1248,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave",
+              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave|watervalve_local",
               "capabilities": "hidden.has_presence_zones"
             },
             "title": {
@@ -1337,7 +1337,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave",
+              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave|watervalve_local",
               "capabilities": "hidden.has_presence_sensor"
             },
             "title": {
@@ -1359,7 +1359,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave",
+              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave|watervalve_local",
               "capabilities": "hidden.has_presence_sensor_multiple"
             },
             "title": {
@@ -1388,7 +1388,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave",
+              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave|watervalve_local",
               "capabilities": "shelly_illumination"
             },
             "title": {
@@ -1457,7 +1457,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "shelly0110dimg4_local|shelly0110dimg4_matter|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_matter|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_matter|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_matter|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_matter|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_matter|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_matter|shelly2pmg4_switch_zigbee|shellyblutrv_zigbee|shellycolorblbg3_local|shellycolorblbg3_matter|shellydimmerg4_local|shellydimmerg4_matter|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyduobulbg3_matter|shellyemg4_local|shellyemg4_matter|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_matter|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_matter|shellyfloodg4_zigbee|shellypill_local|shellypresence_local|shellypresence_matter|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_matter|shellypstripg4_zigbee|shellywavemcb_zwave|watervalve_local",
+              "driver_id": "ecowittws90_zigbee|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g4_local|shelly1g4_zigbee|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblutrv_zigbee|shellycolorblbg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellypill_local|shellyplugmg3_local|shellypresence_local|shellypresence_zigbee|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave|watervalve_local",
               "capabilities": "virtual_number"
             },
             "title": {
@@ -9723,9 +9723,99 @@
           ]
         }
       ]
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "lan"
+      ],
+      "capabilities": [],
+      "capabilitiesOptions": {
+        "button.restart": {
+          "maintenanceAction": true,
+          "title": {
+            "en": "Restart Device"
+          }
+        }
+      },
+      "pair": [
+        {
+          "id": "pairing_information",
+          "navigation": {
+            "next": "list_devices"
+          }
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "authenticate_devices"
+          }
+        },
+        {
+          "id": "authenticate_devices",
+          "template": "loading",
+          "options": {
+            "text": "pair.loading_devices"
+          }
+        },
+        {
+          "id": "loading_devices",
+          "template": "loading",
+          "options": {
+            "text": "pair.loading_devices"
+          }
+        },
+        {
+          "id": "device_password"
+        },
+        {
+          "id": "add_subdevices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "repair"
+        }
+      ],
+      "name": {
+        "en": "FrankEver Smart water valve - LAN"
+      },
+      "class": "watervalve",
+      "images": {
+        "small": "/assets/drivers/watervalve/images/small.png",
+        "large": "/assets/drivers/watervalve/images/large.png",
+        "xlarge": "/assets/drivers/watervalve/images/xlarge.png"
+      },
+      "id": "watervalve_local",
+      "settings": []
     }
   ],
   "capabilities": {
+    "alarm_shelly_power_lost": {
+      "type": "boolean",
+      "title": {
+        "en": "Power Supply"
+      },
+      "getable": true,
+      "setable": false,
+      "titleFalse": {
+        "en": "Connected"
+      },
+      "titleTrue": {
+        "en": "Disconnected"
+      },
+      "insights": true,
+      "insightsTitleTrue": {
+        "en": "Power supply disconnected"
+      },
+      "insightsTitleFalse": {
+        "en": "Power supply reconnected"
+      },
+      "uiComponent": "sensor"
+    },
     "hidden": {
       "type": "string",
       "title": "hidden",

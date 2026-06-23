@@ -1,0 +1,22 @@
+{
+  "type": "boolean",
+  "title": {
+    "en": "Power Supply"
+  },
+  "getable": true,
+  "setable": false,
+  "titleFalse": {
+    "en": "Connected"
+  },
+  "titleTrue": {
+    "en": "Disconnected"
+  },
+  "insights": true,
+  "insightsTitleTrue": {
+    "en": "Power supply disconnected"
+  },
+  "insightsTitleFalse": {
+    "en": "Power supply reconnected"
+  },
+  "uiComponent": "sensor"
+}

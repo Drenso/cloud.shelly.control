@@ -190,7 +190,7 @@ export abstract class ComponentWithId<
     return response;
   }
 
-  protected async registerCapability(
+  public async registerCapability(
     homeyDevice: ShellyLocalDevice,
     homeyCapability: string,
     rawCapabilityOptions: JsonObject | undefined,
