@@ -18,6 +18,7 @@
       }
     },
     "learnmode": {
+      "image": "./assets/learnmode/floodsg4.svg",
       "instruction": {
         "en": "Verify that the device is in Zigbee mode (you can enable Zigbee mode by pressing the LED button five times).\n\nPress the LED button three times to initialize pairing, it will start flashing purple."
       }
