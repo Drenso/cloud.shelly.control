@@ -34,5 +34,8 @@
   },
   "0.6.1": {
     "en": "Fix crash during rediscovery handling"
+  },
+  "0.7.0": {
+    "en": "Add support for Flood S Gen4 (LAN, Zigbee & Matter definition). Improve battery device LAN connectivity. Fix missing flows for certain devices."
   }
 }
