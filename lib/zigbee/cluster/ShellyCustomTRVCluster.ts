@@ -1,4 +1,4 @@
-import { Cluster, ZCLDataTypes } from 'zigbee-clusters';
+import { Cluster, type types, ZCLDataTypes } from 'zigbee-clusters';
 
 const Attributes = {
   manualMode: {
@@ -13,7 +13,7 @@ const Attributes = {
     type: ZCLDataTypes.uint8,
     manufacturerId: 0x1490,
   },
-} as const;
+} satisfies types.AttributeDefinitions;
 
 const CommandsReceived = {
   calibrate: {
@@ -21,7 +21,7 @@ const CommandsReceived = {
     direction: Cluster.DIRECTION_CLIENT_TO_SERVER,
     manufacturerId: 0x1490,
   },
-} as const;
+} satisfies types.CommandDefinitions;
 
 export type ShellyCustomTRVClusterAttributes = typeof Attributes;
 export type ShellyCustomTRVClusterCommands = typeof CommandsReceived;
