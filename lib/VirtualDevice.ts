@@ -15,7 +15,10 @@ import { createHttpChannel, createInboundWsChannel, createOutboundWsChannel } fr
 import type ShellyLocalDriver from './local/LocalDriver.js';
 import type { ShellyLocalListDeviceProperties, ShellyLocalListVirtualDeviceProperties } from './types.js';
 import { diffArrays } from './util.js';
-import OutboundWebsocket from './component/components/OutboundWebsocket.js';
+import type { OutBoundWebsocketConfig } from './component/components/OutboundWebsocket.js';
+import { getIp } from './LocalIp.js';
+import { OUTBOUND_WS_PORT } from './config.js';
+import SetConfig from './component/components/OutboundWebsocket/SetConfig.js';
 
 export const IGNORED_NO_IMPLEMENTATION_COMPONENTS = [
   'ble',
@@ -49,6 +52,7 @@ type StateActionInstance<Action extends string> = {
 type StateAction =
   | StateActionInstance<'app_initialized'>
   | StateActionInstance<'device_connected'>
+  | StateActionInstance<'outbound_websocket_connected'>
   | StateActionInstance<'going_to_sleep'>
   | StateActionInstance<'going_offline'>
   | StateActionInstance<'reinitialize'>
@@ -65,6 +69,7 @@ type StateName =
   | 'waiting_for_app_init'
   | 'checking_initial_homey_devices'
   | 'waiting_for_initial_connection'
+  | 'waiting_for_outbound_ws_connection'
   | 'initializing'
   | 'online'
   | 'offline'
@@ -201,9 +206,9 @@ export class VirtualDevice {
     },
     waiting_for_initial_connection: {
       transition: async ({ action }: StateAction): Promise<void> => {
-        if (action === 'device_connected') {
+        if (action === 'device_connected' || action === 'outbound_websocket_connected') {
           this.debugState('Initial connection established');
-          return this.states.initializing.enter();
+          return this.states.waiting_for_outbound_ws_connection.enter();
         } else {
           throw new Error(`Unknown transition for waiting_for_initial_connection: ${action}`);
         }
@@ -222,6 +227,45 @@ export class VirtualDevice {
         this.localConnection.waitForConnection();
       },
     },
+    waiting_for_outbound_ws_connection: {
+      transition: async ({ action }: StateAction): Promise<void> => {
+        if (action === 'outbound_websocket_connected') {
+          this.debugState('Outbound websocket connection established');
+          return this.states.initializing.enter();
+        } else {
+          throw new Error(`Unknown transition for waiting_for_outbound_ws_connection: ${action}`);
+        }
+      },
+      enter: async (): Promise<void> => {
+        this.state = 'waiting_for_outbound_ws_connection';
+        this.initialComponentResponses =
+          (this.initialComponentResponses as ShellyGetComponentsResponseComponent[]) ??
+          (await this.retrieveComponents());
+        // TODO ensure this works for BLE devices
+        for (const component of this.initialComponentResponses) {
+          if (component.key === 'ws') {
+            const server = `wss://${await getIp(this.app.homey)}:${OUTBOUND_WS_PORT}`;
+            const config = component.config as OutBoundWebsocketConfig;
+            if (config.enable && config.server === server) {
+              this.log('Outbound websocket already enabled');
+              this.debugState('Continuing directly to initialization');
+              return this.states.initializing.enter();
+            } else {
+              this.log('Enabling outbound websocket...');
+              await SetConfig(this.getChannel(), { config: { ssl_ca: '*', enable: true, server: server } });
+              await this.reboot().catch(err => this.debug('Error during Outbound WS reboot:', err));
+              this.log('Enabled outbound websocket');
+              this.debugState('Waiting for outbound websocket connection...');
+              return this.localConnection.waitForOutboundWsConnection();
+            }
+          }
+        }
+
+        this.log('No outbound websocket component found');
+        this.debugState('Continuing directly to initialization');
+        return this.states.initializing.enter();
+      },
+    },
     initializing: {
       transition: async ({ action }: StateAction): Promise<void> => {
         throw new Error(`Unknown transition for initializing: ${action}`);
@@ -236,7 +280,7 @@ export class VirtualDevice {
     },
     online: {
       transition: async ({ action, ...args }: StateAction): Promise<void> => {
-        if (action === 'device_connected') {
+        if (action === 'device_connected' || action === 'outbound_websocket_connected') {
           return;
         } else if (action === 'going_offline') {
           return this.states.offline.enter();
@@ -256,7 +300,7 @@ export class VirtualDevice {
     },
     offline: {
       transition: async ({ action, ...args }: StateAction): Promise<void> => {
-        if (action === 'device_connected') {
+        if (action === 'device_connected' || action === 'outbound_websocket_connected') {
           return this.states.online.enter();
         } else if (action === 'removed_homey_device') {
           return this.states.removing_homey_device.enter(args.id!);
@@ -274,7 +318,7 @@ export class VirtualDevice {
     },
     sleeping: {
       transition: async ({ action, ...args }: StateAction): Promise<void> => {
-        if (action === 'device_connected') {
+        if (action === 'device_connected' || action === 'outbound_websocket_connected') {
           return this.states.online.enter();
         } else if (action === 'removed_homey_device') {
           return this.states.removing_homey_device.enter(args.id!);
@@ -713,6 +757,7 @@ class LocalConnection {
   private outboundWsChannel?: OutboundWebsocketChannel;
 
   private state: 'waiting_for_initial_connection' | 'open' = 'waiting_for_initial_connection';
+  private outbound_ws_state: 'waiting_for_initial_connection' | 'open' = 'waiting_for_initial_connection';
 
   public get useHttps(): boolean {
     return this.httpChannel.useHttps;
@@ -736,6 +781,14 @@ class LocalConnection {
     // If the virtual device opens the connection while not yet connected, we just wait for the signal normally
   }
 
+  public waitForOutboundWsConnection(): void {
+    // If the virtual device opens the connection while we are already connected, we signal immediately
+    if (this.outbound_ws_state === 'open') {
+      void this.virtualDevice.transition({ action: 'outbound_websocket_connected' });
+    }
+    // If the virtual device opens the connection while not yet connected, we just wait for the signal normally
+  }
+
   public getChannel(): RpcChannel {
     // For sending, prefer inbound WS channel > httpChannel > outbound WS channel
     if (this.inboundWsChannel !== undefined && this.inboundWsChannel.ws.readyState === WebSocket.OPEN) {
@@ -747,6 +800,7 @@ class LocalConnection {
 
   public connect(useInitialHttps: boolean): void {
     this.state = 'waiting_for_initial_connection';
+    this.outbound_ws_state = 'waiting_for_initial_connection';
 
     this.httpChannel = createHttpChannel(
       this.ipAddress,
@@ -788,12 +842,10 @@ class LocalConnection {
     this.outboundWsChannel.eventEmitter.on('opened', () => {
       this.inboundWsChannel?.resetReconnectTimeout();
       this.inboundWsChannel?.safeConnect();
+      this.outbound_ws_state = 'open';
+      void this.virtualDevice.transition({ action: 'outbound_websocket_connected' });
       this.handleDeviceConnected();
     });
-
-    OutboundWebsocket.register(this.virtualDevice).catch(err =>
-      this.virtualDevice.error('Error while registering outbound websocket:', err),
-    );
   }
 
   public async disconnect(): Promise<void> {

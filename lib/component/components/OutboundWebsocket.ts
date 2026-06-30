@@ -4,8 +4,6 @@ import GetConfig from './OutboundWebsocket/GetConfig.js';
 import GetStatus from './OutboundWebsocket/GetStatus.js';
 import type { ComponentMethod } from './Shelly/ListMethods.js';
 import type ShellyLocalDevice from '../../local/LocalDevice.js';
-import { getIp } from '../../LocalIp.js';
-import { OUTBOUND_WS_PORT } from '../../config.js';
 import type { VirtualDevice } from '../../VirtualDevice.js';
 
 export type OutBoundWebsocketConfig = {
@@ -45,19 +43,6 @@ export default class OutboundWebsocket extends ComponentWithoutId<
   public static readonly uiName = 'Outbound Websocket';
 
   // TODO ensure this works for BLE devices
-  public static async register(virtualDevice: VirtualDevice): Promise<void> {
-    const server = `wss://${await getIp(virtualDevice.app.homey)}:${OUTBOUND_WS_PORT}`;
-    const config = (await GetConfig(virtualDevice.getChannel())).result;
-    if (config.enable && config.server === server) {
-      virtualDevice.log('Outbound websocket already enabled');
-      return;
-    }
-    virtualDevice.log('Enabling outbound websocket...');
-    await SetConfig(virtualDevice.getChannel(), { config: { ssl_ca: '*', enable: true, server: server } });
-    await virtualDevice.reboot().catch(err => virtualDevice.debug('Error during Outbound WS reboot:', err));
-    virtualDevice.log('Enabled outbound websocket');
-  }
-
   public static async unregister(virtualDevice: VirtualDevice): Promise<void> {
     virtualDevice.log('Disabling outbound websocket...');
     await SetConfig(virtualDevice.getChannel(), { config: { enable: false, server: '' } }).catch(virtualDevice.error);
