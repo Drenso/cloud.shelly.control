@@ -1,0 +1,43 @@
+{
+  "$extends": ["zigbee"],
+  "name": {
+    "en": "Ecowitt WS90 Weather station - Zigbee"
+  },
+  "class": "sensor",
+  "capabilities": [
+    "measure_battery",
+    "measure_temperature",
+    "measure_pressure",
+    "measure_humidity",
+    "measure_luminance",
+    "measure_wind_strength",
+    "measure_wind_angle",
+    "measure_gust_strength",
+    "measure_ultraviolet",
+    "alarm_rain",
+    "measure_rain"
+  ],
+  "energy": {
+    "batteries": ["AA", "AA"]
+  },
+  "zigbee": {
+    "manufacturerName": "Shelly",
+    "productId": ["Ecowitt WS90"],
+    "endpoints": {
+      "1": {
+        "clusters": [0, 1, 3, 1024, 1026, 1027, 1029, 64513, 64514, 64515],
+        "bindings": [1, 1024, 1026, 1027, 1029, 64513, 64514, 64515]
+      }
+    },
+    "learnmode": {
+      "instruction": {
+        "en": "Press the \"CAL\" button two times to initialize pairing."
+      }
+    }
+  },
+  "images": {
+    "small": "/assets/drivers/ecowittws90/images/small.png",
+    "large": "/assets/drivers/ecowittws90/images/large.png",
+    "xlarge": "/assets/drivers/ecowittws90/images/xlarge.png"
+  }
+}
