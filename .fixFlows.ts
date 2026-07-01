@@ -10,7 +10,7 @@ const flowsRootFolder = '.homeycompose/flow';
 const driversFolder = 'drivers';
 
 const driverIds = fs.readdirSync(driversFolder);
-const driversString = driverIds.join('|');
+const driversString = driverIds.filter((id:string) => id.endsWith('_matter')).join('|');
 console.log('Inserting', driversString);
 
 const flowCategoryFolders = fs.readdirSync(flowsRootFolder);
