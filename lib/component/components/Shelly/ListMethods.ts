@@ -34,6 +34,7 @@ type NamespaceMethodMapping = {
     'ResetCounters',
   ];
   Pill: ['SetConfig', 'GetConfig', 'GetStatus'];
+  PLUGS_UI: ['SetConfig', 'GetConfig', 'GetStatus'];
   POWERSTRIP_UI: ['SetConfig', 'GetConfig', 'GetStatus'];
   Presence: ['SetConfig', 'GetConfig', 'GetStatus', 'AddZone', 'DeleteZone', 'TiltCalibrate', 'LiveTrack', 'SetSensor'];
   PresenceZone: ['SetConfig', 'GetConfig', 'GetStatus'];

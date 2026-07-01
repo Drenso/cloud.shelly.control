@@ -18,6 +18,7 @@ import Flood from './components/Flood.js';
 import Pill from './components/Pill.js';
 import Voltmeter from './components/Voltmeter.js';
 import Humidity from './components/Humidity.js';
+import PlugsUI from './components/PlugsUI.js';
 
 export const ComponentWithIdMapping = {
   cct: CCT,
@@ -38,6 +39,7 @@ export const ComponentWithIdMapping = {
 } as const;
 export const ComponentWithoutIdMapping = {
   pill: Pill,
+  plugs_ui: PlugsUI,
   powerstrip_ui: PowerStripUI,
   presence: Presence,
   sys: System,
