@@ -1,0 +1,8 @@
+{
+  "id": "PLUGS_UI:leds.night_mode.enable",
+  "type": "checkbox",
+  "label": {
+    "en": "Enabled"
+  },
+  "value": false
+}

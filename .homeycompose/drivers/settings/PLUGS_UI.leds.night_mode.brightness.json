@@ -1,0 +1,11 @@
+{
+  "id": "PLUGS_UI:leds.night_mode.brightness",
+  "type": "number",
+  "label": {
+    "en": "LED Brightness"
+  },
+  "value": 100,
+  "min": 0,
+  "max": 100,
+  "units": "%"
+}

@@ -1,0 +1,28 @@
+{
+  "id": "PLUGS_UI:leds.mode",
+  "type": "dropdown",
+  "label": {
+    "en": "Indicator LED - Mode"
+  },
+  "value": "power",
+  "values": [
+    {
+      "id": "power",
+      "label": {
+        "en": "Power Consumption"
+      }
+    },
+    {
+      "id": "switch",
+      "label": {
+        "en": "On/Off Colors"
+      }
+    },
+    {
+      "id": "off",
+      "label": {
+        "en": "Off"
+      }
+    }
+  ]
+}

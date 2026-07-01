@@ -1,0 +1,12 @@
+{
+  "id": "PLUGS_UI:leds.night_mode.active_between.end",
+  "type": "text",
+  "label": {
+    "en": "End Time"
+  },
+  "value": "23:59",
+  "pattern": "^(?:(?:2[0-3])|(?:[01]?[0-9]))(?::[0-5][0-9])?$",
+  "hint": {
+    "en": "In 24 hour format (00:00 - 23:59)."
+  }
+}

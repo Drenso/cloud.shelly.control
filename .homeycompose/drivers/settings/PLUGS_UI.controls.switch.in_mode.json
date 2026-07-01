@@ -1,0 +1,22 @@
+{
+  "id": "PLUGS_UI:controls.switch.in_mode",
+  "type": "dropdown",
+  "label": {
+    "en": "Switch - Mode"
+  },
+  "value": "momentary",
+  "values": [
+    {
+      "id": "momentary",
+      "label": {
+        "en": "Momentary"
+      }
+    },
+    {
+      "id": "detached",
+      "label": {
+        "en": "Detached"
+      }
+    }
+  ]
+}
