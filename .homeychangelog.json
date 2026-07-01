@@ -37,5 +37,8 @@
   },
   "0.7.0": {
     "en": "Add support for Flood S Gen4 (LAN, Zigbee & Matter definition). Improve battery device LAN connectivity. Fix missing flows for certain devices."
+  },
+  "0.8.0": {
+    "en": "Add LAN support for AZ Plug & Plug M Gen3. Add Zigbee support for Ecowitt WS90. Add Matter definitions for Plug M Gen3. Improve resilience of device reboot due to settings update."
   }
 }
