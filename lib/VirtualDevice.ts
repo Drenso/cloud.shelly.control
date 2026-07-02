@@ -228,8 +228,17 @@ export class VirtualDevice {
           throw new Error('No initial Homey devices specified.');
         }
 
-        await Promise.all(
-          this.initialHomeyDevices.map(homeyDevice => homeyDevice.setUnavailable(this.app.homey.__('device.offline'))),
+        await Promise.allSettled(
+          this.initialHomeyDevices.map(homeyDevice =>
+            homeyDevice
+              .setUnavailable(this.app.homey.__('device.offline'))
+              .catch(err =>
+                this.error(
+                  'Error while setting homey device to unavailable while waiting for initial connection:',
+                  err,
+                ),
+              ),
+          ),
         );
         this.localConnection.waitForConnection();
       },
@@ -262,7 +271,13 @@ export class VirtualDevice {
               return this.states.initializing.enter();
             } else {
               this.log('Enabling outbound websocket...');
-              await SetConfig(this.getChannel(), { config: { ssl_ca: '*', enable: true, server: server } });
+              try {
+                await SetConfig(this.getChannel(), { config: { ssl_ca: '*', enable: true, server: server } });
+              } catch (err) {
+                this.error('Error while configuring outbound websocket:', err);
+                this.debugState('Retrying...');
+                return this.states.waiting_for_outbound_ws_connection.enter();
+              }
               await this.reboot().catch(err => this.debug('Error during Outbound WS reboot:', err));
               this.log('Enabled outbound websocket');
               this.debugState('Waiting for outbound websocket connection...');
@@ -287,7 +302,13 @@ export class VirtualDevice {
       enter: async (): Promise<void> => {
         this.state = 'initializing';
         this.debugState('Initializing...');
-        await this.initialize();
+        try {
+          await this.initialize();
+        } catch (err) {
+          this.error('Error while initializing:', err);
+          this.debugState('Retrying...');
+          return this.states.initializing.enter();
+        }
         this.debugState('Initialized');
         return this.states.online.enter();
       },
@@ -311,7 +332,9 @@ export class VirtualDevice {
       enter: async (): Promise<void> => {
         this.state = 'online';
         this.debugState('Device online');
-        return this.setAvailable();
+        return this.setAvailable().catch(err =>
+          this.error('Error while setting device to available because device came online:', err),
+        );
       },
     },
     offline: {
@@ -330,7 +353,9 @@ export class VirtualDevice {
       enter: async (): Promise<void> => {
         this.state = 'offline';
         this.debugState('Device offline');
-        return this.setUnavailable(this.app.homey.__('device.offline'));
+        return this.setUnavailable(this.app.homey.__('device.offline')).catch(err =>
+          this.error('Error while setting devices to unavailable because device came offline:', err),
+        );
       },
     },
     sleeping: {
@@ -362,7 +387,9 @@ export class VirtualDevice {
       enter: async (message: string): Promise<void> => {
         this.state = 'error';
         this.error('Entered error state with error:', message);
-        return this.setUnavailable(message);
+        return this.setUnavailable(message).catch(err =>
+          this.error('Error while setting devices to unavailable because of error:', err),
+        );
       },
     },
     removing_homey_device: {
@@ -381,7 +408,9 @@ export class VirtualDevice {
         const homeyDeviceCount = this.initializedHomeyDevices.size;
         this.log(homeyDeviceCount, 'children remaining');
         if (homeyDeviceCount > 0) {
-          await this.app.updateVirtualDevice(this);
+          await this.app
+            .updateVirtualDevice(this)
+            .catch(err => this.error('Error while updating virtual device while removing Homey device:', err));
           return this.states.online.enter();
         }
         // Remove if no child devices remain
