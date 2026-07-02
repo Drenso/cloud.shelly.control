@@ -163,6 +163,10 @@ export class VirtualDevice {
           this.debugState('App initialized');
           return this.states.checking_initial_homey_devices.enter();
         }
+        if (['device_connected', 'outbound_websocket_connected'].includes(action)) {
+          // ignore
+          return;
+        }
         throw new Error(`Unknown transition for waiting_for_app_init: ${action}`);
       },
       enter: async (): Promise<void> => {
@@ -171,6 +175,10 @@ export class VirtualDevice {
     },
     checking_initial_homey_devices: {
       transition: async ({ action }: StateAction): Promise<void> => {
+        if (['device_connected', 'outbound_websocket_connected'].includes(action)) {
+          // ignore
+          return;
+        }
         throw new Error(`Unknown transition for checking_initial_homey_devices: ${action}`);
       },
       enter: async (): Promise<void> => {
@@ -232,6 +240,10 @@ export class VirtualDevice {
           this.debugState('Outbound websocket connection established');
           return this.states.initializing.enter();
         }
+        if (action === 'device_connected') {
+          // ignore
+          return;
+        }
         throw new Error(`Unknown transition for waiting_for_outbound_ws_connection: ${action}`);
       },
       enter: async (): Promise<void> => {
@@ -266,6 +278,10 @@ export class VirtualDevice {
     },
     initializing: {
       transition: async ({ action }: StateAction): Promise<void> => {
+        if (['device_connected', 'outbound_websocket_connected'].includes(action)) {
+          // ignore
+          return;
+        }
         throw new Error(`Unknown transition for initializing: ${action}`);
       },
       enter: async (): Promise<void> => {
@@ -337,6 +353,10 @@ export class VirtualDevice {
     },
     error: {
       transition: async ({ action }: StateAction): Promise<void> => {
+        if (['device_connected', 'outbound_websocket_connected'].includes(action)) {
+          // ignore
+          return;
+        }
         throw new Error(`Unknown transition for error: ${action}`);
       },
       enter: async (message: string): Promise<void> => {
@@ -347,6 +367,10 @@ export class VirtualDevice {
     },
     removing_homey_device: {
       transition: async ({ action }: StateAction): Promise<void> => {
+        if (['device_connected', 'outbound_websocket_connected'].includes(action)) {
+          // ignore
+          return;
+        }
         throw new Error(`Unknown transition for removing_homey_device: ${action}`);
       },
       enter: async (id: string): Promise<void> => {
@@ -366,6 +390,10 @@ export class VirtualDevice {
     },
     uninitializing: {
       transition: async ({ action }: StateAction): Promise<void> => {
+        if (['device_connected', 'outbound_websocket_connected'].includes(action)) {
+          // ignore
+          return;
+        }
         throw new Error(`Unknown transition for uninitializing: ${action}`);
       },
       enter: async (): Promise<void> => {
