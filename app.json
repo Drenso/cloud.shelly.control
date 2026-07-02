@@ -9790,7 +9790,116 @@
         "xlarge": "/assets/drivers/watervalve/images/xlarge.png"
       },
       "id": "watervalve_local",
-      "settings": []
+      "settings": [
+        {
+          "id": "Service:on_power_loss",
+          "type": "dropdown",
+          "label": {
+            "en": "Valve - On Power Loss"
+          },
+          "value": "none",
+          "values": [
+            {
+              "id": "close",
+              "label": {
+                "en": "Close Valve"
+              }
+            },
+            {
+              "id": "open",
+              "label": {
+                "en": "Open Valve"
+              }
+            },
+            {
+              "id": "none",
+              "label": {
+                "en": "Do Nothing"
+              }
+            },
+            {
+              "id": "set_position",
+              "label": {
+                "en": "Set Position"
+              }
+            }
+          ],
+          "hint": {
+            "en": "The behavior of the valve when power is lost."
+          }
+        },
+        {
+          "id": "Service:power_loss_pos",
+          "type": "number",
+          "label": {
+            "en": "Valve - Power Lost Position"
+          },
+          "hint": {
+            "en": "Position the valve is moved to when power is lost if \"On Power Lost\" is set to \"Set Position\""
+          },
+          "value": 0,
+          "min": 0,
+          "max": 100,
+          "units": "%"
+        },
+        {
+          "id": "Service:on_power_restore",
+          "type": "dropdown",
+          "label": {
+            "en": "Valve - On Power Restored"
+          },
+          "value": "none",
+          "values": [
+            {
+              "id": "close",
+              "label": {
+                "en": "Close Valve"
+              }
+            },
+            {
+              "id": "open",
+              "label": {
+                "en": "Open Valve"
+              }
+            },
+            {
+              "id": "none",
+              "label": {
+                "en": "Do Nothing"
+              }
+            },
+            {
+              "id": "set_position",
+              "label": {
+                "en": "Set Position"
+              }
+            },
+            {
+              "id": "restore_last",
+              "label": {
+                "en": "Restore Position"
+              }
+            }
+          ],
+          "hint": {
+            "en": "The behavior of the valve when power is restored after power loss."
+          }
+        },
+        {
+          "id": "Service:power_restored_pos",
+          "type": "number",
+          "label": {
+            "en": "Valve - Power Restored Position"
+          },
+          "hint": {
+            "en": "Position the valve is moved to when power is restored if \"On Power Restored\" is set to \"Set Position\""
+          },
+          "value": 0,
+          "min": 0,
+          "max": 100,
+          "units": "%"
+        }
+      ]
     }
   ],
   "capabilities": {

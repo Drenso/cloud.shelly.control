@@ -42,6 +42,7 @@ type NamespaceMethodMapping = {
   Presence: ['SetConfig', 'GetConfig', 'GetStatus', 'AddZone', 'DeleteZone', 'TiltCalibrate', 'LiveTrack', 'SetSensor'];
   PresenceZone: ['SetConfig', 'GetConfig', 'GetStatus'];
   RGBCCT: ['GetConfig', 'SetConfig', 'GetStatus', 'Set', 'Toggle', 'DimUp', 'DimDown', 'DimStop'];
+  Service: ['GetConfig', 'SetConfig', 'GetStatus', 'GetResources', 'GetInfo'];
   Switch: ['Set', 'Toggle', 'SetConfig', 'GetConfig', 'GetStatus', 'ResetCounters'];
   Sys: ['SetConfig', 'GetConfig', 'GetStatus', 'SetTime'];
   Temperature: ['GetConfig', 'SetConfig', 'GetStatus'];

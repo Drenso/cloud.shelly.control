@@ -22,6 +22,7 @@ import PlugsUI from './components/PlugsUI.js';
 import Boolean from './components/Boolean.js';
 import Button from './components/Button.js';
 import Number from './components/Number.js';
+import Service from './components/Service.js';
 
 export const ComponentWithIdMapping = {
   boolean: Boolean,
@@ -39,6 +40,7 @@ export const ComponentWithIdMapping = {
   number: Number,
   presencezone: PresenceZone,
   rgbcct: RGBCCT,
+  service: Service,
   switch: Switch,
   temperature: Temperature,
   voltmeter: Voltmeter,

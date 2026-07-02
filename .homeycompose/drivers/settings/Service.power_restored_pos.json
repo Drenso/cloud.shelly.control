@@ -1,0 +1,14 @@
+{
+  "id": "Service:power_restored_pos",
+  "type": "number",
+  "label": {
+    "en": "Valve - Power Restored Position"
+  },
+  "hint": {
+    "en": "Position the valve is moved to when power is restored if \"On Power Restored\" is set to \"Set Position\""
+  },
+  "value": 0,
+  "min": 0,
+  "max": 100,
+  "units": "%"
+}

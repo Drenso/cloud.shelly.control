@@ -1,0 +1,37 @@
+{
+  "id": "Service:on_power_loss",
+  "type": "dropdown",
+  "label": {
+    "en": "Valve - On Power Loss"
+  },
+  "value": "none",
+  "values": [
+    {
+      "id": "close",
+      "label": {
+        "en": "Close Valve"
+      }
+    },
+    {
+      "id": "open",
+      "label": {
+        "en": "Open Valve"
+      }
+    },
+    {
+      "id": "none",
+      "label": {
+        "en": "Do Nothing"
+      }
+    },
+    {
+      "id": "set_position",
+      "label": {
+        "en": "Set Position"
+      }
+    }
+  ],
+  "hint": {
+    "en": "The behavior of the valve when power is lost."
+  }
+}

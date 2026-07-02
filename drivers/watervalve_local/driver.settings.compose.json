@@ -1,1 +1,14 @@
-[]
+[
+  {
+    "$extends": "Service.on_power_loss"
+  },
+  {
+    "$extends": "Service.power_loss_pos"
+  },
+  {
+    "$extends": "Service.on_power_restore"
+  },
+  {
+    "$extends": "Service.power_restored_pos"
+  }
+]

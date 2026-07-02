@@ -1,0 +1,14 @@
+{
+  "id": "Service:power_loss_pos",
+  "type": "number",
+  "label": {
+    "en": "Valve - Power Lost Position"
+  },
+  "hint": {
+    "en": "Position the valve is moved to when power is lost if \"On Power Lost\" is set to \"Set Position\""
+  },
+  "value": 0,
+  "min": 0,
+  "max": 100,
+  "units": "%"
+}

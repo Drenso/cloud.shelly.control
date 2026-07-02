@@ -1,0 +1,43 @@
+{
+  "id": "Service:on_power_restore",
+  "type": "dropdown",
+  "label": {
+    "en": "Valve - On Power Restored"
+  },
+  "value": "none",
+  "values": [
+    {
+      "id": "close",
+      "label": {
+        "en": "Close Valve"
+      }
+    },
+    {
+      "id": "open",
+      "label": {
+        "en": "Open Valve"
+      }
+    },
+    {
+      "id": "none",
+      "label": {
+        "en": "Do Nothing"
+      }
+    },
+    {
+      "id": "set_position",
+      "label": {
+        "en": "Set Position"
+      }
+    },
+    {
+      "id": "restore_last",
+      "label": {
+        "en": "Restore Position"
+      }
+    }
+  ],
+  "hint": {
+    "en": "The behavior of the valve when power is restored after power loss."
+  }
+}
