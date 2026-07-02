@@ -9898,6 +9898,31 @@
           "min": 0,
           "max": 100,
           "units": "%"
+        },
+        {
+          "id": "Temperature:offset_C",
+          "type": "number",
+          "label": {
+            "en": "Temperature - Offset"
+          },
+          "hint": {
+            "en": "Offset to be applied to the measured temperature."
+          },
+          "value": 0,
+          "min": -50,
+          "max": 50,
+          "units": "°C"
+        },
+        {
+          "min": 0.1,
+          "max": 5,
+          "id": "Temperature:report_thr_C",
+          "type": "number",
+          "label": {
+            "en": "Temperature - Report Threshold"
+          },
+          "value": 0.5,
+          "units": "°C"
         }
       ]
     }
