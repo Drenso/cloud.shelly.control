@@ -162,9 +162,8 @@ export class VirtualDevice {
         if (action === 'app_initialized') {
           this.debugState('App initialized');
           return this.states.checking_initial_homey_devices.enter();
-        } else {
-          throw new Error(`Unknown transition for waiting_for_app_init: ${action}`);
         }
+        throw new Error(`Unknown transition for waiting_for_app_init: ${action}`);
       },
       enter: async (): Promise<void> => {
         throw new Error('Cannot enter waiting_for_app_init');
@@ -232,9 +231,8 @@ export class VirtualDevice {
         if (action === 'outbound_websocket_connected') {
           this.debugState('Outbound websocket connection established');
           return this.states.initializing.enter();
-        } else {
-          throw new Error(`Unknown transition for waiting_for_outbound_ws_connection: ${action}`);
         }
+        throw new Error(`Unknown transition for waiting_for_outbound_ws_connection: ${action}`);
       },
       enter: async (): Promise<void> => {
         this.state = 'waiting_for_outbound_ws_connection';
@@ -282,15 +280,17 @@ export class VirtualDevice {
       transition: async ({ action, ...args }: StateAction): Promise<void> => {
         if (action === 'device_connected' || action === 'outbound_websocket_connected') {
           return;
-        } else if (action === 'going_offline') {
-          return this.states.offline.enter();
-        } else if (action === 'removed_homey_device') {
-          return this.states.removing_homey_device.enter(args.id!);
-        } else if (action === 'reinitialize') {
-          return this.reInitialize();
-        } else {
-          throw new Error(`Unknown transition for online: ${action}`);
         }
+        if (action === 'going_offline') {
+          return this.states.offline.enter();
+        }
+        if (action === 'removed_homey_device') {
+          return this.states.removing_homey_device.enter(args.id!);
+        }
+        if (action === 'reinitialize') {
+          return this.reInitialize();
+        }
+        throw new Error(`Unknown transition for online: ${action}`);
       },
       enter: async (): Promise<void> => {
         this.state = 'online';
@@ -302,13 +302,14 @@ export class VirtualDevice {
       transition: async ({ action, ...args }: StateAction): Promise<void> => {
         if (action === 'device_connected' || action === 'outbound_websocket_connected') {
           return this.states.online.enter();
-        } else if (action === 'removed_homey_device') {
-          return this.states.removing_homey_device.enter(args.id!);
-        } else if (action === 'reinitialize') {
-          return this.reInitialize();
-        } else {
-          throw new Error(`Unknown transition for offline: ${action}`);
         }
+        if (action === 'removed_homey_device') {
+          return this.states.removing_homey_device.enter(args.id!);
+        }
+        if (action === 'reinitialize') {
+          return this.reInitialize();
+        }
+        throw new Error(`Unknown transition for offline: ${action}`);
       },
       enter: async (): Promise<void> => {
         this.state = 'offline';
@@ -320,13 +321,14 @@ export class VirtualDevice {
       transition: async ({ action, ...args }: StateAction): Promise<void> => {
         if (action === 'device_connected' || action === 'outbound_websocket_connected') {
           return this.states.online.enter();
-        } else if (action === 'removed_homey_device') {
-          return this.states.removing_homey_device.enter(args.id!);
-        } else if (action === 'reinitialize') {
-          return this.reInitialize();
-        } else {
-          throw new Error(`Unknown transition for sleeping: ${action}`);
         }
+        if (action === 'removed_homey_device') {
+          return this.states.removing_homey_device.enter(args.id!);
+        }
+        if (action === 'reinitialize') {
+          return this.reInitialize();
+        }
+        throw new Error(`Unknown transition for sleeping: ${action}`);
       },
       enter: async (): Promise<void> => {
         this.state = 'sleeping';
