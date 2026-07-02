@@ -10163,8 +10163,7 @@
       "type": "boolean",
       "getable": false,
       "setable": true,
-      "uiComponent": "button",
-      "icon": "/assets/capabilities/boolean.svg"
+      "uiComponent": "button"
     },
     "virtual_number": {
       "title": {
