@@ -7,6 +7,10 @@ import GetStatus from './Boolean/GetStatus.js';
 import type { RpcChannel } from '../../rpc/channel/RpcChannel.js';
 import Set, { type BooleanSetParams } from './Boolean/Set.js';
 import type { JsonObject } from '../../../types/json.js';
+import type ShellyApp from '../../../app.js';
+import { fillTranslationTagsRecursively, translate } from '../../util.js';
+import capabilitiesOptions from './Boolean/capabilitiesOptions.json' with { type: 'json' };
+import { safeTriggerDeviceCard } from '../../safeFunctions.js';
 
 export type BooleanConfig = {
   /** Identifier of the Boolean component instance */
@@ -82,7 +86,7 @@ export default class Boolean extends ComponentWithId<'Boolean', BooleanStatus, B
   ): Promise<void> {
     const homeyCapability = 'virtual_boolean';
     let capabilityOptions: JsonObject = {
-      title: '__name__',
+      title: this.getTitleTranslations(),
     };
     const meta = this.config.meta;
 
@@ -130,8 +134,67 @@ export default class Boolean extends ComponentWithId<'Boolean', BooleanStatus, B
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Partial<BooleanStatus>): Promise<void> {
     if (status.value !== undefined) {
       await this.setCapability(homeyDevice, 'virtual_boolean', status.value);
+      await safeTriggerDeviceCard(
+        homeyDevice,
+        'virtual_boolean_changed',
+        { id: this.id, value: status.value },
+        { id: this.id },
+      );
     }
   }
 
+  public getTitleTranslations(): string | { en: string; [p: string]: string } {
+    if (this.config.name !== null) {
+      return this.config.name;
+    }
+    return fillTranslationTagsRecursively(capabilitiesOptions['booleanName'], {
+      name: `${this.id}`,
+    }) as string | { en: string; [p: string]: string };
+  }
+
   public async onConfigUpdate(_homeyDevice: ShellyLocalDevice, _config: BooleanConfig): Promise<void> {}
+
+  public static registerFlowCards(app: ShellyApp): void {
+    const getBooleans = (device: ShellyLocalDevice): Boolean[] => {
+      if (device.virtualDevice === undefined) {
+        return [];
+      }
+
+      return [...device.virtualComponents.values()].filter(component => component instanceof Boolean);
+    };
+
+    const autoCompleteListener = (
+      query: string,
+      { device }: { device: ShellyLocalDevice },
+    ): { name: string; id: number }[] => {
+      return getBooleans(device)
+        .map(boolean => ({
+          name: translate(app.homey.__('locale'), boolean.getTitleTranslations()),
+          id: boolean.id,
+        }))
+        .filter(boolean => boolean.name.toLowerCase().includes(query.toLowerCase()));
+    };
+
+    app.homey.flow
+      .getDeviceTriggerCard('virtual_boolean_changed')
+      .registerArgumentAutocompleteListener('boolean', autoCompleteListener)
+      .registerRunListener((cardArgs: { boolean: { name: string; id: number } }, triggerArgs: { id: number }) => {
+        return cardArgs.boolean.id === triggerArgs.id;
+      });
+
+    app.homey.flow
+      .getActionCard('set_virtual_boolean')
+      .registerArgumentAutocompleteListener('boolean', autoCompleteListener)
+      .registerRunListener(
+        (cardArgs: { device: ShellyLocalDevice; boolean: { name: string; id: number }; value: boolean }) => {
+          const booleanComponent = cardArgs.device.virtualComponents.get(`boolean:${cardArgs.boolean.id}`) as
+            | Boolean
+            | undefined;
+          const channel = cardArgs.device.virtualDevice?.getChannel();
+          if (booleanComponent !== undefined && channel !== undefined) {
+            return booleanComponent.Set(channel, { value: cardArgs.value });
+          }
+        },
+      );
+  }
 }
