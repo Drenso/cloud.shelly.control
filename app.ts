@@ -52,10 +52,10 @@ export default class ShellyApp extends Homey.App {
     }
     this.localDriversReady = Promise.all(localDriversReadyPromises).then();
 
-    this.deserializeVirtualDevices()
-      .catch(this.error)
-      .then(() => this.setupVirtualDeviceRediscovery())
-      .catch(this.error);
+    this.deserializeVirtualDevices();
+    this.setupVirtualDeviceRediscovery().catch(err =>
+      this.error('Error while setting up virtual device rediscovery:', err),
+    );
   }
 
   public async onInit(): Promise<void> {
@@ -80,7 +80,7 @@ export default class ShellyApp extends Homey.App {
     });
   }
 
-  private async deserializeVirtualDevices(): Promise<void> {
+  private deserializeVirtualDevices(): void {
     const virtualDeviceIds = this.homey.settings.get(VIRTUAL_DEVICE_IDS_SETTING_KEY) ?? ([] as readonly string[]);
     for (const virtualDeviceId of virtualDeviceIds) {
       const { deviceId, ipAddress, batteryDevice, components, driver, homeyDeviceIds, useHttps, ha1 } =
