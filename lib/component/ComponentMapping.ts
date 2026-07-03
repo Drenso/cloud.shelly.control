@@ -1,28 +1,29 @@
+import Boolean from './components/Boolean.js';
+import Button from './components/Button.js';
 import CCT from './components/CCT.js';
 import Cover from './components/Cover.js';
+import DevicePower from './components/DevicePower.js';
 import EM1 from './components/EM1.js';
 import EM1Data from './components/EM1Data.js';
+import Flood from './components/Flood.js';
+import Humidity from './components/Humidity.js';
 import Illuminance from './components/Illuminance.js';
 import Input from './components/Input.js';
 import Light from './components/Light.js';
+import Number from './components/Number.js';
 import OutboundWebsocket from './components/OutboundWebsocket.js';
+import Pill from './components/Pill.js';
+import PlugsUI from './components/PlugsUI.js';
 import PowerStripUI from './components/PowerStripUI.js';
+import Presence from './components/Presence.js';
+import PresenceZone from './components/PresenceZone.js';
 import RGBCCT from './components/RGBCCT.js';
+import Script from './components/Script.js';
+import Service from './components/Service.js';
 import Switch from './components/Switch.js';
 import System from './components/System.js';
 import Temperature from './components/Temperature.js';
-import PresenceZone from './components/PresenceZone.js';
-import Presence from './components/Presence.js';
-import DevicePower from './components/DevicePower.js';
-import Flood from './components/Flood.js';
-import Pill from './components/Pill.js';
 import Voltmeter from './components/Voltmeter.js';
-import Humidity from './components/Humidity.js';
-import PlugsUI from './components/PlugsUI.js';
-import Boolean from './components/Boolean.js';
-import Button from './components/Button.js';
-import Number from './components/Number.js';
-import Service from './components/Service.js';
 
 export const ComponentWithIdMapping = {
   boolean: Boolean,
@@ -40,6 +41,7 @@ export const ComponentWithIdMapping = {
   number: Number,
   presencezone: PresenceZone,
   rgbcct: RGBCCT,
+  script: Script,
   service: Service,
   switch: Switch,
   temperature: Temperature,
