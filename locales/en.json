@@ -29,7 +29,8 @@
     "initialization_error": "An error occurred while initializing.",
     "components_changed": "The device needs to be repaired: components changed.",
     "device_removed": "This device has no components and can be removed.",
-    "device_added": "This device has new components and needs to be repaired."
+    "device_added": "This device has new components and needs to be repaired.",
+    "orphan": "This device is not associated with any Shelly device and can be removed."
   },
   "component": {
     "CCT": {

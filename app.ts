@@ -32,6 +32,8 @@ export default class ShellyApp extends Homey.App {
   public readonly localDriverResolvers: Record<string, () => void>;
   public readonly localDriversReady: Promise<void>;
 
+  public readonly expectedHomeyDeviceIds: string[] = [];
+
   public constructor(...args: Array<never>) {
     super(...args);
 
@@ -100,6 +102,7 @@ export default class ShellyApp extends Homey.App {
         ha1 ?? null,
       );
       this.virtualDevices.set(virtualDeviceId, virtualDevice);
+      this.expectedHomeyDeviceIds.push(...homeyDeviceIds);
     }
   }
 
