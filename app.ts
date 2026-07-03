@@ -214,5 +214,11 @@ export default class ShellyApp extends Homey.App {
       .registerRunListener((args: { zones: string[]; device: MultiZoneCapabilityDeviceInterface }) => {
         return args.zones.some(zone => args.device.isZoneOccupied(Number(zone)));
       });
+
+    this.homey.flow
+      .getConditionCard('alarm_shelly_power_lost')
+      .registerRunListener((cardArgs: { device: ShellyLocalDevice }) => {
+        return cardArgs.device.getCapabilityValue('alarm_shelly_power_lost');
+      });
   }
 }
