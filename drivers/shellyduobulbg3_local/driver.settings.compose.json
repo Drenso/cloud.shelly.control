@@ -16,5 +16,8 @@
   },
   {
     "$extends": "CCT.range_map.max"
+  },
+  {
+    "$extends": "installBleForwardingScript"
   }
 ]

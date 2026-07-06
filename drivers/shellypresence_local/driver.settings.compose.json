@@ -19,5 +19,8 @@
   },
   {
     "$extends": "Presence.leds"
+  },
+  {
+    "$extends": "installBleForwardingScript"
   }
 ]

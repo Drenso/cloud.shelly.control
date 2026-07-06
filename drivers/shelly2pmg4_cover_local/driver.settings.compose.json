@@ -89,5 +89,8 @@
   },
   {
     "$extends": "Cover.slat"
+  },
+  {
+    "$extends": "installBleForwardingScript"
   }
 ]

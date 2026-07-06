@@ -172,6 +172,16 @@ export default class ShellyLocalDevice extends Homey.Device {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public async onSettings(event: SettingsEvent<any>): Promise<string | void> {
+    if (event.changedKeys.includes('installBleForwardingScript')) {
+      if (this.virtualDevice === undefined) {
+        throw new Error(this.homey.__('error.not_initialized'));
+      }
+      if (event.newSettings['installBleForwardingScript']) {
+        await this.app.btHomeServer.installForwardingScript(this.virtualDevice);
+      } else {
+        await this.app.btHomeServer.uninstallForwardingScript(this.virtualDevice);
+      }
+    }
     let restartRequired = false;
     for (const virtualComponent of this.virtualComponents.values()) {
       restartRequired ||= await virtualComponent.handleSettings(this, event as never);

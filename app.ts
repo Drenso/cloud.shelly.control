@@ -1,20 +1,21 @@
 import { Log } from '@drenso/homey-log';
 import Homey, { type DiscoveryResultMDNSSD } from 'homey';
 import sourceMapSupport from 'source-map-support';
+import { BTHomeServer } from './lib/ble/BTHomeServer.js';
 import type { MultiZoneCapabilityDeviceInterface } from './lib/capabilityInterfaces.js';
+import Boolean from './lib/component/components/Boolean.js';
+import Button from './lib/component/components/Button.js';
+import Illuminance from './lib/component/components/Illuminance.js';
+import Input from './lib/component/components/Input.js';
+import NumberComponent from './lib/component/components/Number.js';
+import PresenceZone from './lib/component/components/PresenceZone.js';
+import Shelly from './lib/component/components/Shelly.js';
+import { createHttpChannel } from './lib/HomeyRPCChannels.js';
+import type ShellyLocalDevice from './lib/local/LocalDevice.js';
 import ShellyLocalDriver from './lib/local/LocalDriver.js';
 import { getIp } from './lib/LocalIp.js';
 import OutboundWsServer from './lib/rpc/OutboundWsServer.js';
 import { type SerializedVirtualDevice, VirtualDevice } from './lib/VirtualDevice.js';
-import type ShellyLocalDevice from './lib/local/LocalDevice.js';
-import Input from './lib/component/components/Input.js';
-import Illuminance from './lib/component/components/Illuminance.js';
-import PresenceZone from './lib/component/components/PresenceZone.js';
-import { createHttpChannel } from './lib/HomeyRPCChannels.js';
-import Shelly from './lib/component/components/Shelly.js';
-import NumberComponent from './lib/component/components/Number.js';
-import Boolean from './lib/component/components/Boolean.js';
-import Button from './lib/component/components/Button.js';
 
 // TODO remove in 1.0.0
 process.on('uncaughtException', (error, origin) => {
@@ -30,6 +31,7 @@ const VIRTUAL_DEVICE_SETTING_KEY_PREFIX = 'virtual_device_';
 export default class ShellyApp extends Homey.App {
   public readonly homeyLog = new Log({ homey: this.homey });
   public readonly outboundWsServer = new OutboundWsServer(this.log, this.error);
+  public readonly btHomeServer = new BTHomeServer();
 
   public readonly virtualDevices = new Map<string, VirtualDevice>();
 
@@ -89,8 +91,17 @@ export default class ShellyApp extends Homey.App {
   private deserializeVirtualDevices(): void {
     const virtualDeviceIds = this.homey.settings.get(VIRTUAL_DEVICE_IDS_SETTING_KEY) ?? ([] as readonly string[]);
     for (const virtualDeviceId of virtualDeviceIds) {
-      const { deviceId, ipAddress, batteryDevice, components, driver, homeyDeviceIds, useHttps, ha1 } =
-        this.homey.settings.get(VIRTUAL_DEVICE_SETTING_KEY_PREFIX + virtualDeviceId) as SerializedVirtualDevice;
+      const {
+        deviceId,
+        ipAddress,
+        batteryDevice,
+        components,
+        driver,
+        homeyDeviceIds,
+        useHttps,
+        ha1,
+        bleForwardScriptId,
+      } = this.homey.settings.get(VIRTUAL_DEVICE_SETTING_KEY_PREFIX + virtualDeviceId) as SerializedVirtualDevice;
       const virtualDevice = new VirtualDevice(
         this,
         deviceId,
@@ -104,6 +115,7 @@ export default class ShellyApp extends Homey.App {
         useHttps ?? false,
         // TODO remove this migration in 1.0.0
         ha1 ?? null,
+        bleForwardScriptId ?? null,
       );
       this.virtualDevices.set(virtualDeviceId, virtualDevice);
       this.expectedHomeyDeviceIds.push(...homeyDeviceIds);

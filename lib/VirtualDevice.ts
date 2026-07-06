@@ -19,6 +19,8 @@ import type { OutBoundWebsocketConfig } from './component/components/OutboundWeb
 import { getIp } from './LocalIp.js';
 import { OUTBOUND_WS_PORT } from './config.js';
 import SetConfig from './component/components/OutboundWebsocket/SetConfig.js';
+import type Script from './component/components/Script.js';
+import type { BleForwardEventData } from './ble/BTHome.js';
 
 export const IGNORED_NO_IMPLEMENTATION_COMPONENTS = [
   'ble',
@@ -41,6 +43,7 @@ export type SerializedVirtualDevice = {
   readonly ha1: string | null;
   readonly useHttps: boolean;
   readonly driver: string;
+  readonly bleForwardScriptId: number | null;
 };
 
 type StateActionInstance<Action extends string> = {
@@ -123,6 +126,7 @@ export class VirtualDevice {
     initialHomeyDeviceIds: string[],
     useHttps: boolean,
     ha1: string | null,
+    public bleForwardScriptId: number | null,
     // Allow passing these in the pairing flow so we do not need to retrieve them twice
     initialComponentResponses?: ShellyGetComponentsResponseComponent[],
     initialHomeyDeviceDefinitions?: ShellyLocalListDeviceProperties[],
@@ -450,6 +454,7 @@ export class VirtualDevice {
       homeyDeviceIds: [...this.initializedHomeyDevices.keys()],
       useHttps: this.localConnection.useHttps,
       ha1: this.localConnection.ha1,
+      bleForwardScriptId: this.bleForwardScriptId,
     };
   }
 
@@ -497,6 +502,14 @@ export class VirtualDevice {
     const methodMapping = await this.getMethodMapping();
 
     await this.initializeComponents(components);
+
+    if (this.bleForwardScriptId !== null) {
+      const forwardingScript = this.virtualComponents.get(`script:${this.bleForwardScriptId}`) as Script;
+      this.debug('Handling BLE forwarding from script', this.bleForwardScriptId);
+      forwardingScript.scriptMitt.on('homey_ble_forward', event => {
+        this.app.btHomeServer.handleForward(event as BleForwardEventData);
+      });
+    }
 
     // Check whether changes to the components require adding/removing Homey devices
     const newDevices =

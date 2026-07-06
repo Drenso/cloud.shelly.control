@@ -67,6 +67,7 @@
     "breaker_control_disabled": "Breaker control is disabled in the device settings.",
     "cannot_enable_breaker_remotely": "The breaker cannot be enabled remotely.",
     "host_unreachable": "Could not reach device",
-    "uncalibrated": "The device is not calibrated"
+    "uncalibrated": "The device is not calibrated",
+    "not_initialized": "The device has not finished initializing"
   }
 }

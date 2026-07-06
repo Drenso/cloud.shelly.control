@@ -10,5 +10,8 @@
   },
   {
     "$extends": "RGBCCT.night_mode"
+  },
+  {
+    "$extends": "installBleForwardingScript"
   }
 ]

@@ -66,5 +66,8 @@
   },
   {
     "$extends": "Humidity.report_thr"
+  },
+  {
+    "$extends": "installBleForwardingScript"
   }
 ]

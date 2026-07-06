@@ -109,5 +109,8 @@
   },
   {
     "$extends": "Light.current_limit"
+  },
+  {
+    "$extends": "installBleForwardingScript"
   }
 ]
