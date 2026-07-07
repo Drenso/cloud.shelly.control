@@ -5,6 +5,9 @@
   },
   "class": "remote",
   "capabilities": ["measure_battery"],
+  "energy": {
+    "batteries": ["INTERNAL"]
+  },
   "images": {
     "small": "/assets/drivers/shellybluremotecontrol/images/small.png",
     "large": "/assets/drivers/shellybluremotecontrol/images/large.png",
