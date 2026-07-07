@@ -7,6 +7,14 @@ export default abstract class ShellyBleDriver extends Homey.Driver {
     return this.homey.app as ShellyApp;
   }
 
+  public getDefaultName(): string {
+    return this.manifest.name.en.split('-')[0].trim();
+  }
+
+  protected get baseDriverId(): string {
+    return this.id.split('_')[0];
+  }
+
   public async onPair(session: Homey.Driver.PairSession): Promise<void> {
     session.setHandler('list_devices', this.onPairListDevices.bind(this));
     session.setHandler('hide-ble-information', async value => {
@@ -37,7 +45,8 @@ export default abstract class ShellyBleDriver extends Homey.Driver {
     for (const bleAdvertisement of bleAdvertisements) {
       if (bleAdvertisement.localName.startsWith(this.bleNamePrefix)) {
         results.push({
-          name: bleAdvertisement.localName,
+          name: this.getDefaultName(),
+          icon: `../../../assets/drivers/${this.baseDriverId}/icon.svg`,
           data: {
             id: bleAdvertisement.address,
           },
