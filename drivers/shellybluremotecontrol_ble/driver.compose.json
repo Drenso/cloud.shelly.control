@@ -11,7 +11,6 @@
     "xlarge": "/assets/drivers/shellybluremotecontrol/images/xlarge.png"
   },
   "learnmode": {
-    "image": "./assets/learnmode/floodsg4.svg",
     "instruction": {
       "en": "Press any button on the device four times. The LEDs will start flashing from left to right."
     }
