@@ -1,7 +1,7 @@
 {
   "$extends": ["ble"],
   "name": {
-    "en": "BLU Remote Control"
+    "en": "BLU Remote Control - BLE"
   },
   "class": "remote",
   "capabilities": ["measure_battery"],
@@ -11,8 +11,9 @@
     "xlarge": "/assets/drivers/shellybluremotecontrol/images/xlarge.png"
   },
   "learnmode": {
+    "image": "./assets/learnmode/bluremotecontrol.svg",
     "instruction": {
-      "en": "Press any button on the device four times. The LEDs will start flashing from left to right."
+      "en": "Press one of the ring buttons during the Bluetooth scan. One of the LEDs will flash once."
     }
   }
 }
