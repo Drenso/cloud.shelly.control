@@ -2,6 +2,8 @@ import Homey from 'homey';
 import type ShellyApp from '../../app.js';
 import type { ShellyBluListDeviceProperties } from '../types.js';
 
+const BTHOME_SERVICE_UUID = '0000fcd200001000800000805f9b34fb';
+
 export default abstract class ShellyBleDriver extends Homey.Driver {
   public get app(): ShellyApp {
     return this.homey.app as ShellyApp;
@@ -37,7 +39,7 @@ export default abstract class ShellyBleDriver extends Homey.Driver {
 
   public async onPairListDevices(): Promise<ShellyBluListDeviceProperties[]> {
     // Pre-filter on BTHome service
-    const bleAdvertisements = await this.homey.ble.discover(['0000fcd200001000800000805f9b34fb']);
+    const bleAdvertisements = await this.homey.ble.discover([BTHOME_SERVICE_UUID]);
     console.debug('Advertisements:', bleAdvertisements);
 
     const results: ShellyBluListDeviceProperties[] = [];
@@ -49,6 +51,7 @@ export default abstract class ShellyBleDriver extends Homey.Driver {
           icon: `../../../assets/drivers/${this.baseDriverId}/icon.svg`,
           data: {
             id: bleAdvertisement.address,
+            uuid: bleAdvertisement.uuid,
           },
         });
       }

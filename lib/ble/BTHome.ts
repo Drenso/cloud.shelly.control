@@ -126,13 +126,7 @@ export const enum BTHomeDimmerEvent {
   RotateRight = 0x02,
 }
 
-/*
-const btHomeObjectIds: Record<(typeof btHomeObjects)[keyof typeof btHomeObjects]['property'], number> = {
-  packetId: 0x00,
-};
-*/
-
-function parseBtHomeServiceData(buffer: Buffer): [string, unknown][] {
+export function parseBtHomeServiceData(buffer: Buffer): [string, unknown][] {
   const parsed: [string, unknown][] = [['deviceInformation', buffer.readUInt8(0)]];
 
   let offset = 1;

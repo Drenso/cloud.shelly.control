@@ -1,11 +1,16 @@
-import Homey from 'homey';
+import Homey, { type BleAdvertisement } from 'homey';
 import type ShellyApp from '../../app.js';
 import type { ShellyBluDeviceData } from '../types.js';
-import { type BleForwardEventData, parseBleForward } from './BTHome.js';
+import { type BleForwardEventData, parseBleForward, parseBtHomeServiceData } from './BTHome.js';
 import type ShellyBleDriver from './BleDriver.js';
+
+const BTHOME_SERVICE_UUID = '0000fcd2-0000-1000-8000-00805f9b34fb';
+const BLE_POLLING_INTERVAL = 60_000;
 
 export default abstract class ShellyBleDevice extends Homey.Device {
   declare public readonly __id: string;
+
+  private pollInterval: NodeJS.Timeout | undefined;
 
   public constructor(...args: unknown[]) {
     super(...(args as never[]));
@@ -23,24 +28,78 @@ export default abstract class ShellyBleDevice extends Homey.Device {
   public async onInit(): Promise<void> {
     const macAddress = this.getTypedData().id.toLowerCase();
     this.app.btHomeServer.btHomeMitt.on(macAddress, this.handleBleForward);
+
+    const uuid = this.getTypedData().uuid;
+
+    if (
+      // @ts-expect-error Only supported in the newest version of the SDK
+      typeof this.homey.hasFeature !== 'undefined' &&
+      // @ts-expect-error Only supported in the newest version of the SDK
+      this.homey.hasFeature('ble-advertisements') &&
+      // @ts-expect-error Only supported in the newest version of the SDK
+      typeof this.homey.ble.subscribeToAdvertisements !== 'undefined'
+    ) {
+      this.log('Subscribing to BLE advertisements');
+      try {
+        // @ts-expect-error Only supported in the newest version of the SDK
+        await this.homey.ble.subscribeToAdvertisements(uuid, {}, (advertisement: BleAdvertisement) => {
+          this.handleHomeyBle(advertisement).catch(err =>
+            this.error('Error while handling advertisement subscription:', err),
+          );
+        });
+      } catch (e) {
+        this.error('Error while finding BLE device:', e);
+      }
+    } else {
+      this.log('Polling BLE advertisements');
+      // TODO polling only if enabled in settings
+      this.pollHomeyBle().catch(err => this.error('Error while polling BLE advertisement:', err));
+      this.pollInterval = this.homey.setInterval(this.pollHomeyBle.bind(this), BLE_POLLING_INTERVAL);
+    }
+  }
+
+  private async pollHomeyBle(): Promise<void> {
+    console.log('Poll');
+    const uuid = this.getTypedData().uuid;
+    try {
+      const advertisement = await this.homey.ble.find(uuid);
+      await this.handleHomeyBle(advertisement);
+    } catch (e) {
+      this.error('Error while polling BLE advertisement:', e);
+    }
+  }
+
+  private async handleHomeyBle(advertisement: BleAdvertisement): Promise<void> {
+    for (const service of advertisement.serviceData) {
+      if (service.uuid === BTHOME_SERVICE_UUID) {
+        const btHomeData = parseBtHomeServiceData(service.data);
+        return this.handleBtHomeData(btHomeData);
+      }
+    }
   }
 
   public async onDeleted(): Promise<void> {
     const macAddress = this.getTypedData().id.toLowerCase();
     this.app.btHomeServer.btHomeMitt.off(macAddress, this.handleBleForward);
+    this.homey.clearInterval(this.pollInterval);
   }
 
-  protected async handleBleForward(data: BleForwardEventData): Promise<void> {
-    // TODO deduplicate using packet id
+  private async handleBleForward(data: BleForwardEventData): Promise<void> {
     const btHomeData = parseBleForward(data);
-    if (btHomeData !== undefined) {
-      if (Homey.env['DEBUG_BLE_FORWARDING'] === '1') {
-        const properties = btHomeData.map(entry => entry[0]);
-        this.log('Received BTHome frame:', properties);
-      }
+    return this.handleBtHomeData(btHomeData);
+  }
 
-      await this.handleBtHomeForward(btHomeData);
+  private async handleBtHomeData(btHomeData: [string, unknown][] | undefined): Promise<void> {
+    if (btHomeData === undefined) {
+      return;
     }
+
+    // TODO deduplicate using packet id
+    if (Homey.env['DEBUG_BLE_FORWARDING'] === '1') {
+      const properties = btHomeData.map(entry => entry[0]);
+      this.log('Received BTHome frame:', properties);
+    }
+    await this.handleBtHomeForward(btHomeData);
   }
 
   public abstract handleBtHomeForward(data: [string, unknown][]): Promise<void>;

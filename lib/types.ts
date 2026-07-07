@@ -52,6 +52,7 @@ export type ShellyLocalListVirtualDeviceProperties = ListDeviceProperties & {
 
 export type ShellyBluDeviceData = {
   id: string;
+  uuid: string;
 };
 
 export type ShellyBluListDeviceProperties = ListDeviceProperties & {
