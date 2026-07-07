@@ -49,3 +49,11 @@ export type ShellyLocalListVirtualDeviceProperties = ListDeviceProperties & {
   store: ShellyLocalDeviceStore;
   data: ShellyLocalDeviceData & { useHttps: boolean };
 };
+
+export type ShellyBluDeviceData = {
+  id: string;
+};
+
+export type ShellyBluListDeviceProperties = ListDeviceProperties & {
+  data: ShellyBluDeviceData;
+};

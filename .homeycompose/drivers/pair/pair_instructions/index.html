@@ -1,0 +1,25 @@
+<link rel="stylesheet" type="text/css" href="/pair/vdevice/virtualdriverzigbee/pair.css" />
+
+<div id="states-wrap">
+  <div class="state" id="learnmode-wrap">
+    <img class="image" alt="Device pairing sequence" />
+    <p class="text"><bdi></bdi></p>
+  </div>
+</div>
+
+<script>
+  Homey.setTitle(__('pair.pair_instructions.title'));
+  Homey.setSubtitle(__('pair.pair_instructions.subtitle'));
+  Homey.emit('pair_instructions').then(res => {
+    const instructions = res?.instruction?.[__('locale')] ?? res?.instruction?.en;
+    console.log('Pair instructions:', instructions);
+    document.getElementById('learnmode-wrap').querySelector('bdi').innerText = instructions;
+    if (res?.image !== undefined) {
+      /** @type HTMLImageElement */
+      const imageDiv = document.getElementById('learnmode-wrap').querySelector('.image');
+      imageDiv.classList.add('visible');
+      imageDiv.src = '/app/cloud.shelly.control/' + res.image;
+    }
+    document.getElementById('states-wrap').setAttribute('data-state', 'learnmode');
+  });
+</script>

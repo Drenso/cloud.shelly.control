@@ -109,7 +109,7 @@ const btHomeObjects = {
   },
 } as const satisfies Record<number, BtHomeObject>;
 
-const enum BTHomeButtonEvent {
+export const enum BTHomeButtonEvent {
   None = 0x00,
   Press = 0x01,
   DoublePress = 0x02,
@@ -120,7 +120,7 @@ const enum BTHomeButtonEvent {
   HoldPress = 0x80,
 }
 
-const enum BTHomeDimmerEvent {
+export const enum BTHomeDimmerEvent {
   None = 0x00,
   RotateLeft = 0x01,
   RotateRight = 0x02,
@@ -150,6 +150,15 @@ function parseBtHomeServiceData(buffer: Buffer): [string, unknown][] {
   }
 
   return parsed;
+}
+
+export function parseBleForward(data: BleForwardEventData): [string, unknown][] | undefined {
+  const btHomeServiceData = data.service_data[BTHOME_SERVICE_ID];
+  if (btHomeServiceData === undefined) {
+    return undefined;
+  }
+
+  return parseBtHomeServiceData(Buffer.from(btHomeServiceData, 'base64'));
 }
 
 export function handleBleForward(data: BleForwardEventData): void {
