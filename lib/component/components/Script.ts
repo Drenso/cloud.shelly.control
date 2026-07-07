@@ -114,19 +114,19 @@ export default class Script extends ComponentWithId<'Script', ScriptStatus, Scri
   }
 
   public async registerHomeyDevice(
-    homeyDevice: ShellyLocalDevice,
+    _homeyDevice: ShellyLocalDevice,
     _methods: ComponentMethod<'Script'>[],
   ): Promise<void> {}
 
   protected async staticallyUnregisterHomeyDevice(
     this: never,
-    homeyDevice: ShellyLocalDevice,
-    id: number,
+    _homeyDevice: ShellyLocalDevice,
+    _id: number,
   ): Promise<void> {}
 
-  public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: ScriptStatus): Promise<void> {}
+  public async onStatusUpdate(_homeyDevice: ShellyLocalDevice, _status: ScriptStatus): Promise<void> {}
 
-  public async onConfigUpdate(homeyDevice: ShellyLocalDevice, config: ScriptConfig): Promise<void> {}
+  public async onConfigUpdate(_homeyDevice: ShellyLocalDevice, _config: ScriptConfig): Promise<void> {}
 
   public async handleEvent(event: NotificationEventParam): Promise<void> {
     const scriptEvent = event as ScriptEvent;

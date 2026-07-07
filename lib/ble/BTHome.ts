@@ -1,7 +1,7 @@
-const ALTERCO_MANUFACTURER_ID = '0ba9';
-const BTHOME_SERVICE_ID = 'fcd2';
+export const ALTERCO_MANUFACTURER_ID = '0ba9';
+export const BTHOME_SERVICE_ID = 'fcd2';
 
-const VERSION_CHECK_CALL =
+export const VERSION_CHECK_CALL =
   'if (typeof homey_ble_forward_script_version !== typeof undefined) {console.log(homey_ble_forward_script_version())} else {console.log(undefined)}';
 
 export type BleForwardEventData = {
@@ -183,10 +183,4 @@ export function handleBleForward(data: BleForwardEventData): void {
   } catch (e) {
     console.error('Error while parsing BTHome data:', e);
   }
-}
-
-function bufferFromString(input: string): Buffer {
-  const strings = input.split(' ');
-  const numbers = strings.map(string => parseInt(string, 16));
-  return Buffer.from(numbers);
 }
