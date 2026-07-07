@@ -1,0 +1,169 @@
+{
+  "triggers": [
+    {
+      "id": "blu_remote_control_button_pressed",
+      "highlight": true,
+      "title": {
+        "en": "Button was pressed"
+      },
+      "titleFormatted": {
+        "en": "[[button]] was pressed"
+      },
+      "tokens": [
+        {
+          "name": "button",
+          "type": "string",
+          "title": {
+            "en": "Button"
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "button",
+          "title": {
+            "en": "Button"
+          },
+          "type": "multiselect",
+          "conjunction": "or",
+          "values": [
+            {
+              "id": "left",
+              "title": {
+                "en": "Left Button"
+              }
+            },
+            {
+              "id": "right",
+              "title": {
+                "en": "Right Button"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "blu_remote_control_scrolled",
+      "highlight": true,
+      "title": {
+        "en": "Wheel was scrolled"
+      },
+      "titleFormatted": {
+        "en": "Wheel was scrolled [[direction]]"
+      },
+      "tokens": [
+        {
+          "name": "direction",
+          "type": "string",
+          "title": {
+            "en": "Direction"
+          }
+        },
+        {
+          "name": "steps",
+          "type": "number",
+          "title": {
+            "en": "Steps"
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "direction",
+          "title": {
+            "en": "Direction"
+          },
+          "type": "multiselect",
+          "conjunction": "or",
+          "values": [
+            {
+              "id": "up",
+              "title": {
+                "en": "Up"
+              }
+            },
+            {
+              "id": "down",
+              "title": {
+                "en": "Down"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "blu_remote_control_scrolling_start",
+      "title": {
+        "en": "Wheel started scrolling"
+      },
+      "titleFormatted": {
+        "en": "Wheel started scrolling [[direction]]"
+      },
+      "tokens": [
+        {
+          "name": "direction",
+          "type": "string",
+          "title": {
+            "en": "Direction"
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "direction",
+          "title": {
+            "en": "Direction"
+          },
+          "type": "multiselect",
+          "conjunction": "or",
+          "values": [
+            {
+              "id": "up",
+              "title": {
+                "en": "Up"
+              }
+            },
+            {
+              "id": "down",
+              "title": {
+                "en": "Down"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "blu_remote_control_rotation_measured",
+      "highlight": true,
+      "title": {
+        "en": "Rotation was measured"
+      },
+      "tokens": [
+        {
+          "name": "x",
+          "type": "number",
+          "title": {
+            "en": "X"
+          }
+        },
+        {
+          "name": "y",
+          "type": "number",
+          "title": {
+            "en": "Y"
+          }
+        },
+        {
+          "name": "z",
+          "type": "number",
+          "title": {
+            "en": "Z"
+          }
+        }
+      ]
+    }
+  ]
+}

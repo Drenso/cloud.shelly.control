@@ -1,5 +1,7 @@
-import type { BTHomeButtonEvent, BTHomeDimmerEvent } from '../../lib/ble/BTHome.js';
+import { BTHomeButtonEvent, BTHomeDimmerEvent } from '../../lib/ble/BTHome.js';
 import ShellyBleDevice from '../../lib/ble/BleDevice.js';
+import { safeTriggerDeviceCard } from '../../lib/safeFunctions.js';
+import type { Button, ScrollDirection } from './driver.js';
 
 export default class ShellyBluRemoteControlDevice extends ShellyBleDevice {
   public async handleBtHomeForward(btHomeData: [string, unknown][]): Promise<void> {
@@ -47,21 +49,51 @@ export default class ShellyBluRemoteControlDevice extends ShellyBleDevice {
     if (buttons.length === 2) {
       const left = buttons[0];
       const right = buttons[1];
-      console.log('Buttons:', { left: left, right: right });
-      // TODO
+      this.debug('Buttons:', { left: left, right: right });
+
+      if (left !== BTHomeButtonEvent.None) {
+        const args: { button: Button } = { button: 'left' };
+        await safeTriggerDeviceCard(this, 'blu_remote_control_button_pressed', args, args);
+      }
+      if (right !== BTHomeButtonEvent.None) {
+        const args: { button: Button } = { button: 'right' };
+        await safeTriggerDeviceCard(this, 'blu_remote_control_button_pressed', args, args);
+      }
     }
 
     if (rotations.length === 3) {
       const x = rotations[0];
       const y = rotations[1];
       const z = rotations[2];
-      console.log('Rotations:', { x: x, y: y, z: z });
-      // TODO
+      this.debug('Rotations:', { x: x, y: y, z: z });
+      await safeTriggerDeviceCard(this, 'blu_remote_control_rotation_measured', { x, y, z });
     }
 
-    if (scrollDirection !== undefined) {
-      console.log('Scroll:', { direction: scrollDirection, steps: scrollSteps });
-      // TODO
+    if (scrollDirection !== undefined && scrollSteps !== undefined) {
+      this.debug('Scroll:', { direction: scrollDirection, steps: scrollSteps });
+      let direction: ScrollDirection;
+
+      switch (scrollDirection) {
+        case BTHomeDimmerEvent.None:
+          direction = 'none';
+          break;
+        case BTHomeDimmerEvent.RotateLeft:
+          direction = 'up';
+          break;
+        case BTHomeDimmerEvent.RotateRight:
+          direction = 'down';
+          break;
+      }
+
+      const args: { direction: ScrollDirection; steps: number } = {
+        direction: direction,
+        steps: scrollSteps,
+      };
+      if (scrollSteps === 0) {
+        await safeTriggerDeviceCard(this, 'blu_remote_control_scrolling_start', args, args);
+      } else {
+        await safeTriggerDeviceCard(this, 'blu_remote_control_scrolled', args, args);
+      }
     }
   }
 }
