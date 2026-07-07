@@ -1,6 +1,6 @@
 import { BTHomeButtonEvent, BTHomeDimmerEvent } from '../../lib/ble/BTHome.js';
 import ShellyBleDevice from '../../lib/ble/BleDevice.js';
-import { safeTriggerDeviceCard } from '../../lib/safeFunctions.js';
+import { safeSetCapabilityValue, safeTriggerDeviceCard } from '../../lib/safeFunctions.js';
 import type { Button, ScrollDirection } from './driver.js';
 
 export default class ShellyBluRemoteControlDevice extends ShellyBleDevice {
@@ -43,7 +43,7 @@ export default class ShellyBluRemoteControlDevice extends ShellyBleDevice {
     );
 
     if (battery !== undefined) {
-      await this.setCapabilityValue('measure_battery', battery);
+      await safeSetCapabilityValue(this, 'measure_battery', battery);
     }
 
     if (buttons.length === 2) {
