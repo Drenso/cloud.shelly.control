@@ -34,6 +34,11 @@ export default abstract class ShellyBleDevice extends Homey.Device {
     // TODO deduplicate using packet id
     const btHomeData = parseBleForward(data);
     if (btHomeData !== undefined) {
+      if (Homey.env['DEBUG_BLE_FORWARDING'] === '1') {
+        const properties = btHomeData.map(entry => entry[0]);
+        this.log('Received BTHome frame:', properties);
+      }
+
       await this.handleBtHomeForward(btHomeData);
     }
   }
