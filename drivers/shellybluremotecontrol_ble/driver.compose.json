@@ -1,6 +1,5 @@
 {
-  "platforms": ["local"],
-  "connectivity": ["ble"],
+  "$extends": ["ble"],
   "name": {
     "en": "BLU Remote Control"
   },
@@ -16,26 +15,5 @@
     "instruction": {
       "en": "Press any button on the device four times. The LEDs will start flashing from left to right."
     }
-  },
-  "pair": [
-    {
-      "id": "ble_information",
-      "$template": "ble_information",
-      "navigation": { "next": "pair_instructions" }
-    },
-    {
-      "id": "pair_instructions",
-      "$template": "pair_instructions",
-      "navigation": { "next": "list_my_devices" }
-    },
-    {
-      "id": "list_my_devices",
-      "template": "list_devices",
-      "navigation": { "next": "add_my_devices" }
-    },
-    {
-      "id": "add_my_devices",
-      "template": "add_devices"
-    }
-  ]
+  }
 }

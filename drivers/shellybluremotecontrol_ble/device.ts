@@ -1,9 +1,5 @@
-import Homey from 'homey';
-import type ShellyApp from '../../app.js';
-import type { ShellyBluDeviceData } from '../../lib/types.js';
-import type { BTHomeDimmerEvent } from '../../lib/ble/BTHome.js';
-import type { BTHomeButtonEvent } from '../../lib/ble/BTHome.js';
-import { type BleForwardEventData, parseBleForward } from '../../lib/ble/BTHome.js';
+import type { BTHomeButtonEvent, BTHomeDimmerEvent } from '../../lib/ble/BTHome.js';
+import ShellyBleDevice from '../../lib/ble/BleDevice.js';
 
 type ButtonEvent = {
   battery: number;
@@ -27,31 +23,8 @@ type RotateEvent = {
   channel: number;
 };
 
-export default class ShellyBluRemoteControlDevice extends Homey.Device {
-  declare public readonly __id: string;
-
-  public get app(): ShellyApp {
-    return this.homey.app as ShellyApp;
-  }
-
-  public getTypedData(): ShellyBluDeviceData {
-    return this.getData();
-  }
-
-  public async onInit(): Promise<void> {
-    const macAddress = this.getTypedData().id.toLowerCase();
-    this.app.btHomeServer.btHomeMitt.on(macAddress, this.handleBleForward.bind(this));
-  }
-
-  public async handleBleForward(data: BleForwardEventData): Promise<void> {
-    const btHomeData = parseBleForward(data);
-    // TODO deduplicate using packet id
-    // console.log(btHomeData);
-
-    if (btHomeData === undefined) {
-      return;
-    }
-
+export default class ShellyBluRemoteControlDevice extends ShellyBleDevice {
+  public async handleBtHomeForward(btHomeData: [string, unknown][]): Promise<void> {
     const event = {} as {
       battery: number;
       channel: number;

@@ -1,0 +1,25 @@
+{
+  "platforms": ["local"],
+  "connectivity": ["ble"],
+  "pair": [
+    {
+      "id": "ble_information",
+      "$template": "ble_information",
+      "navigation": { "next": "pair_instructions" }
+    },
+    {
+      "id": "pair_instructions",
+      "$template": "pair_instructions",
+      "navigation": { "next": "list_my_devices" }
+    },
+    {
+      "id": "list_my_devices",
+      "template": "list_devices",
+      "navigation": { "next": "add_my_devices" }
+    },
+    {
+      "id": "add_my_devices",
+      "template": "add_devices"
+    }
+  ]
+}

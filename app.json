@@ -5103,24 +5103,6 @@
       "connectivity": [
         "ble"
       ],
-      "name": {
-        "en": "BLU Remote Control"
-      },
-      "class": "remote",
-      "capabilities": [
-        "measure_battery"
-      ],
-      "images": {
-        "small": "/assets/drivers/shellybluremotecontrol/images/small.png",
-        "large": "/assets/drivers/shellybluremotecontrol/images/large.png",
-        "xlarge": "/assets/drivers/shellybluremotecontrol/images/xlarge.png"
-      },
-      "learnmode": {
-        "image": "./assets/learnmode/floodsg4.svg",
-        "instruction": {
-          "en": "Press any button on the device four times. The LEDs will start flashing from left to right."
-        }
-      },
       "pair": [
         {
           "id": "ble_information",
@@ -5146,6 +5128,24 @@
           "template": "add_devices"
         }
       ],
+      "name": {
+        "en": "BLU Remote Control"
+      },
+      "class": "remote",
+      "capabilities": [
+        "measure_battery"
+      ],
+      "images": {
+        "small": "/assets/drivers/shellybluremotecontrol/images/small.png",
+        "large": "/assets/drivers/shellybluremotecontrol/images/large.png",
+        "xlarge": "/assets/drivers/shellybluremotecontrol/images/xlarge.png"
+      },
+      "learnmode": {
+        "image": "./assets/learnmode/floodsg4.svg",
+        "instruction": {
+          "en": "Press any button on the device four times. The LEDs will start flashing from left to right."
+        }
+      },
       "id": "shellybluremotecontrol_ble"
     },
     {
