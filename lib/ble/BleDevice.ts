@@ -5,7 +5,6 @@ import { type BleForwardEventData, parseBleForward, parseBtHomeServiceData } fro
 import type ShellyBleDriver from './BleDriver.js';
 
 const BTHOME_SERVICE_UUID = '0000fcd2-0000-1000-8000-00805f9b34fb';
-const BLE_POLLING_INTERVAL = 60_000;
 
 export default abstract class ShellyBleDevice extends Homey.Device {
   declare public readonly __id: string;
@@ -51,21 +50,7 @@ export default abstract class ShellyBleDevice extends Homey.Device {
         this.error('Error while finding BLE device:', e);
       }
     } else {
-      this.log('Polling BLE advertisements');
-      // TODO polling only if enabled in settings
-      this.pollHomeyBle().catch(err => this.error('Error while polling BLE advertisement:', err));
-      this.pollInterval = this.homey.setInterval(this.pollHomeyBle.bind(this), BLE_POLLING_INTERVAL);
-    }
-  }
-
-  private async pollHomeyBle(): Promise<void> {
-    console.log('Poll');
-    const uuid = this.getTypedData().uuid;
-    try {
-      const advertisement = await this.homey.ble.find(uuid);
-      await this.handleHomeyBle(advertisement);
-    } catch (e) {
-      this.error('Error while polling BLE advertisement:', e);
+      this.log('No support for BLE advertisement subscription');
     }
   }
 
