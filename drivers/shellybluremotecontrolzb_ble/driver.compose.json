@@ -9,9 +9,9 @@
     "batteries": ["INTERNAL"]
   },
   "images": {
-    "small": "/assets/drivers/shellybluremotecontrol/images/small.png",
-    "large": "/assets/drivers/shellybluremotecontrol/images/large.png",
-    "xlarge": "/assets/drivers/shellybluremotecontrol/images/xlarge.png"
+    "small": "/assets/drivers/shellybluremotecontrolzb/images/small.png",
+    "large": "/assets/drivers/shellybluremotecontrolzb/images/large.png",
+    "xlarge": "/assets/drivers/shellybluremotecontrolzb/images/xlarge.png"
   },
   "learnmode": {
     "image": "./assets/learnmode/bluremotecontrol.svg",
