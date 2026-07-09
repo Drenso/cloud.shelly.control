@@ -9,24 +9,37 @@ export default class ShellyBluRemoteControlDriver extends ShellyBleDriver {
 
     this.homey.flow
       .getDeviceTriggerCard('blu_remote_control_button_pressed')
-      .registerRunListener((cardArgs: { button: Button[] }, triggerArgs: { button: Button }) => {
-        return cardArgs.button.includes(triggerArgs.button);
-      });
+      .registerRunListener(
+        (cardArgs: { button: Button[]; channel: string[] }, triggerArgs: { button: Button; channel: number }) =>
+          cardArgs.button.includes(triggerArgs.button) && cardArgs.channel.includes(triggerArgs.channel.toFixed()),
+      );
+
+    this.homey.flow
+      .getDeviceTriggerCard('blu_remote_control_rotation_measured')
+      .registerRunListener((cardArgs: { channel: string[] }, triggerArgs: { channel: number }) =>
+        cardArgs.channel.includes(triggerArgs.channel.toFixed()),
+      );
 
     this.homey.flow
       .getDeviceTriggerCard('blu_remote_control_scrolled')
       .registerRunListener(
-        (cardArgs: { direction: ScrollDirection[] }, triggerArgs: { direction: ScrollDirection }) => {
-          return triggerArgs.direction === 'none' || cardArgs.direction.includes(triggerArgs.direction);
-        },
+        (
+          cardArgs: { direction: ScrollDirection[]; channel: string[] },
+          triggerArgs: { direction: ScrollDirection; channel: number },
+        ) =>
+          (triggerArgs.direction === 'none' || cardArgs.direction.includes(triggerArgs.direction)) &&
+          cardArgs.channel.includes(triggerArgs.channel.toFixed()),
       );
 
     this.homey.flow
       .getDeviceTriggerCard('blu_remote_control_scrolling_start')
       .registerRunListener(
-        (cardArgs: { direction: ScrollDirection[] }, triggerArgs: { direction: ScrollDirection }) => {
-          return triggerArgs.direction === 'none' || cardArgs.direction.includes(triggerArgs.direction);
-        },
+        (
+          cardArgs: { direction: ScrollDirection[]; channel: string[] },
+          triggerArgs: { direction: ScrollDirection; channel: number },
+        ) =>
+          (triggerArgs.direction === 'none' || cardArgs.direction.includes(triggerArgs.direction)) &&
+          cardArgs.channel.includes(triggerArgs.channel.toFixed()),
       );
   }
   public bleNamePrefix = 'SBRC';

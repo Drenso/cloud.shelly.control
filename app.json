@@ -1406,7 +1406,7 @@
           "en": "Button was pressed"
         },
         "titleFormatted": {
-          "en": "[[button]] was pressed"
+          "en": "[[button]] was pressed on channel [[channel]]"
         },
         "tokens": [
           {
@@ -1414,6 +1414,13 @@
             "type": "string",
             "title": {
               "en": "Button"
+            }
+          },
+          {
+            "name": "channel",
+            "type": "number",
+            "title": {
+              "en": "Channel"
             }
           }
         ],
@@ -1444,6 +1451,40 @@
                 }
               }
             ]
+          },
+          {
+            "name": "channel",
+            "title": {
+              "en": "Channel"
+            },
+            "type": "multiselect",
+            "conjunction": "or",
+            "values": [
+              {
+                "id": "1",
+                "title": {
+                  "en": "1"
+                }
+              },
+              {
+                "id": "2",
+                "title": {
+                  "en": "2"
+                }
+              },
+              {
+                "id": "3",
+                "title": {
+                  "en": "3"
+                }
+              },
+              {
+                "id": "4",
+                "title": {
+                  "en": "4"
+                }
+              }
+            ]
           }
         ]
       },
@@ -1454,7 +1495,7 @@
           "en": "Wheel was scrolled"
         },
         "titleFormatted": {
-          "en": "Wheel was scrolled [[direction]]"
+          "en": "Wheel was scrolled [[direction]] on channel [[channel]]"
         },
         "tokens": [
           {
@@ -1470,52 +1511,12 @@
             "title": {
               "en": "Steps"
             }
-          }
-        ],
-        "args": [
-          {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=shellybluremotecontrolzb_ble"
           },
           {
-            "name": "direction",
+            "name": "channel",
+            "type": "number",
             "title": {
-              "en": "Direction"
-            },
-            "type": "multiselect",
-            "conjunction": "or",
-            "values": [
-              {
-                "id": "up",
-                "title": {
-                  "en": "Up"
-                }
-              },
-              {
-                "id": "down",
-                "title": {
-                  "en": "Down"
-                }
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "id": "blu_remote_control_scrolling_start",
-        "title": {
-          "en": "Wheel started scrolling"
-        },
-        "titleFormatted": {
-          "en": "Wheel started scrolling [[direction]]"
-        },
-        "tokens": [
-          {
-            "name": "direction",
-            "type": "string",
-            "title": {
-              "en": "Direction"
+              "en": "Channel"
             }
           }
         ],
@@ -1546,6 +1547,128 @@
                 }
               }
             ]
+          },
+          {
+            "name": "channel",
+            "title": {
+              "en": "Channel"
+            },
+            "type": "multiselect",
+            "conjunction": "or",
+            "values": [
+              {
+                "id": "1",
+                "title": {
+                  "en": "1"
+                }
+              },
+              {
+                "id": "2",
+                "title": {
+                  "en": "2"
+                }
+              },
+              {
+                "id": "3",
+                "title": {
+                  "en": "3"
+                }
+              },
+              {
+                "id": "4",
+                "title": {
+                  "en": "4"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "blu_remote_control_scrolling_start",
+        "title": {
+          "en": "Wheel started scrolling"
+        },
+        "titleFormatted": {
+          "en": "Wheel started scrolling [[direction]] on channel [[channel]]"
+        },
+        "tokens": [
+          {
+            "name": "direction",
+            "type": "string",
+            "title": {
+              "en": "Direction"
+            }
+          },
+          {
+            "name": "channel",
+            "type": "number",
+            "title": {
+              "en": "Channel"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=shellybluremotecontrolzb_ble"
+          },
+          {
+            "name": "direction",
+            "title": {
+              "en": "Direction"
+            },
+            "type": "multiselect",
+            "conjunction": "or",
+            "values": [
+              {
+                "id": "up",
+                "title": {
+                  "en": "Up"
+                }
+              },
+              {
+                "id": "down",
+                "title": {
+                  "en": "Down"
+                }
+              }
+            ]
+          },
+          {
+            "name": "channel",
+            "title": {
+              "en": "Channel"
+            },
+            "type": "multiselect",
+            "conjunction": "or",
+            "values": [
+              {
+                "id": "1",
+                "title": {
+                  "en": "1"
+                }
+              },
+              {
+                "id": "2",
+                "title": {
+                  "en": "2"
+                }
+              },
+              {
+                "id": "3",
+                "title": {
+                  "en": "3"
+                }
+              },
+              {
+                "id": "4",
+                "title": {
+                  "en": "4"
+                }
+              }
+            ]
           }
         ]
       },
@@ -1554,6 +1677,9 @@
         "highlight": true,
         "title": {
           "en": "Rotation was measured"
+        },
+        "titleFormatted": {
+          "en": "Rotation was measured on channel [[channel]]"
         },
         "tokens": [
           {
@@ -1576,6 +1702,13 @@
             "title": {
               "en": "Z"
             }
+          },
+          {
+            "name": "channel",
+            "type": "number",
+            "title": {
+              "en": "Channel"
+            }
           }
         ],
         "args": [
@@ -1583,6 +1716,40 @@
             "type": "device",
             "name": "device",
             "filter": "driver_id=shellybluremotecontrolzb_ble"
+          },
+          {
+            "name": "channel",
+            "title": {
+              "en": "Channel"
+            },
+            "type": "multiselect",
+            "conjunction": "or",
+            "values": [
+              {
+                "id": "1",
+                "title": {
+                  "en": "1"
+                }
+              },
+              {
+                "id": "2",
+                "title": {
+                  "en": "2"
+                }
+              },
+              {
+                "id": "3",
+                "title": {
+                  "en": "3"
+                }
+              },
+              {
+                "id": "4",
+                "title": {
+                  "en": "4"
+                }
+              }
+            ]
           }
         ]
       }
