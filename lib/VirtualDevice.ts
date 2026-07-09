@@ -116,6 +116,8 @@ export class VirtualDevice {
 
   private state: StateName;
 
+  private bleForwardScript: Script | undefined;
+
   public constructor(
     public readonly app: ShellyApp,
     public readonly deviceId: string,
@@ -505,10 +507,16 @@ export class VirtualDevice {
 
     if (this.bleForwardScriptId !== null) {
       const forwardingScript = this.virtualComponents.get(`script:${this.bleForwardScriptId}`) as Script;
-      this.debug('Handling BLE forwarding from script', this.bleForwardScriptId);
-      forwardingScript.scriptMitt.on('homey_ble_forward', event => {
-        this.app.btHomeServer.handleForward(event as BleForwardEventData);
-      });
+      if (this.bleForwardScript !== forwardingScript) {
+        this.bleForwardScript?.scriptMitt.off('homey_ble_forward');
+
+        this.debug('Handling BLE forwarding from script', this.bleForwardScriptId);
+        forwardingScript.scriptMitt.on('homey_ble_forward', event => {
+          this.app.btHomeServer.handleForward(event as BleForwardEventData);
+        });
+
+        this.bleForwardScript = forwardingScript;
+      }
     }
 
     // Check whether changes to the components require adding/removing Homey devices
