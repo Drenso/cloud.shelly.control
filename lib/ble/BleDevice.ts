@@ -45,7 +45,7 @@ export default abstract class ShellyBleDevice extends Homey.Device {
           );
         });
       } catch (e) {
-        this.error('Error while finding BLE device:', e);
+        this.error('Error while subscribing to BLE advertisement:', e);
       }
     } else {
       this.log('No support for BLE advertisement subscription');
