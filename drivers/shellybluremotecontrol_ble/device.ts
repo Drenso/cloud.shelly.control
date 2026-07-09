@@ -1,54 +1,28 @@
-import { BTHomeButtonEvent, BTHomeDimmerEvent } from '../../lib/ble/BTHome.js';
+import { BTHomeButtonEvent, type BTHomeData, BTHomeDimmerEvent } from '../../lib/ble/BTHome.js';
 import ShellyBleDevice from '../../lib/ble/BleDevice.js';
 import { safeSetCapabilityValue, safeTriggerDeviceCard } from '../../lib/safeFunctions.js';
 import type { Button, ScrollDirection } from './driver.js';
 
 export default class ShellyBluRemoteControlDevice extends ShellyBleDevice {
-  public async handleBtHomeForward(btHomeData: [string, unknown][]): Promise<void> {
-    let battery: number | undefined;
-    const buttons: BTHomeButtonEvent[] = [];
-    let channel: number | undefined;
-    let scrollDirection: BTHomeDimmerEvent | undefined;
-    let scrollSteps: number | undefined;
-    const rotations: number[] = [];
-
-    for (const [property, value] of btHomeData) {
-      if (property === 'battery') {
-        battery = value as number;
-      } else if (property === 'channel') {
-        channel = value as number;
-      } else if (property === 'buttonEvent') {
-        buttons.push(value as number);
-      } else if (property === 'dimmerEvent') {
-        const [direction, steps] = value as [number, number];
-        scrollDirection = direction;
-        scrollSteps = steps;
-      } else if (property === 'rotation') {
-        rotations.push((value as number) / 10);
-      } else {
-        // ignore
-      }
-    }
-
+  public async handleBtHomeForward(btHomeData: BTHomeData): Promise<void> {
     this.debug(
       'Received channel:',
-      channel,
+      btHomeData.channel,
       'buttons:',
-      buttons,
+      btHomeData.buttonEvent,
       'rotations:',
-      rotations,
+      btHomeData.rotation,
       'scroll:',
-      scrollDirection,
-      scrollSteps,
+      btHomeData.dimmerEvent,
     );
 
-    if (battery !== undefined) {
-      await safeSetCapabilityValue(this, 'measure_battery', battery);
+    if (btHomeData.battery?.length === 1) {
+      await safeSetCapabilityValue(this, 'measure_battery', btHomeData.battery[0]);
     }
 
-    if (buttons.length === 2) {
-      const left = buttons[0];
-      const right = buttons[1];
+    if (btHomeData.buttonEvent?.length === 2) {
+      const left = btHomeData.buttonEvent[0];
+      const right = btHomeData.buttonEvent[1];
       this.debug('Buttons:', { left: left, right: right });
 
       if (left !== BTHomeButtonEvent.None) {
@@ -61,15 +35,16 @@ export default class ShellyBluRemoteControlDevice extends ShellyBleDevice {
       }
     }
 
-    if (rotations.length === 3) {
-      const x = rotations[0];
-      const y = rotations[1];
-      const z = rotations[2];
+    if (btHomeData.rotation?.length === 3) {
+      const x = btHomeData.rotation[0];
+      const y = btHomeData.rotation[1];
+      const z = btHomeData.rotation[2];
       this.debug('Rotations:', { x: x, y: y, z: z });
       await safeTriggerDeviceCard(this, 'blu_remote_control_rotation_measured', { x, y, z });
     }
 
-    if (scrollDirection !== undefined && scrollSteps !== undefined) {
+    if (btHomeData.dimmerEvent?.length === 1) {
+      const [scrollDirection, scrollSteps] = btHomeData.dimmerEvent[0];
       this.debug('Scroll:', { direction: scrollDirection, steps: scrollSteps });
       let direction: ScrollDirection;
 

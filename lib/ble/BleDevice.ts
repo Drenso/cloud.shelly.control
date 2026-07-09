@@ -1,7 +1,7 @@
 import Homey, { type BleAdvertisement } from 'homey';
 import type ShellyApp from '../../app.js';
 import type { ShellyBluDeviceData } from '../types.js';
-import { type BleForwardEventData, parseBleForward, parseBtHomeServiceData } from './BTHome.js';
+import { type BleForwardEventData, type BTHomeData, parseBleForward, parseBtHomeServiceData } from './BTHome.js';
 import type ShellyBleDriver from './BleDriver.js';
 
 const BTHOME_SERVICE_UUID = '0000fcd2-0000-1000-8000-00805f9b34fb';
@@ -74,20 +74,19 @@ export default abstract class ShellyBleDevice extends Homey.Device {
     return this.handleBtHomeData(btHomeData);
   }
 
-  private async handleBtHomeData(btHomeData: [string, unknown][] | undefined): Promise<void> {
+  private async handleBtHomeData(btHomeData: BTHomeData | undefined): Promise<void> {
     if (btHomeData === undefined) {
       return;
     }
 
     // TODO deduplicate using packet id
     if (Homey.env['DEBUG_BLE_FORWARDING'] === '1') {
-      const properties = btHomeData.map(entry => entry[0]);
-      this.log('Received BTHome frame:', properties);
+      this.log('Received BTHome frame:', btHomeData);
     }
     await this.handleBtHomeForward(btHomeData);
   }
 
-  public abstract handleBtHomeForward(data: [string, unknown][]): Promise<void>;
+  public abstract handleBtHomeForward(data: BTHomeData): Promise<void>;
 
   public debug(...args: unknown[]): void {
     (this.driver as ShellyBleDriver).debug(`[Device:${this.__id}]`, ...args);

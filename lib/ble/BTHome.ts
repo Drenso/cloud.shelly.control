@@ -50,7 +50,7 @@ const enum BleAddressType {
 
 type BtHomeDataType = { parse: (buffer: Buffer, offset: number) => [unknown, number] };
 
-function parseDimmerEvent(buffer: Buffer, offset: number): [unknown, number] {
+function parseDimmerEvent(buffer: Buffer, offset: number): [[BTHomeDimmerEvent, number], number] {
   const eventType = buffer.readUInt8(offset);
   const steps = buffer.readUInt8(offset + 1);
   return [[eventType, steps], 2];
@@ -126,8 +126,19 @@ export const enum BTHomeDimmerEvent {
   RotateRight = 0x02,
 }
 
-export function parseBtHomeServiceData(buffer: Buffer): [string, unknown][] {
-  const parsed: [string, unknown][] = [['deviceInformation', buffer.readUInt8(0)]];
+export type BTHomeData = {
+  packetId?: number[];
+  battery?: number[];
+  deviceTypeId?: number[];
+  firmwareVersion?: number[];
+  buttonEvent?: BTHomeButtonEvent[];
+  channel?: number[];
+  dimmerEvent?: [BTHomeDimmerEvent, number][];
+  rotation?: number[];
+};
+
+export function parseBtHomeServiceData(buffer: Buffer): BTHomeData {
+  const parsed: Record<string, unknown> = {};
 
   let offset = 1;
   while (offset < buffer.length) {
@@ -139,14 +150,22 @@ export function parseBtHomeServiceData(buffer: Buffer): [string, unknown][] {
     }
     const btHomeDataType = btHomeObjectType.dataType;
     const [data, length] = btHomeDataType.parse(buffer, offset);
-    parsed.push([btHomeObjectType.property, data]);
+    const property = btHomeObjectType.property;
+    const currentData = parsed[property];
+
+    if (currentData === undefined) {
+      parsed[property] = [data];
+    } else {
+      (currentData as unknown[]).push(data);
+    }
+
     offset += length;
   }
 
   return parsed;
 }
 
-export function parseBleForward(data: BleForwardEventData): [string, unknown][] | undefined {
+export function parseBleForward(data: BleForwardEventData): BTHomeData | undefined {
   const btHomeServiceData = data.service_data[BTHOME_SERVICE_ID];
   if (btHomeServiceData === undefined) {
     return undefined;
