@@ -93,7 +93,7 @@ export default abstract class ShellyBleDevice extends Homey.Device {
 
     const packetId = btHomeData.packetId[0];
     if (this.isDuplicate(packetId)) {
-      this.debug('Deduplicating:', btHomeData);
+      this.debugDeduplication('Deduplicating:', btHomeData);
       return;
     }
 

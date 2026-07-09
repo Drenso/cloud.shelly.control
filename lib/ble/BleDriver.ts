@@ -40,7 +40,6 @@ export default abstract class ShellyBleDriver extends Homey.Driver {
   public async onPairListDevices(): Promise<ShellyBluListDeviceProperties[]> {
     // Pre-filter on BTHome service
     const bleAdvertisements = await this.homey.ble.discover([BTHOME_SERVICE_UUID]);
-    console.debug('Advertisements:', bleAdvertisements);
 
     const results: ShellyBluListDeviceProperties[] = [];
 
