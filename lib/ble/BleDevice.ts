@@ -6,8 +6,14 @@ import type ShellyBleDriver from './BleDriver.js';
 
 const BTHOME_SERVICE_UUID = '0000fcd2-0000-1000-8000-00805f9b34fb';
 
+const MAX_ID = 0xff;
+const WINDOW_SIZE = 128;
+
 export default abstract class ShellyBleDevice extends Homey.Device {
   declare public readonly __id: string;
+
+  private newestSeenPacketId: number | undefined;
+  private seenPackets = Array(256).fill(false);
 
   public constructor(...args: unknown[]) {
     super(...(args as never[]));
@@ -53,6 +59,7 @@ export default abstract class ShellyBleDevice extends Homey.Device {
   }
 
   private async handleHomeyBle(advertisement: BleAdvertisement): Promise<void> {
+    this.debugDeduplication('Received Homey advertisement');
     for (const service of advertisement.serviceData) {
       if (service.uuid === BTHOME_SERVICE_UUID) {
         const btHomeData = parseBtHomeServiceData(service.data);
@@ -67,6 +74,9 @@ export default abstract class ShellyBleDevice extends Homey.Device {
   }
 
   private async handleBleForward(data: BleForwardEventData): Promise<void> {
+    if (Homey.env['DEBUG_BLE_DEDUPLICATION'] === '1' || Homey.env['DEBUG_BLE_FORWARDING'] === '1') {
+      this.debug('Received forwarded advertisement');
+    }
     const btHomeData = parseBleForward(data);
     return this.handleBtHomeData(btHomeData);
   }
@@ -76,16 +86,87 @@ export default abstract class ShellyBleDevice extends Homey.Device {
       return;
     }
 
-    // TODO deduplicate using packet id
-    if (Homey.env['DEBUG_BLE_FORWARDING'] === '1') {
-      this.log('Received BTHome frame:', btHomeData);
+    if (btHomeData?.packetId?.length !== 1) {
+      this.error('Invalid BTHome packet ID, ignoring:', btHomeData);
+      return;
     }
+
+    const packetId = btHomeData.packetId[0];
+    if (this.isDuplicate(packetId)) {
+      this.debug('Deduplicating:', btHomeData);
+      return;
+    }
+
+    this.debug('Received BTHome frame:', btHomeData);
     await this.handleBtHomeForward(btHomeData);
   }
 
   public abstract handleBtHomeForward(data: BTHomeData): Promise<void>;
 
+  private isDuplicate(id: number): boolean {
+    // Check whether the id is already seen in the current window.
+    // Window is 127 wide, trailing behind the newest seen packetId, and wrapping from 255 to 0.
+
+    const newest = this.newestSeenPacketId;
+
+    if (newest === undefined) {
+      this.debugDeduplication('First packet:', id);
+      // Mark id as newest seen
+      this.seenPackets[id] = true;
+      this.newestSeenPacketId = id;
+      return false;
+    }
+
+    // Modulo is `MAX_ID + 1` so that we wrap back to 0 after MAX_ID.
+    // In order to wrap negative numbers to positive we use `(x + modulo) % modulo`
+    const modulo = MAX_ID + 1;
+
+    // Check whether the packet newer than this packet (i.e. not in the trailing window)
+    const wrappedDistance = (newest - id + modulo) % modulo;
+    const inWindow = wrappedDistance < WINDOW_SIZE;
+
+    if (inWindow) {
+      this.debugDeduplication(`packet inside ${newest} window:`, id);
+      // Packet is inside the trailing window
+      // Check whether we have already seen this packet
+      const seen = this.seenPackets[id];
+      this.seenPackets[id] = true;
+      return seen;
+    }
+
+    this.debugDeduplication(`packet outside ${newest} window:`, id);
+
+    // Reset all values outside of the window to false
+    const lastToReset = (id + WINDOW_SIZE + modulo) % modulo;
+    const firstToReset = (newest - (WINDOW_SIZE - 1) + modulo) % modulo;
+
+    this.debugDeduplication('Resetting ids', firstToReset, 'to', lastToReset);
+
+    let index = firstToReset;
+    while (true) {
+      this.debugDeduplication('Resetting id', index);
+      this.seenPackets[index] = false;
+
+      if (index === lastToReset) {
+        break;
+      }
+
+      index = (index + 1) % modulo;
+    }
+
+    // Mark id as newest seen
+    this.seenPackets[id] = true;
+    this.newestSeenPacketId = id;
+    return false;
+  }
+
   public debug(...args: unknown[]): void {
     (this.driver as ShellyBleDriver).debug(`[Device:${this.__id}]`, ...args);
+  }
+
+  public debugDeduplication(...args: unknown[]): void {
+    if (Homey.env['DEBUG_BLE_DEDUPLICATION'] === '1') {
+      this.debug(...args);
+    }
   }
 }
