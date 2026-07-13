@@ -10016,7 +10016,10 @@
       "connectivity": [
         "lan"
       ],
-      "capabilities": [],
+      "capabilities": [
+        "valve_position",
+        "alarm_shelly_power_lost"
+      ],
       "capabilitiesOptions": {
         "button.restart": {
           "maintenanceAction": true,

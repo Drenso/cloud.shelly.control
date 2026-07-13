@@ -9,5 +9,5 @@
     "large": "/assets/drivers/watervalve/images/large.png",
     "xlarge": "/assets/drivers/watervalve/images/xlarge.png"
   },
-  "capabilities": []
+  "capabilities": ["valve_position", "alarm_shelly_power_lost"]
 }
