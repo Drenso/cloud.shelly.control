@@ -21,7 +21,6 @@ type OutboundWsChannelMittEvents = {
 // TODO authentication
 // See documentation: https://shelly-api-docs.shelly.cloud/gen2/General/Authentication/#authentication
 // See example: https://github.com/home-assistant-libs/aioshelly/blob/main/aioshelly/rpc_device/wsrpc.py
-// TODO secure ws
 export default class OutboundWebsocketChannel implements RpcChannel {
   public wsPromise: Promise<WebSocket>;
   private resolveWsPromise: ((ws: WebSocket) => void) | undefined;

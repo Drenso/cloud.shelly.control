@@ -29,7 +29,6 @@ type InboundWsChannelMittEvents = {
   opened: undefined;
 };
 
-// TODO wss://
 export default class InboundWebsocketChannel implements RpcChannel {
   public ws!: WebSocket;
   private auth?: AuthenticationResponse;
