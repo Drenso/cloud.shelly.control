@@ -126,12 +126,14 @@ export default class InboundWebsocketChannel implements RpcChannel {
   public disconnect(): void {
     this.closed = true;
     this.eventEmitter.all.clear();
-    this.ws.removeAllListeners();
-    try {
-      this.ws.close();
-    } catch (e) {
-      this.error('Error while closing WS:', e);
-    }
+    const oldWs = this.ws;
+    // Prevent automatic reconnecting
+    oldWs.removeAllListeners('close');
+    oldWs.close();
+    // The ws library throws errors next tick, so we cannot try-catch
+    // The 'error' event listener does handle the error,
+    // so it cannot be removed until the next tick
+    process.nextTick(oldWs.removeAllListeners);
     this.log('WS closed');
   }
 

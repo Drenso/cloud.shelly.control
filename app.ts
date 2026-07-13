@@ -13,6 +13,7 @@ import PresenceZone from './lib/component/components/PresenceZone.js';
 import { createHttpChannel } from './lib/HomeyRPCChannels.js';
 import Shelly from './lib/component/components/Shelly.js';
 
+// TODO remove in 1.0.0
 process.on('uncaughtException', (error, origin) => {
   console.error('Uncaught exception:', error, '\nfrom', origin);
 });
