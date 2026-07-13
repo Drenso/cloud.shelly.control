@@ -28,11 +28,11 @@ export default abstract class ShellyBleDriver extends Homey.Driver {
         const hideBleInformation = this.homey.settings.get('hide-ble-information');
         this.debug('Hide BLE information:', hideBleInformation);
         if (hideBleInformation) {
-          await session.nextView();
+          await session.nextView().catch(this.error);
         }
       }
     });
-    session.setHandler('pair_instructions', async () => {
+    session.setHandler('pair_instructions', () => {
       return this.manifest['learnmode'];
     });
   }

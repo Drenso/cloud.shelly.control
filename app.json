@@ -5436,17 +5436,6 @@
               }
             }
           ]
-        },
-        {
-          "id": "installBleForwardingScript",
-          "type": "checkbox",
-          "label": {
-            "en": "Install BLE forwarding script"
-          },
-          "hint": {
-            "en": "If enabled, a script will be started on this device to forward BLE messages from other Shelly devices. This ensures that messages from the other BLE devices can be handled even if they are out of range of your Homey device."
-          },
-          "value": false
         }
       ]
     },
@@ -5491,7 +5480,8 @@
       ],
       "energy": {
         "batteries": [
-          "INTERNAL"
+          "AAA",
+          "AAA"
         ]
       },
       "images": {

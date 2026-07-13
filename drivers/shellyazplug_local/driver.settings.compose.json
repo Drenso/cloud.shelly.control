@@ -107,8 +107,5 @@
         "$extends": "PLUGS_UI.leds.night_mode.active_between.end"
       }
     ]
-  },
-  {
-    "$extends": "installBleForwardingScript"
   }
 ]
