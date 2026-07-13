@@ -1,4 +1,4 @@
-import { BTHomeButtonEvent, type BTHomeData, BTHomeDimmerEvent } from '../../lib/ble/BTHome.js';
+import { BTHomeButtonEventType, type BTHomeData, BTHomeDimmerEventType } from '../../lib/ble/BTHome.js';
 import ShellyBleDevice from '../../lib/ble/BleDevice.js';
 import { safeSetCapabilityValue, safeTriggerDeviceCard } from '../../lib/safeFunctions.js';
 import type { Button, ScrollDirection } from './driver.js';
@@ -21,11 +21,11 @@ export default class ShellyBluRemoteControlDevice extends ShellyBleDevice {
       const left = btHomeData.buttonEvent[0];
       const right = btHomeData.buttonEvent[1];
 
-      if (left !== BTHomeButtonEvent.None) {
+      if (left !== BTHomeButtonEventType.None) {
         const args: { button: Button; channel: number } = { button: 'left', channel: channel };
         await safeTriggerDeviceCard(this, 'blu_remote_control_button_pressed', args, args);
       }
-      if (right !== BTHomeButtonEvent.None) {
+      if (right !== BTHomeButtonEventType.None) {
         const args: { button: Button; channel: number } = { button: 'right', channel: channel };
         await safeTriggerDeviceCard(this, 'blu_remote_control_button_pressed', args, args);
       }
@@ -44,17 +44,17 @@ export default class ShellyBluRemoteControlDevice extends ShellyBleDevice {
     }
 
     if (btHomeData.dimmerEvent?.length === 1) {
-      const [scrollDirection, scrollSteps] = btHomeData.dimmerEvent[0];
+      const { direction: scrollDirection, steps: scrollSteps } = btHomeData.dimmerEvent[0];
       let direction: ScrollDirection;
 
       switch (scrollDirection) {
-        case BTHomeDimmerEvent.None:
+        case BTHomeDimmerEventType.None:
           direction = 'none';
           break;
-        case BTHomeDimmerEvent.RotateLeft:
+        case BTHomeDimmerEventType.RotateLeft:
           direction = 'up';
           break;
-        case BTHomeDimmerEvent.RotateRight:
+        case BTHomeDimmerEventType.RotateRight:
           direction = 'down';
           break;
       }
