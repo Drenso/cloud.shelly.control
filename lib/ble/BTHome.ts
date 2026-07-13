@@ -68,6 +68,7 @@ const btHomeDataTypes = {
 type BtHomeObject = {
   property: string;
   dataType: (typeof btHomeDataTypes)[keyof typeof btHomeDataTypes];
+  factor?: number;
 };
 
 const btHomeObjects = {
@@ -106,6 +107,7 @@ const btHomeObjects = {
   0x3f: {
     property: 'rotation',
     dataType: btHomeDataTypes.int16,
+    factor: 0.1,
   },
 } as const satisfies Record<number, BtHomeObject>;
 
@@ -144,12 +146,13 @@ export function parseBtHomeServiceData(buffer: Buffer): BTHomeData {
   while (offset < buffer.length) {
     const btHomeObjectId = buffer.readUInt8(offset) as keyof typeof btHomeObjects;
     offset += 1;
-    const btHomeObjectType = btHomeObjects[btHomeObjectId];
+    const btHomeObjectType = btHomeObjects[btHomeObjectId] as BtHomeObject;
     if (btHomeObjectType === undefined) {
       throw new Error(`Unknown BTHome object: ${btHomeObjectId.toString(16)}`);
     }
     const btHomeDataType = btHomeObjectType.dataType;
-    const [data, length] = btHomeDataType.parse(buffer, offset);
+    const [rawData, length] = btHomeDataType.parse(buffer, offset);
+    const data = btHomeObjectType.factor === undefined ? rawData : (rawData as number) * btHomeObjectType.factor;
     const property = btHomeObjectType.property;
     const currentData = parsed[property];
 
