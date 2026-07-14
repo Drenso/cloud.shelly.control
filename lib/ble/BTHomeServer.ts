@@ -19,7 +19,7 @@ export class BTHomeServer {
   public readonly btHomeMitt = createMitt<BTHomeMitt>();
 
   public async installForwardingScript(device: VirtualDevice): Promise<void> {
-    const scriptPath = path.join(import.meta.dirname, 'script.min.js');
+    const scriptPath = path.join(import.meta.dirname, 'script.js');
     const script = await readFile(scriptPath, 'utf8');
     const createResponse = await Script.Create(device.getChannel(), { name: SCRIPT_NAME });
     const scriptId = createResponse.result.id;

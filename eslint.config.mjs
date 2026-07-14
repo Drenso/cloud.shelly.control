@@ -7,7 +7,6 @@ export default [
       'types/homey-zigbeedriver/index.d.ts',
       'types/homey-zwavedriver/index.d.ts',
       'types/zigbee-clusters/index.d.ts',
-      'lib/ble/script.min.js',
     ],
   },
   ...drensoConfig,
