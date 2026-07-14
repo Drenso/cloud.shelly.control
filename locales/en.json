@@ -3,7 +3,7 @@
   "pair": {
     "pairing_information": {
       "title": "Pairing information",
-      "content": "Before you continue make sure that you have configured your Shelly device with the Shelly smartphone app to use your local wireless network (Wi-Fi).<br><br>For the most reliable connectivity we strongly recommend using a static IP address for both your Homey and Shelly device, and that both are connected with the same network.<br><br>If any issues arise during pairing, please make sure to reboot both your Homey and Shelly device first. If the issues persist, you can always contact our support using the details available on the Homey app store!"
+      "content": "Before you continue make sure that you have configured your Shelly device with the Shelly smartphone app to use your local wireless network (Wi-Fi).<br><br>For the most reliable connectivity we strongly recommend using a static IP address for both your Homey and Shelly device, and that both are connected with the same network.<br><br>If any issues arise during pairing, please make sure to reboot both your Homey and Shelly device first. If the issues persist, you can always contact our support using the details available on the Homey app store!<br><br>The device will be restarted during configuration after pairing."
     },
     "ble_information": {
       "title": "BLE information",
