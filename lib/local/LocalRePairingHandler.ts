@@ -9,6 +9,7 @@ import type HttpChannel from '../rpc/channel/HttpChannel.js';
 import { HttpError } from '../rpc/channel/HttpChannel.js';
 import type { ShellyLocalListDeviceProperties, ShellyLocalListVirtualDeviceProperties } from '../types.js';
 import type { ShellyGetComponentsResponseComponent } from '../component/components/Shelly/GetComponents.js';
+import { NoPassword } from '../rpc/Authentication.js';
 
 export class LocalRePairingHandler {
   private selectedDevice!: ShellyLocalListVirtualDeviceProperties;
@@ -112,20 +113,16 @@ export class LocalRePairingHandler {
 
   private async processDevice(): Promise<void> {
     this.debug('processing device');
-    if (this.selectedDevice.store.auth_domain !== undefined) {
-      try {
-        await this.assembleDevice(this.device.getTypedStore().ha1);
-      } catch (e: unknown) {
-        if ((e as HttpError).code === 401) {
-          await this.authenticateDevice();
-          return;
-        }
-        console.error('Error while assembling device with old ha1:', e);
-        // TODO add some way of showing error messages in the front end,
-        //  as Homey does not seem to do anything with thrown exceptions
+    try {
+      await this.assembleDevice(this.device.getTypedStore().ha1);
+    } catch (e: unknown) {
+      if ((e as HttpError).code === 401 || e instanceof NoPassword) {
+        await this.authenticateDevice();
+        return;
       }
-    } else {
-      await this.assembleDevice();
+      console.error('Error while assembling device with old ha1:', e);
+      // TODO add some way of showing error messages in the front end,
+      //  as Homey does not seem to do anything with thrown exceptions
     }
     await this.addSubdevices();
   }
