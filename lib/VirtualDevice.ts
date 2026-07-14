@@ -24,6 +24,8 @@ import type Script from './component/components/Script.js';
 import type { BleForwardEventData } from './ble/BTHome.js';
 import { NoPassword } from './rpc/Authentication.js';
 
+const MAX_STATE_RETRIES = 5;
+
 export const IGNORED_NO_IMPLEMENTATION_COMPONENTS = [
   'ble',
   'bthome',
@@ -117,6 +119,8 @@ export class VirtualDevice {
   }
 
   private state: StateName;
+  private outboundWsRetries = 0;
+  private initRetries = 0;
 
   private bleForwardScript: Script | undefined;
 
@@ -223,6 +227,7 @@ export class VirtualDevice {
       transition: async ({ action }: StateAction): Promise<void> => {
         if (action === 'device_connected' || action === 'outbound_websocket_connected') {
           this.debugState('Initial connection established');
+          this.outboundWsRetries = 0;
           return this.states.waiting_for_outbound_ws_connection.enter();
         } else {
           throw new Error(`Unknown transition for waiting_for_initial_connection: ${action}`);
@@ -255,6 +260,7 @@ export class VirtualDevice {
       transition: async ({ action }: StateAction): Promise<void> => {
         if (action === 'outbound_websocket_connected') {
           this.debugState('Outbound websocket connection established');
+          this.initRetries = 0;
           return this.states.initializing.enter();
         }
         if (action === 'device_connected') {
@@ -265,6 +271,13 @@ export class VirtualDevice {
       },
       enter: async (): Promise<void> => {
         this.state = 'waiting_for_outbound_ws_connection';
+        this.debugState('Waiting for outbound websocket connection...');
+
+        if (this.outboundWsRetries > MAX_STATE_RETRIES) {
+          this.error('Failed opening outbound websocket after too many retries, going to initialization');
+          return this.states.initializing.enter();
+        }
+
         this.initialComponentResponses =
           (this.initialComponentResponses as ShellyGetComponentsResponseComponent[]) ??
           (await this.retrieveComponents());
@@ -276,16 +289,24 @@ export class VirtualDevice {
             if (config.enable && config.server === server) {
               this.log('Outbound websocket already enabled');
               this.debugState('Continuing directly to initialization');
+              this.initRetries = 0;
               return this.states.initializing.enter();
             } else {
               this.log('Enabling outbound websocket...');
+
               try {
                 await SetConfig(this.getChannel(), { config: { ssl_ca: '*', enable: true, server: server } });
               } catch (err) {
                 this.error('Error while configuring outbound websocket:', err);
-                this.debugState('Retrying...');
+                const retryDelay = 1000 * 2 ** (2 * this.outboundWsRetries);
+                this.debugState(`Retrying in ${retryDelay / 1000} seconds...`);
+                await new Promise(resolve => {
+                  this.app.homey.setTimeout(resolve, retryDelay);
+                });
+                this.outboundWsRetries += 1;
                 return this.states.waiting_for_outbound_ws_connection.enter();
               }
+
               await this.reboot().catch(err => this.debug('Error during Outbound WS reboot:', err));
               this.log('Enabled outbound websocket');
               this.debugState('Waiting for outbound websocket connection...');
@@ -296,6 +317,7 @@ export class VirtualDevice {
 
         this.log('No outbound websocket component found');
         this.debugState('Continuing directly to initialization');
+        this.initRetries = 0;
         return this.states.initializing.enter();
       },
     },
@@ -310,6 +332,17 @@ export class VirtualDevice {
       enter: async (): Promise<void> => {
         this.state = 'initializing';
         this.debugState('Initializing...');
+
+        if (this.initRetries > MAX_STATE_RETRIES) {
+          this.error('Failed initialization after too many retries');
+          for (const shellyLocalDevice of this.initialHomeyDevices ?? []) {
+            await shellyLocalDevice
+              .setUnavailable(this.app.homey.__('device.initialization_error'))
+              .catch(err => this.error('Error while setting device to unavailable due to failed retries:', err));
+          }
+          return;
+        }
+
         try {
           await this.initialize();
         } catch (err) {
@@ -323,9 +356,15 @@ export class VirtualDevice {
           }
 
           this.error('Error while initializing:', err);
-          this.debugState('Retrying...');
+          const retryDelay = 1000 * 2 ** (2 * this.initRetries);
+          this.debugState(`Retrying in ${retryDelay / 1000} seconds...`);
+          await new Promise(resolve => {
+            this.app.homey.setTimeout(resolve, retryDelay);
+          });
+          this.initRetries += 1;
           return this.states.initializing.enter();
         }
+
         this.debugState('Initialized');
         return this.states.online.enter();
       },
@@ -475,6 +514,7 @@ export class VirtualDevice {
     this.initialHomeyDeviceIds = [...this.initializedHomeyDevices.keys()];
     this.initialHomeyDevices = this.app.homey.drivers.getDrivers()[this.driver].getDevices() as ShellyLocalDevice[];
     this.initialComponents = [...this.initializedComponents.keys()];
+    this.initRetries = 0;
     return this.states.initializing.enter();
   }
 
@@ -626,6 +666,7 @@ export class VirtualDevice {
       return this.states.waiting_for_initial_connection.enter();
     }
 
+    this.initRetries = 0;
     return this.states.initializing.enter();
   }
 
