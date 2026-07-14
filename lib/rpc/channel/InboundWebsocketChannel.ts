@@ -104,15 +104,7 @@ export default class InboundWebsocketChannel implements RpcChannel {
     }
 
     this.log(`Reconnecting in ${this.reconnect_timeout_time} ms`);
-
-    try {
-      const oldWs = this.ws;
-      oldWs.removeAllListeners();
-      oldWs.close();
-    } catch (error) {
-      this.error('Error while closing old WS:', error);
-    }
-
+    this.close();
     this.app.homey.clearTimeout(this.reconnect_timeout);
     this.reconnect_timeout = this.app.homey.setTimeout(() => {
       this.log('Reconnecting...');
@@ -125,6 +117,11 @@ export default class InboundWebsocketChannel implements RpcChannel {
   public disconnect(): void {
     this.closed = true;
     this.eventEmitter.all.clear();
+    this.close();
+    this.log('WS closed');
+  }
+
+  private close(): void {
     const oldWs = this.ws;
     // Prevent automatic reconnecting
     oldWs.removeAllListeners('close');
@@ -132,8 +129,7 @@ export default class InboundWebsocketChannel implements RpcChannel {
     // The ws library throws errors next tick, so we cannot try-catch
     // The 'error' event listener does handle the error,
     // so it cannot be removed until the next tick
-    process.nextTick(oldWs.removeAllListeners);
-    this.log('WS closed');
+    process.nextTick(oldWs.removeAllListeners.bind(oldWs));
   }
 
   public resetReconnectTimeout(): void {
