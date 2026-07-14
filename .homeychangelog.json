@@ -43,5 +43,8 @@
   },
   "0.8.1": {
     "en": "Restore missing flow card definitions"
+  },
+  "0.9.0": {
+    "en": "Add LAN support for FrankEver Smart water valve. Add BLE support for BLU Remote Control. Add BLE forwarding script support as base for other BLE devices. Improved state and websocket error handling."
   }
 }
