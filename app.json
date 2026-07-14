@@ -10922,7 +10922,6 @@
       },
       "getable": true,
       "setable": false,
-      "uiComponent": "sensor",
       "insights": true,
       "icon": "/assets/capabilities/shelly_power_factor.svg"
     },
