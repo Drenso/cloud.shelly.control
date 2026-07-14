@@ -119,6 +119,7 @@ export default class ShellyApp extends Homey.App {
       );
       this.virtualDevices.set(virtualDeviceId, virtualDevice);
       this.expectedHomeyDeviceIds.push(...homeyDeviceIds);
+      this.outboundWsServer.registerDevice(deviceId);
     }
   }
 
@@ -165,6 +166,7 @@ export default class ShellyApp extends Homey.App {
     this.homey.settings.set(VIRTUAL_DEVICE_IDS_SETTING_KEY, virtualDeviceIds);
     const deviceSettingKey = VIRTUAL_DEVICE_SETTING_KEY_PREFIX + device.deviceId;
     this.homey.settings.unset(deviceSettingKey);
+    this.outboundWsServer.unregisterDevice(device.deviceId);
   }
 
   public async updateVirtualDevice(device: VirtualDevice): Promise<void> {
@@ -175,6 +177,7 @@ export default class ShellyApp extends Homey.App {
     }
     const deviceSettingKey = VIRTUAL_DEVICE_SETTING_KEY_PREFIX + device.deviceId;
     this.homey.settings.set(deviceSettingKey, device.serialize());
+    this.outboundWsServer.registerDevice(device.deviceId);
   }
 
   public getLocalDevice(id: string): ShellyLocalDevice | undefined {

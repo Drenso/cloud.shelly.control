@@ -1,7 +1,7 @@
 import type WebSocket from 'ws';
 import { type RawData, WebSocketServer } from 'ws';
 import { OUTBOUND_WS_PORT } from '../config.js';
-import type { NotificationFrame, UnknownFrame } from './Rpc.js';
+import { createRequestFrame, type NotificationFrame, type UnknownFrame } from './Rpc.js';
 import { createMitt } from '../util.js';
 import { createServer } from 'node:https';
 import { readFileSync } from 'fs';
@@ -18,6 +18,7 @@ export type WsMittEvents = {
 
 export default class OutboundWsServer {
   public readonly outboundWsMitt = createMitt<WsMittEvents>();
+  private registeredDevices = new Set<string>();
 
   public constructor(
     public readonly log: (...args: unknown[]) => void = console.log,
@@ -44,8 +45,26 @@ export default class OutboundWsServer {
   private handleOutboundWsMessage(ws: WebSocket, message: RawData): void {
     const string = message.toString();
     const json = JSON.parse(string) as NotificationFrame;
-    if (json.src !== undefined) {
-      this.outboundWsMitt.emit(json.src, { json: json, ws: ws });
+
+    if (json.src === undefined) {
+      return;
     }
+
+    if (this.registeredDevices.has(json.src)) {
+      this.outboundWsMitt.emit(json.src, { json: json, ws: ws });
+    } else {
+      this.log(`Outbound WS from unknown device ${json.src}, disabling`);
+      ws.removeAllListeners('message');
+      const requestFrame = createRequestFrame('Ws.SetConfig', { config: { enable: false, server: '' } });
+      ws.send(JSON.stringify(requestFrame));
+    }
+  }
+
+  public registerDevice(id: string): void {
+    this.registeredDevices.add(id);
+  }
+
+  public unregisterDevice(id: string): void {
+    this.registeredDevices.delete(id);
   }
 }

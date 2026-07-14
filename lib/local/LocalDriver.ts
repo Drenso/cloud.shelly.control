@@ -71,13 +71,14 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
     return { addonComponents, mainComponents };
   }
 
-  public async createVirtualDevice(
+  public createVirtualDevice(
     selectedDevice: ShellyLocalListVirtualDeviceProperties,
     components: ShellyGetComponentsResponseComponent[],
     homeyDevices: ShellyLocalListDeviceProperties[],
-  ): Promise<VirtualDevice> {
+  ): VirtualDevice {
     const homeyDeviceIds = homeyDevices.map(homeyDevice => homeyDevice.data.id);
     const componentKeys = components.map(component => component.key);
+    this.app.outboundWsServer.registerDevice(selectedDevice.data.id);
     return new VirtualDevice(
       this.app,
       selectedDevice.data.id,

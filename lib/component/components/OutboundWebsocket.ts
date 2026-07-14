@@ -4,7 +4,6 @@ import GetConfig from './OutboundWebsocket/GetConfig.js';
 import GetStatus from './OutboundWebsocket/GetStatus.js';
 import type { ComponentMethod } from './Shelly/ListMethods.js';
 import type ShellyLocalDevice from '../../local/LocalDevice.js';
-import type { VirtualDevice } from '../../VirtualDevice.js';
 
 export type OutBoundWebsocketConfig = {
   // true if websocket outbound connection is enabled, false otherwise
@@ -41,13 +40,6 @@ export default class OutboundWebsocket extends ComponentWithoutId<
   protected readonly _GetStatus = GetStatus;
   public readonly namespace = 'Ws';
   public static readonly uiName = 'Outbound Websocket';
-
-  // TODO ensure this works for BLE devices
-  public static async unregister(virtualDevice: VirtualDevice): Promise<void> {
-    virtualDevice.log('Disabling outbound websocket...');
-    await SetConfig(virtualDevice.getChannel(), { config: { enable: false, server: '' } }).catch(virtualDevice.error);
-    virtualDevice.log('Disabled outbound websocket');
-  }
 
   public async registerHomeyDevice(_homeyDevice: ShellyLocalDevice, _methods: ComponentMethod<'Ws'>[]): Promise<void> {}
 
