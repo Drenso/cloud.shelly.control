@@ -45,7 +45,7 @@ export default class Shelly2PMGen4SwitchLocalDriver extends ShellyLocalDriver {
             ...selectedDevice.store,
             components: splitComponents.map(splitComponent => `${splitComponent}:${componentId}`),
           },
-          capabilities: [],
+          capabilities: ['button.restart'],
         });
       }
     }

@@ -104,6 +104,7 @@ export class LocalRePairingHandler {
         components: [],
         auth_domain: deviceInfo.auth_domain ?? undefined,
       },
+      capabilities: oldData.battery_device ? [] : ['button.restart'],
     };
 
     this.log('Found device again:', this.selectedDevice);

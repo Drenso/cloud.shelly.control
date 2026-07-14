@@ -141,7 +141,7 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
         ...selectedDevice.store,
         components: components.map(component => component.key),
       },
-      capabilities: [],
+      capabilities: selectedDevice.data.battery_device ? [] : ['button.restart'],
     };
 
     return [device];

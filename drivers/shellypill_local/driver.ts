@@ -62,7 +62,7 @@ export default class ShellyPillLocalDriver extends ShellyLocalDriver {
           ...selectedDevice.store,
           components: [component.key],
         },
-        capabilities: [],
+        capabilities: ['button.restart'],
       });
     }
 

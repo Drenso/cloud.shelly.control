@@ -41,7 +41,7 @@ export default class ShellyEMGen4LocalDriver extends ShellyLocalDriver {
             ...selectedDevice.store,
             components: splitComponents.map(splitComponent => `${splitComponent}:${componentId}`),
           },
-          capabilities: [],
+          capabilities: ['button.restart'],
         });
       } else if (componentType === 'switch') {
         const switchId = parseInt(componentId!, 10);
@@ -62,7 +62,7 @@ export default class ShellyEMGen4LocalDriver extends ShellyLocalDriver {
             ...selectedDevice.store,
             components: [`switch:${componentId}`],
           },
-          capabilities: [],
+          capabilities: ['button.restart'],
         });
       }
     }
