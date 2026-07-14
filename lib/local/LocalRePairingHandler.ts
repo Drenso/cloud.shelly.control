@@ -112,11 +112,21 @@ export class LocalRePairingHandler {
   private async processDevice(): Promise<void> {
     this.debug('processing device');
     if (this.selectedDevice.store.auth_domain !== undefined) {
-      await this.authenticateDevice();
+      try {
+        await this.assembleDevice(this.device.getTypedStore().ha1);
+      } catch (e: unknown) {
+        if ((e as HttpError).code === 401) {
+          await this.authenticateDevice();
+          return;
+        }
+        console.error('Error while assembling device with old ha1:', e);
+        // TODO add some way of showing error messages in the front end,
+        //  as Homey does not seem to do anything with thrown exceptions
+      }
     } else {
       await this.assembleDevice();
-      await this.addSubdevices();
     }
+    await this.addSubdevices();
   }
 
   private async authenticateDevice(): Promise<void> {
