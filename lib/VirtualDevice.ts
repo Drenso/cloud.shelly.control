@@ -1,6 +1,7 @@
 import type ShellyApp from '../app.js';
 import type { Component } from './component/Component.js';
 import type { RpcChannel } from './rpc/channel/RpcChannel.js';
+import type { HttpError } from './rpc/channel/HttpChannel.js';
 import type HttpChannel from './rpc/channel/HttpChannel.js';
 import type InboundWebsocketChannel from './rpc/channel/InboundWebsocketChannel.js';
 import type OutboundWebsocketChannel from './rpc/channel/OutboundWebsocketChannel.js';
@@ -21,6 +22,7 @@ import { OUTBOUND_WS_PORT } from './config.js';
 import SetConfig from './component/components/OutboundWebsocket/SetConfig.js';
 import type Script from './component/components/Script.js';
 import type { BleForwardEventData } from './ble/BTHome.js';
+import { NoPassword } from './rpc/Authentication.js';
 
 export const IGNORED_NO_IMPLEMENTATION_COMPONENTS = [
   'ble',
@@ -311,6 +313,15 @@ export class VirtualDevice {
         try {
           await this.initialize();
         } catch (err) {
+          if ((err as HttpError).code === 401 || err instanceof NoPassword) {
+            for (const shellyLocalDevice of this.initialHomeyDevices ?? []) {
+              await shellyLocalDevice
+                .setUnavailable(this.app.homey.__('device.incorrect_password'))
+                .catch(err => this.error('Error while setting device to unavailable due to incorrect password:', err));
+            }
+            return;
+          }
+
           this.error('Error while initializing:', err);
           this.debugState('Retrying...');
           return this.states.initializing.enter();
