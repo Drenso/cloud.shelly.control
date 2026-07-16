@@ -13,8 +13,8 @@
     "measure_voltage",
     "meter_power",
     "measure_temperature",
-    "hidden.has_input_multiple_switch",
-    "hidden.has_input_multiple_button"
+    "hidden.has_input_switch",
+    "hidden.has_input_button"
   ],
   "images": {
     "small": "/assets/drivers/shellydimmerg4/images/small.png",

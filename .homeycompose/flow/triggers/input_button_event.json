@@ -3,7 +3,7 @@
     "en": "Button input fired"
   },
   "titleFormatted": {
-    "en": "Button input fired [[value]]"
+    "en": "Button input [[input]] fired [[value]]"
   },
   "tokens": [
     {
@@ -32,6 +32,13 @@
       },
       "title": {
         "en": "Device"
+      }
+    },
+    {
+      "name": "input",
+      "type": "autocomplete",
+      "title": {
+        "en": "Input"
       }
     },
     {

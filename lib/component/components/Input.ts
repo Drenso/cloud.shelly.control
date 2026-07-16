@@ -362,14 +362,20 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
   ): Promise<void> {
     const inputTypeComponents = Input.getInputTypes(homeyDevice.virtualDevice!);
 
-    // Migration to remove old sub-capabilities
+    // Migrations to remove old sub-capabilities
     // todo: Remove in 1.0
-    for (const capability of [
-      'sensor_boolean.input_switch',
-      'sensor_number.input_analog',
-      'sensor_number.input_count',
-    ]) {
-      await safeRemoveCapability(homeyDevice, `${capability}.${this.id}`);
+    {
+      for (const capability of [
+        'sensor_boolean.input_switch',
+        'sensor_number.input_analog',
+        'sensor_number.input_count',
+      ]) {
+        await safeRemoveCapability(homeyDevice, `${capability}.${this.id}`);
+      }
+
+      for (const inputType of ['switch', 'button', 'analog', 'count'] as const) {
+        await safeRemoveCapability(homeyDevice, `hidden.has_input_multiple_${inputType}`);
+      }
     }
 
     // Go through all types so capabilities for types that are no longer used also get cleaned up.
@@ -382,7 +388,6 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
 
       if (homeyDeviceInputComponents.length === 0) {
         await safeRemoveCapability(homeyDevice, `hidden.has_input_${inputType}`);
-        await safeRemoveCapability(homeyDevice, `hidden.has_input_multiple_${inputType}`);
         const capabilityId = `${CAPABILITY_MAPPING[inputType]}.${this.id}`;
         await safeRemoveCapability(homeyDevice, capabilityId);
         await homeyDevice.setCapabilityOptions(capabilityId, {});
@@ -390,13 +395,7 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
       }
 
       // Add helper capability to show correct flows
-      if (homeyDeviceInputComponents.length > 1) {
-        await safeRemoveCapability(homeyDevice, `hidden.has_input_${inputType}`);
-        await safeAddCapability(homeyDevice, `hidden.has_input_multiple_${inputType}`);
-      } else {
-        await safeRemoveCapability(homeyDevice, `hidden.has_input_multiple_${inputType}`);
-        await safeAddCapability(homeyDevice, `hidden.has_input_${inputType}`);
-      }
+      await safeAddCapability(homeyDevice, `hidden.has_input_${inputType}`);
 
       if (['switch', 'analog', 'count'].includes(inputType)) {
         const homeyCapability = CAPABILITY_MAPPING[inputType as 'switch' | 'analog' | 'count'];
@@ -407,7 +406,6 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
     this.buttonMitt.on('button', type => {
       const buttonUpdate = { value: type, input: this.id };
       safeTriggerDeviceCard(homeyDevice, 'input_button_event', buttonUpdate, buttonUpdate);
-      safeTriggerDeviceCard(homeyDevice, 'input_button_event_multiple', buttonUpdate, buttonUpdate);
     });
   }
 
@@ -423,21 +421,26 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
   ): Promise<void> {
     for (const type of ['switch', 'button', 'analog', 'count'] as const) {
       await safeRemoveCapability(homeyDevice, `hidden.has_input_${type}`);
-      await safeRemoveCapability(homeyDevice, `hidden.has_input_multiple_${type}`);
 
       const capabilityId = `${CAPABILITY_MAPPING[type]}.${id}`;
       await safeRemoveCapability(homeyDevice, capabilityId);
       await homeyDevice.setCapabilityOptions(capabilityId, {});
     }
 
-    // Migration to remove old sub-capabilities
+    // Migrations to remove old sub-capabilities
     // todo: Remove in 1.0
-    for (const capability of [
-      'sensor_boolean.input_switch',
-      'sensor_number.input_analog',
-      'sensor_number.input_count',
-    ]) {
-      await safeRemoveCapability(homeyDevice, `${capability}.${id}`);
+    {
+      for (const capability of [
+        'sensor_boolean.input_switch',
+        'sensor_number.input_analog',
+        'sensor_number.input_count',
+      ]) {
+        await safeRemoveCapability(homeyDevice, `${capability}.${id}`);
+      }
+
+      for (const inputType of ['switch', 'button', 'analog', 'count'] as const) {
+        await safeRemoveCapability(homeyDevice, `hidden.has_input_multiple_${inputType}`);
+      }
     }
   }
 
@@ -446,7 +449,6 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
       await this.setInputCapability(homeyDevice, 'input_switch', status.state);
       const switchUpdate = { value: status.state, input: this.id };
       await safeTriggerDeviceCard(homeyDevice, 'input_switch_changed', switchUpdate, switchUpdate);
-      await safeTriggerDeviceCard(homeyDevice, 'input_switch_changed_multiple', switchUpdate, switchUpdate);
     }
 
     if (status.percent !== undefined) {
@@ -454,11 +456,9 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
       if (status.percent === null) {
         const analogUpdate = { input: this.id };
         await safeTriggerDeviceCard(homeyDevice, 'input_analog_became_null', analogUpdate, analogUpdate);
-        await safeTriggerDeviceCard(homeyDevice, 'input_analog_became_null_multiple', analogUpdate, analogUpdate);
       } else {
         const analogUpdate = { value: status.percent, input: this.id };
         await safeTriggerDeviceCard(homeyDevice, 'input_analog_changed', analogUpdate, analogUpdate);
-        await safeTriggerDeviceCard(homeyDevice, 'input_analog_changed_multiple', analogUpdate, analogUpdate);
       }
     }
 
@@ -466,7 +466,6 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
       await this.setInputCapability(homeyDevice, 'input_count', status.counts.total);
       const countUpdate = { value: status.counts.total, input: this.id };
       await safeTriggerDeviceCard(homeyDevice, 'input_count_changed', countUpdate, countUpdate);
-      await safeTriggerDeviceCard(homeyDevice, 'input_count_changed_multiple', countUpdate, countUpdate);
     }
   }
 
@@ -613,13 +612,6 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
 
     app.homey.flow
       .getDeviceTriggerCard('input_switch_changed')
-      .registerRunListener((flowArgs: { value: ('on' | 'off')[] }, triggerArgs: { value: boolean; input: number }) => {
-        const stateMatches = flowArgs.value.includes(triggerArgs.value ? 'on' : 'off');
-        return stateMatches;
-      });
-
-    app.homey.flow
-      .getDeviceTriggerCard('input_switch_changed_multiple')
       .registerArgumentAutocompleteListener('input', createAutocompleteListener('switch'))
       .registerRunListener(
         (
@@ -632,38 +624,29 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
         },
       );
 
-    app.homey.flow.getDeviceTriggerCard('input_analog_changed').registerRunListener(() => true);
-
     app.homey.flow
-      .getDeviceTriggerCard('input_analog_changed_multiple')
+      .getDeviceTriggerCard('input_analog_changed')
       .registerArgumentAutocompleteListener('input', createAutocompleteListener('analog'))
       .registerRunListener((flowArgs: { input: { id: number } }, triggerArgs: { value: boolean; input: number }) => {
-        const switchMatches = flowArgs.input.id === triggerArgs.input;
-        return switchMatches;
+        return flowArgs.input.id === triggerArgs.input;
       });
 
     app.homey.flow
-      .getDeviceTriggerCard('input_analog_became_null_multiple')
+      .getDeviceTriggerCard('input_analog_became_null')
       .registerArgumentAutocompleteListener('input', createAutocompleteListener('analog'))
-      .registerRunListener(() => true);
-
-    app.homey.flow.getDeviceTriggerCard('input_analog_became_null').registerRunListener(() => true);
-
-    app.homey.flow.getDeviceTriggerCard('input_button_event').registerRunListener(
-      (
-        flowArgs: { value: ('btn_down' | 'btn_up' | 'single_push' | 'double_push' | 'triple_push' | 'long_push')[] },
-        triggerArgs: {
-          value: 'btn_down' | 'btn_up' | 'single_push' | 'double_push' | 'triple_push' | 'long_push';
-          input: number;
-        },
-      ) => {
-        const stateMatches = flowArgs.value.includes(triggerArgs.value);
-        return stateMatches;
-      },
-    );
+      .registerRunListener((flowArgs: { input: { name: string; id: number } }, triggerArgs: { input: number }) => {
+        return flowArgs.input.id === triggerArgs.input;
+      });
 
     app.homey.flow
-      .getDeviceTriggerCard('input_button_event_multiple')
+      .getDeviceTriggerCard('input_count_changed')
+      .registerArgumentAutocompleteListener('input', createAutocompleteListener('count'))
+      .registerRunListener((flowArgs: { input: { name: string; id: number } }, triggerArgs: { input: number }) => {
+        return flowArgs.input.id === triggerArgs.input;
+      });
+
+    app.homey.flow
+      .getDeviceTriggerCard('input_button_event')
       .registerArgumentAutocompleteListener('input', createAutocompleteListener('button'))
       .registerRunListener(
         (

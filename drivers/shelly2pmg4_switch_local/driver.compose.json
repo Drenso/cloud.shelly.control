@@ -16,8 +16,8 @@
     "meter_power.consumed",
     "meter_power.returned",
     "measure_temperature",
-    "hidden.has_input_multiple_button",
-    "hidden.has_input_multiple_switch"
+    "hidden.has_input_button",
+    "hidden.has_input_switch"
   ],
   "images": {
     "small": "/assets/drivers/shelly2pmg4/images/small.png",

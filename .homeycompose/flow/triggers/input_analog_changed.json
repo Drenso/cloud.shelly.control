@@ -2,6 +2,9 @@
   "title": {
     "en": "Analog input changed"
   },
+  "titleFormatted": {
+    "en": "Analog input [[input]] changed"
+  },
   "tokens": [
     {
       "name": "input",
@@ -29,6 +32,13 @@
       },
       "title": {
         "en": "Device"
+      }
+    },
+    {
+      "name": "input",
+      "type": "autocomplete",
+      "title": {
+        "en": "Input"
       }
     }
   ]

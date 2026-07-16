@@ -3,7 +3,7 @@
     "en": "Switch input changed"
   },
   "titleFormatted": {
-    "en": "Switch input changed to [[value]]"
+    "en": "Switch input [[input]] changed to [[value]]"
   },
   "tokens": [
     {
@@ -32,6 +32,13 @@
       },
       "title": {
         "en": "Device"
+      }
+    },
+    {
+      "name": "input",
+      "type": "autocomplete",
+      "title": {
+        "en": "Input"
       }
     },
     {
