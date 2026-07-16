@@ -596,17 +596,20 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
 
         const deviceSwitchInputs: Input[] = [];
         for (const inputId of switchInputs) {
-          const inputComponent = device.virtualComponents.get(inputId) as Input | undefined;
+          const inputComponent = device.virtualComponents?.get(inputId) as Input | undefined;
           if (inputComponent !== undefined) {
             deviceSwitchInputs.push(inputComponent);
           }
         }
         const capabilityOptions = capabilitiesOptions[CAPABILITY_MAPPING[inputType]];
-        return deviceSwitchInputs.map(input => ({
-          name:
-            input.config.name ?? translate(app.homey.__('locale'), capabilityOptions.title, { number: `${input.id}` }),
-          id: input.id,
-        }));
+        return deviceSwitchInputs
+          .map(input => ({
+            name:
+              input.config.name ??
+              translate(app.homey.__('locale'), capabilityOptions.title, { number: `${input.id}` }),
+            id: input.id,
+          }))
+          .filter(input => input.name.toLowerCase().includes(query.toLowerCase()));
       };
     };
 
@@ -670,9 +673,9 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
       .registerArgumentAutocompleteListener('input', createAutocompleteListener('analog'))
       .registerRunListener((cardArgs: { device: ShellyLocalDevice; input: { name: string; id: number } }) => {
         const componentKey = `input:${cardArgs.input.id}`;
-        const component = cardArgs.device.virtualComponents.get(componentKey) as Input | undefined;
+        const component = cardArgs.device.virtualComponents?.get(componentKey) as Input | undefined;
         if (component === undefined) {
-          throw new Error(cardArgs.device.homey.__('error.component_not_found', { component: componentKey }));
+          throw new Error(app.homey.__('error.component_not_found', { component: componentKey }));
         }
         return component.status.percent === null;
       });
@@ -682,9 +685,9 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
       .registerArgumentAutocompleteListener('input', createAutocompleteListener('switch'))
       .registerRunListener((cardArgs: { device: ShellyLocalDevice; input: { name: string; id: number } }) => {
         const componentKey = `input:${cardArgs.input.id}`;
-        const component = cardArgs.device.virtualComponents.get(componentKey) as Input | undefined;
+        const component = cardArgs.device.virtualComponents?.get(componentKey) as Input | undefined;
         if (component === undefined) {
-          throw new Error(cardArgs.device.homey.__('error.component_not_found', { component: componentKey }));
+          throw new Error(app.homey.__('error.component_not_found', { component: componentKey }));
         }
         return component.status.state;
       });

@@ -201,13 +201,16 @@ export default class Boolean extends ComponentWithId<'Boolean', BooleanStatus, B
       .registerArgumentAutocompleteListener('boolean', autoCompleteListener)
       .registerRunListener(
         (cardArgs: { device: ShellyLocalDevice; boolean: { name: string; id: number }; value: boolean }) => {
-          const booleanComponent = cardArgs.device.virtualComponents.get(`boolean:${cardArgs.boolean.id}`) as
-            | Boolean
-            | undefined;
-          const channel = cardArgs.device.virtualDevice?.getChannel();
-          if (booleanComponent !== undefined && channel !== undefined) {
-            return booleanComponent.Set(channel, { value: cardArgs.value });
+          const componentKey = `boolean:${cardArgs.boolean.id}`;
+          const component = cardArgs.device.virtualComponents.get(componentKey) as Boolean | undefined;
+          if (component === undefined) {
+            throw new Error(app.homey.__('error.component_not_found', { component: componentKey }));
           }
+          const channel = cardArgs.device.virtualDevice?.getChannel();
+          if (channel === undefined) {
+            throw new Error(app.homey.__('error.host_unreachable'));
+          }
+          return component.Set(channel, { value: cardArgs.value });
         },
       );
   }

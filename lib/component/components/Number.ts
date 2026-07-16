@@ -169,13 +169,16 @@ export default class Number extends ComponentWithId<'Number', NumberStatus, Numb
       .registerArgumentAutocompleteListener('number', autoCompleteListener)
       .registerRunListener(
         (cardArgs: { device: ShellyLocalDevice; number: { name: string; id: number }; value: number }) => {
-          const numberComponent = cardArgs.device.virtualComponents.get(`number:${cardArgs.number.id}`) as
-            | Number
-            | undefined;
-          const channel = cardArgs.device.virtualDevice?.getChannel();
-          if (numberComponent !== undefined && channel !== undefined) {
-            return numberComponent.Set(channel, { value: cardArgs.value });
+          const componentKey = `number:${cardArgs.number.id}`;
+          const component = cardArgs.device.virtualComponents.get(componentKey) as Number | undefined;
+          if (component === undefined) {
+            throw new Error(app.homey.__('error.component_not_found', { component: componentKey }));
           }
+          const channel = cardArgs.device.virtualDevice?.getChannel();
+          if (channel === undefined) {
+            throw new Error(app.homey.__('error.host_unreachable'));
+          }
+          return component.Set(channel, { value: cardArgs.value });
         },
       );
   }

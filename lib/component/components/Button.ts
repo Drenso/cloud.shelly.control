@@ -178,13 +178,16 @@ export default class Button extends ComponentWithId<'Button', ButtonStatus, Butt
           button: { name: string; id: number };
           event: 'single_push' | 'double_push' | 'triple_push' | 'long_push';
         }) => {
-          const buttonComponent = cardArgs.device.virtualComponents.get(`button:${cardArgs.button.id}`) as
-            | Button
-            | undefined;
-          const channel = cardArgs.device.virtualDevice?.getChannel();
-          if (buttonComponent !== undefined && channel !== undefined) {
-            return buttonComponent.Trigger(channel, { event: cardArgs.event });
+          const componentKey = `button:${cardArgs.button.id}`;
+          const component = cardArgs.device.virtualComponents.get(componentKey) as Button | undefined;
+          if (component === undefined) {
+            throw new Error(app.homey.__('error.component_not_found', { component: componentKey }));
           }
+          const channel = cardArgs.device.virtualDevice?.getChannel();
+          if (channel === undefined) {
+            throw new Error(app.homey.__('error.host_unreachable'));
+          }
+          return component.Trigger(channel, { event: cardArgs.event });
         },
       );
   }
