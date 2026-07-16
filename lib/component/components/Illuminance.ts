@@ -1,5 +1,5 @@
 import type ShellyLocalDevice from '../../local/LocalDevice.js';
-import type { RecursivePartial } from '../../util.js';
+import { fillTranslationTagsRecursively, type RecursivePartial, translate } from '../../util.js';
 import { type AllowedPrimitives, ComponentWithId } from '../Component.js';
 import GetConfig from './Illuminance/GetConfig.js';
 import GetStatus from './Illuminance/GetStatus.js';
@@ -144,20 +144,64 @@ export default class Illuminance extends ComponentWithId<
     return result.result.restart_required;
   }
 
+  public getTitleTranslations(): string | { en: string; [p: string]: string } {
+    if (this.config.name !== null) {
+      return this.config.name;
+    }
+    return fillTranslationTagsRecursively(capabilitiesOptions['illuminanceName'], {
+      name: `${this.id}`,
+    }) as string | { en: string; [p: string]: string };
+  }
+
   public static registerFlowCards(app: ShellyApp): void {
     type ValueArg = 'dark' | 'twilight' | 'bright';
 
+    const getIlluminanceComponents = (device: ShellyLocalDevice): Illuminance[] => {
+      if (device.virtualDevice === undefined) {
+        return [];
+      }
+
+      return [...device.virtualComponents.values()].filter(component => component instanceof Illuminance);
+    };
+
+    const autoCompleteListener = (
+      query: string,
+      { device }: { device: ShellyLocalDevice },
+    ): { name: string; id: number }[] => {
+      return getIlluminanceComponents(device)
+        .map(component => ({
+          name: translate(app.homey.__('locale'), component.getTitleTranslations()),
+          id: component.id,
+        }))
+        .filter(component => component.name.toLowerCase().includes(query.toLowerCase()));
+    };
+
     app.homey.flow
       .getDeviceTriggerCard('shelly_illumination_changed')
-      .registerRunListener((flowArgs: { value: Array<ValueArg> }, triggerArgs: { value: ValueArg }) => {
-        return flowArgs.value.includes(triggerArgs.value);
-      });
+      .registerArgumentAutocompleteListener('illuminance', autoCompleteListener)
+      .registerRunListener(
+        (
+          flowArgs: { value: Array<ValueArg>; illuminance: { name: string; id: number } },
+          triggerArgs: { value: ValueArg; illuminance: number },
+        ) => {
+          return flowArgs.illuminance.id === triggerArgs.illuminance && flowArgs.value.includes(triggerArgs.value);
+        },
+      );
 
     app.homey.flow
       .getConditionCard('shelly_illumination_is')
+      .registerArgumentAutocompleteListener('illuminance', autoCompleteListener)
       .registerRunListener(
-        (flowArgs: { value: Array<ValueArg>; device: ShellyLocalDevice }, _triggerArgs: { manual: boolean }) => {
-          return flowArgs.value.includes(flowArgs.device.getCapabilityValue('shelly_illumination'));
+        (
+          flowArgs: { value: Array<ValueArg>; device: ShellyLocalDevice; illuminance: { name: string; id: number } },
+          _triggerArgs: { manual: boolean },
+        ) => {
+          const componentKey = `illuminance:${flowArgs.illuminance.id}`;
+          const component = flowArgs.device.virtualComponents.get(componentKey) as Illuminance | undefined;
+          if (component === undefined) {
+            throw new Error(app.homey.__('error.component_not_found', { component: componentKey }));
+          }
+          return flowArgs.value.includes(component.status.illumination!);
         },
       );
   }

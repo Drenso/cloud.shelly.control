@@ -792,7 +792,7 @@
           "en": "Illumination status changed"
         },
         "titleFormatted": {
-          "en": "Illumination status changed to [[value]]"
+          "en": "[[illuminance]] status changed to [[value]]"
         },
         "tokens": [
           {
@@ -805,6 +805,16 @@
           }
         ],
         "args": [
+          {
+            "name": "illuminance",
+            "type": "autocomplete",
+            "placeholder": {
+              "en": "Illuminance"
+            },
+            "title": {
+              "en": "Illuminance"
+            }
+          },
           {
             "name": "device",
             "type": "device",
@@ -1614,9 +1624,19 @@
           "en": "Illumination status !{{is|isn't}}"
         },
         "titleFormatted": {
-          "en": "Illumination status !{{is|isn't}} [[value]]"
+          "en": "[[illuminance]] status !{{is|isn't}} [[value]]"
         },
         "args": [
+          {
+            "name": "illuminance",
+            "type": "autocomplete",
+            "placeholder": {
+              "en": "Illuminance"
+            },
+            "title": {
+              "en": "Illuminance"
+            }
+          },
           {
             "name": "device",
             "type": "device",
