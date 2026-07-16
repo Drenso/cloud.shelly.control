@@ -78,6 +78,7 @@
     "cannot_enable_breaker_remotely": "The breaker cannot be enabled remotely.",
     "host_unreachable": "Could not reach device",
     "uncalibrated": "The device is not calibrated",
-    "not_initialized": "The device has not finished initializing"
+    "not_initialized": "The device has not finished initializing",
+    "component_not_found": "Could not find component __component__"
   }
 }

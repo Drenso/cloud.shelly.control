@@ -183,6 +183,20 @@ export default class Boolean extends ComponentWithId<'Boolean', BooleanStatus, B
       });
 
     app.homey.flow
+      .getConditionCard('virtual_boolean_is')
+      .registerArgumentAutocompleteListener('boolean', autoCompleteListener)
+      .registerRunListener(
+        (cardArgs: { boolean: { name: string; id: number }; device: ShellyLocalDevice }): boolean => {
+          const componentKey = `boolean:${cardArgs.boolean.id}`;
+          const component = cardArgs.device.virtualComponents.get(componentKey) as Boolean | undefined;
+          if (component === undefined) {
+            throw new Error(app.homey.__('error.component_not_found', { component: componentKey }));
+          }
+          return component.status.value;
+        },
+      );
+
+    app.homey.flow
       .getActionCard('set_virtual_boolean')
       .registerArgumentAutocompleteListener('boolean', autoCompleteListener)
       .registerRunListener(
