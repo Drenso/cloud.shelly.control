@@ -2,6 +2,9 @@
   "title": {
     "en": "An object !{{is|isn't}} detected in a zone"
   },
+  "titleFormatted": {
+    "en": "An object !{{is|isn't}} detected in the zone [[zone]]"
+  },
   "args": [
     {
       "name": "device",
@@ -12,6 +15,13 @@
       },
       "title": {
         "en": "Device"
+      }
+    },
+    {
+      "name": "zone",
+      "type": "autocomplete",
+      "title": {
+        "en": "Zone"
       }
     }
   ]

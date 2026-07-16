@@ -103,6 +103,10 @@ export default class PresenceZone extends ComponentWithId<
     homeyDevice: ShellyLocalDevice,
     _methods: Array<ComponentMethod<'PresenceZone'>>,
   ): Promise<void> {
+    // TODO remove in 1.0.0
+    // Migration to remove old capability
+    await safeRemoveCapability(homeyDevice, 'hidden.has_presence_sensor_multiple');
+
     for (const [statusKey, homeyCapability] of [
       ['value', 'alarm_presence'],
       ['num_objects', 'shelly_presence_count'],
@@ -115,14 +119,7 @@ export default class PresenceZone extends ComponentWithId<
       }
     }
 
-    const presenceZones = homeyDevice.componentCounts.get(this.namespace)!;
-    if (presenceZones > 1) {
-      await safeRemoveCapability(homeyDevice, 'hidden.has_presence_sensor');
-      await safeAddCapability(homeyDevice, 'hidden.has_presence_sensor_multiple');
-    } else {
-      await safeRemoveCapability(homeyDevice, 'hidden.has_presence_sensor_multiple');
-      await safeAddCapability(homeyDevice, 'hidden.has_presence_sensor');
-    }
+    await safeAddCapability(homeyDevice, 'hidden.has_presence_sensor');
 
     this.presenceMitt.on('presence', state => {
       this.setCapability(homeyDevice, 'alarm_presence', state);
@@ -131,16 +128,13 @@ export default class PresenceZone extends ComponentWithId<
       this.setCapability(homeyDevice, 'shelly_presence_count', objects.length);
       this.setCapability(homeyDevice, 'alarm_presence', objects.length > 0);
       const countUpdate = { zone: this.id, value: objects.length };
-      safeTriggerDeviceCard(homeyDevice, 'presence_count_changed', countUpdate);
-      safeTriggerDeviceCard(homeyDevice, 'presence_count_changed_multiple', countUpdate, { zone: this.id });
+      safeTriggerDeviceCard(homeyDevice, 'presence_count_changed', countUpdate, { zone: this.id });
     });
     this.presenceMitt.on('enter', () => {
-      safeTriggerDeviceCard(homeyDevice, 'presence_enter', { zone: this.id });
-      safeTriggerDeviceCard(homeyDevice, 'presence_enter_multiple', { zone: this.id }, { zone: this.id });
+      safeTriggerDeviceCard(homeyDevice, 'presence_enter', { zone: this.id }, { zone: this.id });
     });
     this.presenceMitt.on('leave', () => {
-      safeTriggerDeviceCard(homeyDevice, 'presence_exit', { zone: this.id });
-      safeTriggerDeviceCard(homeyDevice, 'presence_exit_multiple', { zone: this.id }, { zone: this.id });
+      safeTriggerDeviceCard(homeyDevice, 'presence_exit', { zone: this.id }, { zone: this.id });
     });
   }
 
@@ -157,6 +151,9 @@ export default class PresenceZone extends ComponentWithId<
     await PresenceZone.unregisterCapability(homeyDevice, 'alarm_presence', id);
     await PresenceZone.unregisterCapability(homeyDevice, 'shelly_presence_count', id);
     await safeRemoveCapability(homeyDevice, 'hidden.has_presence_sensor');
+
+    // TODO remove in 1.0.0
+    // Migration to remove old capability
     await safeRemoveCapability(homeyDevice, 'hidden.has_presence_sensor_multiple');
   }
 
@@ -185,31 +182,28 @@ export default class PresenceZone extends ComponentWithId<
         .filter(presenceZone => presenceZone.name.toLowerCase().includes(query.toLowerCase()));
     };
 
-    for (const flow of [
-      'presence_count_changed_multiple',
-      'presence_enter_multiple',
-      'presence_exit_multiple',
-    ] as const) {
+    for (const flow of ['presence_count_changed', 'presence_enter', 'presence_exit'] as const) {
       app.homey.flow
         .getDeviceTriggerCard(flow)
+        .registerArgumentAutocompleteListener('zone', autoCompleteListener)
         .registerRunListener((flowArgs: { zone: { id: number } }, triggerArgs: { zone: number }) => {
           return flowArgs.zone.id === triggerArgs.zone;
-        })
-        .registerArgumentAutocompleteListener('zone', autoCompleteListener);
+        });
     }
 
-    app.homey.flow.getConditionCard('presence_has').registerRunListener((flowArgs: { device: ShellyLocalDevice }) => {
-      return getZones(flowArgs.device).some(presenceZone => presenceZone.status.value);
-    });
-
     app.homey.flow
-      .getConditionCard('presence_has_multiple')
+      .getConditionCard('presence_has')
+      .registerArgumentAutocompleteListener('zone', autoCompleteListener)
       .registerRunListener((flowArgs: { zone: { id: number }; device: ShellyLocalDevice }) => {
+        const componentKey = `presencezone:${flowArgs.zone.id}`;
+        const component = flowArgs.device.virtualComponents.get(componentKey) as PresenceZone | undefined;
+        if (component === undefined) {
+          throw new Error(app.homey.__('error.component_not_found', { component: componentKey }));
+        }
         return getZones(flowArgs.device)
           .filter(presenceZone => presenceZone.id === flowArgs.zone.id)
           .some(presenceZone => presenceZone.status.value);
-      })
-      .registerArgumentAutocompleteListener('zone', autoCompleteListener);
+      });
   }
 
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: PresenceZoneStatus): Promise<void> {

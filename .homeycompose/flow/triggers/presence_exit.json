@@ -1,6 +1,9 @@
 {
   "title": {
-    "en": "An object left the zone"
+    "en": "An object left a zone"
+  },
+  "titleFormatted": {
+    "en": "An object left zone [[zone]]"
   },
   "tokens": [
     {
@@ -22,6 +25,13 @@
       },
       "title": {
         "en": "Device"
+      }
+    },
+    {
+      "name": "zone",
+      "type": "autocomplete",
+      "title": {
+        "en": "Zone"
       }
     }
   ]

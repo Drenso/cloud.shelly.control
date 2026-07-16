@@ -2,6 +2,9 @@
   "title": {
     "en": "Object count changed"
   },
+  "titleFormatted": {
+    "en": "Object count in zone [[zone]] changed"
+  },
   "tokens": [
     {
       "name": "zone",
@@ -29,6 +32,13 @@
       },
       "title": {
         "en": "Device"
+      }
+    },
+    {
+      "name": "zone",
+      "type": "autocomplete",
+      "title": {
+        "en": "Zone"
       }
     }
   ]
