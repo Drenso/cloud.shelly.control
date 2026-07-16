@@ -664,5 +664,29 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
           return switchMatches && stateMatches;
         },
       );
+
+    app.homey.flow
+      .getConditionCard('input_analog_is_null')
+      .registerArgumentAutocompleteListener('input', createAutocompleteListener('analog'))
+      .registerRunListener((cardArgs: { device: ShellyLocalDevice; input: { name: string; id: number } }) => {
+        const componentKey = `input:${cardArgs.input.id}`;
+        const component = cardArgs.device.virtualComponents.get(componentKey) as Input | undefined;
+        if (component === undefined) {
+          throw new Error(cardArgs.device.homey.__('error.component_not_found', { component: componentKey }));
+        }
+        return component.status.percent === null;
+      });
+
+    app.homey.flow
+      .getConditionCard('input_switch_is')
+      .registerArgumentAutocompleteListener('input', createAutocompleteListener('switch'))
+      .registerRunListener((cardArgs: { device: ShellyLocalDevice; input: { name: string; id: number } }) => {
+        const componentKey = `input:${cardArgs.input.id}`;
+        const component = cardArgs.device.virtualComponents.get(componentKey) as Input | undefined;
+        if (component === undefined) {
+          throw new Error(cardArgs.device.homey.__('error.component_not_found', { component: componentKey }));
+        }
+        return component.status.state;
+      });
   }
 }
