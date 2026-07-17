@@ -153,10 +153,10 @@
     } else {
       checkBoxParent.classList.add('__hidden');
     }
-    nextDevice();
+    showDevice();
   });
 
-  function nextDevice() {
+  function showDevice() {
     currentDevice = devices?.[0];
     if (currentDevice === undefined) {
       Homey.emit('authentication_done');
@@ -190,24 +190,18 @@
           }
         }
         devices = invalidDevices;
-        if (devices.length > 0) {
-          Homey.hideLoadingOverlay();
-        }
-        nextDevice();
       } else {
         const valid = await checkDevice(currentDevice.id, passwordField.value);
         console.log('Credentials for', currentDevice.id, 'are', valid ? 'valid' : 'invalid');
         if (valid) {
           devices.shift();
-          nextDevice();
         } else {
           Homey.error(Homey.__('pair.device_credentials.invalid'));
-          Homey.hideLoadingOverlay();
         }
       }
     } catch (error) {
       Homey.error(error);
-      Homey.hideLoadingOverlay();
     }
+    showDevice();
   };
 </script>
