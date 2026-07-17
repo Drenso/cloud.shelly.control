@@ -162,7 +162,6 @@
       Homey.emit('authentication_done');
       return;
     }
-    console.log('Authenticating', currentDevice);
     credentialsTitle.innerText = currentDevice.title;
     Homey.hideLoadingOverlay();
   }
@@ -175,29 +174,36 @@
     return Homey.emit('credentials', { id: id, ha1: ha1 });
   }
 
+  async function checkMultiple() {
+    const password = passwordField.value;
+    const invalidDevices = [];
+    for (const device of devices) {
+      const valid = await checkDevice(device.id, password);
+      if (!valid) {
+        invalidDevices.push(device);
+      }
+    }
+    devices = invalidDevices;
+  }
+
+  async function checkSingle() {
+    const valid = await checkDevice(currentDevice.id, passwordField.value);
+    if (valid) {
+      devices.shift();
+    } else {
+      Homey.error(Homey.__('pair.device_credentials.invalid'));
+    }
+  }
+
   submitForm.onsubmit = async e => {
     e.preventDefault();
     Homey.showLoadingOverlay(Homey.__('pair.device_credentials.validating'));
     try {
       const useForAll = useForAllCheckbox.checked;
       if (useForAll) {
-        const password = passwordField.value;
-        const invalidDevices = [];
-        for (const device of devices) {
-          const valid = await checkDevice(device.id, password);
-          if (!valid) {
-            invalidDevices.push(device);
-          }
-        }
-        devices = invalidDevices;
+        await checkMultiple();
       } else {
-        const valid = await checkDevice(currentDevice.id, passwordField.value);
-        console.log('Credentials for', currentDevice.id, 'are', valid ? 'valid' : 'invalid');
-        if (valid) {
-          devices.shift();
-        } else {
-          Homey.error(Homey.__('pair.device_credentials.invalid'));
-        }
+        await checkSingle();
       }
     } catch (error) {
       Homey.error(error);
