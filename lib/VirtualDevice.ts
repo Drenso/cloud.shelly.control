@@ -219,8 +219,8 @@ export class VirtualDevice {
           // If not, remove this virtual device
           return this.states.uninitializing.enter();
         }
-        // If yes, transition to waiting for connection
-        return this.states.waiting_for_initial_connection.enter();
+        // If yes, transition to configuring outbound WS connection
+        return this.states.waiting_for_outbound_ws_connection.enter();
       },
     },
     waiting_for_initial_connection: {
@@ -228,7 +228,7 @@ export class VirtualDevice {
         if (action === 'device_connected' || action === 'outbound_websocket_connected') {
           this.debugState('Initial connection established');
           this.outboundWsRetries = 0;
-          return this.states.waiting_for_outbound_ws_connection.enter();
+          return this.states.initializing.enter();
         } else {
           throw new Error(`Unknown transition for waiting_for_initial_connection: ${action}`);
         }
@@ -274,8 +274,10 @@ export class VirtualDevice {
         this.debugState('Waiting for outbound websocket connection...');
 
         if (this.outboundWsRetries > MAX_STATE_RETRIES) {
-          this.error('Failed opening outbound websocket after too many retries, going to initialization');
-          return this.states.initializing.enter();
+          this.error(
+            'Failed opening outbound websocket after too many retries, going to waiting_for_initial_connection',
+          );
+          return this.states.waiting_for_initial_connection.enter();
         }
 
         this.initialComponentResponses =
@@ -288,9 +290,9 @@ export class VirtualDevice {
             const config = component.config as OutBoundWebsocketConfig;
             if (config.enable && config.server === server) {
               this.log('Outbound websocket already enabled');
-              this.debugState('Continuing directly to initialization');
+              this.debugState('Continuing directly to waiting_for_initial_connection');
               this.initRetries = 0;
-              return this.states.initializing.enter();
+              return this.states.waiting_for_initial_connection.enter();
             } else {
               this.log('Enabling outbound websocket...');
 
@@ -316,9 +318,9 @@ export class VirtualDevice {
         }
 
         this.log('No outbound websocket component found');
-        this.debugState('Continuing directly to initialization');
+        this.debugState('Continuing directly to waiting_for_initial_connection');
         this.initRetries = 0;
-        return this.states.initializing.enter();
+        return this.states.waiting_for_initial_connection.enter();
       },
     },
     initializing: {
