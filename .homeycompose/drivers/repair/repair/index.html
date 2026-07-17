@@ -156,9 +156,8 @@
     nextDevice();
   });
 
-  // TODO refactor to peek first device instead of popping immediately
   function nextDevice() {
-    currentDevice = devices?.pop();
+    currentDevice = devices?.[0];
     if (currentDevice === undefined) {
       Homey.emit('authentication_done');
       return;
@@ -184,7 +183,6 @@
       if (useForAll) {
         const password = passwordField.value;
         const invalidDevices = [];
-        devices.push(currentDevice);
         for (const device of devices) {
           const valid = await checkDevice(device.id, password);
           if (!valid) {
@@ -200,6 +198,7 @@
         const valid = await checkDevice(currentDevice.id, passwordField.value);
         console.log('Credentials for', currentDevice.id, 'are', valid ? 'valid' : 'invalid');
         if (valid) {
+          devices.shift();
           nextDevice();
         } else {
           Homey.error(Homey.__('pair.device_credentials.invalid'));
