@@ -1,0 +1,27 @@
+{
+  "triggers": [
+    {
+      "id": "watervalve_alarm_shelly_power_lost_false",
+      "title": {
+        "en": "Power supply reconnected"
+      },
+      "$filter": "capabilities=alarm_shelly_power_lost"
+    },
+    {
+      "id": "watervalve_alarm_shelly_power_lost_true",
+      "title": {
+        "en": "Power supply disconnected"
+      },
+      "$filter": "capabilities=alarm_shelly_power_lost"
+    }
+  ],
+  "conditions": [
+    {
+      "id": "watervalve_alarm_shelly_power_lost",
+      "title": {
+        "en": "Power supply is !{{disconnected|connected}}"
+      },
+      "$filter": "capabilities=alarm_shelly_power_lost"
+    }
+  ]
+}
