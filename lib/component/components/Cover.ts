@@ -483,7 +483,6 @@ export type CoverHomeySettings = {
   'Cover:safety_switch.direction': 'open' | 'close' | 'both';
   'Cover:safety_switch.action': 'stop' | 'reverse' | 'pause';
   'Cover:safety_switch.allowed_move': 'reverse' | 'none';
-  // 'Cover:slat.enable': boolean; // TODO enable once dynamic capabilities are supported
   'Cover:slat.open_time': number;
   'Cover:slat.close_time': number;
   'Cover:slat.step': number;

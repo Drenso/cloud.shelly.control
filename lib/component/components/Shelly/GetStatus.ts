@@ -1,7 +1,6 @@
 import type { RpcChannel } from '../../../rpc/channel/RpcChannel.js';
 import { createRequestFrame, type ResponseSuccessFrame } from '../../../rpc/Rpc.js';
 
-// TODO improve the typing of Status
 /**
  * This method returns the status of all the components of the device.
  */

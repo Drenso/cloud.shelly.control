@@ -6,7 +6,6 @@ type ShellyGetDeviceInfoParams = {
   ident?: boolean;
 };
 
-// TODO make presence dependent on request ident param
 export type ShellyGetDeviceInfoResponse = {
   // Identifier of the device
   id: string;
