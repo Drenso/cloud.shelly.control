@@ -15,6 +15,7 @@ import Stop from './Cover/Stop.js';
 import GoToPosition, { type CoverGoToPositionParams } from './Cover/GoToPosition.js';
 import type { CoverResetCountersParams } from './Cover/ResetCounters.js';
 import ResetCounters from './Cover/ResetCounters.js';
+import { safeAddCapability } from '../../safeFunctions.js';
 
 export type CoverConfig = {
   /** Identifier of the Cover component instance */
@@ -628,7 +629,8 @@ export default class Cover extends ComponentWithId<'Cover', CoverStatus, CoverCo
       }
     }
 
-    // TODO errors
+    await safeAddCapability(homeyDevice, 'alarm_generic');
+    await safeAddCapability(homeyDevice, 'shelly_errors');
 
     if (methods.includes('ResetCounters')) {
       const maintenanceActionId = 'button.reset_energy_counters';
@@ -707,7 +709,8 @@ export default class Cover extends ComponentWithId<'Cover', CoverStatus, CoverCo
         await this.setCapability(homeyDevice, homeyCapability, status[statusKey]);
       }
     }
-    // TODO errors
+
+    await homeyDevice.updateErrors(this.getComponentKey(), status.errors ?? []);
   }
 
   public async onConfigUpdate(homeyDevice: ShellyLocalDevice, config: CoverConfig): Promise<void> {

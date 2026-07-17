@@ -6,12 +6,14 @@ import type { ComponentMethod, NameSpace } from '../component/components/Shelly/
 import { ComponentMapping, type MappedComponent } from '../component/ComponentMapping.js';
 import type ShellyLocalDriver from './LocalDriver.js';
 import { diffArrays } from '../util.js';
+import { safeSetCapabilityValue } from '../safeFunctions.js';
 
 export default class ShellyLocalDevice extends Homey.Device {
   declare public readonly __id: string;
   public virtualDevice?: VirtualDevice;
   public readonly virtualComponents = new Map<string, InstanceType<MappedComponent>>();
   public readonly componentCounts = new Map<NameSpace, number>();
+  private errors: Record<string, string[]> = {};
 
   public async onInit(): Promise<void> {
     if (!this.app.expectedHomeyDeviceIds.includes(this.getTypedData().id)) {
@@ -201,5 +203,23 @@ export default class ShellyLocalDevice extends Homey.Device {
 
   public debug(...args: unknown[]): void {
     (this.driver as ShellyLocalDriver).debug(`[Device:${this.__id}]`, ...args);
+  }
+
+  public async updateErrors(component: string, errors: string[]): Promise<void> {
+    const oldErrors = this.errors[component] ?? [];
+    const { added, removed } = diffArrays(oldErrors, errors);
+    // TODO trigger flows
+    this.errors[component] = errors;
+    await this.collectAllErrors();
+  }
+
+  private async collectAllErrors(): Promise<void> {
+    const allErrors: string[] = [];
+    for (const componentKey in this.errors) {
+      allErrors.push(...this.errors[componentKey]);
+    }
+    const uniqueErrors = [...new Set(allErrors)];
+    await safeSetCapabilityValue(this, 'alarm_generic', uniqueErrors.length > 0);
+    await safeSetCapabilityValue(this, 'shelly_errors', uniqueErrors.join(', '));
   }
 }

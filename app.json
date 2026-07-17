@@ -10601,6 +10601,15 @@
       "setable": false,
       "deprecated": true
     },
+    "shelly_errors": {
+      "title": {
+        "en": "Errors"
+      },
+      "type": "string",
+      "getable": true,
+      "setable": false,
+      "icon": "/assets/capabilities/alarm_generic.svg"
+    },
     "shelly_illumination": {
       "title": {
         "en": "Illumination Status"

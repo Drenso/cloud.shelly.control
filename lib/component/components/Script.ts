@@ -15,6 +15,7 @@ import GetCode, { type ScriptGetCodeParams } from './Script/GetCode.js';
 import Eval, { type ScriptEvalParams } from './Script/Eval.js';
 import { createMitt } from '../../util.js';
 import type { NotificationEventParam } from '../../rpc/Rpc.js';
+import { safeAddCapability } from '../../safeFunctions.js';
 
 export type ScriptConfig = {
   /** Identifier of the script */
@@ -115,9 +116,12 @@ export default class Script extends ComponentWithId<'Script', ScriptStatus, Scri
   }
 
   public async registerHomeyDevice(
-    _homeyDevice: ShellyLocalDevice,
+    homeyDevice: ShellyLocalDevice,
     _methods: ComponentMethod<'Script'>[],
-  ): Promise<void> {}
+  ): Promise<void> {
+    await safeAddCapability(homeyDevice, 'alarm_generic');
+    await safeAddCapability(homeyDevice, 'shelly_errors');
+  }
 
   protected async staticallyUnregisterHomeyDevice(
     this: never,
@@ -125,7 +129,9 @@ export default class Script extends ComponentWithId<'Script', ScriptStatus, Scri
     _id: number,
   ): Promise<void> {}
 
-  public async onStatusUpdate(_homeyDevice: ShellyLocalDevice, _status: ScriptStatus): Promise<void> {}
+  public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: ScriptStatus): Promise<void> {
+    await homeyDevice.updateErrors(this.getComponentKey(), status.errors ?? []);
+  }
 
   public async onConfigUpdate(_homeyDevice: ShellyLocalDevice, _config: ScriptConfig): Promise<void> {}
 

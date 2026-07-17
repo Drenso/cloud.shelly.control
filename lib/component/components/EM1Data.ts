@@ -8,6 +8,7 @@ import GetStatus from './EM1Data/GetStatus.js';
 import ResetCounters from './EM1Data/ResetCounters.js';
 import SetConfig from './EM1Data/SetConfig.js';
 import type { ComponentMethod } from './Shelly/ListMethods.js';
+import { safeAddCapability } from '../../safeFunctions.js';
 
 export type EM1DataConfig = { id: never; name: never } & Record<string, never>;
 
@@ -76,6 +77,9 @@ export default class EM1Data extends ComponentWithId<'EM1Data', EM1DataStatus, E
       } else {
         await EM1Data.unregisterCapability(homeyDevice, homeyCapability, this.id);
       }
+
+      await safeAddCapability(homeyDevice, 'alarm_generic');
+      await safeAddCapability(homeyDevice, 'shelly_errors');
     }
 
     if (this.status['total_act_energy'] !== undefined || this.status['total_act_ret_energy'] !== undefined) {
@@ -119,6 +123,8 @@ export default class EM1Data extends ComponentWithId<'EM1Data', EM1DataStatus, E
       await this.setCapability(homeyDevice, 'meter_power.exported', exportedEnergy / 1000);
       await this.setCapability(homeyDevice, 'meter_power.total', absoluteEnergy / 1000);
     }
+
+    await homeyDevice.updateErrors(this.getComponentKey(), status.errors ?? []);
   }
 
   public async onConfigUpdate(_homeyDevice: ShellyLocalDevice, _config: EM1DataConfig): Promise<void> {

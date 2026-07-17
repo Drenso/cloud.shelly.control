@@ -377,6 +377,9 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
       for (const inputType of ['switch', 'button', 'analog', 'count'] as const) {
         await safeRemoveCapability(homeyDevice, `hidden.has_input_multiple_${inputType}`);
       }
+
+      await safeAddCapability(homeyDevice, 'alarm_generic');
+      await safeAddCapability(homeyDevice, 'shelly_errors');
     }
 
     // Go through all types so capabilities for types that are no longer used also get cleaned up.
@@ -468,6 +471,8 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
       const countUpdate = { value: status.counts.total, input: this.id };
       await safeTriggerDeviceCard(homeyDevice, 'input_count_changed', countUpdate, countUpdate);
     }
+
+    await homeyDevice.updateErrors(this.getComponentKey(), status.errors ?? []);
   }
 
   public async onConfigUpdate(homeyDevice: ShellyLocalDevice, config: InputConfig): Promise<void> {

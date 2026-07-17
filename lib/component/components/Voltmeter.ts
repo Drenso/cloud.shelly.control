@@ -7,6 +7,7 @@ import SetConfig from './Voltmeter/SetConfig.js';
 import GetConfig from './Voltmeter/GetConfig.js';
 import GetStatus from './Voltmeter/GetStatus.js';
 import CheckExpression from './Voltmeter/CheckExpression.js';
+import { safeAddCapability } from '../../safeFunctions.js';
 
 export type VoltmeterConfig = {
   /** Identifier of the Voltmeter component instance */
@@ -118,6 +119,9 @@ export default class Voltmeter extends ComponentWithId<
     } else {
       await Voltmeter.unregisterCapability(homeyDevice, 'measure_voltage', this.id);
     }
+
+    await safeAddCapability(homeyDevice, 'alarm_generic');
+    await safeAddCapability(homeyDevice, 'shelly_errors');
   }
 
   protected async staticallyUnregisterHomeyDevice(
@@ -132,6 +136,8 @@ export default class Voltmeter extends ComponentWithId<
     if (status.voltage !== undefined) {
       await this.setCapability(homeyDevice, 'measure_voltage', status.voltage);
     }
+
+    await homeyDevice.updateErrors(this.getComponentKey(), status.errors ?? []);
   }
 
   public async onConfigUpdate(homeyDevice: ShellyLocalDevice, config: VoltmeterConfig): Promise<void> {

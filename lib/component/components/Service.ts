@@ -7,6 +7,7 @@ import type ShellyLocalDevice from '../../local/LocalDevice.js';
 import type { ComponentMethod } from './Shelly/ListMethods.js';
 import type { RpcChannel } from '../../rpc/channel/RpcChannel.js';
 import type { RecursivePartial } from '../../util.js';
+import { safeAddCapability } from '../../safeFunctions.js';
 
 export type ServiceConfig = {
   /** Identifier of the Service component instance */
@@ -90,9 +91,12 @@ export default class Service extends ComponentWithId<'Service', ServiceStatus, S
   }
 
   public async registerHomeyDevice(
-    _homeyDevice: ShellyLocalDevice,
+    homeyDevice: ShellyLocalDevice,
     _methods: ComponentMethod<'Service'>[],
-  ): Promise<void> {}
+  ): Promise<void> {
+    await safeAddCapability(homeyDevice, 'alarm_generic');
+    await safeAddCapability(homeyDevice, 'shelly_errors');
+  }
 
   protected async staticallyUnregisterHomeyDevice(
     this: never,
@@ -100,7 +104,9 @@ export default class Service extends ComponentWithId<'Service', ServiceStatus, S
     _id: number,
   ): Promise<void> {}
 
-  public async onStatusUpdate(_homeyDevice: ShellyLocalDevice, _status: Partial<ServiceStatus>): Promise<void> {}
+  public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Partial<ServiceStatus>): Promise<void> {
+    await homeyDevice.updateErrors(this.getComponentKey(), status.errors ?? []);
+  }
 
   public async onConfigUpdate(homeyDevice: ShellyLocalDevice, config: ServiceConfig): Promise<void> {
     const newSettings: RecursivePartial<ServiceHomeySettings, AllowedPrimitives> = {};

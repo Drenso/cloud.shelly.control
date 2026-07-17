@@ -13,6 +13,7 @@ import SetConfig from './CCT/SetConfig.js';
 import Toggle from './CCT/Toggle.js';
 import type { ComponentMethod } from './Shelly/ListMethods.js';
 import capabilitiesOptions from './CCT/capabilitiesOptions.json' with { type: 'json' };
+import { safeAddCapability } from '../../safeFunctions.js';
 
 export type CCTConfig = {
   /** Id of the CCT component instance */
@@ -255,7 +256,8 @@ export default class CCT extends ComponentWithId<'CCT', CCTStatus, CCTConfig, CC
       }
     }
 
-    // TODO errors
+    await safeAddCapability(homeyDevice, 'alarm_generic');
+    await safeAddCapability(homeyDevice, 'shelly_errors');
   }
 
   protected async staticallyUnregisterHomeyDevice(
@@ -303,7 +305,8 @@ export default class CCT extends ComponentWithId<'CCT', CCTStatus, CCTConfig, CC
         await this.setCapability(homeyDevice, homeyCapability, status[statusKey]);
       }
     }
-    // TODO errors
+
+    await homeyDevice.updateErrors(this.getComponentKey(), status.errors ?? []);
   }
 
   public async onConfigUpdate(homeyDevice: ShellyLocalDevice, config: CCTConfig): Promise<void> {

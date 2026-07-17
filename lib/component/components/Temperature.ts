@@ -6,6 +6,7 @@ import type { RecursivePartial } from '../../util.js';
 import SetConfig from './Temperature/SetConfig.js';
 import GetConfig from './Temperature/GetConfig.js';
 import GetStatus from './Temperature/GetStatus.js';
+import { safeAddCapability } from '../../safeFunctions.js';
 
 export type TemperatureConfig = {
   // Identifier of the Temperature component instance
@@ -65,6 +66,9 @@ export default class Temperature extends ComponentWithId<
     } else {
       await Temperature.unregisterCapability(homeyDevice, 'measure_temperature', this.id);
     }
+
+    await safeAddCapability(homeyDevice, 'alarm_generic');
+    await safeAddCapability(homeyDevice, 'shelly_errors');
   }
 
   protected async staticallyUnregisterHomeyDevice(
@@ -79,6 +83,8 @@ export default class Temperature extends ComponentWithId<
     if (status.tC !== undefined) {
       await this.setCapability(homeyDevice, 'measure_temperature', status.tC);
     }
+
+    await homeyDevice.updateErrors(this.getComponentKey(), status.errors ?? []);
   }
 
   public async onConfigUpdate(homeyDevice: ShellyLocalDevice, config: TemperatureConfig): Promise<void> {

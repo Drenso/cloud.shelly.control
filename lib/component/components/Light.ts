@@ -1,4 +1,4 @@
-import { safeSetCapabilityValue } from '../../safeFunctions.js';
+import { safeAddCapability, safeSetCapabilityValue } from '../../safeFunctions.js';
 import { type AllowedPrimitives, ComponentWithId } from '../Component.js';
 import type { RpcChannel } from '../../rpc/channel/RpcChannel.js';
 import { parseNightModeActiveBetween } from '../util/NightMode.js';
@@ -364,7 +364,8 @@ export default class Light extends ComponentWithId<'Light', LightStatus, LightCo
       }
     }
 
-    // TODO errors
+    await safeAddCapability(homeyDevice, 'alarm_generic');
+    await safeAddCapability(homeyDevice, 'shelly_errors');
 
     for (const [method, homeyCapability, capabilityListener] of [
       ['ResetCounters', 'button.reset_energy_counters', resetEnergyListener],
@@ -417,7 +418,8 @@ export default class Light extends ComponentWithId<'Light', LightStatus, LightCo
     await this.updateMeasured(homeyDevice, status, 'apower', 'measure_power');
     await this.updateMeasured(homeyDevice, status, 'voltage', 'measure_voltage');
     await this.updateMeasured(homeyDevice, status, 'current', 'measure_current');
-    // TODO errors
+
+    await homeyDevice.updateErrors(this.getComponentKey(), status.errors ?? []);
   }
 
   public async onConfigUpdate(homeyDevice: ShellyLocalDevice, config: LightConfig): Promise<void> {

@@ -6,6 +6,7 @@ import GetStatus from './Flood/GetStatus.js';
 import type { ComponentMethod } from './Shelly/ListMethods.js';
 import capabilitiesOptions from './Flood/capabilitiesOptions.json' with { type: 'json' };
 import { includesAny, type RecursivePartial } from '../../util.js';
+import { safeAddCapability } from '../../safeFunctions.js';
 
 export type FloodConfig = {
   /** Identifier of the component instance */
@@ -68,6 +69,9 @@ export default class Flood extends ComponentWithId<'Flood', FloodStatus, FloodCo
     } else {
       await Flood.unregisterCapability(homeyDevice, 'alarm_water', this.id);
     }
+
+    await safeAddCapability(homeyDevice, 'alarm_generic');
+    await safeAddCapability(homeyDevice, 'shelly_errors');
   }
 
   protected async staticallyUnregisterHomeyDevice(
@@ -82,6 +86,8 @@ export default class Flood extends ComponentWithId<'Flood', FloodStatus, FloodCo
     if (status.alarm !== undefined) {
       await this.setCapability(homeyDevice, 'alarm_water', status.alarm);
     }
+
+    await homeyDevice.updateErrors(this.getComponentKey(), status.errors ?? []);
   }
 
   public async onConfigUpdate(homeyDevice: ShellyLocalDevice, config: FloodConfig): Promise<void> {

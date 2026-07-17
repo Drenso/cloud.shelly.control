@@ -6,6 +6,7 @@ import GetConfig from './EM1/GetConfig.js';
 import GetStatus from './EM1/GetStatus.js';
 import SetConfig from './EM1/SetConfig.js';
 import type { ComponentMethod } from './Shelly/ListMethods.js';
+import { safeAddCapability } from '../../safeFunctions.js';
 
 export type EM1Config = {
   /** Id of the EM1 component instance */
@@ -76,6 +77,9 @@ export default class EM1 extends ComponentWithId<'EM1', EM1Status, EM1Config, EM
       } else {
         await EM1.unregisterCapability(homeyDevice, homeyCapability, this.id);
       }
+
+      await safeAddCapability(homeyDevice, 'alarm_generic');
+      await safeAddCapability(homeyDevice, 'shelly_errors');
     }
   }
 
@@ -106,6 +110,8 @@ export default class EM1 extends ComponentWithId<'EM1', EM1Status, EM1Config, EM
       if (status[statusKey] !== undefined) {
         await this.setCapability(homeyDevice, homeyCapability, status[statusKey]);
       }
+
+      await homeyDevice.updateErrors(this.getComponentKey(), status.errors ?? []);
     }
   }
 

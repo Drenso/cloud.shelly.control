@@ -6,6 +6,7 @@ import type { RecursivePartial } from '../../util.js';
 import SetConfig from './Humidity/SetConfig.js';
 import GetConfig from './Humidity/GetConfig.js';
 import GetStatus from './Humidity/GetStatus.js';
+import { safeAddCapability } from '../../safeFunctions.js';
 
 export type HumidityConfig = {
   /** Identifier of the Humidity component instance */
@@ -82,6 +83,9 @@ export default class Humidity extends ComponentWithId<
     } else {
       await Humidity.unregisterCapability(homeyDevice, 'measure_humidity', this.id);
     }
+
+    await safeAddCapability(homeyDevice, 'alarm_generic');
+    await safeAddCapability(homeyDevice, 'shelly_errors');
   }
 
   protected async staticallyUnregisterHomeyDevice(
@@ -96,6 +100,8 @@ export default class Humidity extends ComponentWithId<
     if (status.rh !== undefined) {
       await this.setCapability(homeyDevice, 'measure_humidity', status.rh);
     }
+
+    await homeyDevice.updateErrors(this.getComponentKey(), status.errors ?? []);
   }
 
   public async onConfigUpdate(homeyDevice: ShellyLocalDevice, config: HumidityConfig): Promise<void> {

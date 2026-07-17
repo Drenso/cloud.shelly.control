@@ -379,6 +379,9 @@ export class VirtualDevice {
         if (action === 'going_offline') {
           return this.states.offline.enter();
         }
+        if (action === 'going_to_sleep') {
+          return this.states.sleeping.enter();
+        }
         if (action === 'removed_homey_device') {
           return this.states.removing_homey_device.enter(args.id!);
         }
@@ -528,6 +531,7 @@ export class VirtualDevice {
       throw new Error('No initial components defined');
     }
     const homeyDevices: readonly ShellyLocalDevice[] = this.initialHomeyDevices;
+    const oldComponents = this.initialComponents;
 
     // TODO remove this in 1.0.0
     // Before version 0.3.0 the Homey driver associated with the virtual device was not stored
@@ -547,7 +551,6 @@ export class VirtualDevice {
       (this.initialComponentResponses as ShellyGetComponentsResponseComponent[]) ?? (await this.retrieveComponents());
 
     // Check which changes were made to the components since last time
-    const oldComponents = this.initialComponents;
     const newComponents = components.map(component => component.key);
     const { added: addedComponents, removed: removedComponents } = diffArrays(oldComponents, newComponents);
 
@@ -577,7 +580,7 @@ export class VirtualDevice {
       (this.initialHomeyDeviceDefinitions as ShellyLocalListDeviceProperties[]) ??
       (await this.assembleDevices(components));
 
-    const oldDeviceIds = this.initialHomeyDevices.map(device => device.getTypedData().id);
+    const oldDeviceIds = homeyDevices.map(device => device.getTypedData().id);
     const newDeviceIds: string[] = newDevices.map(device => device.data.id);
 
     const { added: deviceIdsToAdd, removed: deviceIdsToRemove } = diffArrays(oldDeviceIds, newDeviceIds);

@@ -230,8 +230,6 @@ export default class RGBCCT extends ComponentWithId<'RGBCCT', RGBCCTStatus, RGBC
       }
     }
 
-    // TODO errors
-
     if (this.status.rgb !== undefined) {
       const hueHomeyCapability = 'light_hue';
       const hueCapabilityId = await this.registerCapability(

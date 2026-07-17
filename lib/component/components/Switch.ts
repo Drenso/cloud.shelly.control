@@ -1,4 +1,4 @@
-import { safeSetCapabilityValue } from '../../safeFunctions.js';
+import { safeAddCapability, safeSetCapabilityValue } from '../../safeFunctions.js';
 import { type AllowedPrimitives, ComponentWithId } from '../Component.js';
 import GetConfig from './Switch/GetConfig.js';
 import GetStatus from './Switch/GetStatus.js';
@@ -243,7 +243,8 @@ export default class Switch extends ComponentWithId<'Switch', SwitchStatus, Swit
       }
     }
 
-    // TODO errors
+    await safeAddCapability(homeyDevice, 'alarm_generic');
+    await safeAddCapability(homeyDevice, 'shelly_errors');
 
     if (this.status['aenergy'] !== undefined || this.status['ret_aenergy'] !== undefined) {
       let energy = homeyDevice.getEnergy();
@@ -320,7 +321,8 @@ export default class Switch extends ComponentWithId<'Switch', SwitchStatus, Swit
     if (status.temperature !== undefined) {
       await safeSetCapabilityValue(homeyDevice, 'measure_temperature', status.temperature.tC);
     }
-    // TODO errors
+
+    await homeyDevice.updateErrors(this.getComponentKey(), status.errors ?? []);
   }
 
   public async onConfigUpdate(homeyDevice: ShellyLocalDevice, config: SwitchConfig): Promise<void> {
