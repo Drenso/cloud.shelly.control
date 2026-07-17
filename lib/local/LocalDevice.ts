@@ -6,7 +6,7 @@ import type { ComponentMethod, NameSpace } from '../component/components/Shelly/
 import { ComponentMapping, type MappedComponent } from '../component/ComponentMapping.js';
 import type ShellyLocalDriver from './LocalDriver.js';
 import { diffArrays } from '../util.js';
-import { safeSetCapabilityValue } from '../safeFunctions.js';
+import { safeSetCapabilityValue, safeTriggerDeviceCard } from '../safeFunctions.js';
 
 export default class ShellyLocalDevice extends Homey.Device {
   declare public readonly __id: string;
@@ -208,7 +208,23 @@ export default class ShellyLocalDevice extends Homey.Device {
   public async updateErrors(component: string, errors: string[]): Promise<void> {
     const oldErrors = this.errors[component] ?? [];
     const { added, removed } = diffArrays(oldErrors, errors);
-    // TODO trigger flows
+
+    for (const addedError of added) {
+      const tokens = {
+        component,
+        error: addedError,
+      };
+      await safeTriggerDeviceCard(this, 'error_added', tokens);
+    }
+
+    for (const removedError of removed) {
+      const tokens = {
+        component,
+        error: removedError,
+      };
+      await safeTriggerDeviceCard(this, 'error_removed', tokens);
+    }
+
     this.errors[component] = errors;
     await this.collectAllErrors();
   }
