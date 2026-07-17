@@ -1,4 +1,5 @@
 import type ShellyLocalDevice from '../../local/LocalDevice.js';
+import { safeAddCapability } from '../../safeFunctions.js';
 import { fillTranslationTagsRecursively, type RecursivePartial, translate } from '../../util.js';
 import { type AllowedPrimitives, ComponentWithId } from '../Component.js';
 import GetConfig from './Illuminance/GetConfig.js';
@@ -47,7 +48,7 @@ export type IlluminanceStatus = {
   /**
    * Shown only if at least one error is present. May contain out_of_range, read when there is problem reading sensor
    */
-  errors: string[];
+  errors?: string[];
 };
 
 export type IlluminanceHomeySettings = {
@@ -88,6 +89,9 @@ export default class Illuminance extends ComponentWithId<
         await Illuminance.unregisterCapability(homeyDevice, homeyCapability, this.id);
       }
     }
+
+    await safeAddCapability(homeyDevice, 'alarm_generic');
+    await safeAddCapability(homeyDevice, 'shelly_errors');
   }
 
   protected async staticallyUnregisterHomeyDevice(
@@ -109,6 +113,8 @@ export default class Illuminance extends ComponentWithId<
         await this.setCapability(homeyDevice, homeyCapability, status[statusKey]);
       }
     }
+
+    await homeyDevice.updateErrors(this.getComponentKey(), status.errors ?? []);
   }
 
   public async onConfigUpdate(homeyDevice: ShellyLocalDevice, config: IlluminanceConfig): Promise<void> {
