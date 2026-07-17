@@ -40,6 +40,7 @@ export default class OutboundWebsocket extends ComponentWithoutId<
   protected readonly _GetStatus = GetStatus;
   public readonly namespace = 'Ws';
   public static readonly uiName = 'Outbound Websocket';
+  protected static readonly key = 'ws';
 
   public async registerHomeyDevice(_homeyDevice: ShellyLocalDevice, _methods: ComponentMethod<'Ws'>[]): Promise<void> {}
 

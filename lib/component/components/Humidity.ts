@@ -70,6 +70,7 @@ export default class Humidity extends ComponentWithId<
   protected readonly _GetStatus = GetStatus;
   public readonly namespace = 'Humidity';
   public static readonly uiName = 'Humidity';
+  protected static readonly key = 'humidity';
 
   public async registerHomeyDevice(
     homeyDevice: ShellyLocalDevice,

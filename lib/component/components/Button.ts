@@ -62,6 +62,7 @@ export default class Button extends ComponentWithId<'Button', ButtonStatus, Butt
   protected readonly _GetStatus = GetStatus;
   public readonly namespace = 'Button';
   public static readonly uiName = 'Button';
+  protected static readonly key = 'button';
 
   private readonly buttonMitt = createMitt<ButtonMittEvents>();
 
@@ -178,7 +179,7 @@ export default class Button extends ComponentWithId<'Button', ButtonStatus, Butt
           button: { name: string; id: number };
           event: 'single_push' | 'double_push' | 'triple_push' | 'long_push';
         }) => {
-          const componentKey = `button:${cardArgs.button.id}`;
+          const componentKey = `${Button.key}:${cardArgs.button.id}`;
           const component = cardArgs.device.virtualComponents.get(componentKey) as Button | undefined;
           if (component === undefined) {
             throw new Error(app.homey.__('error.component_not_found', { component: componentKey }));

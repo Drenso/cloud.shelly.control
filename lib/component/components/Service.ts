@@ -83,6 +83,7 @@ export default class Service extends ComponentWithId<'Service', ServiceStatus, S
   protected _GetStatus = GetStatus;
   public readonly namespace = 'Service';
   public static readonly uiName = 'Service';
+  protected static readonly key = 'service';
 
   public async Set(channel: RpcChannel, params: ServiceSetParams): ReturnType<typeof Set> {
     return Set(channel, this.id, params);

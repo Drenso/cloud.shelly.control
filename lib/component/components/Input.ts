@@ -340,6 +340,7 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
   protected readonly _GetStatus = GetStatus;
   public readonly namespace = 'Input';
   public static readonly uiName = 'Input';
+  protected static readonly key = 'input';
 
   public readonly CheckExpression = CheckExpression;
 
@@ -672,7 +673,7 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
       .getConditionCard('input_analog_is_null')
       .registerArgumentAutocompleteListener('input', createAutocompleteListener('analog'))
       .registerRunListener((cardArgs: { device: ShellyLocalDevice; input: { name: string; id: number } }) => {
-        const componentKey = `input:${cardArgs.input.id}`;
+        const componentKey = `${Input.key}:${cardArgs.input.id}`;
         const component = cardArgs.device.virtualComponents?.get(componentKey) as Input | undefined;
         if (component === undefined) {
           throw new Error(app.homey.__('error.component_not_found', { component: componentKey }));
@@ -684,7 +685,7 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
       .getConditionCard('input_switch_is')
       .registerArgumentAutocompleteListener('input', createAutocompleteListener('switch'))
       .registerRunListener((cardArgs: { device: ShellyLocalDevice; input: { name: string; id: number } }) => {
-        const componentKey = `input:${cardArgs.input.id}`;
+        const componentKey = `${Input.key}:${cardArgs.input.id}`;
         const component = cardArgs.device.virtualComponents?.get(componentKey) as Input | undefined;
         if (component === undefined) {
           throw new Error(app.homey.__('error.component_not_found', { component: componentKey }));

@@ -538,6 +538,7 @@ export default class Cover extends ComponentWithId<'Cover', CoverStatus, CoverCo
   protected readonly _GetStatus = GetStatus;
   public readonly namespace = 'Cover';
   public static readonly uiName = 'Cover';
+  protected static readonly key = 'cover';
 
   public async Calibrate(channel: RpcChannel): ReturnType<typeof Calibrate> {
     return Calibrate(channel, this.id);

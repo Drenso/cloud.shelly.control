@@ -55,6 +55,7 @@ export default class Flood extends ComponentWithId<'Flood', FloodStatus, FloodCo
   protected _GetStatus = GetStatus;
   public readonly namespace = 'Flood';
   public static readonly uiName = 'Flood Sensor';
+  protected static readonly key = 'flood';
 
   public async registerHomeyDevice(
     homeyDevice: ShellyLocalDevice,

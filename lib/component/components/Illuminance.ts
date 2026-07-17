@@ -71,6 +71,7 @@ export default class Illuminance extends ComponentWithId<
   protected _GetStatus = GetStatus;
   public readonly namespace = 'Illuminance';
   public static readonly uiName = 'Illuminance';
+  protected static readonly key = 'illuminance';
 
   public async registerHomeyDevice(
     homeyDevice: ShellyLocalDevice,
@@ -196,7 +197,7 @@ export default class Illuminance extends ComponentWithId<
           flowArgs: { value: Array<ValueArg>; device: ShellyLocalDevice; illuminance: { name: string; id: number } },
           _triggerArgs: { manual: boolean },
         ) => {
-          const componentKey = `illuminance:${flowArgs.illuminance.id}`;
+          const componentKey = `${Illuminance.key}:${flowArgs.illuminance.id}`;
           const component = flowArgs.device.virtualComponents.get(componentKey) as Illuminance | undefined;
           if (component === undefined) {
             throw new Error(app.homey.__('error.component_not_found', { component: componentKey }));

@@ -75,6 +75,7 @@ export default class Boolean extends ComponentWithId<'Boolean', BooleanStatus, B
   protected readonly _GetStatus = GetStatus;
   public readonly namespace = 'Boolean';
   public static readonly uiName = 'Boolean';
+  protected static readonly key = 'boolean';
 
   public async Set(channel: RpcChannel, params: BooleanSetParams): ReturnType<typeof Set> {
     return Set(channel, this.id, params);
@@ -187,7 +188,7 @@ export default class Boolean extends ComponentWithId<'Boolean', BooleanStatus, B
       .registerArgumentAutocompleteListener('boolean', autoCompleteListener)
       .registerRunListener(
         (cardArgs: { boolean: { name: string; id: number }; device: ShellyLocalDevice }): boolean => {
-          const componentKey = `boolean:${cardArgs.boolean.id}`;
+          const componentKey = `${Boolean.key}:${cardArgs.boolean.id}`;
           const component = cardArgs.device.virtualComponents.get(componentKey) as Boolean | undefined;
           if (component === undefined) {
             throw new Error(app.homey.__('error.component_not_found', { component: componentKey }));

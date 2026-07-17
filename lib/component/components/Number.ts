@@ -68,6 +68,7 @@ export default class Number extends ComponentWithId<'Number', NumberStatus, Numb
   protected readonly _GetStatus = GetStatus;
   public readonly namespace = 'Number';
   public static readonly uiName = 'Number';
+  protected static readonly key = 'number';
 
   public async Set(channel: RpcChannel, params: NumberSetParams): ReturnType<typeof Set> {
     return Set(channel, this.id, params);
@@ -169,7 +170,7 @@ export default class Number extends ComponentWithId<'Number', NumberStatus, Numb
       .registerArgumentAutocompleteListener('number', autoCompleteListener)
       .registerRunListener(
         (cardArgs: { device: ShellyLocalDevice; number: { name: string; id: number }; value: number }) => {
-          const componentKey = `number:${cardArgs.number.id}`;
+          const componentKey = `${Number.key}:${cardArgs.number.id}`;
           const component = cardArgs.device.virtualComponents.get(componentKey) as Number | undefined;
           if (component === undefined) {
             throw new Error(app.homey.__('error.component_not_found', { component: componentKey }));

@@ -83,6 +83,7 @@ export default class Script extends ComponentWithId<'Script', ScriptStatus, Scri
   protected _GetStatus = GetStatus;
   public readonly namespace = 'Script';
   public static readonly uiName = 'Script';
+  protected static readonly key = 'script';
 
   public readonly scriptMitt = createMitt<ScriptMittEvents>();
 

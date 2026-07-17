@@ -239,6 +239,7 @@ export default class Presence extends ComponentWithoutId<
   protected _GetStatus = GetStatus;
   public readonly namespace = 'Presence';
   public static readonly uiName = 'Presence';
+  protected static readonly key = 'presence';
 
   public readonly AddZone = AddZone;
   public readonly DeleteZone = DeleteZone;

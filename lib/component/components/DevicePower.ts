@@ -53,6 +53,7 @@ export default class DevicePower extends ComponentWithId<
   protected _GetStatus = GetStatus;
   public readonly namespace = 'DevicePower';
   public static readonly uiName = 'Device Power';
+  protected static readonly key = 'devicepower';
 
   public get id(): number {
     return this.status.id;

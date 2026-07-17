@@ -104,6 +104,7 @@ export default class Voltmeter extends ComponentWithId<
   protected readonly _GetStatus = GetStatus;
   public readonly namespace = 'Voltmeter';
   public static readonly uiName = 'Voltmeter';
+  protected static readonly key = 'voltmeter';
 
   public readonly CheckExpression = CheckExpression;
 

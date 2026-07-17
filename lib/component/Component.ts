@@ -32,6 +32,9 @@ export abstract class Component<
 > {
   public abstract readonly namespace: ComponentNameSpace;
   public static readonly uiName: string;
+  protected static readonly key: string;
+
+  public abstract getComponentKey(): string;
 
   public constructor(
     protected device: VirtualDevice,
@@ -100,6 +103,10 @@ export abstract class ComponentWithoutId<
   Config extends object,
   Settings extends object,
 > extends Component<ComponentNameSpace, Status, Config, Settings> {
+  public getComponentKey(): string {
+    return (this.constructor as typeof ComponentWithoutId).key;
+  }
+
   protected abstract _SetConfig: (
     channel: RpcChannel,
     params: ComponentSetConfigParams<Config>,
@@ -144,6 +151,10 @@ export abstract class ComponentWithId<
   Config extends { id: number; name: string | null },
   Settings extends object,
 > extends Component<ComponentNameSpace, Status, Config, Settings> {
+  public getComponentKey(): string {
+    return `${(this.constructor as typeof ComponentWithoutId).key}:${this.id}`;
+  }
+
   protected abstract _SetConfig: (
     channel: RpcChannel,
     id: number,

@@ -256,6 +256,7 @@ export default class System extends ComponentWithoutId<'Sys', SystemStatus, Syst
   protected readonly _GetStatus = GetStatus;
   public readonly namespace = 'Sys';
   public static readonly uiName = 'System';
+  protected static readonly key = 'sys';
 
   public readonly SetTime = SetTime;
 

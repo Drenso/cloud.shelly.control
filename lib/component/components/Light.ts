@@ -291,6 +291,7 @@ export default class Light extends ComponentWithId<'Light', LightStatus, LightCo
   protected _GetStatus = GetStatus;
   public readonly namespace = 'Light';
   public static readonly uiName = 'Light';
+  protected static readonly key = 'light';
 
   public async Set(channel: RpcChannel, params: LightSetParams): ReturnType<typeof Set> {
     return Set(channel, this.id, params);

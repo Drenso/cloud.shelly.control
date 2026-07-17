@@ -96,6 +96,7 @@ export default class PresenceZone extends ComponentWithId<
   protected _GetStatus = GetStatus;
   public readonly namespace = 'PresenceZone';
   public static readonly uiName = 'Presence Zone';
+  protected static readonly key = 'presencezone';
 
   private readonly presenceMitt = createMitt<PresenceMittEvents>();
 
@@ -195,7 +196,7 @@ export default class PresenceZone extends ComponentWithId<
       .getConditionCard('presence_has')
       .registerArgumentAutocompleteListener('zone', autoCompleteListener)
       .registerRunListener((flowArgs: { zone: { id: number }; device: ShellyLocalDevice }) => {
-        const componentKey = `presencezone:${flowArgs.zone.id}`;
+        const componentKey = `${PresenceZone.key}:${flowArgs.zone.id}`;
         const component = flowArgs.device.virtualComponents.get(componentKey) as PresenceZone | undefined;
         if (component === undefined) {
           throw new Error(app.homey.__('error.component_not_found', { component: componentKey }));
