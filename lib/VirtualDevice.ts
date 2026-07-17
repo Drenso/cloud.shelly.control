@@ -223,39 +223,6 @@ export class VirtualDevice {
         return this.states.waiting_for_outbound_ws_connection.enter();
       },
     },
-    waiting_for_initial_connection: {
-      transition: async ({ action }: StateAction): Promise<void> => {
-        if (action === 'device_connected' || action === 'outbound_websocket_connected') {
-          this.debugState('Initial connection established');
-          this.outboundWsRetries = 0;
-          return this.states.initializing.enter();
-        } else {
-          throw new Error(`Unknown transition for waiting_for_initial_connection: ${action}`);
-        }
-      },
-      enter: async (): Promise<void> => {
-        this.state = 'waiting_for_initial_connection';
-        this.debugState('Waiting for initial connection...');
-
-        if (this.initialHomeyDevices === undefined) {
-          throw new Error('No initial Homey devices specified.');
-        }
-
-        await Promise.allSettled(
-          this.initialHomeyDevices.map(homeyDevice =>
-            homeyDevice
-              .setUnavailable(this.app.homey.__('device.offline'))
-              .catch(err =>
-                this.error(
-                  'Error while setting homey device to unavailable while waiting for initial connection:',
-                  err,
-                ),
-              ),
-          ),
-        );
-        this.localConnection.waitForConnection();
-      },
-    },
     waiting_for_outbound_ws_connection: {
       transition: async ({ action }: StateAction): Promise<void> => {
         if (action === 'outbound_websocket_connected') {
@@ -321,6 +288,39 @@ export class VirtualDevice {
         this.debugState('Continuing directly to waiting_for_initial_connection');
         this.initRetries = 0;
         return this.states.waiting_for_initial_connection.enter();
+      },
+    },
+    waiting_for_initial_connection: {
+      transition: async ({ action }: StateAction): Promise<void> => {
+        if (action === 'device_connected' || action === 'outbound_websocket_connected') {
+          this.debugState('Initial connection established');
+          this.outboundWsRetries = 0;
+          return this.states.initializing.enter();
+        } else {
+          throw new Error(`Unknown transition for waiting_for_initial_connection: ${action}`);
+        }
+      },
+      enter: async (): Promise<void> => {
+        this.state = 'waiting_for_initial_connection';
+        this.debugState('Waiting for initial connection...');
+
+        if (this.initialHomeyDevices === undefined) {
+          throw new Error('No initial Homey devices specified.');
+        }
+
+        await Promise.allSettled(
+          this.initialHomeyDevices.map(homeyDevice =>
+            homeyDevice
+              .setUnavailable(this.app.homey.__('device.offline'))
+              .catch(err =>
+                this.error(
+                  'Error while setting homey device to unavailable while waiting for initial connection:',
+                  err,
+                ),
+              ),
+          ),
+        );
+        this.localConnection.waitForConnection();
       },
     },
     initializing: {
