@@ -201,9 +201,7 @@ export default class PresenceZone extends ComponentWithId<
         if (component === undefined) {
           throw new Error(app.homey.__('error.component_not_found', { component: componentKey }));
         }
-        return getZones(flowArgs.device)
-          .filter(presenceZone => presenceZone.id === flowArgs.zone.id)
-          .some(presenceZone => presenceZone.status.value);
+        return component.status.value;
       });
   }
 

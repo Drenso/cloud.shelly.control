@@ -206,13 +206,13 @@ export default class ShellyApp extends Homey.App {
   }
 
   private registerFlowCards(): void {
-    Input.registerFlowCards(this);
-    Illuminance.registerFlowCards(this);
-    PresenceZone.registerFlowCards(this);
-    NumberComponent.registerFlowCards(this);
     Boolean.registerFlowCards(this);
     Button.registerFlowCards(this);
     DevicePower.registerFlowCards(this);
+    Illuminance.registerFlowCards(this);
+    Input.registerFlowCards(this);
+    NumberComponent.registerFlowCards(this);
+    PresenceZone.registerFlowCards(this);
 
     const alarmPresenceZoneRunListener = async (
       args: { zones: string[] },
