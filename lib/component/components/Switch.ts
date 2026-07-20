@@ -309,7 +309,8 @@ export default class Switch extends ComponentWithId<'Switch', SwitchStatus, Swit
       }
     }
 
-    // TODO fix this for multiple components on the same device
+    // NOTE: since Homey energy only supports a single capability for in/export each,
+    // we do not support multiple measuring switches on the same Homey device
     if (status.aenergy !== undefined || status.ret_aenergy !== undefined) {
       const absoluteEnergy = status.aenergy?.total ?? this.status.aenergy?.total ?? 0;
       const exportedEnergy = status.ret_aenergy?.total ?? this.status.ret_aenergy?.total ?? 0;

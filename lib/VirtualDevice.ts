@@ -250,7 +250,7 @@ export class VirtualDevice {
         this.initialComponentResponses =
           (this.initialComponentResponses as ShellyGetComponentsResponseComponent[]) ??
           (await this.retrieveComponents());
-        // TODO ensure this works for BLE devices
+
         for (const component of this.initialComponentResponses) {
           if (component.key === 'ws') {
             const server = `wss://${await getIp(this.app.homey)}:${OUTBOUND_WS_PORT}`;
@@ -675,7 +675,6 @@ export class VirtualDevice {
     return this.states.initializing.enter();
   }
 
-  // TODO use this for non-dynamic components as well
   public async onComponentAdded(newComponentId: string): Promise<void> {
     this.log(`Added ${newComponentId}`);
 
@@ -686,7 +685,6 @@ export class VirtualDevice {
     return this.transition({ action: 'reinitialize' });
   }
 
-  // TODO use this for non-dynamic components as well
   public async onComponentRemoved(componentId: string): Promise<void> {
     this.log(`Removed ${componentId}`);
 

@@ -18,9 +18,6 @@ type OutboundWsChannelMittEvents = {
   opened: undefined;
 };
 
-// TODO authentication
-// See documentation: https://shelly-api-docs.shelly.cloud/gen2/General/Authentication/#authentication
-// See example: https://github.com/home-assistant-libs/aioshelly/blob/main/aioshelly/rpc_device/wsrpc.py
 export default class OutboundWebsocketChannel implements RpcChannel {
   public wsPromise: Promise<WebSocket>;
   private resolveWsPromise: ((ws: WebSocket) => void) | undefined;
@@ -67,7 +64,6 @@ export default class OutboundWebsocketChannel implements RpcChannel {
   private handleMessage(event: WsMessageEvent | WsClosedEvent): void {
     if ((event as UnionToIntersection<WsMessageEvent | WsClosedEvent>).json === undefined) {
       // Closed event
-      // TODO
       return;
     }
     // Message event
@@ -99,7 +95,6 @@ export default class OutboundWebsocketChannel implements RpcChannel {
     }
   }
 
-  // TODO use closed event to make this cleaner
   private async getWs(): Promise<WebSocket> {
     const socket = await this.wsPromise;
     if (socket.readyState === WebSocket.OPEN) {

@@ -72,7 +72,7 @@ type CounterEventNotification = PresenceZoneEvent & {
   object?: Array<[number, number]>;
 };
 
-// TODO
+// NOTE: since we add all zones to a single device, we cannot set individual zone settings
 type PresenceZoneHomeySettings = Record<never, never>;
 
 type PresenceMittEvents = {

@@ -197,6 +197,7 @@ export type PresenceStatus = {
   };
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type TrackEventNotification = Pick<NotificationEventParam, 'ts' | 'component' | 'event'> & {
   object: Array<{ id: number; x: number; y: number; z: number; minz: number; maxz: number }>;
 };
@@ -371,12 +372,8 @@ export default class Presence extends ComponentWithoutId<
   }
 
   public async handleEvent(event: NotificationEventParam): Promise<void> {
-    if (event.event === 'track') {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const trackEvent = event as TrackEventNotification;
-      // TODO
-    } else if (event.event === 'no_track') {
-      // TODO
+    if (event.event === 'track' || event.event === 'no_track') {
+      // ignore
     } else {
       return super.handleEvent(event);
     }

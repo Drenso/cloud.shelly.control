@@ -14,7 +14,6 @@ const address = process.argv[2];
 
 const mockTranslate = (key: string): string => key;
 
-// TODO add password
 const rpcChannel = new HttpChannel(address, console.log, mockTranslate, false, null);
 
 const deviceInfo = await Shelly.GetDeviceInfo(rpcChannel);
