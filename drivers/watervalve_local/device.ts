@@ -5,7 +5,7 @@ import type Boolean from '../../lib/component/components/Boolean.js';
 import type Number from '../../lib/component/components/Number.js';
 import type { NumberStatus } from '../../lib/component/components/Number.js';
 import type { BooleanStatus } from '../../lib/component/components/Boolean.js';
-import { safeAddCapability, safeTriggerDeviceCard } from '../../lib/safeFunctions.js';
+import { safeAddCapability, safeSetCapabilityValue, safeTriggerDeviceCard } from '../../lib/safeFunctions.js';
 
 // https://shelly-api-docs.shelly.cloud/gen2/Devices/ShellyX/XT1/SmartWaterValve/
 export default class WaterValveLocalDevice extends ShellyLocalDevice {
@@ -51,7 +51,7 @@ export default class WaterValveLocalDevice extends ShellyLocalDevice {
       status: Partial<NumberStatus>,
     ): Promise<void> => {
       if (status.value !== undefined) {
-        await this.setCapabilityValue('valve_position', status.value / 100);
+        await safeSetCapabilityValue(this, 'valve_position', status.value / 100);
       }
     };
   }
@@ -67,7 +67,7 @@ export default class WaterValveLocalDevice extends ShellyLocalDevice {
         const newValue = !status.value;
         const oldValue = this.getCapabilityValue('alarm_shelly_power_lost') as boolean;
 
-        await this.setCapabilityValue('alarm_shelly_power_lost', newValue);
+        await safeSetCapabilityValue(this, 'alarm_shelly_power_lost', newValue);
 
         if (oldValue !== newValue) {
           const flowCardId = `watervalve_alarm_shelly_power_lost_${newValue ? 'true' : 'false'}`;
