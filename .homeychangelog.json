@@ -49,5 +49,8 @@
   },
   "0.9.1": {
     "en": "Add missing restart button to non-battery devices, improve websocket reconnection logic."
+  },
+  "0.10.0": {
+    "en": "Adds Shelly device error reporting support. Harden local device pairing. Generic implementation updates based on gathered feedback. Note: this release contains breaking flow card changes!"
   }
 }
