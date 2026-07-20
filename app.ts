@@ -16,6 +16,7 @@ import ShellyLocalDriver from './lib/local/LocalDriver.js';
 import { getIp } from './lib/LocalIp.js';
 import OutboundWsServer from './lib/rpc/OutboundWsServer.js';
 import { type SerializedVirtualDevice, VirtualDevice } from './lib/VirtualDevice.js';
+import DevicePower from './lib/component/components/DevicePower.js';
 
 // TODO remove in 1.0.0
 process.on('uncaughtException', (error, origin) => {
@@ -211,6 +212,7 @@ export default class ShellyApp extends Homey.App {
     NumberComponent.registerFlowCards(this);
     Boolean.registerFlowCards(this);
     Button.registerFlowCards(this);
+    DevicePower.registerFlowCards(this);
 
     const alarmPresenceZoneRunListener = async (
       args: { zones: string[] },

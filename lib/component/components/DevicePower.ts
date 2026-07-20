@@ -5,6 +5,10 @@ import GetConfig from './DevicePower/GetConfig.js';
 import GetStatus from './DevicePower/GetStatus.js';
 import type { ComponentMethod } from './Shelly/ListMethods.js';
 import capabilitiesOptions from './DevicePower/capabilitiesOptions.json' with { type: 'json' };
+import { safeAddCapability, safeRemoveCapability, safeSetCapabilityValue } from '../../safeFunctions.js';
+import type { VirtualDevice } from '../../VirtualDevice.js';
+import type ShellyApp from '../../../app.js';
+import { translate } from '../../util.js';
 
 export type DevicePowerConfig = { id: never; name: never } & Record<string, never>;
 
@@ -71,8 +75,16 @@ export default class DevicePower extends ComponentWithId<
       await DevicePower.unregisterCapability(homeyDevice, 'measure_battery', this.id);
     }
 
+    if (DevicePower.hasExternalPowerSupply(homeyDevice.virtualDevice!)) {
+      await safeAddCapability(homeyDevice, 'hidden.has_external_device_power');
+    } else {
+      await safeRemoveCapability(homeyDevice, 'hidden.has_external_device_power');
+    }
+
     if (this.status.external !== undefined) {
-      // TODO
+      await this.registerCapability(homeyDevice, 'alarm_shelly_power_lost', undefined);
+    } else {
+      await DevicePower.unregisterCapability(homeyDevice, 'alarm_shelly_power_lost', this.id);
     }
   }
 
@@ -82,13 +94,74 @@ export default class DevicePower extends ComponentWithId<
     id: number,
   ): Promise<void> {
     await DevicePower.unregisterCapability(homeyDevice, 'measure_battery', id);
+    await safeRemoveCapability(homeyDevice, 'hidden.has_external_device_power');
   }
 
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: DevicePowerStatus): Promise<void> {
     if (status.battery?.percent !== undefined) {
       await this.setCapability(homeyDevice, 'measure_battery', status.battery.percent);
     }
+
+    if (this.status.external !== undefined) {
+      await safeSetCapabilityValue(homeyDevice, 'alarm_shelly_power_lost', !this.status.external.present);
+    }
   }
 
   public async onConfigUpdate(_homeyDevice: ShellyLocalDevice, _config: DevicePowerConfig): Promise<void> {}
+
+  public static hasExternalPowerSupply(virtualDevice: VirtualDevice): boolean {
+    for (const [, component] of virtualDevice.virtualComponents.entries()) {
+      if (component instanceof DevicePower && component.status.external !== undefined) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public static registerFlowCards(app: ShellyApp): void {
+    const getPowerSupplies = (device: ShellyLocalDevice): DevicePower[] => {
+      if (device.virtualDevice === undefined) {
+        return [];
+      }
+
+      return [...device.virtualComponents.values()].filter(
+        component => component instanceof DevicePower && component.status.external !== undefined,
+      ) as DevicePower[];
+    };
+
+    const autoCompleteListener = (
+      query: string,
+      { device }: { device: ShellyLocalDevice },
+    ): { name: string; id: number }[] => {
+      return getPowerSupplies(device)
+        .map(powerSupply => ({
+          name: translate(app.homey.__('locale'), capabilitiesOptions['devicePowerName'], {
+            number: `${powerSupply.id}`,
+          }),
+          id: powerSupply.id,
+        }))
+        .filter(powerSupply => powerSupply.name.toLowerCase().includes(query.toLowerCase()));
+    };
+
+    app.homey.flow
+      .getConditionCard('alarm_shelly_power_lost')
+      .registerArgumentAutocompleteListener('devicePower', autoCompleteListener)
+      .registerRunListener((flowArgs: { devicePower: { id: number }; device: ShellyLocalDevice }) => {
+        const componentKey = `${DevicePower.key}:${flowArgs.devicePower.id}`;
+        const component = flowArgs.device.virtualComponents.get(componentKey) as DevicePower | undefined;
+        if (component === undefined) {
+          throw new Error(app.homey.__('error.component_not_found', { component: componentKey }));
+        }
+        return !component.status.external;
+      });
+
+    for (const flow of ['alarm_shelly_power_lost_false', 'alarm_shelly_power_lost_true']) {
+      app.homey.flow
+        .getDeviceTriggerCard(flow)
+        .registerArgumentAutocompleteListener('devicePower', autoCompleteListener)
+        .registerRunListener((flowArgs: { devicePower: { id: number } }, triggerArgs: { devicePower: number }) => {
+          return flowArgs.devicePower.id === triggerArgs.devicePower;
+        });
+    }
+  }
 }
