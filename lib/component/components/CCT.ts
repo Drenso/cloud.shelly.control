@@ -235,8 +235,8 @@ export default class CCT extends ComponentWithId<'CCT', CCTStatus, CCTConfig, CC
     };
 
     const lightTemperatureCapabilityListener = async (value: number): Promise<void> => {
-      // todo: use configured ct_range, or default value (device specific)
-      await this.Set(this.device.getChannel(), { ct: Math.round(2700 + (1 - value) * (6500 - 2700)) });
+      const [minCt, maxCt] = this.config.ct_range ?? [2700, 6500];
+      await this.Set(this.device.getChannel(), { ct: Math.round(minCt + (1 - value) * (maxCt - minCt)) });
     };
 
     for (const [statusKey, homeyCapability, capabilityListener] of [
@@ -286,8 +286,8 @@ export default class CCT extends ComponentWithId<'CCT', CCTStatus, CCTConfig, CC
       await this.setCapability(homeyDevice, 'dim', status.brightness / 100);
     }
     if (status.ct !== undefined) {
-      // todo: use configured ct_range, or default value (device specific)
-      await this.setCapability(homeyDevice, 'light_temperature', 1 - (status.ct - 2700) / (6500 - 2700));
+      const [minCt, maxCt] = this.config.ct_range ?? [2700, 6500];
+      await this.setCapability(homeyDevice, 'light_temperature', 1 - (status.ct - minCt) / (maxCt - minCt));
     }
     if (status.aenergy?.total !== undefined) {
       const importedEnergy = status.aenergy.total;
