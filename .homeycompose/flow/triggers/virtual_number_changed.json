@@ -7,14 +7,6 @@
   },
   "tokens": [
     {
-      "name": "id",
-      "type": "number",
-      "title": {
-        "en": "Number ID"
-      },
-      "example": 201
-    },
-    {
       "name": "value",
       "type": "number",
       "title": {

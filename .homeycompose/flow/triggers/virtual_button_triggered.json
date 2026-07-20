@@ -7,14 +7,6 @@
   },
   "tokens": [
     {
-      "name": "id",
-      "type": "number",
-      "title": {
-        "en": "Button ID"
-      },
-      "example": 201
-    },
-    {
       "name": "event",
       "type": "string",
       "title": {

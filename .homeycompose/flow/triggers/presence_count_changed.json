@@ -7,14 +7,6 @@
   },
   "tokens": [
     {
-      "name": "zone",
-      "type": "number",
-      "title": {
-        "en": "Zone ID"
-      },
-      "example": 201
-    },
-    {
       "name": "value",
       "type": "number",
       "title": {

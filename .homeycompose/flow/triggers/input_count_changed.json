@@ -7,14 +7,6 @@
   },
   "tokens": [
     {
-      "name": "input",
-      "type": "number",
-      "title": {
-        "en": "Input ID"
-      },
-      "example": 1
-    },
-    {
       "name": "value",
       "type": "number",
       "title": {

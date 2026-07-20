@@ -5,16 +5,6 @@
   "titleFormatted": {
     "en": "[[illuminance]] status changed to [[value]]"
   },
-  "tokens": [
-    {
-      "name": "shelly_illumination",
-      "type": "string",
-      "title": {
-        "en": "Status"
-      },
-      "example": "dark"
-    }
-  ],
   "args": [
     {
       "name": "illuminance",

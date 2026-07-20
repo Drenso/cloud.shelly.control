@@ -5,16 +5,6 @@
   "titleFormatted": {
     "en": "[[devicePower]] reconnected"
   },
-  "tokens": [
-    {
-      "name": "component",
-      "type": "string",
-      "title": {
-        "en": "Component"
-      },
-      "example": "devicepower:1"
-    }
-  ],
   "args": [
     {
       "name": "device",

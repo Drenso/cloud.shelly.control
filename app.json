@@ -260,16 +260,6 @@
         "titleFormatted": {
           "en": "[[devicePower]] reconnected"
         },
-        "tokens": [
-          {
-            "name": "component",
-            "type": "string",
-            "title": {
-              "en": "Component"
-            },
-            "example": "devicepower:1"
-          }
-        ],
         "args": [
           {
             "name": "device",
@@ -296,16 +286,6 @@
         "titleFormatted": {
           "en": "[[devicePower]] reconnected"
         },
-        "tokens": [
-          {
-            "name": "component",
-            "type": "string",
-            "title": {
-              "en": "Component"
-            },
-            "example": "devicepower:1"
-          }
-        ],
         "args": [
           {
             "name": "device",
@@ -400,16 +380,6 @@
         "titleFormatted": {
           "en": "Analog input [[input]] became unknown"
         },
-        "tokens": [
-          {
-            "name": "input",
-            "type": "number",
-            "title": {
-              "en": "Input ID"
-            },
-            "example": 1
-          }
-        ],
         "args": [
           {
             "name": "device",
@@ -440,14 +410,6 @@
           "en": "Analog input [[input]] changed"
         },
         "tokens": [
-          {
-            "name": "input",
-            "type": "number",
-            "title": {
-              "en": "Input ID"
-            },
-            "example": 1
-          },
           {
             "name": "value",
             "type": "number",
@@ -486,14 +448,6 @@
           "en": "Button input [[input]] fired [[value]]"
         },
         "tokens": [
-          {
-            "name": "input",
-            "type": "number",
-            "title": {
-              "en": "Input ID"
-            },
-            "example": 0
-          },
           {
             "name": "value",
             "type": "string",
@@ -579,14 +533,6 @@
         },
         "tokens": [
           {
-            "name": "input",
-            "type": "number",
-            "title": {
-              "en": "Input ID"
-            },
-            "example": 1
-          },
-          {
             "name": "value",
             "type": "number",
             "title": {
@@ -624,14 +570,6 @@
           "en": "Switch input [[input]] changed to [[value]]"
         },
         "tokens": [
-          {
-            "name": "input",
-            "type": "number",
-            "title": {
-              "en": "Input ID"
-            },
-            "example": 0
-          },
           {
             "name": "value",
             "type": "boolean",
@@ -780,14 +718,6 @@
         },
         "tokens": [
           {
-            "name": "zone",
-            "type": "number",
-            "title": {
-              "en": "Zone ID"
-            },
-            "example": 201
-          },
-          {
             "name": "value",
             "type": "number",
             "title": {
@@ -824,16 +754,6 @@
         "titleFormatted": {
           "en": "An object entered zone [[zone]]"
         },
-        "tokens": [
-          {
-            "name": "zone",
-            "type": "number",
-            "title": {
-              "en": "Zone ID"
-            },
-            "example": 201
-          }
-        ],
         "args": [
           {
             "name": "device",
@@ -863,16 +783,6 @@
         "titleFormatted": {
           "en": "An object left zone [[zone]]"
         },
-        "tokens": [
-          {
-            "name": "zone",
-            "type": "number",
-            "title": {
-              "en": "Zone ID"
-            },
-            "example": 201
-          }
-        ],
         "args": [
           {
             "name": "device",
@@ -902,16 +812,6 @@
         "titleFormatted": {
           "en": "[[illuminance]] status changed to [[value]]"
         },
-        "tokens": [
-          {
-            "name": "shelly_illumination",
-            "type": "string",
-            "title": {
-              "en": "Status"
-            },
-            "example": "dark"
-          }
-        ],
         "args": [
           {
             "name": "illuminance",
@@ -1003,14 +903,6 @@
         },
         "tokens": [
           {
-            "name": "id",
-            "type": "number",
-            "title": {
-              "en": "Boolean ID"
-            },
-            "example": 201
-          },
-          {
             "name": "value",
             "type": "boolean",
             "title": {
@@ -1051,14 +943,6 @@
           "en": "[[button]] triggered with [[event]]"
         },
         "tokens": [
-          {
-            "name": "id",
-            "type": "number",
-            "title": {
-              "en": "Button ID"
-            },
-            "example": 201
-          },
           {
             "name": "event",
             "type": "string",
@@ -1135,14 +1019,6 @@
           "en": "[[number]] changed"
         },
         "tokens": [
-          {
-            "name": "id",
-            "type": "number",
-            "title": {
-              "en": "Number ID"
-            },
-            "example": 201
-          },
           {
             "name": "value",
             "type": "number",
