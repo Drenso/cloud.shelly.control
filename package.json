@@ -27,7 +27,7 @@
     "source-map-support": "0.5.21",
     "undici": "8.7.0",
     "ws": "8.21.1",
-    "zigbee-clusters": "3.2.1"
+    "zigbee-clusters": "3.4.0"
   },
   "devDependencies": {
     "@drenso/eslint-config-homey-mts": "1.2.0",
