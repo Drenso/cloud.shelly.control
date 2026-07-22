@@ -26,7 +26,7 @@
     "semver": "7.8.5",
     "source-map-support": "0.5.21",
     "undici": "8.7.0",
-    "ws": "8.21.0",
+    "ws": "8.21.1",
     "zigbee-clusters": "3.2.1"
   },
   "devDependencies": {
