@@ -16,17 +16,21 @@ export default class ShellyLocalDevice extends Homey.Device {
   private errors: Record<string, string[]> = {};
 
   public async onInit(): Promise<void> {
-    if (!this.app.expectedHomeyDeviceIds.includes(this.getTypedData().id)) {
-      await this.setUnavailable(this.homey.__('device.orphan'));
-      return;
-    }
-    await this.setUnavailable(this.homey.__('device.initializing'));
     this.registerCapabilityListener('button.restart', () => {
       if (this.virtualDevice === undefined) {
         throw new Error(this.homey.__('device.not_connected'));
       }
       return this.virtualDevice.reboot();
     });
+    if (!this.app.expectedHomeyDeviceIds.includes(this.getTypedData().id)) {
+      await this.setUnavailable(this.homey.__('device.orphan'));
+      return;
+    }
+    await this.setUnavailable(this.homey.__('device.initializing'));
+  }
+
+  public async onAdded(): Promise<void> {
+    await this.setUnavailable(this.homey.__('device.initializing'));
   }
 
   public async onDeleted(): Promise<void> {
