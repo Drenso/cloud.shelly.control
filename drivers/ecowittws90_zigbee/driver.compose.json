@@ -1,7 +1,7 @@
 {
   "$extends": ["zigbee"],
   "name": {
-    "en": "Ecowitt WS90 Weather station - Zigbee"
+    "en": "Ecowitt WS90 Weather Station - Zigbee"
   },
   "class": "sensor",
   "capabilities": [

@@ -1,7 +1,7 @@
 {
   "$extends": ["local"],
   "name": {
-    "en": "FrankEver Smart water valve - LAN"
+    "en": "FrankEver Smart Water Valve - LAN"
   },
   "class": "watervalve",
   "images": {

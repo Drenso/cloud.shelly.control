@@ -1902,7 +1902,7 @@
       ],
       "icon": "/drivers/ecowittws90_zigbee/assets/icon.svg",
       "name": {
-        "en": "Ecowitt WS90 Weather station - Zigbee"
+        "en": "Ecowitt WS90 Weather Station - Zigbee"
       },
       "class": "sensor",
       "capabilities": [
@@ -10897,7 +10897,7 @@
         }
       ],
       "name": {
-        "en": "FrankEver Smart water valve - LAN"
+        "en": "FrankEver Smart Water Valve - LAN"
       },
       "class": "watervalve",
       "images": {
