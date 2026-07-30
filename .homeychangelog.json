@@ -52,5 +52,8 @@
   },
   "0.10.0": {
     "en": "Adds Shelly device error reporting support. Harden local device pairing. Generic implementation updates based on gathered feedback. Note: this release contains breaking flow card changes!"
+  },
+  "0.11.0": {
+    "en": "Add general information in settings to LAN connected devices"
   }
 }
