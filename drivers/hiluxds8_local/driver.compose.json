@@ -1,0 +1,13 @@
+{
+  "$extends": ["local"],
+  "name": {
+    "en": "HiluX DS8 - LAN"
+  },
+  "class": "light",
+  "images": {
+    "small": "/assets/drivers/hiluxds8/images/small.png",
+    "large": "/assets/drivers/hiluxds8/images/large.png",
+    "xlarge": "/assets/drivers/hiluxds8/images/xlarge.png"
+  },
+  "capabilities": ["onoff", "dim", "light_temperature"]
+}

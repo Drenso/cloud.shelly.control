@@ -1,0 +1,26 @@
+[
+  {
+    "$extends": "CCT.initial_state"
+  },
+  {
+    "$extends": "CCT.transition_duration"
+  },
+  {
+    "$extends": "CCT.min_brightness_on_toggle"
+  },
+  {
+    "$extends": "CCT.night_mode"
+  },
+  {
+    "$extends": "CCT.range_map.min"
+  },
+  {
+    "$extends": "CCT.range_map.max"
+  },
+  {
+    "$extends": "installBleForwardingScript"
+  },
+  {
+    "$extends": "_shelly_device_info"
+  }
+]
