@@ -1,5 +1,6 @@
 import type ShellyApp from '../../../app.js';
 import {
+  createRequestFrame,
   type NotificationFrame,
   prettyError,
   type RequestFrame,
@@ -12,7 +13,6 @@ import WebSocket, { type RawData } from 'ws';
 import { RpcError } from '../RpcError.js';
 import { RPC_SRC } from '../../config.js';
 import { createMitt } from '../../util.js';
-import RPC from '../../component/components/RPC.js';
 import {
   type AuthenticationResponse,
   createAuthenticationResponse,
@@ -75,7 +75,8 @@ export default class InboundWebsocketChannel implements RpcChannel {
       // Delay greeting to allow some time for the device to be responsive
       await new Promise(resolve => this.app.homey.setTimeout(resolve, GREETING_DELAY));
       // Send a message to enable receiving
-      RPC.Ping(this)
+      const pingFrame = createRequestFrame('Shelly.GetDeviceInfo');
+      this.sendRequestFrame(pingFrame)
         .then(() => {
           this.log('Inbound WS greeting completed');
         })
