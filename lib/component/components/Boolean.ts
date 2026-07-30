@@ -52,7 +52,7 @@ export type BooleanConfig = {
   };
   /** The component that controls the value of this virtual component */
   owner?: string;
-  /** Access flags, consisting of c, r(ead), and w(rite) */
+  /** Access flags, consisting of c, r(ead), and w(rite) or `*` for all */
   access?: string;
 };
 
