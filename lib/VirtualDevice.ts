@@ -884,6 +884,19 @@ export class VirtualDevice {
     }
     await Promise.all(promises);
   }
+
+  public async updateDeviceInformationSettings(serializedVirtualDevice: SerializedVirtualDevice): Promise<void> {
+    const promises = [];
+    for (const homeyDevice of this.initializedHomeyDevices.values()) {
+      promises.push(
+        homeyDevice.setSettings({
+          _shelly_device_id: serializedVirtualDevice.deviceId,
+          _shelly_ip: serializedVirtualDevice.ipAddress,
+        }),
+      );
+    }
+    await Promise.all(promises);
+  }
 }
 
 class LocalConnection {

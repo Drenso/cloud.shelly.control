@@ -1,0 +1,20 @@
+{
+  "type": "group",
+  "label": {
+    "en": "Device information"
+  },
+  "children": [
+    {
+      "id": "_shelly_device_id",
+      "type": "label",
+      "label": { "en": "Device identifier" },
+      "value": "-"
+    },
+    {
+      "id": "_shelly_ip",
+      "type": "label",
+      "label": { "en": "IP address" },
+      "value": "-"
+    }
+  ]
+}

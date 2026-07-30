@@ -2404,6 +2404,31 @@
             "en": "If enabled, a script will be started on this device to forward BLE messages from other Shelly devices. This ensures that messages from the other BLE devices can be handled even if they are out of range of your Homey device."
           },
           "value": false
+        },
+        {
+          "id": "_shelly_device_info",
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            {
+              "id": "_shelly_device_id",
+              "type": "label",
+              "label": {
+                "en": "Device identifier"
+              },
+              "value": "-"
+            },
+            {
+              "id": "_shelly_ip",
+              "type": "label",
+              "label": {
+                "en": "IP address"
+              },
+              "value": "-"
+            }
+          ]
         }
       ]
     },
@@ -2700,6 +2725,31 @@
             "en": "If enabled, a script will be started on this device to forward BLE messages from other Shelly devices. This ensures that messages from the other BLE devices can be handled even if they are out of range of your Homey device."
           },
           "value": false
+        },
+        {
+          "id": "_shelly_device_info",
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            {
+              "id": "_shelly_device_id",
+              "type": "label",
+              "label": {
+                "en": "Device identifier"
+              },
+              "value": "-"
+            },
+            {
+              "id": "_shelly_ip",
+              "type": "label",
+              "label": {
+                "en": "IP address"
+              },
+              "value": "-"
+            }
+          ]
         }
       ]
     },
@@ -2969,6 +3019,31 @@
             "en": "If enabled, a script will be started on this device to forward BLE messages from other Shelly devices. This ensures that messages from the other BLE devices can be handled even if they are out of range of your Homey device."
           },
           "value": false
+        },
+        {
+          "id": "_shelly_device_info",
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            {
+              "id": "_shelly_device_id",
+              "type": "label",
+              "label": {
+                "en": "Device identifier"
+              },
+              "value": "-"
+            },
+            {
+              "id": "_shelly_ip",
+              "type": "label",
+              "label": {
+                "en": "IP address"
+              },
+              "value": "-"
+            }
+          ]
         }
       ]
     },
@@ -3306,6 +3381,31 @@
             "en": "If enabled, a script will be started on this device to forward BLE messages from other Shelly devices. This ensures that messages from the other BLE devices can be handled even if they are out of range of your Homey device."
           },
           "value": false
+        },
+        {
+          "id": "_shelly_device_info",
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            {
+              "id": "_shelly_device_id",
+              "type": "label",
+              "label": {
+                "en": "Device identifier"
+              },
+              "value": "-"
+            },
+            {
+              "id": "_shelly_ip",
+              "type": "label",
+              "label": {
+                "en": "IP address"
+              },
+              "value": "-"
+            }
+          ]
         }
       ]
     },
@@ -3658,6 +3758,31 @@
             "en": "If enabled, a script will be started on this device to forward BLE messages from other Shelly devices. This ensures that messages from the other BLE devices can be handled even if they are out of range of your Homey device."
           },
           "value": false
+        },
+        {
+          "id": "_shelly_device_info",
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            {
+              "id": "_shelly_device_id",
+              "type": "label",
+              "label": {
+                "en": "Device identifier"
+              },
+              "value": "-"
+            },
+            {
+              "id": "_shelly_ip",
+              "type": "label",
+              "label": {
+                "en": "IP address"
+              },
+              "value": "-"
+            }
+          ]
         }
       ]
     },
@@ -4363,6 +4488,31 @@
             "en": "If enabled, a script will be started on this device to forward BLE messages from other Shelly devices. This ensures that messages from the other BLE devices can be handled even if they are out of range of your Homey device."
           },
           "value": false
+        },
+        {
+          "id": "_shelly_device_info",
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            {
+              "id": "_shelly_device_id",
+              "type": "label",
+              "label": {
+                "en": "Device identifier"
+              },
+              "value": "-"
+            },
+            {
+              "id": "_shelly_ip",
+              "type": "label",
+              "label": {
+                "en": "IP address"
+              },
+              "value": "-"
+            }
+          ]
         }
       ]
     },
@@ -4719,6 +4869,31 @@
             "en": "If enabled, a script will be started on this device to forward BLE messages from other Shelly devices. This ensures that messages from the other BLE devices can be handled even if they are out of range of your Homey device."
           },
           "value": false
+        },
+        {
+          "id": "_shelly_device_info",
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            {
+              "id": "_shelly_device_id",
+              "type": "label",
+              "label": {
+                "en": "Device identifier"
+              },
+              "value": "-"
+            },
+            {
+              "id": "_shelly_ip",
+              "type": "label",
+              "label": {
+                "en": "IP address"
+              },
+              "value": "-"
+            }
+          ]
         }
       ]
     },
@@ -5219,6 +5394,31 @@
               }
             }
           ]
+        },
+        {
+          "id": "_shelly_device_info",
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            {
+              "id": "_shelly_device_id",
+              "type": "label",
+              "label": {
+                "en": "Device identifier"
+              },
+              "value": "-"
+            },
+            {
+              "id": "_shelly_ip",
+              "type": "label",
+              "label": {
+                "en": "IP address"
+              },
+              "value": "-"
+            }
+          ]
         }
       ]
     },
@@ -5641,6 +5841,31 @@
             "en": "If enabled, a script will be started on this device to forward BLE messages from other Shelly devices. This ensures that messages from the other BLE devices can be handled even if they are out of range of your Homey device."
           },
           "value": false
+        },
+        {
+          "id": "_shelly_device_info",
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            {
+              "id": "_shelly_device_id",
+              "type": "label",
+              "label": {
+                "en": "Device identifier"
+              },
+              "value": "-"
+            },
+            {
+              "id": "_shelly_ip",
+              "type": "label",
+              "label": {
+                "en": "IP address"
+              },
+              "value": "-"
+            }
+          ]
         }
       ]
     },
@@ -6094,6 +6319,31 @@
             "en": "If enabled, a script will be started on this device to forward BLE messages from other Shelly devices. This ensures that messages from the other BLE devices can be handled even if they are out of range of your Homey device."
           },
           "value": false
+        },
+        {
+          "id": "_shelly_device_info",
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            {
+              "id": "_shelly_device_id",
+              "type": "label",
+              "label": {
+                "en": "Device identifier"
+              },
+              "value": "-"
+            },
+            {
+              "id": "_shelly_ip",
+              "type": "label",
+              "label": {
+                "en": "IP address"
+              },
+              "value": "-"
+            }
+          ]
         }
       ]
     },
@@ -6437,6 +6687,31 @@
             "en": "If enabled, a script will be started on this device to forward BLE messages from other Shelly devices. This ensures that messages from the other BLE devices can be handled even if they are out of range of your Homey device."
           },
           "value": false
+        },
+        {
+          "id": "_shelly_device_info",
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            {
+              "id": "_shelly_device_id",
+              "type": "label",
+              "label": {
+                "en": "Device identifier"
+              },
+              "value": "-"
+            },
+            {
+              "id": "_shelly_ip",
+              "type": "label",
+              "label": {
+                "en": "IP address"
+              },
+              "value": "-"
+            }
+          ]
         }
       ]
     },
@@ -6628,6 +6903,31 @@
             "en": "If enabled, a script will be started on this device to forward BLE messages from other Shelly devices. This ensures that messages from the other BLE devices can be handled even if they are out of range of your Homey device."
           },
           "value": false
+        },
+        {
+          "id": "_shelly_device_info",
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            {
+              "id": "_shelly_device_id",
+              "type": "label",
+              "label": {
+                "en": "Device identifier"
+              },
+              "value": "-"
+            },
+            {
+              "id": "_shelly_ip",
+              "type": "label",
+              "label": {
+                "en": "IP address"
+              },
+              "value": "-"
+            }
+          ]
         }
       ]
     },
@@ -6911,6 +7211,31 @@
             "en": "If enabled, a script will be started on this device to forward BLE messages from other Shelly devices. This ensures that messages from the other BLE devices can be handled even if they are out of range of your Homey device."
           },
           "value": false
+        },
+        {
+          "id": "_shelly_device_info",
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            {
+              "id": "_shelly_device_id",
+              "type": "label",
+              "label": {
+                "en": "Device identifier"
+              },
+              "value": "-"
+            },
+            {
+              "id": "_shelly_ip",
+              "type": "label",
+              "label": {
+                "en": "IP address"
+              },
+              "value": "-"
+            }
+          ]
         }
       ]
     },
@@ -7151,6 +7476,31 @@
                   }
                 }
               ]
+            }
+          ]
+        },
+        {
+          "id": "_shelly_device_info",
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            {
+              "id": "_shelly_device_id",
+              "type": "label",
+              "label": {
+                "en": "Device identifier"
+              },
+              "value": "-"
+            },
+            {
+              "id": "_shelly_ip",
+              "type": "label",
+              "label": {
+                "en": "IP address"
+              },
+              "value": "-"
             }
           ]
         }
@@ -7394,6 +7744,31 @@
                   }
                 }
               ]
+            }
+          ]
+        },
+        {
+          "id": "_shelly_device_info",
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            {
+              "id": "_shelly_device_id",
+              "type": "label",
+              "label": {
+                "en": "Device identifier"
+              },
+              "value": "-"
+            },
+            {
+              "id": "_shelly_ip",
+              "type": "label",
+              "label": {
+                "en": "IP address"
+              },
+              "value": "-"
             }
           ]
         }
@@ -8235,6 +8610,31 @@
             "en": "If enabled, a script will be started on this device to forward BLE messages from other Shelly devices. This ensures that messages from the other BLE devices can be handled even if they are out of range of your Homey device."
           },
           "value": false
+        },
+        {
+          "id": "_shelly_device_info",
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            {
+              "id": "_shelly_device_id",
+              "type": "label",
+              "label": {
+                "en": "Device identifier"
+              },
+              "value": "-"
+            },
+            {
+              "id": "_shelly_ip",
+              "type": "label",
+              "label": {
+                "en": "IP address"
+              },
+              "value": "-"
+            }
+          ]
         }
       ]
     },
@@ -8754,6 +9154,31 @@
             "en": "If enabled, a script will be started on this device to forward BLE messages from other Shelly devices. This ensures that messages from the other BLE devices can be handled even if they are out of range of your Homey device."
           },
           "value": false
+        },
+        {
+          "id": "_shelly_device_info",
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            {
+              "id": "_shelly_device_id",
+              "type": "label",
+              "label": {
+                "en": "Device identifier"
+              },
+              "value": "-"
+            },
+            {
+              "id": "_shelly_ip",
+              "type": "label",
+              "label": {
+                "en": "IP address"
+              },
+              "value": "-"
+            }
+          ]
         }
       ]
     },
@@ -9500,6 +9925,31 @@
             "en": "If enabled, a script will be started on this device to forward BLE messages from other Shelly devices. This ensures that messages from the other BLE devices can be handled even if they are out of range of your Homey device."
           },
           "value": false
+        },
+        {
+          "id": "_shelly_device_info",
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            {
+              "id": "_shelly_device_id",
+              "type": "label",
+              "label": {
+                "en": "Device identifier"
+              },
+              "value": "-"
+            },
+            {
+              "id": "_shelly_ip",
+              "type": "label",
+              "label": {
+                "en": "IP address"
+              },
+              "value": "-"
+            }
+          ]
         }
       ]
     },
@@ -10589,6 +11039,31 @@
           },
           "value": 0.5,
           "units": "°C"
+        },
+        {
+          "id": "_shelly_device_info",
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            {
+              "id": "_shelly_device_id",
+              "type": "label",
+              "label": {
+                "en": "Device identifier"
+              },
+              "value": "-"
+            },
+            {
+              "id": "_shelly_ip",
+              "type": "label",
+              "label": {
+                "en": "IP address"
+              },
+              "value": "-"
+            }
+          ]
         }
       ]
     }

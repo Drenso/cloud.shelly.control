@@ -177,8 +177,10 @@ export default class ShellyApp extends Homey.App {
       this.homey.settings.set(VIRTUAL_DEVICE_IDS_SETTING_KEY, virtualDeviceIds);
     }
     const deviceSettingKey = VIRTUAL_DEVICE_SETTING_KEY_PREFIX + device.deviceId;
-    this.homey.settings.set(deviceSettingKey, device.serialize());
+    const serializedVirtualDevice = device.serialize();
+    this.homey.settings.set(deviceSettingKey, serializedVirtualDevice);
     this.outboundWsServer.registerDevice(device.deviceId);
+    await device.updateDeviceInformationSettings(serializedVirtualDevice).catch(this.error);
   }
 
   public getLocalDevice(id: string): ShellyLocalDevice | undefined {

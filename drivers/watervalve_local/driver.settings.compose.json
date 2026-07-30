@@ -18,5 +18,8 @@
     "$extends": "Temperature.report_thr_C",
     "min": 0.1,
     "max": 5.0
+  },
+  {
+    "$extends": "_shelly_device_info"
   }
 ]

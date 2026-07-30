@@ -4,5 +4,8 @@
   },
   {
     "$extends": "Flood.alarm_mode"
+  },
+  {
+    "$extends": "_shelly_device_info"
   }
 ]
