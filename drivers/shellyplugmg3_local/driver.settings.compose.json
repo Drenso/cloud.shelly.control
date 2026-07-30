@@ -3,27 +3,7 @@
     "$extends": "PLUGS_UI.controls.switch.in_mode"
   },
   {
-    "$extends": "Switch.initial_state",
-    "values": [
-      {
-        "id": "off",
-        "label": {
-          "en": "Off"
-        }
-      },
-      {
-        "id": "on",
-        "label": {
-          "en": "On"
-        }
-      },
-      {
-        "id": "restore_last",
-        "label": {
-          "en": "Restore Last"
-        }
-      }
-    ]
+    "$extends": "Switch.initial_state"
   },
   {
     "$extends": "Switch.autorecover_voltage_errors"
