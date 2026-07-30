@@ -9,7 +9,19 @@ export default abstract class ShellyBleDriver extends Homey.Driver {
     return this.homey.app as ShellyApp;
   }
 
-  public getDefaultName(): string {
+  public getDeviceName(advertisement: Homey.BleAdvertisement): string {
+    if (advertisement.localName && advertisement.address) {
+      return `${advertisement.localName} [${advertisement.address}]`;
+    }
+
+    if (advertisement.localName) {
+      return advertisement.localName;
+    }
+
+    if (advertisement.address) {
+      return advertisement.address;
+    }
+
     return this.manifest.name.en.split('-')[0].trim();
   }
 
@@ -46,7 +58,7 @@ export default abstract class ShellyBleDriver extends Homey.Driver {
     for (const bleAdvertisement of bleAdvertisements) {
       if (bleAdvertisement.localName.startsWith(this.bleNamePrefix)) {
         results.push({
-          name: this.getDefaultName(),
+          name: this.getDeviceName(bleAdvertisement),
           icon: `../../../assets/drivers/${this.baseDriverId}/icon.svg`,
           data: {
             id: bleAdvertisement.address,

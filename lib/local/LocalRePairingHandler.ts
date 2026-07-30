@@ -94,7 +94,7 @@ export class LocalRePairingHandler {
 
     // Update device info
     this.selectedDevice = {
-      name: deviceInfo.name ?? this.driver.getDefaultName(),
+      name: this.driver.getDeviceName(deviceInfo, discoveryResult),
       data: {
         id: deviceInfo.id,
         useHttps: httpChannel.useHttps,

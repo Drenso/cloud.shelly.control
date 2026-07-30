@@ -1,4 +1,4 @@
-import Homey from 'homey';
+import Homey, { type DiscoveryResultMDNSSD } from 'homey';
 import { VirtualDevice } from '../VirtualDevice.js';
 import type ShellyApp from '../../app.js';
 import type {
@@ -95,7 +95,23 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
     );
   }
 
-  public getDefaultName(): string {
+  public getDeviceName(deviceInfo: ShellyGetDeviceInfoResponse, discoveryResult?: DiscoveryResultMDNSSD): string {
+    if (deviceInfo.name) {
+      return deviceInfo.name;
+    }
+
+    if (discoveryResult?.address && deviceInfo.id) {
+      return `${discoveryResult.address} [${deviceInfo.id}]`;
+    }
+
+    if (discoveryResult?.address) {
+      return discoveryResult.address;
+    }
+
+    if (deviceInfo.id) {
+      return deviceInfo.id;
+    }
+
     return this.manifest.name.en.split('-')[0].trim();
   }
 
@@ -180,7 +196,7 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
       }
 
       return {
-        name: deviceInfo.name ?? this.getDefaultName(),
+        name: this.getDeviceName(deviceInfo, discoveryResult),
         data: {
           id: deviceInfo.id,
           useHttps: httpChannel.useHttps,
