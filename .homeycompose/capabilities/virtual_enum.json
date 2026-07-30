@@ -1,0 +1,11 @@
+{
+  "title": {
+    "en": "Enum"
+  },
+  "type": "enum",
+  "getable": true,
+  "setable": true,
+  "uiComponent": "picker",
+  "values": [],
+  "icon": "/assets/capabilities/enum.svg"
+}

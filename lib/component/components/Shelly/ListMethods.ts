@@ -18,6 +18,7 @@ type NamespaceMethodMapping = {
     'ResetCounters',
     'GetNetEnergies',
   ];
+  Enum: ['GetConfig', 'SetConfig', 'GetStatus', 'Set'];
   Flood: ['SetConfig', 'GetConfig', 'GetStatus'];
   Humidity: ['SetConfig', 'GetConfig', 'GetStatus'];
   Illuminance: ['GetConfig', 'SetConfig', 'GetStatus'];

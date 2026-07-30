@@ -5,6 +5,7 @@ import Cover from './components/Cover.js';
 import DevicePower from './components/DevicePower.js';
 import EM1 from './components/EM1.js';
 import EM1Data from './components/EM1Data.js';
+import Enum from './components/Enum.js';
 import Flood from './components/Flood.js';
 import Humidity from './components/Humidity.js';
 import Illuminance from './components/Illuminance.js';
@@ -33,6 +34,7 @@ export const ComponentWithIdMapping = {
   devicepower: DevicePower,
   em1: EM1,
   em1data: EM1Data,
+  enum: Enum,
   flood: Flood,
   humidity: Humidity,
   illuminance: Illuminance,

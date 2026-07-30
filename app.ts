@@ -17,6 +17,7 @@ import { getIp } from './lib/LocalIp.js';
 import OutboundWsServer from './lib/rpc/OutboundWsServer.js';
 import { type SerializedVirtualDevice, VirtualDevice } from './lib/VirtualDevice.js';
 import DevicePower from './lib/component/components/DevicePower.js';
+import Enum from './lib/component/components/Enum.js';
 
 // TODO remove in 1.0.0
 process.on('uncaughtException', (error, origin) => {
@@ -211,6 +212,7 @@ export default class ShellyApp extends Homey.App {
     Boolean.registerFlowCards(this);
     Button.registerFlowCards(this);
     DevicePower.registerFlowCards(this);
+    Enum.registerFlowCards(this);
     Illuminance.registerFlowCards(this);
     Input.registerFlowCards(this);
     NumberComponent.registerFlowCards(this);
