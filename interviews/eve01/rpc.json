@@ -1,0 +1,390 @@
+[
+  {
+    "key": "ble",
+    "status": {},
+    "config": {
+      "enable": true,
+      "rpc": {
+        "enable": true
+      }
+    }
+  },
+  {
+    "key": "boolean:200",
+    "status": {
+      "value": false,
+      "source": "sys",
+      "last_update_ts": 1755802918
+    },
+    "config": {
+      "id": 200,
+      "name": "Start Charging",
+      "meta": {
+        "cloud": ["log"],
+        "ui": {
+          "view": "toggle",
+          "titles": ["Off", "On"]
+        }
+      },
+      "persisted": true,
+      "default_value": false,
+      "owner": "service:0",
+      "access": "crw"
+    },
+    "attrs": {
+      "owner": "service:0",
+      "role": "start_charging"
+    }
+  },
+  {
+    "key": "bthome",
+    "status": {},
+    "config": {}
+  },
+  {
+    "key": "cloud",
+    "status": {
+      "connected": false
+    },
+    "config": {
+      "enable": false,
+      "server": "iot.shelly.cloud:6012/jrpc"
+    }
+  },
+  {
+    "key": "enum:200",
+    "status": {
+      "value": "charger_free",
+      "source": "sys",
+      "last_update_ts": 1755802918
+    },
+    "config": {
+      "id": 200,
+      "name": "Charger state",
+      "options": [
+        "charger_free",
+        "charger_insert",
+        "charger_free_fault",
+        "charger_wait",
+        "charger_charging",
+        "charger_pause",
+        "charger_end",
+        "charger_fault"
+      ],
+      "meta": {
+        "ui": {
+          "view": "label",
+          "titles": {
+            "charger_free": "Free",
+            "charger_insert": "Insert",
+            "charger_free_fault": "Free fault",
+            "charger_wait": "Wait",
+            "charger_charging": "Charging",
+            "charger_pause": "Pause",
+            "charger_end": "End",
+            "charger_fault": "Fault"
+          }
+        }
+      },
+      "persisted": false,
+      "default_value": "charger_free",
+      "owner": "service:0",
+      "access": "cr"
+    },
+    "attrs": {
+      "owner": "service:0",
+      "role": "work_state"
+    }
+  },
+  {
+    "key": "mqtt",
+    "status": {
+      "connected": false
+    },
+    "config": {
+      "enable": false,
+      "server": null,
+      "client_id": "eve01-b08184ee8318",
+      "user": null,
+      "ssl_ca": null,
+      "topic_prefix": "eve01-b08184ee8318",
+      "rpc_ntf": true,
+      "status_ntf": false,
+      "use_client_cert": false,
+      "enable_rpc": true,
+      "enable_control": true
+    }
+  },
+  {
+    "key": "number:200",
+    "status": {
+      "value": 16,
+      "source": "sys",
+      "last_update_ts": 1755802917
+    },
+    "config": {
+      "id": 200,
+      "name": "Current limit",
+      "min": 6,
+      "max": 16,
+      "meta": {
+        "ui": {
+          "view": "slider",
+          "unit": "A"
+        }
+      },
+      "persisted": false,
+      "default_value": 8,
+      "owner": "service:0",
+      "access": "crw"
+    },
+    "attrs": {
+      "owner": "service:0",
+      "role": "current_limit"
+    }
+  },
+  {
+    "key": "number:201",
+    "status": {
+      "value": 0,
+      "source": "sys",
+      "last_update_ts": 1755802919
+    },
+    "config": {
+      "id": 201,
+      "name": "Session energy",
+      "min": 0,
+      "max": 9999999999,
+      "meta": {
+        "ui": {
+          "view": "label",
+          "unit": "kWh"
+        }
+      },
+      "persisted": false,
+      "default_value": 0,
+      "owner": "service:0",
+      "access": "cr"
+    },
+    "attrs": {
+      "owner": "service:0",
+      "role": "energy_charge"
+    }
+  },
+  {
+    "key": "number:202",
+    "status": {
+      "value": 0,
+      "source": "",
+      "last_update_ts": 0
+    },
+    "config": {
+      "id": 202,
+      "name": "Session duration",
+      "min": 0,
+      "max": 50000,
+      "meta": {
+        "ui": {
+          "view": "label",
+          "unit": "min"
+        }
+      },
+      "persisted": false,
+      "default_value": 0,
+      "owner": "service:0",
+      "access": "cr"
+    },
+    "attrs": {
+      "owner": "service:0",
+      "role": "time_charge"
+    }
+  },
+  {
+    "key": "object:200",
+    "status": {
+      "value": {
+        "counter": {
+          "total": 0,
+          "minute_ts": 1785403020,
+          "by_minute": [0, 0, 0]
+        },
+        "total_current": 0,
+        "total_power": 0,
+        "total_act_energy": 0,
+        "phase_a": {
+          "voltage": 233,
+          "current": 0,
+          "power": 0
+        },
+        "phase_b": {
+          "voltage": 233.6,
+          "current": 0,
+          "power": 0
+        },
+        "phase_c": {
+          "voltage": 230.4,
+          "current": 0,
+          "power": 0
+        }
+      },
+      "source": "sys",
+      "last_update_ts": 1785403099
+    },
+    "config": {
+      "id": 200,
+      "name": "Consumption",
+      "meta": {
+        "cloud": ["bymin"],
+        "ui": {
+          "unit": "kW/h"
+        }
+      },
+      "owner": "service:0",
+      "access": "cr"
+    },
+    "attrs": {
+      "owner": "service:0",
+      "role": "phase_info"
+    }
+  },
+  {
+    "key": "service:0",
+    "status": {
+      "etag": "6101ea0619220b33a7eff4d0f5c608bb",
+      "state": "running",
+      "stats": {
+        "mem": 1555,
+        "mem_peak": 1840
+      }
+    },
+    "config": {
+      "auto_balance": {
+        "enable": false,
+        "em_ip": null,
+        "max_current": 24,
+        "exclude_self_current": true
+      },
+      "auto_charge": true,
+      "global_charge_limit": null,
+      "global_time_limit": null,
+      "id": 0
+    }
+  },
+  {
+    "key": "sys",
+    "status": {
+      "mac": "B08184EE8318",
+      "restart_required": false,
+      "time": "11:18",
+      "unixtime": 1785403109,
+      "last_sync_ts": 1785402627,
+      "uptime": 531,
+      "ram_size": 266888,
+      "ram_free": 82556,
+      "ram_min_free": 66844,
+      "fs_size": 1048576,
+      "fs_free": 573440,
+      "cfg_rev": 16,
+      "kvs_rev": 0,
+      "schedule_rev": 0,
+      "webhook_rev": 0,
+      "btrelay_rev": 0,
+      "available_updates": {},
+      "reset_reason": 1,
+      "utc_offset": 7200
+    },
+    "config": {
+      "device": {
+        "name": null,
+        "mac": "B08184EE8318",
+        "fw_id": "20250821-190155/g7a8da83",
+        "discoverable": true,
+        "tls_check_cert_validity_time": true,
+        "enhanced_security": false
+      },
+      "location": {
+        "tz": "Europe/Amsterdam",
+        "lat": 52.3072,
+        "lon": 6.5127
+      },
+      "debug": {
+        "level": 2,
+        "file_level": null,
+        "mqtt": {
+          "enable": false
+        },
+        "websocket": {
+          "enable": false
+        },
+        "udp": {
+          "addr": "35.205.173.252:8910"
+        }
+      },
+      "ui_data": {},
+      "rpc_udp": {
+        "dst_addr": null,
+        "listen_port": null
+      },
+      "sntp": {
+        "server": "time.cloudflare.com"
+      },
+      "cfg_rev": 16
+    }
+  },
+  {
+    "key": "wifi",
+    "status": {
+      "sta_ip": "192.168.222.185",
+      "status": "got ip",
+      "ssid": "DrensoDev",
+      "bssid": "76:ac:b9:2c:8c:03",
+      "rssi": -74,
+      "sta_ip6": ["fe80::b281:84ff:feee:8318", "fd03:8586:4012:ec48:b281:84ff:feee:8318"]
+    },
+    "config": {
+      "ap": {
+        "ssid": "EVE01-B08184EE8318",
+        "is_open": true,
+        "enable": true,
+        "range_extender": {
+          "enable": false
+        }
+      },
+      "sta": {
+        "ssid": "DrensoDev",
+        "is_open": false,
+        "enable": true,
+        "ipv4mode": "dhcp",
+        "ip": null,
+        "netmask": null,
+        "gw": null,
+        "nameserver": null
+      },
+      "sta1": {
+        "ssid": null,
+        "is_open": true,
+        "enable": false,
+        "ipv4mode": "dhcp",
+        "ip": null,
+        "netmask": null,
+        "gw": null,
+        "nameserver": null
+      },
+      "roam": {
+        "rssi_thr": -80,
+        "interval": 60
+      }
+    }
+  },
+  {
+    "key": "ws",
+    "status": {
+      "connected": false
+    },
+    "config": {
+      "enable": false,
+      "server": null,
+      "ssl_ca": "ca.pem"
+    }
+  }
+]
