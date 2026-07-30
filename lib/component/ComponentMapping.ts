@@ -12,6 +12,7 @@ import Illuminance from './components/Illuminance.js';
 import Input from './components/Input.js';
 import Light from './components/Light.js';
 import Number from './components/Number.js';
+import Object from './components/Object.js';
 import OutboundWebsocket from './components/OutboundWebsocket.js';
 import Pill from './components/Pill.js';
 import PlugsUI from './components/PlugsUI.js';
@@ -40,6 +41,7 @@ export const ComponentWithIdMapping = {
   illuminance: Illuminance,
   input: Input,
   light: Light,
+  object: Object,
   number: Number,
   presencezone: PresenceZone,
   rgbcct: RGBCCT,
