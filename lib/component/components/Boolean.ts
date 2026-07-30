@@ -21,7 +21,7 @@ export type BooleanConfig = {
    * name length should not exceed 64 chars
    */
   name: string | null;
-  /** Whether the value should persist */
+  /** Whether the value should persist after reboot */
   persisted: boolean;
   /** Value applied on reboot if `persisted` is false */
   default_value: boolean;
