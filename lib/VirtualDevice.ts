@@ -278,7 +278,6 @@ export class VirtualDevice {
 
               await this.reboot().catch(err => this.debug('Error during Outbound WS reboot:', err));
               this.log('Enabled outbound websocket');
-              this.debugState('Waiting for outbound websocket connection...');
               return this.localConnection.waitForOutboundWsConnection();
             }
           }
