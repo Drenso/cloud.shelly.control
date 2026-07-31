@@ -1,0 +1,24 @@
+{
+  "$extends": ["local"],
+  "name": {
+    "en": "Ogemray Smart Relay 25A - LAN"
+  },
+  "class": "socket",
+  "capabilities": [
+    "onoff",
+    "shelly_input_switch",
+    "measure_power",
+    "measure_current",
+    "measure_voltage",
+    "measure_frequency",
+    "meter_power.total",
+    "measure_temperature",
+    "hidden.has_input_button",
+    "hidden.has_input_switch"
+  ],
+  "images": {
+    "small": "/assets/drivers/ogemray25a/images/small.png",
+    "large": "/assets/drivers/ogemray25a/images/large.png",
+    "xlarge": "/assets/drivers/ogemray25a/images/xlarge.png"
+  }
+}
