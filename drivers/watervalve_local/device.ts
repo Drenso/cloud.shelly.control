@@ -41,9 +41,10 @@ export default class WaterValveLocalDevice extends ShellyLocalDevice {
 
     await virtualComponent.registerCapability(this, 'valve_position', undefined, async (value: number) => {
       const channel = this.virtualDevice?.getChannel();
-      if (channel !== undefined) {
-        await virtualComponent.Set(channel, { value: value * 100 });
+      if (channel === undefined) {
+        throw new Error(this.homey.__('error.host_unreachable'));
       }
+      await virtualComponent.Set(channel, { value: value * 100 });
     });
 
     virtualComponent.onStatusUpdate = async (
