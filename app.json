@@ -4681,6 +4681,267 @@
         }
       ],
       "name": {
+        "en": "1PM Gen3 Mini - LAN"
+      },
+      "class": "socket",
+      "images": {
+        "small": "/assets/drivers/shelly1pmminig3/images/small.png",
+        "large": "/assets/drivers/shelly1pmminig3/images/large.png",
+        "xlarge": "/assets/drivers/shelly1pmminig3/images/xlarge.png"
+      },
+      "id": "shelly1pmminig3_local",
+      "settings": [
+        {
+          "id": "Input:enable",
+          "type": "checkbox",
+          "label": {
+            "en": "Input - Enabled"
+          },
+          "value": true
+        },
+        {
+          "id": "Input:invert",
+          "type": "checkbox",
+          "label": {
+            "en": "Input - Invert"
+          },
+          "value": true
+        },
+        {
+          "id": "Switch:in_mode",
+          "type": "dropdown",
+          "label": {
+            "en": "Switch - Control Mode"
+          },
+          "value": "follow",
+          "values": [
+            {
+              "id": "momentary",
+              "label": {
+                "en": "Momentary"
+              }
+            },
+            {
+              "id": "follow",
+              "label": {
+                "en": "Follow Input"
+              }
+            },
+            {
+              "id": "flip",
+              "label": {
+                "en": "Change on Input Change"
+              }
+            },
+            {
+              "id": "detached",
+              "label": {
+                "en": "Detached"
+              }
+            },
+            {
+              "id": "activate",
+              "label": {
+                "en": "Turn on only"
+              }
+            }
+          ],
+          "hint": {
+            "en": "\"Turn on only\" is for use with a motion sensor. Turn off again with a flow."
+          }
+        },
+        {
+          "id": "Switch:initial_state",
+          "type": "dropdown",
+          "label": {
+            "en": "Switch - Startup State"
+          },
+          "value": "off",
+          "values": [
+            {
+              "id": "off",
+              "label": {
+                "en": "Off"
+              }
+            },
+            {
+              "id": "on",
+              "label": {
+                "en": "On"
+              }
+            },
+            {
+              "id": "restore_last",
+              "label": {
+                "en": "Restore Last"
+              }
+            },
+            {
+              "id": "match_input",
+              "label": {
+                "en": "Match Input"
+              }
+            }
+          ]
+        },
+        {
+          "id": "Switch:autorecover_voltage_errors",
+          "type": "checkbox",
+          "label": {
+            "en": "Switch - Autorecover Voltage Errors"
+          },
+          "hint": {
+            "en": "Whether to restore the switch output state after an overvoltage error is cleared."
+          },
+          "value": false
+        },
+        {
+          "id": "Switch:power_limit",
+          "type": "number",
+          "label": {
+            "en": "Switch - Power Limit"
+          },
+          "hint": {
+            "en": "The maximum value is the max-rated output power."
+          },
+          "value": 3360,
+          "min": 0,
+          "units": "W"
+        },
+        {
+          "id": "Switch:voltage_limit",
+          "type": "number",
+          "label": {
+            "en": "Switch - Voltage Limit"
+          },
+          "hint": {
+            "en": "The maximum value is the max-rated output voltage."
+          },
+          "value": 280,
+          "min": 0,
+          "units": "V"
+        },
+        {
+          "id": "Switch:current_limit",
+          "type": "number",
+          "label": {
+            "en": "Switch - Current Limit"
+          },
+          "hint": {
+            "en": "The maximum value is the max-rated output current."
+          },
+          "value": 12,
+          "min": 0,
+          "units": "A"
+        },
+        {
+          "id": "installBleForwardingScript",
+          "type": "checkbox",
+          "label": {
+            "en": "Install BLE forwarding script"
+          },
+          "hint": {
+            "en": "If enabled, a script will be started on this device to forward BLE messages from other Shelly devices. This ensures that messages from the other BLE devices can be handled even if they are out of range of your Homey device."
+          },
+          "value": false
+        },
+        {
+          "id": "_shelly_device_info",
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            {
+              "id": "_shelly_device_id",
+              "type": "label",
+              "label": {
+                "en": "Device identifier"
+              },
+              "value": "-"
+            },
+            {
+              "id": "_shelly_ip",
+              "type": "label",
+              "label": {
+                "en": "IP address"
+              },
+              "value": "-"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "lan"
+      ],
+      "capabilities": [
+        "onoff",
+        "shelly_input_switch",
+        "measure_power",
+        "measure_current",
+        "measure_voltage",
+        "measure_frequency",
+        "meter_power.total",
+        "meter_power.consumed",
+        "meter_power.returned",
+        "measure_temperature",
+        "hidden.has_input_button",
+        "hidden.has_input_switch"
+      ],
+      "capabilitiesOptions": {
+        "button.restart": {
+          "maintenanceAction": true,
+          "title": {
+            "en": "Restart Device"
+          }
+        }
+      },
+      "pair": [
+        {
+          "id": "pairing_information",
+          "navigation": {
+            "next": "list_devices"
+          }
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "authenticate_devices"
+          }
+        },
+        {
+          "id": "authenticate_devices",
+          "template": "loading",
+          "options": {
+            "text": "pair.loading_devices"
+          }
+        },
+        {
+          "id": "loading_devices",
+          "template": "loading",
+          "options": {
+            "text": "pair.loading_devices"
+          }
+        },
+        {
+          "id": "device_password"
+        },
+        {
+          "id": "add_subdevices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "repair"
+        }
+      ],
+      "name": {
         "en": "1PM Mini Gen4 - LAN"
       },
       "class": "socket",
