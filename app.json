@@ -2032,6 +2032,33 @@
           }
         ],
         "id": "trigger_virtual_button"
+      },
+      {
+        "id": "eve01_set_current_limit",
+        "title": {
+          "en": "Set current limit"
+        },
+        "titleFormatted": {
+          "en": "Set current limit to [[value]] A"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=eve01_local"
+          },
+          {
+            "name": "value",
+            "type": "range",
+            "title": {
+              "en": "Value"
+            },
+            "step": 1,
+            "min": 6,
+            "max": 16,
+            "labelDecimals": 0
+          }
+        ]
       }
     ]
   },
@@ -2287,7 +2314,45 @@
         "evCharger": true,
         "meterPowerImportedCapability": "meter_power"
       },
-      "id": "eve01_local"
+      "id": "eve01_local",
+      "settings": [
+        {
+          "id": "current_limit",
+          "type": "number",
+          "label": {
+            "en": "Charger - Current Limit"
+          },
+          "value": 8,
+          "min": 6,
+          "max": 16,
+          "units": "A"
+        },
+        {
+          "id": "_shelly_device_info",
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            {
+              "id": "_shelly_device_id",
+              "type": "label",
+              "label": {
+                "en": "Device identifier"
+              },
+              "value": "-"
+            },
+            {
+              "id": "_shelly_ip",
+              "type": "label",
+              "label": {
+                "en": "IP address"
+              },
+              "value": "-"
+            }
+          ]
+        }
+      ]
     },
     {
       "platforms": [

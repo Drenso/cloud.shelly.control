@@ -1,0 +1,16 @@
+[
+  {
+    "id": "current_limit",
+    "type": "number",
+    "label": {
+      "en": "Charger - Current Limit"
+    },
+    "value": 8,
+    "min": 6,
+    "max": 16,
+    "units": "A"
+  },
+  {
+    "$extends": "_shelly_device_info"
+  }
+]

@@ -56,8 +56,31 @@ type PhaseInfoObject = {
   };
 };
 
+type ChargerHomeySettings = {
+  current_limit: number;
+};
+
 // https://shelly-api-docs.shelly.cloud/gen2/Devices/ShellyX/XT1/TopACPortableEVCharger
 export default class Eve01LocalDevice extends ShellyLocalDevice {
+  public currentLimitComponent?: Number;
+
+  public async onSettings<Settings extends ChargerHomeySettings>(
+    event: SettingsEvent<Settings>,
+  ): Promise<string | void> {
+    if (event.changedKeys.includes('current_limit')) {
+      const currentLimitComponent = this.currentLimitComponent;
+      if (currentLimitComponent === undefined) {
+        throw new Error(this.homey.__('error.component_not_found', { component: 'number:200' }));
+      }
+      const channel = this.virtualDevice?.getChannel();
+      if (channel === undefined) {
+        throw new Error(this.homey.__('error.host_unreachable'));
+      }
+      await currentLimitComponent.Set(channel, { value: event.newSettings.current_limit });
+    }
+    return super.onSettings(event);
+  }
+
   protected async registerComponent(
     virtualComponent: InstanceType<MappedComponent>,
     methods: ComponentMethod<NameSpace>[],
@@ -73,8 +96,9 @@ export default class Eve01LocalDevice extends ShellyLocalDevice {
         await virtualComponent.setInitialValues(this);
         return;
       case 'current_limit':
-        // TODO
-        break;
+        await this.registerCurrentLimit(virtualComponent as Number);
+        await virtualComponent.setInitialValues(this);
+        return;
       case 'energy_charge':
         await this.registerEnergyCharge(virtualComponent as Number);
         await virtualComponent.setInitialValues(this);
@@ -208,6 +232,21 @@ export default class Eve01LocalDevice extends ShellyLocalDevice {
       if (status.value !== undefined) {
         const value = status.value;
         await safeSetCapabilityValue(this, 'shelly_charge_time', value);
+      }
+    };
+  }
+
+  private async registerCurrentLimit(virtualComponent: Number): Promise<void> {
+    this.currentLimitComponent = virtualComponent;
+
+    virtualComponent.onStatusUpdate = async (
+      _homeyDevice: ShellyLocalDevice,
+      status: Partial<NumberStatus>,
+    ): Promise<void> => {
+      if (status.value !== undefined) {
+        await this.setSettings({
+          current_limit: status.value,
+        }).catch(err => this.error('Error while setting current_limit setting:', err));
       }
     };
   }
