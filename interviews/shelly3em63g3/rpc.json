@@ -1,0 +1,253 @@
+[
+  {
+    "key": "ble",
+    "status": {},
+    "config": {
+      "enable": true,
+      "rpc": {
+        "enable": true
+      }
+    }
+  },
+  {
+    "key": "bthome",
+    "status": {},
+    "config": {}
+  },
+  {
+    "key": "cloud",
+    "status": {
+      "connected": true
+    },
+    "config": {
+      "enable": true,
+      "server": "shelly-238-eu.shelly.cloud:6022/jrpc"
+    }
+  },
+  {
+    "key": "em:0",
+    "status": {
+      "id": 0,
+      "a_current": 0.014,
+      "a_voltage": 232,
+      "a_act_power": 0,
+      "a_aprt_power": 3.2,
+      "a_pf": 0,
+      "a_freq": 50,
+      "b_current": 0.013,
+      "b_voltage": 0,
+      "b_act_power": 0,
+      "b_aprt_power": 0,
+      "b_pf": 0,
+      "b_freq": 0,
+      "c_current": 0.013,
+      "c_voltage": 0,
+      "c_act_power": 0,
+      "c_aprt_power": 0,
+      "c_pf": 0,
+      "c_freq": 0,
+      "n_current": null,
+      "total_current": 0.04,
+      "total_act_power": 0,
+      "total_aprt_power": 3.21,
+      "user_calibrated_phase": []
+    },
+    "config": {
+      "id": 0,
+      "name": null,
+      "blink_mode_selector": "active_energy",
+      "phase_selector": "all",
+      "monitor_phase_sequence": false,
+      "ct_type": "3EMG3",
+      "reverse": {}
+    }
+  },
+  {
+    "key": "emdata:0",
+    "status": {
+      "id": 0,
+      "a_total_act_energy": 10.55,
+      "a_total_act_ret_energy": 20.75,
+      "b_total_act_energy": 5.84,
+      "b_total_act_ret_energy": 0.02,
+      "c_total_act_energy": 8.67,
+      "c_total_act_ret_energy": 0.01,
+      "total_act": 25.05,
+      "total_act_ret": 20.78
+    },
+    "config": {}
+  },
+  {
+    "key": "modbus",
+    "status": {},
+    "config": {
+      "enable": true
+    }
+  },
+  {
+    "key": "mqtt",
+    "status": {
+      "connected": false
+    },
+    "config": {
+      "enable": false,
+      "server": null,
+      "client_id": "shelly3em63g3-8cbfea98c5a8",
+      "user": null,
+      "ssl_ca": null,
+      "topic_prefix": "shelly3em63g3-8cbfea98c5a8",
+      "rpc_ntf": true,
+      "status_ntf": false,
+      "use_client_cert": false,
+      "enable_rpc": true,
+      "enable_control": true
+    }
+  },
+  {
+    "key": "script:1",
+    "status": {
+      "id": 1,
+      "running": true,
+      "mem_used": 3150,
+      "mem_peak": 3920,
+      "mem_free": 22036
+    },
+    "config": {
+      "id": 1,
+      "name": "Homey BLE Proxy",
+      "enable": true
+    }
+  },
+  {
+    "key": "sys",
+    "status": {
+      "mac": "8CBFEA98C5A8",
+      "restart_required": false,
+      "time": "15:49",
+      "unixtime": 1785505750,
+      "last_sync_ts": 1785505722,
+      "uptime": 42,
+      "ram_size": 251212,
+      "ram_free": 64860,
+      "ram_min_free": 47772,
+      "fs_size": 786432,
+      "fs_free": 335872,
+      "cfg_rev": 20,
+      "kvs_rev": 0,
+      "schedule_rev": 0,
+      "webhook_rev": 0,
+      "btrelay_rev": 0,
+      "available_updates": {
+        "stable": {
+          "version": "2.0.0"
+        }
+      },
+      "reset_reason": 1
+    },
+    "config": {
+      "device": {
+        "name": null,
+        "mac": "8CBFEA98C5A8",
+        "fw_id": "20250220-082402/1.5.0-g0087a06",
+        "discoverable": true,
+        "eco_mode": false,
+        "profile": "triphase"
+      },
+      "location": {
+        "tz": "Europe/Amsterdam",
+        "lat": 52.2159,
+        "lon": 6.9091
+      },
+      "debug": {
+        "level": 2,
+        "file_level": null,
+        "mqtt": {
+          "enable": false
+        },
+        "websocket": {
+          "enable": false
+        },
+        "udp": {
+          "addr": null
+        }
+      },
+      "ui_data": {},
+      "rpc_udp": {
+        "dst_addr": null,
+        "listen_port": null
+      },
+      "sntp": {
+        "server": "time.cloudflare.com"
+      },
+      "cfg_rev": 20
+    }
+  },
+  {
+    "key": "temperature:0",
+    "status": {
+      "id": 0,
+      "tC": 32,
+      "tF": 89.7
+    },
+    "config": {
+      "id": 0,
+      "name": null,
+      "report_thr_C": 5,
+      "offset_C": 0
+    }
+  },
+  {
+    "key": "wifi",
+    "status": {
+      "sta_ip": "192.168.222.156",
+      "status": "got ip",
+      "ssid": "DrensoDev",
+      "rssi": -37
+    },
+    "config": {
+      "ap": {
+        "ssid": "Shelly3EM63G3-8CBFEA98C5A8",
+        "is_open": true,
+        "enable": true,
+        "range_extender": {
+          "enable": false
+        }
+      },
+      "sta": {
+        "ssid": "DrensoDev",
+        "is_open": false,
+        "enable": true,
+        "ipv4mode": "dhcp",
+        "ip": null,
+        "netmask": null,
+        "gw": null,
+        "nameserver": null
+      },
+      "sta1": {
+        "ssid": null,
+        "is_open": true,
+        "enable": false,
+        "ipv4mode": "dhcp",
+        "ip": null,
+        "netmask": null,
+        "gw": null,
+        "nameserver": null
+      },
+      "roam": {
+        "rssi_thr": -80,
+        "interval": 60
+      }
+    }
+  },
+  {
+    "key": "ws",
+    "status": {
+      "connected": false
+    },
+    "config": {
+      "enable": true,
+      "server": "ws://192.168.123.102:6113/",
+      "ssl_ca": "*"
+    }
+  }
+]
