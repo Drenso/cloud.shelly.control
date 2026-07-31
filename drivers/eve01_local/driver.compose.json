@@ -97,14 +97,54 @@
     },
     "evcharger_charging_state": {
       "values": [
-        { "id": "charger_free", "title": "Free" },
-        { "id": "charger_insert", "title": "Insert" },
-        { "id": "charger_free_fault", "title": "Free fault" },
-        { "id": "charger_wait", "title": "Wait" },
-        { "id": "charger_charging", "title": "Charging" },
-        { "id": "charger_pause", "title": "Pause" },
-        { "id": "charger_end", "title": "End" },
-        { "id": "charger_fault", "title": "Fault" }
+        {
+          "id": "charger_free",
+          "title": {
+            "en": "Free"
+          }
+        },
+        {
+          "id": "charger_insert",
+          "title": {
+            "en": "Insert"
+          }
+        },
+        {
+          "id": "charger_free_fault",
+          "title": {
+            "en": "Free fault"
+          }
+        },
+        {
+          "id": "charger_wait",
+          "title": {
+            "en": "Wait"
+          }
+        },
+        {
+          "id": "charger_charging",
+          "title": {
+            "en": "Charging"
+          }
+        },
+        {
+          "id": "charger_pause",
+          "title": {
+            "en": "Pause"
+          }
+        },
+        {
+          "id": "charger_end",
+          "title": {
+            "en": "End"
+          }
+        },
+        {
+          "id": "charger_fault",
+          "title": {
+            "en": "Fault"
+          }
+        }
       ]
     }
   }

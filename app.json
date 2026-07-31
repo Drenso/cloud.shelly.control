@@ -2306,35 +2306,51 @@
           "values": [
             {
               "id": "charger_free",
-              "title": "Free"
+              "title": {
+                "en": "Free"
+              }
             },
             {
               "id": "charger_insert",
-              "title": "Insert"
+              "title": {
+                "en": "Insert"
+              }
             },
             {
               "id": "charger_free_fault",
-              "title": "Free fault"
+              "title": {
+                "en": "Free fault"
+              }
             },
             {
               "id": "charger_wait",
-              "title": "Wait"
+              "title": {
+                "en": "Wait"
+              }
             },
             {
               "id": "charger_charging",
-              "title": "Charging"
+              "title": {
+                "en": "Charging"
+              }
             },
             {
               "id": "charger_pause",
-              "title": "Pause"
+              "title": {
+                "en": "Pause"
+              }
             },
             {
               "id": "charger_end",
-              "title": "End"
+              "title": {
+                "en": "End"
+              }
             },
             {
               "id": "charger_fault",
-              "title": "Fault"
+              "title": {
+                "en": "Fault"
+              }
             }
           ]
         }
