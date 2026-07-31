@@ -13,7 +13,17 @@
     "evCharger": true,
     "meterPowerImportedCapability": "meter_power"
   },
-  "capabilities": [],
+  "capabilities": [
+    "evcharger_charging",
+    "evcharger_charging_state",
+    "meter_power",
+    "measure_power",
+    "measure_current",
+    "measure_voltage",
+    "shelly_charge_time",
+    "shelly_errors",
+    "shelly_flags"
+  ],
   "capabilitiesOptions": {
     "meter_power": {
       "title": {
