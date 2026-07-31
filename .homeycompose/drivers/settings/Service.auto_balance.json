@@ -1,0 +1,51 @@
+{
+  "type": "group",
+  "label": {
+    "en": "Charger - Auto Balance"
+  },
+  "children": [
+    {
+      "id": "Service:auto_balance:enable",
+      "type": "checkbox",
+      "label": {
+        "en": "Charger - Auto Balance - Enabled"
+      },
+      "hint": {
+        "en": "When enabled and EM IP is valid, balancing starts automatically with charging."
+      }
+    },
+    {
+      "id": "Service:auto_balance:em_ip",
+      "type": "text",
+      "label": {
+        "en": "Charger - Auto Balance - EM IP"
+      },
+      "hint": {
+        "en": "IP address of the Shelly EM/EM1 used for load balancing."
+      }
+    },
+    {
+      "id": "Service:auto_balance:max_current",
+      "type": "number",
+      "label": {
+        "en": "Charger - Auto Balance - Mac Current"
+      },
+      "hint": {
+        "en": "Maximum allowed total current (EV + household)."
+      },
+      "units": {
+        "en": "A"
+      }
+    },
+    {
+      "id": "Service:auto_balance:exclude_self_current",
+      "type": "checkbox",
+      "label": {
+        "en": "Charger - Auto Balance - Exclude Own Current"
+      },
+      "hint": {
+        "en": "If true, the EV’s measured current is subtracted from the EM reading to avoid double-counting."
+      }
+    }
+  ]
+}

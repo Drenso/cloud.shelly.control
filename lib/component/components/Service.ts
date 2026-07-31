@@ -12,7 +12,7 @@ import { safeAddCapability } from '../../safeFunctions.js';
 export type ServiceConfig = {
   /** Identifier of the Service component instance */
   id: number;
-} & ValveServiceConfig;
+} & (ValveServiceConfig | PortableEvChargerConfig);
 
 type ValveServiceConfig = {
   /**
@@ -33,6 +33,53 @@ type ValveServiceConfig = {
   power_loss_pos: number;
   /** Name of the service instance */
   name: string | null;
+} & Record<string, undefined>;
+
+type PortableEvChargerConfig = {
+  /**
+   * Configures load balancing with an external Shelly EM/EM1 device.
+   *
+   * When enabled, the charger adjusts its current limit to keep total site current under the configured threshold.
+   */
+  auto_balance: {
+    /**
+     * Enables auto balance.
+     *
+     * When enabled and `em_ip` is valid, balancing starts automatically with charging.
+     */
+    enable: boolean;
+    /**
+     * IP address of the Shelly EM/EM1 used for load balancing.
+     *
+     * Must be a valid IPv4 when `enable` is true; may be `null` when disabled.
+     */
+    em_ip: string | null;
+    /**
+     * Maximum allowed total current (EV + household), in amperes.
+     */
+    max_current: number;
+    /**
+     * If true, the EV’s measured current is subtracted from the EM reading to avoid double-counting.
+     */
+    exclude_self_current: boolean;
+  };
+  /**
+   * When enabled, charging starts automatically as soon as the connector is plugged into the vehicle.
+   */
+  auto_charge: boolean;
+  /**
+   * Session energy cap (kWh) (0–1000).
+   *
+   * When reached, charging stops and a status flag is raised.
+   */
+  global_charge_limit: number | null;
+  /**
+   * Session duration cap (minutes) (0–1440).
+   *
+   * When reached, charging stops and a status flag is raised.
+   */
+  global_time_limit: number | null;
+  name: null;
 } & Record<string, undefined>;
 
 export type ServiceStatus = {
@@ -66,6 +113,10 @@ export type ServiceHomeySettings = {
   'Service:on_power_restore': 'close' | 'open' | 'none' | 'set_position' | 'restore_last';
   'Service:power_restored_pos': number;
   'Service:power_loss_pos': number;
+  'Service:auto_balance:enable': boolean;
+  'Service:auto_balance:em_ip': string;
+  'Service:auto_balance:max_current': number;
+  'Service:auto_balance:exclude_self_current': boolean;
 };
 
 const simpleSettings = [
@@ -74,6 +125,12 @@ const simpleSettings = [
   'power_restored_pos',
   'power_loss_pos',
 ] as const satisfies (keyof Required<ServiceConfig>)[];
+
+const autoBalanceSettings = [
+  'enable',
+  'max_current',
+  'exclude_self_current',
+] as const satisfies (keyof PortableEvChargerConfig['auto_balance'])[];
 
 /**
  * The Service component represents a virtual service.
@@ -117,6 +174,16 @@ export default class Service extends ComponentWithId<'Service', ServiceStatus, S
       }
     }
 
+    if (config.auto_balance !== undefined) {
+      for (const settingKey of autoBalanceSettings) {
+        newSettings[`Service:auto_balance:${settingKey}`] = config.auto_balance[settingKey] as never;
+      }
+    }
+
+    if (config.auto_balance?.em_ip !== undefined) {
+      newSettings['Service:auto_balance:em_ip'] = config.auto_balance.em_ip ?? '';
+    }
+
     await homeyDevice.setComponentSettings(this.namespace, this.id, newSettings);
   }
 
@@ -132,6 +199,19 @@ export default class Service extends ComponentWithId<'Service', ServiceStatus, S
           `Service:${settingKey}`
         ] as unknown as ServiceConfig[keyof ServiceConfig];
       }
+    }
+
+    for (const settingKey of autoBalanceSettings) {
+      if (changedKeys.includes(`Service:auto_balance:${settingKey}`)) {
+        changedConfig.auto_balance = changedConfig.auto_balance ?? {};
+        changedConfig.auto_balance[settingKey] = newSettings[`Service:auto_balance:${settingKey}`] as never;
+      }
+    }
+
+    if (changedKeys.includes('Service:auto_balance:em_ip')) {
+      const emIp = newSettings['Service:auto_balance:em_ip'];
+      changedConfig.auto_balance = changedConfig.auto_balance ?? {};
+      changedConfig.auto_balance.em_ip = emIp === '' ? null : emIp;
     }
 
     if (Object.keys(changedConfig).length <= 0) {

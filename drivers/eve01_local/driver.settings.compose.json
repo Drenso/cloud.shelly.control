@@ -11,6 +11,9 @@
     "units": "A"
   },
   {
+    "$extends": "Service.auto_balance"
+  },
+  {
     "$extends": "_shelly_device_info"
   }
 ]
