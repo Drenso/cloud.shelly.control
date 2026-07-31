@@ -1,0 +1,9 @@
+{
+  "title": {
+    "en": "Flags"
+  },
+  "type": "string",
+  "getable": true,
+  "setable": false,
+  "icon": "/assets/capabilities/alarm_generic.svg"
+}

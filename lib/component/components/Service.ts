@@ -6,8 +6,9 @@ import Set, { type ServiceSetParams } from './Service/Set.js';
 import type ShellyLocalDevice from '../../local/LocalDevice.js';
 import type { ComponentMethod } from './Shelly/ListMethods.js';
 import type { RpcChannel } from '../../rpc/channel/RpcChannel.js';
-import type { RecursivePartial } from '../../util.js';
-import { safeAddCapability } from '../../safeFunctions.js';
+import { diffArrays, type RecursivePartial } from '../../util.js';
+import { safeAddCapability, safeSetCapabilityValue, safeTriggerDeviceCard } from '../../safeFunctions.js';
+import capabilitiesOptions from './Service/capabilitiesOptions.json' with { type: 'json' };
 
 export type ServiceConfig = {
   /** Identifier of the Service component instance */
@@ -105,7 +106,7 @@ export type ServiceStatus = {
    *
    * Only present if there are active flags.
    */
-  flags?: string[];
+  flags?: ('charge_time_limit_reached' | 'charge_limit_reached' | string)[];
 };
 
 export type ServiceHomeySettings = {
@@ -148,6 +149,7 @@ export default class Service extends ComponentWithId<'Service', ServiceStatus, S
   public readonly namespace = 'Service';
   public static readonly uiName = 'Service';
   protected static readonly key = 'service';
+  private oldFlags: string[] = [];
 
   public async Set(channel: RpcChannel, params: ServiceSetParams): ReturnType<typeof Set> {
     return Set(channel, this.id, params);
@@ -159,6 +161,11 @@ export default class Service extends ComponentWithId<'Service', ServiceStatus, S
   ): Promise<void> {
     await safeAddCapability(homeyDevice, 'alarm_generic');
     await safeAddCapability(homeyDevice, 'shelly_errors');
+    await safeAddCapability(homeyDevice, 'alarm_generic.flags');
+    await homeyDevice
+      .setCapabilityOptions('alarm_generic.flags', capabilitiesOptions['alarm_generic.flags'])
+      .catch(err => homeyDevice.error('Error while setting alarm_generic.flags capability options:', err));
+    await safeAddCapability(homeyDevice, 'shelly_flags');
   }
 
   protected async staticallyUnregisterHomeyDevice(
@@ -169,6 +176,29 @@ export default class Service extends ComponentWithId<'Service', ServiceStatus, S
 
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Partial<ServiceStatus>): Promise<void> {
     await homeyDevice.updateErrors(this.getComponentKey(), status.errors ?? []);
+
+    const newFlags = status.flags ?? [];
+    const { added, removed } = diffArrays(this.oldFlags, newFlags);
+
+    for (const addedFlag of added) {
+      const tokens = {
+        component: this.getComponentKey(),
+        flag: addedFlag,
+      };
+      await safeTriggerDeviceCard(homeyDevice, 'flag_added', tokens);
+    }
+
+    for (const removedFlag of removed) {
+      const tokens = {
+        component: this.getComponentKey(),
+        flag: removedFlag,
+      };
+      await safeTriggerDeviceCard(homeyDevice, 'flag_removed', tokens);
+    }
+
+    this.oldFlags = newFlags;
+    await safeSetCapabilityValue(homeyDevice, 'alarm_generic.flags', newFlags.length > 0);
+    await safeSetCapabilityValue(homeyDevice, 'shelly_flags', newFlags.join(', '));
   }
 
   public async onConfigUpdate(homeyDevice: ShellyLocalDevice, config: ServiceConfig): Promise<void> {
