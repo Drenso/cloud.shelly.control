@@ -1,0 +1,19 @@
+{
+  "$extends": ["local"],
+  "name": {
+    "en": "Plus 1 - LAN"
+  },
+  "class": "socket",
+  "images": {
+    "small": "/assets/drivers/shellyplus1/images/small.png",
+    "large": "/assets/drivers/shellyplus1/images/large.png",
+    "xlarge": "/assets/drivers/shellyplus1/images/xlarge.png"
+  },
+  "capabilities": [
+    "onoff",
+    "shelly_input_switch",
+    "measure_temperature",
+    "hidden.has_input_button",
+    "hidden.has_input_switch"
+  ]
+}
