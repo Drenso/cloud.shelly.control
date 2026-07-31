@@ -1,0 +1,26 @@
+{
+  "$extends": ["local"],
+  "name": {
+    "en": "1PM Gen3 - LAN"
+  },
+  "class": "socket",
+  "capabilities": [
+    "onoff",
+    "shelly_input_switch",
+    "measure_power",
+    "measure_current",
+    "measure_voltage",
+    "measure_frequency",
+    "meter_power.total",
+    "meter_power.consumed",
+    "meter_power.returned",
+    "measure_temperature",
+    "hidden.has_input_button",
+    "hidden.has_input_switch"
+  ],
+  "images": {
+    "small": "/assets/drivers/shelly1pmg3/images/small.png",
+    "large": "/assets/drivers/shelly1pmg3/images/large.png",
+    "xlarge": "/assets/drivers/shelly1pmg3/images/xlarge.png"
+  }
+}
