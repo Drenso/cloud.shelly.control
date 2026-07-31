@@ -1,0 +1,101 @@
+{
+  "$extends": ["local"],
+  "name": {
+    "en": "Top AC Portable EV Charger - LAN"
+  },
+  "class": "evcharger",
+  "images": {
+    "small": "/assets/drivers/eve01/images/small.png",
+    "large": "/assets/drivers/eve01/images/large.png",
+    "xlarge": "/assets/drivers/eve01/images/xlarge.png"
+  },
+  "energy": {
+    "evCharger": true,
+    "meterPowerImportedCapability": "meter_power"
+  },
+  "capabilities": [],
+  "capabilitiesOptions": {
+    "meter_power": {
+      "title": {
+        "en": "Total energy"
+      }
+    },
+    "meter_power.active": {
+      "title": {
+        "en": "Total active energy"
+      }
+    },
+    "measure_power": {
+      "title": {
+        "en": "Total power"
+      }
+    },
+    "measure_current": {
+      "title": {
+        "en": "Total current"
+      }
+    },
+    "measure_power.phase_a": {
+      "title": {
+        "en": "Phase A power"
+      }
+    },
+    "measure_current.phase_a": {
+      "title": {
+        "en": "Phase A current"
+      }
+    },
+    "measure_voltage.phase_a": {
+      "title": {
+        "en": "Phase A voltage"
+      }
+    },
+    "measure_power.phase_b": {
+      "title": {
+        "en": "Phase B power"
+      }
+    },
+    "measure_current.phase_b": {
+      "title": {
+        "en": "Phase B current"
+      }
+    },
+    "measure_voltage.phase_b": {
+      "title": {
+        "en": "Phase B voltage"
+      }
+    },
+    "measure_power.phase_c": {
+      "title": {
+        "en": "Phase C power"
+      }
+    },
+    "measure_current.phase_c": {
+      "title": {
+        "en": "Phase C current"
+      }
+    },
+    "measure_voltage.phase_c": {
+      "title": {
+        "en": "Phase C voltage"
+      }
+    },
+    "meter_power.session": {
+      "title": {
+        "en": "Session energy"
+      }
+    },
+    "evcharger_charging_state": {
+      "values": [
+        { "id": "charger_free", "title": "Free" },
+        { "id": "charger_insert", "title": "Insert" },
+        { "id": "charger_free_fault", "title": "Free fault" },
+        { "id": "charger_wait", "title": "Wait" },
+        { "id": "charger_charging", "title": "Charging" },
+        { "id": "charger_pause", "title": "Pause" },
+        { "id": "charger_end", "title": "End" },
+        { "id": "charger_fault", "title": "Fault" }
+      ]
+    }
+  }
+}
