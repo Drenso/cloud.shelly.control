@@ -1,0 +1,223 @@
+[
+  {
+    "key": "ble",
+    "status": {},
+    "config": {
+      "enable": false,
+      "rpc": {
+        "enable": false
+      }
+    }
+  },
+  {
+    "key": "cloud",
+    "status": {
+      "connected": false
+    },
+    "config": {
+      "enable": false,
+      "server": "iot.shelly.cloud:6012/jrpc"
+    }
+  },
+  {
+    "key": "ffs",
+    "status": {
+      "ts": 0
+    },
+    "config": {
+      "enable": false
+    }
+  },
+  {
+    "key": "mqtt",
+    "status": {
+      "connected": false
+    },
+    "config": {
+      "enable": false,
+      "server": null,
+      "client_id": "shellyplusplugs-e465b8451a98",
+      "user": null,
+      "ssl_ca": null,
+      "topic_prefix": "shellyplusplugs-e465b8451a98",
+      "rpc_ntf": true,
+      "status_ntf": false,
+      "use_client_cert": false,
+      "enable_rpc": true,
+      "enable_control": true
+    }
+  },
+  {
+    "key": "plugs_ui",
+    "status": {},
+    "config": {
+      "leds": {
+        "mode": "off",
+        "colors": {
+          "switch:0": {
+            "on": {
+              "rgb": [0, 100, 0],
+              "brightness": 100
+            },
+            "off": {
+              "rgb": [100, 0, 0],
+              "brightness": 100
+            }
+          },
+          "power": {
+            "brightness": 100
+          }
+        },
+        "night_mode": {
+          "enable": false,
+          "brightness": 100,
+          "active_between": []
+        }
+      },
+      "controls": {
+        "switch:0": {
+          "in_mode": "momentary"
+        }
+      }
+    }
+  },
+  {
+    "key": "switch:0",
+    "status": {
+      "id": 0,
+      "source": "button",
+      "output": true,
+      "apower": 8.8,
+      "voltage": 231.5,
+      "current": 0.079,
+      "aenergy": {
+        "total": 150815.927,
+        "by_minute": [147.231, 146.789, 146.789],
+        "minute_ts": 1785512040
+      },
+      "temperature": {
+        "tC": 39.5,
+        "tF": 103.1
+      }
+    },
+    "config": {
+      "id": 0,
+      "name": null,
+      "initial_state": "off",
+      "auto_on": false,
+      "auto_on_delay": 60,
+      "auto_off": false,
+      "auto_off_delay": 60,
+      "power_limit": 2500,
+      "voltage_limit": 280,
+      "current_limit": 12
+    }
+  },
+  {
+    "key": "sys",
+    "status": {
+      "mac": "E465B8451A98",
+      "restart_required": false,
+      "time": "17:34",
+      "unixtime": 1785512089,
+      "last_sync_ts": 1785511246,
+      "uptime": 9596236,
+      "ram_size": 250700,
+      "ram_free": 135672,
+      "ram_min_free": 123616,
+      "fs_size": 393216,
+      "fs_free": 110592,
+      "cfg_rev": 35,
+      "kvs_rev": 1,
+      "schedule_rev": 0,
+      "webhook_rev": 0,
+      "btrelay_rev": 0,
+      "available_updates": {},
+      "reset_reason": 1,
+      "utc_offset": 7200
+    },
+    "config": {
+      "device": {
+        "name": null,
+        "mac": "E465B8451A98",
+        "fw_id": "20260311-095859/1.7.5-g9979d16",
+        "discoverable": true,
+        "eco_mode": false
+      },
+      "location": {
+        "tz": "Europe/Amsterdam",
+        "lat": 52.2159,
+        "lon": 6.9091
+      },
+      "debug": {
+        "level": 2,
+        "file_level": null,
+        "mqtt": {
+          "enable": false
+        },
+        "websocket": {
+          "enable": false
+        },
+        "udp": {
+          "addr": null
+        }
+      },
+      "ui_data": {},
+      "rpc_udp": {
+        "dst_addr": null,
+        "listen_port": null
+      },
+      "sntp": {
+        "server": "time.cloudflare.com"
+      },
+      "cfg_rev": 35
+    }
+  },
+  {
+    "key": "wifi",
+    "status": {
+      "sta_ip": "192.168.222.224",
+      "status": "got ip",
+      "ssid": "DrensoDev",
+      "bssid": "b8:fb:b3:82:52:1f",
+      "rssi": -27
+    },
+    "config": {
+      "sta": {
+        "ssid": "DrensoDev",
+        "is_open": false,
+        "enable": true,
+        "ipv4mode": "dhcp",
+        "ip": null,
+        "netmask": null,
+        "gw": null,
+        "nameserver": null
+      },
+      "sta1": {
+        "ssid": null,
+        "is_open": true,
+        "enable": false,
+        "ipv4mode": "dhcp",
+        "ip": null,
+        "netmask": null,
+        "gw": null,
+        "nameserver": null
+      },
+      "roam": {
+        "rssi_thr": -80,
+        "interval": 60
+      }
+    }
+  },
+  {
+    "key": "ws",
+    "status": {
+      "connected": true
+    },
+    "config": {
+      "enable": true,
+      "server": "ws://192.168.222.225:6113/",
+      "ssl_ca": "*"
+    }
+  }
+]
