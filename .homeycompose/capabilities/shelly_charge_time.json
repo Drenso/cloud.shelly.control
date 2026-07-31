@@ -1,0 +1,13 @@
+{
+  "title": {
+    "en": "Charge time"
+  },
+  "type": "number",
+  "decimals": 0,
+  "units": {
+    "en": "minutes"
+  },
+  "getable": true,
+  "setable": false,
+  "icon": "/assets/capabilities/charge_time.svg"
+}
