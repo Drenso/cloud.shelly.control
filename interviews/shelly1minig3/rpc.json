@@ -1,0 +1,191 @@
+[
+  {
+    "key": "ble",
+    "status": {},
+    "config": {
+      "enable": true,
+      "rpc": {
+        "enable": true
+      },
+      "observer": {
+        "enable": false
+      }
+    }
+  },
+  {
+    "key": "cloud",
+    "status": {
+      "connected": false
+    },
+    "config": {
+      "enable": false,
+      "server": "iot.shelly.cloud:6012/jrpc"
+    }
+  },
+  {
+    "key": "input:0",
+    "status": {
+      "id": 0,
+      "state": false
+    },
+    "config": {
+      "id": 0,
+      "name": null,
+      "type": "switch",
+      "enable": true,
+      "invert": false,
+      "factory_reset": true
+    }
+  },
+  {
+    "key": "mqtt",
+    "status": {
+      "connected": false
+    },
+    "config": {
+      "enable": false,
+      "server": null,
+      "client_id": "shelly1minig3-84fce63f8d04",
+      "user": null,
+      "ssl_ca": null,
+      "topic_prefix": "shelly1minig3-84fce63f8d04",
+      "rpc_ntf": true,
+      "status_ntf": false,
+      "use_client_cert": false,
+      "enable_rpc": true,
+      "enable_control": true
+    }
+  },
+  {
+    "key": "switch:0",
+    "status": {
+      "id": 0,
+      "source": "init",
+      "output": false,
+      "temperature": {
+        "tC": 43.7,
+        "tF": 110.7
+      }
+    },
+    "config": {
+      "id": 0,
+      "name": null,
+      "in_mode": "follow",
+      "initial_state": "match_input",
+      "auto_on": false,
+      "auto_on_delay": 60,
+      "auto_off": false,
+      "auto_off_delay": 60
+    }
+  },
+  {
+    "key": "sys",
+    "status": {
+      "mac": "84FCE63F8D04",
+      "restart_required": false,
+      "time": "14:10",
+      "unixtime": 1785507006,
+      "uptime": 20,
+      "ram_size": 259724,
+      "ram_free": 101748,
+      "fs_size": 1048576,
+      "fs_free": 716800,
+      "cfg_rev": 2,
+      "kvs_rev": 0,
+      "schedule_rev": 0,
+      "webhook_rev": 0,
+      "available_updates": {},
+      "reset_reason": 3
+    },
+    "config": {
+      "device": {
+        "name": null,
+        "mac": "84FCE63F8D04",
+        "fw_id": "20240223-141905/1.2.2-g7c39781",
+        "discoverable": true,
+        "eco_mode": false
+      },
+      "location": {
+        "tz": null,
+        "lat": null,
+        "lon": null
+      },
+      "debug": {
+        "level": 2,
+        "file_level": null,
+        "mqtt": {
+          "enable": false
+        },
+        "websocket": {
+          "enable": false
+        },
+        "udp": {
+          "addr": null
+        }
+      },
+      "ui_data": {},
+      "rpc_udp": {
+        "dst_addr": null,
+        "listen_port": null
+      },
+      "sntp": {
+        "server": "time.google.com"
+      },
+      "cfg_rev": 2
+    }
+  },
+  {
+    "key": "wifi",
+    "status": {
+      "sta_ip": "192.168.222.148",
+      "status": "got ip",
+      "ssid": "DrensoDev",
+      "rssi": -46
+    },
+    "config": {
+      "ap": {
+        "ssid": "Shelly1MiniG3-84FCE63F8D04",
+        "is_open": true,
+        "enable": true,
+        "range_extender": {
+          "enable": false
+        }
+      },
+      "sta": {
+        "ssid": "DrensoDev",
+        "is_open": false,
+        "enable": true,
+        "ipv4mode": "dhcp",
+        "ip": null,
+        "netmask": null,
+        "gw": null,
+        "nameserver": null
+      },
+      "sta1": {
+        "ssid": null,
+        "is_open": true,
+        "enable": false,
+        "ipv4mode": "dhcp",
+        "ip": null,
+        "netmask": null,
+        "gw": null,
+        "nameserver": null
+      },
+      "roam": {
+        "rssi_thr": -80,
+        "interval": 60
+      }
+    }
+  },
+  {
+    "key": "ws",
+    "status": {
+      "connected": false
+    },
+    "config": {
+      "enable": false,
+      "server": null,
+      "ssl_ca": "ca.pem"
+    }
+  }
+]

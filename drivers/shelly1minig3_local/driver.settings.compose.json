@@ -1,0 +1,20 @@
+[
+  {
+    "$extends": "Input.enable"
+  },
+  {
+    "$extends": "Input.invert"
+  },
+  {
+    "$extends": "Switch.in_mode"
+  },
+  {
+    "$extends": "Switch.initial_state"
+  },
+  {
+    "$extends": "installBleForwardingScript"
+  },
+  {
+    "$extends": "_shelly_device_info"
+  }
+]
