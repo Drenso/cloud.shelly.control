@@ -1,0 +1,225 @@
+[
+  {
+    "key": "ble",
+    "status": {},
+    "config": {
+      "enable": true,
+      "rpc": {
+        "enable": true
+      },
+      "observer": {
+        "enable": false
+      }
+    }
+  },
+  {
+    "key": "cloud",
+    "status": {
+      "connected": false
+    },
+    "config": {
+      "enable": false,
+      "server": "iot.shelly.cloud:6012/jrpc"
+    }
+  },
+  {
+    "key": "input:0",
+    "status": {
+      "id": 0,
+      "state": null
+    },
+    "config": {
+      "id": 0,
+      "name": null,
+      "type": "button",
+      "enable": true,
+      "invert": false
+    }
+  },
+  {
+    "key": "input:1",
+    "status": {
+      "id": 1,
+      "state": null
+    },
+    "config": {
+      "id": 1,
+      "name": null,
+      "type": "button",
+      "enable": true,
+      "invert": false
+    }
+  },
+  {
+    "key": "light:0",
+    "status": {
+      "id": 0,
+      "source": "init",
+      "output": false,
+      "brightness": 50,
+      "temperature": {
+        "tC": 43.3,
+        "tF": 109.9
+      }
+    },
+    "config": {
+      "id": 0,
+      "name": null,
+      "initial_state": "restore_last",
+      "auto_on": false,
+      "auto_on_delay": 60,
+      "auto_off": false,
+      "auto_off_delay": 60,
+      "default": {
+        "brightness": 50
+      },
+      "transition_duration": 3,
+      "min_brightness_on_toggle": 3,
+      "night_mode": {
+        "enable": false,
+        "brightness": 50,
+        "active_between": []
+      },
+      "range_map": [0, 100],
+      "button_fade_rate": 3,
+      "button_presets": {
+        "button_doublepush": {
+          "brightness": 100
+        }
+      },
+      "in_mode": "dim"
+    }
+  },
+  {
+    "key": "mqtt",
+    "status": {
+      "connected": false
+    },
+    "config": {
+      "enable": false,
+      "server": null,
+      "client_id": "shellyplus010v-80646fe1fccc",
+      "user": null,
+      "topic_prefix": "shellyplus010v-80646fe1fccc",
+      "rpc_ntf": true,
+      "status_ntf": false,
+      "use_client_cert": false,
+      "enable_rpc": true,
+      "enable_control": true
+    }
+  },
+  {
+    "key": "sys",
+    "status": {
+      "mac": "80646FE1FCCC",
+      "restart_required": false,
+      "time": "14:25",
+      "unixtime": 1785507951,
+      "uptime": 33,
+      "ram_size": 261120,
+      "ram_free": 126872,
+      "fs_size": 458752,
+      "fs_free": 143360,
+      "cfg_rev": 2,
+      "kvs_rev": 0,
+      "schedule_rev": 0,
+      "webhook_rev": 0,
+      "available_updates": {
+        "stable": {
+          "version": "1.3.3"
+        }
+      }
+    },
+    "config": {
+      "device": {
+        "name": null,
+        "mac": "80646FE1FCCC",
+        "fw_id": "20231106-160239/1.0.8-gdba0ee3",
+        "discoverable": true,
+        "eco_mode": false,
+        "addon_type": null
+      },
+      "location": {
+        "tz": null,
+        "lat": null,
+        "lon": null
+      },
+      "debug": {
+        "level": 2,
+        "file_level": null,
+        "mqtt": {
+          "enable": false
+        },
+        "websocket": {
+          "enable": false
+        },
+        "udp": {
+          "addr": null
+        }
+      },
+      "ui_data": {},
+      "rpc_udp": {
+        "dst_addr": null,
+        "listen_port": null
+      },
+      "sntp": {
+        "server": "time.google.com"
+      },
+      "cfg_rev": 2
+    }
+  },
+  {
+    "key": "wifi",
+    "status": {
+      "sta_ip": "192.168.222.166",
+      "status": "got ip",
+      "ssid": "DrensoDev",
+      "rssi": -43
+    },
+    "config": {
+      "ap": {
+        "ssid": "ShellyPlus010V-80646FE1FCCC",
+        "is_open": true,
+        "enable": true,
+        "range_extender": {
+          "enable": false
+        }
+      },
+      "sta": {
+        "ssid": "DrensoDev",
+        "is_open": false,
+        "enable": true,
+        "ipv4mode": "dhcp",
+        "ip": null,
+        "netmask": null,
+        "gw": null,
+        "nameserver": null
+      },
+      "sta1": {
+        "ssid": null,
+        "is_open": true,
+        "enable": false,
+        "ipv4mode": "dhcp",
+        "ip": null,
+        "netmask": null,
+        "gw": null,
+        "nameserver": null
+      },
+      "roam": {
+        "rssi_thr": -80,
+        "interval": 60
+      }
+    }
+  },
+  {
+    "key": "ws",
+    "status": {
+      "connected": false
+    },
+    "config": {
+      "enable": false,
+      "server": null,
+      "ssl_ca": "ca.pem"
+    }
+  }
+]

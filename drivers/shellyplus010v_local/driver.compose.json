@@ -1,0 +1,20 @@
+{
+  "$extends": ["local"],
+  "name": {
+    "en": "Plus 0-10V Dimmer - LAN"
+  },
+  "class": "light",
+  "capabilities": [
+    "onoff",
+    "dim",
+    "shelly_input_switch",
+    "measure_temperature",
+    "hidden.has_input_switch",
+    "hidden.has_input_button"
+  ],
+  "images": {
+    "small": "/assets/drivers/shellyplus010v/images/small.png",
+    "large": "/assets/drivers/shellyplus010v/images/large.png",
+    "xlarge": "/assets/drivers/shellyplus010v/images/xlarge.png"
+  }
+}
