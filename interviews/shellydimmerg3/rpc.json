@@ -1,0 +1,253 @@
+[
+  {
+    "key": "ble",
+    "status": {},
+    "config": {
+      "enable": true,
+      "rpc": {
+        "enable": true
+      }
+    }
+  },
+  {
+    "key": "bthome",
+    "status": {},
+    "config": {}
+  },
+  {
+    "key": "cloud",
+    "status": {
+      "connected": true
+    },
+    "config": {
+      "enable": true,
+      "server": "shelly-238-eu.shelly.cloud:6022/jrpc"
+    }
+  },
+  {
+    "key": "input:0",
+    "status": {
+      "id": 0,
+      "state": false
+    },
+    "config": {
+      "id": 0,
+      "name": null,
+      "type": "switch",
+      "enable": true,
+      "invert": false
+    }
+  },
+  {
+    "key": "input:1",
+    "status": {
+      "id": 1,
+      "state": null
+    },
+    "config": {
+      "id": 1,
+      "name": null,
+      "type": "button",
+      "enable": true,
+      "invert": false
+    }
+  },
+  {
+    "key": "knx",
+    "status": {},
+    "config": {
+      "enable": false,
+      "ia": "15.15.255",
+      "routing": {
+        "addr": "224.0.23.12:3671"
+      }
+    }
+  },
+  {
+    "key": "light:0",
+    "status": {
+      "id": 0,
+      "source": "init",
+      "output": false,
+      "brightness": 18,
+      "temperature": {
+        "tC": 33,
+        "tF": 91.4
+      },
+      "aenergy": {
+        "total": 6,
+        "by_minute": [0, 0, 0],
+        "minute_ts": 1785504960
+      },
+      "apower": 0,
+      "current": 0,
+      "voltage": 236
+    },
+    "config": {
+      "id": 0,
+      "name": null,
+      "initial_state": "restore_last",
+      "auto_on": false,
+      "auto_on_delay": 60,
+      "auto_off": false,
+      "auto_off_delay": 60,
+      "transition_duration": 1,
+      "min_brightness_on_toggle": 3,
+      "night_mode": {
+        "enable": false,
+        "brightness": 50,
+        "active_between": []
+      },
+      "range_map": [0, 100],
+      "button_fade_rate": 3,
+      "button_presets": {
+        "button_doublepush": {
+          "brightness": 100
+        }
+      },
+      "in_mode": "flip",
+      "current_limit": 2.3,
+      "power_limit": 300,
+      "undervoltage_limit": 100,
+      "voltage_limit": 280
+    }
+  },
+  {
+    "key": "mqtt",
+    "status": {
+      "connected": false
+    },
+    "config": {
+      "enable": false,
+      "server": null,
+      "client_id": "shellydimmerg3-e4b3233be744",
+      "user": null,
+      "ssl_ca": null,
+      "topic_prefix": "shellydimmerg3-e4b3233be744",
+      "rpc_ntf": true,
+      "status_ntf": false,
+      "use_client_cert": false,
+      "enable_rpc": true,
+      "enable_control": true
+    }
+  },
+  {
+    "key": "sys",
+    "status": {
+      "mac": "E4B3233BE744",
+      "restart_required": false,
+      "time": "15:36",
+      "unixtime": 1785504965,
+      "last_sync_ts": 1785504691,
+      "uptime": 278,
+      "ram_size": 260396,
+      "ram_free": 71540,
+      "ram_min_free": 61400,
+      "fs_size": 1048576,
+      "fs_free": 528384,
+      "cfg_rev": 27,
+      "kvs_rev": 0,
+      "schedule_rev": 0,
+      "webhook_rev": 0,
+      "btrelay_rev": 0,
+      "available_updates": {
+        "stable": {
+          "version": "1.7.5"
+        }
+      },
+      "reset_reason": 1
+    },
+    "config": {
+      "device": {
+        "name": null,
+        "mac": "E4B3233BE744",
+        "fw_id": "20241125-154510/1.4.99-dimmerg3prod0-g30eaf8a",
+        "discoverable": true
+      },
+      "location": {
+        "tz": "Europe/Amsterdam",
+        "lat": 52.2159,
+        "lon": 6.9091
+      },
+      "debug": {
+        "level": 2,
+        "file_level": null,
+        "mqtt": {
+          "enable": false
+        },
+        "websocket": {
+          "enable": false
+        },
+        "file_log": {
+          "enable": false
+        },
+        "udp": {
+          "addr": null
+        }
+      },
+      "ui_data": {},
+      "rpc_udp": {
+        "dst_addr": null,
+        "listen_port": null
+      },
+      "sntp": {
+        "server": "time.cloudflare.com"
+      },
+      "cfg_rev": 27
+    }
+  },
+  {
+    "key": "wifi",
+    "status": {
+      "sta_ip": "192.168.222.189",
+      "status": "got ip",
+      "ssid": "DrensoDev",
+      "rssi": -51
+    },
+    "config": {
+      "ap": {
+        "ssid": "ShellyDimmerG3-E4B3233BE744",
+        "is_open": true,
+        "enable": false,
+        "range_extender": {
+          "enable": false
+        }
+      },
+      "sta": {
+        "ssid": "DrensoDev",
+        "is_open": false,
+        "enable": true,
+        "ipv4mode": "dhcp",
+        "ip": null,
+        "netmask": null,
+        "gw": null,
+        "nameserver": null
+      },
+      "sta1": {
+        "ssid": null,
+        "is_open": true,
+        "enable": false,
+        "ipv4mode": "dhcp",
+        "ip": null,
+        "netmask": null,
+        "gw": null,
+        "nameserver": null
+      },
+      "roam": {
+        "rssi_thr": -80,
+        "interval": 60
+      }
+    }
+  },
+  {
+    "key": "ws",
+    "status": {
+      "connected": false
+    },
+    "config": {
+      "enable": true,
+      "server": "ws://192.168.123.102:6113/",
+      "ssl_ca": "*"
+    }
+  }
+]

@@ -1,0 +1,24 @@
+{
+  "$extends": ["local"],
+  "name": {
+    "en": "Dimmer Gen3 - LAN"
+  },
+  "class": "light",
+  "capabilities": [
+    "onoff",
+    "dim",
+    "shelly_input_switch",
+    "measure_power",
+    "measure_current",
+    "measure_voltage",
+    "meter_power",
+    "measure_temperature",
+    "hidden.has_input_switch",
+    "hidden.has_input_button"
+  ],
+  "images": {
+    "small": "/assets/drivers/shellydimmerg3/images/small.png",
+    "large": "/assets/drivers/shellydimmerg3/images/large.png",
+    "xlarge": "/assets/drivers/shellydimmerg3/images/xlarge.png"
+  }
+}

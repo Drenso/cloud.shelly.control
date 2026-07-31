@@ -1,0 +1,119 @@
+[
+  {
+    "type": "group",
+    "label": "Input 0",
+    "children": [
+      {
+        "$extends": "Input.enable",
+        "id": "Input:0:enable",
+        "label": {
+          "en": "Input 0 - Enabled"
+        }
+      },
+      {
+        "$extends": "Input.invert",
+        "id": "Input:0:invert",
+        "label": {
+          "en": "Input 0 - Invert"
+        }
+      }
+    ]
+  },
+  {
+    "type": "group",
+    "label": "Input 1",
+    "children": [
+      {
+        "$extends": "Input.enable",
+        "id": "Input:1:enable",
+        "label": {
+          "en": "Input 1 - Enabled"
+        }
+      },
+      {
+        "$extends": "Input.invert",
+        "id": "Input:1:invert",
+        "label": {
+          "en": "Input 1 - Invert"
+        }
+      }
+    ]
+  },
+  {
+    "$extends": "Light.in_mode",
+    "values": [
+      {
+        "id": "dim",
+        "label": {
+          "en": "Single Input Dim"
+        }
+      },
+      {
+        "id": "dual_dim",
+        "label": {
+          "en": "Dual Input Dim"
+        }
+      },
+      {
+        "id": "follow",
+        "label": {
+          "en": "Follow Input"
+        }
+      },
+      {
+        "id": "flip",
+        "label": {
+          "en": "Change on Input Change"
+        }
+      },
+      {
+        "id": "detached",
+        "label": {
+          "en": "Detached"
+        }
+      }
+    ]
+  },
+  {
+    "$extends": "Light.initial_state"
+  },
+  {
+    "$extends": "Light.transition_duration"
+  },
+  {
+    "$extends": "Light.min_brightness_on_toggle"
+  },
+  {
+    "$extends": "Light.night_mode"
+  },
+  {
+    "$extends": "Light.button_fade_rate"
+  },
+  {
+    "$extends": "Light.button_presets.button_doublepush"
+  },
+  {
+    "$extends": "Light.range_map.min"
+  },
+  {
+    "$extends": "Light.range_map.max"
+  },
+  {
+    "$extends": "Light.power_limit"
+  },
+  {
+    "$extends": "Light.voltage_limit"
+  },
+  {
+    "$extends": "Light.undervoltage_limit"
+  },
+  {
+    "$extends": "Light.current_limit"
+  },
+  {
+    "$extends": "installBleForwardingScript"
+  },
+  {
+    "$extends": "_shelly_device_info"
+  }
+]
