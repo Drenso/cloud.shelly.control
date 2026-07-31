@@ -117,6 +117,11 @@ export type ServiceHomeySettings = {
   'Service:auto_balance:em_ip': string;
   'Service:auto_balance:max_current': number;
   'Service:auto_balance:exclude_self_current': boolean;
+  'Service:auto_charge': boolean;
+  'Service:global_charge_limit': number;
+  'Service:global_charge_limit:enabled': boolean;
+  'Service:global_time_limit': number;
+  'Service:global_time_limit:enabled': boolean;
 };
 
 const simpleSettings = [
@@ -124,6 +129,7 @@ const simpleSettings = [
   'on_power_restore',
   'power_restored_pos',
   'power_loss_pos',
+  'auto_charge',
 ] as const satisfies (keyof Required<ServiceConfig>)[];
 
 const autoBalanceSettings = [
@@ -184,6 +190,24 @@ export default class Service extends ComponentWithId<'Service', ServiceStatus, S
       newSettings['Service:auto_balance:em_ip'] = config.auto_balance.em_ip ?? '';
     }
 
+    if (config.global_charge_limit !== undefined) {
+      if (config.global_charge_limit === null) {
+        newSettings['Service:global_charge_limit:enabled'] = false;
+      } else {
+        newSettings['Service:global_charge_limit:enabled'] = true;
+        newSettings['Service:global_charge_limit'] = config.global_charge_limit;
+      }
+    }
+
+    if (config.global_time_limit !== undefined) {
+      if (config.global_time_limit === null) {
+        newSettings['Service:global_time_limit:enabled'] = false;
+      } else {
+        newSettings['Service:global_time_limit:enabled'] = true;
+        newSettings['Service:global_time_limit'] = config.global_time_limit;
+      }
+    }
+
     await homeyDevice.setComponentSettings(this.namespace, this.id, newSettings);
   }
 
@@ -212,6 +236,24 @@ export default class Service extends ComponentWithId<'Service', ServiceStatus, S
       const emIp = newSettings['Service:auto_balance:em_ip'];
       changedConfig.auto_balance = changedConfig.auto_balance ?? {};
       changedConfig.auto_balance.em_ip = emIp === '' ? null : emIp;
+    }
+
+    if (
+      changedKeys.includes('Service:global_charge_limit') ||
+      changedKeys.includes('Service:global_charge_limit:enabled')
+    ) {
+      const enabled = newSettings['Service:global_charge_limit:enabled'];
+      const limit = newSettings['Service:global_charge_limit'];
+      changedConfig.global_charge_limit = enabled ? limit : null;
+    }
+
+    if (
+      changedKeys.includes('Service:global_time_limit') ||
+      changedKeys.includes('Service:global_time_limit:enabled')
+    ) {
+      const enabled = newSettings['Service:global_time_limit:enabled'];
+      const limit = newSettings['Service:global_time_limit'];
+      changedConfig.global_time_limit = enabled ? limit : null;
     }
 
     if (Object.keys(changedConfig).length <= 0) {

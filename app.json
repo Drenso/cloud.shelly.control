@@ -2380,6 +2380,60 @@
           ]
         },
         {
+          "id": "Service:auto_charge",
+          "type": "checkbox",
+          "label": {
+            "en": "Charger - Auto Charge"
+          },
+          "hint": {
+            "en": "When enabled, charging starts automatically as soon as the connector is plugged into the vehicle."
+          }
+        },
+        {
+          "id": "Service:global_charge_limit",
+          "type": "number",
+          "label": {
+            "en": "Charger - Session Charge Limit"
+          },
+          "min": 0,
+          "max": 1000,
+          "units": {
+            "en": "kWh"
+          },
+          "hint": {
+            "en": "Session energy cap. When reached, charging stops and a status flag is raised."
+          }
+        },
+        {
+          "id": "Service:global_charge_limit:enabled",
+          "type": "checkbox",
+          "label": {
+            "en": "Charger - Session Charge Limit - Enabled"
+          }
+        },
+        {
+          "id": "Service:global_time_limit",
+          "type": "number",
+          "label": {
+            "en": "Charger - Session Time Limit"
+          },
+          "min": 0,
+          "max": 1440,
+          "units": {
+            "en": "minutes"
+          },
+          "hint": {
+            "en": "Session duration cap. When reached, charging stops and a status flag is raised."
+          }
+        },
+        {
+          "id": "Service:global_time_limit:enabled",
+          "type": "checkbox",
+          "label": {
+            "en": "Charger - Session Time Limit - Enabled"
+          }
+        },
+        {
           "id": "_shelly_device_info",
           "type": "group",
           "label": {
