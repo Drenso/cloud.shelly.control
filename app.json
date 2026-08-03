@@ -7708,7 +7708,7 @@
         "xlarge": "/assets/drivers/shellybluremotecontrolzb/images/xlarge.png"
       },
       "learnmode": {
-        "image": "./assets/learnmode/shellybluremotecontrolzb.svg",
+        "image": "/drivers/shellybluremotecontrolzb_ble/assets/learnmode.svg",
         "instruction": {
           "en": "Press one of the ring buttons during the Bluetooth scan. One of the LEDs will flash once."
         }
@@ -10527,7 +10527,7 @@
           }
         },
         "learnmode": {
-          "image": "./assets/learnmode/floodsg4.svg",
+          "image": "/drivers/shellyfloodsg4_zigbee/assets/learnmode.svg",
           "instruction": {
             "en": "Verify that the device is in Zigbee mode (you can enable Zigbee mode by pressing the LED button five times).\n\nPress the LED button three times to initialize pairing, it will start flashing purple."
           }
@@ -13449,14 +13449,14 @@
           130
         ],
         "learnmode": {
-          "image": "./assets/learnmode/mcb.svg",
+          "image": "/drivers/shellywavemcb_zwave/assets/learnmode.svg",
           "instruction": {
             "en": "Press and hold the S button on the device until the LED turns solid blue. Release the button and press and hold it again (> 2s) until the blue LED starts blinking. Repeat this for step 2 in the pairing process and enter the device key (pincode).",
             "nl": "Houd de S-knop op het apparaat ingedrukt totdat de LED continu blauw wordt. Laat de knop los en druk er opnieuw op en houd deze ingedrukt (> 2s) totdat de blauwe LED begint te knipperen. Herhaal dit voor stap 2 in het koppelingsproces en voer de apparaatsleutel (pincode) in."
           }
         },
         "unlearnmode": {
-          "image": "./assets/learnmode/mcb.svg",
+          "image": "/drivers/shellywavemcb_zwave/assets/learnmode.svg",
           "instruction": {
             "en": "Press and hold the S button on the device until the LED turns solid blue. Release the button and press and hold it again (> 2s) until the blue LED starts blinking.",
             "nl": "Houd de S-knop op het apparaat ingedrukt totdat de LED continu blauw wordt. Laat de knop los en druk er opnieuw op en houd deze ingedrukt (> 2s) totdat de blauwe LED begint te knipperen."

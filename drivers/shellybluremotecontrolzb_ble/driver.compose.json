@@ -14,7 +14,7 @@
     "xlarge": "/assets/drivers/shellybluremotecontrolzb/images/xlarge.png"
   },
   "learnmode": {
-    "image": "./assets/learnmode/shellybluremotecontrolzb.svg",
+    "image": "{{driverAssetsPath}}/learnmode.svg",
     "instruction": {
       "en": "Press one of the ring buttons during the Bluetooth scan. One of the LEDs will flash once."
     }
