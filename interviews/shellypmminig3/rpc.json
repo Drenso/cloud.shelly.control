@@ -1,16 +1,20 @@
 [
   {
     "key": "ble",
-    "status": {},
+    "status": {
+      "addr": "d0:cf:13:d4:40:56,p",
+      "flags": ["advertising"]
+    },
     "config": {
-      "enable": true,
       "rpc": {
         "enable": true
-      },
-      "observer": {
-        "enable": false
       }
     }
+  },
+  {
+    "key": "bthome",
+    "status": {},
+    "config": {}
   },
   {
     "key": "cloud",
@@ -30,9 +34,10 @@
     "config": {
       "enable": false,
       "server": null,
-      "client_id": "shellypmminig3-543204412bdc",
+      "client_id": "shellypmminig3-d0cf13d44054",
       "user": null,
-      "topic_prefix": "shellypmminig3-543204412bdc",
+      "ssl_ca": null,
+      "topic_prefix": "shellypmminig3-d0cf13d44054",
       "rpc_ntf": true,
       "status_ntf": false,
       "use_client_cert": false,
@@ -51,54 +56,68 @@
       "aenergy": {
         "total": 0,
         "by_minute": [0, 0, 0],
-        "minute_ts": 1785509524
+        "minute_ts": 1785751800
       },
       "ret_aenergy": {
         "total": 0,
         "by_minute": [0, 0, 0],
-        "minute_ts": 1785509524
+        "minute_ts": 1785751800
       }
     },
     "config": {
       "id": 0,
-      "name": null
+      "name": null,
+      "reverse": false,
+      "alarms": {
+        "voltage": [null, null],
+        "current": [null, null],
+        "power": [null, null]
+      }
     }
   },
   {
     "key": "sys",
     "status": {
-      "mac": "543204412BDC",
+      "mac": "D0CF13D44054",
       "restart_required": false,
-      "time": "14:52",
-      "unixtime": 1785509525,
-      "uptime": 33,
-      "ram_size": 260944,
-      "ram_free": 101096,
+      "time": "12:10",
+      "unixtime": 1785751811,
+      "last_sync_ts": 1785751797,
+      "uptime": 19,
+      "ram_size": 278876,
+      "ram_free": 123672,
+      "ram_min_free": 109352,
       "fs_size": 1048576,
-      "fs_free": 708608,
-      "cfg_rev": 2,
-      "kvs_rev": 0,
+      "fs_free": 614400,
+      "cfg_rev": 8,
+      "kvs_rev": 4,
       "schedule_rev": 0,
       "webhook_rev": 0,
-      "available_updates": {
-        "stable": {
-          "version": "1.3.3"
-        }
-      },
-      "reset_reason": 3
+      "btrelay_rev": 0,
+      "available_updates": {},
+      "reset_reason": 3,
+      "utc_offset": 7200,
+      "provisioning": {
+        "duration": 300,
+        "stage": "confirmed",
+        "started_at": 1785751797,
+        "started_ut": 5
+      }
     },
     "config": {
       "device": {
         "name": null,
-        "mac": "543204412BDC",
-        "fw_id": "20231130-141403/g7551e15",
+        "mac": "D0CF13D44054",
+        "fw_id": "20260710-101132/2.0.0-g87fbfa4",
         "discoverable": true,
-        "eco_mode": false
+        "eco_mode": false,
+        "tls_check_cert_validity_time": true,
+        "enhanced_security": false
       },
       "location": {
-        "tz": null,
-        "lat": null,
-        "lon": null
+        "tz": "Europe/Amsterdam",
+        "lat": 52.3072,
+        "lon": 6.5127
       },
       "debug": {
         "level": 2,
@@ -109,19 +128,24 @@
         "websocket": {
           "enable": false
         },
+        "file_log": {
+          "enable": false
+        },
         "udp": {
-          "addr": "35.205.173.252:8910"
+          "addr": null
         }
       },
-      "ui_data": {},
+      "ui_data": {
+        "device_revision": "0-8"
+      },
       "rpc_udp": {
         "dst_addr": null,
         "listen_port": null
       },
       "sntp": {
-        "server": "time.google.com"
+        "server": "time.cloudflare.com"
       },
-      "cfg_rev": 2
+      "cfg_rev": 8
     }
   },
   {
@@ -130,11 +154,14 @@
       "sta_ip": "192.168.222.136",
       "status": "got ip",
       "ssid": "DrensoDev",
-      "rssi": -31
+      "channel": 6,
+      "rssi": -58,
+      "bssid": "76:ac:b9:2c:8c:03",
+      "sta_ip6": ["fe80::d2cf:13ff:fed4:4054", "fd03:8586:4012:ec48:d2cf:13ff:fed4:4054"]
     },
     "config": {
       "ap": {
-        "ssid": "ShellyPMMiniG3-543204412BDC",
+        "ssid": "ShellyPMMiniG3-D0CF13D44054",
         "is_open": true,
         "enable": true,
         "range_extender": {
