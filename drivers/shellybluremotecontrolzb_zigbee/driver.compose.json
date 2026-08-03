@@ -20,7 +20,7 @@
     "learnmode": {
       "image": "{{driverAssetsPath}}/learnmode.svg",
       "instruction": {
-        "en": "Press any button five times to initialize Zigbee pairing."
+        "en": "Press one of the ring buttons five times to initialize Zigbee pairing. The LEDs will display a running animation."
       }
     }
   },
