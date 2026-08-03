@@ -1,7 +1,7 @@
 {
   "$extends": ["ble"],
   "name": {
-    "en": "BLU Remote Control - BLE"
+    "en": "BLU Remote Control ZB - BLE"
   },
   "class": "remote",
   "capabilities": ["measure_battery"],
