@@ -1,8 +1,13 @@
-import zbClusters, { type ZCLNode } from 'zigbee-clusters';
-import ShellyZigbeeDevice from '../../lib/zigbee/ZigbeeDevice.mjs';
 import initPowerConfigurationDevice from '@drenso/homey-zigbee-library/capabilities/powerConfiguration.mjs';
-import OnOffBoundCluster from '../../lib/zigbee/cluster/OnOffBoundCluster.mjs';
-import LevelControlBoundCluster from '../../lib/zigbee/cluster/LevelControlBoundCluster.mjs';
+import type { BoundClusterMeta } from '@drenso/homey-zigbee-library/lib/clusters/bound_clusters/BoundClusterMeta.mjs';
+import type {
+  MoveToLevelWithOnOffPayload,
+  StepWithOnOffPayload,
+} from '@drenso/homey-zigbee-library/lib/clusters/bound_clusters/LevelControlBoundCluster.mjs';
+import LevelControlBoundCluster from '@drenso/homey-zigbee-library/lib/clusters/bound_clusters/LevelControlBoundCluster.mjs';
+import OnOffBoundCluster from '@drenso/homey-zigbee-library/lib/clusters/bound_clusters/OnOffBoundCluster.mjs';
+import zbClusters, { type ZCLNode } from 'zigbee-clusters';
+import ShellyZigbeeDevice from '../../lib/zigbee/ZigbeeDevice.js';
 
 export default class ShellyBluRCZigbeeDevice extends ShellyZigbeeDevice {
   protected async configureDevice(zclNode: ZCLNode): Promise<void> {
@@ -10,22 +15,30 @@ export default class ShellyBluRCZigbeeDevice extends ShellyZigbeeDevice {
 
     zclNode.endpoints[1].bind(
       zbClusters.CLUSTER.ON_OFF.NAME,
-      new OnOffBoundCluster(
-        meta => this._onOffCommandHandler('off', meta),
-        meta => this._onOffCommandHandler('on', meta),
-      ),
+      new OnOffBoundCluster({
+        onSetOff: this._onSetOffCommandHandler.bind(this),
+        onSetOn: this._onSetOnCommandHandler.bind(this),
+      }),
     );
 
     zclNode.endpoints[1].bind(
       zbClusters.CLUSTER.LEVEL_CONTROL.NAME,
-      new LevelControlBoundCluster(
-        (payload, meta) => this._onMoveToLevelWithOnOffHandler(payload, meta),
-        (payload, meta) => this._onStepWithOnOffHandler(payload, meta),
-      ),
+      new LevelControlBoundCluster({
+        onMoveToLevel: this._onMoveToLevelWithOnOffHandler.bind(this),
+        onStep: this._onStepWithOnOffHandler.bind(this),
+      }),
     );
   }
 
-  private _onOffCommandHandler(type: string, meta: OnOffMeta): void {
+  private _onSetOffCommandHandler(meta: BoundClusterMeta): void {
+    this._onOffCommandHandler('off', meta);
+  }
+
+  private _onSetOnCommandHandler(meta: BoundClusterMeta): void {
+    this._onOffCommandHandler('on', meta);
+  }
+
+  private _onOffCommandHandler(type: string, meta: BoundClusterMeta): void {
     let flowId: string;
     switch (type) {
       case 'on':
@@ -44,7 +57,7 @@ export default class ShellyBluRCZigbeeDevice extends ShellyZigbeeDevice {
     });
   }
 
-  private _onMoveToLevelWithOnOffHandler(payload: LevelMovePayload, meta: LevelMeta): void {
+  private _onMoveToLevelWithOnOffHandler(payload: MoveToLevelWithOnOffPayload, meta: BoundClusterMeta): void {
     let flowId: string;
     switch (payload.level) {
       case 254:
@@ -64,7 +77,7 @@ export default class ShellyBluRCZigbeeDevice extends ShellyZigbeeDevice {
     });
   }
 
-  private _onStepWithOnOffHandler(payload: LevelPayload, meta: LevelMeta): void {
+  private _onStepWithOnOffHandler(payload: StepWithOnOffPayload, meta: BoundClusterMeta): void {
     this.triggerFlowWithState(payload.mode === 'up' ? 'remote_step_up' : 'remote_step_down', {
       long_press: false,
       group: meta.groupId,
@@ -76,31 +89,4 @@ export default class ShellyBluRCZigbeeDevice extends ShellyZigbeeDevice {
     this.log('triggering flow', flowId, 'with tokens', data);
     // this.triggerFlow({ id: flowId, tokens: data }).catch(err => this.error('error triggering flow', err));
   }
-}
-
-export interface LevelMovePayload {
-  level: number;
-  transitionTime: number;
-}
-
-export interface LevelPayload {
-  mode: string;
-  stepSize: number;
-  transitionTime: number;
-}
-
-export interface OnOffMeta {
-  transId: number;
-  linkQuality: number;
-  dstEndpoint: number;
-  timestamp: number;
-  groupId: number;
-}
-
-export interface LevelMeta {
-  transId: number;
-  linkQuality: number;
-  dstEndpoint: number;
-  timestamp: number;
-  groupId: number;
 }

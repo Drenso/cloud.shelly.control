@@ -14,7 +14,7 @@
     "endpoints": {
       "1": {
         "clusters": [1],
-        "bindings": [0]
+        "bindings": [6, 8]
       }
     },
     "learnmode": {
@@ -25,8 +25,8 @@
     }
   },
   "images": {
-    "small": "/assets/drivers/shellyblurc/images/small.png",
-    "large": "/assets/drivers/shellyblurc/images/large.png",
-    "xlarge": "/assets/drivers/shellyblurc/images/xlarge.png"
+    "small": "/assets/drivers/shellybluremotecontrolzb/images/small.png",
+    "large": "/assets/drivers/shellybluremotecontrolzb/images/large.png",
+    "xlarge": "/assets/drivers/shellybluremotecontrolzb/images/xlarge.png"
   }
 }
