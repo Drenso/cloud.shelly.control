@@ -1,0 +1,16 @@
+{
+  "$extends": ["local"],
+  "name": {
+    "en": "H&T Gen3 - LAN"
+  },
+  "class": "sensor",
+  "capabilities": ["measure_temperature", "measure_humidity", "measure_battery"],
+  "energy": {
+    "batteries": ["AA", "AA", "AA", "AA"]
+  },
+  "images": {
+    "small": "/assets/drivers/shellyhtg3/images/small.png",
+    "large": "/assets/drivers/shellyhtg3/images/large.png",
+    "xlarge": "/assets/drivers/shellyhtg3/images/xlarge.png"
+  }
+}

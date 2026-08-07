@@ -1,0 +1,23 @@
+[
+  {
+    "$extends": "Temperature.offset_C"
+  },
+  {
+    "$extends": "Temperature.report_thr_C"
+  },
+  {
+    "$extends": "Humidity.offset"
+  },
+  {
+    "$extends": "Humidity.report_thr"
+  },
+  {
+    "$extends": "HT_UI.temperature_unit"
+  },
+  {
+    "$extends": "HT_UI.clock"
+  },
+  {
+    "$extends": "_shelly_device_info"
+  }
+]
