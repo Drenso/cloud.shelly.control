@@ -10751,6 +10751,46 @@
         "local"
       ],
       "connectivity": [
+        "matter"
+      ],
+      "icon": "/drivers/shellyhtg3_matter/assets/icon.svg",
+      "name": {
+        "en": "H&T Gen3 - Matter"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "measure_temperature",
+        "measure_humidity"
+      ],
+      "energy": {
+        "batteries": [
+          "AA",
+          "AA",
+          "AA",
+          "AA"
+        ]
+      },
+      "matter": {
+        "vendorId": 5264,
+        "productId": 6153,
+        "learnmode": {
+          "instruction": {
+            "en": "Enable Matter in the Shelly web interface. The required information for pairing will be shown after enabling."
+          }
+        }
+      },
+      "images": {
+        "small": "/assets/drivers/shellyhtg3/images/small.png",
+        "large": "/assets/drivers/shellyhtg3/images/large.png",
+        "xlarge": "/assets/drivers/shellyhtg3/images/xlarge.png"
+      },
+      "id": "shellyhtg3_matter"
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
         "lan"
       ],
       "capabilities": [],
