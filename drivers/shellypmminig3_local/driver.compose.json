@@ -1,0 +1,21 @@
+{
+  "$extends": ["local"],
+  "name": {
+    "en": "PM Mini Gen3 - LAN"
+  },
+  "class": "socket",
+  "capabilities": [
+    "measure_power",
+    "measure_current",
+    "measure_voltage",
+    "measure_frequency",
+    "shelly_power_factor",
+    "meter_power",
+    "meter_power.exported"
+  ],
+  "images": {
+    "small": "/assets/drivers/shellypmminig3/images/small.png",
+    "large": "/assets/drivers/shellypmminig3/images/large.png",
+    "xlarge": "/assets/drivers/shellypmminig3/images/xlarge.png"
+  }
+}
