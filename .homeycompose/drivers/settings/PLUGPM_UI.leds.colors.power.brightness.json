@@ -1,0 +1,11 @@
+{
+  "id": "PLUGPM_UI:leds.colors.power.brightness",
+  "type": "number",
+  "label": {
+    "en": "Power Mode - LED Brightness"
+  },
+  "value": 100,
+  "min": 0,
+  "max": 100,
+  "units": "%"
+}

@@ -1,0 +1,28 @@
+{
+  "id": "PLUGPM_UI:leds.mode",
+  "type": "dropdown",
+  "label": {
+    "en": "Indicator LED - Mode"
+  },
+  "value": "power",
+  "values": [
+    {
+      "id": "power",
+      "label": {
+        "en": "Power Consumption"
+      }
+    },
+    {
+      "id": "switch",
+      "label": {
+        "en": "Custom color"
+      }
+    },
+    {
+      "id": "off",
+      "label": {
+        "en": "Off"
+      }
+    }
+  ]
+}

@@ -16,6 +16,7 @@ import Number from './components/Number.js';
 import Object from './components/Object.js';
 import OutboundWebsocket from './components/OutboundWebsocket.js';
 import Pill from './components/Pill.js';
+import PlugpmUI from './components/PlugpmUI.js';
 import PlugsUI from './components/PlugsUI.js';
 import PM1 from './components/PM1.js';
 import PowerStripUI from './components/PowerStripUI.js';
@@ -57,6 +58,7 @@ export const ComponentWithIdMapping = {
 export const ComponentWithoutIdMapping = {
   ht_ui: HTUI,
   pill: Pill,
+  plugpm_ui: PlugpmUI,
   plugs_ui: PlugsUI,
   powerstrip_ui: PowerStripUI,
   presence: Presence,
