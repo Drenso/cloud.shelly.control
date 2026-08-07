@@ -1,0 +1,28 @@
+{
+  "id": "HT_UI:clock",
+  "type": "dropdown",
+  "label": {
+    "en": "H&T - Clock type"
+  },
+  "value": "24",
+  "values": [
+    {
+      "id": "12",
+      "label": {
+        "en": "12-hours"
+      }
+    },
+    {
+      "id": "24",
+      "label": {
+        "en": "24-hours"
+      }
+    },
+    {
+      "id": "disabled",
+      "label": {
+        "en": "Hide clock"
+      }
+    }
+  ]
+}

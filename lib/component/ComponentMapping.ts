@@ -7,6 +7,7 @@ import EM1 from './components/EM1.js';
 import EM1Data from './components/EM1Data.js';
 import Enum from './components/Enum.js';
 import Flood from './components/Flood.js';
+import HTUI from './components/HTUI.js';
 import Humidity from './components/Humidity.js';
 import Illuminance from './components/Illuminance.js';
 import Input from './components/Input.js';
@@ -52,6 +53,7 @@ export const ComponentWithIdMapping = {
   voltmeter: Voltmeter,
 } as const;
 export const ComponentWithoutIdMapping = {
+  ht_ui: HTUI,
   pill: Pill,
   plugs_ui: PlugsUI,
   powerstrip_ui: PowerStripUI,

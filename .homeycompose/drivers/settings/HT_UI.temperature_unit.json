@@ -1,0 +1,22 @@
+{
+  "id": "HT_UI:temperature_unit",
+  "type": "dropdown",
+  "label": {
+    "en": "H&T - Temperature unit"
+  },
+  "value": "C",
+  "values": [
+    {
+      "id": "C",
+      "label": {
+        "en": "°C"
+      }
+    },
+    {
+      "id": "F",
+      "label": {
+        "en": "°F"
+      }
+    }
+  ]
+}
