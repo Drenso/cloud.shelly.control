@@ -21,6 +21,15 @@ export type EM1Config = {
    * Supported ct_types can be obtained with EM1.GetCTTypes.
    */
   ct_type?: string;
+  /**
+   * Settings for the alarm thresholds.
+   * 'null' disables a threshold, setting the alarms option to 'null' disables all alarms.
+   */
+  alarms: {
+    voltage: number[] | null;
+    current: number[] | null;
+    power: number[] | null;
+  } | null;
 };
 
 export type EM1Status = {
