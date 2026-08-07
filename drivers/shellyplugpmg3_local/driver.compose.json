@@ -1,0 +1,22 @@
+{
+  "$extends": ["local"],
+  "name": {
+    "en": "Plug PM Gen3 - LAN"
+  },
+  "class": "socket",
+  "capabilities": [
+    "measure_power",
+    "measure_current",
+    "measure_voltage",
+    "measure_frequency",
+    "shelly_power_factor",
+    "meter_power.total",
+    "meter_power.consumed",
+    "meter_power.returned"
+  ],
+  "images": {
+    "small": "/assets/drivers/shellyplugpmg3/images/small.png",
+    "large": "/assets/drivers/shellyplugpmg3/images/large.png",
+    "xlarge": "/assets/drivers/shellyplugpmg3/images/xlarge.png"
+  }
+}

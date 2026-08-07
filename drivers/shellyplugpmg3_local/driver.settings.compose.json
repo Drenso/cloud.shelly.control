@@ -1,0 +1,54 @@
+[
+  {
+    "$extends": "PLUGPM_UI.leds.mode"
+  },
+  {
+    "$extends": "PLUGPM_UI.leds.colors.power.brightness"
+  },
+  {
+    "type": "group",
+    "label": "Indicator LED - On Color",
+    "children": [
+      {
+        "$extends": "PLUGPM_UI.leds.colors.pm1.brightness",
+        "id": "PLUGPM_UI:leds.colors.pm1:0.on.brightness"
+      },
+      {
+        "$extends": "PLUGPM_UI.leds.colors.pm1.red",
+        "id": "PLUGPM_UI:leds.colors.pm1:0.on.r"
+      },
+      {
+        "$extends": "PLUGPM_UI.leds.colors.pm1.green",
+        "id": "PLUGPM_UI:leds.colors.pm1:0.on.g"
+      },
+      {
+        "$extends": "PLUGPM_UI.leds.colors.pm1.blue",
+        "id": "PLUGPM_UI:leds.colors.pm1:0.on.b"
+      }
+    ]
+  },
+  {
+    "type": "group",
+    "label": "Indicator LED - Night Mode",
+    "children": [
+      {
+        "$extends": "PLUGPM_UI.leds.night_mode.enable"
+      },
+      {
+        "$extends": "PLUGPM_UI.leds.night_mode.brightness"
+      },
+      {
+        "$extends": "PLUGPM_UI.leds.night_mode.active_between.start"
+      },
+      {
+        "$extends": "PLUGPM_UI.leds.night_mode.active_between.end"
+      }
+    ]
+  },
+  {
+    "$extends": "installBleForwardingScript"
+  },
+  {
+    "$extends": "_shelly_device_info"
+  }
+]
