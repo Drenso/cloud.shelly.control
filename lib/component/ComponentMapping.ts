@@ -17,6 +17,7 @@ import Object from './components/Object.js';
 import OutboundWebsocket from './components/OutboundWebsocket.js';
 import Pill from './components/Pill.js';
 import PlugsUI from './components/PlugsUI.js';
+import PM1 from './components/PM1.js';
 import PowerStripUI from './components/PowerStripUI.js';
 import Presence from './components/Presence.js';
 import PresenceZone from './components/PresenceZone.js';
@@ -44,6 +45,7 @@ export const ComponentWithIdMapping = {
   light: Light,
   object: Object,
   number: Number,
+  pm1: PM1,
   presencezone: PresenceZone,
   rgbcct: RGBCCT,
   script: Script,

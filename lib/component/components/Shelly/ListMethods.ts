@@ -41,6 +41,7 @@ type NamespaceMethodMapping = {
   Object: ['GetConfig', 'SetConfig', 'GetStatus', 'Set'];
   Pill: ['SetConfig', 'GetConfig', 'GetStatus'];
   PLUGS_UI: ['SetConfig', 'GetConfig', 'GetStatus'];
+  PM1: ['SetConfig', 'GetConfig', 'GetStatus', 'ResetCounters'];
   POWERSTRIP_UI: ['SetConfig', 'GetConfig', 'GetStatus'];
   Presence: ['SetConfig', 'GetConfig', 'GetStatus', 'AddZone', 'DeleteZone', 'TiltCalibrate', 'LiveTrack', 'SetSensor'];
   PresenceZone: ['SetConfig', 'GetConfig', 'GetStatus'];
