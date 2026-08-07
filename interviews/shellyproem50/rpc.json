@@ -1,0 +1,292 @@
+[
+  {
+    "key": "ble",
+    "status": {},
+    "config": {
+      "rpc": {
+        "enable": false
+      }
+    }
+  },
+  {
+    "key": "bthome",
+    "status": {},
+    "config": {}
+  },
+  {
+    "key": "cloud",
+    "status": {
+      "connected": true
+    },
+    "config": {
+      "enable": true,
+      "server": "shelly-api-eu.shelly.cloud:6022/jrpc"
+    }
+  },
+  {
+    "key": "em1:0",
+    "status": {
+      "id": 0,
+      "voltage": 235.3,
+      "current": 0,
+      "act_power": 0,
+      "aprt_power": 4.8,
+      "pf": 0,
+      "freq": 50,
+      "calibration": "factory"
+    },
+    "config": {
+      "id": 0,
+      "name": null,
+      "reverse": false,
+      "ct_type": "50A",
+      "alarms": {
+        "voltage": [null, null],
+        "current": [null, null],
+        "power": [null, null]
+      }
+    }
+  },
+  {
+    "key": "em1:1",
+    "status": {
+      "id": 1,
+      "voltage": 235.3,
+      "current": 0,
+      "act_power": 0,
+      "aprt_power": 4.8,
+      "pf": 0,
+      "freq": 50,
+      "calibration": "factory"
+    },
+    "config": {
+      "id": 1,
+      "name": null,
+      "reverse": false,
+      "ct_type": "50A",
+      "alarms": {
+        "voltage": [null, null],
+        "current": [null, null],
+        "power": [null, null]
+      }
+    }
+  },
+  {
+    "key": "em1data:0",
+    "status": {
+      "id": 0,
+      "total_act_energy": 0,
+      "total_act_ret_energy": 0
+    },
+    "config": {}
+  },
+  {
+    "key": "em1data:1",
+    "status": {
+      "id": 1,
+      "total_act_energy": 0.04,
+      "total_act_ret_energy": 0
+    },
+    "config": {}
+  },
+  {
+    "key": "eth",
+    "status": {
+      "ip": "192.168.222.152",
+      "ip6": ["fe80::caf0:9eff:fe8a:13f3", "fd03:8586:4012:ec48:caf0:9eff:fe8a:13f3"]
+    },
+    "config": {
+      "enable": true,
+      "server_mode": false,
+      "ipv4mode": "dhcp",
+      "ip": null,
+      "netmask": null,
+      "gw": null,
+      "nameserver": null
+    }
+  },
+  {
+    "key": "modbus",
+    "status": {},
+    "config": {
+      "enable": true
+    }
+  },
+  {
+    "key": "mqtt",
+    "status": {
+      "connected": false
+    },
+    "config": {
+      "enable": false,
+      "server": null,
+      "client_id": "shellyproem50-c8f09e8a13f0",
+      "user": null,
+      "ssl_ca": null,
+      "topic_prefix": "shellyproem50-c8f09e8a13f0",
+      "rpc_ntf": true,
+      "status_ntf": false,
+      "use_client_cert": false,
+      "enable_rpc": true,
+      "enable_control": true
+    }
+  },
+  {
+    "key": "switch:0",
+    "status": {
+      "id": 0,
+      "source": "init",
+      "tag": null,
+      "output": false,
+      "temperature": {
+        "tC": 39.1,
+        "tF": 102.3
+      }
+    },
+    "config": {
+      "id": 0,
+      "name": null,
+      "initial_state": "off",
+      "auto_on": false,
+      "auto_on_delay": 60,
+      "auto_off": false,
+      "auto_off_delay": 60,
+      "counts": {
+        "enable": true
+      }
+    }
+  },
+  {
+    "key": "sys",
+    "status": {
+      "mac": "C8F09E8A13F0",
+      "restart_required": false,
+      "time": "14:36",
+      "unixtime": 1786106204,
+      "last_sync_ts": 1786106163,
+      "uptime": 49,
+      "ram_size": 265012,
+      "ram_free": 118408,
+      "ram_min_free": 102012,
+      "fs_size": 524288,
+      "fs_free": 159744,
+      "cfg_rev": 23,
+      "kvs_rev": 0,
+      "schedule_rev": 0,
+      "webhook_rev": 0,
+      "btrelay_rev": 0,
+      "available_updates": {},
+      "alt": {
+        "ProEMProAddon": {
+          "name": "Shelly Pro EM",
+          "desc": "Pro EM with Pro Sensor Addon",
+          "stable": {
+            "version": "2.0.0",
+            "build_id": "20260710-101108/2.0.0-g87fbfa4"
+          }
+        }
+      },
+      "reset_reason": 3,
+      "utc_offset": 7200
+    },
+    "config": {
+      "device": {
+        "name": null,
+        "mac": "C8F09E8A13F0",
+        "fw_id": "20260710-101108/2.0.0-g87fbfa4",
+        "discoverable": true,
+        "eco_mode": false,
+        "addon_type": null,
+        "sys_btn_toggle": true,
+        "tls_check_cert_validity_time": true,
+        "enhanced_security": false
+      },
+      "location": {
+        "tz": "Europe/Amsterdam",
+        "lat": 52.39424,
+        "lon": 4.84668
+      },
+      "debug": {
+        "level": 2,
+        "file_level": null,
+        "mqtt": {
+          "enable": false
+        },
+        "websocket": {
+          "enable": false
+        },
+        "file_log": {
+          "enable": false
+        },
+        "udp": {
+          "addr": null
+        }
+      },
+      "ui_data": {
+        "device_revision": "1-21"
+      },
+      "rpc_udp": {
+        "dst_addr": null,
+        "listen_port": null
+      },
+      "sntp": {
+        "server": "time.cloudflare.com"
+      },
+      "cfg_rev": 23
+    }
+  },
+  {
+    "key": "wifi",
+    "status": {
+      "sta_ip": "0.0.0.0",
+      "status": "disconnected",
+      "ssid": null,
+      "sta_ip6": ["fe80::caf0:9eff:fe8a:13f0"]
+    },
+    "config": {
+      "ap": {
+        "ssid": "ShellyProEM50-C8F09E8A13F0",
+        "is_open": true,
+        "enable": false,
+        "range_extender": {
+          "enable": false
+        }
+      },
+      "sta": {
+        "ssid": "DrensoDev",
+        "is_open": false,
+        "enable": false,
+        "ipv4mode": "dhcp",
+        "ip": null,
+        "netmask": null,
+        "gw": null,
+        "nameserver": null
+      },
+      "sta1": {
+        "ssid": null,
+        "is_open": true,
+        "enable": false,
+        "ipv4mode": "dhcp",
+        "ip": null,
+        "netmask": null,
+        "gw": null,
+        "nameserver": null
+      },
+      "roam": {
+        "rssi_thr": -80,
+        "interval": 60
+      }
+    }
+  },
+  {
+    "key": "ws",
+    "status": {
+      "connected": false
+    },
+    "config": {
+      "enable": false,
+      "server": null,
+      "ssl_ca": "*"
+    }
+  }
+]
