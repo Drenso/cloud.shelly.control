@@ -1,0 +1,22 @@
+{
+  "$extends": ["matter"],
+  "name": {
+    "en": "Plug S Gen3 - Matter"
+  },
+  "class": "socket",
+  "capabilities": ["onoff", "measure_current", "measure_voltage", "measure_power", "meter_power"],
+  "matter": {
+    "vendorId": 5264,
+    "productId": 1,
+    "learnmode": {
+      "instruction": {
+        "en": "Enable Matter in the Shelly web interface. The required information for pairing will be shown after enabling."
+      }
+    }
+  },
+  "images": {
+    "small": "/assets/drivers/shellyplugsg3/images/small.png",
+    "large": "/assets/drivers/shellyplugsg3/images/large.png",
+    "xlarge": "/assets/drivers/shellyplugsg3/images/xlarge.png"
+  }
+}
