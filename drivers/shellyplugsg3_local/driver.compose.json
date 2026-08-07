@@ -1,0 +1,23 @@
+{
+  "$extends": ["local"],
+  "name": {
+    "en": "Plug S Gen3 - LAN"
+  },
+  "class": "socket",
+  "capabilities": [
+    "onoff",
+    "measure_power",
+    "measure_current",
+    "measure_voltage",
+    "measure_frequency",
+    "shelly_power_factor",
+    "meter_power.total",
+    "meter_power.consumed",
+    "meter_power.returned"
+  ],
+  "images": {
+    "small": "/assets/drivers/shellyplugsg3/images/small.png",
+    "large": "/assets/drivers/shellyplugsg3/images/large.png",
+    "xlarge": "/assets/drivers/shellyplugsg3/images/xlarge.png"
+  }
+}
