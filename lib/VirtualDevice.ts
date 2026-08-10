@@ -269,10 +269,10 @@ export class VirtualDevice {
                 await SetConfig(this.getChannel(), { config: { ssl_ca: '*', enable: true, server: server } });
               } catch (err) {
                 this.error('Error while configuring outbound websocket:', err);
-                const retryDelay = 1000 * 2 ** (2 * this.outboundWsRetries);
-                this.debugState(`Retrying in ${retryDelay / 1000} seconds...`);
+                const retryDelay = Time.s(2 ** (2 * this.outboundWsRetries));
+                this.debugState(`Retrying in ${retryDelay.toS()} seconds...`);
                 await new Promise(resolve => {
-                  this.app.homey.setTimeout(resolve, retryDelay);
+                  this.app.homey.setTimeout(resolve, retryDelay.toMs());
                 });
                 this.outboundWsRetries += 1;
                 return this.states.waiting_for_outbound_ws_connection.enter();
@@ -359,10 +359,10 @@ export class VirtualDevice {
           }
 
           this.error('Error while initializing:', err);
-          const retryDelay = 1000 * 2 ** (2 * this.initRetries);
-          this.debugState(`Retrying in ${retryDelay / 1000} seconds...`);
+          const retryDelay = Time.s(2 ** (2 * this.initRetries));
+          this.debugState(`Retrying in ${retryDelay.toS()} seconds...`);
           await new Promise(resolve => {
-            this.app.homey.setTimeout(resolve, retryDelay);
+            this.app.homey.setTimeout(resolve, retryDelay.toMs());
           });
           this.initRetries += 1;
           return this.states.initializing.enter();

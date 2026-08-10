@@ -20,10 +20,10 @@ import {
   parseWsChallenge,
   UnauthenticatedWS,
 } from '../Authentication.js';
-import type { Time } from '../../unitConversion.js';
+import { Time } from '../../unitConversion.js';
 
-const BASE_RECONNECT_TIMEOUT = 1000;
-const GREETING_DELAY = 500;
+const BASE_RECONNECT_TIMEOUT = Time.ms(1000);
+const GREETING_DELAY = Time.ms(500);
 
 type InboundWsChannelMittEvents = {
   notification: NotificationFrame;
@@ -76,7 +76,7 @@ export default class InboundWebsocketChannel implements RpcChannel {
     this.ws.on('open', async () => {
       this.resetReconnectTimeout();
       // Delay greeting to allow some time for the device to be responsive
-      await new Promise(resolve => this.app.homey.setTimeout(resolve, GREETING_DELAY));
+      await new Promise(resolve => this.app.homey.setTimeout(resolve, GREETING_DELAY.toMs()));
       // Send a message to enable receiving
       this.ping()
         .then(() => {
@@ -106,15 +106,15 @@ export default class InboundWebsocketChannel implements RpcChannel {
       return;
     }
 
-    this.log(`Reconnecting in ${this.reconnectTimeoutDuration} ms`);
+    this.log(`Reconnecting in ${this.reconnectTimeoutDuration.toMs()} ms`);
     this.close();
     this.app.homey.clearTimeout(this.reconnectTimeout);
     this.reconnectTimeout = this.app.homey.setTimeout(() => {
       this.log('Reconnecting...');
       this.connect();
-    }, this.reconnectTimeoutDuration);
+    }, this.reconnectTimeoutDuration.toMs());
 
-    this.reconnectTimeoutDuration *= 2;
+    this.reconnectTimeoutDuration = Time.ms(this.reconnectTimeoutDuration.toMs() * 2);
   }
 
   public disconnect(): void {
