@@ -33,9 +33,9 @@ type InboundWsChannelMittEvents = {
 export default class InboundWebsocketChannel implements RpcChannel {
   public ws!: WebSocket;
   private auth?: AuthenticationResponse;
-  private nonce_count = 0;
-  private reconnect_timeout_time = BASE_RECONNECT_TIMEOUT;
-  private reconnect_timeout?: NodeJS.Timeout;
+  private nonceCount = 0;
+  private reconnectTimeoutDuration = BASE_RECONNECT_TIMEOUT;
+  private reconnectTimeout?: NodeJS.Timeout;
   private closed = false;
   private keepAliveTimeout?: NodeJS.Timeout;
 
@@ -106,15 +106,15 @@ export default class InboundWebsocketChannel implements RpcChannel {
       return;
     }
 
-    this.log(`Reconnecting in ${this.reconnect_timeout_time} ms`);
+    this.log(`Reconnecting in ${this.reconnectTimeoutDuration} ms`);
     this.close();
-    this.app.homey.clearTimeout(this.reconnect_timeout);
-    this.reconnect_timeout = this.app.homey.setTimeout(() => {
+    this.app.homey.clearTimeout(this.reconnectTimeout);
+    this.reconnectTimeout = this.app.homey.setTimeout(() => {
       this.log('Reconnecting...');
       this.connect();
-    }, this.reconnect_timeout_time);
+    }, this.reconnectTimeoutDuration);
 
-    this.reconnect_timeout_time *= 2;
+    this.reconnectTimeoutDuration *= 2;
   }
 
   public disconnect(): void {
@@ -136,8 +136,8 @@ export default class InboundWebsocketChannel implements RpcChannel {
   }
 
   public resetReconnectTimeout(): void {
-    this.reconnect_timeout_time = BASE_RECONNECT_TIMEOUT;
-    this.app.homey.clearTimeout(this.reconnect_timeout);
+    this.reconnectTimeoutDuration = BASE_RECONNECT_TIMEOUT;
+    this.app.homey.clearTimeout(this.reconnectTimeout);
   }
 
   public safeConnect(): void {
@@ -203,7 +203,7 @@ export default class InboundWebsocketChannel implements RpcChannel {
     try {
       if (this.auth !== undefined && this.ha1 !== null) {
         this.debug('Sending', requestFrame.method, 'with auth');
-        this.auth = createAuthenticationResponse(this.auth.realm, this.auth.nonce, this.ha1, ++this.nonce_count);
+        this.auth = createAuthenticationResponse(this.auth.realm, this.auth.nonce, this.ha1, ++this.nonceCount);
         this.ws.send(JSON.stringify({ ...requestFrame, auth: this.auth }));
       } else {
         this.debug('Sending', requestFrame.method);
@@ -218,7 +218,7 @@ export default class InboundWebsocketChannel implements RpcChannel {
           }
           const challenge = parseWsChallenge(error.challenge);
           this.auth = createAuthenticationResponse(challenge.realm, challenge.nonce, this.ha1);
-          this.nonce_count = 0;
+          this.nonceCount = 0;
           this.log('Authenticating...');
           const response = this.sendRequestFrame<Result>({ ...requestFrame, auth: this.auth });
           this.log('Authenticated');
