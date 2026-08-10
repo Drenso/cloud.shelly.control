@@ -23,6 +23,7 @@ import SetConfig from './component/components/OutboundWebsocket/SetConfig.js';
 import type Script from './component/components/Script.js';
 import type { BleForwardEventData } from './ble/BTHome.js';
 import { NoPassword } from './rpc/Authentication.js';
+import { Time } from './unitConversion.js';
 
 const MAX_STATE_RETRIES = 5;
 
@@ -971,6 +972,7 @@ class LocalConnection {
         this.virtualDevice.error,
         useInitialHttps,
         this.ha1,
+        this.virtualDevice.batteryDevice ? Time.h(4) : Time.m(4),
         this.onHttpsUpgrade.bind(this),
       );
       // handleWsNotification should already be bound by virtual device
@@ -986,6 +988,7 @@ class LocalConnection {
       this.virtualDevice.app.outboundWsServer.outboundWsMitt,
       this.virtualDevice.log,
       this.virtualDevice.error,
+      this.virtualDevice.batteryDevice ? Time.h(4) : Time.m(4),
     );
     this.outboundWsChannel.eventEmitter.on('notification', this.handleOutboundWsNotification.bind(this));
     this.outboundWsChannel.eventEmitter.on('opened', () => {

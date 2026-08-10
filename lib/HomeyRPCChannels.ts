@@ -5,6 +5,7 @@ import InboundWebsocketChannel from './rpc/channel/InboundWebsocketChannel.js';
 import OutboundWebsocketChannel from './rpc/channel/OutboundWebsocketChannel.js';
 import type mitt from 'mitt';
 import type { WsMittEvents } from './rpc/OutboundWsServer.js';
+import type { Time } from './unitConversion.js';
 
 export function createHttpChannel(
   address: string,
@@ -28,6 +29,7 @@ export function createInboundWsChannel(
   error: (...args: unknown[]) => void,
   useHttps: boolean,
   ha1: string | null = null,
+  keepAliveDuration: Time,
   onHttpsUpgrade?: () => Promise<void>,
 ): InboundWebsocketChannel {
   const debug = (...args: unknown[]): void => {
@@ -43,7 +45,17 @@ export function createInboundWsChannel(
     error(`[InboundWS:${address}]`, ...args);
   };
 
-  return new InboundWebsocketChannel(app, address, wsLog, wsError, debug, useHttps, ha1, onHttpsUpgrade);
+  return new InboundWebsocketChannel(
+    app,
+    address,
+    wsLog,
+    wsError,
+    debug,
+    useHttps,
+    ha1,
+    keepAliveDuration,
+    onHttpsUpgrade,
+  );
 }
 
 export function createOutboundWsChannel(
@@ -52,6 +64,7 @@ export function createOutboundWsChannel(
   outboundWsMitt: mitt.Emitter<WsMittEvents>,
   log: (...args: unknown[]) => void,
   error: (...args: unknown[]) => void,
+  keepAliveDuration: Time,
 ): OutboundWebsocketChannel {
   const debug = (...args: unknown[]): void => {
     if (Homey.env['DEBUG'] === '1') {
@@ -59,5 +72,5 @@ export function createOutboundWsChannel(
     }
   };
 
-  return new OutboundWebsocketChannel(app, identifier, outboundWsMitt, log, error, debug);
+  return new OutboundWebsocketChannel(app, identifier, outboundWsMitt, log, error, debug, keepAliveDuration);
 }

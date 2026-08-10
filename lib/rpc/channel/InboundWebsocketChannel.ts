@@ -20,6 +20,7 @@ import {
   parseWsChallenge,
   UnauthenticatedWS,
 } from '../Authentication.js';
+import type { Time } from '../../unitConversion.js';
 
 const BASE_RECONNECT_TIMEOUT = 1000;
 const GREETING_DELAY = 500;
@@ -36,6 +37,7 @@ export default class InboundWebsocketChannel implements RpcChannel {
   private reconnect_timeout_time = BASE_RECONNECT_TIMEOUT;
   private reconnect_timeout?: NodeJS.Timeout;
   private closed = false;
+  private keepAliveTimeout?: NodeJS.Timeout;
 
   private readonly awaitingResponse = new Map<
     number,
@@ -51,6 +53,7 @@ export default class InboundWebsocketChannel implements RpcChannel {
     public readonly debug: (...args: unknown[]) => void,
     public useHttps: boolean,
     public ha1: string | null,
+    private keepAliveDuration: Time,
     private onHttpsUpgrade?: () => Promise<void>,
   ) {
     this.connect();
@@ -75,8 +78,7 @@ export default class InboundWebsocketChannel implements RpcChannel {
       // Delay greeting to allow some time for the device to be responsive
       await new Promise(resolve => this.app.homey.setTimeout(resolve, GREETING_DELAY));
       // Send a message to enable receiving
-      const pingFrame = createRequestFrame('Shelly.GetDeviceInfo');
-      this.sendRequestFrame(pingFrame)
+      this.ping()
         .then(() => {
           this.log('Inbound WS greeting completed');
         })
@@ -144,7 +146,21 @@ export default class InboundWebsocketChannel implements RpcChannel {
     }
   }
 
+  private async ping(): Promise<void> {
+    const pingFrame = createRequestFrame('Shelly.GetDeviceInfo');
+    await this.sendRequestFrame(pingFrame);
+  }
+
+  private updateKeepAlive(): void {
+    this.app.homey.clearTimeout(this.keepAliveTimeout);
+    this.app.homey.setTimeout(() => {
+      this.ping().catch(err => this.error('Error while sending keep-alive ping:', err));
+      // TODO set device to unavailable if both in and outbound ws time out
+    }, this.keepAliveDuration.toMs());
+  }
+
   private handleMessage(message: RawData): void {
+    this.updateKeepAlive();
     const string = message.toString();
     const json = JSON.parse(string) as UnknownFrame;
     if (json.dst === RPC_SRC) {

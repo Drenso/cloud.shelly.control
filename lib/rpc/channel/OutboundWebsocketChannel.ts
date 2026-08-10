@@ -3,6 +3,7 @@ import type { RpcChannel } from './RpcChannel.js';
 import type mitt from 'mitt';
 import WebSocket from 'ws';
 import {
+  createRequestFrame,
   type NotificationFrame,
   prettyError,
   type RequestFrame,
@@ -12,6 +13,7 @@ import {
 import { createMitt, type UnionToIntersection } from '../../util.js';
 import { RpcError } from '../RpcError.js';
 import type { WsClosedEvent, WsMessageEvent, WsMittEvents } from '../OutboundWsServer.js';
+import type { Time } from '../../unitConversion.js';
 
 type OutboundWsChannelMittEvents = {
   notification: NotificationFrame;
@@ -29,6 +31,8 @@ export default class OutboundWebsocketChannel implements RpcChannel {
   public readonly eventEmitter = createMitt<OutboundWsChannelMittEvents>();
   private readonly boundHandler: OmitThisParameter<(event: WsMessageEvent | WsClosedEvent) => void>;
 
+  private keepAliveTimeout?: NodeJS.Timeout;
+
   public constructor(
     private readonly app: ShellyApp,
     public readonly identifier: string,
@@ -36,6 +40,7 @@ export default class OutboundWebsocketChannel implements RpcChannel {
     public readonly log: (...args: unknown[]) => void,
     public readonly error: (...args: unknown[]) => void,
     public readonly debug: (...args: unknown[]) => void,
+    private keepAliveDuration: Time,
   ) {
     this.outboundWsMitt = outboundWsMitt;
     this.wsPromise = new Promise(resolve => {
@@ -62,6 +67,7 @@ export default class OutboundWebsocketChannel implements RpcChannel {
   }
 
   private handleMessage(event: WsMessageEvent | WsClosedEvent): void {
+    this.updateKeepAlive();
     if ((event as UnionToIntersection<WsMessageEvent | WsClosedEvent>).json === undefined) {
       // Closed event
       return;
@@ -119,5 +125,22 @@ export default class OutboundWebsocketChannel implements RpcChannel {
     } catch (e) {
       throw prettyError(e, this.app.homey.__);
     }
+  }
+
+  private async ping(): Promise<void> {
+    const pingFrame = createRequestFrame('Shelly.GetDeviceInfo');
+    const socket = await this.wsPromise;
+    socket.send(JSON.stringify(pingFrame));
+    return new Promise((resolve, reject) => {
+      this.awaitingResponse.set(pingFrame.id as number, { resolve, reject });
+    });
+  }
+
+  private updateKeepAlive(): void {
+    this.app.homey.clearTimeout(this.keepAliveTimeout);
+    this.app.homey.setTimeout(() => {
+      this.ping().catch(err => this.error('Error while sending keep-alive ping:', err));
+      // TODO set device to unavailable if both in and outbound ws time out
+    }, this.keepAliveDuration.toMs());
   }
 }
