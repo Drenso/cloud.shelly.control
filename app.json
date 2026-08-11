@@ -8316,7 +8316,10 @@
         "endpoints": {
           "1": {
             "clusters": [
-              1
+              0,
+              1,
+              6,
+              8
             ],
             "bindings": [
               6,
@@ -8327,7 +8330,7 @@
         "learnmode": {
           "image": "/drivers/shellybluremotecontrolzb_zigbee/assets/learnmode.svg",
           "instruction": {
-            "en": "Press any button five times to initialize Zigbee pairing."
+            "en": "Press one of the ring buttons five times to initialize Zigbee pairing. The LEDs will display a running animation."
           }
         }
       },

@@ -13,7 +13,7 @@
     "productId": ["BLU Remote Control ZB"],
     "endpoints": {
       "1": {
-        "clusters": [1],
+        "clusters": [0, 1, 6, 8],
         "bindings": [6, 8]
       }
     },
