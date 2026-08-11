@@ -161,40 +161,53 @@ export default class InboundWebsocketChannel implements RpcChannel {
 
   private handleMessage(message: RawData): void {
     this.updateKeepAlive();
+
     const string = message.toString();
     const json = JSON.parse(string) as UnknownFrame;
-    if (json.dst === RPC_SRC) {
-      if (json.id !== undefined) {
-        // Response to a request with the same id
-        const awaitingResponse = this.awaitingResponse.get(json.id as number);
-        this.awaitingResponse.delete(json.id as number);
-        if (awaitingResponse) {
-          const error = json as ResponseErrorFrame;
-          const result = json as ResponseSuccessFrame<object | null>;
-          if (error.error !== undefined) {
-            const { code, message } = error.error;
-            if (code === 401) {
-              const authenticationError = new UnauthenticatedWS(message);
-              authenticationError.stack = undefined;
-              awaitingResponse.reject(authenticationError as never);
-              return;
-            }
-            const rpcError = new RpcError(code, message);
-            rpcError.stack = undefined;
-            awaitingResponse.reject(rpcError as never);
-          } else {
-            awaitingResponse.resolve(result as never);
-          }
-        } else {
-          this.error('Received response without a request:', string);
-        }
-      } else if (json.method !== undefined) {
-        // Notification
-        this.eventEmitter.emit('notification', json as NotificationFrame);
-      } else {
-        this.error('Unexpected WS message format:', string);
-      }
+
+    if (json.dst !== RPC_SRC) {
+      return;
     }
+
+    if (json.id === undefined) {
+      if (json.method === undefined) {
+        this.error('Unexpected WS message format:', string);
+        return;
+      }
+      // Notification
+      this.eventEmitter.emit('notification', json as NotificationFrame);
+      return;
+    }
+
+    // Response to a request with the same id
+    const awaitingResponse = this.awaitingResponse.get(json.id as number);
+    this.awaitingResponse.delete(json.id as number);
+
+    if (!awaitingResponse) {
+      this.error('Received response without a request:', string);
+      return;
+    }
+
+    const error = json as ResponseErrorFrame;
+    const result = json as ResponseSuccessFrame<object | null>;
+
+    if (error.error === undefined) {
+      awaitingResponse.resolve(result as never);
+      return;
+    }
+
+    const { code, message: errorMessage } = error.error;
+
+    if (code === 401) {
+      const authenticationError = new UnauthenticatedWS(errorMessage);
+      authenticationError.stack = undefined;
+      awaitingResponse.reject(authenticationError as never);
+      return;
+    }
+
+    const rpcError = new RpcError(code, errorMessage);
+    rpcError.stack = undefined;
+    awaitingResponse.reject(rpcError as never);
   }
 
   public async sendRequestFrame<Result extends object | null>(
