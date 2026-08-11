@@ -941,7 +941,7 @@ class LocalConnection {
 
   public getChannel(): RpcChannel {
     // For sending, prefer inbound WS channel > httpChannel > outbound WS channel
-    if (this.inboundWsChannel !== undefined && this.inboundWsChannel.ws.readyState === WebSocket.OPEN) {
+    if (this.inboundWsChannel !== undefined && this.inboundWsChannel.wsState === WebSocket.OPEN) {
       return this.inboundWsChannel;
     }
 
@@ -1024,7 +1024,7 @@ class LocalConnection {
   }
 
   private handleOutboundWsNotification(notification: NotificationFrame): void {
-    if (!(this.inboundWsChannel === undefined || this.inboundWsChannel.ws.readyState !== WebSocket.OPEN)) {
+    if (!(this.inboundWsChannel === undefined || this.inboundWsChannel.wsState !== WebSocket.OPEN)) {
       return;
     }
 

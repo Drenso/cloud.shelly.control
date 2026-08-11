@@ -31,13 +31,17 @@ type InboundWsChannelMittEvents = {
 };
 
 export default class InboundWebsocketChannel implements RpcChannel {
-  public ws!: WebSocket;
+  private ws!: WebSocket;
   private auth?: AuthenticationResponse;
   private nonceCount = 0;
   private reconnectTimeoutDuration = BASE_RECONNECT_TIMEOUT;
   private reconnectTimeout?: NodeJS.Timeout;
   private closed = false;
   private keepAliveTimeout?: NodeJS.Timeout;
+
+  public get wsState(): 0 | 1 | 2 | 3 {
+    return this.ws.readyState;
+  }
 
   private readonly awaitingResponse = new Map<
     number,

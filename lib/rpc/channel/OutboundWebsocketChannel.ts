@@ -21,7 +21,7 @@ type OutboundWsChannelMittEvents = {
 };
 
 export default class OutboundWebsocketChannel implements RpcChannel {
-  public wsPromise: Promise<WebSocket>;
+  private wsPromise: Promise<WebSocket>;
   private resolveWsPromise: ((ws: WebSocket) => void) | undefined;
 
   private readonly awaitingResponse = new Map<
