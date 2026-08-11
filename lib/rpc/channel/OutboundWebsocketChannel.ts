@@ -68,36 +68,48 @@ export default class OutboundWebsocketChannel implements RpcChannel {
 
   private handleMessage(event: WsMessageEvent | WsClosedEvent): void {
     this.updateKeepAlive();
+
     if ((event as UnionToIntersection<WsMessageEvent | WsClosedEvent>).json === undefined) {
       // Closed event
       return;
     }
+
     // Message event
     const { ws, json } = event as WsMessageEvent;
-    if (json.src === this.identifier) {
-      this.updateWs(ws);
-      if (json.id !== undefined) {
-        // Response to a request with the same id
-        const awaitingResponse = this.awaitingResponse.get(json.id as number);
-        this.awaitingResponse.delete(json.id as number);
-        if (awaitingResponse) {
-          const error = json as ResponseErrorFrame;
-          const result = json as ResponseSuccessFrame<object | null>;
-          if (error.error !== undefined) {
-            const { code, message } = error.error;
-            awaitingResponse.reject(new RpcError(code, message) as never);
-          } else {
-            awaitingResponse.resolve(result as never);
-          }
-        } else {
-          this.error('Received response without a request:', JSON.stringify(json));
-        }
-      } else if (json.method !== undefined) {
-        // Notification
-        this.eventEmitter.emit('notification', json as NotificationFrame);
-      } else {
+
+    if (json.src !== this.identifier) {
+      return;
+    }
+
+    this.updateWs(ws);
+
+    if (json.id === undefined) {
+      if (json.method === undefined) {
         this.error('Unexpected WS message format:', JSON.stringify(json));
+        return;
       }
+
+      // Notification
+      this.eventEmitter.emit('notification', json as NotificationFrame);
+      return;
+    }
+
+    // Response to a request with the same id
+    const awaitingResponse = this.awaitingResponse.get(json.id as number);
+    this.awaitingResponse.delete(json.id as number);
+
+    if (!awaitingResponse) {
+      this.error('Received response without a request:', JSON.stringify(json));
+      return;
+    }
+
+    const error = json as ResponseErrorFrame;
+    const result = json as ResponseSuccessFrame<object | null>;
+    if (error.error !== undefined) {
+      const { code, message } = error.error;
+      awaitingResponse.reject(new RpcError(code, message) as never);
+    } else {
+      awaitingResponse.resolve(result as never);
     }
   }
 
