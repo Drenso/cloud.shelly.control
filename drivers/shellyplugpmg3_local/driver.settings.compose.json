@@ -1,5 +1,8 @@
 [
   {
+    "$extends": "PM1.reverse"
+  },
+  {
     "$extends": "PLUGPM_UI.leds.mode"
   },
   {

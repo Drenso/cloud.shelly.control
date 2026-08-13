@@ -11673,6 +11673,17 @@
       "id": "shellyplugpmg3_local",
       "settings": [
         {
+          "id": "PM1:reverse",
+          "type": "checkbox",
+          "label": {
+            "en": "Electrical Measurement - Reverse"
+          },
+          "hint": {
+            "en": "Reverse the measurement direction of active power and energy."
+          },
+          "value": false
+        },
+        {
           "id": "PLUGPM_UI:leds.mode",
           "type": "dropdown",
           "label": {
