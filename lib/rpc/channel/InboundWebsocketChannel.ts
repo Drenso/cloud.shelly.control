@@ -22,7 +22,7 @@ import {
 } from '../Authentication.js';
 import { Time } from '../../unitConversion.js';
 
-const BASE_RECONNECT_TIMEOUT = Time.ms(1000);
+const BASE_RECONNECT_TIMEOUT = Time.s(5);
 const GREETING_DELAY = Time.ms(500);
 
 type InboundWsChannelMittEvents = {
