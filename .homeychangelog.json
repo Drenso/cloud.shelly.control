@@ -58,5 +58,8 @@
   },
   "0.12.0": {
     "en": "Add LAN support for Top AC Portable EV Charger, Hilux DS8, Ogemray Smart Relay 25A, 1PM Gen3, 1PM Mini Gen3, 1 Gen3, 1 Mini Gen3, 1L Gen3, Dimmer Gen3, Plus 0-10V Dimmer & Plus 1. Add support for generic device flags. Fix interaction issue with valve position."
+  },
+  "0.13.0": {
+    "en": "Add LAN support for H&T Gen3, Plug PM Gen3, Plug S Gen3, PM Mini Gen3 & Pro EM-50. Add Matter definitions for H&T Gen3, Plug PM Gen3 & Plug S Gen3. Fixed inconsistent naming."
   }
 }

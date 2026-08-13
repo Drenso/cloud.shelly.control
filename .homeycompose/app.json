@@ -1,6 +1,6 @@
 {
   "id": "cloud.shelly.control",
-  "version": "0.12.0",
+  "version": "0.13.0",
   "compatibility": ">=12.11.0",
   "sdk": 3,
   "brandColor": "#4f8dc8",
