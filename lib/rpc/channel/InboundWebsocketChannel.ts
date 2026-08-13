@@ -218,17 +218,19 @@ export default class InboundWebsocketChannel implements RpcChannel {
     requestFrame: RequestFrame,
   ): Promise<ResponseSuccessFrame<Result>> {
     try {
+      let requestFrameMessage: string;
       if (this.auth !== undefined && this.ha1 !== null) {
         this.debug('Sending', requestFrame.method, 'with auth');
         this.auth = createAuthenticationResponse(this.auth.realm, this.auth.nonce, this.ha1, ++this.nonceCount);
-        this.ws.send(JSON.stringify({ ...requestFrame, auth: this.auth }));
+        requestFrameMessage = JSON.stringify({ ...requestFrame, auth: this.auth });
       } else {
         this.debug('Sending', requestFrame.method);
-        this.ws.send(JSON.stringify(requestFrame));
+        requestFrameMessage = JSON.stringify(requestFrame);
       }
 
       return new Promise<ResponseSuccessFrame<Result>>((resolve, reject) => {
         this.awaitingResponse.set(requestFrame.id as number, { resolve, reject });
+        this.ws.send(requestFrameMessage);
       }).catch(error => {
         if (!(error instanceof UnauthenticatedWS && requestFrame.auth === undefined)) {
           throw error;

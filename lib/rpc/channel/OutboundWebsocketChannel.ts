@@ -130,9 +130,9 @@ export default class OutboundWebsocketChannel implements RpcChannel {
     try {
       const ws = await this.getWs();
       this.debug('Sending', requestFrame.method);
-      ws.send(JSON.stringify(requestFrame));
       return new Promise((resolve, reject) => {
         this.awaitingResponse.set(requestFrame.id as number, { resolve, reject });
+        ws.send(JSON.stringify(requestFrame));
       });
     } catch (e) {
       throw prettyError(e, this.app.homey.__);
