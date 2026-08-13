@@ -232,7 +232,7 @@ export class VirtualDevice {
           this.initRetries = 0;
           return this.states.initializing.enter();
         }
-        if (action === 'device_connected') {
+        if (action === 'device_connected' || action === 'going_offline') {
           // ignore
           return;
         }
@@ -293,6 +293,10 @@ export class VirtualDevice {
     },
     waiting_for_initial_connection: {
       transition: async ({ action }: StateAction): Promise<void> => {
+        if (action === 'going_offline') {
+          // ignore
+          return;
+        }
         if (action === 'device_connected' || action === 'outbound_websocket_connected') {
           this.debugState('Initial connection established');
           this.outboundWsRetries = 0;
@@ -401,6 +405,10 @@ export class VirtualDevice {
     },
     offline: {
       transition: async ({ action, ...args }: StateAction): Promise<void> => {
+        if (action === 'going_offline') {
+          // ignore
+          return;
+        }
         if (action === 'device_connected' || action === 'outbound_websocket_connected') {
           return this.states.online.enter();
         }
@@ -939,6 +947,22 @@ class LocalConnection {
     // If the virtual device opens the connection while not yet connected, we just wait for the signal normally
   }
 
+  private handleWsDisconnect(): void {
+    this.virtualDevice.debug(
+      'WS disconnected, new states: ob',
+      this.outboundWsChannel?.wsState,
+      'ib',
+      this.inboundWsChannel?.wsState,
+    );
+    if (this.outboundWsChannel?.wsState === WebSocket.OPEN || this.inboundWsChannel?.wsState === WebSocket.OPEN) {
+      return;
+    }
+
+    this.virtualDevice
+      .transition({ action: 'going_offline' })
+      .catch(err => this.virtualDevice.error('Error while going offline due to disconnected websockets:', err));
+  }
+
   public getChannel(): RpcChannel {
     // For sending, prefer inbound WS channel > httpChannel > outbound WS channel
     if (this.inboundWsChannel !== undefined && this.inboundWsChannel.wsState === WebSocket.OPEN) {
@@ -980,6 +1004,7 @@ class LocalConnection {
       this.inboundWsChannel.eventEmitter.on('opened', () => {
         this.handleDeviceConnected();
       });
+      this.inboundWsChannel.eventEmitter.on('closed', this.handleWsDisconnect.bind(this));
     }
 
     this.outboundWsChannel = createOutboundWsChannel(
@@ -998,6 +1023,7 @@ class LocalConnection {
       void this.virtualDevice.transition({ action: 'outbound_websocket_connected' });
       this.handleDeviceConnected();
     });
+    this.outboundWsChannel.eventEmitter.on('closed', this.handleWsDisconnect.bind(this));
   }
 
   public async disconnect(): Promise<void> {

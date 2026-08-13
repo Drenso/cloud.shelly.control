@@ -13,16 +13,24 @@ import {
 import { createMitt, type UnionToIntersection } from '../../util.js';
 import { RpcError } from '../RpcError.js';
 import type { WsClosedEvent, WsMessageEvent, WsMittEvents } from '../OutboundWsServer.js';
-import type { Time } from '../../unitConversion.js';
+import { Time } from '../../unitConversion.js';
 
 type OutboundWsChannelMittEvents = {
   notification: NotificationFrame;
   opened: undefined;
+  closed: undefined;
 };
+
+const PING_REQUEST_TIMEOUT = Time.s(5);
 
 export default class OutboundWebsocketChannel implements RpcChannel {
   private wsPromise: Promise<WebSocket>;
   private resolveWsPromise: ((ws: WebSocket) => void) | undefined;
+  private ws?: WebSocket;
+
+  public get wsState(): 0 | 1 | 2 | 3 {
+    return this.ws?.readyState ?? WebSocket.CONNECTING;
+  }
 
   private readonly awaitingResponse = new Map<
     number,
@@ -49,6 +57,8 @@ export default class OutboundWebsocketChannel implements RpcChannel {
 
     this.boundHandler = this.handleMessage.bind(this);
     this.outboundWsMitt.on(this.identifier, this.boundHandler);
+
+    this.handleClosed = this.handleClosed.bind(this);
   }
 
   private updateWs(ws: WebSocket): void {
@@ -58,12 +68,23 @@ export default class OutboundWebsocketChannel implements RpcChannel {
     } else {
       this.wsPromise = Promise.resolve(ws);
     }
+
+    this.ws?.off('close', this.handleClosed);
+    ws.on('close', this.handleClosed);
+    this.ws = ws;
     this.eventEmitter.emit('opened');
+  }
+
+  private handleClosed(): void {
+    this.log('WS closed');
+    this.app.homey.clearTimeout(this.keepAliveTimeout);
+    this.eventEmitter.emit('closed');
   }
 
   public disconnect(): void {
     this.eventEmitter.all.clear();
     this.outboundWsMitt.off(this.identifier, this.boundHandler);
+    this.app.homey.clearTimeout(this.keepAliveTimeout);
   }
 
   private handleMessage(event: WsMessageEvent | WsClosedEvent): void {
@@ -140,19 +161,30 @@ export default class OutboundWebsocketChannel implements RpcChannel {
   }
 
   private async ping(): Promise<void> {
+    const ws = this.ws;
+    if (ws === undefined) {
+      throw new Error('Outbound websocket has not connected yet');
+    }
     const pingFrame = createRequestFrame('Shelly.GetDeviceInfo');
-    const socket = await this.wsPromise;
-    socket.send(JSON.stringify(pingFrame));
     return new Promise((resolve, reject) => {
       this.awaitingResponse.set(pingFrame.id as number, { resolve, reject });
+      ws.send(JSON.stringify(pingFrame));
     });
   }
 
   private updateKeepAlive(): void {
     this.app.homey.clearTimeout(this.keepAliveTimeout);
-    this.app.homey.setTimeout(() => {
-      this.ping().catch(err => this.error('Error while sending keep-alive ping:', err));
-      // TODO set device to unavailable if both in and outbound ws time out
+    this.keepAliveTimeout = this.app.homey.setTimeout(() => {
+      const pingTimeout = this.app.homey.setTimeout(() => {
+        this.log('Failed ping, closing socket');
+        this.ws?.terminate();
+      }, PING_REQUEST_TIMEOUT.toMs());
+      this.ping()
+        .then(() => {
+          this.app.homey.clearTimeout(pingTimeout);
+          this.debug('Ping successfull');
+        })
+        .catch(err => this.error('Error while sending keep-alive ping:', err));
     }, this.keepAliveDuration.toMs());
   }
 }

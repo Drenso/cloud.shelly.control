@@ -28,7 +28,10 @@ const GREETING_DELAY = Time.ms(500);
 type InboundWsChannelMittEvents = {
   notification: NotificationFrame;
   opened: undefined;
+  closed: undefined;
 };
+
+const PING_REQUEST_TIMEOUT = Time.s(5);
 
 export default class InboundWebsocketChannel implements RpcChannel {
   private ws!: WebSocket;
@@ -61,6 +64,8 @@ export default class InboundWebsocketChannel implements RpcChannel {
     private onHttpsUpgrade?: () => Promise<void>,
   ) {
     this.connect();
+
+    this.handleClosed = this.handleClosed.bind(this);
   }
 
   private connect(): void {
@@ -79,6 +84,7 @@ export default class InboundWebsocketChannel implements RpcChannel {
     });
     this.ws.on('open', async () => {
       this.resetReconnectTimeout();
+      this.updateKeepAlive();
       // Delay greeting to allow some time for the device to be responsive
       await new Promise(resolve => this.app.homey.setTimeout(resolve, GREETING_DELAY.toMs()));
       // Send a message to enable receiving
@@ -97,7 +103,7 @@ export default class InboundWebsocketChannel implements RpcChannel {
       this.error('WS error:', err.toString());
     });
     this.ws.on('close', () => {
-      this.log('WS closed');
+      this.handleClosed();
       if (!this.closed) {
         this.reconnect();
       }
@@ -110,7 +116,7 @@ export default class InboundWebsocketChannel implements RpcChannel {
       return;
     }
 
-    this.log(`Reconnecting in ${this.reconnectTimeoutDuration.toMs()} ms`);
+    this.log(`Reconnecting in ${this.reconnectTimeoutDuration.toS()} s`);
     this.close();
     this.app.homey.clearTimeout(this.reconnectTimeout);
     this.reconnectTimeout = this.app.homey.setTimeout(() => {
@@ -129,6 +135,7 @@ export default class InboundWebsocketChannel implements RpcChannel {
   }
 
   private close(): void {
+    this.handleClosed();
     const oldWs = this.ws;
     // Prevent automatic reconnecting
     oldWs.removeAllListeners('close');
@@ -137,6 +144,12 @@ export default class InboundWebsocketChannel implements RpcChannel {
     // The 'error' event listener does handle the error,
     // so it cannot be removed until the next tick
     process.nextTick(oldWs.removeAllListeners.bind(oldWs));
+  }
+
+  private handleClosed(): void {
+    this.log('WS closed');
+    this.app.homey.clearTimeout(this.keepAliveTimeout);
+    this.eventEmitter.emit('closed');
   }
 
   public resetReconnectTimeout(): void {
@@ -157,9 +170,17 @@ export default class InboundWebsocketChannel implements RpcChannel {
 
   private updateKeepAlive(): void {
     this.app.homey.clearTimeout(this.keepAliveTimeout);
-    this.app.homey.setTimeout(() => {
-      this.ping().catch(err => this.error('Error while sending keep-alive ping:', err));
-      // TODO set device to unavailable if both in and outbound ws time out
+    this.keepAliveTimeout = this.app.homey.setTimeout(() => {
+      const pingTimeout = this.app.homey.setTimeout(() => {
+        this.log('Failed ping, closing socket');
+        this.ws?.terminate();
+      }, PING_REQUEST_TIMEOUT.toMs());
+      this.ping()
+        .then(() => {
+          this.app.homey.clearTimeout(pingTimeout);
+          this.debug('Ping successfull');
+        })
+        .catch(err => this.error('Error while sending keep-alive ping:', err));
     }, this.keepAliveDuration.toMs());
   }
 
