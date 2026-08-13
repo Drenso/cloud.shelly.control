@@ -2,7 +2,7 @@
   "id": "PLUGPM_UI:leds.night_mode.brightness",
   "type": "number",
   "label": {
-    "en": "LED Brightness"
+    "en": "Brightness"
   },
   "value": 100,
   "min": 0,

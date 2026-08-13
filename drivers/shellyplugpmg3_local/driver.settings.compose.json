@@ -3,11 +3,17 @@
     "$extends": "PLUGPM_UI.leds.mode"
   },
   {
-    "$extends": "PLUGPM_UI.leds.colors.power.brightness"
+    "type": "group",
+    "label": "Indicator LED - Power Consumption Mode",
+    "children": [
+      {
+        "$extends": "PLUGPM_UI.leds.colors.power.brightness"
+      }
+    ]
   },
   {
     "type": "group",
-    "label": "Indicator LED - On Color",
+    "label": "Indicator LED - Custom Mode",
     "children": [
       {
         "$extends": "PLUGPM_UI.leds.colors.pm1.brightness",

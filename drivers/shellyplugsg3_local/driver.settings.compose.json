@@ -24,11 +24,17 @@
     "$extends": "PLUGS_UI.leds.mode"
   },
   {
-    "$extends": "PLUGS_UI.leds.colors.power.brightness"
+    "type": "group",
+    "label": "Indicator LED - Power Consumption Mode",
+    "children": [
+      {
+        "$extends": "PLUGS_UI.leds.colors.power.brightness"
+      }
+    ]
   },
   {
     "type": "group",
-    "label": "Indicator LED - On Color",
+    "label": "Indicator LED - On/Off Colors Mode - On",
     "children": [
       {
         "$extends": "PLUGS_UI.leds.colors.switch.brightness",
@@ -50,7 +56,7 @@
   },
   {
     "type": "group",
-    "label": "Indicator LED - Off Color",
+    "label": "Indicator LED - On/Off Colors Mode - Off",
     "children": [
       {
         "$extends": "PLUGS_UI.leds.colors.switch.brightness",

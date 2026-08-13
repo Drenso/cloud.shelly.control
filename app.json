@@ -7474,7 +7474,7 @@
           "id": "PLUGS_UI:leds.colors.power.brightness",
           "type": "number",
           "label": {
-            "en": "Power Mode - LED Brightness"
+            "en": "Brightness"
           },
           "value": 100,
           "min": 0,
@@ -7489,7 +7489,7 @@
               "id": "PLUGS_UI:leds.colors.switch:0.on.brightness",
               "type": "number",
               "label": {
-                "en": "LED Brightness"
+                "en": "Brightness"
               },
               "value": 100,
               "min": 0,
@@ -7539,7 +7539,7 @@
               "id": "PLUGS_UI:leds.colors.switch:0.off.brightness",
               "type": "number",
               "label": {
-                "en": "LED Brightness"
+                "en": "Brightness"
               },
               "value": 100,
               "min": 0,
@@ -7597,7 +7597,7 @@
               "id": "PLUGS_UI:leds.night_mode.brightness",
               "type": "number",
               "label": {
-                "en": "LED Brightness"
+                "en": "Brightness"
               },
               "value": 100,
               "min": 0,
@@ -11367,7 +11367,7 @@
           "id": "PLUGS_UI:leds.colors.power.brightness",
           "type": "number",
           "label": {
-            "en": "Power Mode - LED Brightness"
+            "en": "Brightness"
           },
           "value": 100,
           "min": 0,
@@ -11382,7 +11382,7 @@
               "id": "PLUGS_UI:leds.colors.switch:0.on.brightness",
               "type": "number",
               "label": {
-                "en": "LED Brightness"
+                "en": "Brightness"
               },
               "value": 100,
               "min": 0,
@@ -11432,7 +11432,7 @@
               "id": "PLUGS_UI:leds.colors.switch:0.off.brightness",
               "type": "number",
               "label": {
-                "en": "LED Brightness"
+                "en": "Brightness"
               },
               "value": 100,
               "min": 0,
@@ -11490,7 +11490,7 @@
               "id": "PLUGS_UI:leds.night_mode.brightness",
               "type": "number",
               "label": {
-                "en": "LED Brightness"
+                "en": "Brightness"
               },
               "value": 100,
               "min": 0,
@@ -11701,25 +11701,31 @@
           ]
         },
         {
-          "id": "PLUGPM_UI:leds.colors.power.brightness",
-          "type": "number",
-          "label": {
-            "en": "Power Mode - LED Brightness"
-          },
-          "value": 100,
-          "min": 0,
-          "max": 100,
-          "units": "%"
+          "type": "group",
+          "label": "Indicator LED - Power Consumption Mode",
+          "children": [
+            {
+              "id": "PLUGPM_UI:leds.colors.power.brightness",
+              "type": "number",
+              "label": {
+                "en": "Brightness"
+              },
+              "value": 100,
+              "min": 0,
+              "max": 100,
+              "units": "%"
+            }
+          ]
         },
         {
           "type": "group",
-          "label": "Indicator LED - On Color",
+          "label": "Indicator LED - Custom Mode",
           "children": [
             {
               "id": "PLUGPM_UI:leds.colors.pm1:0.on.brightness",
               "type": "number",
               "label": {
-                "en": "LED Brightness"
+                "en": "Brightness"
               },
               "value": 100,
               "min": 0,
@@ -11777,7 +11783,7 @@
               "id": "PLUGPM_UI:leds.night_mode.brightness",
               "type": "number",
               "label": {
-                "en": "LED Brightness"
+                "en": "Brightness"
               },
               "value": 100,
               "min": 0,
@@ -12105,25 +12111,31 @@
           ]
         },
         {
-          "id": "PLUGS_UI:leds.colors.power.brightness",
-          "type": "number",
-          "label": {
-            "en": "Power Mode - LED Brightness"
-          },
-          "value": 100,
-          "min": 0,
-          "max": 100,
-          "units": "%"
+          "type": "group",
+          "label": "Indicator LED - Power Consumption Mode",
+          "children": [
+            {
+              "id": "PLUGS_UI:leds.colors.power.brightness",
+              "type": "number",
+              "label": {
+                "en": "Brightness"
+              },
+              "value": 100,
+              "min": 0,
+              "max": 100,
+              "units": "%"
+            }
+          ]
         },
         {
           "type": "group",
-          "label": "Indicator LED - On Color",
+          "label": "Indicator LED - On/Off Colors Mode - On",
           "children": [
             {
               "id": "PLUGS_UI:leds.colors.switch:0.on.brightness",
               "type": "number",
               "label": {
-                "en": "LED Brightness"
+                "en": "Brightness"
               },
               "value": 100,
               "min": 0,
@@ -12167,13 +12179,13 @@
         },
         {
           "type": "group",
-          "label": "Indicator LED - Off Color",
+          "label": "Indicator LED - On/Off Colors Mode - Off",
           "children": [
             {
               "id": "PLUGS_UI:leds.colors.switch:0.off.brightness",
               "type": "number",
               "label": {
-                "en": "LED Brightness"
+                "en": "Brightness"
               },
               "value": 100,
               "min": 0,
@@ -12231,7 +12243,7 @@
               "id": "PLUGS_UI:leds.night_mode.brightness",
               "type": "number",
               "label": {
-                "en": "LED Brightness"
+                "en": "Brightness"
               },
               "value": 100,
               "min": 0,
