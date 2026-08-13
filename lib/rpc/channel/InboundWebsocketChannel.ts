@@ -23,6 +23,7 @@ import {
 import { Time } from '../../unitConversion.js';
 
 const BASE_RECONNECT_TIMEOUT = Time.s(5);
+const MAX_RECONNECT_TIMEOUT = Time.m(2);
 const GREETING_DELAY = Time.ms(500);
 
 type InboundWsChannelMittEvents = {
@@ -124,7 +125,9 @@ export default class InboundWebsocketChannel implements RpcChannel {
       this.connect();
     }, this.reconnectTimeoutDuration.toMs());
 
-    this.reconnectTimeoutDuration = Time.ms(this.reconnectTimeoutDuration.toMs() * 2);
+    this.reconnectTimeoutDuration = Time.ms(
+      Math.min(this.reconnectTimeoutDuration.toMs() * 2, MAX_RECONNECT_TIMEOUT.toMs()),
+    );
   }
 
   public disconnect(): void {
