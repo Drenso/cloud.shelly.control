@@ -26,9 +26,9 @@ export type EM1Config = {
    * 'null' disables a threshold, setting the alarms option to 'null' disables all alarms.
    */
   alarms: {
-    voltage: number[] | null;
-    current: number[] | null;
-    power: number[] | null;
+    voltage: [number, number] | null;
+    current: [number, number] | null;
+    power: [number, number] | null;
   } | null;
 };
 
