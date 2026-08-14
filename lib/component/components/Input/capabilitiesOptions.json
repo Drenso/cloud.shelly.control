@@ -4,10 +4,10 @@
       "en": "Switch Input __name__"
     },
     "titleTrue": {
-      "en": "Input __name__ On"
+      "en": "On"
     },
     "titleFalse": {
-      "en": "Input __name__ Off"
+      "en": "Off"
     }
   },
   "shelly_input_analog": {

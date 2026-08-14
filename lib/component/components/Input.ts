@@ -450,13 +450,13 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
 
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Partial<InputStatus>): Promise<void> {
     if (status.state !== undefined && status.state !== null) {
-      await this.setInputCapability(homeyDevice, 'input_switch', status.state);
+      await this.setInputCapability(homeyDevice, 'shelly_input_switch', status.state);
       const switchUpdate = { value: status.state, input: this.id };
       await safeTriggerDeviceCard(homeyDevice, 'input_switch_changed', switchUpdate, switchUpdate);
     }
 
     if (status.percent !== undefined) {
-      await this.setInputCapability(homeyDevice, 'input_analog', status.percent);
+      await this.setInputCapability(homeyDevice, 'shelly_input_analog', status.percent);
       if (status.percent === null) {
         const analogUpdate = { input: this.id };
         await safeTriggerDeviceCard(homeyDevice, 'input_analog_became_null', analogUpdate, analogUpdate);
@@ -467,7 +467,7 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
     }
 
     if (status.counts !== undefined) {
-      await this.setInputCapability(homeyDevice, 'input_count', status.counts.total);
+      await this.setInputCapability(homeyDevice, 'shelly_input_count', status.counts.total);
       const countUpdate = { value: status.counts.total, input: this.id };
       await safeTriggerDeviceCard(homeyDevice, 'input_count_changed', countUpdate, countUpdate);
     }
