@@ -56,16 +56,18 @@ export default abstract class ShellyBleDriver extends Homey.Driver {
     const results: ShellyBluListDeviceProperties[] = [];
 
     for (const bleAdvertisement of bleAdvertisements) {
-      if (bleAdvertisement.localName.startsWith(this.bleNamePrefix)) {
-        results.push({
-          name: this.getDeviceName(bleAdvertisement),
-          icon: `../../../assets/drivers/${this.baseDriverId}/icon.svg`,
-          data: {
-            id: bleAdvertisement.address,
-            uuid: bleAdvertisement.uuid,
-          },
-        });
+      if (!bleAdvertisement.localName.startsWith(this.bleNamePrefix)) {
+        continue;
       }
+
+      results.push({
+        name: this.getDeviceName(bleAdvertisement),
+        icon: `../../../assets/drivers/${this.baseDriverId}/icon.svg`,
+        data: {
+          id: bleAdvertisement.address,
+          uuid: bleAdvertisement.uuid,
+        },
+      });
     }
 
     return results;

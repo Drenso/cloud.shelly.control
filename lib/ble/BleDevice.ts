@@ -96,7 +96,7 @@ export default abstract class ShellyBleDevice extends Homey.Device {
   }
 
   private async handleBleForward(data: BleForwardEventData): Promise<void> {
-    if (Homey.env['DEBUG_BLE_DEDUPLICATION'] === '1' || Homey.env['DEBUG_BLE_FORWARDING'] === '1') {
+    if (Homey.env['BLE_DEBUG_DEDUPLICATION'] === '1' || Homey.env['BLE_DEBUG_FORWARDING'] === '1') {
       this.debug('Received forwarded advertisement');
     }
     const btHomeData = parseBleForward(data);
@@ -187,7 +187,7 @@ export default abstract class ShellyBleDevice extends Homey.Device {
   }
 
   public debugDeduplication(...args: unknown[]): void {
-    if (Homey.env['DEBUG_BLE_DEDUPLICATION'] === '1') {
+    if (Homey.env['BLE_DEBUG_DEDUPLICATION'] === '1') {
       this.debug(...args);
     }
   }

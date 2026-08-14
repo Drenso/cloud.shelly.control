@@ -53,7 +53,7 @@ export class BTHomeServer {
   }
 
   private debug(...args: unknown[]): void {
-    if (Homey.env['DEBUG_BLE_FORWARDING'] !== '1') {
+    if (Homey.env['BLE_DEBUG_FORWARDING'] !== '1') {
       return;
     }
 
