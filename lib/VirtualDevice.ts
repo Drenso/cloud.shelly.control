@@ -525,6 +525,10 @@ export class VirtualDevice {
     };
   }
 
+  /**
+   * NOTE: this method should only be called from within the state machine,
+   * take extra care when using it.
+   */
   private reInitialize(): Promise<void> {
     this.initialHomeyDeviceIds = [...this.initializedHomeyDevices.keys()];
     this.initialHomeyDevices = this.app.homey.drivers.getDrivers()[this.driver].getDevices() as ShellyLocalDevice[];
@@ -653,6 +657,10 @@ export class VirtualDevice {
     }
   }
 
+  /**
+   * NOTE: this method bypasses the state machine,
+   * take extra care when using or modifying it.
+   */
   public async recreate(
     homeyDeviceDefinitions: ShellyLocalListDeviceProperties[],
     componentDefinitions: ShellyGetComponentsResponseComponent[],
