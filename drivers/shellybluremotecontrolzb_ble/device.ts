@@ -1,6 +1,7 @@
 import { BTHomeButtonEventType, type BTHomeData, BTHomeDimmerEventType } from '../../lib/ble/BTHome.js';
 import ShellyBleDevice from '../../lib/ble/BleDevice.js';
-import { safeSetCapabilityValue, safeTriggerDeviceCard } from '../../lib/safeFunctions.js';
+import { handleBatteryProperty } from '../../lib/ble/BTHomePropertyHandlers.js';
+import { safeTriggerDeviceCard } from '../../lib/safeFunctions.js';
 import type { Button, ScrollDirection } from './driver.js';
 import { addCapabilityIfNotExists } from '@drenso/homey-zigbee-library/lib/helper/capability.mjs';
 
@@ -12,9 +13,7 @@ export default class ShellyBluRemoteControlBleDevice extends ShellyBleDevice {
   }
 
   public async handleBtHomeForward(btHomeData: BTHomeData): Promise<void> {
-    if (btHomeData.battery?.length === 1) {
-      await safeSetCapabilityValue(this, 'measure_battery', btHomeData.battery[0]);
-    }
+    await handleBatteryProperty(this, btHomeData);
 
     // Change to 1-indexed for ui parity
     const channel = btHomeData.channel?.length === 1 ? btHomeData.channel[0] + 1 : undefined;
