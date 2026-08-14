@@ -122,6 +122,7 @@ export class VirtualDevice {
   }
 
   private state: StateName;
+  private errorMessage?: string;
   private outboundWsRetries = 0;
   private initRetries = 0;
 
@@ -468,6 +469,7 @@ export class VirtualDevice {
       },
       enter: async (message: string): Promise<void> => {
         this.state = 'error';
+        this.errorMessage = message;
         this.error('Entered error state with error:', message);
         return this.setUnavailable(message).catch(err =>
           this.error('Error while setting devices to unavailable because of error:', err),
@@ -483,6 +485,7 @@ export class VirtualDevice {
         throw new Error(`Unknown transition for removing_homey_device: ${action}`);
       },
       enter: async (id: string): Promise<void> => {
+        const previousState = this.state;
         this.state = 'removing_homey_device';
         this.debugState('Removing Homey device:', id);
 
@@ -493,7 +496,7 @@ export class VirtualDevice {
           await this.app
             .updateVirtualDevice(this)
             .catch(err => this.error('Error while updating virtual device while removing Homey device:', err));
-          return this.states.online.enter();
+          return this.states[previousState].enter(this.errorMessage ?? '');
         }
         // Remove if no child devices remain
         await this.states.uninitializing.enter();
