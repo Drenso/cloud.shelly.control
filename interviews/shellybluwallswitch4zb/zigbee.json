@@ -1,0 +1,670 @@
+{
+  "ids": {
+    "modelId": "BLU Wall Switch 4 ZB",
+    "manufacturerName": "Shelly"
+  },
+  "endpoints": {
+    "ieeeAddress": "f8:44:77:ff:fe:34:08:aa",
+    "networkAddress": 21253,
+    "modelId": "BLU Wall Switch 4 ZB",
+    "manufacturerName": "Shelly",
+    "endpointDescriptors": [
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 21253,
+        "_reserved": 24,
+        "endpointId": 1,
+        "applicationProfileId": 260,
+        "applicationDeviceId": 1,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 1,
+        "inputClusters": [0, 1, 3, 7],
+        "outputClusters": [3, 5, 6, 8]
+      },
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 21253,
+        "_reserved": 20,
+        "endpointId": 2,
+        "applicationProfileId": 260,
+        "applicationDeviceId": 1,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 1,
+        "inputClusters": [0, 3],
+        "outputClusters": [3, 5, 6, 8]
+      },
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 21253,
+        "_reserved": 20,
+        "endpointId": 3,
+        "applicationProfileId": 260,
+        "applicationDeviceId": 1,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 1,
+        "inputClusters": [0, 3],
+        "outputClusters": [3, 5, 6, 8]
+      },
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 21253,
+        "_reserved": 20,
+        "endpointId": 4,
+        "applicationProfileId": 260,
+        "applicationDeviceId": 1,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 1,
+        "inputClusters": [0, 3],
+        "outputClusters": [3, 5, 6, 8]
+      }
+    ],
+    "deviceType": "enddevice",
+    "receiveWhenIdle": false,
+    "swBuildId": "260310/v1.2.13@f",
+    "capabilities": {
+      "alternatePANCoordinator": false,
+      "deviceType": false,
+      "powerSourceMains": false,
+      "receiveWhenIdle": false,
+      "security": false,
+      "allocateAddress": true
+    },
+    "extendedEndpointDescriptors": {
+      "1": {
+        "clusters": {
+          "basic": {
+            "attributes": [
+              {
+                "acl": ["readable", "reportable"],
+                "id": 0,
+                "dataTypeId": 32,
+                "name": "zclVersion",
+                "value": 89,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 1,
+                "dataTypeId": 32,
+                "name": "appVersion",
+                "value": 128,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 4,
+                "dataTypeId": 66,
+                "name": "manufacturerName",
+                "value": "Shelly",
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 5,
+                "dataTypeId": 66,
+                "name": "modelId",
+                "value": "BLU Wall Switch 4 ZB",
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 7,
+                "dataTypeId": 48,
+                "name": "powerSource",
+                "value": "battery",
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 12,
+                "dataTypeId": 66,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 16384,
+                "dataTypeId": 66,
+                "name": "swBuildId",
+                "value": "260310/v1.2.13@f",
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 65533,
+                "dataTypeId": 33,
+                "name": "clusterRevision",
+                "value": 4,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              }
+            ],
+            "commandsGenerated": [],
+            "commandsReceived": []
+          },
+          "powerConfiguration": {
+            "attributes": [
+              {
+                "acl": ["readable", "reportable"],
+                "id": 32,
+                "dataTypeId": 32,
+                "name": "batteryVoltage",
+                "value": 31,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 33,
+                "dataTypeId": 32,
+                "name": "batteryPercentageRemaining",
+                "value": 200,
+                "reportingConfiguration": {
+                  "direction": "reported",
+                  "attributeDataType": 32,
+                  "minInterval": 1800,
+                  "maxInterval": 7200,
+                  "minChange": 2,
+                  "status": "SUCCESS"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 65533,
+                "dataTypeId": 33,
+                "name": "clusterRevision",
+                "value": 2,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              }
+            ],
+            "commandsGenerated": [],
+            "commandsReceived": []
+          },
+          "identify": {
+            "attributes": [
+              {
+                "acl": ["readable", "writable", "reportable"],
+                "id": 0,
+                "dataTypeId": 33,
+                "name": "identifyTime",
+                "value": 0,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 65533,
+                "dataTypeId": 33,
+                "name": "clusterRevision",
+                "value": 1,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              }
+            ],
+            "commandsGenerated": ["identifyQuery.response"],
+            "commandsReceived": ["identify", "identifyQuery"]
+          },
+          "onOffSwitch": {
+            "attributes": [
+              {
+                "acl": ["readable", "reportable"],
+                "id": 0,
+                "dataTypeId": 48,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": ["readable", "writable", "reportable"],
+                "id": 16,
+                "dataTypeId": 48,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 65533,
+                "dataTypeId": 33,
+                "name": "clusterRevision",
+                "value": 1,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              }
+            ],
+            "commandsGenerated": [],
+            "commandsReceived": []
+          }
+        },
+        "bindings": {
+          "identify": {
+            "attributes": [
+              {
+                "acl": ["readable", "writable", "reportable"],
+                "id": 0,
+                "dataTypeId": 33,
+                "name": "identifyTime",
+                "value": 0,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 65533,
+                "dataTypeId": 33,
+                "name": "clusterRevision",
+                "value": 1,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              }
+            ],
+            "commandsGenerated": ["identifyQuery.response"],
+            "commandsReceived": ["identify", "identifyQuery"]
+          },
+          "scenes": {
+            "attributes": [],
+            "commandsGenerated": [],
+            "commandsReceived": []
+          },
+          "onOff": {
+            "attributes": [],
+            "commandsGenerated": [],
+            "commandsReceived": []
+          },
+          "levelControl": {
+            "attributes": [],
+            "commandsGenerated": [],
+            "commandsReceived": []
+          }
+        }
+      },
+      "2": {
+        "clusters": {
+          "basic": {
+            "attributes": [
+              {
+                "acl": ["readable", "reportable"],
+                "id": 0,
+                "dataTypeId": 32,
+                "name": "zclVersion",
+                "value": 89,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 1,
+                "dataTypeId": 32,
+                "name": "appVersion",
+                "value": 128,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 4,
+                "dataTypeId": 66,
+                "name": "manufacturerName",
+                "value": "Shelly",
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              }
+            ],
+            "commandsGenerated": [],
+            "commandsReceived": []
+          },
+          "identify": {
+            "attributes": [
+              {
+                "acl": ["readable", "writable", "reportable"],
+                "id": 0,
+                "dataTypeId": 33,
+                "name": "identifyTime",
+                "value": 0,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 65533,
+                "dataTypeId": 33,
+                "name": "clusterRevision",
+                "value": 1,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              }
+            ],
+            "commandsGenerated": ["identifyQuery.response"],
+            "commandsReceived": ["identify", "identifyQuery"]
+          }
+        },
+        "bindings": {
+          "identify": {
+            "attributes": [
+              {
+                "acl": ["readable", "writable", "reportable"],
+                "id": 0,
+                "dataTypeId": 33,
+                "name": "identifyTime",
+                "value": 0,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 65533,
+                "dataTypeId": 33,
+                "name": "clusterRevision",
+                "value": 1,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              }
+            ],
+            "commandsGenerated": ["identifyQuery.response"],
+            "commandsReceived": ["identify", "identifyQuery"]
+          },
+          "scenes": {
+            "attributes": [],
+            "commandsGenerated": [],
+            "commandsReceived": []
+          },
+          "onOff": {
+            "attributes": [],
+            "commandsGenerated": [],
+            "commandsReceived": []
+          },
+          "levelControl": {
+            "attributes": [],
+            "commandsGenerated": [],
+            "commandsReceived": []
+          }
+        }
+      },
+      "3": {
+        "clusters": {
+          "basic": {
+            "attributes": [
+              {
+                "acl": ["readable", "reportable"],
+                "id": 0,
+                "dataTypeId": 32,
+                "name": "zclVersion",
+                "value": 89,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 1,
+                "dataTypeId": 32,
+                "name": "appVersion",
+                "value": 128,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 4,
+                "dataTypeId": 66,
+                "name": "manufacturerName",
+                "value": "Shelly",
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              }
+            ],
+            "commandsGenerated": [],
+            "commandsReceived": []
+          },
+          "identify": {
+            "attributes": [
+              {
+                "acl": ["readable", "writable", "reportable"],
+                "id": 0,
+                "dataTypeId": 33,
+                "name": "identifyTime",
+                "value": 0,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 65533,
+                "dataTypeId": 33,
+                "name": "clusterRevision",
+                "value": 1,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              }
+            ],
+            "commandsGenerated": ["identifyQuery.response"],
+            "commandsReceived": ["identify", "identifyQuery"]
+          }
+        },
+        "bindings": {
+          "identify": {
+            "attributes": [
+              {
+                "acl": ["readable", "writable", "reportable"],
+                "id": 0,
+                "dataTypeId": 33,
+                "name": "identifyTime",
+                "value": 0,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 65533,
+                "dataTypeId": 33,
+                "name": "clusterRevision",
+                "value": 1,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              }
+            ],
+            "commandsGenerated": ["identifyQuery.response"],
+            "commandsReceived": ["identify", "identifyQuery"]
+          },
+          "scenes": {
+            "attributes": [],
+            "commandsGenerated": [],
+            "commandsReceived": []
+          },
+          "onOff": {
+            "attributes": [],
+            "commandsGenerated": [],
+            "commandsReceived": []
+          },
+          "levelControl": {
+            "attributes": [],
+            "commandsGenerated": [],
+            "commandsReceived": []
+          }
+        }
+      },
+      "4": {
+        "clusters": {
+          "basic": {
+            "attributes": [
+              {
+                "acl": ["readable", "reportable"],
+                "id": 0,
+                "dataTypeId": 32,
+                "name": "zclVersion",
+                "value": 89,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 1,
+                "dataTypeId": 32,
+                "name": "appVersion",
+                "value": 128,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 4,
+                "dataTypeId": 66,
+                "name": "manufacturerName",
+                "value": "Shelly",
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              }
+            ],
+            "commandsGenerated": [],
+            "commandsReceived": []
+          },
+          "identify": {
+            "attributes": [
+              {
+                "acl": ["readable", "writable", "reportable"],
+                "id": 0,
+                "dataTypeId": 33,
+                "name": "identifyTime",
+                "value": 0,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 65533,
+                "dataTypeId": 33,
+                "name": "clusterRevision",
+                "value": 1,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              }
+            ],
+            "commandsGenerated": ["identifyQuery.response"],
+            "commandsReceived": ["identify", "identifyQuery"]
+          }
+        },
+        "bindings": {
+          "identify": {
+            "attributes": [
+              {
+                "acl": ["readable", "writable", "reportable"],
+                "id": 0,
+                "dataTypeId": 33,
+                "name": "identifyTime",
+                "value": 0,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 65533,
+                "dataTypeId": 33,
+                "name": "clusterRevision",
+                "value": 1,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              }
+            ],
+            "commandsGenerated": ["identifyQuery.response"],
+            "commandsReceived": ["identify", "identifyQuery"]
+          },
+          "scenes": {
+            "attributes": [],
+            "commandsGenerated": [],
+            "commandsReceived": []
+          },
+          "onOff": {
+            "attributes": [],
+            "commandsGenerated": [],
+            "commandsReceived": []
+          },
+          "levelControl": {
+            "attributes": [],
+            "commandsGenerated": [],
+            "commandsReceived": []
+          }
+        }
+      }
+    }
+  }
+}

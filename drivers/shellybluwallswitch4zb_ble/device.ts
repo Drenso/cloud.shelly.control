@@ -4,7 +4,7 @@ import { handleBatteryProperty, handleButtonEventProperty } from '../../lib/ble/
 import type { ButtonCountDeviceInterface, ButtonEventTypesDeviceInterface } from '../../lib/capabilityInterfaces.js';
 import type { ButtonEventType } from '../../lib/flow/buttonFlows.js';
 
-export default class ShellyBluWallSwitchZBBleDevice
+export default class ShellyBluWallSwitch4ZBBleDevice
   extends ShellyBleDevice
   implements ButtonCountDeviceInterface, ButtonEventTypesDeviceInterface
 {

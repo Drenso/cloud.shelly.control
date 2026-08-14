@@ -1143,7 +1143,7 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "shellybluwallswitch4_ble|shellybluwallswitch4zb_ble"
+              "driver_id": "shellybluwallswitch4_ble|shellybluwallswitch4zb_ble|shellybluwallswitch4zb_zigbee"
             },
             "title": {
               "en": "Device"
@@ -8787,6 +8787,79 @@
         }
       },
       "id": "shellybluwallswitch4zb_ble"
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "icon": "/drivers/shellybluwallswitch4zb_zigbee/assets/icon.svg",
+      "name": {
+        "en": "BLU Wall Switch 4 ZB - Zigbee"
+      },
+      "class": "button",
+      "capabilities": [
+        "measure_battery"
+      ],
+      "energy": {
+        "batteries": [
+          "CR2032"
+        ]
+      },
+      "images": {
+        "small": "/assets/drivers/shellybluwallswitch4zb/images/small.png",
+        "large": "/assets/drivers/shellybluwallswitch4zb/images/large.png",
+        "xlarge": "/assets/drivers/shellybluwallswitch4zb/images/xlarge.png"
+      },
+      "zigbee": {
+        "manufacturerName": "Shelly",
+        "productId": [
+          "BLU Wall Switch 4 ZB"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              1
+            ],
+            "bindings": [
+              5,
+              6,
+              8
+            ]
+          },
+          "2": {
+            "clusters": [],
+            "bindings": [
+              5,
+              6,
+              8
+            ]
+          },
+          "3": {
+            "clusters": [],
+            "bindings": [
+              5
+            ]
+          },
+          "4": {
+            "clusters": [],
+            "bindings": [
+              5
+            ]
+          }
+        },
+        "learnmode": {
+          "image": "/drivers/shellybluwallswitch4zb_zigbee/assets/learnmode.svg",
+          "instruction": {
+            "en": "Press any button 5 times to initialize Zigbee pairing."
+          }
+        }
+      },
+      "id": "shellybluwallswitch4zb_zigbee"
     },
     {
       "platforms": [
