@@ -18,6 +18,10 @@ import OutboundWsServer from './lib/rpc/OutboundWsServer.js';
 import { type SerializedVirtualDevice, VirtualDevice } from './lib/VirtualDevice.js';
 import DevicePower from './lib/component/components/DevicePower.js';
 import Enum from './lib/component/components/Enum.js';
+import Temperature from './lib/component/components/Temperature.js';
+import Switch from './lib/component/components/Switch.js';
+import Light from './lib/component/components/Light.js';
+import Cover from './lib/component/components/Cover.js';
 
 // TODO remove in 1.0.0
 process.on('uncaughtException', (error, origin) => {
@@ -217,6 +221,39 @@ export default class ShellyApp extends Homey.App {
     Input.registerFlowCards(this);
     NumberComponent.registerFlowCards(this);
     PresenceZone.registerFlowCards(this);
+
+    const getTemperatureComponents = (device: ShellyLocalDevice): (Temperature | Switch | Light | Cover)[] => {
+      if (device.virtualDevice === undefined) {
+        return [];
+      }
+
+      return [...device.virtualComponents.values()].filter(component => {
+        if (component instanceof Temperature) {
+          return true;
+        }
+        if (component instanceof Switch || component instanceof Light || component instanceof Cover) {
+          return component.status.temperature !== undefined;
+        }
+        return false;
+      }) as (Temperature | Switch | Light | Cover)[];
+    };
+
+    this.homey.flow
+      .getDeviceTriggerCard('measure_temperature_changed')
+      .registerArgumentAutocompleteListener(
+        'component',
+        (query: string, { device }: { device: ShellyLocalDevice }): { name: string; id: string }[] => {
+          return getTemperatureComponents(device)
+            .map(component => ({
+              name: component.getAutocompleteTitle(device, 'measure_temperature'),
+              id: component.getComponentKey(),
+            }))
+            .filter(component => component.name.toLowerCase().includes(query.toLowerCase()));
+        },
+      )
+      .registerRunListener((flowArgs: { component?: { id: string } }, triggerArgs: { component: string }) => {
+        return flowArgs.component === undefined || flowArgs.component.id === triggerArgs.component;
+      });
 
     const alarmPresenceZoneRunListener = async (
       args: { zones: string[] },

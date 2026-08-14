@@ -1,4 +1,4 @@
-import { safeAddCapability, safeSetCapabilityValue } from '../../safeFunctions.js';
+import { safeAddCapability, safeSetCapabilityValue, safeTriggerDeviceCard } from '../../safeFunctions.js';
 import { type AllowedPrimitives, ComponentWithId } from '../Component.js';
 import GetConfig from './Switch/GetConfig.js';
 import GetStatus from './Switch/GetStatus.js';
@@ -14,7 +14,7 @@ import type { ResponseSuccessFrame } from '../../rpc/Rpc.js';
 import capabilitiesOptions from './Switch/capabilitiesOptions.json' with { type: 'json' };
 import type ShellyLocalDevice from '../../local/LocalDevice.js';
 import type { ComponentMethod } from './Shelly/ListMethods.js';
-import type { RecursivePartial } from '../../util.js';
+import { type RecursivePartial, translate } from '../../util.js';
 
 export type SwitchConfig = {
   // Identifier of the Switch component instance
@@ -237,6 +237,10 @@ export default class Switch extends ComponentWithId<'Switch', SwitchStatus, Swit
       }
     }
 
+    if (this.status.temperature !== undefined) {
+      await safeAddCapability(homeyDevice, 'hidden.has_temperature_measurement');
+    }
+
     await safeAddCapability(homeyDevice, 'alarm_generic');
     await safeAddCapability(homeyDevice, 'shelly_errors');
 
@@ -289,8 +293,18 @@ export default class Switch extends ComponentWithId<'Switch', SwitchStatus, Swit
       await this.setCapability(homeyDevice, 'meter_power.exported', exportedEnergy / 1000);
       await this.setCapability(homeyDevice, 'meter_power.total', absoluteEnergy / 1000);
     }
-    if (status.temperature !== undefined) {
-      await safeSetCapabilityValue(homeyDevice, 'measure_temperature', status.temperature.tC);
+
+    const temperature = status.temperature?.tC;
+    if (temperature !== undefined) {
+      await safeSetCapabilityValue(homeyDevice, 'measure_temperature', temperature);
+      if (temperature !== null) {
+        await safeTriggerDeviceCard(
+          homeyDevice,
+          'measure_temperature_changed',
+          { measure_temperature: temperature },
+          { component: this.getComponentKey() },
+        );
+      }
     }
 
     await homeyDevice.updateErrors(this.getComponentKey(), status.errors ?? []);
@@ -334,5 +348,16 @@ export default class Switch extends ComponentWithId<'Switch', SwitchStatus, Swit
 
     const result = await this.SetConfig(this.device.getChannel(), { config: changedConfig });
     return result.result.restart_required;
+  }
+
+  public getAutocompleteTitle(device: ShellyLocalDevice, capability: string): string {
+    const name = this.config.name !== null ? this.config.name : `${this.id}`;
+    if (capability === 'measure_temperature') {
+      return translate(device.homey.__('locale'), capabilitiesOptions['measure_temperature'].title, {
+        name: name,
+      });
+    }
+
+    return super.getAutocompleteTitle(device, capability);
   }
 }

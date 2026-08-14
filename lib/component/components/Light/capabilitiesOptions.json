@@ -16,5 +16,10 @@
       "en": "Calibrate the device's outputs."
     },
     "maintenanceAction": true
+  },
+  "measure_temperature": {
+    "title": {
+      "en": "Light __name__ Temperature"
+    }
   }
 }

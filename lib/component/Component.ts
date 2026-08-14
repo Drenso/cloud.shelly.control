@@ -83,6 +83,10 @@ export abstract class Component<
     this.device.log(`Unknown event for ${this.namespace}:`, event.event);
     this.device.debug(JSON.stringify(event));
   }
+
+  public getAutocompleteTitle(homeyDevice: ShellyLocalDevice, homeyCapability: string): string {
+    throw new Error(`Not implemented for ${homeyCapability}}`);
+  }
 }
 
 export abstract class ComponentWithoutId<

@@ -2,7 +2,7 @@ import { type AllowedPrimitives, ComponentWithId } from '../Component.js';
 import capabilitiesOptions from './Cover/capabilitiesOptions.json' with { type: 'json' };
 import type ShellyLocalDevice from '../../local/LocalDevice.js';
 import type { ComponentMethod } from './Shelly/ListMethods.js';
-import { deepAssign, type RecursivePartial } from '../../util.js';
+import { deepAssign, type RecursivePartial, translate } from '../../util.js';
 import SetConfig from './Cover/SetConfig.js';
 import GetConfig from './Cover/GetConfig.js';
 import GetStatus from './Cover/GetStatus.js';
@@ -15,7 +15,7 @@ import Stop from './Cover/Stop.js';
 import GoToPosition, { type CoverGoToPositionParams } from './Cover/GoToPosition.js';
 import type { CoverResetCountersParams } from './Cover/ResetCounters.js';
 import ResetCounters from './Cover/ResetCounters.js';
-import { safeAddCapability } from '../../safeFunctions.js';
+import { safeAddCapability, safeSetCapabilityValue, safeTriggerDeviceCard } from '../../safeFunctions.js';
 
 export type CoverConfig = {
   /** Identifier of the Cover component instance */
@@ -656,6 +656,10 @@ export default class Cover extends ComponentWithId<'Cover', CoverStatus, CoverCo
       }
     }
 
+    if (this.status.temperature !== undefined) {
+      await safeAddCapability(homeyDevice, 'hidden.has_temperature_measurement');
+    }
+
     await safeAddCapability(homeyDevice, 'alarm_generic');
     await safeAddCapability(homeyDevice, 'shelly_errors');
 
@@ -709,8 +713,18 @@ export default class Cover extends ComponentWithId<'Cover', CoverStatus, CoverCo
     if (status.aenergy?.total !== undefined) {
       await this.setCapability(homeyDevice, 'meter_power', status.aenergy.total / 1000);
     }
-    if (status.temperature !== undefined) {
-      await this.setCapability(homeyDevice, 'measure_temperature.cover', status.temperature.tC);
+
+    const temperature = status.temperature?.tC;
+    if (temperature !== undefined) {
+      await safeSetCapabilityValue(homeyDevice, 'measure_temperature.cover', temperature);
+      if (temperature !== null) {
+        await safeTriggerDeviceCard(
+          homeyDevice,
+          'measure_temperature_changed',
+          { measure_temperature: temperature },
+          { component: this.getComponentKey() },
+        );
+      }
     }
 
     // Simple capabilities
@@ -857,5 +871,16 @@ export default class Cover extends ComponentWithId<'Cover', CoverStatus, CoverCo
 
     const result = await this.SetConfig(this.device.getChannel(), { config: changedConfig });
     return result.result.restart_required;
+  }
+
+  public getAutocompleteTitle(device: ShellyLocalDevice, capability: string): string {
+    const name = this.config.name !== null ? this.config.name : `${this.id}`;
+    if (capability === 'measure_temperature') {
+      return translate(device.homey.__('locale'), capabilitiesOptions['measure_temperature.cover'].title, {
+        name: name,
+      });
+    }
+
+    return super.getAutocompleteTitle(device, capability);
   }
 }

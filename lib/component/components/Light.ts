@@ -1,4 +1,4 @@
-import { safeAddCapability, safeSetCapabilityValue } from '../../safeFunctions.js';
+import { safeAddCapability, safeSetCapabilityValue, safeTriggerDeviceCard } from '../../safeFunctions.js';
 import { type AllowedPrimitives, ComponentWithId } from '../Component.js';
 import type { RpcChannel } from '../../rpc/channel/RpcChannel.js';
 import { parseNightModeActiveBetween } from '../util/NightMode.js';
@@ -10,7 +10,7 @@ import type { LightResetCountersParams } from './Light/ResetCounters.js';
 import ResetCounters from './Light/ResetCounters.js';
 import type { ComponentMethod } from './Shelly/ListMethods.js';
 import type ShellyLocalDevice from '../../local/LocalDevice.js';
-import { deepAssign, type RecursivePartial } from '../../util.js';
+import { deepAssign, type RecursivePartial, translate } from '../../util.js';
 import Set, { type LightSetParams } from './Light/Set.js';
 import Toggle from './Light/Toggle.js';
 import DimUp, { type LightDimUpParams } from './Light/DimUp.js';
@@ -362,6 +362,10 @@ export default class Light extends ComponentWithId<'Light', LightStatus, LightCo
       }
     }
 
+    if (this.status.temperature !== undefined) {
+      await safeAddCapability(homeyDevice, 'hidden.has_temperature_measurement');
+    }
+
     await safeAddCapability(homeyDevice, 'alarm_generic');
     await safeAddCapability(homeyDevice, 'shelly_errors');
 
@@ -384,9 +388,6 @@ export default class Light extends ComponentWithId<'Light', LightStatus, LightCo
     if (status.brightness !== undefined) {
       await safeSetCapabilityValue(homeyDevice, 'dim', status.brightness / 100);
     }
-    if (status.temperature !== undefined) {
-      await safeSetCapabilityValue(homeyDevice, 'measure_temperature', status.temperature.tC);
-    }
     if (status.aenergy?.total !== undefined) {
       const importedEnergy = status.aenergy.total;
       await safeSetCapabilityValue(homeyDevice, 'meter_power', importedEnergy / 1000);
@@ -394,6 +395,19 @@ export default class Light extends ComponentWithId<'Light', LightStatus, LightCo
     await this.updateMeasured(homeyDevice, status, 'apower', 'measure_power');
     await this.updateMeasured(homeyDevice, status, 'voltage', 'measure_voltage');
     await this.updateMeasured(homeyDevice, status, 'current', 'measure_current');
+
+    const temperature = status.temperature?.tC;
+    if (temperature !== undefined) {
+      await safeSetCapabilityValue(homeyDevice, 'measure_temperature', temperature);
+      if (temperature !== null) {
+        await safeTriggerDeviceCard(
+          homeyDevice,
+          'measure_temperature_changed',
+          { measure_temperature: temperature },
+          { component: this.getComponentKey() },
+        );
+      }
+    }
 
     await homeyDevice.updateErrors(this.getComponentKey(), status.errors ?? []);
   }
@@ -531,5 +545,16 @@ export default class Light extends ComponentWithId<'Light', LightStatus, LightCo
     }
 
     await safeSetCapabilityValue(homeyDevice, homeyCapability, status[statusProperty]).catch(homeyDevice.error);
+  }
+
+  public getAutocompleteTitle(device: ShellyLocalDevice, capability: string): string {
+    const name = this.config.name !== null ? this.config.name : `${this.id}`;
+    if (capability === 'measure_temperature') {
+      return translate(device.homey.__('locale'), capabilitiesOptions['measure_temperature'].title, {
+        name: name,
+      });
+    }
+
+    return super.getAutocompleteTitle(device, capability);
   }
 }

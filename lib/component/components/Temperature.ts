@@ -2,11 +2,11 @@ import { type AllowedPrimitives, ComponentWithId } from '../Component.js';
 import capabilitiesOptions from './Temperature/capabilitiesOptions.json' with { type: 'json' };
 import type ShellyLocalDevice from '../../local/LocalDevice.js';
 import type { ComponentMethod } from './Shelly/ListMethods.js';
-import type { RecursivePartial } from '../../util.js';
+import { type RecursivePartial, translate } from '../../util.js';
 import SetConfig from './Temperature/SetConfig.js';
 import GetConfig from './Temperature/GetConfig.js';
 import GetStatus from './Temperature/GetStatus.js';
-import { safeAddCapability } from '../../safeFunctions.js';
+import { safeAddCapability, safeTriggerDeviceCard } from '../../safeFunctions.js';
 
 export type TemperatureConfig = {
   // Identifier of the Temperature component instance
@@ -63,6 +63,7 @@ export default class Temperature extends ComponentWithId<
     if (this.status.tC !== undefined) {
       const homeyCapability = 'measure_temperature';
       await this.registerCapability(homeyDevice, homeyCapability, capabilitiesOptions[homeyCapability]);
+      await safeAddCapability(homeyDevice, 'hidden.has_temperature_measurement');
     }
 
     await safeAddCapability(homeyDevice, 'alarm_generic');
@@ -70,8 +71,17 @@ export default class Temperature extends ComponentWithId<
   }
 
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Partial<TemperatureStatus>): Promise<void> {
-    if (status.tC !== undefined) {
-      await this.setCapability(homeyDevice, 'measure_temperature', status.tC);
+    const temperature = status.tC;
+    if (temperature !== undefined) {
+      await this.setCapability(homeyDevice, 'measure_temperature', temperature);
+      if (temperature !== null) {
+        await safeTriggerDeviceCard(
+          homeyDevice,
+          'measure_temperature_changed',
+          { measure_temperature: temperature },
+          { component: this.getComponentKey() },
+        );
+      }
     }
 
     await homeyDevice.updateErrors(this.getComponentKey(), status.errors ?? []);
@@ -108,5 +118,16 @@ export default class Temperature extends ComponentWithId<
 
     const result = await this.SetConfig(this.device.getChannel(), { config: changedConfig });
     return result.result.restart_required;
+  }
+
+  public getAutocompleteTitle(device: ShellyLocalDevice, capability: string): string {
+    const name = this.config.name !== null ? this.config.name : `${this.id}`;
+    if (capability === 'measure_temperature') {
+      return translate(device.homey.__('locale'), capabilitiesOptions['measure_temperature'].title, {
+        name: name,
+      });
+    }
+
+    return super.getAutocompleteTitle(device, capability);
   }
 }

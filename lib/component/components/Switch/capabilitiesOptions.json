@@ -25,5 +25,10 @@
       "en": "Reset the imported and exported energy counters."
     },
     "maintenanceAction": true
+  },
+  "measure_temperature": {
+    "title": {
+      "en": "Switch __name__ Temperature"
+    }
   }
 }
