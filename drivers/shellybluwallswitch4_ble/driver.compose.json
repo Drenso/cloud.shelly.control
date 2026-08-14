@@ -1,0 +1,22 @@
+{
+  "$extends": ["ble"],
+  "name": {
+    "en": "BLU Wall Switch 4 - BLE"
+  },
+  "class": "button",
+  "capabilities": ["measure_battery"],
+  "energy": {
+    "batteries": ["CR2032"]
+  },
+  "images": {
+    "small": "/assets/drivers/shellybluwallswitch4/images/small.png",
+    "large": "/assets/drivers/shellybluwallswitch4/images/large.png",
+    "xlarge": "/assets/drivers/shellybluwallswitch4/images/xlarge.png"
+  },
+  "learnmode": {
+    "image": "{{driverAssetsPath}}/learnmode.svg",
+    "instruction": {
+      "en": "Press one of the buttons during the Bluetooth scan."
+    }
+  }
+}
