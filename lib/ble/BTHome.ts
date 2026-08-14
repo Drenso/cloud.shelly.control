@@ -127,6 +127,7 @@ export const enum BTHomeButtonEventType {
   LongDoublePress = 0x05,
   LongTriplePress = 0x06,
   HoldPress = 0x80,
+  HoldPress2 = 0xfe, // for firmware prior to 1.0.20
 }
 
 export const enum BTHomeCommandEventType {
