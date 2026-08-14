@@ -996,7 +996,7 @@ class LocalConnection {
         this.virtualDevice.error,
         useInitialHttps,
         this.ha1,
-        this.virtualDevice.batteryDevice ? Time.h(4) : Time.m(4),
+        this.virtualDevice.batteryDevice ? Time.h(24) : Time.m(4),
         this.onHttpsUpgrade.bind(this),
       );
       // handleWsNotification should already be bound by virtual device
@@ -1013,7 +1013,7 @@ class LocalConnection {
       this.virtualDevice.app.outboundWsServer.outboundWsMitt,
       this.virtualDevice.log,
       this.virtualDevice.error,
-      this.virtualDevice.batteryDevice ? Time.h(4) : Time.m(4),
+      this.virtualDevice.batteryDevice ? Time.h(24) : Time.m(4),
     );
     this.outboundWsChannel.eventEmitter.on('notification', this.handleOutboundWsNotification.bind(this));
     this.outboundWsChannel.eventEmitter.on('opened', () => {
