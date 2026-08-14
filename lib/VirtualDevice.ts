@@ -127,6 +127,8 @@ export class VirtualDevice {
 
   private bleForwardScript: Script | undefined;
 
+  private sleepingKeepaliveTimeout?: NodeJS.Timeout;
+
   public constructor(
     public readonly app: ShellyApp,
     public readonly deviceId: string,
@@ -432,17 +434,26 @@ export class VirtualDevice {
     sleeping: {
       transition: async ({ action, ...args }: StateAction): Promise<void> => {
         if (action === 'device_connected' || action === 'outbound_websocket_connected') {
+          this.app.homey.clearTimeout(this.sleepingKeepaliveTimeout);
           return this.states.online.enter();
         }
         if (action === 'removed_homey_device') {
           return this.states.removing_homey_device.enter(args.id!);
         }
         if (action === 'reinitialize') {
+          this.app.homey.clearTimeout(this.sleepingKeepaliveTimeout);
           return this.reInitialize();
         }
         throw new Error(`Unknown transition for sleeping: ${action}`);
       },
       enter: async (): Promise<void> => {
+        this.app.homey.clearTimeout(this.sleepingKeepaliveTimeout);
+        this.sleepingKeepaliveTimeout = this.app.homey.setTimeout(() => {
+          if (this.state !== 'sleeping') {
+            return;
+          }
+          this.states.offline.enter();
+        }, BATTERY_DEVICE_KEEPALIVE_TIMEOUT.toMs());
         this.state = 'sleeping';
         this.debugState('Device sleeping');
       },
@@ -668,6 +679,7 @@ export class VirtualDevice {
   ): Promise<void> {
     this.log('Recreating...');
 
+    this.app.homey.clearTimeout(this.sleepingKeepaliveTimeout);
     this.initialHomeyDeviceDefinitions = homeyDeviceDefinitions;
     this.initialComponentResponses = componentDefinitions;
     this.initialHomeyDeviceIds = homeyDeviceDefinitions.map(device => device.data.id);
@@ -963,6 +975,9 @@ class LocalConnection {
   }
 
   private handleWsDisconnect(): void {
+    if (this.virtualDevice.batteryDevice) {
+      return;
+    }
     this.virtualDevice.debug(
       'WS disconnected, new states: ob',
       this.outboundWsChannel?.wsState,
@@ -1011,7 +1026,7 @@ class LocalConnection {
         this.virtualDevice.error,
         useInitialHttps,
         this.ha1,
-        this.virtualDevice.batteryDevice ? BATTERY_DEVICE_KEEPALIVE_TIMEOUT : NET_POWER_DEVICE_KEEPALIVE_TIMEOUT,
+        this.virtualDevice.batteryDevice ? undefined : NET_POWER_DEVICE_KEEPALIVE_TIMEOUT,
         this.onHttpsUpgrade.bind(this),
       );
       // handleWsNotification should already be bound by virtual device
@@ -1028,7 +1043,7 @@ class LocalConnection {
       this.virtualDevice.app.outboundWsServer.outboundWsMitt,
       this.virtualDevice.log,
       this.virtualDevice.error,
-      this.virtualDevice.batteryDevice ? BATTERY_DEVICE_KEEPALIVE_TIMEOUT : NET_POWER_DEVICE_KEEPALIVE_TIMEOUT,
+      this.virtualDevice.batteryDevice ? undefined : NET_POWER_DEVICE_KEEPALIVE_TIMEOUT,
     );
     this.outboundWsChannel.eventEmitter.on('notification', this.handleOutboundWsNotification.bind(this));
     this.outboundWsChannel.eventEmitter.on('opened', () => {

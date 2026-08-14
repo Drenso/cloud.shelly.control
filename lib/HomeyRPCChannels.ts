@@ -29,7 +29,7 @@ export function createInboundWsChannel(
   error: (...args: unknown[]) => void,
   useHttps: boolean,
   ha1: string | null = null,
-  keepAliveDuration: Time,
+  keepAliveDuration: Time | undefined,
   onHttpsUpgrade?: () => Promise<void>,
 ): InboundWebsocketChannel {
   const debug = (...args: unknown[]): void => {
@@ -64,7 +64,7 @@ export function createOutboundWsChannel(
   outboundWsMitt: mitt.Emitter<WsMittEvents>,
   log: (...args: unknown[]) => void,
   error: (...args: unknown[]) => void,
-  keepAliveDuration: Time,
+  keepAliveDuration: Time | undefined,
 ): OutboundWebsocketChannel {
   const debug = (...args: unknown[]): void => {
     if (Homey.env['DEBUG'] === '1') {

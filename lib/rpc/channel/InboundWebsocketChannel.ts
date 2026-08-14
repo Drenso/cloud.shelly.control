@@ -61,7 +61,7 @@ export default class InboundWebsocketChannel implements RpcChannel {
     public readonly debug: (...args: unknown[]) => void,
     public useHttps: boolean,
     public ha1: string | null,
-    private keepAliveDuration: Time,
+    private keepAliveDuration: Time | undefined,
     private onHttpsUpgrade?: () => Promise<void>,
   ) {
     this.connect();
@@ -173,6 +173,9 @@ export default class InboundWebsocketChannel implements RpcChannel {
 
   private updateKeepAlive(): void {
     this.app.homey.clearTimeout(this.keepAliveTimeout);
+    if (this.keepAliveDuration === undefined) {
+      return;
+    }
     this.keepAliveTimeout = this.app.homey.setTimeout(() => {
       const pingTimeout = this.app.homey.setTimeout(() => {
         this.log('Failed ping, closing socket');
