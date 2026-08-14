@@ -4,7 +4,7 @@ export type Button = 'left' | 'right';
 export type ScrollDirection = 'up' | 'down' | 'none';
 
 export default class ShellyBluRemoteControlDriver extends ShellyBleDriver {
-  public bleNamePrefix = 'SBRC';
+  public bleNamePrefixes = ['SBRC-005B'];
 
   public async onInit(): Promise<void> {
     await super.onInit();
