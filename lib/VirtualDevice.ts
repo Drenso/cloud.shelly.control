@@ -25,21 +25,6 @@ import type { BleForwardEventData } from './ble/BTHome.js';
 import { NoPassword } from './rpc/Authentication.js';
 import { Time } from './unitConversion.js';
 
-const MAX_STATE_RETRIES = 5;
-
-export const IGNORED_NO_IMPLEMENTATION_COMPONENTS = [
-  'ble',
-  'bthome',
-  'cloud',
-  'eth',
-  'knx',
-  'matter',
-  'modbus',
-  'mqtt',
-  'wifi',
-  'zigbee',
-];
-
 export type SerializedVirtualDevice = {
   readonly deviceId: string;
   readonly ipAddress: string;
@@ -92,6 +77,22 @@ type ConnectionSpecification = {
   ha1?: string | null;
   useHttps: boolean;
 };
+
+export const IGNORED_NO_IMPLEMENTATION_COMPONENTS = [
+  'ble',
+  'bthome',
+  'cloud',
+  'eth',
+  'knx',
+  'matter',
+  'modbus',
+  'mqtt',
+  'wifi',
+  'zigbee',
+];
+const MAX_STATE_RETRIES = 5;
+const NET_POWER_DEVICE_KEEPALIVE_TIMEOUT = Time.m(4);
+const BATTERY_DEVICE_KEEPALIVE_TIMEOUT = Time.h(24);
 
 export class VirtualDevice {
   private localConnection: LocalConnection;
@@ -996,7 +997,7 @@ class LocalConnection {
         this.virtualDevice.error,
         useInitialHttps,
         this.ha1,
-        this.virtualDevice.batteryDevice ? Time.h(24) : Time.m(4),
+        this.virtualDevice.batteryDevice ? BATTERY_DEVICE_KEEPALIVE_TIMEOUT : NET_POWER_DEVICE_KEEPALIVE_TIMEOUT,
         this.onHttpsUpgrade.bind(this),
       );
       // handleWsNotification should already be bound by virtual device
@@ -1013,7 +1014,7 @@ class LocalConnection {
       this.virtualDevice.app.outboundWsServer.outboundWsMitt,
       this.virtualDevice.log,
       this.virtualDevice.error,
-      this.virtualDevice.batteryDevice ? Time.h(24) : Time.m(4),
+      this.virtualDevice.batteryDevice ? BATTERY_DEVICE_KEEPALIVE_TIMEOUT : NET_POWER_DEVICE_KEEPALIVE_TIMEOUT,
     );
     this.outboundWsChannel.eventEmitter.on('notification', this.handleOutboundWsNotification.bind(this));
     this.outboundWsChannel.eventEmitter.on('opened', () => {
