@@ -8679,6 +8679,120 @@
         "local"
       ],
       "connectivity": [
+        "ble"
+      ],
+      "pair": [
+        {
+          "id": "ble_information",
+          "navigation": {
+            "next": "pair_instructions"
+          }
+        },
+        {
+          "id": "pair_instructions",
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
+        {
+          "id": "list_my_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices"
+          }
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ],
+      "name": {
+        "en": "BLU Wall Switch 4 - BLE"
+      },
+      "class": "button",
+      "capabilities": [
+        "measure_battery"
+      ],
+      "energy": {
+        "batteries": [
+          "CR2032"
+        ]
+      },
+      "images": {
+        "small": "/assets/drivers/shellybluwallswitch4/images/small.png",
+        "large": "/assets/drivers/shellybluwallswitch4/images/large.png",
+        "xlarge": "/assets/drivers/shellybluwallswitch4/images/xlarge.png"
+      },
+      "learnmode": {
+        "image": "/drivers/shellybluwallswitch4_ble/assets/learnmode.svg",
+        "instruction": {
+          "en": "Press one of the buttons during the Bluetooth scan."
+        }
+      },
+      "id": "shellybluwallswitch4_ble"
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "ble"
+      ],
+      "pair": [
+        {
+          "id": "ble_information",
+          "navigation": {
+            "next": "pair_instructions"
+          }
+        },
+        {
+          "id": "pair_instructions",
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
+        {
+          "id": "list_my_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices"
+          }
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ],
+      "name": {
+        "en": "BLU Wall Switch 4 ZB - BLE"
+      },
+      "class": "button",
+      "capabilities": [
+        "measure_battery"
+      ],
+      "energy": {
+        "batteries": [
+          "CR2032"
+        ]
+      },
+      "images": {
+        "small": "/assets/drivers/shellybluwallswitch4zb/images/small.png",
+        "large": "/assets/drivers/shellybluwallswitch4zb/images/large.png",
+        "xlarge": "/assets/drivers/shellybluwallswitch4zb/images/xlarge.png"
+      },
+      "learnmode": {
+        "image": "/drivers/shellybluwallswitch4zb_ble/assets/learnmode.svg",
+        "instruction": {
+          "en": "Press one of the buttons during the Bluetooth scan."
+        }
+      },
+      "id": "shellybluwallswitch4zb_ble"
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
         "lan"
       ],
       "capabilities": [
