@@ -1,0 +1,37 @@
+{
+  "title": {
+    "en": "Button pressed"
+  },
+  "titleFormatted": {
+    "en": "[[press_type]] event received"
+  },
+  "tokens": [
+    {
+      "name": "press_type",
+      "type": "string",
+      "title": {
+        "en": "Button Press Type"
+      },
+      "example": "single_press"
+    }
+  ],
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": {
+        "driver_id": "shellyblubuttontough1_ble|shellyblubuttontough1zb_ble"
+      },
+      "title": {
+        "en": "Device"
+      }
+    },
+    {
+      "name": "press_type",
+      "type": "autocomplete",
+      "title": {
+        "en": "Button Press Type"
+      }
+    }
+  ]
+}
