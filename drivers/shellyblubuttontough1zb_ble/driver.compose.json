@@ -1,0 +1,22 @@
+{
+  "$extends": ["ble"],
+  "name": {
+    "en": "BLU Button Tough 1 ZB - BLE"
+  },
+  "class": "button",
+  "capabilities": ["measure_battery"],
+  "energy": {
+    "batteries": ["CR2032"]
+  },
+  "images": {
+    "small": "/assets/drivers/shellyblubuttontough1/images/small.png",
+    "large": "/assets/drivers/shellyblubuttontough1/images/large.png",
+    "xlarge": "/assets/drivers/shellyblubuttontough1/images/xlarge.png"
+  },
+  "learnmode": {
+    "image": "{{driverAssetsPath}}/learnmode.svg",
+    "instruction": {
+      "en": "Press the button during the Bluetooth scan."
+    }
+  }
+}
