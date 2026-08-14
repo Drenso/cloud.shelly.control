@@ -434,6 +434,10 @@ export class VirtualDevice {
     },
     sleeping: {
       transition: async ({ action, ...args }: StateAction): Promise<void> => {
+        if (action === 'going_offline') {
+          this.log('Device is sleeping, ignoring going_offline');
+          return;
+        }
         if (action === 'device_connected' || action === 'outbound_websocket_connected') {
           this.app.homey.clearTimeout(this.sleepingKeepaliveTimeout);
           return this.states.online.enter();
@@ -453,6 +457,7 @@ export class VirtualDevice {
           if (this.state !== 'sleeping') {
             return;
           }
+          this.log('Sleeping keepalive timed out, setting offline');
           this.states.offline.enter();
         }, BATTERY_DEVICE_KEEPALIVE_TIMEOUT.toMs());
         this.state = 'sleeping';
@@ -991,6 +996,7 @@ class LocalConnection {
       return;
     }
 
+    this.virtualDevice.log('All websockets disconnected, setting offline');
     this.virtualDevice
       .transition({ action: 'going_offline' })
       .catch(err => this.virtualDevice.error('Error while going offline due to disconnected websockets:', err));
