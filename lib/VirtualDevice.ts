@@ -786,6 +786,12 @@ export class VirtualDevice {
   }
 
   public getChannel(): RpcChannel {
+    if (this.state === 'sleeping') {
+      throw new Error(this.app.homey.__('device.sleeping'));
+    }
+    if (this.state === 'offline') {
+      throw new Error(this.app.homey.__('device.not_connected'));
+    }
     return this.localConnection.getChannel();
   }
 

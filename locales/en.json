@@ -36,11 +36,12 @@
     "incorrect_password": "The device needs to be repaired: password changed.",
     "initialization_error": "An error occurred while initializing.",
     "initializing": "Initializing...",
-    "not_connected": "Not connected to device",
+    "not_connected": "The device is not connected.",
     "offline": "Offline",
     "orphan": "This device is not associated with any Shelly device and can be removed.",
     "requires_restart": "The device needs to be restarted.",
-    "restarting": "Restarting..."
+    "restarting": "Restarting...",
+    "sleeping": "The device is sleeping."
   },
   "error": {
     "authorization": "Failed to authorize",
