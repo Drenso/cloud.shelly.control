@@ -1,0 +1,52 @@
+{
+  "title": {
+    "en": "Button pressed"
+  },
+  "titleFormatted": {
+    "en": "[[button]] [[press_type]] event received"
+  },
+  "tokens": [
+    {
+      "name": "button",
+      "type": "number",
+      "title": {
+        "en": "Button Number"
+      },
+      "example": 3
+    },
+    {
+      "name": "press_type",
+      "type": "string",
+      "title": {
+        "en": "Button Press Type"
+      },
+      "example": "single_press"
+    }
+  ],
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": {
+        "driver_id": "shellybluwallswitch4_ble|shellybluwallswitch4zb_ble"
+      },
+      "title": {
+        "en": "Device"
+      }
+    },
+    {
+      "name": "button",
+      "type": "autocomplete",
+      "title": {
+        "en": "Button Number"
+      }
+    },
+    {
+      "name": "press_type",
+      "type": "autocomplete",
+      "title": {
+        "en": "Button Press Type"
+      }
+    }
+  ]
+}

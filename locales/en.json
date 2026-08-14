@@ -1,4 +1,18 @@
 {
+  "button": {
+    "_name": "Button __number__",
+    "_any": "Any Button",
+    "press_type": {
+      "_any_press": "Any Press",
+      "single_press": "Single Press",
+      "double_press": "Double Press",
+      "triple_press":  "Triple Press",
+      "long_press": "Long Press",
+      "long_double_press":  "Long Double Press",
+      "long_triple_press": "Long Triple Press",
+      "hold":  "Hold"
+    }
+  },
   "component": {
     "CCT": {
       "invalid_night_mode": {
