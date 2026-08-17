@@ -1,0 +1,44 @@
+{
+  "$extends": ["zigbee"],
+  "name": {
+    "en": "BLU RC Button ZB - Zigbee"
+  },
+  "class": "button",
+  "capabilities": ["measure_battery", "hidden.button_pressed"],
+  "energy": {
+    "batteries": ["CR2032"]
+  },
+  "images": {
+    "small": "/assets/drivers/shellyblurcbutton4/images/small.png",
+    "large": "/assets/drivers/shellyblurcbutton4/images/large.png",
+    "xlarge": "/assets/drivers/shellyblurcbutton4/images/xlarge.png"
+  },
+  "zigbee": {
+    "manufacturerName": "Shelly",
+    "productId": ["BLU RC Button 4 ZB"],
+    "endpoints": {
+      "1": {
+        "clusters": [0, 1],
+        "bindings": [5, 6, 8]
+      },
+      "2": {
+        "clusters": [],
+        "bindings": [5, 6, 8]
+      },
+      "3": {
+        "clusters": [],
+        "bindings": [5]
+      },
+      "4": {
+        "clusters": [],
+        "bindings": [5]
+      }
+    },
+    "learnmode": {
+      "image": "{{driverAssetsPath}}/learnmode.svg",
+      "instruction": {
+        "en": "Press any button 5 times to initialize Zigbee pairing."
+      }
+    }
+  }
+}
