@@ -4,7 +4,7 @@
     "en": "BLU Wall Switch 4 - BLE"
   },
   "class": "button",
-  "capabilities": ["measure_battery"],
+  "capabilities": ["measure_battery", "hidden.button_pressed"],
   "energy": {
     "batteries": ["CR2032"]
   },
