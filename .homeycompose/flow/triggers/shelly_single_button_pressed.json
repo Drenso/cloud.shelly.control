@@ -20,7 +20,8 @@
       "name": "device",
       "type": "device",
       "filter": {
-        "driver_id": "shellyblubuttontough1_ble|shellyblubuttontough1zb_ble"
+        "driver_id": "shellyblubuttontough1_ble|shellyblubuttontough1zb_ble",
+        "capabilities": "hidden.single_button_pressed"
       },
       "title": {
         "en": "Device"

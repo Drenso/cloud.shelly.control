@@ -1143,7 +1143,8 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "shellybluwallswitch4_ble|shellybluwallswitch4zb_ble|shellybluwallswitch4zb_zigbee"
+              "driver_id": "shellybluwallswitch4_ble|shellybluwallswitch4zb_ble|shellybluwallswitch4zb_zigbee",
+              "capabilities": "hidden.button_pressed"
             },
             "title": {
               "en": "Device"
@@ -1302,7 +1303,8 @@
             "name": "device",
             "type": "device",
             "filter": {
-              "driver_id": "shellyblubuttontough1_ble|shellyblubuttontough1zb_ble"
+              "driver_id": "shellyblubuttontough1_ble|shellyblubuttontough1zb_ble",
+              "capabilities": "hidden.single_button_pressed"
             },
             "title": {
               "en": "Device"
@@ -8374,7 +8376,8 @@
       },
       "class": "button",
       "capabilities": [
-        "measure_battery"
+        "measure_battery",
+        "hidden.single_button_pressed"
       ],
       "energy": {
         "batteries": [
@@ -8431,7 +8434,8 @@
       },
       "class": "button",
       "capabilities": [
-        "measure_battery"
+        "measure_battery",
+        "hidden.single_button_pressed"
       ],
       "energy": {
         "batteries": [
@@ -8711,7 +8715,8 @@
       },
       "class": "button",
       "capabilities": [
-        "measure_battery"
+        "measure_battery",
+        "hidden.button_pressed"
       ],
       "energy": {
         "batteries": [
@@ -8768,7 +8773,8 @@
       },
       "class": "button",
       "capabilities": [
-        "measure_battery"
+        "measure_battery",
+        "hidden.button_pressed"
       ],
       "energy": {
         "batteries": [
@@ -8802,7 +8808,8 @@
       },
       "class": "button",
       "capabilities": [
-        "measure_battery"
+        "measure_battery",
+        "hidden.button_pressed"
       ],
       "energy": {
         "batteries": [

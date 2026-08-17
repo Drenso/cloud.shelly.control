@@ -28,7 +28,8 @@
       "name": "device",
       "type": "device",
       "filter": {
-        "driver_id": "shellybluwallswitch4_ble|shellybluwallswitch4zb_ble|shellybluwallswitch4zb_zigbee"
+        "driver_id": "shellybluwallswitch4_ble|shellybluwallswitch4zb_ble|shellybluwallswitch4zb_zigbee",
+        "capabilities": "hidden.button_pressed"
       },
       "title": {
         "en": "Device"
