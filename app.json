@@ -8457,6 +8457,72 @@
     },
     {
       "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "icon": "/drivers/shellyblubuttontough1zb_zigbee/assets/icon.svg",
+      "name": {
+        "en": "BLU Button Tough 1 ZB - Zigbee"
+      },
+      "class": "button",
+      "capabilities": [
+        "measure_battery",
+        "hidden.single_button_pressed"
+      ],
+      "energy": {
+        "batteries": [
+          "CR2032"
+        ]
+      },
+      "images": {
+        "small": "/assets/drivers/shellyblubuttontough1/images/small.png",
+        "large": "/assets/drivers/shellyblubuttontough1/images/large.png",
+        "xlarge": "/assets/drivers/shellyblubuttontough1/images/xlarge.png"
+      },
+      "zigbee": {
+        "manufacturerName": "Shelly",
+        "productId": [
+          "BLU Button Tough 1 ZB"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              1
+            ],
+            "bindings": [
+              5,
+              6
+            ]
+          },
+          "2": {
+            "clusters": [],
+            "bindings": [
+              5,
+              6
+            ]
+          },
+          "3": {
+            "clusters": [],
+            "bindings": [
+              5
+            ]
+          }
+        },
+        "learnmode": {
+          "image": "/drivers/shellyblubuttontough1zb_zigbee/assets/learnmode.svg",
+          "instruction": {
+            "en": "Press the button 5 times to initialize Zigbee pairing."
+          }
+        }
+      },
+      "id": "shellyblubuttontough1zb_zigbee"
+    },
+    {
+      "platforms": [
         "local"
       ],
       "connectivity": [
