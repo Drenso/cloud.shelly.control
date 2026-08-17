@@ -4,7 +4,7 @@ import { safeSetCapabilityValue, safeTriggerDeviceCard } from '../../lib/safeFun
 import type { Button, ScrollDirection } from './driver.js';
 import { addCapabilityIfNotExists } from '@drenso/homey-zigbee-library/lib/helper/capability.mjs';
 
-export default class ShellyBluRemoteControlDevice extends ShellyBleDevice {
+export default class ShellyBluRemoteControlBleDevice extends ShellyBleDevice {
   public async onInit(): Promise<void> {
     // Migrate to use refactored flow cards
     await addCapabilityIfNotExists(this, 'hidden.blu_remote_control');
