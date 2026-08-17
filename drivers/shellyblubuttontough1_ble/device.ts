@@ -1,11 +1,8 @@
 import ShellyBleDevice from '../../lib/ble/BleDevice.js';
 import type { BTHomeData } from '../../lib/ble/BTHome.js';
-import {
-  type ButtonEventType,
-  handleBatteryProperty,
-  handleSingleButtonEventProperty,
-} from '../../lib/ble/BTHomePropertyHandlers.js';
+import { handleBatteryProperty, handleSingleButtonEventProperty } from '../../lib/ble/BTHomePropertyHandlers.js';
 import type { ButtonEventTypesDeviceInterface } from '../../lib/capabilityInterfaces.js';
+import type { ButtonEventType } from '../../lib/flow/buttonFlows.js';
 
 export default class ShellyBluButtonTough1BleDevice extends ShellyBleDevice implements ButtonEventTypesDeviceInterface {
   public async handleBtHomeForward(btHomeData: BTHomeData): Promise<void> {
