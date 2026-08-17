@@ -1,15 +1,7 @@
-import { safeSetCapabilityValue, safeTriggerDeviceCard } from '../safeFunctions.js';
+import { type ButtonEventType, safeTriggerButtonPressed, safeTriggerSingleButtonPressed } from '../flow/buttonFlows.js';
+import { safeSetCapabilityValue } from '../safeFunctions.js';
 import type ShellyBleDevice from './BleDevice.js';
 import { BTHomeButtonEventType, type BTHomeData } from './BTHome.js';
-
-export type ButtonEventType =
-  | 'single_press'
-  | 'double_press'
-  | 'triple_press'
-  | 'long_press'
-  | 'long_double_press'
-  | 'long_triple_press'
-  | 'hold';
 
 export async function handleBatteryProperty(device: ShellyBleDevice, btHomeData: BTHomeData): Promise<void> {
   if (btHomeData.battery?.length !== 1) {
@@ -29,8 +21,7 @@ export async function handleSingleButtonEventProperty(device: ShellyBleDevice, b
     return;
   }
 
-  const args: { press_type: ButtonEventType } = { press_type: eventType };
-  await safeTriggerDeviceCard(device, 'shelly_single_button_pressed', args, args);
+  await safeTriggerSingleButtonPressed(device, eventType);
 }
 
 export async function handleButtonEventProperty(device: ShellyBleDevice, btHomeData: BTHomeData): Promise<void> {
@@ -46,8 +37,7 @@ export async function handleButtonEventProperty(device: ShellyBleDevice, btHomeD
       continue;
     }
 
-    const args: { button: number; press_type: ButtonEventType } = { button: buttonIndex, press_type: eventType };
-    await safeTriggerDeviceCard(device, 'shelly_button_pressed', args, args);
+    await safeTriggerButtonPressed(device, buttonIndex, eventType);
   }
 }
 

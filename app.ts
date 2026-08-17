@@ -2,26 +2,19 @@ import { Log } from '@drenso/homey-log';
 import Homey, { type DiscoveryResultMDNSSD } from 'homey';
 import sourceMapSupport from 'source-map-support';
 import type { ScrollDirection } from './drivers/shellybluremotecontrolzb_ble/driver.js';
-import type { ButtonEventType } from './lib/ble/BTHomePropertyHandlers.js';
 import { BTHomeServer } from './lib/ble/BTHomeServer.js';
-import type {
-  ButtonCountDeviceInterface,
-  ButtonEventTypesDeviceInterface,
-  MultiZoneCapabilityDeviceInterface,
-} from './lib/capabilityInterfaces.js';
 import Boolean from './lib/component/components/Boolean.js';
 import Button from './lib/component/components/Button.js';
-import Cover from './lib/component/components/Cover.js';
 import DevicePower from './lib/component/components/DevicePower.js';
 import Enum from './lib/component/components/Enum.js';
 import Illuminance from './lib/component/components/Illuminance.js';
 import Input from './lib/component/components/Input.js';
-import Light from './lib/component/components/Light.js';
 import NumberComponent from './lib/component/components/Number.js';
 import PresenceZone from './lib/component/components/PresenceZone.js';
 import Shelly from './lib/component/components/Shelly.js';
-import Switch from './lib/component/components/Switch.js';
-import Temperature from './lib/component/components/Temperature.js';
+import { registerButtonFlowCards } from './lib/flow/buttonFlows.js';
+import { registerPresenceFlowCards } from './lib/flow/presenceFlows.js';
+import { registerTemperatureFlowCards } from './lib/flow/temperatureFlows.js';
 import { createHttpChannel } from './lib/HomeyRPCChannels.js';
 import type ShellyLocalDevice from './lib/local/LocalDevice.js';
 import { getIp } from './lib/LocalIp.js';
@@ -194,133 +187,9 @@ export default class ShellyApp extends Homey.App {
   }
 
   private registerGenericFlowCards(): void {
-    const getTemperatureComponents = (device: ShellyLocalDevice): (Temperature | Switch | Light | Cover)[] => {
-      if (device.virtualDevice === undefined) {
-        return [];
-      }
-
-      return [...device.virtualComponents.values()].filter(component => {
-        if (component instanceof Temperature) {
-          return true;
-        }
-        if (component instanceof Switch || component instanceof Light || component instanceof Cover) {
-          return component.status.temperature !== undefined;
-        }
-        return false;
-      }) as (Temperature | Switch | Light | Cover)[];
-    };
-
-    this.homey.flow
-      .getDeviceTriggerCard('measure_temperature_changed')
-      .registerArgumentAutocompleteListener(
-        'component',
-        (query: string, { device }: { device: ShellyLocalDevice }): { name: string; id: string }[] => {
-          return getTemperatureComponents(device)
-            .map(component => ({
-              name: component.getAutocompleteTitle(device, 'measure_temperature'),
-              id: component.getComponentKey(),
-            }))
-            .filter(component => component.name.toLowerCase().includes(query.toLowerCase()));
-        },
-      )
-      .registerRunListener((flowArgs: { component?: { id: string } }, triggerArgs: { component: string }) => {
-        return flowArgs.component === undefined || flowArgs.component.id === triggerArgs.component;
-      });
-
-    const alarmPresenceZoneRunListener = async (
-      args: { zones: string[] },
-      state: { zone: number },
-    ): Promise<boolean> => {
-      return args.zones.map(z => Number(z)).includes(state.zone);
-    };
-    this.homey.flow
-      .getDeviceTriggerCard('alarm_presence_zone_x_false')
-      .registerRunListener(alarmPresenceZoneRunListener);
-    this.homey.flow
-      .getDeviceTriggerCard('alarm_presence_zone_x_true')
-      .registerRunListener(alarmPresenceZoneRunListener);
-    this.homey.flow
-      .getConditionCard('alarm_presence_zone_x_has')
-      .registerRunListener((args: { zones: string[]; device: MultiZoneCapabilityDeviceInterface }) => {
-        return args.zones.some(zone => args.device.isZoneOccupied(Number(zone)));
-      });
-
-    const buttonAutocompleteListener = (
-      query: string,
-      { device }: { device: ButtonCountDeviceInterface },
-    ): Array<{ name: string; id: number | 'any' }> => {
-      const items: Array<{ name: string; id: number | 'any' }> = [
-        { id: 'any', name: this.homey.__('button._any') ?? '' },
-      ];
-      items.push(
-        ...[...Array(device.getButtonCount())].map((_, index) => ({
-          name: (this.homey.__(`button._name`) ?? '').replace('__number__', String(index + 1)),
-          id: index,
-        })),
-      );
-
-      return items.filter(item => item.name.toLowerCase().includes(query.trim().toLowerCase()));
-    };
-    const buttonPressTypeAutocompleteListener = (
-      query: string,
-      { device }: { device: ButtonEventTypesDeviceInterface },
-    ): Array<{ name: string; id: ButtonEventType | 'any_press' }> => {
-      const items: Array<{ name: string; id: ButtonEventType | 'any_press' }> = [
-        { id: 'any_press', name: this.homey.__('button.press_type._any_press') ?? '' },
-      ];
-
-      items.push(
-        ...device
-          .getButtonEventTypes()
-          .map(eventType => ({ name: this.homey.__(`button.press_type.${eventType}`) ?? '', id: eventType })),
-      );
-
-      return items.filter(item => item.name.toLowerCase().includes(query.trim().toLowerCase()));
-    };
-
-    this.homey.flow
-      .getDeviceTriggerCard('shelly_single_button_pressed')
-      .registerArgumentAutocompleteListener('press_type', buttonPressTypeAutocompleteListener)
-      .registerRunListener(
-        (
-          flowArgs: { press_type: { name: string; id: ButtonEventType | 'any_press' } },
-          triggerArgs: { press_type: ButtonEventType },
-        ) => {
-          if (flowArgs.press_type.id === 'any_press') {
-            return true;
-          }
-
-          return flowArgs.press_type.id === triggerArgs.press_type;
-        },
-      );
-
-    this.homey.flow
-      .getDeviceTriggerCard('shelly_button_pressed')
-      .registerArgumentAutocompleteListener('button', buttonAutocompleteListener)
-      .registerArgumentAutocompleteListener('press_type', buttonPressTypeAutocompleteListener)
-      .registerRunListener(
-        (
-          flowArgs: {
-            button: { name: string; id: number | 'any' };
-            press_type: { name: string; id: ButtonEventType | 'any_press' };
-          },
-          triggerArgs: { button: number; press_type: ButtonEventType },
-        ) => {
-          if (
-            flowArgs.button.id === 'any' &&
-            flowArgs.press_type.id === 'any_press' &&
-            triggerArgs.press_type !== 'hold'
-          ) {
-            return true;
-          }
-
-          if (flowArgs.button.id === 'any' && flowArgs.press_type.id === triggerArgs.press_type) {
-            return true;
-          }
-
-          return flowArgs.button.id === triggerArgs.button && flowArgs.press_type.id === triggerArgs.press_type;
-        },
-      );
+    registerButtonFlowCards(this);
+    registerPresenceFlowCards(this);
+    registerTemperatureFlowCards(this);
   }
 
   private registerLanFlowCards(): void {

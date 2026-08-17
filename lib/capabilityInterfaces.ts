@@ -1,4 +1,4 @@
-import type { ButtonEventType } from './ble/BTHomePropertyHandlers.js';
+import type { ButtonEventType } from './flow/buttonFlows.js';
 
 export interface ButtonCountDeviceInterface {
   getButtonCount(): number;
