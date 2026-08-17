@@ -8554,6 +8554,122 @@
         }
       ],
       "name": {
+        "en": "BLU RC Button 4 - BLE"
+      },
+      "class": "button",
+      "capabilities": [
+        "measure_battery",
+        "hidden.button_pressed"
+      ],
+      "energy": {
+        "batteries": [
+          "CR2032"
+        ]
+      },
+      "images": {
+        "small": "/assets/drivers/shellyblurcbutton4/images/small.png",
+        "large": "/assets/drivers/shellyblurcbutton4/images/large.png",
+        "xlarge": "/assets/drivers/shellyblurcbutton4/images/xlarge.png"
+      },
+      "learnmode": {
+        "image": "/drivers/shellyblurcbutton4_ble/assets/learnmode.svg",
+        "instruction": {
+          "en": "Press one of the buttons during the Bluetooth scan."
+        }
+      },
+      "id": "shellyblurcbutton4_ble"
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "ble"
+      ],
+      "pair": [
+        {
+          "id": "ble_information",
+          "navigation": {
+            "next": "pair_instructions"
+          }
+        },
+        {
+          "id": "pair_instructions",
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
+        {
+          "id": "list_my_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices"
+          }
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ],
+      "name": {
+        "en": "BLU RC Button 4 ZB - BLE"
+      },
+      "class": "button",
+      "capabilities": [
+        "measure_battery",
+        "hidden.button_pressed"
+      ],
+      "energy": {
+        "batteries": [
+          "CR2032"
+        ]
+      },
+      "images": {
+        "small": "/assets/drivers/shellyblurcbutton4/images/small.png",
+        "large": "/assets/drivers/shellyblurcbutton4/images/large.png",
+        "xlarge": "/assets/drivers/shellyblurcbutton4/images/xlarge.png"
+      },
+      "learnmode": {
+        "image": "/drivers/shellyblurcbutton4zb_ble/assets/learnmode.svg",
+        "instruction": {
+          "en": "Press one of the buttons during the Bluetooth scan."
+        }
+      },
+      "id": "shellyblurcbutton4zb_ble"
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "ble"
+      ],
+      "pair": [
+        {
+          "id": "ble_information",
+          "navigation": {
+            "next": "pair_instructions"
+          }
+        },
+        {
+          "id": "pair_instructions",
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
+        {
+          "id": "list_my_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices"
+          }
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ],
+      "name": {
         "en": "BLU Remote Control ZB - BLE"
       },
       "class": "remote",

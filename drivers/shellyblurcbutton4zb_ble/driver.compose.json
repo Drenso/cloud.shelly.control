@@ -1,0 +1,22 @@
+{
+  "$extends": ["ble"],
+  "name": {
+    "en": "BLU RC Button 4 ZB - BLE"
+  },
+  "class": "button",
+  "capabilities": ["measure_battery", "hidden.button_pressed"],
+  "energy": {
+    "batteries": ["CR2032"]
+  },
+  "images": {
+    "small": "/assets/drivers/shellyblurcbutton4/images/small.png",
+    "large": "/assets/drivers/shellyblurcbutton4/images/large.png",
+    "xlarge": "/assets/drivers/shellyblurcbutton4/images/xlarge.png"
+  },
+  "learnmode": {
+    "image": "{{driverAssetsPath}}/learnmode.svg",
+    "instruction": {
+      "en": "Press one of the buttons during the Bluetooth scan."
+    }
+  }
+}
