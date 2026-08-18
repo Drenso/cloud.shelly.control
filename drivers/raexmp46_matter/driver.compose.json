@@ -1,0 +1,22 @@
+{
+  "$extends": ["matter"],
+  "name": {
+    "en": "Raex MP46 Curtain Motor - Matter"
+  },
+  "class": "windowcoverings",
+  "capabilities": ["windowcoverings_closed", "windowcoverings_set", "windowcoverings_state"],
+  "matter": {
+    "vendorId": 5264,
+    "productId": 4387,
+    "learnmode": {
+      "instruction": {
+        "en": "Enable Matter in the Shelly web interface. The required information for pairing will be shown after enabling."
+      }
+    }
+  },
+  "images": {
+    "small": "/assets/drivers/raexmp46/images/small.png",
+    "large": "/assets/drivers/raexmp46/images/large.png",
+    "xlarge": "/assets/drivers/raexmp46/images/xlarge.png"
+  }
+}
