@@ -1,0 +1,329 @@
+[
+  {
+    "key": "ble",
+    "status": {},
+    "config": {
+      "enable": true,
+      "rpc": {
+        "enable": true
+      }
+    }
+  },
+  {
+    "key": "boolean:200",
+    "status": {
+      "value": true,
+      "source": "sys",
+      "last_update_ts": 1748845139
+    },
+    "config": {
+      "id": 200,
+      "name": "State",
+      "meta": {
+        "cloud": ["log"],
+        "ui": {
+          "view": "toggle",
+          "titles": ["Closed", "Open"]
+        }
+      },
+      "persisted": false,
+      "default_value": false,
+      "owner": "service:0",
+      "access": "crw"
+    },
+    "attrs": {
+      "owner": "service:0",
+      "role": "state"
+    }
+  },
+  {
+    "key": "bthome",
+    "status": {},
+    "config": {}
+  },
+  {
+    "key": "cloud",
+    "status": {
+      "connected": false
+    },
+    "config": {
+      "enable": false,
+      "server": "wss://repo.shelly.cloud:6022/jrpc"
+    }
+  },
+  {
+    "key": "mqtt",
+    "status": {
+      "connected": false
+    },
+    "config": {
+      "enable": false,
+      "server": null,
+      "client_id": "neowatervalve-48f6eebd08dc",
+      "user": null,
+      "ssl_ca": null,
+      "topic_prefix": "neowatervalve-48f6eebd08dc",
+      "rpc_ntf": true,
+      "status_ntf": false,
+      "use_client_cert": false,
+      "enable_rpc": true,
+      "enable_control": true
+    }
+  },
+  {
+    "key": "number:200",
+    "status": {
+      "value": 0,
+      "source": "sys",
+      "last_update_ts": 1748845134
+    },
+    "config": {
+      "id": 200,
+      "name": "Flow rate",
+      "min": 0,
+      "max": 0.075,
+      "meta": {
+        "cloud": ["measurement"],
+        "ui": {
+          "step": 0.1,
+          "view": "label",
+          "unit": "m3/min"
+        }
+      },
+      "persisted": false,
+      "default_value": 0,
+      "owner": "service:0",
+      "access": "cr"
+    },
+    "attrs": {
+      "owner": "service:0",
+      "role": "flow_rate"
+    }
+  },
+  {
+    "key": "number:201",
+    "status": {
+      "value": 99.97402,
+      "source": "sys",
+      "last_update_ts": 1748845133
+    },
+    "config": {
+      "id": 201,
+      "name": "Water pressure",
+      "min": 0,
+      "max": 1350,
+      "meta": {
+        "ui": {
+          "step": 1,
+          "view": "label",
+          "unit": "kPa"
+        }
+      },
+      "persisted": false,
+      "default_value": 0,
+      "owner": "service:0",
+      "access": "cr"
+    },
+    "attrs": {
+      "owner": "service:0",
+      "role": "water_pressure"
+    }
+  },
+  {
+    "key": "number:202",
+    "status": {
+      "value": 23.5,
+      "source": "sys",
+      "last_update_ts": 1748845133
+    },
+    "config": {
+      "id": 202,
+      "name": "Water temperature",
+      "min": -25,
+      "max": 80,
+      "meta": {
+        "cloud": ["measurement"],
+        "ui": {
+          "step": 1,
+          "view": "label",
+          "unit": "°C"
+        }
+      },
+      "persisted": false,
+      "default_value": 0,
+      "owner": "service:0",
+      "access": "cr"
+    },
+    "attrs": {
+      "owner": "service:0",
+      "role": "water_temperature"
+    }
+  },
+  {
+    "key": "object:200",
+    "status": {
+      "value": {
+        "counter": {
+          "total": 0,
+          "minute_ts": 1787054700,
+          "by_minute": [0, 0, 0]
+        }
+      },
+      "source": "sys",
+      "last_update_ts": 1787054776
+    },
+    "config": {
+      "id": 200,
+      "name": "Water consumption",
+      "meta": {
+        "cloud": ["bymin"],
+        "ui": {
+          "unit": "m3"
+        }
+      },
+      "owner": "service:0",
+      "access": "cr"
+    },
+    "attrs": {
+      "owner": "service:0",
+      "role": "water_consumption"
+    }
+  },
+  {
+    "key": "service:0",
+    "status": {
+      "etag": "d05b248b79f18855f3708e5ed72cecb9",
+      "state": "running",
+      "stats": {
+        "mem": 1034,
+        "mem_peak": 1184
+      }
+    },
+    "config": {
+      "temp_unit": "C",
+      "pressure_unit": "PSI",
+      "volume_unit": "gal",
+      "alarm_temp_range": [15, 50],
+      "alarm_temp_action": "close",
+      "alarm_pressure_range": [275, 550],
+      "alarm_pressure_action": "close",
+      "alarm_flow_rate_range": [75, 110],
+      "alarm_flow_rate_action": "close",
+      "id": 0
+    }
+  },
+  {
+    "key": "sys",
+    "status": {
+      "mac": "48F6EEBD08DC",
+      "restart_required": false,
+      "time": "14:06",
+      "unixtime": 1787054797,
+      "last_sync_ts": 1787054676,
+      "uptime": 142,
+      "ram_size": 267948,
+      "ram_free": 86540,
+      "ram_min_free": 66580,
+      "fs_size": 1048576,
+      "fs_free": 602112,
+      "cfg_rev": 7,
+      "kvs_rev": 0,
+      "schedule_rev": 0,
+      "webhook_rev": 0,
+      "btrelay_rev": 0,
+      "available_updates": {},
+      "reset_reason": 1,
+      "utc_offset": 7200
+    },
+    "config": {
+      "device": {
+        "name": null,
+        "mac": "48F6EEBD08DC",
+        "fw_id": "20250602-061842/1.7.99-xt-prod0-gf2d5965",
+        "discoverable": true
+      },
+      "location": {
+        "tz": "Europe/Amsterdam",
+        "lat": 52.2249,
+        "lon": 6.852
+      },
+      "debug": {
+        "level": 2,
+        "file_level": null,
+        "mqtt": {
+          "enable": false
+        },
+        "websocket": {
+          "enable": false
+        },
+        "udp": {
+          "addr": null
+        }
+      },
+      "ui_data": {},
+      "rpc_udp": {
+        "dst_addr": null,
+        "listen_port": null
+      },
+      "sntp": {
+        "server": "time.cloudflare.com"
+      },
+      "cfg_rev": 7
+    }
+  },
+  {
+    "key": "wifi",
+    "status": {
+      "sta_ip": "192.168.222.106",
+      "status": "got ip",
+      "ssid": "DrensoDev",
+      "rssi": -39,
+      "sta_ip6": ["fe80::4af6:eeff:febd:8dc", "fd03:8586:4012:ec48:4af6:eeff:febd:8dc"]
+    },
+    "config": {
+      "ap": {
+        "ssid": "NeoWaterValve-48F6EEBD08DC",
+        "is_open": true,
+        "enable": true,
+        "range_extender": {
+          "enable": false
+        }
+      },
+      "sta": {
+        "ssid": "DrensoDev",
+        "is_open": false,
+        "enable": true,
+        "ipv4mode": "dhcp",
+        "ip": null,
+        "netmask": null,
+        "gw": null,
+        "nameserver": null
+      },
+      "sta1": {
+        "ssid": null,
+        "is_open": true,
+        "enable": false,
+        "ipv4mode": "dhcp",
+        "ip": null,
+        "netmask": null,
+        "gw": null,
+        "nameserver": null
+      },
+      "roam": {
+        "rssi_thr": -80,
+        "interval": 60
+      }
+    }
+  },
+  {
+    "key": "ws",
+    "status": {
+      "connected": false
+    },
+    "config": {
+      "enable": false,
+      "server": null,
+      "ssl_ca": "ca.pem"
+    }
+  }
+]
