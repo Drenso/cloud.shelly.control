@@ -1,0 +1,23 @@
+{
+  "$extends": ["local"],
+  "name": {
+    "en": "Neo Smart Water Valve - LAN"
+  },
+  "class": "watervalve",
+  "images": {
+    "small": "/assets/drivers/neowatervalve/images/small.png",
+    "large": "/assets/drivers/neowatervalve/images/large.png",
+    "xlarge": "/assets/drivers/neowatervalve/images/xlarge.png"
+  },
+  "capabilities": ["onoff", "measure_water", "meter_water", "measure_pressure", "measure_temperature"],
+  "capabilitiesOptions": {
+    "onoff": {
+      "insightsTitleTrue": {
+        "en": "Open"
+      },
+      "insightsTitleFalse": {
+        "en": "Closed"
+      }
+    }
+  }
+}

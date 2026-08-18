@@ -13,7 +13,7 @@ import capabilitiesOptions from './Service/capabilitiesOptions.json' with { type
 export type ServiceConfig = {
   /** Identifier of the Service component instance */
   id: number;
-} & (ValveServiceConfig | PortableEvChargerConfig);
+} & (ValveServiceConfig | NeoValveServiceConfig | PortableEvChargerConfig);
 
 type ValveServiceConfig = {
   /**
@@ -34,6 +34,30 @@ type ValveServiceConfig = {
   power_loss_pos: number;
   /** Name of the service instance */
   name: string | null;
+} & Record<string, undefined>;
+
+type NeoValveServiceConfig = {
+  // documented, but does not appear on the actual device
+  // on_power_restore: 'close' | 'open' | 'none';
+  /** Temperature unit for display and alarms. */
+  temp_unit: 'C' | 'F';
+  /** Pressure unit for display and alarms. */
+  pressure_unit: 'kPa' | 'PSI' | 'bar';
+  /** Volume unit for consumption tracking. */
+  volume_unit: 'm3' | 'gal' | 'lit';
+  /** Temperature alarm thresholds as [min, max] values in the configured temperature unit. */
+  alarm_temp_range: [number, number];
+  /** Action to take when the temperature alarm is triggered. */
+  alarm_temp_action: 'open' | 'close';
+  /** Pressure alarm thresholds as [min, max] values in the configured pressure unit. */
+  alarm_pressure_range: [number, number];
+  /** Action to take when the pressure alarm is triggered. */
+  alarm_pressure_action: 'open' | 'close';
+  /** Flow rate alarm thresholds as [min, max] values in litres per minute. */
+  alarm_flow_rate_range: [number, number];
+  /** Action to take when the flow rate alarm is triggered. */
+  alarm_flow_rate_action: 'open' | 'close';
+  name: null;
 } & Record<string, undefined>;
 
 type PortableEvChargerConfig = {

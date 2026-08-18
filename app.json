@@ -2824,6 +2824,170 @@
       ],
       "capabilities": [
         "onoff",
+        "measure_water",
+        "meter_water",
+        "measure_pressure",
+        "measure_temperature"
+      ],
+      "capabilitiesOptions": {
+        "button.restart": {
+          "maintenanceAction": true,
+          "title": {
+            "en": "Restart Device"
+          }
+        },
+        "onoff": {
+          "insightsTitleTrue": {
+            "en": "Open"
+          },
+          "insightsTitleFalse": {
+            "en": "Closed"
+          }
+        }
+      },
+      "pair": [
+        {
+          "id": "pairing_information",
+          "navigation": {
+            "next": "list_devices"
+          }
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "authenticate_devices"
+          }
+        },
+        {
+          "id": "authenticate_devices",
+          "template": "loading",
+          "options": {
+            "text": "pair.loading_devices"
+          }
+        },
+        {
+          "id": "loading_devices",
+          "template": "loading",
+          "options": {
+            "text": "pair.loading_devices"
+          }
+        },
+        {
+          "id": "device_password"
+        },
+        {
+          "id": "add_subdevices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "repair"
+        }
+      ],
+      "name": {
+        "en": "Neo Smart Water Valve - LAN"
+      },
+      "class": "watervalve",
+      "images": {
+        "small": "/assets/drivers/neowatervalve/images/small.png",
+        "large": "/assets/drivers/neowatervalve/images/large.png",
+        "xlarge": "/assets/drivers/neowatervalve/images/xlarge.png"
+      },
+      "id": "neowatervalve_local",
+      "settings": [
+        {
+          "values": [
+            {
+              "id": "close",
+              "label": {
+                "en": "Close Valve"
+              }
+            },
+            {
+              "id": "open",
+              "label": {
+                "en": "Open Valve"
+              }
+            },
+            {
+              "id": "none",
+              "label": {
+                "en": "Do Nothing"
+              }
+            }
+          ],
+          "id": "Service:on_power_restore",
+          "type": "dropdown",
+          "label": {
+            "en": "Valve - On Power Restored"
+          },
+          "value": "none",
+          "hint": {
+            "en": "The behavior of the valve when power is restored after power loss."
+          }
+        },
+        {
+          "id": "Temperature:offset_C",
+          "type": "number",
+          "label": {
+            "en": "Temperature - Offset"
+          },
+          "hint": {
+            "en": "Offset to be applied to the measured temperature."
+          },
+          "value": 0,
+          "min": -50,
+          "max": 50,
+          "units": "°C"
+        },
+        {
+          "min": 0.1,
+          "max": 5,
+          "id": "Temperature:report_thr_C",
+          "type": "number",
+          "label": {
+            "en": "Temperature - Report Threshold"
+          },
+          "value": 0.5,
+          "units": "°C"
+        },
+        {
+          "id": "_shelly_device_info",
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            {
+              "id": "_shelly_device_id",
+              "type": "label",
+              "label": {
+                "en": "Device identifier"
+              },
+              "value": "-"
+            },
+            {
+              "id": "_shelly_ip",
+              "type": "label",
+              "label": {
+                "en": "IP address"
+              },
+              "value": "-"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "lan"
+      ],
+      "capabilities": [
+        "onoff",
         "shelly_input_switch",
         "measure_power",
         "measure_current",
