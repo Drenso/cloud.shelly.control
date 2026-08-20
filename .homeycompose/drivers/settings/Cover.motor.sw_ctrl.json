@@ -1,0 +1,28 @@
+{
+  "id": "Cover:motor.sw_ctrl",
+  "type": "dropdown",
+  "label": {
+    "en": "Cover - External Control"
+  },
+  "hint": {
+    "en": "In dual button mode one button opens the cover and the other closes it. Pressing the same button again stops the movement. In triple button mode there is a separate button for opening, closing and stopping. In momentary mode holding one button opens and the other closes, stopping the movement once the button is released."
+  },
+  "values": [
+    {
+      "id": "0",
+      "label": "Dual Button Reverse"
+    },
+    {
+      "id": "1",
+      "label": "Momentary Rocker Switch"
+    },
+    {
+      "id": "2",
+      "label": "Triple Button"
+    },
+    {
+      "id": "3",
+      "label": "Dual Button"
+    }
+  ]
+}

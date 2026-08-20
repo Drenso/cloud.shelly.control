@@ -60,7 +60,7 @@ export type CoverConfig = {
    */
   in_mode?: 'single' | 'dual' | 'detached';
   /** If True, all changes to physical inputs are ignored, regardless of mode. */
-  in_locked: boolean;
+  in_locked?: boolean;
   /**
    * Defines Cover target state on power-on
    *
@@ -70,23 +70,23 @@ export type CoverConfig = {
    */
   initial_state: 'open' | 'closed' | 'stopped';
   /** Watts, a limit that must be exceeded to trigger an `overpower` error */
-  power_limit: number;
+  power_limit?: number;
   /** Volts, a limit that must be exceeded to trigger an `overvoltage` error */
-  voltage_limit: number;
+  voltage_limit?: number;
   /** Volts, a limit that must be subceeded to trigger an `undervoltage` error */
-  undervoltage_limit: number;
+  undervoltage_limit?: number;
   /** Amperes, a limit that must be exceeded to trigger an `overcurrent` error */
-  current_limit: number;
+  current_limit?: number;
   /**
    * Configuration of the Cover motor.
    *
    * The exact contents depend on the type of motor used.
    */
-  motor: AcMotorConfig;
+  motor: Partial<AcMotorConfig & RaexMotorConfig>;
   /** Default timeout after which Cover will stop moving in open direction */
-  maxtime_open: number;
+  maxtime_open?: number;
   /** Default timeout after which Cover will stop moving in a close direction */
-  maxtime_close: number;
+  maxtime_close?: number;
   /**
    * Defines whether the functions of the two inputs are swapped.
    *
@@ -106,7 +106,7 @@ export type CoverConfig = {
   /** Can be used to temporarily freeze all motions for maintenance */
   maintenance_mode: boolean;
   /** Defines the behavior of the obstruction detection safety feature */
-  obstruction_detection: {
+  obstruction_detection?: {
     enable: boolean;
     /** The direction of motion for which the safety switch should be monitored */
     direction: 'open' | 'close' | 'both';
@@ -145,7 +145,7 @@ export type CoverConfig = {
    * The `safety_switch` feature will only work when `in_mode=single`
    * Only present if there are two inputs associated with the Cover instance.
    */
-  safety_switch: {
+  safety_switch?: {
     /** `true` when the safety switch is enabled, `false` otherwise */
     enable: boolean;
     /** The direction of motion for which the safety switch should be monitored */
@@ -240,6 +240,30 @@ type AcMotorConfig = {
   /** Seconds, the minimum period of time in idle state before the state is confirmed */
   idle_confirm_period: number;
 };
+
+type RaexMotorConfig = {
+  /** Pull by hand to initiate opening or closing. */
+  gesture: boolean;
+  speed: RaexMotorSpeed;
+  sw_ctrl: RaexInput;
+};
+
+const enum RaexMotorSpeed {
+  Slow = 0,
+  Medium = 1,
+  Fast = 2,
+}
+
+const enum RaexInput {
+  /** Press one button to open the cover and the other one to close it. During movement, if the same button is pressed, the cover stops. */
+  DualButtonReverse = 0,
+  /** Press and hold one end to open, and the other end to close the cover. Releasing the switch stops the action. */
+  MomentaryRockerSwitch = 1,
+  /** One button for Open, one for Stop, one for Close. */
+  TripleButton = 2,
+  /** Press one button to open the cover. Press any button to stop it. */
+  DualButton = 3,
+}
 
 export type CoverStatus = {
   /**  Identifier of the Cover component instance */
@@ -467,8 +491,11 @@ export type CoverHomeySettings = {
   'Cover:voltage_limit': number;
   'Cover:undervoltage_limit': number;
   'Cover:current_limit': number;
+  'Cover:motor.gesture': boolean;
   'Cover:motor.idle_power_thr': number;
   'Cover:motor.idle_confirm_period': number;
+  'Cover:motor.speed': '0' | '1' | '2';
+  'Cover:motor.sw_ctrl': '0' | '1' | '2' | '3';
   'Cover:maxtime_open': number;
   'Cover:maxtime_close': number;
   'Cover:swap_inputs': boolean;
@@ -505,7 +532,11 @@ const simpleSettingKeys = [
   'maintenance_mode',
 ] as const satisfies (keyof CoverConfig)[];
 
-const motorSettingKeys = ['idle_power_thr', 'idle_confirm_period'] as const satisfies (keyof CoverConfig['motor'])[];
+const motorSettingKeys = [
+  'idle_power_thr',
+  'idle_confirm_period',
+  'gesture',
+] as const satisfies (keyof CoverConfig['motor'])[];
 
 const obstructionDetectionSettingKeys = [
   'enable',
@@ -513,13 +544,13 @@ const obstructionDetectionSettingKeys = [
   'action',
   'power_thr',
   'holdoff',
-] as const satisfies (keyof CoverConfig['obstruction_detection'])[];
+] as const satisfies (keyof Required<CoverConfig>['obstruction_detection'])[];
 
 const safetySwitchSettingKeys = [
   'enable',
   'direction',
   'action',
-] as const satisfies (keyof CoverConfig['safety_switch'])[];
+] as const satisfies (keyof Required<CoverConfig>['safety_switch'])[];
 
 const slatSettingKeys = [
   'open_time',
@@ -593,6 +624,10 @@ export default class Cover extends ComponentWithId<'Cover', CoverStatus, CoverCo
       await this.ResetCounters(this.device.getChannel());
     };
 
+    const startCalibrationCapabilityListener = async (): Promise<void> => {
+      await this.Calibrate(this.device.getChannel());
+    };
+
     if (this.status.pos_control) {
       for (const [statusKey, homeyCapability, capabilityListener] of [
         ['current_pos', 'windowcoverings_set', windowCoveringsSetCapabilityListener],
@@ -635,6 +670,17 @@ export default class Cover extends ComponentWithId<'Cover', CoverStatus, CoverCo
       const maintenanceActionId = 'button.reset_energy_counters';
       const capabilityOptions = capabilitiesOptions[maintenanceActionId];
       await this.registerCapability(homeyDevice, maintenanceActionId, capabilityOptions, resetEnergyCapabilityListener);
+    }
+
+    if (methods.includes('Calibrate')) {
+      const maintenanceActionId = 'button.start_calibration';
+      const capabilityOptions = capabilitiesOptions[maintenanceActionId];
+      await this.registerCapability(
+        homeyDevice,
+        maintenanceActionId,
+        capabilityOptions,
+        startCalibrationCapabilityListener,
+      );
     }
   }
 
@@ -724,21 +770,45 @@ export default class Cover extends ComponentWithId<'Cover', CoverStatus, CoverCo
     for (const motorSettingKey of motorSettingKeys) {
       const newValue = config['motor'][motorSettingKey];
       if (newValue !== undefined) {
-        newSettings[`Cover:motor.${motorSettingKey}`] = newValue;
+        newSettings[`Cover:motor.${motorSettingKey}`] = newValue as never;
       }
     }
 
-    for (const obstructionDetectionSettingKey of obstructionDetectionSettingKeys) {
-      const newValue = config['obstruction_detection'][obstructionDetectionSettingKey];
+    if (config.motor.speed !== undefined) {
+      const newValue = config.motor.speed;
       if (newValue !== undefined) {
-        newSettings[`Cover:obstruction_detection.${obstructionDetectionSettingKey}`] = newValue as never;
+        newSettings['Cover:motor.speed'] = `${newValue}`;
       }
     }
 
-    for (const safetySwitchSettingKey of safetySwitchSettingKeys) {
-      const newValue = config['safety_switch'][safetySwitchSettingKey];
+    if (config.motor.sw_ctrl !== undefined) {
+      const newValue = config.motor.sw_ctrl;
       if (newValue !== undefined) {
-        newSettings[`Cover:safety_switch.${safetySwitchSettingKey}`] = newValue as never;
+        newSettings['Cover:motor.sw_ctrl'] = `${newValue}`;
+      }
+    }
+
+    if (config.obstruction_detection !== undefined) {
+      for (const obstructionDetectionSettingKey of obstructionDetectionSettingKeys) {
+        const newValue = config['obstruction_detection'][obstructionDetectionSettingKey];
+        if (newValue !== undefined) {
+          newSettings[`Cover:obstruction_detection.${obstructionDetectionSettingKey}`] = newValue as never;
+        }
+      }
+    }
+
+    if (config.safety_switch !== undefined) {
+      for (const safetySwitchSettingKey of safetySwitchSettingKeys) {
+        const newValue = config['safety_switch'][safetySwitchSettingKey];
+        if (newValue !== undefined) {
+          newSettings[`Cover:safety_switch.${safetySwitchSettingKey}`] = newValue as never;
+        }
+      }
+
+      const safetySwitchAllowedMove = config['safety_switch']['allowed_move'];
+      if (safetySwitchAllowedMove !== undefined) {
+        newSettings['Cover:safety_switch.allowed_move'] =
+          safetySwitchAllowedMove === null ? 'none' : safetySwitchAllowedMove;
       }
     }
 
@@ -749,12 +819,6 @@ export default class Cover extends ComponentWithId<'Cover', CoverStatus, CoverCo
           newSettings[`Cover:slat.${slatSettingKey}`] = newValue as never;
         }
       }
-    }
-
-    const safetySwitchAllowedMove = config['safety_switch']['allowed_move'];
-    if (safetySwitchAllowedMove !== undefined) {
-      newSettings['Cover:safety_switch.allowed_move'] =
-        safetySwitchAllowedMove === null ? 'none' : safetySwitchAllowedMove;
     }
 
     await homeyDevice.setComponentSettings(this.namespace, this.id, newSettings);
@@ -778,6 +842,16 @@ export default class Cover extends ComponentWithId<'Cover', CoverStatus, CoverCo
       if (changedKeys.includes(homeySettingKey)) {
         deepAssign(changedConfig, { motor: { [settingKey]: newSettings[homeySettingKey] } });
       }
+    }
+
+    if (changedKeys.includes('Cover:motor.speed')) {
+      const newValue = parseInt(newSettings['Cover:motor.speed']) as 0 | 1 | 2;
+      deepAssign(changedConfig, { motor: { speed: newValue } });
+    }
+
+    if (changedKeys.includes('Cover:motor.sw_ctrl')) {
+      const newValue = parseInt(newSettings['Cover:motor.sw_ctrl']) as 0 | 1 | 2 | 3;
+      deepAssign(changedConfig, { motor: { sw_ctrl: newValue } });
     }
 
     for (const settingKey of obstructionDetectionSettingKeys) {

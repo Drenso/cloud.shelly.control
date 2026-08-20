@@ -1,0 +1,21 @@
+{
+  "id": "Cover:motor.speed",
+  "type": "dropdown",
+  "label": {
+    "en": "Cover - Motor Speed"
+  },
+  "values": [
+    {
+      "id": "0",
+      "label": "Slow"
+    },
+    {
+      "id": "1",
+      "label": "Medium"
+    },
+    {
+      "id": "2",
+      "label": "Fast"
+    }
+  ]
+}

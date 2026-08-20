@@ -8,6 +8,15 @@
     },
     "maintenanceAction": true
   },
+  "button.start_calibration": {
+    "title": {
+      "en": "Start Cover Calibration"
+    },
+    "desc": {
+      "en": "Start the automatic calibration procedure. WARNING: during calibration obstruction detection is ignored!"
+    },
+    "maintenanceAction": true
+  },
   "measure_temperature.cover": {
     "title": {
       "en": "Cover __name__ Temperature"

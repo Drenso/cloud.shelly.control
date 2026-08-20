@@ -1,0 +1,10 @@
+{
+  "id": "Cover:motor.gesture",
+  "type": "checkbox",
+  "label": {
+    "en": "Cover - Pull Control"
+  },
+  "hint": {
+    "en": "Whether pulling by hand initiates opening or closing"
+  }
+}
