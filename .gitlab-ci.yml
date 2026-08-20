@@ -29,3 +29,49 @@ include:
   - project: 'intern/runner-templates'
     ref: '17.4'
     file: '/homey/publish.yml'
+
+update-flow-driver-filters:
+  stage: cs-fix
+  image: 'registry.drenso.dev/open/docker-images/homey-cli:${NODE_VERSION}'
+  interruptible: true
+  needs:
+    - job: install-js-dependencies
+      artifacts: false
+  cache:
+    key:
+      files:
+        - package-lock.json
+      prefix: ${CI_PROJECT_PATH_SLUG}_npm
+    paths:
+      - node_modules/
+    policy: pull
+  script:
+    - >
+      if [[ "skip" == $(node -e "const commitName = process.env.CI_COMMIT_REF_NAME; if (commitName.startsWith('renovate/') && "'!'"commitName.includes('intern-runner-templates') && "'!'"(commitName.includes('drenso-') && commitName.includes('-config'))) {console.log('skip');}") ]]; then
+        echo "Skipping automated flow driver filter update";
+        exit 0;
+      fi
+    - npm run update-flow-driver-filters
+    - homey app build
+    - if [[ $(git status --porcelain | wc -l) -eq "0" ]]; then echo "All looks good 👍🏻"; exit 0; fi
+    - echo "Changes required 👎🏻"
+    - git config gc.auto 0 # Disable automatic GC
+    - git config user.name "CS Fixer" # Set commit use
+    - git config user.email "cs-fixer@drenso.nl"
+    - export CS_FIX_BRANCH="cs-fixer-${CI_PIPELINE_IID}-${RANDOM}" # Generate a branch name
+    - git checkout -b ${CS_FIX_BRANCH}
+    - git commit -a -m "Automated flow driver filter update" # Make the commit
+    - git remote set-url origin [git@${CI_SERVER_HOST}:22222]:${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}.git # Setup remote
+    - mkdir -p ~/.ssh
+    - echo "[${CI_SERVER_HOST}]:22222 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBG70q+TTCO16wivv4cLlj2AcnB7eTDjw9k0pTQdwG0UM65a1e/B2ApUSJfJa/+eha225PqjCRlc0oiiXQ+1JyQs=" >> ~/.ssh/known_hosts
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "${CS_FIXER_KEY}")
+    - git push -u origin ${CS_FIX_BRANCH}:${CI_COMMIT_REF_NAME}
+  tags:
+    - docker
+  except:
+    - schedules
+    - master
+    - main
+    - production
+    - tags
