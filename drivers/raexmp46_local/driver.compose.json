@@ -1,0 +1,13 @@
+{
+  "$extends": ["local"],
+  "name": {
+    "en": "Raex MP46 Curtain Motor - LAN"
+  },
+  "class": "windowcoverings",
+  "images": {
+    "small": "/assets/drivers/raexmp46/images/small.png",
+    "large": "/assets/drivers/raexmp46/images/large.png",
+    "xlarge": "/assets/drivers/raexmp46/images/xlarge.png"
+  },
+  "capabilities": []
+}

@@ -3198,6 +3198,217 @@
         "local"
       ],
       "connectivity": [
+        "lan"
+      ],
+      "capabilities": [],
+      "capabilitiesOptions": {
+        "button.restart": {
+          "maintenanceAction": true,
+          "title": {
+            "en": "Restart Device"
+          }
+        }
+      },
+      "pair": [
+        {
+          "id": "pairing_information",
+          "navigation": {
+            "next": "list_devices"
+          }
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "authenticate_devices"
+          }
+        },
+        {
+          "id": "authenticate_devices",
+          "template": "loading",
+          "options": {
+            "text": "pair.loading_devices"
+          }
+        },
+        {
+          "id": "loading_devices",
+          "template": "loading",
+          "options": {
+            "text": "pair.loading_devices"
+          }
+        },
+        {
+          "id": "device_password"
+        },
+        {
+          "id": "add_subdevices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "repair"
+        }
+      ],
+      "name": {
+        "en": "Raex MP46 Curtain Motor - LAN"
+      },
+      "class": "windowcoverings",
+      "images": {
+        "small": "/assets/drivers/raexmp46/images/small.png",
+        "large": "/assets/drivers/raexmp46/images/large.png",
+        "xlarge": "/assets/drivers/raexmp46/images/xlarge.png"
+      },
+      "id": "raexmp46_local",
+      "settings": [
+        {
+          "id": "Cover:invert_directions",
+          "type": "checkbox",
+          "label": {
+            "en": "Cover - Invert Motor Direction"
+          },
+          "value": false
+        },
+        {
+          "id": "Cover:initial_state",
+          "type": "dropdown",
+          "label": {
+            "en": "Cover - Startup State"
+          },
+          "value": "stopped",
+          "values": [
+            {
+              "id": "open",
+              "label": {
+                "en": "Fully Open"
+              }
+            },
+            {
+              "id": "closed",
+              "label": {
+                "en": "Fully Close"
+              }
+            },
+            {
+              "id": "stopped",
+              "label": {
+                "en": "Do not Change Position"
+              }
+            }
+          ]
+        },
+        {
+          "id": "Cover:maintenance_mode",
+          "type": "checkbox",
+          "label": {
+            "en": "Cover - Maintenance Mode"
+          },
+          "hint": {
+            "en": "Temporarily freeze all motions for maintenance."
+          },
+          "value": false
+        },
+        {
+          "id": "Cover:motor.gesture",
+          "type": "checkbox",
+          "label": {
+            "en": "Cover - Pull Control"
+          },
+          "hint": {
+            "en": "Whether pulling by hand initiates opening or closing"
+          }
+        },
+        {
+          "id": "Cover:motor.sw_ctrl",
+          "type": "dropdown",
+          "label": {
+            "en": "Cover - External Control"
+          },
+          "hint": {
+            "en": "In dual button mode one button opens the cover and the other closes it. Pressing the same button again stops the movement. In triple button mode there is a separate button for opening, closing and stopping. In momentary mode holding one button opens and the other closes, stopping the movement once the button is released."
+          },
+          "values": [
+            {
+              "id": "0",
+              "label": "Dual Button Reverse"
+            },
+            {
+              "id": "1",
+              "label": "Momentary Rocker Switch"
+            },
+            {
+              "id": "2",
+              "label": "Triple Button"
+            },
+            {
+              "id": "3",
+              "label": "Dual Button"
+            }
+          ]
+        },
+        {
+          "id": "Cover:motor.speed",
+          "type": "dropdown",
+          "label": {
+            "en": "Cover - Motor Speed"
+          },
+          "values": [
+            {
+              "id": "0",
+              "label": "Slow"
+            },
+            {
+              "id": "1",
+              "label": "Medium"
+            },
+            {
+              "id": "2",
+              "label": "Fast"
+            }
+          ]
+        },
+        {
+          "id": "installBleForwardingScript",
+          "type": "checkbox",
+          "label": {
+            "en": "Install BLE forwarding script"
+          },
+          "hint": {
+            "en": "If enabled, a script will be started on this device to forward BLE messages from other Shelly devices. This ensures that messages from the other BLE devices can be handled even if they are out of range of your Homey device."
+          },
+          "value": false
+        },
+        {
+          "id": "_shelly_device_info",
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            {
+              "id": "_shelly_device_id",
+              "type": "label",
+              "label": {
+                "en": "Device identifier"
+              },
+              "value": "-"
+            },
+            {
+              "id": "_shelly_ip",
+              "type": "label",
+              "label": {
+                "en": "IP address"
+              },
+              "value": "-"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
         "matter"
       ],
       "icon": "/drivers/raexmp46_matter/assets/icon.svg",
