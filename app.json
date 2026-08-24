@@ -3200,7 +3200,10 @@
       "connectivity": [
         "lan"
       ],
-      "capabilities": [],
+      "capabilities": [
+        "windowcoverings_set",
+        "windowcoverings_state"
+      ],
       "capabilitiesOptions": {
         "button.restart": {
           "maintenanceAction": true,

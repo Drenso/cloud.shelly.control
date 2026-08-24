@@ -9,5 +9,5 @@
     "large": "/assets/drivers/raexmp46/images/large.png",
     "xlarge": "/assets/drivers/raexmp46/images/xlarge.png"
   },
-  "capabilities": []
+  "capabilities": ["windowcoverings_set", "windowcoverings_state"]
 }
