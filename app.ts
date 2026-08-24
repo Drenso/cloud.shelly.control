@@ -12,7 +12,6 @@ import PresenceZone from './lib/component/components/PresenceZone.js';
 import Shelly from './lib/component/components/Shelly.js';
 import { createHttpChannel } from './lib/HomeyRPCChannels.js';
 import type ShellyLocalDevice from './lib/local/LocalDevice.js';
-import ShellyLocalDriver from './lib/local/LocalDriver.js';
 import { getIp } from './lib/LocalIp.js';
 import OutboundWsServer from './lib/rpc/OutboundWsServer.js';
 import { type SerializedVirtualDevice, VirtualDevice } from './lib/VirtualDevice.js';
@@ -183,24 +182,6 @@ export default class ShellyApp extends Homey.App {
     this.homey.settings.set(deviceSettingKey, serializedVirtualDevice);
     this.outboundWsServer.registerDevice(device.deviceId);
     await device.updateDeviceInformationSettings(serializedVirtualDevice).catch(this.error);
-  }
-
-  public getLocalDevice(id: string): ShellyLocalDevice | undefined {
-    const drivers = this.homey.drivers.getDrivers();
-    for (const driverId in drivers) {
-      const driver = drivers[driverId];
-      if (!(driver instanceof ShellyLocalDriver)) {
-        continue;
-      }
-
-      const devices = driver.getDevices() as ShellyLocalDevice[];
-      for (const device of devices) {
-        if (device.getTypedData().id === id) {
-          return device;
-        }
-      }
-    }
-    return undefined;
   }
 
   public debug(...args: unknown[]): void {

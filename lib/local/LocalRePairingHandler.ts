@@ -155,7 +155,7 @@ export class LocalRePairingHandler {
     }
 
     const homeyDeviceToAdd = homeyDevices.filter(homeyDevice => {
-      const localDevice = this.driver.app.getLocalDevice(homeyDevice.data.id);
+      const localDevice = this.driver.getLocalDevice(homeyDevice.data.id);
       this.debug('Found for', homeyDevice.data.id, localDevice?.__id);
       return localDevice === undefined;
     });

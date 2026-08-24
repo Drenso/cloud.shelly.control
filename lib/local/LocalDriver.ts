@@ -28,6 +28,15 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
     return this.homey.app as ShellyApp;
   }
 
+  public getLocalDevice(id: string): ShellyLocalDevice | undefined {
+    const devices = this.getDevices() as ShellyLocalDevice[];
+    for (const device of devices) {
+      if (device.getTypedData().id === id) {
+        return device;
+      }
+    }
+  }
+
   public async onPair(session: Homey.Driver.PairSession): Promise<void> {
     await super.onPair(session);
     await new LocalPairingHandler(

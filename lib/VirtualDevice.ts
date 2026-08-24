@@ -208,10 +208,10 @@ export class VirtualDevice {
         }
 
         // Check if any Homey devices remain
-        // TODO only look at driver devices once this.driver is guaranteed after 1.0.0
+        const driver = this.app.homey.drivers.getDrivers()[this.driver] as ShellyLocalDriver;
         const homeyDevices = [];
         for (const homeyDeviceId of this.initialHomeyDeviceIds) {
-          const homeyDevice = this.app.getLocalDevice(homeyDeviceId);
+          const homeyDevice = driver.getLocalDevice(homeyDeviceId);
           if (homeyDevice !== undefined) {
             homeyDevices.push(homeyDevice);
           }
@@ -565,15 +565,6 @@ export class VirtualDevice {
     }
     const homeyDevices: readonly ShellyLocalDevice[] = this.initialHomeyDevices;
     const oldComponents = this.initialComponents;
-
-    // TODO remove this in 1.0.0
-    // Before version 0.3.0 the Homey driver associated with the virtual device was not stored
-    if (this.driver === undefined) {
-      const homeyDevice = homeyDevices[0];
-      await homeyDevice.ready();
-      // @ts-expect-error this.driver is readonly
-      this.driver = homeyDevice.driver.id;
-    }
 
     // Mark Homey devices as initializing
     const markInitializingPromise = Promise.all(
