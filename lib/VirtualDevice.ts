@@ -104,7 +104,6 @@ export class VirtualDevice {
   private readonly initializedComponents = new Map<string, InstanceType<MappedComponent>>();
   private readonly initializedHomeyDevices = new Map<string, ShellyLocalDevice>();
 
-  // TODO remove after 1.0.0
   // This variable should only be used during initial Homey device retrieval
   private initialHomeyDeviceIds?: readonly string[];
 
