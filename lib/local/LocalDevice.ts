@@ -3,10 +3,10 @@ import type { ShellyLocalDeviceData, ShellyLocalDeviceStore } from '../types.js'
 import type ShellyApp from '../../app.js';
 import { IGNORED_NO_IMPLEMENTATION_COMPONENTS, type VirtualDevice } from '../VirtualDevice.js';
 import type { ComponentMethod, NameSpace } from '../component/components/Shelly/ListMethods.js';
-import { ComponentMapping, type MappedComponent } from '../component/ComponentMapping.js';
+import type { MappedComponent } from '../component/ComponentMapping.js';
 import type ShellyLocalDriver from './LocalDriver.js';
 import { diffArrays } from '../util.js';
-import { safeSetCapabilityValue, safeTriggerDeviceCard } from '../safeFunctions.js';
+import { safeRemoveCapability, safeSetCapabilityValue, safeTriggerDeviceCard } from '../safeFunctions.js';
 
 export default class ShellyLocalDevice extends Homey.Device {
   declare public readonly __id: string;
@@ -62,16 +62,12 @@ export default class ShellyLocalDevice extends Homey.Device {
     this.debug('Added components:', addedComponents);
 
     // Remove before adding, to avoid capability conflicts
-    for (const removedComponent of removedComponents) {
-      this.virtualComponents.delete(removedComponent);
-      const [componentName, componentIdString] = removedComponent.split(':') as [string, `${number}` | undefined];
-      const componentConstructor = ComponentMapping[componentName as never] as MappedComponent | undefined;
-      if (componentConstructor === undefined) {
-        continue;
-      }
-      const componentId = componentIdString !== undefined ? parseInt(componentIdString) : componentIdString;
-      await componentConstructor.unregisterHomeyDevice(this, componentId);
+    const oldCapabilities = this.getCapabilities();
+    for (const capability of oldCapabilities) {
+      await safeRemoveCapability(this, capability);
+      await this.setCapabilityOptions(capability, {});
     }
+
     await this.registerComponents(newComponents, methodMapping);
     await this.setTypedStoreValue('components', newComponents);
 
@@ -99,7 +95,13 @@ export default class ShellyLocalDevice extends Homey.Device {
     if (removedComponent === undefined) {
       return;
     }
-    await removedComponent.unregisterHomeyDevice(this);
+
+    const oldCapabilities = this.getCapabilities();
+    for (const capability of oldCapabilities) {
+      await safeRemoveCapability(this, capability);
+      await this.setCapabilityOptions(capability, {});
+    }
+
     this.virtualComponents.delete(componentId);
     this.componentCounts.set(
       removedComponent.namespace,
@@ -108,6 +110,7 @@ export default class ShellyLocalDevice extends Homey.Device {
 
     // Re-register so multi-component capabilities are fixed
     for (const virtualComponent of this.virtualComponents.values()) {
+      await virtualComponent.unregisterHomeyDevice(this);
       await virtualComponent.registerHomeyDevice(this, (methodMapping[virtualComponent.namespace] ?? []) as never);
       await virtualComponent.setInitialValues(this);
     }

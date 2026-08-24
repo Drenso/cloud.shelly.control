@@ -124,14 +124,6 @@ export default class Enum extends ComponentWithId<'Enum', EnumStatus, EnumConfig
     });
   }
 
-  protected async staticallyUnregisterHomeyDevice(
-    this: never,
-    homeyDevice: ShellyLocalDevice,
-    id: number,
-  ): Promise<void> {
-    await Enum.unregisterCapability(homeyDevice, 'virtual_enum', id);
-  }
-
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Partial<EnumStatus>): Promise<void> {
     if (status.value !== undefined) {
       await this.setCapability(homeyDevice, 'virtual_enum', status.value);

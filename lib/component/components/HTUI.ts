@@ -33,8 +33,6 @@ export default class HTUI extends ComponentWithoutId<'HT_UI', HTUIStatus, HTUICo
     _methods: ComponentMethod<'HT_UI'>[],
   ): Promise<void> {}
 
-  protected async staticallyUnregisterHomeyDevice(this: never, _homeyDevice: ShellyLocalDevice): Promise<void> {}
-
   public async onStatusUpdate(_homeyDevice: ShellyLocalDevice, _status: HTUIStatus): Promise<void> {}
 
   public async onConfigUpdate(homeyDevice: ShellyLocalDevice, config: HTUIConfig): Promise<void> {

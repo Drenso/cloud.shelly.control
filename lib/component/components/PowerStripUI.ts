@@ -110,8 +110,6 @@ export default class PowerStripUI extends ComponentWithoutId<
     _methods: ComponentMethod<'POWERSTRIP_UI'>[],
   ): Promise<void> {}
 
-  protected async staticallyUnregisterHomeyDevice(this: never, _homeyDevice: ShellyLocalDevice): Promise<void> {}
-
   public async onStatusUpdate(_homeyDevice: ShellyLocalDevice, _status: PowerStripUIStatus): Promise<void> {}
 
   public async onConfigUpdate(homeyDevice: ShellyLocalDevice, config: PowerStripUIConfig): Promise<void> {

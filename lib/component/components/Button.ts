@@ -100,17 +100,8 @@ export default class Button extends ComponentWithId<'Button', ButtonStatus, Butt
     });
   }
 
-  public async unregisterHomeyDevice(homeyDevice: ShellyLocalDevice): Promise<void> {
+  public async unregisterHomeyDevice(_homeyDevice: ShellyLocalDevice): Promise<void> {
     this.buttonMitt.all.clear();
-    await this.staticallyUnregisterHomeyDevice.call(undefined as never, homeyDevice, this.id);
-  }
-
-  protected async staticallyUnregisterHomeyDevice(
-    this: never,
-    homeyDevice: ShellyLocalDevice,
-    id: number,
-  ): Promise<void> {
-    await Button.unregisterCapability(homeyDevice, 'virtual_button', id);
   }
 
   public async handleEvent(event: NotificationEventParam): Promise<void> {

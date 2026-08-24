@@ -63,12 +63,6 @@ export default class Object extends ComponentWithId<'Object', ObjectStatus, Obje
     _methods: ComponentMethod<'Object'>[],
   ): Promise<void> {}
 
-  protected async staticallyUnregisterHomeyDevice(
-    this: never,
-    _homeyDevice: ShellyLocalDevice,
-    _id: number,
-  ): Promise<void> {}
-
   public async onStatusUpdate(_homeyDevice: ShellyLocalDevice, _status: Partial<ObjectStatus>): Promise<void> {}
 
   public async onConfigUpdate(_homeyDevice: ShellyLocalDevice, _config: ObjectConfig): Promise<void> {}

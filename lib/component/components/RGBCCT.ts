@@ -225,8 +225,6 @@ export default class RGBCCT extends ComponentWithId<'RGBCCT', RGBCCTStatus, RGBC
       if (this.status[statusKey] !== undefined) {
         const capabilityOptions = capabilitiesOptions[homeyCapability as never];
         await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions, capabilityListener);
-      } else {
-        await RGBCCT.unregisterCapability(homeyDevice, homeyCapability, this.id);
       }
     }
 
@@ -248,28 +246,6 @@ export default class RGBCCT extends ComponentWithId<'RGBCCT', RGBCCTStatus, RGBC
           rgb: convert.hsv.rgb(values.light_hue * 360, values.light_saturation * 100, 100),
         });
       });
-    } else {
-      await RGBCCT.unregisterCapability(homeyDevice, 'light_hue', this.id);
-      await RGBCCT.unregisterCapability(homeyDevice, 'light_saturation', this.id);
-    }
-  }
-
-  protected async staticallyUnregisterHomeyDevice(
-    this: never,
-    homeyDevice: ShellyLocalDevice,
-    id: number,
-  ): Promise<void> {
-    for (const capability of [
-      'onoff',
-      'dim',
-      'light_mode',
-      'light_temperature',
-      'light_hue',
-      'light_saturation',
-      'meter_power',
-      'measure_power',
-    ]) {
-      await RGBCCT.unregisterCapability(homeyDevice, capability, id);
     }
   }
 

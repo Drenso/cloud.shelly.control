@@ -116,20 +116,10 @@ export default class Voltmeter extends ComponentWithId<
     if (this.status.voltage !== undefined) {
       const homeyCapability = 'measure_voltage';
       await this.registerCapability(homeyDevice, homeyCapability, capabilitiesOptions[homeyCapability as never]);
-    } else {
-      await Voltmeter.unregisterCapability(homeyDevice, 'measure_voltage', this.id);
     }
 
     await safeAddCapability(homeyDevice, 'alarm_generic');
     await safeAddCapability(homeyDevice, 'shelly_errors');
-  }
-
-  protected async staticallyUnregisterHomeyDevice(
-    this: never,
-    homeyDevice: ShellyLocalDevice,
-    id: number,
-  ): Promise<void> {
-    await Voltmeter.unregisterCapability(homeyDevice, 'measure_voltage', id);
   }
 
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Partial<VoltmeterStatus>): Promise<void> {

@@ -85,23 +85,11 @@ export default class Illuminance extends ComponentWithId<
       if (this.status[statusKey] !== undefined) {
         const capabilityOptions = capabilitiesOptions[homeyCapability as never];
         await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions);
-      } else {
-        await Illuminance.unregisterCapability(homeyDevice, homeyCapability, this.id);
       }
     }
 
     await safeAddCapability(homeyDevice, 'alarm_generic');
     await safeAddCapability(homeyDevice, 'shelly_errors');
-  }
-
-  protected async staticallyUnregisterHomeyDevice(
-    this: never,
-    homeyDevice: ShellyLocalDevice,
-    id: number,
-  ): Promise<void> {
-    for (const capability of ['measure_luminance', 'shelly_illumination']) {
-      await Illuminance.unregisterCapability(homeyDevice, capability, id);
-    }
   }
 
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: IlluminanceStatus): Promise<void> {

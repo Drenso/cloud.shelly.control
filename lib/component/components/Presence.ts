@@ -1,6 +1,6 @@
 import type ShellyLocalDevice from '../../local/LocalDevice.js';
 import type { NotificationEventParam } from '../../rpc/Rpc.js';
-import { safeAddCapability, safeRemoveCapability } from '../../safeFunctions.js';
+import { safeAddCapability } from '../../safeFunctions.js';
 import { type AllowedPrimitives, ComponentWithoutId } from '../Component.js';
 import SetConfig from './Presence/SetConfig.js';
 import GetConfig from './Presence/GetConfig.js';
@@ -259,15 +259,7 @@ export default class Presence extends ComponentWithoutId<
       homeyDevice.registerCapabilityListener('button.calibrate_presence_tilt', async () => {
         await this.TiltCalibrate(this.device.getChannel());
       });
-    } else {
-      await safeRemoveCapability(homeyDevice, 'button.calibrate_presence_tilt');
-      await homeyDevice.setCapabilityOptions('button.calibrate_presence_tilt', {});
     }
-  }
-
-  protected async staticallyUnregisterHomeyDevice(this: never, homeyDevice: ShellyLocalDevice): Promise<void> {
-    await safeRemoveCapability(homeyDevice, 'button.calibrate_presence_tilt');
-    await homeyDevice.setCapabilityOptions('button.calibrate_presence_tilt', {});
   }
 
   public async onStatusUpdate(_homeyDevice: ShellyLocalDevice, _status: PresenceStatus): Promise<void> {

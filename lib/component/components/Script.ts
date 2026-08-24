@@ -123,12 +123,6 @@ export default class Script extends ComponentWithId<'Script', ScriptStatus, Scri
     await safeAddCapability(homeyDevice, 'shelly_errors');
   }
 
-  protected async staticallyUnregisterHomeyDevice(
-    this: never,
-    _homeyDevice: ShellyLocalDevice,
-    _id: number,
-  ): Promise<void> {}
-
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: ScriptStatus): Promise<void> {
     await homeyDevice.updateErrors(this.getComponentKey(), status.errors ?? []);
   }

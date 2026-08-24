@@ -636,13 +636,8 @@ export default class Cover extends ComponentWithId<'Cover', CoverStatus, CoverCo
         if (this.status[statusKey] !== undefined) {
           const capabilityOptions = capabilitiesOptions[homeyCapability as never];
           await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions, capabilityListener);
-        } else {
-          await Cover.unregisterCapability(homeyDevice, homeyCapability, this.id);
         }
       }
-    } else {
-      await Cover.unregisterCapability(homeyDevice, 'windowcoverings_set', this.id);
-      await Cover.unregisterCapability(homeyDevice, 'windowcoverings_tilt_set', this.id);
     }
 
     for (const [statusKey, homeyCapability, capabilityListener] of [
@@ -658,8 +653,6 @@ export default class Cover extends ComponentWithId<'Cover', CoverStatus, CoverCo
       if (this.status[statusKey] !== undefined) {
         const capabilityOptions = capabilitiesOptions[homeyCapability as never];
         await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions, capabilityListener);
-      } else {
-        await Cover.unregisterCapability(homeyDevice, homeyCapability, this.id);
       }
     }
 
@@ -681,28 +674,6 @@ export default class Cover extends ComponentWithId<'Cover', CoverStatus, CoverCo
         capabilityOptions,
         startCalibrationCapabilityListener,
       );
-    }
-  }
-
-  protected async staticallyUnregisterHomeyDevice(
-    this: never,
-    homeyDevice: ShellyLocalDevice,
-    id: number,
-  ): Promise<void> {
-    for (const capability of [
-      'windowcoverings_state',
-      'windowcoverings_set',
-      'windowcoverings_tilt_set',
-      'measure_power',
-      'measure_voltage',
-      'measure_current',
-      'measure_frequency',
-      'shelly_power_factor',
-      'meter_power',
-      'measure_temperature.cover',
-      'button.reset_energy_counters',
-    ]) {
-      await Cover.unregisterCapability(homeyDevice, capability, id);
     }
   }
 

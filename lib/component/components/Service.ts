@@ -192,12 +192,6 @@ export default class Service extends ComponentWithId<'Service', ServiceStatus, S
     await safeAddCapability(homeyDevice, 'shelly_flags');
   }
 
-  protected async staticallyUnregisterHomeyDevice(
-    this: never,
-    _homeyDevice: ShellyLocalDevice,
-    _id: number,
-  ): Promise<void> {}
-
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Partial<ServiceStatus>): Promise<void> {
     await homeyDevice.updateErrors(this.getComponentKey(), status.errors ?? []);
 

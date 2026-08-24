@@ -80,20 +80,10 @@ export default class Humidity extends ComponentWithId<
     if (this.status.rh !== undefined) {
       const homeyCapability = 'measure_humidity';
       await this.registerCapability(homeyDevice, homeyCapability, capabilitiesOptions[homeyCapability as never]);
-    } else {
-      await Humidity.unregisterCapability(homeyDevice, 'measure_humidity', this.id);
     }
 
     await safeAddCapability(homeyDevice, 'alarm_generic');
     await safeAddCapability(homeyDevice, 'shelly_errors');
-  }
-
-  protected async staticallyUnregisterHomeyDevice(
-    this: never,
-    homeyDevice: ShellyLocalDevice,
-    id: number,
-  ): Promise<void> {
-    await Humidity.unregisterCapability(homeyDevice, 'measure_humidity', id);
   }
 
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Partial<HumidityStatus>): Promise<void> {

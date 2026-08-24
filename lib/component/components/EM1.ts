@@ -83,28 +83,10 @@ export default class EM1 extends ComponentWithId<'EM1', EM1Status, EM1Config, EM
     ] as const) {
       if (this.status[statusKey] !== undefined) {
         await this.registerCapability(homeyDevice, homeyCapability, capabilitiesOptions[homeyCapability as never]);
-      } else {
-        await EM1.unregisterCapability(homeyDevice, homeyCapability, this.id);
       }
 
       await safeAddCapability(homeyDevice, 'alarm_generic');
       await safeAddCapability(homeyDevice, 'shelly_errors');
-    }
-  }
-
-  protected async staticallyUnregisterHomeyDevice(
-    this: never,
-    homeyDevice: ShellyLocalDevice,
-    id: number,
-  ): Promise<void> {
-    for (const capability of [
-      'measure_current',
-      'measure_voltage',
-      'measure_power',
-      'measure_frequency',
-      'shelly_power_factor',
-    ]) {
-      await EM1.unregisterCapability(homeyDevice, capability, id);
     }
   }
 

@@ -359,8 +359,6 @@ export default class Light extends ComponentWithId<'Light', LightStatus, LightCo
       if (this.status[statusKey] !== undefined) {
         const capabilityOptions = capabilitiesOptions[homeyCapability as never];
         await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions, capabilityListener);
-      } else {
-        await Light.unregisterCapability(homeyDevice, homeyCapability, this.id);
       }
     }
 
@@ -374,29 +372,7 @@ export default class Light extends ComponentWithId<'Light', LightStatus, LightCo
       if (methods.includes(method)) {
         const capabilityOptions = capabilitiesOptions[homeyCapability];
         await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions, capabilityListener);
-      } else {
-        await Light.unregisterCapability(homeyDevice, homeyCapability, this.id);
       }
-    }
-  }
-
-  protected async staticallyUnregisterHomeyDevice(
-    this: never,
-    homeyDevice: ShellyLocalDevice,
-    id: number,
-  ): Promise<void> {
-    for (const capability of [
-      'onoff',
-      'dim',
-      'measure_temperature',
-      'meter_power',
-      'measure_power',
-      'measure_voltage',
-      'measure_current',
-      'button.reset_energy_counters',
-      'button.calibrate',
-    ]) {
-      await Light.unregisterCapability(homeyDevice, capability, id);
     }
   }
 

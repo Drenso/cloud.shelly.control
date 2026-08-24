@@ -251,31 +251,11 @@ export default class CCT extends ComponentWithId<'CCT', CCTStatus, CCTConfig, CC
       if (this.status[statusKey] !== undefined) {
         const capabilityOptions = capabilitiesOptions[homeyCapability as never];
         await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions, capabilityListener);
-      } else {
-        await CCT.unregisterCapability(homeyDevice, homeyCapability, this.id);
       }
     }
 
     await safeAddCapability(homeyDevice, 'alarm_generic');
     await safeAddCapability(homeyDevice, 'shelly_errors');
-  }
-
-  protected async staticallyUnregisterHomeyDevice(
-    this: never,
-    homeyDevice: ShellyLocalDevice,
-    id: number,
-  ): Promise<void> {
-    for (const capability of [
-      'onoff',
-      'dim',
-      'light_temperature',
-      'meter_power',
-      'measure_power',
-      'measure_voltage',
-      'measure_current',
-    ]) {
-      await CCT.unregisterCapability(homeyDevice, capability, id);
-    }
   }
 
   public async onStatusUpdate(

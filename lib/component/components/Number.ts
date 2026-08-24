@@ -106,14 +106,6 @@ export default class Number extends ComponentWithId<'Number', NumberStatus, Numb
     });
   }
 
-  protected async staticallyUnregisterHomeyDevice(
-    this: never,
-    homeyDevice: ShellyLocalDevice,
-    id: number,
-  ): Promise<void> {
-    await Number.unregisterCapability(homeyDevice, 'virtual_number', id);
-  }
-
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Partial<NumberStatus>): Promise<void> {
     if (status.value !== undefined) {
       await this.setCapability(homeyDevice, 'virtual_number', status.value);

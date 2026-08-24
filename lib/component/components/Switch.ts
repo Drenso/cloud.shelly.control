@@ -214,10 +214,6 @@ export default class Switch extends ComponentWithId<'Switch', SwitchStatus, Swit
     homeyDevice: ShellyLocalDevice,
     methods: ComponentMethod<'Switch'>[],
   ): Promise<void> {
-    // todo: remove with 1.0. Migration to remove old consumed/returned capabilities
-    await Switch.unregisterCapability(homeyDevice, 'meter_power.consumed', this.id);
-    await Switch.unregisterCapability(homeyDevice, 'meter_power.returned', this.id);
-
     const onOffCapabilityListener = async (value: boolean): Promise<void> => {
       await this.Set(this.device.getChannel(), { on: value });
     };
@@ -238,8 +234,6 @@ export default class Switch extends ComponentWithId<'Switch', SwitchStatus, Swit
       if (this.status[statusKey] !== undefined) {
         const capabilityOptions = capabilitiesOptions[homeyCapability as never];
         await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions, capabilityListener);
-      } else {
-        await Switch.unregisterCapability(homeyDevice, homeyCapability, this.id);
       }
     }
 
@@ -267,30 +261,6 @@ export default class Switch extends ComponentWithId<'Switch', SwitchStatus, Swit
           await this.ResetCounters(this.device.getChannel());
         },
       );
-    } else {
-      await Switch.unregisterCapability(homeyDevice, 'button.reset_energy_counters', this.id);
-    }
-  }
-
-  protected async staticallyUnregisterHomeyDevice(
-    this: never,
-    homeyDevice: ShellyLocalDevice,
-    id: number,
-  ): Promise<void> {
-    for (const capability of [
-      'onoff',
-      'measure_power',
-      'measure_voltage',
-      'measure_current',
-      'measure_frequency',
-      'shelly_power_factor',
-      'meter_power.total',
-      'measure_temperature',
-      'meter_power.imported',
-      'meter_power.exported',
-      'button.reset_energy_counters',
-    ]) {
-      await Switch.unregisterCapability(homeyDevice, capability, id);
     }
   }
 

@@ -124,14 +124,6 @@ export default class Boolean extends ComponentWithId<'Boolean', BooleanStatus, B
     });
   }
 
-  protected async staticallyUnregisterHomeyDevice(
-    this: never,
-    homeyDevice: ShellyLocalDevice,
-    id: number,
-  ): Promise<void> {
-    await Boolean.unregisterCapability(homeyDevice, 'virtual_boolean', id);
-  }
-
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Partial<BooleanStatus>): Promise<void> {
     if (status.value !== undefined) {
       await this.setCapability(homeyDevice, 'virtual_boolean', status.value);

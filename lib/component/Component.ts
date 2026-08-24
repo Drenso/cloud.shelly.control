@@ -69,19 +69,7 @@ export abstract class Component<
     await this.onStatusUpdate(homeyDevice, status);
   }
 
-  public static async unregisterHomeyDevice(homeyDevice: ShellyLocalDevice, id?: number): Promise<void> {
-    // @ts-expect-error We are using this hack to make a static abstract method, so the 'this' context won't match
-    await this.prototype.staticallyUnregisterHomeyDevice(homeyDevice, id);
-  }
-
-  public abstract unregisterHomeyDevice(homeyDevice: ShellyLocalDevice): Promise<void>;
-
-  // This method should only be called statically, so no 'this'
-  protected abstract staticallyUnregisterHomeyDevice(
-    this: never,
-    homeyDevice: ShellyLocalDevice,
-    id: number | undefined,
-  ): Promise<void>;
+  public async unregisterHomeyDevice(_homeyDevice: ShellyLocalDevice): Promise<void> {}
 
   public abstract onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Status): Promise<void>;
 
@@ -115,13 +103,6 @@ export abstract class ComponentWithoutId<
   protected abstract _GetConfig(channel: RpcChannel): Promise<ResponseSuccessFrame<Config>>;
 
   protected abstract _GetStatus(channel: RpcChannel): Promise<ResponseSuccessFrame<Status>>;
-
-  public async unregisterHomeyDevice(homeyDevice: ShellyLocalDevice): Promise<void> {
-    await this.staticallyUnregisterHomeyDevice.call(undefined as never, homeyDevice);
-  }
-
-  // This method should only be called statically, so no 'this'
-  protected abstract staticallyUnregisterHomeyDevice(this: never, _homeyDevice: ShellyLocalDevice): Promise<void>;
 
   public async SetConfig(
     channel: RpcChannel,
@@ -169,17 +150,6 @@ export abstract class ComponentWithId<
     return this.config.id;
   }
 
-  public async unregisterHomeyDevice(homeyDevice: ShellyLocalDevice): Promise<void> {
-    await this.staticallyUnregisterHomeyDevice.call(undefined as never, homeyDevice, this.id);
-  }
-
-  // This method should only be called statically, so no 'this'
-  protected abstract staticallyUnregisterHomeyDevice(
-    this: never,
-    _homeyDevice: ShellyLocalDevice,
-    _id: number,
-  ): Promise<void>;
-
   public async SetConfig(
     channel: RpcChannel,
     params: ComponentSetConfigParams<Config>,
@@ -226,17 +196,6 @@ export abstract class ComponentWithId<
     }) as JsonObject;
     await homeyDevice.setCapabilityOptions(capabilityId, capabilityOptions);
     return capabilityId;
-  }
-
-  public static async unregisterCapability(
-    homeyDevice: ShellyLocalDevice,
-    homeyCapability: string,
-    id: number,
-  ): Promise<void> {
-    const multipleCapabilityId = `${homeyCapability}.${id}`;
-    await safeRemoveCapability(homeyDevice, homeyCapability);
-    await safeRemoveCapability(homeyDevice, multipleCapabilityId);
-    await homeyDevice.setCapabilityOptions(homeyCapability, {}).catch(homeyDevice.error);
   }
 
   protected getCapabilityId(homeyDevice: ShellyLocalDevice, homeyCapability: string): string {

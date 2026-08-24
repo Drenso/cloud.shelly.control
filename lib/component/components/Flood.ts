@@ -66,20 +66,10 @@ export default class Flood extends ComponentWithId<'Flood', FloodStatus, FloodCo
       const homeyCapability = 'alarm_water';
       const capabilityOptions = capabilitiesOptions[homeyCapability as never];
       await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions);
-    } else {
-      await Flood.unregisterCapability(homeyDevice, 'alarm_water', this.id);
     }
 
     await safeAddCapability(homeyDevice, 'alarm_generic');
     await safeAddCapability(homeyDevice, 'shelly_errors');
-  }
-
-  protected async staticallyUnregisterHomeyDevice(
-    this: never,
-    homeyDevice: ShellyLocalDevice,
-    id: number,
-  ): Promise<void> {
-    await Flood.unregisterCapability(homeyDevice, 'alarm_water', id);
   }
 
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: FloodStatus): Promise<void> {

@@ -1,7 +1,7 @@
 import type ShellyApp from '../../../app.js';
 import type ShellyLocalDevice from '../../local/LocalDevice.js';
 import type { NotificationEventParam } from '../../rpc/Rpc.js';
-import { safeAddCapability, safeRemoveCapability, safeTriggerDeviceCard } from '../../safeFunctions.js';
+import { safeAddCapability, safeTriggerDeviceCard } from '../../safeFunctions.js';
 import { createMitt, translate } from '../../util.js';
 import { ComponentWithId } from '../Component.js';
 import type { IlluminanceStatus } from './Illuminance.js';
@@ -104,10 +104,6 @@ export default class PresenceZone extends ComponentWithId<
     homeyDevice: ShellyLocalDevice,
     _methods: Array<ComponentMethod<'PresenceZone'>>,
   ): Promise<void> {
-    // TODO remove in 1.0.0
-    // Migration to remove old capability
-    await safeRemoveCapability(homeyDevice, 'hidden.has_presence_sensor_multiple');
-
     for (const [statusKey, homeyCapability] of [
       ['value', 'alarm_presence'],
       ['num_objects', 'shelly_presence_count'],
@@ -115,8 +111,6 @@ export default class PresenceZone extends ComponentWithId<
       if (this.status[statusKey] !== undefined) {
         const capabilityOptions = capabilitiesOptions[homeyCapability];
         await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions);
-      } else {
-        await PresenceZone.unregisterCapability(homeyDevice, homeyCapability, this.id);
       }
     }
 
@@ -139,23 +133,8 @@ export default class PresenceZone extends ComponentWithId<
     });
   }
 
-  public async unregisterHomeyDevice(homeyDevice: ShellyLocalDevice): Promise<void> {
+  public async unregisterHomeyDevice(_homeyDevice: ShellyLocalDevice): Promise<void> {
     this.presenceMitt.all.clear();
-    await this.staticallyUnregisterHomeyDevice.call(undefined as never, homeyDevice, this.id);
-  }
-
-  protected async staticallyUnregisterHomeyDevice(
-    this: never,
-    homeyDevice: ShellyLocalDevice,
-    id: number,
-  ): Promise<void> {
-    await PresenceZone.unregisterCapability(homeyDevice, 'alarm_presence', id);
-    await PresenceZone.unregisterCapability(homeyDevice, 'shelly_presence_count', id);
-    await safeRemoveCapability(homeyDevice, 'hidden.has_presence_sensor');
-
-    // TODO remove in 1.0.0
-    // Migration to remove old capability
-    await safeRemoveCapability(homeyDevice, 'hidden.has_presence_sensor_multiple');
   }
 
   public static registerFlowCards(app: ShellyApp): void {

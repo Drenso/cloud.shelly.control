@@ -265,8 +265,6 @@ export default class System extends ComponentWithoutId<'Sys', SystemStatus, Syst
     _methods: ComponentMethod<'Sys'>[],
   ): Promise<void> {}
 
-  protected async staticallyUnregisterHomeyDevice(this: never, _homeyDevice: ShellyLocalDevice): Promise<void> {}
-
   public async onStatusUpdate(_homeyDevice: ShellyLocalDevice, _status: Partial<SystemStatus>): Promise<void> {}
 
   public async onConfigUpdate(_homeyDevice: ShellyLocalDevice, _config: SystemConfig): Promise<void> {}

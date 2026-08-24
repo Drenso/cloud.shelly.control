@@ -112,8 +112,6 @@ export default class PM1 extends ComponentWithId<'PM1', PM1Status, PM1Config, PM
       if (this.status[statusKey] !== undefined) {
         const capabilityOptions = capabilitiesOptions[homeyCapability as never];
         await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions);
-      } else {
-        await PM1.unregisterCapability(homeyDevice, homeyCapability, this.id);
       }
     }
 
@@ -141,28 +139,6 @@ export default class PM1 extends ComponentWithId<'PM1', PM1Status, PM1Config, PM
           await this.ResetCounters(this.device.getChannel());
         },
       );
-    } else {
-      await PM1.unregisterCapability(homeyDevice, 'button.reset_energy_counters', this.id);
-    }
-  }
-
-  protected async staticallyUnregisterHomeyDevice(
-    this: never,
-    homeyDevice: ShellyLocalDevice,
-    id: number,
-  ): Promise<void> {
-    for (const capability of [
-      'measure_power',
-      'measure_voltage',
-      'measure_current',
-      'measure_frequency',
-      'shelly_power_factor',
-      'meter_power.total',
-      'meter_power.imported',
-      'meter_power.exported',
-      'button.reset_energy_counters',
-    ]) {
-      await PM1.unregisterCapability(homeyDevice, capability, id);
     }
   }
 

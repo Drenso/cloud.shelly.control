@@ -1,9 +1,4 @@
-import {
-  safeAddCapability,
-  safeRemoveCapability,
-  safeSetCapabilityValue,
-  safeTriggerDeviceCard,
-} from '../../safeFunctions.js';
+import { safeAddCapability, safeSetCapabilityValue, safeTriggerDeviceCard } from '../../safeFunctions.js';
 import { type AllowedPrimitives, ComponentWithId } from '../Component.js';
 import type ShellyLocalDevice from '../../local/LocalDevice.js';
 import type { ComponentMethod } from './Shelly/ListMethods.js';
@@ -363,27 +358,11 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
   ): Promise<void> {
     const inputTypeComponents = Input.getInputTypes(homeyDevice.virtualDevice!);
 
-    // Migrations to remove old sub-capabilities
-    // todo: Remove in 1.0
-    {
-      for (const capability of [
-        'sensor_boolean.input_switch',
-        'sensor_number.input_analog',
-        'sensor_number.input_count',
-      ]) {
-        await safeRemoveCapability(homeyDevice, `${capability}.${this.id}`);
-      }
-
-      for (const inputType of ['switch', 'button', 'analog', 'count'] as const) {
-        await safeRemoveCapability(homeyDevice, `hidden.has_input_multiple_${inputType}`);
-      }
-
-      await safeAddCapability(homeyDevice, 'alarm_generic');
-      await safeAddCapability(homeyDevice, 'shelly_errors');
-    }
+    await safeAddCapability(homeyDevice, 'alarm_generic');
+    await safeAddCapability(homeyDevice, 'shelly_errors');
 
     // Go through all types so capabilities for types that are no longer used also get cleaned up.
-    // On subsequent Input components this does not cost much due to the hasCapability checks in safeAddCapability and safeRemoveCapability.
+    // On subsequent Input components this does not cost much due to the hasCapability checks in safeAddCapability
     for (const inputType of ['switch', 'button', 'analog', 'count'] as const) {
       const components = inputTypeComponents[inputType] ?? [];
       const homeyDeviceInputComponents = components.filter(component =>
@@ -391,10 +370,6 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
       );
 
       if (homeyDeviceInputComponents.length === 0) {
-        await safeRemoveCapability(homeyDevice, `hidden.has_input_${inputType}`);
-        const capabilityId = `${CAPABILITY_MAPPING[inputType]}.${this.id}`;
-        await safeRemoveCapability(homeyDevice, capabilityId);
-        await homeyDevice.setCapabilityOptions(capabilityId, {});
         continue;
       }
 
@@ -413,39 +388,8 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
     });
   }
 
-  public async unregisterHomeyDevice(homeyDevice: ShellyLocalDevice): Promise<void> {
+  public async unregisterHomeyDevice(_homeyDevice: ShellyLocalDevice): Promise<void> {
     this.buttonMitt.all.clear();
-    await this.staticallyUnregisterHomeyDevice.call(undefined as never, homeyDevice, this.id);
-  }
-
-  protected async staticallyUnregisterHomeyDevice(
-    this: never,
-    homeyDevice: ShellyLocalDevice,
-    id: number,
-  ): Promise<void> {
-    for (const type of ['switch', 'button', 'analog', 'count'] as const) {
-      await safeRemoveCapability(homeyDevice, `hidden.has_input_${type}`);
-
-      const capabilityId = `${CAPABILITY_MAPPING[type]}.${id}`;
-      await safeRemoveCapability(homeyDevice, capabilityId);
-      await homeyDevice.setCapabilityOptions(capabilityId, {});
-    }
-
-    // Migrations to remove old sub-capabilities
-    // todo: Remove in 1.0
-    {
-      for (const capability of [
-        'sensor_boolean.input_switch',
-        'sensor_number.input_analog',
-        'sensor_number.input_count',
-      ]) {
-        await safeRemoveCapability(homeyDevice, `${capability}.${id}`);
-      }
-
-      for (const inputType of ['switch', 'button', 'analog', 'count'] as const) {
-        await safeRemoveCapability(homeyDevice, `hidden.has_input_multiple_${inputType}`);
-      }
-    }
   }
 
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Partial<InputStatus>): Promise<void> {
