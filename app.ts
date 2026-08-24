@@ -22,11 +22,6 @@ import Switch from './lib/component/components/Switch.js';
 import Light from './lib/component/components/Light.js';
 import Cover from './lib/component/components/Cover.js';
 
-// TODO remove in 1.0.0
-process.on('uncaughtException', (error, origin) => {
-  console.error('Uncaught exception:', error, '\nfrom', origin);
-});
-
 sourceMapSupport.install();
 
 const VIRTUAL_DEVICE_IDS_SETTING_KEY = 'virtual_device_ids';
