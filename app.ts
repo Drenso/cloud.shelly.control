@@ -112,16 +112,13 @@ export default class ShellyApp extends Homey.App {
         this,
         deviceId,
         ipAddress,
-        // TODO remove this migration in 1.0.0
-        batteryDevice ?? false,
+        batteryDevice,
         components,
         driver,
         homeyDeviceIds as string[],
-        // TODO remove this migration in 1.0.0
-        useHttps ?? false,
-        // TODO remove this migration in 1.0.0
-        ha1 ?? null,
-        bleForwardScriptId ?? null,
+        useHttps,
+        ha1,
+        bleForwardScriptId,
       );
       this.virtualDevices.set(virtualDeviceId, virtualDevice);
       this.expectedHomeyDeviceIds.push(...homeyDeviceIds);
