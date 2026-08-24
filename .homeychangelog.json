@@ -61,5 +61,8 @@
   },
   "0.13.0": {
     "en": "Add LAN support for H&T Gen3, Plug PM Gen3, Plug S Gen3, PM Mini Gen3 & Pro EM-50. Add Matter definitions for H&T Gen3, Plug PM Gen3 & Plug S Gen3. Fixed inconsistent naming."
+  },
+  "0.14.0": {
+    "en": "Add LAN support for Neo Smart Water Valve & Raex MP46 Curtain Motor. Add Matter definitions for Raex MP46 Curtain Motor. Fix input capabilities. Improve socket aliveness validation. Improve battery device support."
   }
 }
