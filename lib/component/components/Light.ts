@@ -350,7 +350,7 @@ export default class Light extends ComponentWithId<'Light', LightStatus, LightCo
     for (const [statusKey, homeyCapability, capabilityListener] of [
       ['output', 'onoff', onOffCapabilityListener],
       ['brightness', 'dim', dimCapabilityListener],
-      ['temperature', 'measure_temperature'],
+      ['temperature', 'measure_temperature.light'],
       ['aenergy', 'meter_power'],
       ['apower', 'measure_power'],
       ['voltage', 'measure_voltage'],
@@ -398,7 +398,7 @@ export default class Light extends ComponentWithId<'Light', LightStatus, LightCo
 
     const temperature = status.temperature?.tC;
     if (temperature !== undefined) {
-      await safeSetCapabilityValue(homeyDevice, 'measure_temperature', temperature);
+      await safeSetCapabilityValue(homeyDevice, 'measure_temperature.light', temperature);
       if (temperature !== null) {
         await safeTriggerDeviceCard(
           homeyDevice,
@@ -550,7 +550,7 @@ export default class Light extends ComponentWithId<'Light', LightStatus, LightCo
   public getAutocompleteTitle(device: ShellyLocalDevice, capability: string): string {
     const name = this.config.name !== null ? this.config.name : `${this.id}`;
     if (capability === 'measure_temperature') {
-      return translate(device.homey.__('locale'), capabilitiesOptions['measure_temperature'].title, {
+      return translate(device.homey.__('locale'), capabilitiesOptions['measure_temperature.light'].title, {
         name: name,
       });
     }

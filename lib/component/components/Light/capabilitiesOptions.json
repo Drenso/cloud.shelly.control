@@ -17,7 +17,7 @@
     },
     "maintenanceAction": true
   },
-  "measure_temperature": {
+  "measure_temperature.light": {
     "title": {
       "en": "Light __name__ Temperature"
     }

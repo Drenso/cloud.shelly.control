@@ -26,7 +26,7 @@
     },
     "maintenanceAction": true
   },
-  "measure_temperature": {
+  "measure_temperature.switch": {
     "title": {
       "en": "Switch __name__ Temperature"
     }

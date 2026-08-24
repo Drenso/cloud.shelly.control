@@ -229,7 +229,7 @@ export default class Switch extends ComponentWithId<'Switch', SwitchStatus, Swit
       ['aenergy', 'meter_power.total'],
       ['aenergy', 'meter_power.imported'],
       ['ret_aenergy', 'meter_power.exported'],
-      ['temperature', 'measure_temperature'],
+      ['temperature', 'measure_temperature.switch'],
     ] as const) {
       if (this.status[statusKey] !== undefined) {
         const capabilityOptions = capabilitiesOptions[homeyCapability as never];
@@ -296,7 +296,7 @@ export default class Switch extends ComponentWithId<'Switch', SwitchStatus, Swit
 
     const temperature = status.temperature?.tC;
     if (temperature !== undefined) {
-      await safeSetCapabilityValue(homeyDevice, 'measure_temperature', temperature);
+      await safeSetCapabilityValue(homeyDevice, 'measure_temperature.switch', temperature);
       if (temperature !== null) {
         await safeTriggerDeviceCard(
           homeyDevice,
@@ -353,7 +353,7 @@ export default class Switch extends ComponentWithId<'Switch', SwitchStatus, Swit
   public getAutocompleteTitle(device: ShellyLocalDevice, capability: string): string {
     const name = this.config.name !== null ? this.config.name : `${this.id}`;
     if (capability === 'measure_temperature') {
-      return translate(device.homey.__('locale'), capabilitiesOptions['measure_temperature'].title, {
+      return translate(device.homey.__('locale'), capabilitiesOptions['measure_temperature.switch'].title, {
         name: name,
       });
     }
