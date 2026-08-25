@@ -72,7 +72,7 @@ export default class Illuminance extends ComponentWithId<
   protected _GetStatus = GetStatus;
   public readonly namespace = 'Illuminance';
   public static readonly uiName = 'Illuminance';
-  protected static readonly key = 'illuminance';
+  public static readonly key = 'illuminance';
 
   public async registerHomeyDevice(
     homeyDevice: ShellyLocalDevice,

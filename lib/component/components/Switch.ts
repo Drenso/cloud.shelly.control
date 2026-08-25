@@ -193,7 +193,7 @@ export default class Switch extends ComponentWithId<'Switch', SwitchStatus, Swit
   protected _GetStatus = GetStatus;
   public readonly namespace = 'Switch';
   public static readonly uiName = 'Switch';
-  protected static readonly key = 'switch';
+  public static readonly key = 'switch';
 
   public async Set(channel: RpcChannel, params: SwitchSetParams): Promise<ResponseSuccessFrame<SwitchSetResponse>> {
     return Set(channel, this.id, params);

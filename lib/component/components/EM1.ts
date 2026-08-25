@@ -71,7 +71,7 @@ export default class EM1 extends ComponentWithId<'EM1', EM1Status, EM1Config, EM
   protected _GetStatus = GetStatus;
   public readonly namespace = 'EM1';
   public static readonly uiName = 'Electrical Measurement';
-  protected static readonly key = 'em1';
+  public static readonly key = 'em1';
 
   public async registerHomeyDevice(homeyDevice: ShellyLocalDevice, _methods: ComponentMethod<'EM1'>[]): Promise<void> {
     for (const [statusKey, homeyCapability] of [

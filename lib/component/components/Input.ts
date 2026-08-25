@@ -335,7 +335,7 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
   protected readonly _GetStatus = GetStatus;
   public readonly namespace = 'Input';
   public static readonly uiName = 'Input';
-  protected static readonly key = 'input';
+  public static readonly key = 'input';
 
   public readonly CheckExpression = CheckExpression;
 

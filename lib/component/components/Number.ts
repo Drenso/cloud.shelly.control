@@ -68,7 +68,7 @@ export default class Number extends ComponentWithId<'Number', NumberStatus, Numb
   protected readonly _GetStatus = GetStatus;
   public readonly namespace = 'Number';
   public static readonly uiName = 'Number';
-  protected static readonly key = 'number';
+  public static readonly key = 'number';
 
   public async Set(channel: RpcChannel, params: NumberSetParams): ReturnType<typeof Set> {
     return Set(channel, this.id, params);

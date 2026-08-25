@@ -53,7 +53,7 @@ export default class EM1Data extends ComponentWithId<'EM1Data', EM1DataStatus, E
   protected _GetStatus = GetStatus;
   public readonly namespace = 'EM1Data';
   public static readonly uiName = 'Electrical Measurement Data';
-  protected static readonly key = 'em1data';
+  public static readonly key = 'em1data';
 
   public async ResetCounters(channel: RpcChannel): Promise<ResponseSuccessFrame<null>> {
     return ResetCounters(channel, this.id);

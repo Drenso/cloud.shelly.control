@@ -32,7 +32,7 @@ export abstract class Component<
 > {
   public abstract readonly namespace: ComponentNameSpace;
   public static readonly uiName: string;
-  protected static readonly key: string;
+  public static readonly key: string;
 
   public abstract getComponentKey(): string;
 

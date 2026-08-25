@@ -82,7 +82,7 @@ export default class PlugpmUI extends ComponentWithoutId<
   protected readonly _GetStatus = GetStatus;
   public readonly namespace = 'PLUGPM_UI';
   public static readonly uiName = 'Plug';
-  protected static readonly key = 'plugpm_ui';
+  public static readonly key = 'plugpm_ui';
 
   public async registerHomeyDevice(
     _homeyDevice: ShellyLocalDevice,

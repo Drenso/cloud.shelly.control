@@ -83,7 +83,7 @@ export default class Enum extends ComponentWithId<'Enum', EnumStatus, EnumConfig
   protected readonly _GetStatus = GetStatus;
   public readonly namespace = 'Enum';
   public static readonly uiName = 'Enum';
-  protected static readonly key = 'enum';
+  public static readonly key = 'enum';
 
   public async Set(channel: RpcChannel, params: EnumSetParams): ReturnType<typeof Set> {
     return Set(channel, this.id, params);

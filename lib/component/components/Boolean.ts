@@ -75,7 +75,7 @@ export default class Boolean extends ComponentWithId<'Boolean', BooleanStatus, B
   protected readonly _GetStatus = GetStatus;
   public readonly namespace = 'Boolean';
   public static readonly uiName = 'Boolean';
-  protected static readonly key = 'boolean';
+  public static readonly key = 'boolean';
 
   public async Set(channel: RpcChannel, params: BooleanSetParams): ReturnType<typeof Set> {
     return Set(channel, this.id, params);
