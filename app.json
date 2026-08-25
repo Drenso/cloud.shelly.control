@@ -21503,7 +21503,49 @@
             }
           ]
         }
-      ]
+      ],
+      "firmwareUpdates": {
+        "updates": [
+          {
+            "version": "14.2.0",
+            "changelog": {
+              "en": "- SDK with fixed dead node issue\n\n- Fixed single-channel supervision report\n\n- Fixed the device sometimes reporting odd power values\n\n- Added detached mode parameters 7 and 8\n\n- Added enable SW exclusion parameter 118\n\n- other minor improvements"
+            },
+            "device": {
+              "manufacturerId": 1120,
+              "productTypeId": [
+                3
+              ],
+              "productId": [
+                131
+              ]
+            },
+            "files": [
+              {
+                "targetId": 0,
+                "size": 280076,
+                "name": "ANZ[v14.02].gbl",
+                "integrity": "sha3-512:260d9c87f940d578476f759eb8477595fd03e0f0282dae09cf69dd19c8d27627defc423b640631200a20e9984f4df27fa1449904f1147801f120c8409a312347",
+                "region": "ANZ"
+              },
+              {
+                "targetId": 0,
+                "size": 280080,
+                "name": "EU[v14.02].gbl",
+                "integrity": "sha3-512:02c21b0ef812dcca171b484b2fc3d5561512427b321c7272558a11c8f45ae6d96b24c4dbb6d525dfacaa6b3fb818ecaa1648f69b46c896068df1e752c0c88ef3",
+                "region": "EU"
+              },
+              {
+                "targetId": 0,
+                "size": 280080,
+                "name": "US[v14.02].gbl",
+                "integrity": "sha3-512:686691f46d3cfdbbfb0f9b49000e3f13640b9b9a1210c7096ee121f9f68530aab499c3b8f67eda7ba613048a5894ed3f95ef70db3a98630ed2c42ae726ddd441",
+                "region": "US"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "platforms": [
