@@ -1,4 +1,3 @@
-import type { BoundClusterMeta } from '@drenso/homey-zigbee-library/lib/clusters/bound_clusters/BoundClusterMeta.mjs';
 import zbClusters, { type OnOffClusterAttributes } from 'zigbee-clusters';
 import type { ShellyOnOffClusterCommands } from './ShellyOnOffCluster.js';
 import type { BoundClusterPayloadFromDefinition } from '@drenso/homey-zigbee-library/types/BoundCluster.mjs';
@@ -19,23 +18,23 @@ export default class ShellyOnOffBoundCluster extends zbClusters.BoundCluster<
 > {
   public constructor(
     private _handlers: {
-      onSetOnWithButton?: (payload: OnWithButtonPayload, meta: BoundClusterMeta) => void;
-      onSetOffWithButton?: (payload: OffWithButtonPayload, meta: BoundClusterMeta) => void;
-      onToggleWithButton?: (payload: ToggleWithButtonPayload, meta: BoundClusterMeta) => void;
+      onSetOnWithButton?: (payload: OnWithButtonPayload) => void;
+      onSetOffWithButton?: (payload: OffWithButtonPayload) => void;
+      onToggleWithButton?: (payload: ToggleWithButtonPayload) => void;
     },
   ) {
     super();
   }
 
-  public shellySetOnWithButton(payload: OnWithButtonPayload, meta: BoundClusterMeta): void {
-    this._handlers.onSetOnWithButton?.(payload, meta);
+  public shellySetOnWithButton(payload: OnWithButtonPayload): void {
+    this._handlers.onSetOnWithButton?.(payload);
   }
 
-  public shellySetOffWithButton(payload: OffWithButtonPayload, meta: BoundClusterMeta): void {
-    this._handlers.onSetOffWithButton?.(payload, meta);
+  public shellySetOffWithButton(payload: OffWithButtonPayload): void {
+    this._handlers.onSetOffWithButton?.(payload);
   }
 
-  public shellyToggleWithButton(payload: ToggleWithButtonPayload, meta: BoundClusterMeta): void {
-    this._handlers.onToggleWithButton?.(payload, meta);
+  public shellyToggleWithButton(payload: ToggleWithButtonPayload): void {
+    this._handlers.onToggleWithButton?.(payload);
   }
 }

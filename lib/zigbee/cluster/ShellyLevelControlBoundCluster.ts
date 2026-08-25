@@ -1,6 +1,5 @@
 import zbClusters, { type LevelControlClusterAttributes } from 'zigbee-clusters';
 import type { ShellyLevelControlClusterCommands } from './ShellyLevelControlCluster.js';
-import type { BoundClusterMeta } from '@drenso/homey-zigbee-library/lib/clusters/bound_clusters/BoundClusterMeta.mjs';
 import type { BoundClusterPayloadFromDefinition } from '@drenso/homey-zigbee-library/types/BoundCluster.mjs';
 
 export type MoveToLevelWithButtonPayload = BoundClusterPayloadFromDefinition<
@@ -19,26 +18,23 @@ export default class ShellyLevelControlBoundCluster extends zbClusters.BoundClus
 > {
   public constructor(
     private _handlers: {
-      onMoveToLevelWithButton?: (payload: MoveToLevelWithButtonPayload, meta: BoundClusterMeta) => void;
-      onMoveToLevelWithOnOffAndButton?: (payload: MoveToLevelWithOnOffAndButtonPayload, meta: BoundClusterMeta) => void;
-      onStepWithOnOffAndButton?: (payload: StepWithOnOffAndButtonPayload, meta: BoundClusterMeta) => void;
+      onMoveToLevelWithButton?: (payload: MoveToLevelWithButtonPayload) => void;
+      onMoveToLevelWithOnOffAndButton?: (payload: MoveToLevelWithOnOffAndButtonPayload) => void;
+      onStepWithOnOffAndButton?: (payload: StepWithOnOffAndButtonPayload) => void;
     },
   ) {
     super();
   }
 
-  public shellyMoveToLevelWithButton(payload: MoveToLevelWithButtonPayload, meta: BoundClusterMeta): void {
-    this._handlers.onMoveToLevelWithButton?.(payload, meta);
+  public shellyMoveToLevelWithButton(payload: MoveToLevelWithButtonPayload): void {
+    this._handlers.onMoveToLevelWithButton?.(payload);
   }
 
-  public shellyMoveToLevelWithOnOffAndButton(
-    payload: MoveToLevelWithOnOffAndButtonPayload,
-    meta: BoundClusterMeta,
-  ): void {
-    this._handlers.onMoveToLevelWithOnOffAndButton?.(payload, meta);
+  public shellyMoveToLevelWithOnOffAndButton(payload: MoveToLevelWithOnOffAndButtonPayload): void {
+    this._handlers.onMoveToLevelWithOnOffAndButton?.(payload);
   }
 
-  public shellyStepWithOnOffAndButton(payload: StepWithOnOffAndButtonPayload, meta: BoundClusterMeta): void {
-    this._handlers.onStepWithOnOffAndButton?.(payload, meta);
+  public shellyStepWithOnOffAndButton(payload: StepWithOnOffAndButtonPayload): void {
+    this._handlers.onStepWithOnOffAndButton?.(payload);
   }
 }

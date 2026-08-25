@@ -8,6 +8,8 @@ import Logger from '../log/Logger.js';
 export default abstract class ShellyZigbeeDevice extends ZigBeeDevice {
   protected logger?: Logger = undefined;
   private queuedWorker?: QueuedWorker;
+  protected initializationErrorKey = 'device.initialization_error';
+  protected initializationErrorTags = {};
 
   public async onNodeInit(payload: { zclNode: ZCLNode; node: ZigBeeNode }): Promise<void> {
     this.logger = new Logger(
@@ -32,7 +34,7 @@ export default abstract class ShellyZigbeeDevice extends ZigBeeDevice {
         await this.doConfiguration(payload.zclNode);
       } catch (e) {
         this.error('Failed initialisation', e);
-        this.setUnavailable(this.homey.__('device.initialization_error')).catch(this.error);
+        this.setUnavailable(this.homey.__(this.initializationErrorKey, this.initializationErrorTags)).catch(this.error);
       }
     });
     this.queuedWorker.promise.then(() => delete this.queuedWorker);

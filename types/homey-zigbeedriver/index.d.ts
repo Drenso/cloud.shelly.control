@@ -8,6 +8,7 @@ declare module 'homey-zigbeedriver' {
     function wait(timeout: number): Promise<void>;
     function assertClusterSpecification(cluster: ClusterSpecification): void;
     function assertCapabilityId(capabilityId: string, hasCapability: (capabilityId: string) => boolean): void;
+    function debounce(fn: Callable, interval: number, immediate: boolean = false): Callable;
   }
 
   interface ClusterSpecification {

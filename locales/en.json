@@ -33,6 +33,7 @@
     "components_changed": "The device needs to be repaired: components changed.",
     "device_added": "This device has new components and needs to be repaired.",
     "device_removed": "This device has no components and can be removed.",
+    "firmware_too_old": "The firmware is too old, please update to __version__ to use this device",
     "incorrect_password": "The device needs to be repaired: password changed.",
     "initialization_error": "An error occurred while initializing.",
     "initializing": "Initializing...",
@@ -48,6 +49,7 @@
     "breaker_control_disabled": "Breaker control is disabled in the device settings.",
     "cannot_enable_breaker_remotely": "The breaker cannot be enabled remotely.",
     "component_not_found": "Could not find component __component__",
+    "configuration_failed": "Configuration failed, please remove and pair the device again",
     "host_unreachable": "Could not reach device",
     "not_initialized": "The device has not finished initializing",
     "uncalibrated": "The device is not calibrated"
