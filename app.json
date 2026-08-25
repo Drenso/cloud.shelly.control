@@ -8554,6 +8554,65 @@
         }
       ],
       "name": {
+        "en": "BLU Motion - BLE"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "alarm_motion",
+        "measure_luminance",
+        "measure_battery"
+      ],
+      "energy": {
+        "batteries": [
+          "CR2477"
+        ]
+      },
+      "images": {
+        "small": "/assets/drivers/shellyblumotion/images/small.png",
+        "large": "/assets/drivers/shellyblumotion/images/large.png",
+        "xlarge": "/assets/drivers/shellyblumotion/images/xlarge.png"
+      },
+      "learnmode": {
+        "image": "/drivers/shellyblumotion_ble/assets/learnmode.svg",
+        "instruction": {
+          "en": "Press the button during the Bluetooth scan."
+        }
+      },
+      "id": "shellyblumotion_ble"
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "ble"
+      ],
+      "pair": [
+        {
+          "id": "ble_information",
+          "navigation": {
+            "next": "pair_instructions"
+          }
+        },
+        {
+          "id": "pair_instructions",
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
+        {
+          "id": "list_my_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices"
+          }
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ],
+      "name": {
         "en": "BLU RC Button 4 - BLE"
       },
       "class": "button",
