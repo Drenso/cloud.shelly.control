@@ -1,0 +1,304 @@
+{
+  "ids": {
+    "modelId": "BLU Motion ZB",
+    "manufacturerName": "Shelly"
+  },
+  "endpoints": {
+    "ieeeAddress": "c0:2c:ed:ff:fe:77:4b:77",
+    "networkAddress": 57015,
+    "modelId": "BLU Motion ZB",
+    "manufacturerName": "Shelly",
+    "endpointDescriptors": [
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 57015,
+        "_reserved": 20,
+        "endpointId": 1,
+        "applicationProfileId": 260,
+        "applicationDeviceId": 1026,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 1,
+        "inputClusters": [0, 1, 3, 1280, 64545],
+        "outputClusters": [3]
+      }
+    ],
+    "deviceType": "enddevice",
+    "receiveWhenIdle": false,
+    "swBuildId": "260604/v1.2.20@1",
+    "capabilities": {
+      "alternatePANCoordinator": false,
+      "deviceType": false,
+      "powerSourceMains": false,
+      "receiveWhenIdle": false,
+      "security": false,
+      "allocateAddress": true
+    },
+    "iasZoneEnrollment": {
+      "1": {
+        "iasCieAddress": "30:fb:10:ff:fe:09:4a:48",
+        "enrolled": true,
+        "enrollAttempts": 0
+      }
+    },
+    "extendedEndpointDescriptors": {
+      "1": {
+        "clusters": {
+          "basic": {
+            "attributes": [
+              {
+                "acl": ["readable", "reportable"],
+                "id": 0,
+                "dataTypeId": 32,
+                "name": "zclVersion",
+                "value": 8,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 1,
+                "dataTypeId": 32,
+                "name": "appVersion",
+                "value": 113,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 4,
+                "dataTypeId": 66,
+                "name": "manufacturerName",
+                "value": "Shelly",
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 5,
+                "dataTypeId": 66,
+                "name": "modelId",
+                "value": "BLU Motion ZB",
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 7,
+                "dataTypeId": 48,
+                "name": "powerSource",
+                "value": "battery",
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 12,
+                "dataTypeId": 66,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 16384,
+                "dataTypeId": 66,
+                "name": "swBuildId",
+                "value": "260604/v1.2.20@1",
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 65533,
+                "dataTypeId": 33,
+                "name": "clusterRevision",
+                "value": 3,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              }
+            ],
+            "commandsGenerated": [],
+            "commandsReceived": []
+          },
+          "powerConfiguration": {
+            "attributes": [
+              {
+                "acl": ["readable", "reportable"],
+                "id": 32,
+                "dataTypeId": 32,
+                "name": "batteryVoltage",
+                "value": 32,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 33,
+                "dataTypeId": 32,
+                "name": "batteryPercentageRemaining",
+                "value": 200,
+                "reportingConfiguration": {
+                  "direction": "reported",
+                  "attributeDataType": 32,
+                  "minInterval": 1800,
+                  "maxInterval": 7200,
+                  "minChange": 2,
+                  "status": "SUCCESS"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 65533,
+                "dataTypeId": 33,
+                "name": "clusterRevision",
+                "value": 2,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              }
+            ],
+            "commandsGenerated": [],
+            "commandsReceived": []
+          },
+          "identify": {
+            "attributes": [
+              {
+                "acl": ["readable", "writable", "reportable"],
+                "id": 0,
+                "dataTypeId": 33,
+                "name": "identifyTime",
+                "value": 0,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 65533,
+                "dataTypeId": 33,
+                "name": "clusterRevision",
+                "value": 2,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              }
+            ],
+            "commandsGenerated": ["identifyQuery.response"],
+            "commandsReceived": ["identify", "identifyQuery"]
+          },
+          "iasZone": {
+            "attributes": [
+              {
+                "acl": ["readable", "reportable"],
+                "id": 0,
+                "dataTypeId": 48,
+                "name": "zoneState",
+                "value": "enrolled"
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 1,
+                "dataTypeId": 49,
+                "name": "zoneType",
+                "value": "motionSensor"
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 2,
+                "dataTypeId": 25,
+                "name": "zoneStatus",
+                "value": {
+                  "type": "Buffer",
+                  "data": [0, 0]
+                }
+              },
+              {
+                "acl": ["readable", "writable", "reportable"],
+                "id": 16,
+                "dataTypeId": 240,
+                "name": "iasCIEAddress",
+                "value": "30:fb:10:ff:fe:09:4a:48"
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 17,
+                "dataTypeId": 32,
+                "name": "zoneId",
+                "value": 0
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 18,
+                "dataTypeId": 32
+              },
+              {
+                "acl": ["readable", "writable", "reportable"],
+                "id": 19,
+                "dataTypeId": 32
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 65533,
+                "dataTypeId": 33,
+                "name": "clusterRevision",
+                "value": 2
+              }
+            ],
+            "commandsGenerated": ["zoneEnrollResponse", "initiateNormalOperationMode"],
+            "commandsReceived": ["zoneEnrollResponse"]
+          }
+        },
+        "bindings": {
+          "identify": {
+            "attributes": [
+              {
+                "acl": ["readable", "writable", "reportable"],
+                "id": 0,
+                "dataTypeId": 33,
+                "name": "identifyTime",
+                "value": 0,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 65533,
+                "dataTypeId": 33,
+                "name": "clusterRevision",
+                "value": 2,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              }
+            ],
+            "commandsGenerated": ["identifyQuery.response"],
+            "commandsReceived": ["identify", "identifyQuery"]
+          }
+        }
+      }
+    }
+  }
+}
