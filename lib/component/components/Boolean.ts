@@ -39,15 +39,15 @@ export type BooleanConfig = {
        *
        * Empty string for default value.
        */
-      titles: [string, string];
+      titles?: [string, string];
       /**
        * Urls to icons to be used for false and true.
        */
-      buttonIcons: null | [string, string];
+      buttonIcons?: null | [string, string];
       /**
        * Url to custom icon
        */
-      icon: null | string;
+      icon?: null | string;
     };
   };
   /** The component that controls the value of this virtual component */
@@ -100,8 +100,8 @@ export default class Boolean extends ComponentWithId<'Boolean', BooleanStatus, B
 
     if (meta !== null) {
       const titles = meta.ui.titles;
-      const titleFalse = titles.length !== 2 || titles[0] === '' ? 'Off' : titles[0];
-      const titleTrue = titles.length !== 2 || titles[1] === '' ? 'On' : titles[1];
+      const titleFalse = titles === undefined || titles.length !== 2 || titles[0] === '' ? 'Off' : titles[0];
+      const titleTrue = titles === undefined || titles.length !== 2 || titles[1] === '' ? 'On' : titles[1];
       capabilityOptions = {
         ...capabilityOptions,
         titleTrue: titleTrue,
