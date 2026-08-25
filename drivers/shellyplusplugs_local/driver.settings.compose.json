@@ -1,0 +1,97 @@
+[
+  {
+    "$extends": "PLUGS_UI.controls.switch.in_mode"
+  },
+  {
+    "$extends": "Switch.initial_state.without_match"
+  },
+  {
+    "$extends": "Switch.power_limit"
+  },
+  {
+    "$extends": "Switch.voltage_limit"
+  },
+  {
+    "$extends": "Switch.current_limit"
+  },
+  {
+    "$extends": "PLUGS_UI.leds.mode"
+  },
+  {
+    "type": "group",
+    "label": "Indicator LED - Power Consumption Mode",
+    "children": [
+      {
+        "$extends": "PLUGS_UI.leds.colors.power.brightness"
+      }
+    ]
+  },
+  {
+    "type": "group",
+    "label": "Indicator LED - On/Off Colors Mode - On",
+    "children": [
+      {
+        "$extends": "PLUGS_UI.leds.colors.switch.brightness",
+        "id": "PLUGS_UI:leds.colors.switch:0.on.brightness"
+      },
+      {
+        "$extends": "PLUGS_UI.leds.colors.switch.red",
+        "id": "PLUGS_UI:leds.colors.switch:0.on.r"
+      },
+      {
+        "$extends": "PLUGS_UI.leds.colors.switch.green",
+        "id": "PLUGS_UI:leds.colors.switch:0.on.g"
+      },
+      {
+        "$extends": "PLUGS_UI.leds.colors.switch.blue",
+        "id": "PLUGS_UI:leds.colors.switch:0.on.b"
+      }
+    ]
+  },
+  {
+    "type": "group",
+    "label": "Indicator LED - On/Off Colors Mode - Off",
+    "children": [
+      {
+        "$extends": "PLUGS_UI.leds.colors.switch.brightness",
+        "id": "PLUGS_UI:leds.colors.switch:0.off.brightness"
+      },
+      {
+        "$extends": "PLUGS_UI.leds.colors.switch.red",
+        "id": "PLUGS_UI:leds.colors.switch:0.off.r"
+      },
+      {
+        "$extends": "PLUGS_UI.leds.colors.switch.green",
+        "id": "PLUGS_UI:leds.colors.switch:0.off.g"
+      },
+      {
+        "$extends": "PLUGS_UI.leds.colors.switch.blue",
+        "id": "PLUGS_UI:leds.colors.switch:0.off.b"
+      }
+    ]
+  },
+  {
+    "type": "group",
+    "label": "Indicator LED - Night Mode",
+    "children": [
+      {
+        "$extends": "PLUGS_UI.leds.night_mode.enable"
+      },
+      {
+        "$extends": "PLUGS_UI.leds.night_mode.brightness"
+      },
+      {
+        "$extends": "PLUGS_UI.leds.night_mode.active_between.start"
+      },
+      {
+        "$extends": "PLUGS_UI.leds.night_mode.active_between.end"
+      }
+    ]
+  },
+  {
+    "$extends": "installBleForwardingScript"
+  },
+  {
+    "$extends": "_shelly_device_info"
+  }
+]
