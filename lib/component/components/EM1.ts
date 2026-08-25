@@ -84,10 +84,10 @@ export default class EM1 extends ComponentWithId<'EM1', EM1Status, EM1Config, EM
       if (this.status[statusKey] !== undefined) {
         await this.registerCapability(homeyDevice, homeyCapability, capabilitiesOptions[homeyCapability as never]);
       }
-
-      await safeAddCapability(homeyDevice, 'alarm_generic');
-      await safeAddCapability(homeyDevice, 'shelly_errors');
     }
+
+    await safeAddCapability(homeyDevice, 'alarm_generic');
+    await safeAddCapability(homeyDevice, 'shelly_errors');
   }
 
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: EM1Status): Promise<void> {

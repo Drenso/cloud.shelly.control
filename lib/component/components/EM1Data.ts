@@ -75,10 +75,10 @@ export default class EM1Data extends ComponentWithId<'EM1Data', EM1DataStatus, E
       if (this.status[statusKey] !== undefined) {
         await this.registerCapability(homeyDevice, homeyCapability, capabilitiesOptions[homeyCapability as never]);
       }
-
-      await safeAddCapability(homeyDevice, 'alarm_generic');
-      await safeAddCapability(homeyDevice, 'shelly_errors');
     }
+
+    await safeAddCapability(homeyDevice, 'alarm_generic');
+    await safeAddCapability(homeyDevice, 'shelly_errors');
 
     if (this.status['total_act_energy'] !== undefined || this.status['total_act_ret_energy'] !== undefined) {
       let energy = homeyDevice.getEnergy();
