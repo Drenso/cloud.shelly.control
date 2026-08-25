@@ -1,0 +1,22 @@
+{
+  "$extends": ["ble"],
+  "name": {
+    "en": "BLU Motion ZB - BLE"
+  },
+  "class": "sensor",
+  "capabilities": ["alarm_motion", "shelly_illumination", "measure_battery"],
+  "energy": {
+    "batteries": ["CR2477"]
+  },
+  "images": {
+    "small": "/assets/drivers/shellyblumotionzb/images/small.png",
+    "large": "/assets/drivers/shellyblumotionzb/images/large.png",
+    "xlarge": "/assets/drivers/shellyblumotionzb/images/xlarge.png"
+  },
+  "learnmode": {
+    "image": "{{driverAssetsPath}}/learnmode.svg",
+    "instruction": {
+      "en": "Press the button during the Bluetooth scan."
+    }
+  }
+}
