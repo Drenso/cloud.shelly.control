@@ -2269,6 +2269,11 @@
         "shelly_flags"
       ],
       "capabilitiesOptions": {
+        "alarm_generic": {
+          "title": {
+            "en": "Error Alarm"
+          }
+        },
         "button.restart": {
           "maintenanceAction": true,
           "title": {
@@ -2610,6 +2615,11 @@
         "light_temperature"
       ],
       "capabilitiesOptions": {
+        "alarm_generic": {
+          "title": {
+            "en": "Error Alarm"
+          }
+        },
         "button.restart": {
           "maintenanceAction": true,
           "title": {
@@ -2866,6 +2876,11 @@
       ],
       "capabilities": [],
       "capabilitiesOptions": {
+        "alarm_generic": {
+          "title": {
+            "en": "Error Alarm"
+          }
+        },
         "button.restart": {
           "maintenanceAction": true,
           "title": {
@@ -2949,6 +2964,11 @@
         "measure_temperature"
       ],
       "capabilitiesOptions": {
+        "alarm_generic": {
+          "title": {
+            "en": "Error Alarm"
+          }
+        },
         "button.restart": {
           "maintenanceAction": true,
           "title": {
@@ -3062,6 +3082,11 @@
         "hidden.has_input_switch"
       ],
       "capabilitiesOptions": {
+        "alarm_generic": {
+          "title": {
+            "en": "Error Alarm"
+          }
+        },
         "button.restart": {
           "maintenanceAction": true,
           "title": {
@@ -3324,6 +3349,11 @@
         "windowcoverings_state"
       ],
       "capabilitiesOptions": {
+        "alarm_generic": {
+          "title": {
+            "en": "Error Alarm"
+          }
+        },
         "button.restart": {
           "maintenanceAction": true,
           "title": {
@@ -3579,6 +3609,11 @@
         "hidden.has_input_button"
       ],
       "capabilitiesOptions": {
+        "alarm_generic": {
+          "title": {
+            "en": "Error Alarm"
+          }
+        },
         "button.restart": {
           "maintenanceAction": true,
           "title": {
@@ -4144,6 +4179,11 @@
         "hidden.has_input_switch"
       ],
       "capabilitiesOptions": {
+        "alarm_generic": {
+          "title": {
+            "en": "Error Alarm"
+          }
+        },
         "button.restart": {
           "maintenanceAction": true,
           "title": {
@@ -4348,6 +4388,11 @@
         "hidden.has_input_switch"
       ],
       "capabilitiesOptions": {
+        "alarm_generic": {
+          "title": {
+            "en": "Error Alarm"
+          }
+        },
         "button.restart": {
           "maintenanceAction": true,
           "title": {
@@ -4642,6 +4687,11 @@
         "hidden.has_input_switch"
       ],
       "capabilitiesOptions": {
+        "alarm_generic": {
+          "title": {
+            "en": "Error Alarm"
+          }
+        },
         "button.restart": {
           "maintenanceAction": true,
           "title": {
@@ -4830,6 +4880,11 @@
         "hidden.has_input_switch"
       ],
       "capabilitiesOptions": {
+        "alarm_generic": {
+          "title": {
+            "en": "Error Alarm"
+          }
+        },
         "button.restart": {
           "maintenanceAction": true,
           "title": {
@@ -5034,6 +5089,11 @@
         "hidden.has_input_switch"
       ],
       "capabilitiesOptions": {
+        "alarm_generic": {
+          "title": {
+            "en": "Error Alarm"
+          }
+        },
         "button.restart": {
           "maintenanceAction": true,
           "title": {
@@ -5335,6 +5395,11 @@
         "hidden.has_input_switch"
       ],
       "capabilitiesOptions": {
+        "alarm_generic": {
+          "title": {
+            "en": "Error Alarm"
+          }
+        },
         "button.restart": {
           "maintenanceAction": true,
           "title": {
@@ -5596,6 +5661,11 @@
         "hidden.has_input_switch"
       ],
       "capabilitiesOptions": {
+        "alarm_generic": {
+          "title": {
+            "en": "Error Alarm"
+          }
+        },
         "button.restart": {
           "maintenanceAction": true,
           "title": {
@@ -5973,6 +6043,11 @@
         "hidden.has_input_switch"
       ],
       "capabilitiesOptions": {
+        "alarm_generic": {
+          "title": {
+            "en": "Error Alarm"
+          }
+        },
         "button.restart": {
           "maintenanceAction": true,
           "title": {
@@ -6234,6 +6309,11 @@
         "hidden.has_input_switch"
       ],
       "capabilitiesOptions": {
+        "alarm_generic": {
+          "title": {
+            "en": "Error Alarm"
+          }
+        },
         "button.restart": {
           "maintenanceAction": true,
           "title": {
@@ -6612,6 +6692,11 @@
         "hidden.has_input_switch"
       ],
       "capabilitiesOptions": {
+        "alarm_generic": {
+          "title": {
+            "en": "Error Alarm"
+          }
+        },
         "button.restart": {
           "maintenanceAction": true,
           "title": {
@@ -7329,6 +7414,11 @@
         "hidden.has_input_switch"
       ],
       "capabilitiesOptions": {
+        "alarm_generic": {
+          "title": {
+            "en": "Error Alarm"
+          }
+        },
         "button.restart": {
           "maintenanceAction": true,
           "title": {
@@ -7747,6 +7837,11 @@
         "meter_power.returned"
       ],
       "capabilitiesOptions": {
+        "alarm_generic": {
+          "title": {
+            "en": "Error Alarm"
+          }
+        },
         "button.restart": {
           "maintenanceAction": true,
           "title": {
@@ -8315,6 +8410,11 @@
         "meter_power"
       ],
       "capabilitiesOptions": {
+        "alarm_generic": {
+          "title": {
+            "en": "Error Alarm"
+          }
+        },
         "button.restart": {
           "maintenanceAction": true,
           "title": {
@@ -8634,6 +8734,11 @@
         "hidden.has_input_button"
       ],
       "capabilitiesOptions": {
+        "alarm_generic": {
+          "title": {
+            "en": "Error Alarm"
+          }
+        },
         "button.restart": {
           "maintenanceAction": true,
           "title": {
@@ -9076,6 +9181,11 @@
         "hidden.has_input_button"
       ],
       "capabilitiesOptions": {
+        "alarm_generic": {
+          "title": {
+            "en": "Error Alarm"
+          }
+        },
         "button.restart": {
           "maintenanceAction": true,
           "title": {
@@ -9619,6 +9729,11 @@
         "meter_power"
       ],
       "capabilitiesOptions": {
+        "alarm_generic": {
+          "title": {
+            "en": "Error Alarm"
+          }
+        },
         "button.restart": {
           "maintenanceAction": true,
           "title": {
@@ -9919,6 +10034,11 @@
         "measure_temperature"
       ],
       "capabilitiesOptions": {
+        "alarm_generic": {
+          "title": {
+            "en": "Error Alarm"
+          }
+        },
         "button.restart": {
           "maintenanceAction": true,
           "title": {
@@ -10283,6 +10403,11 @@
         "meter_power.exported"
       ],
       "capabilitiesOptions": {
+        "alarm_generic": {
+          "title": {
+            "en": "Error Alarm"
+          }
+        },
         "button.restart": {
           "maintenanceAction": true,
           "title": {
@@ -10492,6 +10617,11 @@
         "measure_battery"
       ],
       "capabilitiesOptions": {
+        "alarm_generic": {
+          "title": {
+            "en": "Error Alarm"
+          }
+        },
         "button.restart": {
           "maintenanceAction": true,
           "title": {
@@ -10763,6 +10893,11 @@
         "measure_battery"
       ],
       "capabilitiesOptions": {
+        "alarm_generic": {
+          "title": {
+            "en": "Error Alarm"
+          }
+        },
         "button.restart": {
           "maintenanceAction": true,
           "title": {
@@ -11027,6 +11162,11 @@
         "measure_battery"
       ],
       "capabilitiesOptions": {
+        "alarm_generic": {
+          "title": {
+            "en": "Error Alarm"
+          }
+        },
         "button.restart": {
           "maintenanceAction": true,
           "title": {
@@ -11269,6 +11409,11 @@
       ],
       "capabilities": [],
       "capabilitiesOptions": {
+        "alarm_generic": {
+          "title": {
+            "en": "Error Alarm"
+          }
+        },
         "button.restart": {
           "maintenanceAction": true,
           "title": {
@@ -11659,6 +11804,11 @@
         "meter_power.returned"
       ],
       "capabilitiesOptions": {
+        "alarm_generic": {
+          "title": {
+            "en": "Error Alarm"
+          }
+        },
         "button.restart": {
           "maintenanceAction": true,
           "title": {
@@ -12113,6 +12263,11 @@
         "meter_power.returned"
       ],
       "capabilitiesOptions": {
+        "alarm_generic": {
+          "title": {
+            "en": "Error Alarm"
+          }
+        },
         "button.restart": {
           "maintenanceAction": true,
           "title": {
@@ -12417,6 +12572,11 @@
         "meter_power.returned"
       ],
       "capabilitiesOptions": {
+        "alarm_generic": {
+          "title": {
+            "en": "Error Alarm"
+          }
+        },
         "button.restart": {
           "maintenanceAction": true,
           "title": {
@@ -12875,6 +13035,11 @@
         "hidden.has_input_button"
       ],
       "capabilitiesOptions": {
+        "alarm_generic": {
+          "title": {
+            "en": "Error Alarm"
+          }
+        },
         "button.restart": {
           "maintenanceAction": true,
           "title": {
@@ -13269,6 +13434,11 @@
         "hidden.has_input_switch"
       ],
       "capabilitiesOptions": {
+        "alarm_generic": {
+          "title": {
+            "en": "Error Alarm"
+          }
+        },
         "button.restart": {
           "maintenanceAction": true,
           "title": {
@@ -13475,6 +13645,11 @@
         "meter_power.exported"
       ],
       "capabilitiesOptions": {
+        "alarm_generic": {
+          "title": {
+            "en": "Error Alarm"
+          }
+        },
         "button.restart": {
           "maintenanceAction": true,
           "title": {
@@ -13596,6 +13771,11 @@
         "hidden.has_presence_sensor"
       ],
       "capabilitiesOptions": {
+        "alarm_generic": {
+          "title": {
+            "en": "Error Alarm"
+          }
+        },
         "button.restart": {
           "maintenanceAction": true,
           "title": {
@@ -14462,6 +14642,11 @@
         "measure_temperature"
       ],
       "capabilitiesOptions": {
+        "alarm_generic": {
+          "title": {
+            "en": "Error Alarm"
+          }
+        },
         "button.restart": {
           "maintenanceAction": true,
           "title": {
@@ -14616,6 +14801,11 @@
         "meter_power.returned"
       ],
       "capabilitiesOptions": {
+        "alarm_generic": {
+          "title": {
+            "en": "Error Alarm"
+          }
+        },
         "button.restart": {
           "maintenanceAction": true,
           "title": {
@@ -15913,6 +16103,11 @@
         "alarm_shelly_power_lost"
       ],
       "capabilitiesOptions": {
+        "alarm_generic": {
+          "title": {
+            "en": "Error Alarm"
+          }
+        },
         "button.restart": {
           "maintenanceAction": true,
           "title": {

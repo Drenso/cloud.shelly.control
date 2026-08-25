@@ -3,6 +3,11 @@
   "connectivity": ["lan"],
   "capabilities": ["button.restart"],
   "capabilitiesOptions": {
+    "alarm_generic": {
+      "title": {
+        "en": "Error Alarm"
+      }
+    },
     "button.restart": {
       "maintenanceAction": true,
       "title": { "en": "Restart Device" }
