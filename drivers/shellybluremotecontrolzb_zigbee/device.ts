@@ -13,6 +13,7 @@ import ShellyLevelControlBoundCluster, {
 } from '../../lib/zigbee/cluster/ShellyLevelControlBoundCluster.js';
 import semver from 'semver/preload.js';
 import { Util } from 'homey-zigbeedriver';
+import { safeTriggerDeviceCard } from '../../lib/safeFunctions.js';
 
 export default class ShellyBluRCZigbeeDevice extends ShellyZigbeeDevice {
   private _triggerOnOff?: (flowId: string, data: Record<string, unknown>) => void;
@@ -83,33 +84,21 @@ export default class ShellyBluRCZigbeeDevice extends ShellyZigbeeDevice {
   }
 
   private _onOffCommandHandler(type: string, payload: OnWithButtonPayload | OffWithButtonPayload): void {
-    let flowId: string;
-    switch (type) {
-      case 'on':
-        flowId = 'remote_on';
-        break;
-      case 'off':
-        flowId = 'remote_off';
-        break;
-      default:
-        this.error(`Invalid on/off type ${type}`);
-        return;
-    }
-
-    this._triggerOnOff?.(flowId, {
-      group: payload.buttonIndex,
+    this._triggerOnOff?.('blu_remote_control_button_pressed', {
+      button: type === 'on' ? 'left' : 'right',
+      channel: payload.buttonIndex + 1,
     });
   }
 
   private _onStepWithOnOffHandler(payload: StepWithOnOffAndButtonPayload): void {
-    this._triggerStep?.(payload.stepMode === 0 ? 'remote_step_up' : 'remote_step_down', {
-      group: payload.buttonIndex,
-      step_size: payload.stepSize,
+    this._triggerStep?.('blu_remote_control_scrolled', {
+      direction: payload.stepMode === 0 ? 'up' : 'down',
+      channel: payload.buttonIndex + 1,
+      steps: payload.stepSize,
     });
   }
 
-  private triggerFlowWithState(flowId: string, data: Record<string, unknown>): void {
-    this.log('triggering flow', flowId, 'with tokens', data);
-    // this.triggerFlow({ id: flowId, tokens: data }).catch(err => this.error('error triggering flow', err));
+  private async triggerFlowWithState(flowId: string, data: Record<string, unknown>): Promise<void> {
+    await safeTriggerDeviceCard(this, flowId, data, data);
   }
 }

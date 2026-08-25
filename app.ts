@@ -21,6 +21,7 @@ import Temperature from './lib/component/components/Temperature.js';
 import Switch from './lib/component/components/Switch.js';
 import Light from './lib/component/components/Light.js';
 import Cover from './lib/component/components/Cover.js';
+import type { ScrollDirection } from './drivers/shellybluremotecontrolzb_ble/driver.js';
 
 sourceMapSupport.install();
 
@@ -251,5 +252,23 @@ export default class ShellyApp extends Homey.App {
       .registerRunListener((cardArgs: { device: ShellyLocalDevice }) => {
         return cardArgs.device.getCapabilityValue('alarm_shelly_power_lost');
       });
+
+    this.homey.flow
+      .getDeviceTriggerCard('blu_remote_control_button_pressed')
+      .registerRunListener(
+        (cardArgs: { button: Button[]; channel: string[] }, triggerArgs: { button: Button; channel: number }) =>
+          cardArgs.button.includes(triggerArgs.button) && cardArgs.channel.includes(triggerArgs.channel.toFixed()),
+      );
+
+    this.homey.flow
+      .getDeviceTriggerCard('blu_remote_control_scrolled')
+      .registerRunListener(
+        (
+          cardArgs: { direction: ScrollDirection[]; channel: string[] },
+          triggerArgs: { direction: ScrollDirection; channel: number },
+        ) =>
+          (triggerArgs.direction === 'none' || cardArgs.direction.includes(triggerArgs.direction)) &&
+          cardArgs.channel.includes(triggerArgs.channel.toFixed()),
+      );
   }
 }

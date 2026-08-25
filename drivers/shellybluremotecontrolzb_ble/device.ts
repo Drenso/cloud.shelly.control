@@ -2,8 +2,14 @@ import { BTHomeButtonEventType, type BTHomeData, BTHomeDimmerEventType } from '.
 import ShellyBleDevice from '../../lib/ble/BleDevice.js';
 import { safeSetCapabilityValue, safeTriggerDeviceCard } from '../../lib/safeFunctions.js';
 import type { Button, ScrollDirection } from './driver.js';
+import { addCapabilityIfNotExists } from '@drenso/homey-zigbee-library/lib/helper/capability.mjs';
 
 export default class ShellyBluRemoteControlDevice extends ShellyBleDevice {
+  public async onInit(): Promise<void> {
+    // Migrate to use refactored flow cards
+    await addCapabilityIfNotExists(this, 'hidden.blu_remote_control');
+    await super.onInit();
+  }
   public async handleBtHomeForward(btHomeData: BTHomeData): Promise<void> {
     if (btHomeData.battery?.length === 1) {
       await safeSetCapabilityValue(this, 'measure_battery', btHomeData.battery[0]);

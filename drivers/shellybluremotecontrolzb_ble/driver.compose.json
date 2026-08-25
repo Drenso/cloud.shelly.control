@@ -4,7 +4,7 @@
     "en": "BLU Remote Control ZB - BLE"
   },
   "class": "remote",
-  "capabilities": ["measure_battery"],
+  "capabilities": ["measure_battery", "hidden.blu_remote_control"],
   "energy": {
     "batteries": ["AAA", "AAA"]
   },
