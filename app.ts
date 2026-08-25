@@ -7,12 +7,12 @@ import Boolean from './lib/component/components/Boolean.js';
 import Button from './lib/component/components/Button.js';
 import DevicePower from './lib/component/components/DevicePower.js';
 import Enum from './lib/component/components/Enum.js';
-import Illuminance from './lib/component/components/Illuminance.js';
 import Input from './lib/component/components/Input.js';
 import NumberComponent from './lib/component/components/Number.js';
 import PresenceZone from './lib/component/components/PresenceZone.js';
 import Shelly from './lib/component/components/Shelly.js';
 import { registerButtonFlowCards } from './lib/flow/buttonFlows.js';
+import { registerIlluminanceFlowCards } from './lib/flow/illuminanceFlows.js';
 import { registerPresenceFlowCards } from './lib/flow/presenceFlows.js';
 import { registerTemperatureFlowCards } from './lib/flow/temperatureFlows.js';
 import { createHttpChannel } from './lib/HomeyRPCChannels.js';
@@ -188,6 +188,7 @@ export default class ShellyApp extends Homey.App {
 
   private registerGenericFlowCards(): void {
     registerButtonFlowCards(this);
+    registerIlluminanceFlowCards(this);
     registerPresenceFlowCards(this);
     registerTemperatureFlowCards(this);
   }
@@ -197,7 +198,6 @@ export default class ShellyApp extends Homey.App {
     Button.registerFlowCards(this);
     DevicePower.registerFlowCards(this);
     Enum.registerFlowCards(this);
-    Illuminance.registerFlowCards(this);
     Input.registerFlowCards(this);
     NumberComponent.registerFlowCards(this);
     PresenceZone.registerFlowCards(this);

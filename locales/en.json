@@ -13,6 +13,11 @@
       "hold":  "Hold"
     }
   },
+  "capability": {
+    "shelly_illumination": {
+      "_name": "Illuminance"
+    }
+  },
   "component": {
     "CCT": {
       "invalid_night_mode": {
