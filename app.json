@@ -8613,6 +8613,65 @@
         }
       ],
       "name": {
+        "en": "BLU Motion ZB - BLE"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "alarm_motion",
+        "shelly_illumination",
+        "measure_battery"
+      ],
+      "energy": {
+        "batteries": [
+          "CR2477"
+        ]
+      },
+      "images": {
+        "small": "/assets/drivers/shellyblumotionzb/images/small.png",
+        "large": "/assets/drivers/shellyblumotionzb/images/large.png",
+        "xlarge": "/assets/drivers/shellyblumotionzb/images/xlarge.png"
+      },
+      "learnmode": {
+        "image": "/drivers/shellyblumotionzb_ble/assets/learnmode.svg",
+        "instruction": {
+          "en": "Press the button during the Bluetooth scan."
+        }
+      },
+      "id": "shellyblumotionzb_ble"
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "ble"
+      ],
+      "pair": [
+        {
+          "id": "ble_information",
+          "navigation": {
+            "next": "pair_instructions"
+          }
+        },
+        {
+          "id": "pair_instructions",
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
+        {
+          "id": "list_my_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices"
+          }
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ],
+      "name": {
         "en": "BLU RC Button 4 - BLE"
       },
       "class": "button",
