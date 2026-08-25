@@ -23,9 +23,7 @@
         "svc": {
           "dpId": 101
         },
-        "cloud": [
-          "log"
-        ],
+        "cloud": ["log"],
         "ui": {
           "view": "toggle"
         }
@@ -54,9 +52,7 @@
         "svc": {
           "dpId": 102
         },
-        "cloud": [
-          "log"
-        ],
+        "cloud": ["log"],
         "ui": {
           "view": "toggle"
         }
@@ -85,9 +81,7 @@
         "svc": {
           "dpId": 103
         },
-        "cloud": [
-          "log"
-        ],
+        "cloud": ["log"],
         "ui": {
           "view": "toggle"
         }
@@ -116,9 +110,7 @@
         "svc": {
           "dpId": 104
         },
-        "cloud": [
-          "log"
-        ],
+        "cloud": ["log"],
         "ui": {
           "view": "toggle"
         }
@@ -147,9 +139,7 @@
         "svc": {
           "dpId": 105
         },
-        "cloud": [
-          "log"
-        ],
+        "cloud": ["log"],
         "ui": {
           "view": "toggle"
         }
@@ -178,9 +168,7 @@
         "svc": {
           "dpId": 106
         },
-        "cloud": [
-          "log"
-        ],
+        "cloud": ["log"],
         "ui": {
           "view": "toggle"
         }
@@ -220,9 +208,7 @@
     "config": {
       "id": 200,
       "name": "Active Sequence",
-      "options": [
-        "none"
-      ],
+      "options": ["none"],
       "meta": {
         "ui": {
           "view": "select",
@@ -277,10 +263,7 @@
           "view": "label",
           "unit": "°C"
         },
-        "cloud": [
-          "measurement",
-          "log"
-        ]
+        "cloud": ["measurement", "log"]
       },
       "persisted": false,
       "default_value": 0,
@@ -309,10 +292,7 @@
           "view": "label",
           "unit": "mm/m2"
         },
-        "cloud": [
-          "measurement",
-          "log"
-        ]
+        "cloud": ["measurement", "log"]
       },
       "persisted": false,
       "default_value": 0,
