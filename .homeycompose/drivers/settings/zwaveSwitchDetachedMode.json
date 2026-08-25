@@ -1,0 +1,32 @@
+{
+  "type": "dropdown",
+  "label": {
+    "en": "Detached Mode",
+    "nl": "Losgekoppelde Modus"
+  },
+  "value": "0",
+  "values": [
+    {
+      "id": "0",
+      "label": {
+        "en": "Normal mode",
+        "nl": "Normale modus"
+      }
+    },
+    {
+      "id": "1",
+      "label": {
+        "en": "Detached mode",
+        "nl": "Losgekoppelde modus"
+      }
+    }
+  ],
+  "hint": {
+    "en": "In normal mode the input controls state of the output. In detached mode the input and output states are separated.",
+    "nl": "In de normale modus stuurt de input de staat van de output aan. In losgekoppelde modus zijn de input en output status gescheiden"
+  },
+  "zwave": {
+    "index": 7,
+    "size": 1
+  }
+}

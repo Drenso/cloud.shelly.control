@@ -1,0 +1,32 @@
+{
+  "type": "dropdown",
+  "label": {
+    "en": "Switch Exclusion",
+    "nl": "Switch Uitsluiting"
+  },
+  "value": "0",
+  "values": [
+    {
+      "id": "0",
+      "label": {
+        "en": "Disallow",
+        "nl": "Niet toestaan"
+      }
+    },
+    {
+      "id": "1",
+      "label": {
+        "en": "Allow",
+        "nl": "Toestaan"
+      }
+    }
+  ],
+  "hint": {
+    "en": "If allowed, the switch can be used to remove the device from your Z-Wave network.",
+    "nl": "Als het wordt toegestaan kan de schakelaar gebruikt worden om het apparaat uit je Z-Wave netwerk te verwijderen."
+  },
+  "zwave": {
+    "index": 118,
+    "size": 1
+  }
+}

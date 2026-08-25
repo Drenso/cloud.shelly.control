@@ -21401,6 +21401,105 @@
                 "en": "Defines the minimum time between sending reports to Homey for output 1.",
                 "nl": "Bepaalt de minimum tijd tussen status updates naar Homey voor output 1."
               }
+            },
+            {
+              "id": "zwaveShutterDetachModeSW1",
+              "label": {
+                "en": "Detached Mode SW1",
+                "nl": "Losgekoppelde Modus SW1"
+              },
+              "zwave": {
+                "index": 7,
+                "size": 1
+              },
+              "type": "dropdown",
+              "value": "0",
+              "values": [
+                {
+                  "id": "0",
+                  "label": {
+                    "en": "Normal mode",
+                    "nl": "Normale modus"
+                  }
+                },
+                {
+                  "id": "1",
+                  "label": {
+                    "en": "Detached mode",
+                    "nl": "Losgekoppelde modus"
+                  }
+                }
+              ],
+              "hint": {
+                "en": "In normal mode the input controls state of the output. In detached mode the input and output states are separated.",
+                "nl": "In de normale modus stuurt de input de staat van de output aan. In losgekoppelde modus zijn de input en output status gescheiden"
+              }
+            },
+            {
+              "id": "zwaveShutterDetachModeSW2",
+              "label": {
+                "en": "Detached Mode SW2",
+                "nl": "Losgekoppelde Modus SW2"
+              },
+              "zwave": {
+                "index": 8,
+                "size": 1
+              },
+              "type": "dropdown",
+              "value": "0",
+              "values": [
+                {
+                  "id": "0",
+                  "label": {
+                    "en": "Normal mode",
+                    "nl": "Normale modus"
+                  }
+                },
+                {
+                  "id": "1",
+                  "label": {
+                    "en": "Detached mode",
+                    "nl": "Losgekoppelde modus"
+                  }
+                }
+              ],
+              "hint": {
+                "en": "In normal mode the input controls state of the output. In detached mode the input and output states are separated.",
+                "nl": "In de normale modus stuurt de input de staat van de output aan. In losgekoppelde modus zijn de input en output status gescheiden"
+              }
+            },
+            {
+              "id": "zwaveSwitchInclusion",
+              "type": "dropdown",
+              "label": {
+                "en": "Switch Exclusion",
+                "nl": "Switch Uitsluiting"
+              },
+              "value": "0",
+              "values": [
+                {
+                  "id": "0",
+                  "label": {
+                    "en": "Disallow",
+                    "nl": "Niet toestaan"
+                  }
+                },
+                {
+                  "id": "1",
+                  "label": {
+                    "en": "Allow",
+                    "nl": "Toestaan"
+                  }
+                }
+              ],
+              "hint": {
+                "en": "If allowed, the switch can be used to remove the device from your Z-Wave network.",
+                "nl": "Als het wordt toegestaan kan de schakelaar gebruikt worden om het apparaat uit je Z-Wave netwerk te verwijderen."
+              },
+              "zwave": {
+                "index": 118,
+                "size": 1
+              }
             }
           ]
         }
