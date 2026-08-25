@@ -1,0 +1,24 @@
+{
+  "type": "number",
+  "label": {
+    "en": "Motor stop delay after limit switch detection",
+    "nl": "Motorstopvertraging na detectie van eindschakelaar."
+  },
+  "value": 10,
+  "attr": {
+    "min": 0,
+    "max": 127
+  },
+  "units": {
+    "en": "1/10 s",
+    "nl": "1/10 s"
+  },
+  "hint": {
+    "en": "Defines the delay time for the motor to turn off, after reaching the limit switch.",
+    "nl": "Definieert de vertragingstijd voor de motor om uit te schakelen nadat de eindschakelaar is bereikt."
+  },
+  "zwave": {
+    "index": 80,
+    "size": 1
+  }
+}

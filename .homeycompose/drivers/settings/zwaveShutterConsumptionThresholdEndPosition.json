@@ -1,0 +1,1810 @@
+{
+  "type": "dropdown",
+  "label": {
+    "en": "Motor operation detection by consumption",
+    "nl": "Motor operation detection obv verbruik"
+  },
+  "value": "1",
+  "values": [
+    {
+      "id": "0",
+      "label": {
+        "en": "Disabled: reaching a limit switch will not be detected",
+        "nl": "Uitgeschakeld: het bereiken van een eindschakelaar wordt niet gedetecteerd."
+      }
+    },
+    {
+      "id": "1",
+      "label": {
+        "en": "Auto power calibration",
+        "nl": "Automatische vermogenskalibratie"
+      }
+    },
+    {
+      "id": "2",
+      "label": {
+        "en": "2W threshold",
+        "nl": "2W drempel"
+      }
+    },
+    {
+      "id": "3",
+      "label": {
+        "en": "3W threshold",
+        "nl": "3W drempel"
+      }
+    },
+    {
+      "id": "4",
+      "label": {
+        "en": "4W threshold",
+        "nl": "4W drempel"
+      }
+    },
+    {
+      "id": "5",
+      "label": {
+        "en": "5W threshold",
+        "nl": "5W drempel"
+      }
+    },
+    {
+      "id": "6",
+      "label": {
+        "en": "6W threshold",
+        "nl": "6W drempel"
+      }
+    },
+    {
+      "id": "7",
+      "label": {
+        "en": "7W threshold",
+        "nl": "7W drempel"
+      }
+    },
+    {
+      "id": "8",
+      "label": {
+        "en": "8W threshold",
+        "nl": "8W drempel"
+      }
+    },
+    {
+      "id": "9",
+      "label": {
+        "en": "9W threshold",
+        "nl": "9W drempel"
+      }
+    },
+    {
+      "id": "10",
+      "label": {
+        "en": "10W threshold",
+        "nl": "10W drempel"
+      }
+    },
+    {
+      "id": "11",
+      "label": {
+        "en": "11W threshold",
+        "nl": "11W drempel"
+      }
+    },
+    {
+      "id": "12",
+      "label": {
+        "en": "12W threshold",
+        "nl": "12W drempel"
+      }
+    },
+    {
+      "id": "13",
+      "label": {
+        "en": "13W threshold",
+        "nl": "13W drempel"
+      }
+    },
+    {
+      "id": "14",
+      "label": {
+        "en": "14W threshold",
+        "nl": "14W drempel"
+      }
+    },
+    {
+      "id": "15",
+      "label": {
+        "en": "15W threshold",
+        "nl": "15W drempel"
+      }
+    },
+    {
+      "id": "16",
+      "label": {
+        "en": "16W threshold",
+        "nl": "16W drempel"
+      }
+    },
+    {
+      "id": "17",
+      "label": {
+        "en": "17W threshold",
+        "nl": "17W drempel"
+      }
+    },
+    {
+      "id": "18",
+      "label": {
+        "en": "18W threshold",
+        "nl": "18W drempel"
+      }
+    },
+    {
+      "id": "19",
+      "label": {
+        "en": "19W threshold",
+        "nl": "19W drempel"
+      }
+    },
+    {
+      "id": "20",
+      "label": {
+        "en": "20W threshold",
+        "nl": "20W drempel"
+      }
+    },
+    {
+      "id": "21",
+      "label": {
+        "en": "21W threshold",
+        "nl": "21W drempel"
+      }
+    },
+    {
+      "id": "22",
+      "label": {
+        "en": "22W threshold",
+        "nl": "22W drempel"
+      }
+    },
+    {
+      "id": "23",
+      "label": {
+        "en": "23W threshold",
+        "nl": "23W drempel"
+      }
+    },
+    {
+      "id": "24",
+      "label": {
+        "en": "24W threshold",
+        "nl": "24W drempel"
+      }
+    },
+    {
+      "id": "25",
+      "label": {
+        "en": "25W threshold",
+        "nl": "25W drempel"
+      }
+    },
+    {
+      "id": "26",
+      "label": {
+        "en": "26W threshold",
+        "nl": "26W drempel"
+      }
+    },
+    {
+      "id": "27",
+      "label": {
+        "en": "27W threshold",
+        "nl": "27W drempel"
+      }
+    },
+    {
+      "id": "28",
+      "label": {
+        "en": "28W threshold",
+        "nl": "28W drempel"
+      }
+    },
+    {
+      "id": "29",
+      "label": {
+        "en": "29W threshold",
+        "nl": "29W drempel"
+      }
+    },
+    {
+      "id": "30",
+      "label": {
+        "en": "30W threshold",
+        "nl": "30W drempel"
+      }
+    },
+    {
+      "id": "31",
+      "label": {
+        "en": "31W threshold",
+        "nl": "31W drempel"
+      }
+    },
+    {
+      "id": "32",
+      "label": {
+        "en": "32W threshold",
+        "nl": "32W drempel"
+      }
+    },
+    {
+      "id": "33",
+      "label": {
+        "en": "33W threshold",
+        "nl": "33W drempel"
+      }
+    },
+    {
+      "id": "34",
+      "label": {
+        "en": "34W threshold",
+        "nl": "34W drempel"
+      }
+    },
+    {
+      "id": "35",
+      "label": {
+        "en": "35W threshold",
+        "nl": "35W drempel"
+      }
+    },
+    {
+      "id": "36",
+      "label": {
+        "en": "36W threshold",
+        "nl": "36W drempel"
+      }
+    },
+    {
+      "id": "37",
+      "label": {
+        "en": "37W threshold",
+        "nl": "37W drempel"
+      }
+    },
+    {
+      "id": "38",
+      "label": {
+        "en": "38W threshold",
+        "nl": "38W drempel"
+      }
+    },
+    {
+      "id": "39",
+      "label": {
+        "en": "39W threshold",
+        "nl": "39W drempel"
+      }
+    },
+    {
+      "id": "40",
+      "label": {
+        "en": "40W threshold",
+        "nl": "40W drempel"
+      }
+    },
+    {
+      "id": "41",
+      "label": {
+        "en": "41W threshold",
+        "nl": "41W drempel"
+      }
+    },
+    {
+      "id": "42",
+      "label": {
+        "en": "42W threshold",
+        "nl": "42W drempel"
+      }
+    },
+    {
+      "id": "43",
+      "label": {
+        "en": "43W threshold",
+        "nl": "43W drempel"
+      }
+    },
+    {
+      "id": "44",
+      "label": {
+        "en": "44W threshold",
+        "nl": "44W drempel"
+      }
+    },
+    {
+      "id": "45",
+      "label": {
+        "en": "45W threshold",
+        "nl": "45W drempel"
+      }
+    },
+    {
+      "id": "46",
+      "label": {
+        "en": "46W threshold",
+        "nl": "46W drempel"
+      }
+    },
+    {
+      "id": "47",
+      "label": {
+        "en": "47W threshold",
+        "nl": "47W drempel"
+      }
+    },
+    {
+      "id": "48",
+      "label": {
+        "en": "48W threshold",
+        "nl": "48W drempel"
+      }
+    },
+    {
+      "id": "49",
+      "label": {
+        "en": "49W threshold",
+        "nl": "49W drempel"
+      }
+    },
+    {
+      "id": "50",
+      "label": {
+        "en": "50W threshold",
+        "nl": "50W drempel"
+      }
+    },
+    {
+      "id": "51",
+      "label": {
+        "en": "51W threshold",
+        "nl": "51W drempel"
+      }
+    },
+    {
+      "id": "52",
+      "label": {
+        "en": "52W threshold",
+        "nl": "52W drempel"
+      }
+    },
+    {
+      "id": "53",
+      "label": {
+        "en": "53W threshold",
+        "nl": "53W drempel"
+      }
+    },
+    {
+      "id": "54",
+      "label": {
+        "en": "54W threshold",
+        "nl": "54W drempel"
+      }
+    },
+    {
+      "id": "55",
+      "label": {
+        "en": "55W threshold",
+        "nl": "55W drempel"
+      }
+    },
+    {
+      "id": "56",
+      "label": {
+        "en": "56W threshold",
+        "nl": "56W drempel"
+      }
+    },
+    {
+      "id": "57",
+      "label": {
+        "en": "57W threshold",
+        "nl": "57W drempel"
+      }
+    },
+    {
+      "id": "58",
+      "label": {
+        "en": "58W threshold",
+        "nl": "58W drempel"
+      }
+    },
+    {
+      "id": "59",
+      "label": {
+        "en": "59W threshold",
+        "nl": "59W drempel"
+      }
+    },
+    {
+      "id": "60",
+      "label": {
+        "en": "60W threshold",
+        "nl": "60W drempel"
+      }
+    },
+    {
+      "id": "61",
+      "label": {
+        "en": "61W threshold",
+        "nl": "61W drempel"
+      }
+    },
+    {
+      "id": "62",
+      "label": {
+        "en": "62W threshold",
+        "nl": "62W drempel"
+      }
+    },
+    {
+      "id": "63",
+      "label": {
+        "en": "63W threshold",
+        "nl": "63W drempel"
+      }
+    },
+    {
+      "id": "64",
+      "label": {
+        "en": "64W threshold",
+        "nl": "64W drempel"
+      }
+    },
+    {
+      "id": "65",
+      "label": {
+        "en": "65W threshold",
+        "nl": "65W drempel"
+      }
+    },
+    {
+      "id": "66",
+      "label": {
+        "en": "66W threshold",
+        "nl": "66W drempel"
+      }
+    },
+    {
+      "id": "67",
+      "label": {
+        "en": "67W threshold",
+        "nl": "67W drempel"
+      }
+    },
+    {
+      "id": "68",
+      "label": {
+        "en": "68W threshold",
+        "nl": "68W drempel"
+      }
+    },
+    {
+      "id": "69",
+      "label": {
+        "en": "69W threshold",
+        "nl": "69W drempel"
+      }
+    },
+    {
+      "id": "70",
+      "label": {
+        "en": "70W threshold",
+        "nl": "70W drempel"
+      }
+    },
+    {
+      "id": "71",
+      "label": {
+        "en": "71W threshold",
+        "nl": "71W drempel"
+      }
+    },
+    {
+      "id": "72",
+      "label": {
+        "en": "72W threshold",
+        "nl": "72W drempel"
+      }
+    },
+    {
+      "id": "73",
+      "label": {
+        "en": "73W threshold",
+        "nl": "73W drempel"
+      }
+    },
+    {
+      "id": "74",
+      "label": {
+        "en": "74W threshold",
+        "nl": "74W drempel"
+      }
+    },
+    {
+      "id": "75",
+      "label": {
+        "en": "75W threshold",
+        "nl": "75W drempel"
+      }
+    },
+    {
+      "id": "76",
+      "label": {
+        "en": "76W threshold",
+        "nl": "76W drempel"
+      }
+    },
+    {
+      "id": "77",
+      "label": {
+        "en": "77W threshold",
+        "nl": "77W drempel"
+      }
+    },
+    {
+      "id": "78",
+      "label": {
+        "en": "78W threshold",
+        "nl": "78W drempel"
+      }
+    },
+    {
+      "id": "79",
+      "label": {
+        "en": "79W threshold",
+        "nl": "79W drempel"
+      }
+    },
+    {
+      "id": "80",
+      "label": {
+        "en": "80W threshold",
+        "nl": "80W drempel"
+      }
+    },
+    {
+      "id": "81",
+      "label": {
+        "en": "81W threshold",
+        "nl": "81W drempel"
+      }
+    },
+    {
+      "id": "82",
+      "label": {
+        "en": "82W threshold",
+        "nl": "82W drempel"
+      }
+    },
+    {
+      "id": "83",
+      "label": {
+        "en": "83W threshold",
+        "nl": "83W drempel"
+      }
+    },
+    {
+      "id": "84",
+      "label": {
+        "en": "84W threshold",
+        "nl": "84W drempel"
+      }
+    },
+    {
+      "id": "85",
+      "label": {
+        "en": "85W threshold",
+        "nl": "85W drempel"
+      }
+    },
+    {
+      "id": "86",
+      "label": {
+        "en": "86W threshold",
+        "nl": "86W drempel"
+      }
+    },
+    {
+      "id": "87",
+      "label": {
+        "en": "87W threshold",
+        "nl": "87W drempel"
+      }
+    },
+    {
+      "id": "88",
+      "label": {
+        "en": "88W threshold",
+        "nl": "88W drempel"
+      }
+    },
+    {
+      "id": "89",
+      "label": {
+        "en": "89W threshold",
+        "nl": "89W drempel"
+      }
+    },
+    {
+      "id": "90",
+      "label": {
+        "en": "90W threshold",
+        "nl": "90W drempel"
+      }
+    },
+    {
+      "id": "91",
+      "label": {
+        "en": "91W threshold",
+        "nl": "91W drempel"
+      }
+    },
+    {
+      "id": "92",
+      "label": {
+        "en": "92W threshold",
+        "nl": "92W drempel"
+      }
+    },
+    {
+      "id": "93",
+      "label": {
+        "en": "93W threshold",
+        "nl": "93W drempel"
+      }
+    },
+    {
+      "id": "94",
+      "label": {
+        "en": "94W threshold",
+        "nl": "94W drempel"
+      }
+    },
+    {
+      "id": "95",
+      "label": {
+        "en": "95W threshold",
+        "nl": "95W drempel"
+      }
+    },
+    {
+      "id": "96",
+      "label": {
+        "en": "96W threshold",
+        "nl": "96W drempel"
+      }
+    },
+    {
+      "id": "97",
+      "label": {
+        "en": "97W threshold",
+        "nl": "97W drempel"
+      }
+    },
+    {
+      "id": "98",
+      "label": {
+        "en": "98W threshold",
+        "nl": "98W drempel"
+      }
+    },
+    {
+      "id": "99",
+      "label": {
+        "en": "99W threshold",
+        "nl": "99W drempel"
+      }
+    },
+    {
+      "id": "100",
+      "label": {
+        "en": "100W threshold",
+        "nl": "100W drempel"
+      }
+    },
+    {
+      "id": "101",
+      "label": {
+        "en": "101W threshold",
+        "nl": "101W drempel"
+      }
+    },
+    {
+      "id": "102",
+      "label": {
+        "en": "102W threshold",
+        "nl": "102W drempel"
+      }
+    },
+    {
+      "id": "103",
+      "label": {
+        "en": "103W threshold",
+        "nl": "103W drempel"
+      }
+    },
+    {
+      "id": "104",
+      "label": {
+        "en": "104W threshold",
+        "nl": "104W drempel"
+      }
+    },
+    {
+      "id": "105",
+      "label": {
+        "en": "105W threshold",
+        "nl": "105W drempel"
+      }
+    },
+    {
+      "id": "106",
+      "label": {
+        "en": "106W threshold",
+        "nl": "106W drempel"
+      }
+    },
+    {
+      "id": "107",
+      "label": {
+        "en": "107W threshold",
+        "nl": "107W drempel"
+      }
+    },
+    {
+      "id": "108",
+      "label": {
+        "en": "108W threshold",
+        "nl": "108W drempel"
+      }
+    },
+    {
+      "id": "109",
+      "label": {
+        "en": "109W threshold",
+        "nl": "109W drempel"
+      }
+    },
+    {
+      "id": "110",
+      "label": {
+        "en": "110W threshold",
+        "nl": "110W drempel"
+      }
+    },
+    {
+      "id": "111",
+      "label": {
+        "en": "111W threshold",
+        "nl": "111W drempel"
+      }
+    },
+    {
+      "id": "112",
+      "label": {
+        "en": "112W threshold",
+        "nl": "112W drempel"
+      }
+    },
+    {
+      "id": "113",
+      "label": {
+        "en": "113W threshold",
+        "nl": "113W drempel"
+      }
+    },
+    {
+      "id": "114",
+      "label": {
+        "en": "114W threshold",
+        "nl": "114W drempel"
+      }
+    },
+    {
+      "id": "115",
+      "label": {
+        "en": "115W threshold",
+        "nl": "115W drempel"
+      }
+    },
+    {
+      "id": "116",
+      "label": {
+        "en": "116W threshold",
+        "nl": "116W drempel"
+      }
+    },
+    {
+      "id": "117",
+      "label": {
+        "en": "117W threshold",
+        "nl": "117W drempel"
+      }
+    },
+    {
+      "id": "118",
+      "label": {
+        "en": "118W threshold",
+        "nl": "118W drempel"
+      }
+    },
+    {
+      "id": "119",
+      "label": {
+        "en": "119W threshold",
+        "nl": "119W drempel"
+      }
+    },
+    {
+      "id": "120",
+      "label": {
+        "en": "120W threshold",
+        "nl": "120W drempel"
+      }
+    },
+    {
+      "id": "121",
+      "label": {
+        "en": "121W threshold",
+        "nl": "121W drempel"
+      }
+    },
+    {
+      "id": "122",
+      "label": {
+        "en": "122W threshold",
+        "nl": "122W drempel"
+      }
+    },
+    {
+      "id": "123",
+      "label": {
+        "en": "123W threshold",
+        "nl": "123W drempel"
+      }
+    },
+    {
+      "id": "124",
+      "label": {
+        "en": "124W threshold",
+        "nl": "124W drempel"
+      }
+    },
+    {
+      "id": "125",
+      "label": {
+        "en": "125W threshold",
+        "nl": "125W drempel"
+      }
+    },
+    {
+      "id": "126",
+      "label": {
+        "en": "126W threshold",
+        "nl": "126W drempel"
+      }
+    },
+    {
+      "id": "127",
+      "label": {
+        "en": "127W threshold",
+        "nl": "127W drempel"
+      }
+    },
+    {
+      "id": "-128",
+      "label": {
+        "en": "128W threshold",
+        "nl": "128W drempel"
+      }
+    },
+    {
+      "id": "-127",
+      "label": {
+        "en": "129W threshold",
+        "nl": "129W drempel"
+      }
+    },
+    {
+      "id": "-126",
+      "label": {
+        "en": "130W threshold",
+        "nl": "130W drempel"
+      }
+    },
+    {
+      "id": "-125",
+      "label": {
+        "en": "131W threshold",
+        "nl": "131W drempel"
+      }
+    },
+    {
+      "id": "-124",
+      "label": {
+        "en": "132W threshold",
+        "nl": "132W drempel"
+      }
+    },
+    {
+      "id": "-123",
+      "label": {
+        "en": "133W threshold",
+        "nl": "133W drempel"
+      }
+    },
+    {
+      "id": "-122",
+      "label": {
+        "en": "134W threshold",
+        "nl": "134W drempel"
+      }
+    },
+    {
+      "id": "-121",
+      "label": {
+        "en": "135W threshold",
+        "nl": "135W drempel"
+      }
+    },
+    {
+      "id": "-120",
+      "label": {
+        "en": "136W threshold",
+        "nl": "136W drempel"
+      }
+    },
+    {
+      "id": "-119",
+      "label": {
+        "en": "137W threshold",
+        "nl": "137W drempel"
+      }
+    },
+    {
+      "id": "-118",
+      "label": {
+        "en": "138W threshold",
+        "nl": "138W drempel"
+      }
+    },
+    {
+      "id": "-117",
+      "label": {
+        "en": "139W threshold",
+        "nl": "139W drempel"
+      }
+    },
+    {
+      "id": "-116",
+      "label": {
+        "en": "140W threshold",
+        "nl": "140W drempel"
+      }
+    },
+    {
+      "id": "-115",
+      "label": {
+        "en": "141W threshold",
+        "nl": "141W drempel"
+      }
+    },
+    {
+      "id": "-114",
+      "label": {
+        "en": "142W threshold",
+        "nl": "142W drempel"
+      }
+    },
+    {
+      "id": "-113",
+      "label": {
+        "en": "143W threshold",
+        "nl": "143W drempel"
+      }
+    },
+    {
+      "id": "-112",
+      "label": {
+        "en": "144W threshold",
+        "nl": "144W drempel"
+      }
+    },
+    {
+      "id": "-111",
+      "label": {
+        "en": "145W threshold",
+        "nl": "145W drempel"
+      }
+    },
+    {
+      "id": "-110",
+      "label": {
+        "en": "146W threshold",
+        "nl": "146W drempel"
+      }
+    },
+    {
+      "id": "-109",
+      "label": {
+        "en": "147W threshold",
+        "nl": "147W drempel"
+      }
+    },
+    {
+      "id": "-108",
+      "label": {
+        "en": "148W threshold",
+        "nl": "148W drempel"
+      }
+    },
+    {
+      "id": "-107",
+      "label": {
+        "en": "149W threshold",
+        "nl": "149W drempel"
+      }
+    },
+    {
+      "id": "-106",
+      "label": {
+        "en": "150W threshold",
+        "nl": "150W drempel"
+      }
+    },
+    {
+      "id": "-105",
+      "label": {
+        "en": "151W threshold",
+        "nl": "151W drempel"
+      }
+    },
+    {
+      "id": "-104",
+      "label": {
+        "en": "152W threshold",
+        "nl": "152W drempel"
+      }
+    },
+    {
+      "id": "-103",
+      "label": {
+        "en": "153W threshold",
+        "nl": "153W drempel"
+      }
+    },
+    {
+      "id": "-102",
+      "label": {
+        "en": "154W threshold",
+        "nl": "154W drempel"
+      }
+    },
+    {
+      "id": "-101",
+      "label": {
+        "en": "155W threshold",
+        "nl": "155W drempel"
+      }
+    },
+    {
+      "id": "-100",
+      "label": {
+        "en": "156W threshold",
+        "nl": "156W drempel"
+      }
+    },
+    {
+      "id": "-99",
+      "label": {
+        "en": "157W threshold",
+        "nl": "157W drempel"
+      }
+    },
+    {
+      "id": "-98",
+      "label": {
+        "en": "158W threshold",
+        "nl": "158W drempel"
+      }
+    },
+    {
+      "id": "-97",
+      "label": {
+        "en": "159W threshold",
+        "nl": "159W drempel"
+      }
+    },
+    {
+      "id": "-96",
+      "label": {
+        "en": "160W threshold",
+        "nl": "160W drempel"
+      }
+    },
+    {
+      "id": "-95",
+      "label": {
+        "en": "161W threshold",
+        "nl": "161W drempel"
+      }
+    },
+    {
+      "id": "-94",
+      "label": {
+        "en": "162W threshold",
+        "nl": "162W drempel"
+      }
+    },
+    {
+      "id": "-93",
+      "label": {
+        "en": "163W threshold",
+        "nl": "163W drempel"
+      }
+    },
+    {
+      "id": "-92",
+      "label": {
+        "en": "164W threshold",
+        "nl": "164W drempel"
+      }
+    },
+    {
+      "id": "-91",
+      "label": {
+        "en": "165W threshold",
+        "nl": "165W drempel"
+      }
+    },
+    {
+      "id": "-90",
+      "label": {
+        "en": "166W threshold",
+        "nl": "166W drempel"
+      }
+    },
+    {
+      "id": "-89",
+      "label": {
+        "en": "167W threshold",
+        "nl": "167W drempel"
+      }
+    },
+    {
+      "id": "-88",
+      "label": {
+        "en": "168W threshold",
+        "nl": "168W drempel"
+      }
+    },
+    {
+      "id": "-87",
+      "label": {
+        "en": "169W threshold",
+        "nl": "169W drempel"
+      }
+    },
+    {
+      "id": "-86",
+      "label": {
+        "en": "170W threshold",
+        "nl": "170W drempel"
+      }
+    },
+    {
+      "id": "-85",
+      "label": {
+        "en": "171W threshold",
+        "nl": "171W drempel"
+      }
+    },
+    {
+      "id": "-84",
+      "label": {
+        "en": "172W threshold",
+        "nl": "172W drempel"
+      }
+    },
+    {
+      "id": "-83",
+      "label": {
+        "en": "173W threshold",
+        "nl": "173W drempel"
+      }
+    },
+    {
+      "id": "-82",
+      "label": {
+        "en": "174W threshold",
+        "nl": "174W drempel"
+      }
+    },
+    {
+      "id": "-81",
+      "label": {
+        "en": "175W threshold",
+        "nl": "175W drempel"
+      }
+    },
+    {
+      "id": "-80",
+      "label": {
+        "en": "176W threshold",
+        "nl": "176W drempel"
+      }
+    },
+    {
+      "id": "-79",
+      "label": {
+        "en": "177W threshold",
+        "nl": "177W drempel"
+      }
+    },
+    {
+      "id": "-78",
+      "label": {
+        "en": "178W threshold",
+        "nl": "178W drempel"
+      }
+    },
+    {
+      "id": "-77",
+      "label": {
+        "en": "179W threshold",
+        "nl": "179W drempel"
+      }
+    },
+    {
+      "id": "-76",
+      "label": {
+        "en": "180W threshold",
+        "nl": "180W drempel"
+      }
+    },
+    {
+      "id": "-75",
+      "label": {
+        "en": "181W threshold",
+        "nl": "181W drempel"
+      }
+    },
+    {
+      "id": "-74",
+      "label": {
+        "en": "182W threshold",
+        "nl": "182W drempel"
+      }
+    },
+    {
+      "id": "-73",
+      "label": {
+        "en": "183W threshold",
+        "nl": "183W drempel"
+      }
+    },
+    {
+      "id": "-72",
+      "label": {
+        "en": "184W threshold",
+        "nl": "184W drempel"
+      }
+    },
+    {
+      "id": "-71",
+      "label": {
+        "en": "185W threshold",
+        "nl": "185W drempel"
+      }
+    },
+    {
+      "id": "-70",
+      "label": {
+        "en": "186W threshold",
+        "nl": "186W drempel"
+      }
+    },
+    {
+      "id": "-69",
+      "label": {
+        "en": "187W threshold",
+        "nl": "187W drempel"
+      }
+    },
+    {
+      "id": "-68",
+      "label": {
+        "en": "188W threshold",
+        "nl": "188W drempel"
+      }
+    },
+    {
+      "id": "-67",
+      "label": {
+        "en": "189W threshold",
+        "nl": "189W drempel"
+      }
+    },
+    {
+      "id": "-66",
+      "label": {
+        "en": "190W threshold",
+        "nl": "190W drempel"
+      }
+    },
+    {
+      "id": "-65",
+      "label": {
+        "en": "191W threshold",
+        "nl": "191W drempel"
+      }
+    },
+    {
+      "id": "-64",
+      "label": {
+        "en": "192W threshold",
+        "nl": "192W drempel"
+      }
+    },
+    {
+      "id": "-63",
+      "label": {
+        "en": "193W threshold",
+        "nl": "193W drempel"
+      }
+    },
+    {
+      "id": "-62",
+      "label": {
+        "en": "194W threshold",
+        "nl": "194W drempel"
+      }
+    },
+    {
+      "id": "-61",
+      "label": {
+        "en": "195W threshold",
+        "nl": "195W drempel"
+      }
+    },
+    {
+      "id": "-60",
+      "label": {
+        "en": "196W threshold",
+        "nl": "196W drempel"
+      }
+    },
+    {
+      "id": "-59",
+      "label": {
+        "en": "197W threshold",
+        "nl": "197W drempel"
+      }
+    },
+    {
+      "id": "-58",
+      "label": {
+        "en": "198W threshold",
+        "nl": "198W drempel"
+      }
+    },
+    {
+      "id": "-57",
+      "label": {
+        "en": "199W threshold",
+        "nl": "199W drempel"
+      }
+    },
+    {
+      "id": "-56",
+      "label": {
+        "en": "200W threshold",
+        "nl": "200W drempel"
+      }
+    },
+    {
+      "id": "-55",
+      "label": {
+        "en": "201W threshold",
+        "nl": "201W drempel"
+      }
+    },
+    {
+      "id": "-54",
+      "label": {
+        "en": "202W threshold",
+        "nl": "202W drempel"
+      }
+    },
+    {
+      "id": "-53",
+      "label": {
+        "en": "203W threshold",
+        "nl": "203W drempel"
+      }
+    },
+    {
+      "id": "-52",
+      "label": {
+        "en": "204W threshold",
+        "nl": "204W drempel"
+      }
+    },
+    {
+      "id": "-51",
+      "label": {
+        "en": "205W threshold",
+        "nl": "205W drempel"
+      }
+    },
+    {
+      "id": "-50",
+      "label": {
+        "en": "206W threshold",
+        "nl": "206W drempel"
+      }
+    },
+    {
+      "id": "-49",
+      "label": {
+        "en": "207W threshold",
+        "nl": "207W drempel"
+      }
+    },
+    {
+      "id": "-48",
+      "label": {
+        "en": "208W threshold",
+        "nl": "208W drempel"
+      }
+    },
+    {
+      "id": "-47",
+      "label": {
+        "en": "209W threshold",
+        "nl": "209W drempel"
+      }
+    },
+    {
+      "id": "-46",
+      "label": {
+        "en": "210W threshold",
+        "nl": "210W drempel"
+      }
+    },
+    {
+      "id": "-45",
+      "label": {
+        "en": "211W threshold",
+        "nl": "211W drempel"
+      }
+    },
+    {
+      "id": "-44",
+      "label": {
+        "en": "212W threshold",
+        "nl": "212W drempel"
+      }
+    },
+    {
+      "id": "-43",
+      "label": {
+        "en": "213W threshold",
+        "nl": "213W drempel"
+      }
+    },
+    {
+      "id": "-42",
+      "label": {
+        "en": "214W threshold",
+        "nl": "214W drempel"
+      }
+    },
+    {
+      "id": "-41",
+      "label": {
+        "en": "215W threshold",
+        "nl": "215W drempel"
+      }
+    },
+    {
+      "id": "-40",
+      "label": {
+        "en": "216W threshold",
+        "nl": "216W drempel"
+      }
+    },
+    {
+      "id": "-39",
+      "label": {
+        "en": "217W threshold",
+        "nl": "217W drempel"
+      }
+    },
+    {
+      "id": "-38",
+      "label": {
+        "en": "218W threshold",
+        "nl": "218W drempel"
+      }
+    },
+    {
+      "id": "-37",
+      "label": {
+        "en": "219W threshold",
+        "nl": "219W drempel"
+      }
+    },
+    {
+      "id": "-36",
+      "label": {
+        "en": "220W threshold",
+        "nl": "220W drempel"
+      }
+    },
+    {
+      "id": "-35",
+      "label": {
+        "en": "221W threshold",
+        "nl": "221W drempel"
+      }
+    },
+    {
+      "id": "-34",
+      "label": {
+        "en": "222W threshold",
+        "nl": "222W drempel"
+      }
+    },
+    {
+      "id": "-33",
+      "label": {
+        "en": "223W threshold",
+        "nl": "223W drempel"
+      }
+    },
+    {
+      "id": "-32",
+      "label": {
+        "en": "224W threshold",
+        "nl": "224W drempel"
+      }
+    },
+    {
+      "id": "-31",
+      "label": {
+        "en": "225W threshold",
+        "nl": "225W drempel"
+      }
+    },
+    {
+      "id": "-30",
+      "label": {
+        "en": "226W threshold",
+        "nl": "226W drempel"
+      }
+    },
+    {
+      "id": "-29",
+      "label": {
+        "en": "227W threshold",
+        "nl": "227W drempel"
+      }
+    },
+    {
+      "id": "-28",
+      "label": {
+        "en": "228W threshold",
+        "nl": "228W drempel"
+      }
+    },
+    {
+      "id": "-27",
+      "label": {
+        "en": "229W threshold",
+        "nl": "229W drempel"
+      }
+    },
+    {
+      "id": "-26",
+      "label": {
+        "en": "230W threshold",
+        "nl": "230W drempel"
+      }
+    },
+    {
+      "id": "-25",
+      "label": {
+        "en": "231W threshold",
+        "nl": "231W drempel"
+      }
+    },
+    {
+      "id": "-24",
+      "label": {
+        "en": "232W threshold",
+        "nl": "232W drempel"
+      }
+    },
+    {
+      "id": "-23",
+      "label": {
+        "en": "233W threshold",
+        "nl": "233W drempel"
+      }
+    },
+    {
+      "id": "-22",
+      "label": {
+        "en": "234W threshold",
+        "nl": "234W drempel"
+      }
+    },
+    {
+      "id": "-21",
+      "label": {
+        "en": "235W threshold",
+        "nl": "235W drempel"
+      }
+    },
+    {
+      "id": "-20",
+      "label": {
+        "en": "236W threshold",
+        "nl": "236W drempel"
+      }
+    },
+    {
+      "id": "-19",
+      "label": {
+        "en": "237W threshold",
+        "nl": "237W drempel"
+      }
+    },
+    {
+      "id": "-18",
+      "label": {
+        "en": "238W threshold",
+        "nl": "238W drempel"
+      }
+    },
+    {
+      "id": "-17",
+      "label": {
+        "en": "239W threshold",
+        "nl": "239W drempel"
+      }
+    },
+    {
+      "id": "-16",
+      "label": {
+        "en": "240W threshold",
+        "nl": "240W drempel"
+      }
+    },
+    {
+      "id": "-15",
+      "label": {
+        "en": "241W threshold",
+        "nl": "241W drempel"
+      }
+    },
+    {
+      "id": "-14",
+      "label": {
+        "en": "242W threshold",
+        "nl": "242W drempel"
+      }
+    },
+    {
+      "id": "-13",
+      "label": {
+        "en": "243W threshold",
+        "nl": "243W drempel"
+      }
+    },
+    {
+      "id": "-12",
+      "label": {
+        "en": "244W threshold",
+        "nl": "244W drempel"
+      }
+    },
+    {
+      "id": "-11",
+      "label": {
+        "en": "245W threshold",
+        "nl": "245W drempel"
+      }
+    },
+    {
+      "id": "-10",
+      "label": {
+        "en": "246W threshold",
+        "nl": "246W drempel"
+      }
+    },
+    {
+      "id": "-9",
+      "label": {
+        "en": "247W threshold",
+        "nl": "247W drempel"
+      }
+    },
+    {
+      "id": "-8",
+      "label": {
+        "en": "248W threshold",
+        "nl": "248W drempel"
+      }
+    },
+    {
+      "id": "-7",
+      "label": {
+        "en": "249W threshold",
+        "nl": "249W drempel"
+      }
+    },
+    {
+      "id": "-6",
+      "label": {
+        "en": "250W threshold",
+        "nl": "250W drempel"
+      }
+    },
+    {
+      "id": "-5",
+      "label": {
+        "en": "251W threshold",
+        "nl": "251W drempel"
+      }
+    },
+    {
+      "id": "-4",
+      "label": {
+        "en": "252W threshold",
+        "nl": "252W drempel"
+      }
+    },
+    {
+      "id": "-3",
+      "label": {
+        "en": "253W threshold",
+        "nl": "253W drempel"
+      }
+    },
+    {
+      "id": "-2",
+      "label": {
+        "en": "254W threshold",
+        "nl": "254W drempel"
+      }
+    },
+    {
+      "id": "-1",
+      "label": {
+        "en": "255W threshold",
+        "nl": "255W drempel"
+      }
+    }
+  ],
+  "hint": {
+    "en": "Defines the power consumption threshold at the end positions. Based on this value, the Device will know that the shutters reached the limit switches.",
+    "nl": "Definieert de drempelwaarde van het stroomverbruik bij de eindposities. Op basis van deze waarde zal het apparaat weten dat de rolluiken de eindschakelaars hebben bereikt."
+  },
+  "zwave": {
+    "index": 76,
+    "size": 1
+  }
+}

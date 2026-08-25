@@ -1,0 +1,24 @@
+{
+  "type": "number",
+  "label": {
+    "en": "Venetian Blinds Turning Time",
+    "nl": "Lamellendraaitijd"
+  },
+  "value": 150,
+  "attr": {
+    "min": 0,
+    "max": 32767
+  },
+  "units": {
+    "en": "1/100 s",
+    "nl": "1/100 s"
+  },
+  "hint": {
+    "en": "Should be set to the time required for the slats to make a full turn (180 degrees) when parameter 71 is set to 1 or 2.",
+    "nl": "Moet worden ingesteld op de tijd die nodig is voor de lamellen om een volledige draai (180 graden) te maken wanneer parameter 71 is ingesteld op 1 of 2."
+  },
+  "zwave": {
+    "index": 72,
+    "size": 2
+  }
+}

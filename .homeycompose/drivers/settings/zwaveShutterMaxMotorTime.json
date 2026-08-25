@@ -1,0 +1,24 @@
+{
+  "type": "number",
+  "label": {
+    "en": "Maximum Motor Moving Time",
+    "nl": "Maximale bewegingstijd van de motor."
+  },
+  "value": 12000,
+  "attr": {
+    "min": 1,
+    "max": 32000
+  },
+  "units": {
+    "en": "1/100 s",
+    "nl": "1/100 s"
+  },
+  "hint": {
+    "en": "When the shutter is not calibrated (or the motor is not equipped with a limit switch), this parameter defines the movement time of the motor.",
+    "nl": "Wanneer het rolluik niet is gekalibreerd (of de motor niet is uitgerust met een eindschakelaar), definieert deze parameter de bewegingstijd van de motor."
+  },
+  "zwave": {
+    "index": 81,
+    "size": 2
+  }
+}

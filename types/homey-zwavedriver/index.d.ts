@@ -30,5 +30,6 @@ declare module 'homey-zwavedriver' {
     meterReset(payload?: { multiChannelNodeId?: number }, options?: any): Promise<void>;
     refreshCapabilityValue(capabilityId: string, commandClassId: string): Promise<any>;
     async executeCapabilitySetCommand(capabilityId, commandClassId, value, opts = {}): Promise<void>;
+    async _getCapabilityValue(capabilityId: string, commandClassId: string): Promise<void>;
   }
 }

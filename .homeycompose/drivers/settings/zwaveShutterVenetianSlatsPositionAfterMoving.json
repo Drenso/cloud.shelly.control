@@ -1,0 +1,32 @@
+{
+  "type": "dropdown",
+  "label": {
+    "en": "Slats position after moving",
+    "nl": "Lamelpositie na beweging"
+  },
+  "value": "1",
+  "values": [
+    {
+      "id": "0",
+      "label": {
+        "en": "Disabled",
+        "nl": "Uitgeschakeld"
+      }
+    },
+    {
+      "id": "1",
+      "label": {
+        "en": "Enabled",
+        "nl": "Ingeschakeld"
+      }
+    }
+  ],
+  "hint": {
+    "en": "Is used to enable/disable the slats to return to the previously set position, after being activated via Homey, push-button operation or when the lower limit switch is reached.",
+    "nl": "Wordt gebruikt om de lamellen in/uit te schakelen om terug te keren naar de eerder ingestelde positie, nadat ze zijn geactiveerd via Homey, knopbediening of wanneer de onderste eindschakelaar is bereikt."
+  },
+  "zwave": {
+    "index": 73,
+    "size": 1
+  }
+}

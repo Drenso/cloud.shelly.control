@@ -1,0 +1,39 @@
+{
+  "type": "dropdown",
+  "label": {
+    "en": "Switch type SW1/SW2",
+    "nl": "Schakelaar type SW1/SW2"
+  },
+  "value": "0",
+  "values": [
+    {
+      "id": "0",
+      "label": {
+        "en": "Momentary switch (push button)",
+        "nl": "Pulsdrukschakelaar (push button)"
+      }
+    },
+    {
+      "id": "1",
+      "label": {
+        "en": "Toggle switch (contact closed - ON / contact opened - OFF)",
+        "nl": "Tuimelschakelaar (contact closed - ON / contact opened - OFF)"
+      }
+    },
+    {
+      "id": "2",
+      "label": {
+        "en": "Toggle switch (device changes status when switch changes status)",
+        "nl": "Tuimelschakelaar (apparaat wijzigt status wanneer schakelaar status wijzigt)"
+      }
+    }
+  ],
+  "hint": {
+    "en": "Determines the type of switch connected to input 1 and 2.",
+    "nl": "Specificeert het type schakelaar dat is aangesloten op input 1 and 2."
+  },
+  "zwave": {
+    "index": 5,
+    "size": 1
+  }
+}

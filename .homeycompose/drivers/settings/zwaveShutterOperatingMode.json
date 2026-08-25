@@ -1,0 +1,32 @@
+{
+  "type": "dropdown",
+  "label": {
+    "en": "Operating Mode",
+    "nl": "Operatiemodus"
+  },
+  "value": "0",
+  "values": [
+    {
+      "id": "0",
+      "label": {
+        "en": "Shutter mode",
+        "nl": "Shuttermodus"
+      }
+    },
+    {
+      "id": "1",
+      "label": {
+        "en": "Venetian mode",
+        "nl": "Venetianmodus"
+      }
+    }
+  ],
+  "hint": {
+    "en": "Switches between the two operating modes. In shutter mode, you can select up/down/stop. In venetian mode an additional capability is added which you can use to control the tilt position of the slats.",
+    "nl": "Schakelt tussen de twee operatiemodi. In shuttermodus kan je omhoog/omlaag/stop selecteren. In venetianmodus komt er een extra capability beschikbaar waarmee je de tiltpositie van de lamellen kan instellen."
+  },
+  "zwave": {
+    "index": 71,
+    "size": 1
+  }
+}

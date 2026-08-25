@@ -1,0 +1,53 @@
+[
+  {
+    "type": "group",
+    "label": {
+      "en": "Shutter-Output Settings",
+      "nl": "Shutter-Output instellingen"
+    },
+    "children": [
+      {
+        "$extends": "zwaveSwitchTypeSW1SW2"
+      },
+      {
+        "$extends": "zwaveReverseInputsO1O2"
+      },
+      {
+        "$extends": "zwaveReverseOutputsO1O2"
+      }
+    ]
+  },
+  {
+    "type": "group",
+    "label": {
+      "en": "Device Settings",
+      "nl": "Apparaatinstellingen"
+    },
+    "children": [
+      {
+        "$extends": "zwaveShutterOperatingMode"
+      },
+      {
+        "$extends": "zwaveShutterVenetianSlatsTurningTime"
+      },
+      {
+        "$extends": "zwaveShutterVenetianSlatsPositionAfterMoving"
+      },
+      {
+        "$extends": "zwaveShutterConsumptionThresholdEndPosition"
+      },
+      {
+        "$extends": "zwaveShutterMotorStopDelay"
+      },
+      {
+        "$extends": "zwaveShutterMaxMotorTime"
+      },
+      {
+        "$extends": "zwavePowerReportOnChangeO1"
+      },
+      {
+        "$extends": "zwaveMinimalTimePowerReportO1"
+      }
+    ]
+  }
+]
