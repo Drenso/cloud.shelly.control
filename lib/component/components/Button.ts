@@ -62,7 +62,7 @@ export default class Button extends ComponentWithId<'Button', ButtonStatus, Butt
   protected readonly _GetStatus = GetStatus;
   public readonly namespace = 'Button';
   public static readonly uiName = 'Button';
-  protected static readonly key = 'button';
+  public static readonly key = 'button';
 
   private readonly buttonMitt = createMitt<ButtonMittEvents>();
 

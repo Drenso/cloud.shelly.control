@@ -168,7 +168,7 @@ export default class RGBCCT extends ComponentWithId<'RGBCCT', RGBCCTStatus, RGBC
   protected _GetStatus = GetStatus;
   public readonly namespace = 'RGBCCT';
   public static readonly uiName = 'Light';
-  protected static readonly key = 'rgbcct';
+  public static readonly key = 'rgbcct';
 
   public async Set(channel: RpcChannel, params: RGBCCTSetParams): ReturnType<typeof Set> {
     return Set(channel, this.id, params);

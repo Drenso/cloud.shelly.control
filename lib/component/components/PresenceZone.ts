@@ -96,7 +96,7 @@ export default class PresenceZone extends ComponentWithId<
   protected _GetStatus = GetStatus;
   public readonly namespace = 'PresenceZone';
   public static readonly uiName = 'Presence Zone';
-  protected static readonly key = 'presencezone';
+  public static readonly key = 'presencezone';
 
   private readonly presenceMitt = createMitt<PresenceMittEvents>();
 

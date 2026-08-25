@@ -88,7 +88,7 @@ export default class PM1 extends ComponentWithId<'PM1', PM1Status, PM1Config, PM
   protected _GetStatus = GetStatus;
   public readonly namespace = 'PM1';
   public static readonly uiName = 'Electrical Measurement';
-  protected static readonly key = 'pm1';
+  public static readonly key = 'pm1';
 
   public async ResetCounters(
     channel: RpcChannel,

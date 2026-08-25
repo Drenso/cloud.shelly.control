@@ -203,7 +203,7 @@ export default class CCT extends ComponentWithId<'CCT', CCTStatus, CCTConfig, CC
   protected _GetStatus = GetStatus;
   public readonly namespace = 'CCT';
   public static readonly uiName = 'Light';
-  protected static readonly key = 'cct';
+  public static readonly key = 'cct';
 
   public async Set(channel: RpcChannel, params: CCTSetParams): ReturnType<typeof Set> {
     return Set(channel, this.id, params);

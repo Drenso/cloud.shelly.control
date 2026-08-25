@@ -99,7 +99,7 @@ export default class PlugsUI extends ComponentWithoutId<
   protected readonly _GetStatus = GetStatus;
   public readonly namespace = 'PLUGS_UI';
   public static readonly uiName = 'Plug';
-  protected static readonly key = 'plugs_ui';
+  public static readonly key = 'plugs_ui';
 
   public async registerHomeyDevice(
     _homeyDevice: ShellyLocalDevice,

@@ -54,7 +54,7 @@ export default class Temperature extends ComponentWithId<
   protected readonly _GetStatus = GetStatus;
   public readonly namespace = 'Temperature';
   public static readonly uiName = 'Temperature';
-  protected static readonly key = 'temperature';
+  public static readonly key = 'temperature';
 
   public async registerHomeyDevice(
     homeyDevice: ShellyLocalDevice,

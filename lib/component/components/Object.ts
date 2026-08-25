@@ -52,7 +52,7 @@ export default class Object extends ComponentWithId<'Object', ObjectStatus, Obje
   protected readonly _GetStatus = GetStatus;
   public readonly namespace = 'Object';
   public static readonly uiName = 'Object';
-  protected static readonly key = 'object';
+  public static readonly key = 'object';
 
   public async Set(channel: RpcChannel, params: ObjectSetParams): ReturnType<typeof Set> {
     return Set(channel, this.id, params);

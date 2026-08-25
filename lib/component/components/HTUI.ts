@@ -26,7 +26,7 @@ export default class HTUI extends ComponentWithoutId<'HT_UI', HTUIStatus, HTUICo
   protected readonly _GetStatus = GetStatus;
   public readonly namespace = 'HT_UI';
   public static readonly uiName = 'H&T';
-  protected static readonly key = 'ht_ui';
+  public static readonly key = 'ht_ui';
 
   public async registerHomeyDevice(
     _homeyDevice: ShellyLocalDevice,
