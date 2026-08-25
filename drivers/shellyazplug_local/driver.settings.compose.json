@@ -3,27 +3,7 @@
     "$extends": "PLUGS_UI.controls.switch.in_mode"
   },
   {
-    "$extends": "Switch.initial_state",
-    "values": [
-      {
-        "id": "off",
-        "label": {
-          "en": "Off"
-        }
-      },
-      {
-        "id": "on",
-        "label": {
-          "en": "On"
-        }
-      },
-      {
-        "id": "restore_last",
-        "label": {
-          "en": "Restore Last"
-        }
-      }
-    ]
+    "$extends": "Switch.initial_state.without_match"
   },
   {
     "$extends": "Switch.autorecover_voltage_errors"
@@ -44,11 +24,17 @@
     "$extends": "PLUGS_UI.leds.mode"
   },
   {
-    "$extends": "PLUGS_UI.leds.colors.power.brightness"
+    "type": "group",
+    "label": "Indicator LED - Power Consumption Mode",
+    "children": [
+      {
+        "$extends": "PLUGS_UI.leds.colors.power.brightness"
+      }
+    ]
   },
   {
     "type": "group",
-    "label": "Indicator LED - On Color",
+    "label": "Indicator LED - On/Off Colors Mode - On",
     "children": [
       {
         "$extends": "PLUGS_UI.leds.colors.switch.brightness",
@@ -70,7 +56,7 @@
   },
   {
     "type": "group",
-    "label": "Indicator LED - Off Color",
+    "label": "Indicator LED - On/Off Colors Mode - Off",
     "children": [
       {
         "$extends": "PLUGS_UI.leds.colors.switch.brightness",
