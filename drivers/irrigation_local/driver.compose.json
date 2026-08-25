@@ -1,0 +1,25 @@
+{
+  "$extends": ["local"],
+  "name": {
+    "en": "FrankEver FK-06X Sprinkler Controller - LAN"
+  },
+  "class": "sprinkler",
+  "images": {
+    "small": "/assets/drivers/irrigation/images/small.png",
+    "large": "/assets/drivers/irrigation/images/large.png",
+    "xlarge": "/assets/drivers/irrigation/images/xlarge.png"
+  },
+  "capabilities": [],
+  "capabilitiesOptions": {
+    "measure_temperature": {
+      "title": {
+        "en": "Average Temperature"
+      }
+    },
+    "measure_rain": {
+      "title": {
+        "en": "Rainfall last 24h"
+      }
+    }
+  }
+}

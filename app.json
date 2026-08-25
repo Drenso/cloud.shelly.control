@@ -2864,6 +2864,83 @@
       "connectivity": [
         "lan"
       ],
+      "capabilities": [],
+      "capabilitiesOptions": {
+        "button.restart": {
+          "maintenanceAction": true,
+          "title": {
+            "en": "Restart Device"
+          }
+        },
+        "measure_temperature": {
+          "title": {
+            "en": "Average Temperature"
+          }
+        },
+        "measure_rain": {
+          "title": {
+            "en": "Rainfall last 24h"
+          }
+        }
+      },
+      "pair": [
+        {
+          "id": "pairing_information",
+          "navigation": {
+            "next": "list_devices"
+          }
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "authenticate_devices"
+          }
+        },
+        {
+          "id": "authenticate_devices",
+          "template": "loading",
+          "options": {
+            "text": "pair.loading_devices"
+          }
+        },
+        {
+          "id": "loading_devices",
+          "template": "loading",
+          "options": {
+            "text": "pair.loading_devices"
+          }
+        },
+        {
+          "id": "device_password"
+        },
+        {
+          "id": "add_subdevices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "repair"
+        }
+      ],
+      "name": {
+        "en": "FrankEver FK-06X Sprinkler Controller - LAN"
+      },
+      "class": "sprinkler",
+      "images": {
+        "small": "/assets/drivers/irrigation/images/small.png",
+        "large": "/assets/drivers/irrigation/images/large.png",
+        "xlarge": "/assets/drivers/irrigation/images/xlarge.png"
+      },
+      "id": "irrigation_local"
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "lan"
+      ],
       "capabilities": [
         "onoff",
         "measure_water",
