@@ -64,5 +64,8 @@
   },
   "0.14.0": {
     "en": "Add LAN support for Neo Smart Water Valve & Raex MP46 Curtain Motor. Add Matter definitions for Raex MP46 Curtain Motor. Fix input capabilities. Improve socket aliveness validation. Improve battery device support."
+  },
+  "0.14.1": {
+    "en": "Handle incorrect dataframes gracefully"
   }
 }
