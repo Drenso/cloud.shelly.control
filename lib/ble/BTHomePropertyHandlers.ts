@@ -12,6 +12,14 @@ export async function handleBatteryProperty(device: ShellyBleDevice, btHomeData:
   await safeSetCapabilityValue(device, 'measure_battery', btHomeData.battery[0]);
 }
 
+export async function handleHumidityProperty(device: ShellyBleDevice, btHomeData: BTHomeData): Promise<void> {
+  if (btHomeData.humidity?.length !== 1) {
+    return;
+  }
+
+  await safeSetCapabilityValue(device, 'measure_humidity', btHomeData.humidity[0]);
+}
+
 export async function handleIlluminanceProperty(device: ShellyBleDevice, btHomeData: BTHomeData): Promise<void> {
   if (btHomeData.illuminance?.length !== 1) {
     return;
@@ -34,6 +42,14 @@ export async function handleMotionProperty(device: ShellyBleDevice, btHomeData: 
   }
 
   await safeSetCapabilityValue(device, 'alarm_motion', btHomeData.motion[0]);
+}
+
+export async function handleTemperatureProperty(device: ShellyBleDevice, btHomeData: BTHomeData): Promise<void> {
+  if (btHomeData.temperature?.length !== 1) {
+    return;
+  }
+
+  await safeSetCapabilityValue(device, 'measure_temperature', btHomeData.temperature[0]);
 }
 
 export async function handleSingleButtonEventProperty(device: ShellyBleDevice, btHomeData: BTHomeData): Promise<void> {
