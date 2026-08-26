@@ -194,7 +194,14 @@ export default class InboundWebsocketChannel implements RpcChannel {
     this.updateKeepAlive();
 
     const string = message.toString();
-    const json = JSON.parse(string) as UnknownFrame;
+
+    let json: UnknownFrame;
+    try {
+      json = JSON.parse(string);
+    } catch {
+      this.error('Inbound WS message JSON error', string);
+      return;
+    }
 
     if (json.dst !== RPC_SRC) {
       return;

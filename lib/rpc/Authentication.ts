@@ -55,6 +55,12 @@ export class NoPassword extends Error {
   }
 }
 
+export class IncorrectAuthenticationFrame extends Error {
+  public constructor(e: string) {
+    super(`Incorrect authentication frame: ${e}`);
+  }
+}
+
 export class UnauthenticatedWS extends Error {
   public constructor(public readonly challenge: string) {
     super('WS is unauthenticated');
@@ -70,5 +76,9 @@ export type WsAuthenticationChallenge = {
 };
 
 export function parseWsChallenge(message: string): WsAuthenticationChallenge {
-  return JSON.parse(message) as WsAuthenticationChallenge;
+  try {
+    return JSON.parse(message) as WsAuthenticationChallenge;
+  } catch {
+    throw new IncorrectAuthenticationFrame(message);
+  }
 }

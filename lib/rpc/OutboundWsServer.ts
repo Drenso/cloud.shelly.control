@@ -44,7 +44,14 @@ export default class OutboundWsServer {
 
   private handleOutboundWsMessage(ws: WebSocket, message: RawData): void {
     const string = message.toString();
-    const json = JSON.parse(string) as NotificationFrame;
+
+    let json: NotificationFrame;
+    try {
+      json = JSON.parse(string);
+    } catch {
+      this.error('Outbound WS message JSON error', string);
+      return;
+    }
 
     if (json.src === undefined) {
       return;
