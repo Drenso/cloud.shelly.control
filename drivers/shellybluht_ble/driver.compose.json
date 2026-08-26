@@ -1,0 +1,22 @@
+{
+  "$extends": ["ble"],
+  "name": {
+    "en": "BLU H&T - BLE"
+  },
+  "class": "sensor",
+  "capabilities": ["measure_temperature", "measure_humidity", "measure_battery", "hidden.single_button_pressed"],
+  "energy": {
+    "batteries": ["CR2032"]
+  },
+  "images": {
+    "small": "/assets/drivers/shellybluht/images/small.png",
+    "large": "/assets/drivers/shellybluht/images/large.png",
+    "xlarge": "/assets/drivers/shellybluht/images/xlarge.png"
+  },
+  "learnmode": {
+    "image": "{{driverAssetsPath}}/learnmode.svg",
+    "instruction": {
+      "en": "Press the button during the Bluetooth scan."
+    }
+  }
+}
