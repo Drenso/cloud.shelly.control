@@ -1,0 +1,22 @@
+{
+  "$extends": ["ble"],
+  "name": {
+    "en": "BLU Door/Window - BLE"
+  },
+  "class": "sensor",
+  "capabilities": ["alarm_open", "measure_rotation", "measure_luminance", "measure_battery"],
+  "energy": {
+    "batteries": ["CR2032"]
+  },
+  "images": {
+    "small": "/assets/drivers/shellybludoorwindow/images/small.png",
+    "large": "/assets/drivers/shellybludoorwindow/images/large.png",
+    "xlarge": "/assets/drivers/shellybludoorwindow/images/xlarge.png"
+  },
+  "learnmode": {
+    "image": "{{driverAssetsPath}}/learnmode.svg",
+    "instruction": {
+      "en": "Press the button during the Bluetooth scan."
+    }
+  }
+}
