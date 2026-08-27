@@ -3645,16 +3645,6 @@
           "title": {
             "en": "Restart Device"
           }
-        },
-        "measure_temperature": {
-          "title": {
-            "en": "Average Temperature"
-          }
-        },
-        "measure_rain": {
-          "title": {
-            "en": "Rainfall last 24h"
-          }
         }
       },
       "pair": [
