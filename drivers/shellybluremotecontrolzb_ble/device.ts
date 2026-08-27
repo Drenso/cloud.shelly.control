@@ -10,6 +10,7 @@ export default class ShellyBluRemoteControlDevice extends ShellyBleDevice {
     await addCapabilityIfNotExists(this, 'hidden.blu_remote_control');
     await super.onInit();
   }
+
   public async handleBtHomeForward(btHomeData: BTHomeData): Promise<void> {
     if (btHomeData.battery?.length === 1) {
       await safeSetCapabilityValue(this, 'measure_battery', btHomeData.battery[0]);
