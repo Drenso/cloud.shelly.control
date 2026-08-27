@@ -1,0 +1,32 @@
+{
+  "$extends": ["zigbee"],
+  "name": {
+    "en": "BLU Door/Window ZB - Zigbee"
+  },
+  "class": "sensor",
+  "capabilities": ["alarm_open", "alarm_shelly_tilt", "shelly_illumination", "measure_battery"],
+  "energy": {
+    "batteries": ["CR2032"]
+  },
+  "images": {
+    "small": "/assets/drivers/shellybludoorwindowzb/images/small.png",
+    "large": "/assets/drivers/shellybludoorwindowzb/images/large.png",
+    "xlarge": "/assets/drivers/shellybludoorwindowzb/images/xlarge.png"
+  },
+  "zigbee": {
+    "manufacturerName": "Shelly",
+    "productId": ["BLU DoorWindow ZB"],
+    "endpoints": {
+      "1": {
+        "clusters": [0, 1, 1280, 64545],
+        "bindings": [1280, 64545]
+      }
+    },
+    "learnmode": {
+      "image": "{{driverAssetsPath}}/learnmode.svg",
+      "instruction": {
+        "en": "Press the button 5 times to initialize Zigbee pairing."
+      }
+    }
+  }
+}

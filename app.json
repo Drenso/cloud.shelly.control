@@ -8701,6 +8701,85 @@
     },
     {
       "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "icon": "/drivers/shellybludoorwindowzb_zigbee/assets/icon.svg",
+      "name": {
+        "en": "BLU Door/Window ZB - Zigbee"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "alarm_open",
+        "alarm_shelly_tilt",
+        "shelly_illumination",
+        "measure_battery"
+      ],
+      "energy": {
+        "batteries": [
+          "CR2032"
+        ]
+      },
+      "images": {
+        "small": "/assets/drivers/shellybludoorwindowzb/images/small.png",
+        "large": "/assets/drivers/shellybludoorwindowzb/images/large.png",
+        "xlarge": "/assets/drivers/shellybludoorwindowzb/images/xlarge.png"
+      },
+      "zigbee": {
+        "manufacturerName": "Shelly",
+        "productId": [
+          "BLU DoorWindow ZB"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              1,
+              1280,
+              64545
+            ],
+            "bindings": [
+              1280,
+              64545
+            ]
+          }
+        },
+        "learnmode": {
+          "image": "/drivers/shellybludoorwindowzb_zigbee/assets/learnmode.svg",
+          "instruction": {
+            "en": "Press the button 5 times to initialize Zigbee pairing."
+          }
+        }
+      },
+      "id": "shellybludoorwindowzb_zigbee",
+      "settings": [
+        {
+          "id": "Illuminance:bright_thr",
+          "type": "number",
+          "label": {
+            "en": "Illuminance - Bright Threshold"
+          },
+          "value": 50,
+          "min": 0,
+          "units": "lux"
+        },
+        {
+          "id": "Illuminance:dark_thr",
+          "type": "number",
+          "label": {
+            "en": "Illuminance - Dark Threshold"
+          },
+          "value": 10,
+          "min": 0,
+          "units": "lux"
+        }
+      ]
+    },
+    {
+      "platforms": [
         "local"
       ],
       "connectivity": [
@@ -18120,6 +18199,29 @@
       },
       "uiComponent": "sensor",
       "icon": "/assets/capabilities/alarm_power.svg"
+    },
+    "alarm_shelly_tilt": {
+      "type": "boolean",
+      "title": {
+        "en": "Tilt"
+      },
+      "getable": true,
+      "setable": false,
+      "titleFalse": {
+        "en": "Not tilted"
+      },
+      "titleTrue": {
+        "en": "Tilted"
+      },
+      "insights": true,
+      "insightsTitleTrue": {
+        "en": "Tilted"
+      },
+      "insightsTitleFalse": {
+        "en": "Not tilted"
+      },
+      "uiComponent": "sensor",
+      "icon": "/assets/capabilities/alarm_tilt.svg"
     },
     "hidden": {
       "type": "string",
