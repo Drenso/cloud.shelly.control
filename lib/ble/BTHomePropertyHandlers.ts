@@ -44,12 +44,28 @@ export async function handleMotionProperty(device: ShellyBleDevice, btHomeData: 
   await safeSetCapabilityValue(device, 'alarm_motion', btHomeData.motion[0]);
 }
 
+export async function handleRotationProperty(device: ShellyBleDevice, btHomeData: BTHomeData): Promise<void> {
+  if (btHomeData.rotation?.length !== 1) {
+    return;
+  }
+
+  await safeSetCapabilityValue(device, 'measure_rotation', btHomeData.rotation[0]);
+}
+
 export async function handleTemperatureProperty(device: ShellyBleDevice, btHomeData: BTHomeData): Promise<void> {
   if (btHomeData.temperature?.length !== 1) {
     return;
   }
 
   await safeSetCapabilityValue(device, 'measure_temperature', btHomeData.temperature[0]);
+}
+
+export async function handleWindowProperty(device: ShellyBleDevice, btHomeData: BTHomeData): Promise<void> {
+  if (btHomeData.window?.length !== 1) {
+    return;
+  }
+
+  await safeSetCapabilityValue(device, 'alarm_open', btHomeData.window[0]);
 }
 
 export async function handleSingleButtonEventProperty(device: ShellyBleDevice, btHomeData: BTHomeData): Promise<void> {
