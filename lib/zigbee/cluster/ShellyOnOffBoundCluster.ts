@@ -1,6 +1,6 @@
+import type { BoundClusterPayloadFromDefinition } from '@drenso/homey-zigbee-library/types/BoundCluster.mjs';
 import zbClusters, { type OnOffClusterAttributes } from 'zigbee-clusters';
 import type { ShellyOnOffClusterCommands } from './ShellyOnOffCluster.js';
-import type { BoundClusterPayloadFromDefinition } from '@drenso/homey-zigbee-library/types/BoundCluster.mjs';
 
 export type OnWithButtonPayload = BoundClusterPayloadFromDefinition<
   ShellyOnOffClusterCommands['shellySetOnWithButton']

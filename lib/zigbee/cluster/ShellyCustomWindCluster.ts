@@ -1,23 +1,24 @@
 import { Cluster, type types, ZCLDataTypes } from 'zigbee-clusters';
+import { SHELLY_ZIGBEE_MFG_CODE } from '../../config.js';
 
 const Attributes = {
   windSpeed: {
     // Wind speed in m/s (0-140, scale by 10)
     id: 0x0000,
     type: ZCLDataTypes.uint16,
-    manufacturerId: 0x1490,
+    manufacturerId: SHELLY_ZIGBEE_MFG_CODE,
   },
   windDirection: {
     // Wind direction in degrees (0-360, scale by 10)
     id: 0x0004,
     type: ZCLDataTypes.uint16,
-    manufacturerId: 0x1490,
+    manufacturerId: SHELLY_ZIGBEE_MFG_CODE,
   },
   gustSpeed: {
     // Gust speed in m/s (0-140, scale by 10)
     id: 0x0007,
     type: ZCLDataTypes.uint16,
-    manufacturerId: 0x1490,
+    manufacturerId: SHELLY_ZIGBEE_MFG_CODE,
   },
 } satisfies types.AttributeDefinitions;
 

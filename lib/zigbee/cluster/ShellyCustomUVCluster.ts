@@ -1,11 +1,12 @@
 import { Cluster, type types, ZCLDataTypes } from 'zigbee-clusters';
+import { SHELLY_ZIGBEE_MFG_CODE } from '../../config.js';
 
 const Attributes = {
   uvIndex: {
     // UV index (0-11, scale by 10)
     id: 0x0000,
     type: ZCLDataTypes.uint8,
-    manufacturerId: 0x1490,
+    manufacturerId: SHELLY_ZIGBEE_MFG_CODE,
   },
 } satisfies types.AttributeDefinitions;
 

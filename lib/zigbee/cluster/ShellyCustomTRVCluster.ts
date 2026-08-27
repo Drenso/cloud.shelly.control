@@ -1,17 +1,18 @@
 import { Cluster, type types, ZCLDataTypes } from 'zigbee-clusters';
+import { SHELLY_ZIGBEE_MFG_CODE } from '../../config.js';
 
 const Attributes = {
   manualMode: {
     // Manual mode (0 = auto, 1 = manual)
     id: 0x0000,
     type: ZCLDataTypes.uint8,
-    manufacturerId: 0x1490,
+    manufacturerId: SHELLY_ZIGBEE_MFG_CODE,
   },
   valvePosition: {
     // Valve position (0-100%)
     id: 0x0001,
     type: ZCLDataTypes.uint8,
-    manufacturerId: 0x1490,
+    manufacturerId: SHELLY_ZIGBEE_MFG_CODE,
   },
 } satisfies types.AttributeDefinitions;
 
@@ -19,7 +20,7 @@ const CommandsReceived = {
   calibrate: {
     id: 0x00,
     direction: Cluster.DIRECTION_CLIENT_TO_SERVER,
-    manufacturerId: 0x1490,
+    manufacturerId: SHELLY_ZIGBEE_MFG_CODE,
   },
 } satisfies types.CommandDefinitions;
 
