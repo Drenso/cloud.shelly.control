@@ -8672,6 +8672,66 @@
         }
       ],
       "name": {
+        "en": "BLU Door/Window ZB - BLE"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "alarm_open",
+        "measure_rotation",
+        "shelly_illumination",
+        "measure_battery"
+      ],
+      "energy": {
+        "batteries": [
+          "CR2032"
+        ]
+      },
+      "images": {
+        "small": "/assets/drivers/shellybludoorwindowzb/images/small.png",
+        "large": "/assets/drivers/shellybludoorwindowzb/images/large.png",
+        "xlarge": "/assets/drivers/shellybludoorwindowzb/images/xlarge.png"
+      },
+      "learnmode": {
+        "image": "/drivers/shellybludoorwindowzb_ble/assets/learnmode.svg",
+        "instruction": {
+          "en": "Press the button during the Bluetooth scan."
+        }
+      },
+      "id": "shellybludoorwindowzb_ble"
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "ble"
+      ],
+      "pair": [
+        {
+          "id": "ble_information",
+          "navigation": {
+            "next": "pair_instructions"
+          }
+        },
+        {
+          "id": "pair_instructions",
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
+        {
+          "id": "list_my_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices"
+          }
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ],
+      "name": {
         "en": "BLU H&T - BLE"
       },
       "class": "sensor",
