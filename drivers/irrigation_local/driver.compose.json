@@ -9,7 +9,7 @@
     "large": "/assets/drivers/irrigation/images/large.png",
     "xlarge": "/assets/drivers/irrigation/images/xlarge.png"
   },
-  "capabilities": [],
+  "capabilities": ["onoff"],
   "capabilitiesOptions": {
     "measure_temperature": {
       "title": {

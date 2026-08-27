@@ -2874,7 +2874,9 @@
       "connectivity": [
         "lan"
       ],
-      "capabilities": [],
+      "capabilities": [
+        "onoff"
+      ],
       "capabilitiesOptions": {
         "alarm_generic": {
           "title": {
