@@ -1,5 +1,6 @@
 import { Cluster, type types, ZCLDataTypes } from 'zigbee-clusters';
 import { SHELLY_ZIGBEE_MFG_CODE } from '../../config.js';
+import type { ShellyIlluminanceType } from '../../flow/illuminanceFlows.js';
 
 const Attributes = {
   lightLevel: {
@@ -38,3 +39,14 @@ class ShellyCustomLightLevelCluster extends Cluster<ShellyCustomLightLevelCluste
 Cluster.addCluster(ShellyCustomLightLevelCluster);
 
 export default ShellyCustomLightLevelCluster;
+
+export function convertLightLevel(value: 0 | 1 | 2): ShellyIlluminanceType {
+  switch (value) {
+    case 0:
+      return 'dark';
+    case 1:
+      return 'twilight';
+    case 2:
+      return 'bright';
+  }
+}

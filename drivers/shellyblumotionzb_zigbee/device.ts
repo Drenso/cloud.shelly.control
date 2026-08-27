@@ -2,8 +2,8 @@ import initPowerConfigurationDevice from '@drenso/homey-zigbee-library/capabilit
 import { initReadOnlyCapability } from '@drenso/homey-zigbee-library/lib/attributeDevice.mjs';
 import initIasZoneDevice from '@drenso/homey-zigbee-library/lib/iasZoneDevice.mjs';
 import type { types, ZCLNode } from 'zigbee-clusters';
-import type { ShellyIlluminanceType } from '../../lib/flow/illuminanceFlows.js';
 import ShellyCustomLightLevelCluster, {
+  convertLightLevel,
   type ShellyCustomLightLevelClusterAttributes,
 } from '../../lib/zigbee/cluster/ShellyCustomLightLevelCluster.js';
 import ShellyZigbeeDevice from '../../lib/zigbee/ZigbeeDevice.js';
@@ -26,7 +26,7 @@ export default class ShellyBluMotionZBZigbeeDevice extends ShellyZigbeeDevice {
       'shelly_illumination',
       ShellyCustomLightLevelCluster,
       'lightLevel',
-      this.convertLightLevel,
+      convertLightLevel,
     );
   }
 
@@ -49,16 +49,5 @@ export default class ShellyBluMotionZBZigbeeDevice extends ShellyZigbeeDevice {
     }
 
     await super.onSettings({ oldSettings, newSettings, changedKeys });
-  }
-
-  protected convertLightLevel(value: 0 | 1 | 2): ShellyIlluminanceType {
-    switch (value) {
-      case 0:
-        return 'dark';
-      case 1:
-        return 'twilight';
-      case 2:
-        return 'bright';
-    }
   }
 }
