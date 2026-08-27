@@ -83,6 +83,7 @@ export const IGNORED_NO_IMPLEMENTATION_COMPONENTS = [
   'bthome',
   'cloud',
   'eth',
+  'ffs',
   'knx',
   'matter',
   'modbus',
