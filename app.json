@@ -8672,6 +8672,66 @@
         }
       ],
       "name": {
+        "en": "BLU H&T ZB - BLE"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "measure_temperature",
+        "measure_humidity",
+        "measure_battery",
+        "hidden.single_button_pressed"
+      ],
+      "energy": {
+        "batteries": [
+          "CR2032"
+        ]
+      },
+      "images": {
+        "small": "/assets/drivers/shellybluht/images/small.png",
+        "large": "/assets/drivers/shellybluht/images/large.png",
+        "xlarge": "/assets/drivers/shellybluht/images/xlarge.png"
+      },
+      "learnmode": {
+        "image": "/drivers/shellybluhtzb_ble/assets/learnmode.svg",
+        "instruction": {
+          "en": "Press the button during the Bluetooth scan."
+        }
+      },
+      "id": "shellybluhtzb_ble"
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "ble"
+      ],
+      "pair": [
+        {
+          "id": "ble_information",
+          "navigation": {
+            "next": "pair_instructions"
+          }
+        },
+        {
+          "id": "pair_instructions",
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
+        {
+          "id": "list_my_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices"
+          }
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ],
+      "name": {
         "en": "BLU Motion - BLE"
       },
       "class": "sensor",
