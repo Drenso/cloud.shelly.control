@@ -1,0 +1,22 @@
+{
+  "$extends": ["ble"],
+  "name": {
+    "en": "BLU H&T Display ZB - BLE"
+  },
+  "class": "sensor",
+  "capabilities": ["measure_temperature", "measure_humidity", "measure_battery", "shelly_illumination"],
+  "energy": {
+    "batteries": ["CR2032", "CR2032"]
+  },
+  "images": {
+    "small": "/assets/drivers/shellybluhtdisplayzb/images/small.png",
+    "large": "/assets/drivers/shellybluhtdisplayzb/images/large.png",
+    "xlarge": "/assets/drivers/shellybluhtdisplayzb/images/xlarge.png"
+  },
+  "learnmode": {
+    "image": "{{driverAssetsPath}}/learnmode.svg",
+    "instruction": {
+      "en": "Press the button once during the Bluetooth scan, the device will enter setup mode for three minutes."
+    }
+  }
+}
