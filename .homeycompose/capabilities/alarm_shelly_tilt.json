@@ -1,0 +1,23 @@
+{
+  "type": "boolean",
+  "title": {
+    "en": "Tilt"
+  },
+  "getable": true,
+  "setable": false,
+  "titleFalse": {
+    "en": "Not tilted"
+  },
+  "titleTrue": {
+    "en": "Tilted"
+  },
+  "insights": true,
+  "insightsTitleTrue": {
+    "en": "Tilted"
+  },
+  "insightsTitleFalse": {
+    "en": "Not tilted"
+  },
+  "uiComponent": "sensor",
+  "icon": "/assets/capabilities/alarm_tilt.svg"
+}
