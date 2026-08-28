@@ -4,59 +4,79 @@ import { safeSetCapabilityValue } from '../safeFunctions.js';
 import type ShellyBleDevice from './BleDevice.js';
 import { BTHomeButtonEventType, type BTHomeData, BTHomeLightLevel } from './BTHome.js';
 
+type BtHomeDataHandlerOptions = {
+  capabilityId?: string;
+  addIfNotExists?: boolean;
+};
+
 export async function handleBatteryProperty(
   device: ShellyBleDevice,
   btHomeData: BTHomeData,
-  addIfNotExists?: boolean,
+  options?: BtHomeDataHandlerOptions,
 ): Promise<void> {
   if (btHomeData.battery?.length !== 1) {
     return;
   }
 
-  await safeSetCapabilityValue(device, 'measure_battery', btHomeData.battery[0], addIfNotExists);
+  await safeSetCapabilityValue(
+    device,
+    options?.capabilityId ?? 'measure_battery',
+    btHomeData.battery[0],
+    options?.addIfNotExists,
+  );
 }
 
 export async function handleDistanceProperty(
   device: ShellyBleDevice,
   btHomeData: BTHomeData,
-  addIfNotExists?: boolean,
+  options?: BtHomeDataHandlerOptions,
 ): Promise<void> {
   if (btHomeData.distance?.length !== 1) {
     return;
   }
 
   const value = btHomeData.distance[0] === 0 ? null : btHomeData.distance[0] / 1000;
-  await safeSetCapabilityValue(device, 'measure_distance', value, addIfNotExists);
+  await safeSetCapabilityValue(device, options?.capabilityId ?? 'measure_distance', value, options?.addIfNotExists);
 }
 
 export async function handleHumidityProperty(
   device: ShellyBleDevice,
   btHomeData: BTHomeData,
-  addIfNotExists?: boolean,
+  options?: BtHomeDataHandlerOptions,
 ): Promise<void> {
   if (btHomeData.humidity?.length !== 1) {
     return;
   }
 
-  await safeSetCapabilityValue(device, 'measure_humidity', btHomeData.humidity[0], addIfNotExists);
+  await safeSetCapabilityValue(
+    device,
+    options?.capabilityId ?? 'measure_humidity',
+    btHomeData.humidity[0],
+    options?.addIfNotExists,
+  );
 }
 
 export async function handleIlluminanceProperty(
   device: ShellyBleDevice,
   btHomeData: BTHomeData,
-  addIfNotExists?: boolean,
+  options?: BtHomeDataHandlerOptions,
 ): Promise<void> {
   if (btHomeData.illuminance?.length !== 1) {
     return;
   }
 
-  await safeSetCapabilityValue(device, 'measure_luminance', btHomeData.illuminance[0], addIfNotExists);
+  await safeSetCapabilityValue(
+    device,
+    options?.capabilityId ?? 'measure_luminance',
+    btHomeData.illuminance[0],
+    options?.addIfNotExists,
+  );
 }
 
 export async function handleLightLevelProperty(
   device: ShellyBleDevice,
   btHomeData: BTHomeData,
-  addIfNotExists?: boolean,
+  options?: BtHomeDataHandlerOptions,
 ): Promise<void> {
   if (btHomeData.lightLevel?.length !== 1) {
     return;
@@ -64,70 +84,96 @@ export async function handleLightLevelProperty(
 
   await safeSetCapabilityValue(
     device,
-    'shelly_illumination',
+    options?.capabilityId ?? 'shelly_illumination',
     convertLightLevel(btHomeData.lightLevel[0]),
-    addIfNotExists,
+    options?.addIfNotExists,
   );
 }
+
 
 export async function handleMotionProperty(
   device: ShellyBleDevice,
   btHomeData: BTHomeData,
-  addIfNotExists?: boolean,
+  options?: BtHomeDataHandlerOptions,
 ): Promise<void> {
   if (btHomeData.motion?.length !== 1) {
     return;
   }
 
-  await safeSetCapabilityValue(device, 'alarm_motion', btHomeData.motion[0], addIfNotExists);
+  await safeSetCapabilityValue(
+    device,
+    options?.capabilityId ?? 'alarm_motion',
+    btHomeData.motion[0],
+    options?.addIfNotExists,
+  );
 }
 
 export async function handleRotationProperty(
   device: ShellyBleDevice,
   btHomeData: BTHomeData,
-  addIfNotExists?: boolean,
+  options?: BtHomeDataHandlerOptions,
 ): Promise<void> {
   if (btHomeData.rotation?.length !== 1) {
     return;
   }
 
-  await safeSetCapabilityValue(device, 'measure_rotation', btHomeData.rotation[0], addIfNotExists);
+  await safeSetCapabilityValue(
+    device,
+    options?.capabilityId ?? 'measure_rotation',
+    btHomeData.rotation[0],
+    options?.addIfNotExists,
+  );
 }
 
 export async function handleTemperatureProperty(
   device: ShellyBleDevice,
   btHomeData: BTHomeData,
-  addIfNotExists?: boolean,
+  options?: BtHomeDataHandlerOptions,
 ): Promise<void> {
   if (btHomeData.temperature?.length !== 1) {
     return;
   }
 
-  await safeSetCapabilityValue(device, 'measure_temperature', btHomeData.temperature[0], addIfNotExists);
+  await safeSetCapabilityValue(
+    device,
+    options?.capabilityId ?? 'measure_temperature',
+    btHomeData.temperature[0],
+    options?.addIfNotExists,
+  );
 }
 
 export async function handleVibrationProperty(
   device: ShellyBleDevice,
   btHomeData: BTHomeData,
-  addIfNotExists?: boolean,
+  options?: BtHomeDataHandlerOptions,
 ): Promise<void> {
   if (btHomeData.vibration?.length !== 1) {
     return;
   }
 
-  await safeSetCapabilityValue(device, 'alarm_vibration', btHomeData.vibration[0], addIfNotExists);
+  await safeSetCapabilityValue(
+    device,
+    options?.capabilityId ?? 'alarm_vibration',
+    btHomeData.vibration[0],
+    options?.addIfNotExists,
+  );
 }
 
 export async function handleWindowProperty(
   device: ShellyBleDevice,
   btHomeData: BTHomeData,
-  addIfNotExists?: boolean,
+  options?: BtHomeDataHandlerOptions,
 ): Promise<void> {
   if (btHomeData.window?.length !== 1) {
     return;
   }
 
-  await safeSetCapabilityValue(device, 'alarm_open', btHomeData.window[0], addIfNotExists);
+  await safeSetCapabilityValue(
+    device,
+    options?.capabilityId ?? 'alarm_open',
+    btHomeData.window[0],
+    options?.addIfNotExists,
+  );
 }
 
 export async function handleSingleButtonEventProperty(device: ShellyBleDevice, btHomeData: BTHomeData): Promise<void> {
