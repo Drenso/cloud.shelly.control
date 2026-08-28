@@ -10,6 +10,6 @@ export default class ShellyBluDistanceBleDevice extends ShellyBleDevice {
   public async handleBtHomeForward(btHomeData: BTHomeData): Promise<void> {
     await handleBatteryProperty(this, btHomeData);
     await handleDistanceProperty(this, btHomeData);
-    await handleVibrationProperty(this, btHomeData, true);
+    await handleVibrationProperty(this, btHomeData, { addIfNotExists: true });
   }
 }
