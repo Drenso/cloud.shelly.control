@@ -5,9 +5,6 @@
     "config": {
       "enable": true,
       "rpc": {
-        "enable": true
-      },
-      "observer": {
         "enable": false
       }
     }
@@ -78,29 +75,30 @@
       "source": "init",
       "output": false,
       "apower": 0,
-      "voltage": 231.7,
+      "voltage": 231.4,
       "freq": 50,
       "current": 0,
       "pf": 0,
       "aenergy": {
         "total": 0,
         "by_minute": [0, 0, 0],
-        "minute_ts": 1785500520
+        "minute_ts": 1787920980
       },
       "ret_aenergy": {
         "total": 0,
         "by_minute": [0, 0, 0],
-        "minute_ts": 1785500520
+        "minute_ts": 1787920980
       },
       "temperature": {
-        "tC": 28.2,
-        "tF": 82.7
+        "tC": 43.3,
+        "tF": 109.9
       }
     },
     "config": {
       "id": 0,
       "name": null,
       "in_mode": "follow",
+      "in_locked": false,
       "initial_state": "match_input",
       "auto_on": false,
       "auto_on_delay": 60,
@@ -110,7 +108,11 @@
       "voltage_limit": 280,
       "undervoltage_limit": 0,
       "autorecover_voltage_errors": false,
-      "current_limit": 10
+      "current_limit": 10,
+      "reverse": false
+    },
+    "attrs": {
+      "inputs": [0]
     }
   },
   {
@@ -120,29 +122,30 @@
       "source": "init",
       "output": false,
       "apower": 0,
-      "voltage": 231.8,
+      "voltage": 231.4,
       "freq": 50,
       "current": 0,
       "pf": 0,
       "aenergy": {
         "total": 0,
         "by_minute": [0, 0, 0],
-        "minute_ts": 1785500520
+        "minute_ts": 1787920980
       },
       "ret_aenergy": {
         "total": 0,
         "by_minute": [0, 0, 0],
-        "minute_ts": 1785500520
+        "minute_ts": 1787920980
       },
       "temperature": {
-        "tC": 28.2,
-        "tF": 82.7
+        "tC": 43.3,
+        "tF": 109.9
       }
     },
     "config": {
       "id": 1,
       "name": null,
       "in_mode": "follow",
+      "in_locked": false,
       "initial_state": "match_input",
       "auto_on": false,
       "auto_on_delay": 60,
@@ -152,7 +155,11 @@
       "voltage_limit": 280,
       "undervoltage_limit": 0,
       "autorecover_voltage_errors": false,
-      "current_limit": 10
+      "current_limit": 10,
+      "reverse": false
+    },
+    "attrs": {
+      "inputs": [1]
     }
   },
   {
@@ -160,29 +167,29 @@
     "status": {
       "mac": "441793CDE594",
       "restart_required": false,
-      "time": "14:22",
-      "unixtime": 1785500545,
-      "uptime": 28,
-      "ram_size": 267188,
-      "ram_free": 116988,
+      "time": "14:43",
+      "unixtime": 1787921023,
+      "last_sync_ts": 1787921021,
+      "uptime": 11,
+      "ram_size": 264352,
+      "ram_free": 113464,
+      "ram_min_free": 100232,
       "fs_size": 393216,
-      "fs_free": 102400,
-      "cfg_rev": 15,
+      "fs_free": 118784,
+      "cfg_rev": 21,
       "kvs_rev": 0,
-      "schedule_rev": 0,
-      "webhook_rev": 0,
-      "available_updates": {
-        "stable": {
-          "version": "1.7.5"
-        }
-      },
-      "reset_reason": 1
+      "schedule_rev": 2,
+      "webhook_rev": 2,
+      "btrelay_rev": 0,
+      "available_updates": {},
+      "reset_reason": 3,
+      "utc_offset": 7200
     },
     "config": {
       "device": {
         "name": null,
         "mac": "441793CDE594",
-        "fw_id": "20240819-074337/1.4.2-gc2639da",
+        "fw_id": "20260311-095847/1.7.5-g9979d16",
         "discoverable": true,
         "eco_mode": false,
         "profile": "switch",
@@ -206,15 +213,17 @@
           "addr": null
         }
       },
-      "ui_data": {},
+      "ui_data": {
+        "cover": ""
+      },
       "rpc_udp": {
         "dst_addr": null,
         "listen_port": null
       },
       "sntp": {
-        "server": "time.google.com"
+        "server": "time.cloudflare.com"
       },
-      "cfg_rev": 15
+      "cfg_rev": 21
     }
   },
   {
@@ -223,7 +232,8 @@
       "sta_ip": "192.168.222.108",
       "status": "got ip",
       "ssid": "DrensoDev",
-      "rssi": -37
+      "bssid": "76:ac:b9:2c:8c:03",
+      "rssi": -34
     },
     "config": {
       "ap": {
