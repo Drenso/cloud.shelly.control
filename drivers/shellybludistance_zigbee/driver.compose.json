@@ -1,0 +1,37 @@
+{
+  "$extends": ["zigbee"],
+  "name": {
+    "en": "BLU Distance - Zigbee"
+  },
+  "class": "sensor",
+  "capabilities": ["alarm_occupancy", "measure_distance", "measure_battery"],
+  "capabilitiesOptions": {
+    "measure_distance": {
+      "decimals": 3
+    }
+  },
+  "energy": {
+    "batteries": ["OTHER"]
+  },
+  "images": {
+    "small": "/assets/drivers/shellybludistance/images/small.png",
+    "large": "/assets/drivers/shellybludistance/images/large.png",
+    "xlarge": "/assets/drivers/shellybludistance/images/xlarge.png"
+  },
+  "zigbee": {
+    "manufacturerName": "Shelly",
+    "productId": ["BLU Distance"],
+    "endpoints": {
+      "1": {
+        "clusters": [0, 1, 1030, 64546],
+        "bindings": [1030, 64546]
+      }
+    },
+    "learnmode": {
+      "image": "{{driverAssetsPath}}/learnmode.svg",
+      "instruction": {
+        "en": "Press the button 5 times to initialize Zigbee pairing."
+      }
+    }
+  }
+}
