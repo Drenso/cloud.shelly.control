@@ -8612,6 +8612,69 @@
         }
       ],
       "name": {
+        "en": "BLU Distance - BLE"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "measure_distance",
+        "measure_battery"
+      ],
+      "capabilitiesOptions": {
+        "measure_distance": {
+          "decimals": 3
+        }
+      },
+      "energy": {
+        "batteries": [
+          "OTHER"
+        ]
+      },
+      "images": {
+        "small": "/assets/drivers/shellybludistance/images/small.png",
+        "large": "/assets/drivers/shellybludistance/images/large.png",
+        "xlarge": "/assets/drivers/shellybludistance/images/xlarge.png"
+      },
+      "learnmode": {
+        "image": "/drivers/shellybludistance_ble/assets/learnmode.svg",
+        "instruction": {
+          "en": "Press the button during the Bluetooth scan."
+        }
+      },
+      "id": "shellybludistance_ble"
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "ble"
+      ],
+      "pair": [
+        {
+          "id": "ble_information",
+          "navigation": {
+            "next": "pair_instructions"
+          }
+        },
+        {
+          "id": "pair_instructions",
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
+        {
+          "id": "list_my_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices"
+          }
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ],
+      "name": {
         "en": "BLU Door/Window - BLE"
       },
       "class": "sensor",

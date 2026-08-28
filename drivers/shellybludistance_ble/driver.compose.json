@@ -1,0 +1,27 @@
+{
+  "$extends": ["ble"],
+  "name": {
+    "en": "BLU Distance - BLE"
+  },
+  "class": "sensor",
+  "capabilities": ["measure_distance", "measure_battery"],
+  "capabilitiesOptions": {
+    "measure_distance": {
+      "decimals": 3
+    }
+  },
+  "energy": {
+    "batteries": ["OTHER"]
+  },
+  "images": {
+    "small": "/assets/drivers/shellybludistance/images/small.png",
+    "large": "/assets/drivers/shellybludistance/images/large.png",
+    "xlarge": "/assets/drivers/shellybludistance/images/xlarge.png"
+  },
+  "learnmode": {
+    "image": "{{driverAssetsPath}}/learnmode.svg",
+    "instruction": {
+      "en": "Press the button during the Bluetooth scan."
+    }
+  }
+}
