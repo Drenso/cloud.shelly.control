@@ -26,6 +26,40 @@ export async function handleBatteryProperty(
   );
 }
 
+export async function handleDewPointProperty(
+  device: ShellyBleDevice,
+  btHomeData: BTHomeData,
+  options?: BtHomeDataHandlerOptions,
+): Promise<void> {
+  if (btHomeData.dewpoint?.length !== 1) {
+    return;
+  }
+
+  await safeSetCapabilityValue(
+    device,
+    options?.capabilityId ?? 'measure_temperature.dew_point',
+    btHomeData.dewpoint[0],
+    options?.addIfNotExists,
+  );
+}
+
+export async function handleDirectionProperty(
+  device: ShellyBleDevice,
+  btHomeData: BTHomeData,
+  options?: BtHomeDataHandlerOptions,
+): Promise<void> {
+  if (btHomeData.direction?.length !== 1) {
+    return;
+  }
+
+  await safeSetCapabilityValue(
+    device,
+    options?.capabilityId ?? 'measure_direction',
+    btHomeData.direction[0],
+    options?.addIfNotExists,
+  );
+}
+
 export async function handleDistanceProperty(
   device: ShellyBleDevice,
   btHomeData: BTHomeData,
@@ -90,6 +124,27 @@ export async function handleLightLevelProperty(
   );
 }
 
+export async function handleMoistureProperty(
+  device: ShellyBleDevice,
+  btHomeData: BTHomeData,
+  options?: BtHomeDataHandlerOptions & { alarmCapabilityId?: string },
+): Promise<void> {
+  if (btHomeData.moisture?.length !== 1) {
+    return;
+  }
+
+  const value = btHomeData.moisture[0];
+  if (typeof value === 'boolean') {
+    await safeSetCapabilityValue(
+      device,
+      options?.alarmCapabilityId ?? 'alarm_moisture',
+      value,
+      options?.addIfNotExists,
+    );
+  } else {
+    await safeSetCapabilityValue(device, options?.capabilityId ?? 'measure_moisture', value, options?.addIfNotExists);
+  }
+}
 
 export async function handleMotionProperty(
   device: ShellyBleDevice,
@@ -104,6 +159,39 @@ export async function handleMotionProperty(
     device,
     options?.capabilityId ?? 'alarm_motion',
     btHomeData.motion[0],
+    options?.addIfNotExists,
+  );
+}
+
+export async function handlePrecipitationProperty(
+  device: ShellyBleDevice,
+  btHomeData: BTHomeData,
+  options?: BtHomeDataHandlerOptions,
+): Promise<void> {
+  if (btHomeData.precipitation?.length !== 1) {
+    return;
+  }
+
+  await safeSetCapabilityValue(
+    device,
+    options?.capabilityId ?? 'measure_rain',
+    btHomeData.precipitation[0],
+    options?.addIfNotExists,
+  );
+}
+export async function handlePressureProperty(
+  device: ShellyBleDevice,
+  btHomeData: BTHomeData,
+  options?: BtHomeDataHandlerOptions,
+): Promise<void> {
+  if (btHomeData.pressure?.length !== 1) {
+    return;
+  }
+
+  await safeSetCapabilityValue(
+    device,
+    options?.capabilityId ?? 'measure_pressure',
+    btHomeData.pressure[0],
     options?.addIfNotExists,
   );
 }
@@ -142,6 +230,23 @@ export async function handleTemperatureProperty(
   );
 }
 
+export async function handleUvIndexProperty(
+  device: ShellyBleDevice,
+  btHomeData: BTHomeData,
+  options?: BtHomeDataHandlerOptions,
+): Promise<void> {
+  if (btHomeData.uvIndex?.length !== 1) {
+    return;
+  }
+
+  await safeSetCapabilityValue(
+    device,
+    options?.capabilityId ?? 'measure_ultraviolet',
+    btHomeData.uvIndex[0],
+    options?.addIfNotExists,
+  );
+}
+
 export async function handleVibrationProperty(
   device: ShellyBleDevice,
   btHomeData: BTHomeData,
@@ -155,6 +260,23 @@ export async function handleVibrationProperty(
     device,
     options?.capabilityId ?? 'alarm_vibration',
     btHomeData.vibration[0],
+    options?.addIfNotExists,
+  );
+}
+
+export async function handleVoltageProperty(
+  device: ShellyBleDevice,
+  btHomeData: BTHomeData,
+  options?: BtHomeDataHandlerOptions,
+): Promise<void> {
+  if (btHomeData.voltage?.length !== 1) {
+    return;
+  }
+
+  await safeSetCapabilityValue(
+    device,
+    options?.capabilityId ?? 'measure_voltage',
+    btHomeData.voltage[0],
     options?.addIfNotExists,
   );
 }
