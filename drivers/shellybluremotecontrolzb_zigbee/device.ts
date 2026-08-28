@@ -6,11 +6,11 @@ import ShellyOnOffCluster from '../../lib/zigbee/cluster/ShellyOnOffCluster.js';
 import ShellyOnOffBoundCluster, {
   type OffWithButtonPayload,
   type OnWithButtonPayload,
-} from '../../lib/zigbee/cluster/ShellyOnOffBoundCluster.js';
+} from '../../lib/zigbee/cluster/bound_clusters/ShellyOnOffBoundCluster.js';
 import ShellyLevelControlCluster from '../../lib/zigbee/cluster/ShellyLevelControlCluster.js';
 import ShellyLevelControlBoundCluster, {
   type StepWithOnOffAndButtonPayload,
-} from '../../lib/zigbee/cluster/ShellyLevelControlBoundCluster.js';
+} from '../../lib/zigbee/cluster/bound_clusters/ShellyLevelControlBoundCluster.js';
 import semver from 'semver/preload.js';
 import { Util } from 'homey-zigbeedriver';
 import { safeTriggerDeviceCard } from '../../lib/safeFunctions.js';
