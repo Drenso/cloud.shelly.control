@@ -1,0 +1,326 @@
+{
+  "ids": {
+    "modelId": "BLU Distance",
+    "manufacturerName": "Shelly"
+  },
+  "endpoints": {
+    "ieeeAddress": "f8:44:77:ff:fe:42:41:d2",
+    "networkAddress": 62952,
+    "modelId": "BLU Distance",
+    "manufacturerName": "Shelly",
+    "endpointDescriptors": [
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 62952,
+        "_reserved": 20,
+        "endpointId": 1,
+        "applicationProfileId": 260,
+        "applicationDeviceId": 263,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 1,
+        "inputClusters": [0, 1, 3, 1030, 64546],
+        "outputClusters": [3]
+      }
+    ],
+    "deviceType": "enddevice",
+    "receiveWhenIdle": false,
+    "swBuildId": "260304/v1.2.12@9",
+    "capabilities": {
+      "alternatePANCoordinator": false,
+      "deviceType": false,
+      "powerSourceMains": false,
+      "receiveWhenIdle": false,
+      "security": false,
+      "allocateAddress": true
+    },
+    "extendedEndpointDescriptors": {
+      "1": {
+        "clusters": {
+          "basic": {
+            "attributes": [
+              {
+                "acl": ["readable", "reportable"],
+                "id": 0,
+                "dataTypeId": 32,
+                "name": "zclVersion",
+                "value": 8,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 1,
+                "dataTypeId": 32,
+                "name": "appVersion",
+                "value": 130,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 2,
+                "dataTypeId": 32,
+                "name": "stackVersion",
+                "value": 1,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 3,
+                "dataTypeId": 32,
+                "name": "hwVersion",
+                "value": 1,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 4,
+                "dataTypeId": 66,
+                "name": "manufacturerName",
+                "value": "Shelly",
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 5,
+                "dataTypeId": 66,
+                "name": "modelId",
+                "value": "BLU Distance",
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 6,
+                "dataTypeId": 66,
+                "name": "dateCode",
+                "value": "",
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 7,
+                "dataTypeId": 48,
+                "name": "powerSource",
+                "value": "battery",
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 8,
+                "dataTypeId": 48,
+                "name": "appProfileVersion",
+                "value": 255,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 9,
+                "dataTypeId": 48,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 10,
+                "dataTypeId": 65,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 11,
+                "dataTypeId": 66,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 16384,
+                "dataTypeId": 66,
+                "name": "swBuildId",
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 65533,
+                "dataTypeId": 33,
+                "name": "clusterRevision",
+                "value": 1,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              }
+            ],
+            "commandsGenerated": [],
+            "commandsReceived": ["factoryReset"]
+          },
+          "powerConfiguration": {
+            "attributes": [
+              {
+                "acl": ["readable", "reportable"],
+                "id": 33,
+                "dataTypeId": 32,
+                "name": "batteryPercentageRemaining",
+                "value": 200,
+                "reportingConfiguration": {
+                  "direction": "reported",
+                  "attributeDataType": 32,
+                  "minInterval": 1800,
+                  "maxInterval": 7200,
+                  "minChange": 2,
+                  "status": "SUCCESS"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 65533,
+                "dataTypeId": 33,
+                "name": "clusterRevision",
+                "value": 2,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              }
+            ],
+            "commandsGenerated": [],
+            "commandsReceived": []
+          },
+          "identify": {
+            "attributes": [
+              {
+                "acl": ["readable", "writable", "reportable"],
+                "id": 0,
+                "dataTypeId": 33,
+                "name": "identifyTime",
+                "value": 0,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 65533,
+                "dataTypeId": 33,
+                "name": "clusterRevision",
+                "value": 1,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              }
+            ],
+            "commandsGenerated": ["identifyQuery.response"],
+            "commandsReceived": ["identify", "identifyQuery", "triggerEffect"]
+          },
+          "occupancySensing": {
+            "attributes": [
+              {
+                "acl": ["readable", "reportable"],
+                "id": 0,
+                "dataTypeId": 24,
+                "name": "occupancy",
+                "value": {
+                  "type": "Buffer",
+                  "data": [0]
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 1,
+                "dataTypeId": 48,
+                "name": "occupancySensorType",
+                "value": "ultrasonic"
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 2,
+                "dataTypeId": 24,
+                "name": "occupancySensorTypeBitmap",
+                "value": {
+                  "type": "Buffer",
+                  "data": [2]
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 65533,
+                "dataTypeId": 33,
+                "name": "clusterRevision",
+                "value": 2
+              }
+            ],
+            "commandsGenerated": [],
+            "commandsReceived": []
+          }
+        },
+        "bindings": {
+          "identify": {
+            "attributes": [
+              {
+                "acl": ["readable", "writable", "reportable"],
+                "id": 0,
+                "dataTypeId": 33,
+                "name": "identifyTime",
+                "value": 0,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              },
+              {
+                "acl": ["readable", "reportable"],
+                "id": 65533,
+                "dataTypeId": 33,
+                "name": "clusterRevision",
+                "value": 1,
+                "reportingConfiguration": {
+                  "status": "NOT_FOUND",
+                  "direction": "reported"
+                }
+              }
+            ],
+            "commandsGenerated": ["identifyQuery.response"],
+            "commandsReceived": ["identify", "identifyQuery", "triggerEffect"]
+          }
+        }
+      }
+    }
+  }
+}

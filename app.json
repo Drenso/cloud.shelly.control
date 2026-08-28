@@ -8644,6 +8644,122 @@
     },
     {
       "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "icon": "/drivers/shellybludistance_zigbee/assets/icon.svg",
+      "name": {
+        "en": "BLU Distance - Zigbee"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "alarm_occupancy",
+        "measure_distance",
+        "measure_battery"
+      ],
+      "capabilitiesOptions": {
+        "measure_distance": {
+          "decimals": 3
+        }
+      },
+      "energy": {
+        "batteries": [
+          "OTHER"
+        ]
+      },
+      "images": {
+        "small": "/assets/drivers/shellybludistance/images/small.png",
+        "large": "/assets/drivers/shellybludistance/images/large.png",
+        "xlarge": "/assets/drivers/shellybludistance/images/xlarge.png"
+      },
+      "zigbee": {
+        "manufacturerName": "Shelly",
+        "productId": [
+          "BLU Distance"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              1,
+              1030,
+              64546
+            ],
+            "bindings": [
+              1030,
+              64546
+            ]
+          }
+        },
+        "learnmode": {
+          "image": "/drivers/shellybludistance_zigbee/assets/learnmode.svg",
+          "instruction": {
+            "en": "Press the button 5 times to initialize Zigbee pairing."
+          }
+        }
+      },
+      "id": "shellybludistance_zigbee",
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Occupancy"
+          },
+          "children": [
+            {
+              "id": "occupancy_enabled",
+              "type": "checkbox",
+              "label": {
+                "en": "Enable occupancy detection"
+              },
+              "hint": {
+                "en": "When disabled the occupancy alarm capability will be removed."
+              },
+              "value": true
+            },
+            {
+              "id": "occupied_threshold",
+              "type": "number",
+              "label": {
+                "en": "Occupancy threshold"
+              },
+              "hint": {
+                "en": "From which distance the occupancy alarm will be triggered."
+              },
+              "units": {
+                "en": "mm"
+              },
+              "min": 200,
+              "max": 5000,
+              "step": 1,
+              "value": 1000
+            },
+            {
+              "id": "occupancy_hysteresis",
+              "type": "number",
+              "label": {
+                "en": "Hysteresis"
+              },
+              "hint": {
+                "en": "Hysteresis prevents occupancy from rapidly switching on and off by requiring the sensor value to move a configurable amount past the threshold before the state changes back."
+              },
+              "units": {
+                "en": "mm"
+              },
+              "min": 10,
+              "max": 500,
+              "step": 1,
+              "value": 100
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "platforms": [
         "local"
       ],
       "connectivity": [
