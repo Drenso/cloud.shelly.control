@@ -13,8 +13,8 @@
     "measure_frequency",
     "shelly_power_factor",
     "meter_power.total",
-    "meter_power.consumed",
-    "meter_power.returned",
+    "meter_power.imported",
+    "meter_power.exported",
     "measure_temperature",
     "hidden.has_input_button",
     "hidden.has_input_switch"
