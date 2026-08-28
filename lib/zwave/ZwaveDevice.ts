@@ -147,6 +147,24 @@ export default abstract class ShellyZwaveDevice extends ZwaveDevice {
     }
   }
 
+  public async getFirmwareVersion(): Promise<[number, number]> {
+    const storeKey = 'SHELLY_ZWAVE_FIRMWARE_VERSION';
+    const storeValue = this.getStoreValue(storeKey);
+    if (storeValue !== undefined && storeValue !== null) {
+      return storeValue;
+    }
+
+    // @ts-expect-error VERSION_GET is defined at runtime
+    const response = (await this.node.CommandClass.COMMAND_CLASS_VERSION.VERSION_GET()) as {
+      'Firmware 0 Version': number;
+      'Firmware 0 Sub Version': number;
+    };
+
+    const version: [number, number] = [response['Firmware 0 Version'], response['Firmware 0 Sub Version']];
+    await this.setStoreValue(storeKey, version);
+    return version;
+  }
+
   public log(...args: unknown[]): void {
     if (this.logger) {
       this.logger.log(...args);
