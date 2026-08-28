@@ -1,6 +1,6 @@
 import type { BoundClusterPayloadFromDefinition } from '@drenso/homey-zigbee-library/types/BoundCluster.mjs';
 import zbClusters, { type LevelControlClusterAttributes } from 'zigbee-clusters';
-import type { ShellyLevelControlClusterCommands } from './ShellyLevelControlCluster.js';
+import type { ShellyLevelControlClusterCommands } from '../ShellyLevelControlCluster.js';
 
 export type MoveToLevelWithButtonPayload = BoundClusterPayloadFromDefinition<
   ShellyLevelControlClusterCommands['shellyMoveToLevelWithButton']

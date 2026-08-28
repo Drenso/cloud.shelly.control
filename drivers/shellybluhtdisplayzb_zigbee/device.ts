@@ -7,7 +7,7 @@ import ShellyCustomLightLevelCluster, {
   convertLightLevel,
   type ShellyCustomLightLevelClusterAttributes,
 } from '../../lib/zigbee/cluster/ShellyCustomLightLevelCluster.js';
-import ShellyTimeBoundCluster from '../../lib/zigbee/cluster/ShellyTimeBoundCluster.js';
+import ShellyTimeBoundCluster from '../../lib/zigbee/cluster/bound_clusters/ShellyTimeBoundCluster.js';
 import ShellyZigbeeDevice from '../../lib/zigbee/ZigbeeDevice.js';
 
 type BluHTDisplayZBSettings = {
