@@ -20,7 +20,12 @@ export async function safeSetCapabilityValue(
   device: Homey.Device,
   capabilityId: string,
   value: unknown,
+  addIfNotExists?: boolean,
 ): Promise<void> {
+  if (addIfNotExists === true) {
+    await safeAddCapability(device, capabilityId);
+  }
+
   if (!device.hasCapability(capabilityId)) {
     return;
   }
