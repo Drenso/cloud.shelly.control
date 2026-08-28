@@ -16,6 +16,19 @@ export async function handleBatteryProperty(
   await safeSetCapabilityValue(device, 'measure_battery', btHomeData.battery[0], addIfNotExists);
 }
 
+export async function handleDistanceProperty(
+  device: ShellyBleDevice,
+  btHomeData: BTHomeData,
+  addIfNotExists?: boolean,
+): Promise<void> {
+  if (btHomeData.distance?.length !== 1) {
+    return;
+  }
+
+  const value = btHomeData.distance[0] === 0 ? null : btHomeData.distance[0] / 1000;
+  await safeSetCapabilityValue(device, 'measure_distance', value, addIfNotExists);
+}
+
 export async function handleHumidityProperty(
   device: ShellyBleDevice,
   btHomeData: BTHomeData,
@@ -91,6 +104,18 @@ export async function handleTemperatureProperty(
   }
 
   await safeSetCapabilityValue(device, 'measure_temperature', btHomeData.temperature[0], addIfNotExists);
+}
+
+export async function handleVibrationProperty(
+  device: ShellyBleDevice,
+  btHomeData: BTHomeData,
+  addIfNotExists?: boolean,
+): Promise<void> {
+  if (btHomeData.vibration?.length !== 1) {
+    return;
+  }
+
+  await safeSetCapabilityValue(device, 'alarm_vibration', btHomeData.vibration[0], addIfNotExists);
 }
 
 export async function handleWindowProperty(
