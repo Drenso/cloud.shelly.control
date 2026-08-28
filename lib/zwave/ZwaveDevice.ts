@@ -43,7 +43,7 @@ export default abstract class ShellyZwaveDevice extends ZwaveDevice {
     }
   }
 
-  private async doConfiguration(zwaveNode: ZwaveNode): Promise<void> {
+  protected async doConfiguration(zwaveNode: ZwaveNode): Promise<void> {
     this.debug('Starting configuration...');
 
     if (this.getStoreValue('initialized') !== true) {
