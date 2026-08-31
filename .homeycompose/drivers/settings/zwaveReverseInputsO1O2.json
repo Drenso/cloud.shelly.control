@@ -25,7 +25,7 @@
     "en": "Allows to swap the operation of switches connected to inputs SW1 and SW2 without changing the wiring.",
     "nl": "Maakt het mogelijk om ingangen SW1 en SW2 om te wisselen zonder de bedrading aan te passen."
   },
-    "zwave": {
+  "zwave": {
     "index": 6,
     "size": 1
   }
