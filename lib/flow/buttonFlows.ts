@@ -40,6 +40,7 @@ export function registerButtonFlowCards(app: ShellyApp): void {
 
     return items.filter(item => item.name.toLowerCase().includes(query.trim().toLowerCase()));
   };
+
   const buttonPressTypeAutocompleteListener = (
     query: string,
     { device }: { device: ButtonEventTypesDeviceInterface },

@@ -179,6 +179,7 @@ export async function handlePrecipitationProperty(
     options?.addIfNotExists,
   );
 }
+
 export async function handlePressureProperty(
   device: ShellyBleDevice,
   btHomeData: BTHomeData,
