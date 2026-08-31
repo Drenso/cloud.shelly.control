@@ -67,5 +67,8 @@
   },
   "0.14.1": {
     "en": "Handle incorrect dataframes gracefully"
+  },
+  "0.15.0": {
+    "en": "Adds LAN support for FrankEver FK-06X Sprinkler Controller, Plus 2PM (switch and cover profile) and Plus Plug S. Adds BLE support for BLU Button (Tough) 1 (ZB), BLU Distance, BLU Door/Window (ZB), BLU H&T (Display) (ZB), BLU Motion (ZB), BLU RC Button 4 (ZB), BLU Remote Control ZB, BLU Wall Switch 4 (ZB) and Ecowitt WS90. Adds Zigbee support for BLU Button Tough 1 ZB, BLU Distance, BLU Door/Window ZB, BLU H&T (Display) ZB, BLU Motion ZB, BLU RC Button 4 ZB, BLU Remote Control ZB and BLU Wall Switch 4 ZB."
   }
 }
