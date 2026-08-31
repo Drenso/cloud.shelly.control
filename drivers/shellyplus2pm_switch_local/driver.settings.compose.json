@@ -1,0 +1,79 @@
+[
+  {
+    "$extends": "Input.enable"
+  },
+  {
+    "$extends": "Input.invert"
+  },
+  {
+    "$extends": "Switch.in_mode",
+    "values": [
+      {
+        "id": "momentary",
+        "label": {
+          "en": "Momentary"
+        }
+      },
+      {
+        "id": "follow",
+        "label": {
+          "en": "Follow Input"
+        }
+      },
+      {
+        "id": "flip",
+        "label": {
+          "en": "Change on Input Change"
+        }
+      },
+      {
+        "id": "detached",
+        "label": {
+          "en": "Detached"
+        }
+      },
+      {
+        "id": "cycle",
+        "label": {
+          "en": "Cycle"
+        }
+      },
+      {
+        "id": "activate",
+        "label": {
+          "en": "Turn on only"
+        }
+      }
+    ]
+  },
+  {
+    "$extends": "Switch.in_locked"
+  },
+  {
+    "$extends": "Switch.initial_state"
+  },
+  {
+    "$extends": "Switch.autorecover_voltage_errors"
+  },
+  {
+    "$extends": "Switch.power_limit"
+  },
+  {
+    "$extends": "Switch.voltage_limit"
+  },
+  {
+    "$extends": "Switch.undervoltage_limit"
+  },
+  {
+    "$extends": "Switch.current_limit"
+  },
+  {
+    "$extends": "Switch.reverse"
+  },
+  {
+    "$extends": "installBleForwardingScript"
+  },
+  {
+    "$extends": "_shelly_device_info"
+  }
+]
