@@ -15403,6 +15403,647 @@
         "lan"
       ],
       "capabilities": [
+        "windowcoverings_state",
+        "windowcoverings_set",
+        "windowcoverings_tilt_set",
+        "shelly_input_switch",
+        "measure_power",
+        "measure_current",
+        "measure_voltage",
+        "measure_frequency",
+        "shelly_power_factor",
+        "meter_power",
+        "measure_temperature.cover",
+        "hidden.has_input_button",
+        "hidden.has_input_switch"
+      ],
+      "capabilitiesOptions": {
+        "alarm_generic": {
+          "title": {
+            "en": "Error Alarm"
+          }
+        },
+        "button.restart": {
+          "maintenanceAction": true,
+          "title": {
+            "en": "Restart Device"
+          }
+        }
+      },
+      "pair": [
+        {
+          "id": "pairing_information",
+          "navigation": {
+            "next": "list_devices"
+          }
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "authenticate_devices"
+          }
+        },
+        {
+          "id": "authenticate_devices",
+          "template": "loading",
+          "options": {
+            "text": "pair.loading_devices"
+          }
+        },
+        {
+          "id": "loading_devices",
+          "template": "loading",
+          "options": {
+            "text": "pair.loading_devices"
+          }
+        },
+        {
+          "id": "device_password"
+        },
+        {
+          "id": "add_subdevices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "repair"
+        }
+      ],
+      "name": {
+        "en": "Plus 2PM - Cover - LAN"
+      },
+      "class": "windowcoverings",
+      "images": {
+        "small": "/assets/drivers/shellyplus2pm/images/small.png",
+        "large": "/assets/drivers/shellyplus2pm/images/large.png",
+        "xlarge": "/assets/drivers/shellyplus2pm/images/xlarge.png"
+      },
+      "id": "shellyplus2pm_cover_local",
+      "settings": [
+        {
+          "type": "group",
+          "label": "Input 0",
+          "children": [
+            {
+              "id": "Input:0:enable",
+              "label": {
+                "en": "Input 0 - Enabled"
+              },
+              "type": "checkbox",
+              "value": true
+            },
+            {
+              "id": "Input:0:invert",
+              "label": {
+                "en": "Input 0 - Invert"
+              },
+              "type": "checkbox",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": "Input 1",
+          "children": [
+            {
+              "id": "Input:1:enable",
+              "label": {
+                "en": "Input 1 - Enabled"
+              },
+              "type": "checkbox",
+              "value": true
+            },
+            {
+              "id": "Input:1:invert",
+              "label": {
+                "en": "Input 1 - Invert"
+              },
+              "type": "checkbox",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "Cover:in_mode",
+          "type": "dropdown",
+          "label": {
+            "en": "Cover - Control Mode"
+          },
+          "value": "dual",
+          "values": [
+            {
+              "id": "single",
+              "label": {
+                "en": "Single Input"
+              }
+            },
+            {
+              "id": "dual",
+              "label": {
+                "en": "Dual Input"
+              }
+            },
+            {
+              "id": "detached",
+              "label": {
+                "en": "Detached"
+              }
+            }
+          ]
+        },
+        {
+          "id": "Cover:in_locked",
+          "type": "checkbox",
+          "label": {
+            "en": "Cover - Ignore Inputs"
+          },
+          "hint": {
+            "en": "Ignore all changes to physical inputs, regardless of mode."
+          },
+          "value": false
+        },
+        {
+          "id": "Cover:initial_state",
+          "type": "dropdown",
+          "label": {
+            "en": "Cover - Startup State"
+          },
+          "value": "stopped",
+          "values": [
+            {
+              "id": "open",
+              "label": {
+                "en": "Fully Open"
+              }
+            },
+            {
+              "id": "closed",
+              "label": {
+                "en": "Fully Close"
+              }
+            },
+            {
+              "id": "stopped",
+              "label": {
+                "en": "Do not Change Position"
+              }
+            }
+          ]
+        },
+        {
+          "id": "Cover:power_limit",
+          "type": "number",
+          "label": {
+            "en": "Cover - Power Limit"
+          },
+          "hint": {
+            "en": "The maximum value is the max-rated output power."
+          },
+          "value": 3360,
+          "min": 0,
+          "units": "W"
+        },
+        {
+          "id": "Cover:voltage_limit",
+          "type": "number",
+          "label": {
+            "en": "Cover - Voltage Limit"
+          },
+          "hint": {
+            "en": "The maximum value is the max-rated output voltage."
+          },
+          "value": 280,
+          "min": 0,
+          "units": "V"
+        },
+        {
+          "id": "Cover:undervoltage_limit",
+          "type": "number",
+          "label": {
+            "en": "Cover - Undervoltage Limit"
+          },
+          "value": 0,
+          "min": 0,
+          "units": "V"
+        },
+        {
+          "id": "Cover:current_limit",
+          "type": "number",
+          "label": {
+            "en": "Cover - Current Limit"
+          },
+          "hint": {
+            "en": "The maximum value is the max-rated output current."
+          },
+          "value": 12,
+          "min": 0,
+          "units": "A"
+        },
+        {
+          "id": "Cover:motor.idle_power_thr",
+          "type": "number",
+          "label": {
+            "en": "Cover - Motor Idle Power Threshold"
+          },
+          "hint": {
+            "en": "Threshold below which the motor is considered stopped."
+          },
+          "value": 2,
+          "min": 0,
+          "max": 50,
+          "units": "W"
+        },
+        {
+          "id": "Cover:motor.idle_confirm_period",
+          "type": "number",
+          "label": {
+            "en": "Cover - Motor Idle Confirm Period"
+          },
+          "hint": {
+            "en": "The minimum period of time in idle state before the stopped state is confirmed."
+          },
+          "value": 0.25,
+          "min": 0.25,
+          "max": 2,
+          "units": "s"
+        },
+        {
+          "id": "Cover:maxtime_open",
+          "type": "number",
+          "label": {
+            "en": "Cover - Open Timeout"
+          },
+          "hint": {
+            "en": "Default timeout after which the cover will stop moving in the open direction."
+          },
+          "value": 60,
+          "min": 0.1,
+          "max": 300,
+          "units": "s"
+        },
+        {
+          "id": "Cover:maxtime_close",
+          "type": "number",
+          "label": {
+            "en": "Cover - Close Timeout"
+          },
+          "hint": {
+            "en": "Default timeout after which the cover will stop moving in the close direction."
+          },
+          "value": 60,
+          "min": 0.1,
+          "max": 300,
+          "units": "s"
+        },
+        {
+          "id": "Cover:swap_inputs",
+          "type": "checkbox",
+          "label": {
+            "en": "Cover - Swap Inputs"
+          },
+          "value": false
+        },
+        {
+          "id": "Cover:invert_directions",
+          "type": "checkbox",
+          "label": {
+            "en": "Cover - Invert Motor Direction"
+          },
+          "value": false
+        },
+        {
+          "id": "Cover:maintenance_mode",
+          "type": "checkbox",
+          "label": {
+            "en": "Cover - Maintenance Mode"
+          },
+          "hint": {
+            "en": "Temporarily freeze all motions for maintenance."
+          },
+          "value": false
+        },
+        {
+          "id": "Cover.obstruction_detection",
+          "type": "group",
+          "label": "Cover - Obstruction Detection",
+          "children": [
+            {
+              "id": "Cover:obstruction_detection.enable",
+              "type": "checkbox",
+              "label": {
+                "en": "Cover - Obstruction Detection - Enabled"
+              },
+              "value": false
+            },
+            {
+              "id": "Cover:obstruction_detection.direction",
+              "type": "dropdown",
+              "label": {
+                "en": "Cover - Obstruction Detection - Direction"
+              },
+              "hint": {
+                "en": "Direction of motion for which the obstruction detection should be monitored."
+              },
+              "value": "both",
+              "values": [
+                {
+                  "id": "open",
+                  "label": {
+                    "en": "Opening"
+                  }
+                },
+                {
+                  "id": "close",
+                  "label": {
+                    "en": "Closing"
+                  }
+                },
+                {
+                  "id": "both",
+                  "label": {
+                    "en": "Both"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "Cover:obstruction_detection.action",
+              "type": "dropdown",
+              "label": {
+                "en": "Cover - Obstruction Detection - Action"
+              },
+              "hint": {
+                "en": "The recovery action that should be performed if the obstruction detection is triggered."
+              },
+              "value": "stop",
+              "values": [
+                {
+                  "id": "stop",
+                  "label": {
+                    "en": "Stop"
+                  }
+                },
+                {
+                  "id": "reverse",
+                  "label": {
+                    "en": "Reverse"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "Cover:obstruction_detection.power_thr",
+              "type": "number",
+              "label": {
+                "en": "Cover - Obstruction Detection - Power Threshold"
+              },
+              "hint": {
+                "en": "Threshold above which the motor is considered obstructed."
+              },
+              "value": 1000,
+              "min": 0,
+              "units": "W"
+            },
+            {
+              "id": "Cover:obstruction_detection.holdoff",
+              "type": "number",
+              "label": {
+                "en": "Cover - Obstruction Detection - Holdoff Time"
+              },
+              "hint": {
+                "en": "Time to wait after Cover starts moving before obstruction detection is activated (to avoid false detections because of the initial power consumption spike)."
+              },
+              "value": 1,
+              "min": 0.1,
+              "max": 300,
+              "units": "s"
+            }
+          ]
+        },
+        {
+          "id": "Cover.safety_switch",
+          "type": "group",
+          "label": "Cover - Safety Switch",
+          "children": [
+            {
+              "id": "Cover:safety_switch.enable",
+              "type": "checkbox",
+              "label": {
+                "en": "Cover - Safety Switch - Enabled"
+              },
+              "hint": {
+                "en": "The safety switch feature will only work of two inputs are connected while in single button control mode."
+              },
+              "value": false
+            },
+            {
+              "id": "Cover:safety_switch.direction",
+              "type": "dropdown",
+              "label": {
+                "en": "Cover - Safety Switch - Direction"
+              },
+              "hint": {
+                "en": "Direction of motion for which the safety switch should be monitored."
+              },
+              "value": "both",
+              "values": [
+                {
+                  "id": "open",
+                  "label": {
+                    "en": "Opening"
+                  }
+                },
+                {
+                  "id": "close",
+                  "label": {
+                    "en": "Closing"
+                  }
+                },
+                {
+                  "id": "both",
+                  "label": {
+                    "en": "Both"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "Cover:safety_switch.action",
+              "type": "dropdown",
+              "label": {
+                "en": "Cover - Safety Switch - Action"
+              },
+              "hint": {
+                "en": "The recovery action that should be performed if the safety switch is engaged."
+              },
+              "value": "stop",
+              "values": [
+                {
+                  "id": "stop",
+                  "label": {
+                    "en": "Stop"
+                  }
+                },
+                {
+                  "id": "reverse",
+                  "label": {
+                    "en": "Reverse"
+                  }
+                },
+                {
+                  "id": "pause",
+                  "label": {
+                    "en": "Pause"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "Cover:safety_switch.allowed_move",
+              "type": "dropdown",
+              "label": {
+                "en": "Cover - Safety Switch - Allowed Movement"
+              },
+              "hint": {
+                "en": "Allowed movement direction when the safety switch is engaged."
+              },
+              "value": "none",
+              "values": [
+                {
+                  "id": "none",
+                  "label": {
+                    "en": "None"
+                  }
+                },
+                {
+                  "id": "reverse",
+                  "label": {
+                    "en": "Reverse"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "Cover.slat",
+          "type": "group",
+          "label": "Cover - Slats",
+          "children": [
+            {
+              "id": "Cover:slat.open_time",
+              "type": "number",
+              "label": {
+                "en": "Cover - Slats - Open Time"
+              },
+              "hint": {
+                "en": "Time it takes for slats to move from fully closed (0%) to fully open (100%)."
+              },
+              "value": 1.5,
+              "min": 0.5,
+              "max": 30,
+              "units": "s"
+            },
+            {
+              "id": "Cover:slat.close_time",
+              "type": "number",
+              "label": {
+                "en": "Cover - Slats - Close Time"
+              },
+              "hint": {
+                "en": "Time it takes for slats to move from fully open (100%) to fully closed (100%)."
+              },
+              "value": 1.5,
+              "min": 0.5,
+              "max": 30,
+              "units": "s"
+            },
+            {
+              "id": "Cover:slat.step",
+              "type": "number",
+              "label": {
+                "en": "Cover - Slats - Step Size"
+              },
+              "hint": {
+                "en": "Part of the full range of motion that the slats move in a single step (used only when slats are controlled via inputs)."
+              },
+              "value": 20,
+              "min": 1,
+              "max": 100,
+              "units": "%"
+            },
+            {
+              "id": "Cover:slat.retain_pos",
+              "type": "checkbox",
+              "label": {
+                "en": "Cover - Slats - Retain Position"
+              },
+              "hint": {
+                "en": "Whether to retain slat position when cover (vertical) position is changed."
+              },
+              "value": false
+            },
+            {
+              "id": "Cover:slat.precise_ctl",
+              "type": "checkbox",
+              "label": {
+                "en": "Cover - Slats - Precise Control"
+              },
+              "hint": {
+                "en": "This property only applies when cover (vertical) position is less than one full slat rotation away from the fully closed position. If this condition is met, any slat movement will always go through fully closed position first. This improves slat positioning accuracy, yet is slower to execute."
+              },
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": "installBleForwardingScript",
+          "type": "checkbox",
+          "label": {
+            "en": "Install BLE forwarding script"
+          },
+          "hint": {
+            "en": "If enabled, a script will be started on this device to forward BLE messages from other Shelly devices. This ensures that messages from the other BLE devices can be handled even if they are out of range of your Homey device."
+          },
+          "value": false
+        },
+        {
+          "id": "_shelly_device_info",
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            {
+              "id": "_shelly_device_id",
+              "type": "label",
+              "label": {
+                "en": "Device identifier"
+              },
+              "value": "-"
+            },
+            {
+              "id": "_shelly_ip",
+              "type": "label",
+              "label": {
+                "en": "IP address"
+              },
+              "value": "-"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "lan"
+      ],
+      "capabilities": [
         "onoff",
         "measure_power",
         "measure_current",

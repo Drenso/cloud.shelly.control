@@ -1,0 +1,99 @@
+[
+  {
+    "type": "group",
+    "label": "Input 0",
+    "children": [
+      {
+        "$extends": "Input.enable",
+        "id": "Input:0:enable",
+        "label": {
+          "en": "Input 0 - Enabled"
+        }
+      },
+      {
+        "$extends": "Input.invert",
+        "id": "Input:0:invert",
+        "label": {
+          "en": "Input 0 - Invert"
+        }
+      }
+    ]
+  },
+  {
+    "type": "group",
+    "label": "Input 1",
+    "children": [
+      {
+        "$extends": "Input.enable",
+        "id": "Input:1:enable",
+        "label": {
+          "en": "Input 1 - Enabled"
+        }
+      },
+      {
+        "$extends": "Input.invert",
+        "id": "Input:1:invert",
+        "label": {
+          "en": "Input 1 - Invert"
+        }
+      }
+    ]
+  },
+  {
+    "$extends": "Cover.in_mode"
+  },
+  {
+    "$extends": "Cover.in_locked"
+  },
+  {
+    "$extends": "Cover.initial_state"
+  },
+  {
+    "$extends": "Cover.power_limit"
+  },
+  {
+    "$extends": "Cover.voltage_limit"
+  },
+  {
+    "$extends": "Cover.undervoltage_limit"
+  },
+  {
+    "$extends": "Cover.current_limit"
+  },
+  {
+    "$extends": "Cover.motor.idle_power_thr"
+  },
+  {
+    "$extends": "Cover.motor.idle_confirm_period"
+  },
+  {
+    "$extends": "Cover.maxtime_open"
+  },
+  {
+    "$extends": "Cover.maxtime_close"
+  },
+  {
+    "$extends": "Cover.swap_inputs"
+  },
+  {
+    "$extends": "Cover.invert_directions"
+  },
+  {
+    "$extends": "Cover.maintenance_mode"
+  },
+  {
+    "$extends": "Cover.obstruction_detection"
+  },
+  {
+    "$extends": "Cover.safety_switch"
+  },
+  {
+    "$extends": "Cover.slat"
+  },
+  {
+    "$extends": "installBleForwardingScript"
+  },
+  {
+    "$extends": "_shelly_device_info"
+  }
+]

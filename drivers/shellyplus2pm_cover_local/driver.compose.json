@@ -1,0 +1,27 @@
+{
+  "$extends": ["local"],
+  "name": {
+    "en": "Plus 2PM - Cover - LAN"
+  },
+  "class": "windowcoverings",
+  "capabilities": [
+    "windowcoverings_state",
+    "windowcoverings_set",
+    "windowcoverings_tilt_set",
+    "shelly_input_switch",
+    "measure_power",
+    "measure_current",
+    "measure_voltage",
+    "measure_frequency",
+    "shelly_power_factor",
+    "meter_power",
+    "measure_temperature.cover",
+    "hidden.has_input_button",
+    "hidden.has_input_switch"
+  ],
+  "images": {
+    "small": "/assets/drivers/shellyplus2pm/images/small.png",
+    "large": "/assets/drivers/shellyplus2pm/images/large.png",
+    "xlarge": "/assets/drivers/shellyplus2pm/images/xlarge.png"
+  }
+}
