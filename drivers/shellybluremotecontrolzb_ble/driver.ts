@@ -3,7 +3,7 @@ import ShellyBleDriver from '../../lib/ble/BleDriver.js';
 export type Button = 'left' | 'right';
 export type ScrollDirection = 'up' | 'down' | 'none';
 
-export default class ShellyBluRemoteControlBleDriver extends ShellyBleDriver {
+export default class ShellyBluRemoteControlZBBleDriver extends ShellyBleDriver {
   public bleNamePrefixes = ['SBRC-005B'];
 
   public async onInit(): Promise<void> {

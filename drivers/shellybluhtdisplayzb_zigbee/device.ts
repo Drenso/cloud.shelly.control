@@ -15,7 +15,7 @@ type BluHTDisplayZBSettings = {
   'Illuminance:dark_thr': number;
 };
 
-export default class ShellyBluHTDisplayZBBleDevice extends ShellyZigbeeDevice {
+export default class ShellyBluHTDisplayZBZigbeeDevice extends ShellyZigbeeDevice {
   protected async configureDevice(zclNode: ZCLNode): Promise<void> {
     await initPowerConfigurationDevice(this, zclNode);
     await initMeasureTemperatureDevice(this, zclNode);

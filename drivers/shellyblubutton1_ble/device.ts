@@ -4,7 +4,7 @@ import { handleBatteryProperty, handleSingleButtonEventProperty } from '../../li
 import type { ButtonEventTypesDeviceInterface } from '../../lib/capabilityInterfaces.js';
 import type { ButtonEventType } from '../../lib/flow/buttonFlows.js';
 
-export default class ShellyBluButtonTough1BleDevice extends ShellyBleDevice implements ButtonEventTypesDeviceInterface {
+export default class ShellyBluButton1BleDevice extends ShellyBleDevice implements ButtonEventTypesDeviceInterface {
   public async handleBtHomeForward(btHomeData: BTHomeData): Promise<void> {
     await handleBatteryProperty(this, btHomeData);
     await handleSingleButtonEventProperty(this, btHomeData);

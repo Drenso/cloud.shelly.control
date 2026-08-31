@@ -4,7 +4,7 @@ import initPowerConfigurationDevice from '@drenso/homey-zigbee-library/capabilit
 import type { ZCLNode } from 'zigbee-clusters';
 import ShellyZigbeeDevice from '../../lib/zigbee/ZigbeeDevice.js';
 
-export default class ShellyBluHTZBBleDevice extends ShellyZigbeeDevice {
+export default class ShellyBluHTZBZigbeeDevice extends ShellyZigbeeDevice {
   protected async configureDevice(zclNode: ZCLNode): Promise<void> {
     await initPowerConfigurationDevice(this, zclNode);
     await initMeasureTemperatureDevice(this, zclNode);
