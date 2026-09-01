@@ -49,28 +49,10 @@
         "$extends": "zwaveMinimalTimePowerReportO1"
       },
       {
-        "$extends": "zwaveSwitchDetachedMode",
-        "id": "zwaveShutterDetachModeSW1",
-        "label": {
-          "en": "Detached Mode SW1",
-          "nl": "Losgekoppelde Modus SW1"
-        },
-        "zwave": {
-          "index": 7,
-          "size": 1
-        }
+        "$extends": "zwaveSwitchDetachedModeSW1"
       },
       {
-        "$extends": "zwaveSwitchDetachedMode",
-        "id": "zwaveShutterDetachModeSW2",
-        "label": {
-          "en": "Detached Mode SW2",
-          "nl": "Losgekoppelde Modus SW2"
-        },
-        "zwave": {
-          "index": 8,
-          "size": 1
-        }
+        "$extends": "zwaveSwitchDetachedModeSW2"
       },
       {
         "$extends": "zwaveSwitchInclusion"

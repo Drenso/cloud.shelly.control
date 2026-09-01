@@ -21405,15 +21405,11 @@
             },
             {
               "id": "zwaveShutterDetachModeSW1",
+              "type": "dropdown",
               "label": {
                 "en": "Detached Mode SW1",
                 "nl": "Losgekoppelde Modus SW1"
               },
-              "zwave": {
-                "index": 7,
-                "size": 1
-              },
-              "type": "dropdown",
               "value": "0",
               "values": [
                 {
@@ -21432,21 +21428,21 @@
                 }
               ],
               "hint": {
-                "en": "In normal mode the input controls state of the output. In detached mode the input and output states are separated.",
-                "nl": "In de normale modus stuurt de input de staat van de output aan. In losgekoppelde modus zijn de input en output status gescheiden"
+                "en": "In normal mode changes on the inputs will be used to control the output. In detached mode the input will not influence the output.",
+                "nl": "In normale modus worden wijzigingen op de ingangen gebruikt om de uitgangen te bedienen. In losgekoppelde modus beïnvloeden wijzigingen op de ingangen de uitgangen niet."
+              },
+              "zwave": {
+                "index": 7,
+                "size": 1
               }
             },
             {
               "id": "zwaveShutterDetachModeSW2",
+              "type": "dropdown",
               "label": {
                 "en": "Detached Mode SW2",
                 "nl": "Losgekoppelde Modus SW2"
               },
-              "zwave": {
-                "index": 8,
-                "size": 1
-              },
-              "type": "dropdown",
               "value": "0",
               "values": [
                 {
@@ -21465,8 +21461,12 @@
                 }
               ],
               "hint": {
-                "en": "In normal mode the input controls state of the output. In detached mode the input and output states are separated.",
-                "nl": "In de normale modus stuurt de input de staat van de output aan. In losgekoppelde modus zijn de input en output status gescheiden"
+                "en": "In normal mode changes on the inputs will be used to control the output. In detached mode the input will not influence the output.",
+                "nl": "In normale modus worden wijzigingen op de ingangen gebruikt om de uitgangen te bedienen. In losgekoppelde modus beïnvloeden wijzigingen op de ingangen de uitgangen niet."
+              },
+              "zwave": {
+                "index": 8,
+                "size": 1
               }
             },
             {

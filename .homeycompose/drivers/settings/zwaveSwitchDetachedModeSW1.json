@@ -1,0 +1,33 @@
+{
+  "id": "zwaveShutterDetachModeSW1",
+  "type": "dropdown",
+  "label": {
+    "en": "Detached Mode SW1",
+    "nl": "Losgekoppelde Modus SW1"
+  },
+  "value": "0",
+  "values": [
+    {
+      "id": "0",
+      "label": {
+        "en": "Normal mode",
+        "nl": "Normale modus"
+      }
+    },
+    {
+      "id": "1",
+      "label": {
+        "en": "Detached mode",
+        "nl": "Losgekoppelde modus"
+      }
+    }
+  ],
+  "hint": {
+    "en": "In normal mode changes on the inputs will be used to control the output. In detached mode the input will not influence the output.",
+    "nl": "In normale modus worden wijzigingen op de ingangen gebruikt om de uitgangen te bedienen. In losgekoppelde modus beïnvloeden wijzigingen op de ingangen de uitgangen niet."
+  },
+  "zwave": {
+    "index": 7,
+    "size": 1
+  }
+}
