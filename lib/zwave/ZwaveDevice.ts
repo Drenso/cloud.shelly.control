@@ -229,6 +229,21 @@ export default abstract class ShellyZwaveDevice extends ZwaveDevice {
     return [response['Firmware 0 Version'], response['Firmware 0 Sub Version']];
   }
 
+  public async getConfigurationBulk(startIndex: number, count: number): Promise<Buffer[]> {
+    const response = await (
+      this.node.CommandClass['COMMAND_CLASS_CONFIGURATION'] as unknown as {
+        CONFIGURATION_BULK_GET: (args: {
+          'Parameter Offset': number;
+          'Number of Parameters': number;
+        }) => Promise<{ vg: { Parameter: Buffer }[] }>;
+      }
+    ).CONFIGURATION_BULK_GET({
+      'Parameter Offset': startIndex,
+      'Number of Parameters': count,
+    });
+    return response.vg.map(res => res.Parameter);
+  }
+
   public log(...args: unknown[]): void {
     if (this.logger) {
       this.logger.log(...args);
