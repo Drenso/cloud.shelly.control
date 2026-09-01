@@ -8,7 +8,7 @@
       "device": {
         "manufacturerId": 1120,
         "productTypeId": [3],
-        "productId": [131]
+        "productId": [130, 131]
       },
       "files": [
         {

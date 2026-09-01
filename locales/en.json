@@ -61,7 +61,7 @@
     "orphan": "This device is not associated with any Shelly device and can be removed.",
     "requires_restart": "The device needs to be restarted.",
     "restarting": "Restarting...",
-    "sleeping": "The device is sleeping.",
+    "sleeping": "The device is sleeping."
   },
   "error": {
     "authorization": "Failed to authorize",
