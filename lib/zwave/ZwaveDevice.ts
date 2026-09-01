@@ -8,6 +8,8 @@ export default abstract class ShellyZwaveDevice extends ZwaveDevice {
   protected logger?: Logger = undefined;
   private queuedWorker?: QueuedWorker;
 
+  public readonly minimumFirmwareVersion: readonly [number, number] = [0, 0];
+
   public async onNodeInit(payload: { node: ZwaveNode }): Promise<void> {
     this.logger = new Logger(
       this,
@@ -43,7 +45,7 @@ export default abstract class ShellyZwaveDevice extends ZwaveDevice {
     }
   }
 
-  protected async doConfiguration(zwaveNode: ZwaveNode): Promise<void> {
+  private async doConfiguration(zwaveNode: ZwaveNode): Promise<void> {
     this.debug('Starting configuration...');
 
     if (this.getStoreValue('initialized') !== true) {
@@ -89,8 +91,18 @@ export default abstract class ShellyZwaveDevice extends ZwaveDevice {
       });
     }
 
-    // Mark as available
-    await this.setAvailable();
+    const [major, minor] = await this.getFirmwareVersion();
+    const [minimumMajor, minimumMinor] = this.minimumFirmwareVersion;
+    if (major < minimumMajor || (major === minimumMajor && minor < minimumMinor)) {
+      this.log('Firmware outdated!');
+      await this.setUnavailable(
+        this.homey.__('device.firmware_too_old', { version: `${minimumMajor}.${minimumMinor}` }),
+      ).catch(err => this.error('Error while setting device to unavailable due to outdated firmware:', err));
+    } else {
+      await this.setAvailable().catch(err =>
+        this.error('Error while setting device to available at end of configuration:', err),
+      );
+    }
 
     this.debug('Configuration completed!');
   }
@@ -148,21 +160,13 @@ export default abstract class ShellyZwaveDevice extends ZwaveDevice {
   }
 
   public async getFirmwareVersion(): Promise<[number, number]> {
-    const storeKey = 'SHELLY_ZWAVE_FIRMWARE_VERSION';
-    const storeValue = this.getStoreValue(storeKey);
-    if (storeValue !== undefined && storeValue !== null) {
-      return storeValue;
-    }
-
     // @ts-expect-error VERSION_GET is defined at runtime
     const response = (await this.node.CommandClass.COMMAND_CLASS_VERSION.VERSION_GET()) as {
       'Firmware 0 Version': number;
       'Firmware 0 Sub Version': number;
     };
 
-    const version: [number, number] = [response['Firmware 0 Version'], response['Firmware 0 Sub Version']];
-    await this.setStoreValue(storeKey, version);
-    return version;
+    return [response['Firmware 0 Version'], response['Firmware 0 Sub Version']];
   }
 
   public log(...args: unknown[]): void {
