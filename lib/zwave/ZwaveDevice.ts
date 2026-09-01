@@ -3,6 +3,26 @@ import { ZwaveDevice } from 'homey-zwavedriver';
 import { type QueuedWorker, queueWorker } from '../global-promise-queue.js';
 import Logger from '../log/Logger.js';
 import { safeSetCapabilityValue } from '../safeFunctions.js';
+import { type ButtonEventType, safeTriggerButtonPressed, safeTriggerSingleButtonPressed } from '../flow/buttonFlows.js';
+
+const enum KeyAttributes {
+  Pressed = 'Key Pressed 1 time',
+  Released = 'Key Released',
+  Held = 'Key Held Down',
+  Pressed2 = 'Key Pressed 2 times',
+  Pressed3 = 'Key Pressed 3 times',
+  Pressed4 = 'Key Pressed 4 times',
+  Pressed5 = 'Key Pressed 5 times',
+}
+
+type CentralSceneNotification = {
+  'Sequence Number (Raw)': Buffer;
+  'Sequence Number': number;
+  'Properties1 (Raw)': Buffer;
+  Properties1: { 'Slow Refresh': boolean; 'Key Attributes': KeyAttributes };
+  'Scene Number (Raw)': Buffer;
+  'Scene Number': number;
+};
 
 export default abstract class ShellyZwaveDevice extends ZwaveDevice {
   protected logger?: Logger = undefined;
@@ -91,6 +111,29 @@ export default abstract class ShellyZwaveDevice extends ZwaveDevice {
       });
     }
 
+    if (this.node.CommandClass['CENTRAL_SCENE'] !== undefined) {
+      this.registerReportListener(
+        'CENTRAL_SCENE',
+        'CENTRAL_SCENE_NOTIFICATION',
+        (payload: CentralSceneNotification) => {
+          this.debug(payload['Scene Number'], payload.Properties1['Key Attributes']);
+          const buttonEvent = this.convertButtonPress(payload.Properties1['Key Attributes']);
+
+          if (buttonEvent === null) {
+            this.error('Unsupported Z-Wave key event:', payload.Properties1['Key Attributes']);
+            return;
+          }
+
+          if (this.hasCapability('hidden.single_button_pressed')) {
+            safeTriggerSingleButtonPressed(this, buttonEvent);
+          }
+          if (this.hasCapability('hidden.button_pressed')) {
+            safeTriggerButtonPressed(this, payload['Scene Number'] - 1, buttonEvent);
+          }
+        },
+      );
+    }
+
     const [major, minor] = await this.getFirmwareVersion();
     const [minimumMajor, minimumMinor] = this.minimumFirmwareVersion;
     if (major < minimumMajor || (major === minimumMajor && minor < minimumMinor)) {
@@ -156,6 +199,23 @@ export default abstract class ShellyZwaveDevice extends ZwaveDevice {
           nl: 'Reset alle configuratie parameters naar de fabrieksinstellingen en apparaat verlaat het netwerk.',
         },
       });
+    }
+  }
+
+  private convertButtonPress(type: KeyAttributes): ButtonEventType | null {
+    switch (type) {
+      case KeyAttributes.Pressed:
+        return 'single_press';
+      case KeyAttributes.Held:
+        return 'hold';
+      case KeyAttributes.Released:
+        return 'long_press';
+      case KeyAttributes.Pressed2:
+        return 'double_press';
+      case KeyAttributes.Pressed3:
+        return 'triple_press';
+      default:
+        return null;
     }
   }
 
