@@ -29,6 +29,7 @@ export default abstract class ShellyZwaveDevice extends ZwaveDevice {
   private queuedWorker?: QueuedWorker;
 
   public readonly minimumFirmwareVersion: readonly [number, number] = [0, 0];
+  protected readonly calibrationStartConfigurationIndex = 78;
 
   public async onNodeInit(payload: { node: ZwaveNode }): Promise<void> {
     this.logger = new Logger(
@@ -242,6 +243,17 @@ export default abstract class ShellyZwaveDevice extends ZwaveDevice {
       'Number of Parameters': count,
     });
     return response.vg.map(res => res.Parameter);
+  }
+
+  protected async startCalibration(): Promise<void> {
+    this.log('Starting calibration');
+    await this.configurationSet(
+      {
+        index: this.calibrationStartConfigurationIndex,
+        size: 1,
+      },
+      1,
+    );
   }
 
   public log(...args: unknown[]): void {

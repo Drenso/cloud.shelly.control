@@ -74,17 +74,6 @@ export default class ShellyWaveShutterZWaveDevice
     await super.onSettings({ oldSettings, newSettings, changedKeys });
   }
 
-  protected async startCalibration(): Promise<void> {
-    this.log('Starting calibration');
-    await this.configurationSet(
-      {
-        index: 78,
-        size: 1,
-      },
-      1,
-    );
-  }
-
   public getButtonEventTypes(): ButtonEventType[] {
     return ['single_press', 'long_press', 'hold'];
   }
