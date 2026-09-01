@@ -1,7 +1,7 @@
 import type { ButtonEventType } from './flow/buttonFlows.js';
 
-export interface ButtonCountDeviceInterface {
-  getButtonCount(): number;
+export interface ButtonIndicesDeviceInterface {
+  getButtonIndices(): number[];
 }
 
 export interface ButtonEventTypesDeviceInterface {

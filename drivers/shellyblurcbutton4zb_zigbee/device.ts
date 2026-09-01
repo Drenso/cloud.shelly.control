@@ -6,13 +6,13 @@ import ScenesBoundCluster, {
 } from '@drenso/homey-zigbee-library/lib/clusters/bound_clusters/ScenesBoundCluster.mjs';
 import ExtendedScenesCluster from '@drenso/homey-zigbee-library/lib/clusters/ExtendedScenesCluster.mjs';
 import { LevelControlCluster, OnOffCluster, type ZCLNode } from 'zigbee-clusters';
-import type { ButtonCountDeviceInterface, ButtonEventTypesDeviceInterface } from '../../lib/capabilityInterfaces.js';
+import type { ButtonIndicesDeviceInterface, ButtonEventTypesDeviceInterface } from '../../lib/capabilityInterfaces.js';
 import { type ButtonEventType, safeTriggerButtonPressed } from '../../lib/flow/buttonFlows.js';
 import ShellyZigbeeDevice from '../../lib/zigbee/ZigbeeDevice.js';
 
 export default class ShellyBluRCButton4ZBZigbeeDevice
   extends ShellyZigbeeDevice
-  implements ButtonCountDeviceInterface, ButtonEventTypesDeviceInterface
+  implements ButtonIndicesDeviceInterface, ButtonEventTypesDeviceInterface
 {
   protected async configureDevice(zclNode: ZCLNode): Promise<void> {
     await initPowerConfigurationDevice(this, zclNode);
@@ -68,8 +68,8 @@ export default class ShellyBluRCButton4ZBZigbeeDevice
     }
   }
 
-  public getButtonCount(): number {
-    return 4;
+  public getButtonIndices(): number[] {
+    return [...Array(4)];
   }
 
   public getButtonEventTypes(): ButtonEventType[] {

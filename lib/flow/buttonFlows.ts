@@ -1,6 +1,6 @@
 import type Homey from 'homey';
 import type ShellyApp from '../../app.js';
-import type { ButtonCountDeviceInterface, ButtonEventTypesDeviceInterface } from '../capabilityInterfaces.js';
+import type { ButtonIndicesDeviceInterface, ButtonEventTypesDeviceInterface } from '../capabilityInterfaces.js';
 import { safeTriggerDeviceCard } from '../safeFunctions.js';
 
 export type ButtonEventType =
@@ -29,9 +29,9 @@ export async function safeTriggerButtonPressed(
 export function registerButtonFlowCards(app: ShellyApp): void {
   const buttonAutocompleteListener = (
     query: string,
-    { device }: { device: ButtonCountDeviceInterface },
+    { device }: { device: ButtonIndicesDeviceInterface },
   ): Array<{ name: string; id: number | 'any' }> => {
-    const items: Array<{ name: string; id: number | 'any' }> = [...Array(device.getButtonCount())].map((_, index) => ({
+    const items: Array<{ name: string; id: number | 'any' }> = device.getButtonIndices().map((_, index) => ({
       name: (app.homey.__(`button._name`) ?? '').replace('__number__', String(index + 1)),
       id: index,
     }));
