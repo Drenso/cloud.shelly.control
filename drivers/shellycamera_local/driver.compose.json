@@ -1,0 +1,13 @@
+{
+  "$extends": ["local"],
+  "name": {
+    "en": "Camera - LAN"
+  },
+  "class": "camera",
+  "capabilities": [],
+  "images": {
+    "small": "/assets/drivers/shellycamera/images/small.png",
+    "large": "/assets/drivers/shellycamera/images/large.png",
+    "xlarge": "/assets/drivers/shellycamera/images/xlarge.png"
+  }
+}

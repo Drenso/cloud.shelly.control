@@ -1,0 +1,274 @@
+[
+  {
+    "key": "ble",
+    "status": {},
+    "config": {
+      "rpc": {
+        "enable": false
+      }
+    }
+  },
+  {
+    "key": "camera:0",
+    "status": {
+      "id": 0,
+      "arm": true,
+      "privacy": false,
+      "streamer": "running",
+      "motion": false,
+      "streams": 0,
+      "recording_encryption": {
+        "configured": false
+      },
+      "streamer_version": "104"
+    },
+    "config": {
+      "id": 0,
+      "name": null,
+      "led": {
+        "enable": true
+      },
+      "audio": {
+        "input": {
+          "enable": true
+        },
+        "output": {
+          "volume": 100
+        }
+      },
+      "sounds": {
+        "enable": true
+      },
+      "motion": {
+        "sensitivity": "medium",
+        "recording": {
+          "enable": true
+        }
+      },
+      "night_vision": {
+        "mode": "auto",
+        "ir_leds": true,
+        "light_threshold": 50,
+        "sensitivity": 50
+      },
+      "rtsp": {
+        "enable": false
+      },
+      "video": {
+        "brightness": 50,
+        "contrast": 50,
+        "flip": false,
+        "mirror": true,
+        "saturation": 50,
+        "sharpness": 50,
+        "tint": 0,
+        "temperature": 0,
+        "antiflicker": "50Hz"
+      },
+      "streams": {
+        "0": {
+          "bitrate": 2048,
+          "resolution": "1280x720@25"
+        },
+        "1": {
+          "bitrate": 512,
+          "resolution": "640x360@10"
+        }
+      }
+    }
+  },
+  {
+    "key": "camerazone:200",
+    "status": {
+      "id": 200,
+      "motion": false
+    },
+    "config": {
+      "id": 200,
+      "coordinates": [0, 0, 0, 10000, 10000, 10000, 10000, 0],
+      "enable": true,
+      "type": "motion",
+      "name": "main",
+      "color": [255, 0, 0]
+    }
+  },
+  {
+    "key": "camerazone:201",
+    "status": {
+      "id": 201
+    },
+    "config": {
+      "id": 201,
+      "coordinates": [2645, 0, 6081, 0, 6081, 4337, 2645, 4337],
+      "enable": true,
+      "type": "privacy",
+      "color": [0, 84, 255]
+    }
+  },
+  {
+    "key": "cloud",
+    "status": {
+      "connected": false
+    },
+    "config": {
+      "enable": false,
+      "server": "iot.shelly.cloud:6012/jrpc"
+    }
+  },
+  {
+    "key": "mqtt",
+    "status": {
+      "connected": false
+    },
+    "config": {
+      "enable": false,
+      "server": null,
+      "client_id": "shellycamera-d83eeb0e3365",
+      "user": null,
+      "ssl_ca": null,
+      "topic_prefix": "shellycamera-d83eeb0e3365",
+      "rpc_ntf": true,
+      "status_ntf": false,
+      "use_client_cert": false,
+      "enable_rpc": true,
+      "enable_control": true
+    }
+  },
+  {
+    "key": "storage:0",
+    "status": {
+      "id": 0,
+      "rev": 0,
+      "fs_free": 0,
+      "fs_size": 0,
+      "present": true,
+      "active": false,
+      "errors": ["needs_formatting"]
+    },
+    "config": {
+      "id": 0,
+      "name": null,
+      "nfs": {
+        "host": null,
+        "path": null
+      }
+    }
+  },
+  {
+    "key": "sys",
+    "status": {
+      "mac": "D83EEB0E3365",
+      "restart_required": false,
+      "time": "12:26",
+      "unixtime": 1788344780,
+      "last_sync_ts": 1788344174,
+      "uptime": 612,
+      "ram_size": 42000384,
+      "ram_free": 1437696,
+      "ram_min_free": 0,
+      "fs_size": 0,
+      "fs_free": 0,
+      "cfg_rev": 19,
+      "kvs_rev": 0,
+      "schedule_rev": 0,
+      "webhook_rev": 0,
+      "btrelay_rev": 0,
+      "storage_0_rev": 0,
+      "available_updates": {},
+      "utc_offset": 7200
+    },
+    "config": {
+      "device": {
+        "name": null,
+        "mac": "D83EEB0E3365",
+        "fw_id": "20260817-111828/gfdb5b0c",
+        "discoverable": true,
+        "tls_check_cert_validity_time": true,
+        "enhanced_security": false
+      },
+      "location": {
+        "tz": "Europe/Amsterdam",
+        "lat": 52.2249,
+        "lon": 6.852
+      },
+      "debug": {
+        "level": 2,
+        "file_level": null,
+        "mqtt": {
+          "enable": false
+        },
+        "websocket": {
+          "enable": false
+        },
+        "udp": {
+          "addr": null
+        }
+      },
+      "ui_data": {
+        "device_revision": "1-7"
+      },
+      "rpc_udp": {
+        "dst_addr": null,
+        "listen_port": null
+      },
+      "sntp": {
+        "server": "time.cloudflare.com"
+      },
+      "cfg_rev": 19
+    }
+  },
+  {
+    "key": "wifi",
+    "status": {
+      "sta_ip": "192.168.222.108",
+      "status": "got ip",
+      "ssid": "DrensoDev",
+      "channel": 11,
+      "rssi": -46,
+      "bssid": "76:ac:b9:2c:8c:03",
+      "sta_ip6": ["fe80::da3e:ebff:fe0e:3365", "fd44:6977:d13f:2e91:da3e:ebff:fe0e:3365"]
+    },
+    "config": {
+      "ap": {
+        "ssid": "ShellyCamera-D83EEB0E3365",
+        "is_open": true,
+        "enable": false
+      },
+      "sta": {
+        "ssid": "DrensoDev",
+        "is_open": false,
+        "enable": true,
+        "ipv4mode": "dhcp",
+        "ip": null,
+        "netmask": null,
+        "gw": null,
+        "nameserver": null
+      },
+      "sta1": {
+        "ssid": null,
+        "is_open": true,
+        "enable": false,
+        "ipv4mode": "dhcp",
+        "ip": null,
+        "netmask": null,
+        "gw": null,
+        "nameserver": null
+      },
+      "roam": {
+        "rssi_thr": -80,
+        "interval": 60
+      }
+    }
+  },
+  {
+    "key": "ws",
+    "status": {
+      "connected": false
+    },
+    "config": {
+      "enable": false,
+      "server": null,
+      "ssl_ca": "ca.pem"
+    }
+  }
+]
