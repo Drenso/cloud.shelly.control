@@ -1,0 +1,16 @@
+{
+  "alarm_motion": {
+    "title": {
+      "en": "Motion Alarm __name__"
+    },
+    "insightsTitleTrue": {
+      "en": "Motion Alarm __name__ turned on"
+    },
+    "insightsTitleFalse": {
+      "en": "Motion Alarm __name__ turned off"
+    }
+  },
+  "cameraZoneName": {
+    "en": "Zone __number__"
+  }
+}

@@ -133,7 +133,7 @@ export abstract class ComponentWithoutId<
 export abstract class ComponentWithId<
   ComponentNameSpace extends NameSpace,
   Status extends object,
-  Config extends { id: number; name: string | null },
+  Config extends { id: number; name?: string | null },
   Settings extends object,
 > extends Component<ComponentNameSpace, Status, Config, Settings> {
   public getComponentKey(): string {
@@ -194,7 +194,7 @@ export abstract class ComponentWithId<
       return capabilityId;
     }
 
-    const name = this.config.name !== null ? this.config.name : `${this.id}`;
+    const name = this.config.name ? this.config.name : `${this.id}`;
     const capabilityOptions = fillTranslationTagsRecursively(rawCapabilityOptions, {
       name: name,
     }) as JsonObject;
