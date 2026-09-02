@@ -1,9 +1,14 @@
+import type ShellyApp from '../../../app.js';
 import type ShellyLocalDevice from '../../local/LocalDevice.js';
+import type { NotificationEventParam } from '../../rpc/Rpc.js';
+import { safeAddCapability, safeSetCapabilityValue, safeTriggerDeviceCard } from '../../safeFunctions.js';
+import { createMitt, translate } from '../../util.js';
 import { ComponentWithId } from '../Component.js';
 import GetConfig from './CameraZone/GetConfig.js';
 import GetStatus from './CameraZone/GetStatus.js';
 import SetConfig from './CameraZone/SetConfig.js';
 import type { ComponentMethod } from './Shelly/ListMethods.js';
+import capabilitiesOptions from './CameraZone/capabilitiesOptions.json' with { type: 'json' };
 
 export type CameraZoneStatus = {
   /** Id of the component instance. */
@@ -29,6 +34,7 @@ export type CameraZoneConfig = {
   name?: string;
 };
 
+// NOTE: since we add all zones to a single device, we cannot set individual zone settings
 export type CameraZoneHomeySettings = Record<never, never>;
 
 export default class CameraZone extends ComponentWithId<
@@ -44,15 +50,84 @@ export default class CameraZone extends ComponentWithId<
   public static readonly uiName = 'Camera Zone';
   public static readonly key = 'camerazone';
 
-  public async registerHomeyDevice(homeyDevice: ShellyLocalDevice, methods: ComponentMethod<'CameraZone'>[]): Promise<void> {
-    throw new Error('Method not implemented.');
+  public async registerHomeyDevice(
+    homeyDevice: ShellyLocalDevice,
+    _methods: ComponentMethod<'CameraZone'>[],
+  ): Promise<void> {
+    for (const [statusKey, homeyCapability] of [['motion', 'alarm_motion']] as const) {
+      if (this.status[statusKey] !== undefined) {
+        const capabilityOptions = capabilitiesOptions[homeyCapability];
+        await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions);
+      }
+    }
+
+    await safeAddCapability(homeyDevice, 'hidden.has_camera_motion');
   }
 
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: CameraZoneStatus): Promise<void> {
-    throw new Error('Method not implemented.');
+    if (status.motion !== undefined) {
+      const capabilityId = this.getCapabilityId(homeyDevice, 'alarm_motion');
+      if (homeyDevice.getCapabilityValue(capabilityId) !== status.motion) {
+        await safeSetCapabilityValue(homeyDevice, capabilityId, status.motion);
+        await safeTriggerDeviceCard(
+          homeyDevice,
+          status.motion ? 'shelly_camera_motion' : 'shelly_camera_motion_end',
+          { zone: this.id },
+          { zone: this.id },
+        );
+      }
+    }
   }
 
-  public async onConfigUpdate(homeyDevice: ShellyLocalDevice, config: CameraZoneConfig): Promise<void> {
-    throw new Error('Method not implemented.');
+  public async onConfigUpdate(_homeyDevice: ShellyLocalDevice, _config: CameraZoneConfig): Promise<void> {
+    return;
+  }
+
+  public static registerFlowCards(app: ShellyApp): void {
+    const getZones = (device: ShellyLocalDevice): CameraZone[] => {
+      if (device.virtualDevice === undefined) {
+        return [];
+      }
+
+      return [...device.virtualComponents.values()].filter(component => component instanceof CameraZone);
+    };
+
+    const autoCompleteListener = (
+      query: string,
+      { device }: { device: ShellyLocalDevice },
+    ): { name: string; id: number }[] => {
+      return getZones(device)
+        .filter(cameraZone => cameraZone.config.type === 'motion')
+        .map(cameraZone => ({
+          name:
+            cameraZone.config.name ??
+            translate(app.homey.__('locale'), capabilitiesOptions['cameraZoneName'], {
+              number: `${cameraZone.id}`,
+            }),
+          id: cameraZone.id,
+        }))
+        .filter(cameraZone => cameraZone.name.toLowerCase().includes(query.trim().toLowerCase()));
+    };
+
+    for (const flow of ['shelly_camera_motion', 'shelly_camera_motion_end'] as const) {
+      app.homey.flow
+        .getDeviceTriggerCard(flow)
+        .registerArgumentAutocompleteListener('zone', autoCompleteListener)
+        .registerRunListener((flowArgs: { zone: { id: number } }, triggerArgs: { zone: number }) => {
+          return flowArgs.zone.id === triggerArgs.zone;
+        });
+    }
+
+    app.homey.flow
+      .getConditionCard('shelly_camera_motion_has')
+      .registerArgumentAutocompleteListener('zone', autoCompleteListener)
+      .registerRunListener((flowArgs: { zone: { id: number }; device: ShellyLocalDevice }) => {
+        const componentKey = `${CameraZone.key}:${flowArgs.zone.id}`;
+        const component = flowArgs.device.virtualComponents.get(componentKey) as CameraZone | undefined;
+        if (component === undefined) {
+          throw new Error(app.homey.__('error.component_not_found', { component: componentKey }));
+        }
+        return component.status.motion;
+      });
   }
 }
