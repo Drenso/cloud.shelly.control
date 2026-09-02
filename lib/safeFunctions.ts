@@ -1,4 +1,5 @@
-import Homey from 'homey';
+import type Homey from 'homey';
+import { isDebug } from './env.js';
 
 export async function safeAddCapability(device: Homey.Device, capabilityId: string): Promise<void> {
   if (device.hasCapability(capabilityId)) {
@@ -39,7 +40,7 @@ export async function safeTriggerDeviceCard(
   tokens?: Record<string, unknown>,
   triggerArgs?: Record<string, unknown>,
 ): Promise<void> {
-  if (Homey.env.DEBUG === '1') {
+  if (await isDebug()) {
     device.log('[flow dbg]', flowId, JSON.stringify(tokens), JSON.stringify(triggerArgs));
   }
 
