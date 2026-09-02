@@ -1,6 +1,5 @@
 import type ShellyLocalDevice from '../../local/LocalDevice.js';
-import type { RecursivePartial } from '../../util.js';
-import { type AllowedPrimitives, ComponentWithId } from '../Component.js';
+import { ComponentWithId } from '../Component.js';
 import capabilitiesOptions from './EM/capabilitiesOptions.json' with { type: 'json' };
 import GetConfig from './EM/GetConfig.js';
 import GetStatus from './EM/GetStatus.js';
