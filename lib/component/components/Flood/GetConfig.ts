@@ -6,6 +6,6 @@ import type { FloodConfig } from '../Flood.js';
  * Obtain the component's configuration
  */
 export default async function GetConfig(channel: RpcChannel, id: number): Promise<ResponseSuccessFrame<FloodConfig>> {
-  const requestFrame = createRequestFrame('Flood.GetConfig', { id: id });
+  const requestFrame = createRequestFrame('Flood.GetConfig', { id });
   return channel.sendRequestFrame(requestFrame);
 }

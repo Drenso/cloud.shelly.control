@@ -20,6 +20,6 @@ export default async function SetConfig(
   id: number,
   params: CoverSetConfigParams,
 ): Promise<ResponseSuccessFrame<CoverSetConfigResponse>> {
-  const requestFrame = createRequestFrame('Cover.SetConfig', { ...params, id: id });
+  const requestFrame = createRequestFrame('Cover.SetConfig', { ...params, id });
   return channel.sendRequestFrame(requestFrame);
 }

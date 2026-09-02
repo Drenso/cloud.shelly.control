@@ -6,6 +6,6 @@ import type { CCTConfig } from '../CCT.js';
  * Obtain the component's configuration
  */
 export default async function GetConfig(channel: RpcChannel, id: number): Promise<ResponseSuccessFrame<CCTConfig>> {
-  const requestFrame = createRequestFrame('CCT.GetConfig', { id: id });
+  const requestFrame = createRequestFrame('CCT.GetConfig', { id });
   return channel.sendRequestFrame(requestFrame);
 }

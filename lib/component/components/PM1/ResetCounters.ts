@@ -30,6 +30,6 @@ export default async function ResetCounters(
   id: number,
   params?: PM1ResetCountersParams,
 ): Promise<ResponseSuccessFrame<PM1ResetCountersResponse>> {
-  const requestFrame = createRequestFrame('PM1.ResetCounters', { ...params, id: id });
+  const requestFrame = createRequestFrame('PM1.ResetCounters', { ...params, id });
   return channel.sendRequestFrame(requestFrame);
 }

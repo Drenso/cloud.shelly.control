@@ -9,6 +9,6 @@ export default async function GetStatus(
   channel: RpcChannel,
   id: number,
 ): Promise<ResponseSuccessFrame<DevicePowerStatus>> {
-  const requestFrame = createRequestFrame('DevicePower.GetStatus', { id: id });
+  const requestFrame = createRequestFrame('DevicePower.GetStatus', { id });
   return channel.sendRequestFrame(requestFrame);
 }

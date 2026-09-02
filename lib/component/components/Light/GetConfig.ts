@@ -6,6 +6,6 @@ import type { LightConfig } from '../Light.js';
  * Obtain the component's configuration
  */
 export default async function GetConfig(channel: RpcChannel, id: number): Promise<ResponseSuccessFrame<LightConfig>> {
-  const requestFrame = createRequestFrame('Light.GetConfig', { id: id });
+  const requestFrame = createRequestFrame('Light.GetConfig', { id });
   return channel.sendRequestFrame(requestFrame);
 }

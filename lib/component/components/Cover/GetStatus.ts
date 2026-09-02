@@ -6,6 +6,6 @@ import type { CoverStatus } from '../Cover.js';
  * Obtain the component's status
  */
 export default async function GetStatus(channel: RpcChannel, id: number): Promise<ResponseSuccessFrame<CoverStatus>> {
-  const requestFrame = createRequestFrame('Cover.GetStatus', { id: id });
+  const requestFrame = createRequestFrame('Cover.GetStatus', { id });
   return channel.sendRequestFrame(requestFrame);
 }

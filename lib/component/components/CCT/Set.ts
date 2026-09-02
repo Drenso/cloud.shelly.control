@@ -32,6 +32,6 @@ export default async function Set(
   id: number,
   params: CCTSetParams,
 ): Promise<ResponseSuccessFrame<null>> {
-  const requestFrame = createRequestFrame('CCT.Set', { ...params, id: id });
+  const requestFrame = createRequestFrame('CCT.Set', { ...params, id });
   return channel.sendRequestFrame(requestFrame);
 }

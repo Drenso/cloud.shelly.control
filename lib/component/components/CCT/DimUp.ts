@@ -17,6 +17,6 @@ export default async function DimUp(
   id: number,
   params: CCTDimUpParams = {},
 ): Promise<ResponseSuccessFrame<null>> {
-  const requestFrame = createRequestFrame('CCT.DimUp', { ...params, id: id });
+  const requestFrame = createRequestFrame('CCT.DimUp', { ...params, id });
   return channel.sendRequestFrame(requestFrame);
 }

@@ -17,6 +17,6 @@ export default async function SetConfig(
   id: number,
   params: DevicePowerSetConfigParams,
 ): Promise<ResponseSuccessFrame<DevicePowerConfigResponse>> {
-  const requestFrame = createRequestFrame('DevicePower.SetConfig', { ...params, id: id });
+  const requestFrame = createRequestFrame('DevicePower.SetConfig', { ...params, id });
   return channel.sendRequestFrame(requestFrame);
 }

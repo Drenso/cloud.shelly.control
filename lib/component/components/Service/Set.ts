@@ -14,6 +14,6 @@ export default async function SetConfig(
   id: number,
   params: ServiceSetParams,
 ): Promise<ResponseSuccessFrame<null>> {
-  const requestFrame = createRequestFrame('Service.Set', { ...params, id: id });
+  const requestFrame = createRequestFrame('Service.Set', { ...params, id });
   return channel.sendRequestFrame(requestFrame);
 }

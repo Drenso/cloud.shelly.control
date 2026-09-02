@@ -17,6 +17,6 @@ export default async function DimUp(
   id: number,
   params: RGBCCTDimUpParams = {},
 ): Promise<ResponseSuccessFrame<null>> {
-  const requestFrame = createRequestFrame('RGBCCT.DimUp', { ...params, id: id });
+  const requestFrame = createRequestFrame('RGBCCT.DimUp', { ...params, id });
   return channel.sendRequestFrame(requestFrame);
 }

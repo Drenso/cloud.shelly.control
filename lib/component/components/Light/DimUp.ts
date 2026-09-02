@@ -17,6 +17,6 @@ export default async function DimUp(
   id: number,
   params: LightDimUpParams = {},
 ): Promise<ResponseSuccessFrame<null>> {
-  const requestFrame = createRequestFrame('Light.DimUp', { ...params, id: id });
+  const requestFrame = createRequestFrame('Light.DimUp', { ...params, id });
   return channel.sendRequestFrame(requestFrame);
 }

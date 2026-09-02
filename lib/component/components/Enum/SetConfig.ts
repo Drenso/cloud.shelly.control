@@ -20,6 +20,6 @@ export default async function SetConfig(
   id: number,
   params: EnumSetConfigParams,
 ): Promise<ResponseSuccessFrame<EnumConfigResponse>> {
-  const requestFrame = createRequestFrame('Enum.SetConfig', { ...params, id: id });
+  const requestFrame = createRequestFrame('Enum.SetConfig', { ...params, id });
   return channel.sendRequestFrame(requestFrame);
 }

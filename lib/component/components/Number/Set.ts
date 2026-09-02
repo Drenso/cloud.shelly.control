@@ -13,6 +13,6 @@ export default async function Set(
   id: number,
   params: NumberSetParams,
 ): Promise<ResponseSuccessFrame<null>> {
-  const requestFrame = createRequestFrame('Number.Set', { ...params, id: id });
+  const requestFrame = createRequestFrame('Number.Set', { ...params, id });
   return channel.sendRequestFrame(requestFrame);
 }

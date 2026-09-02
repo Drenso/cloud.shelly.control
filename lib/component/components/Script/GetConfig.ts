@@ -6,6 +6,6 @@ import type { ScriptConfig } from '../Script.js';
  * Obtain the component's configuration
  */
 export default async function GetConfig(channel: RpcChannel, id: number): Promise<ResponseSuccessFrame<ScriptConfig>> {
-  const requestFrame = createRequestFrame('Script.GetConfig', { id: id });
+  const requestFrame = createRequestFrame('Script.GetConfig', { id });
   return channel.sendRequestFrame(requestFrame);
 }

@@ -28,6 +28,6 @@ export default async function Set(
   id: number,
   params: LightSetParams,
 ): Promise<ResponseSuccessFrame<null>> {
-  const requestFrame = createRequestFrame('Light.Set', { ...params, id: id });
+  const requestFrame = createRequestFrame('Light.Set', { ...params, id });
   return channel.sendRequestFrame(requestFrame);
 }

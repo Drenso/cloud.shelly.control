@@ -17,6 +17,6 @@ export default async function Trigger(
   id: number,
   params: InputTriggerParams,
 ): Promise<ResponseSuccessFrame<null>> {
-  const requestFrame = createRequestFrame('Input.Trigger', { ...params, id: id });
+  const requestFrame = createRequestFrame('Input.Trigger', { ...params, id });
   return channel.sendRequestFrame(requestFrame);
 }

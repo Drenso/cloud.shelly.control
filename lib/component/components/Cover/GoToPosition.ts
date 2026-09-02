@@ -73,6 +73,6 @@ export default async function GoToPosition(
   id: number,
   params: CoverGoToPositionParams,
 ): Promise<ResponseSuccessFrame<null>> {
-  const requestFrame = createRequestFrame('Cover.GoToPosition', { ...params, id: id });
+  const requestFrame = createRequestFrame('Cover.GoToPosition', { ...params, id });
   return channel.sendRequestFrame(requestFrame);
 }

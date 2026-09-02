@@ -9,6 +9,6 @@ export default async function RevertToFactoryCalibration(
   channel: RpcChannel,
   id: number,
 ): Promise<ResponseSuccessFrame<RevertToFactoryCalibrationResponse>> {
-  const requestFrame = createRequestFrame('EM1.RevertToFactoryCalibration', { id: id });
+  const requestFrame = createRequestFrame('EM1.RevertToFactoryCalibration', { id });
   return channel.sendRequestFrame(requestFrame);
 }

@@ -7,6 +7,6 @@ import { createRequestFrame, type ResponseSuccessFrame } from '../../../rpc/Rpc.
  * In `PlusRGBWPM` all light instances are calibrated with one call to Light.Calibrate and the id parameter is ignored.
  */
 export default async function Calibrate(channel: RpcChannel, id: number): Promise<ResponseSuccessFrame<null>> {
-  const requestFrame = createRequestFrame('Light.Calibrate', { id: id });
+  const requestFrame = createRequestFrame('Light.Calibrate', { id });
   return channel.sendRequestFrame(requestFrame);
 }

@@ -6,6 +6,6 @@ import type { BooleanStatus } from '../Boolean.js';
  * Obtain the component's status
  */
 export default async function GetStatus(channel: RpcChannel, id: number): Promise<ResponseSuccessFrame<BooleanStatus>> {
-  const requestFrame = createRequestFrame('Boolean.GetStatus', { id: id });
+  const requestFrame = createRequestFrame('Boolean.GetStatus', { id });
   return channel.sendRequestFrame(requestFrame);
 }

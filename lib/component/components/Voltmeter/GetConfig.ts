@@ -9,6 +9,6 @@ export default async function GetConfig(
   channel: RpcChannel,
   id: number,
 ): Promise<ResponseSuccessFrame<VoltmeterConfig>> {
-  const requestFrame = createRequestFrame('Voltmeter.GetConfig', { id: id });
+  const requestFrame = createRequestFrame('Voltmeter.GetConfig', { id });
   return channel.sendRequestFrame(requestFrame);
 }

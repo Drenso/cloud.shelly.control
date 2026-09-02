@@ -17,6 +17,6 @@ export default async function Start(
   channel: RpcChannel,
   id: number,
 ): Promise<ResponseSuccessFrame<ScriptStartResponse>> {
-  const requestFrame = createRequestFrame('Script.Start', { id: id });
+  const requestFrame = createRequestFrame('Script.Start', { id });
   return channel.sendRequestFrame(requestFrame);
 }

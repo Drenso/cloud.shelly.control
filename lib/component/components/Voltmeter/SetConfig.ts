@@ -20,6 +20,6 @@ export default async function SetConfig(
   id: number,
   params: VoltmeterSetConfigParams,
 ): Promise<ResponseSuccessFrame<VoltmeterSetConfigResponse>> {
-  const requestFrame = createRequestFrame('Voltmeter.SetConfig', { ...params, id: id });
+  const requestFrame = createRequestFrame('Voltmeter.SetConfig', { ...params, id });
   return channel.sendRequestFrame(requestFrame);
 }

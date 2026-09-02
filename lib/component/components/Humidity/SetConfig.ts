@@ -20,6 +20,6 @@ export default async function SetConfig(
   id: number,
   params: HumiditySetConfigParams,
 ): Promise<ResponseSuccessFrame<HumiditySetConfigResponse>> {
-  const requestFrame = createRequestFrame('Humidity.SetConfig', { ...params, id: id });
+  const requestFrame = createRequestFrame('Humidity.SetConfig', { ...params, id });
   return channel.sendRequestFrame(requestFrame);
 }

@@ -10,6 +10,6 @@ export type ScriptStopResponse = {
  * This method stops the execution of a script.
  */
 export default async function Stop(channel: RpcChannel, id: number): Promise<ResponseSuccessFrame<ScriptStopResponse>> {
-  const requestFrame = createRequestFrame('Script.Stop', { id: id });
+  const requestFrame = createRequestFrame('Script.Stop', { id });
   return channel.sendRequestFrame(requestFrame);
 }

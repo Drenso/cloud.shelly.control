@@ -26,6 +26,6 @@ export default async function Close(
   id: number,
   params: CoverCloseParams = {},
 ): Promise<ResponseSuccessFrame<null>> {
-  const requestFrame = createRequestFrame('Cover.Close', { ...params, id: id });
+  const requestFrame = createRequestFrame('Cover.Close', { ...params, id });
   return channel.sendRequestFrame(requestFrame);
 }

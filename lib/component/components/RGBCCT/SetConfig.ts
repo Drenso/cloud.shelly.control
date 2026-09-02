@@ -20,6 +20,6 @@ export default async function SetConfig(
   id: number,
   params: RGBCCTSetConfigParams,
 ): Promise<ResponseSuccessFrame<RGBCCTSetConfigResponse>> {
-  const requestFrame = createRequestFrame('RGBCCT.SetConfig', { ...params, id: id });
+  const requestFrame = createRequestFrame('RGBCCT.SetConfig', { ...params, id });
   return channel.sendRequestFrame(requestFrame);
 }

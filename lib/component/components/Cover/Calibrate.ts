@@ -29,6 +29,6 @@ import { createRequestFrame, type ResponseSuccessFrame } from '../../../rpc/Rpc.
  *    and the Cover will not stop if the power consumption rises above the obstruction detection threshold.
  */
 export default async function Calibrate(channel: RpcChannel, id: number): Promise<ResponseSuccessFrame<null>> {
-  const requestFrame = createRequestFrame('Cover.Calibrate', { id: id });
+  const requestFrame = createRequestFrame('Cover.Calibrate', { id });
   return channel.sendRequestFrame(requestFrame);
 }

@@ -9,6 +9,6 @@ export default async function GetConfig(
   channel: RpcChannel,
   id: number,
 ): Promise<ResponseSuccessFrame<DevicePowerConfig>> {
-  const requestFrame = createRequestFrame('DevicePower.GetConfig', { id: id });
+  const requestFrame = createRequestFrame('DevicePower.GetConfig', { id });
   return channel.sendRequestFrame(requestFrame);
 }

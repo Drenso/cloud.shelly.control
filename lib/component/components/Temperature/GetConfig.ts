@@ -9,6 +9,6 @@ export default async function GetConfig(
   channel: RpcChannel,
   id: number,
 ): Promise<ResponseSuccessFrame<TemperatureConfig>> {
-  const requestFrame = createRequestFrame('Temperature.GetConfig', { id: id });
+  const requestFrame = createRequestFrame('Temperature.GetConfig', { id });
   return channel.sendRequestFrame(requestFrame);
 }

@@ -6,6 +6,6 @@ import type { SwitchConfig } from '../Switch.js';
  * Obtain the component's configuration
  */
 export default async function GetConfig(channel: RpcChannel, id: number): Promise<ResponseSuccessFrame<SwitchConfig>> {
-  const requestFrame = createRequestFrame('Switch.GetConfig', { id: id });
+  const requestFrame = createRequestFrame('Switch.GetConfig', { id });
   return channel.sendRequestFrame(requestFrame);
 }

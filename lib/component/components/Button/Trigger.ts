@@ -13,6 +13,6 @@ export default async function Trigger(
   id: number,
   params: ButtonTriggerParams,
 ): Promise<ResponseSuccessFrame<null>> {
-  const requestFrame = createRequestFrame('Button.Trigger', { ...params, id: id });
+  const requestFrame = createRequestFrame('Button.Trigger', { ...params, id });
   return channel.sendRequestFrame(requestFrame);
 }

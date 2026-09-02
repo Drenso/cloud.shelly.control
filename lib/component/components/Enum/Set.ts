@@ -13,6 +13,6 @@ export default async function Set(
   id: number,
   params: EnumSetParams,
 ): Promise<ResponseSuccessFrame<null>> {
-  const requestFrame = createRequestFrame('Enum.Set', { ...params, id: id });
+  const requestFrame = createRequestFrame('Enum.Set', { ...params, id });
   return channel.sendRequestFrame(requestFrame);
 }

@@ -6,6 +6,6 @@ import type { NumberConfig } from '../Number.js';
  * Obtain the component's configuration
  */
 export default async function GetConfig(channel: RpcChannel, id: number): Promise<ResponseSuccessFrame<NumberConfig>> {
-  const requestFrame = createRequestFrame('Number.GetConfig', { id: id });
+  const requestFrame = createRequestFrame('Number.GetConfig', { id });
   return channel.sendRequestFrame(requestFrame);
 }

@@ -6,6 +6,6 @@ import type { RGBCCTConfig } from '../RGBCCT.js';
  * Obtain the component's configuration
  */
 export default async function GetConfig(channel: RpcChannel, id: number): Promise<ResponseSuccessFrame<RGBCCTConfig>> {
-  const requestFrame = createRequestFrame('RGBCCT.GetConfig', { id: id });
+  const requestFrame = createRequestFrame('RGBCCT.GetConfig', { id });
   return channel.sendRequestFrame(requestFrame);
 }

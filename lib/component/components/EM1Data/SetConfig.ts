@@ -20,6 +20,6 @@ export default async function SetConfig(
   id: number,
   params: EM1DataSetConfigParams,
 ): Promise<ResponseSuccessFrame<EM1DataSetConfigResponse>> {
-  const requestFrame = createRequestFrame('EM1Data.SetConfig', { ...params, id: id });
+  const requestFrame = createRequestFrame('EM1Data.SetConfig', { ...params, id });
   return channel.sendRequestFrame(requestFrame);
 }

@@ -20,6 +20,6 @@ export default async function SetConfig(
   id: number,
   params: BooleanSetConfigParams,
 ): Promise<ResponseSuccessFrame<BooleanConfigResponse>> {
-  const requestFrame = createRequestFrame('Boolean.SetConfig', { ...params, id: id });
+  const requestFrame = createRequestFrame('Boolean.SetConfig', { ...params, id });
   return channel.sendRequestFrame(requestFrame);
 }

@@ -6,6 +6,6 @@ import type { PM1Config } from '../PM1.js';
  * Obtain the component's configuration
  */
 export default async function GetConfig(channel: RpcChannel, id: number): Promise<ResponseSuccessFrame<PM1Config>> {
-  const requestFrame = createRequestFrame('PM1.GetConfig', { id: id });
+  const requestFrame = createRequestFrame('PM1.GetConfig', { id });
   return channel.sendRequestFrame(requestFrame);
 }

@@ -29,6 +29,6 @@ export default function GetNetEnergies(
   id: number,
   params: GetNetEnergiesParams,
 ): Promise<ResponseSuccessFrame<GetNetEnergiesResult>> {
-  const requestFrame = createRequestFrame('EM1Data.GetNetEnergies', { ...params, id: id });
+  const requestFrame = createRequestFrame('EM1Data.GetNetEnergies', { ...params, id });
   return channel.sendRequestFrame(requestFrame);
 }

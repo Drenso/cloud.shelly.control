@@ -24,6 +24,6 @@ export default async function ResetCounters(
   id: number,
   params?: CoverResetCountersParams,
 ): Promise<ResponseSuccessFrame<CoverResetCountersResponse>> {
-  const requestFrame = createRequestFrame('Cover.ResetCounters', { ...params, id: id });
+  const requestFrame = createRequestFrame('Cover.ResetCounters', { ...params, id });
   return channel.sendRequestFrame(requestFrame);
 }

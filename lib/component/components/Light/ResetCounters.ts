@@ -24,6 +24,6 @@ export default async function ResetCounters(
   id: number,
   params?: LightResetCountersParams,
 ): Promise<ResponseSuccessFrame<LightResetCountersResponse>> {
-  const requestFrame = createRequestFrame('Light.ResetCounters', { ...params, id: id });
+  const requestFrame = createRequestFrame('Light.ResetCounters', { ...params, id });
   return channel.sendRequestFrame(requestFrame);
 }

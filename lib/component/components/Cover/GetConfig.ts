@@ -6,6 +6,6 @@ import type { CoverConfig } from '../Cover.js';
  * Obtain the component's configuration
  */
 export default async function GetConfig(channel: RpcChannel, id: number): Promise<ResponseSuccessFrame<CoverConfig>> {
-  const requestFrame = createRequestFrame('Cover.GetConfig', { id: id });
+  const requestFrame = createRequestFrame('Cover.GetConfig', { id });
   return channel.sendRequestFrame(requestFrame);
 }

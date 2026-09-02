@@ -20,6 +20,6 @@ export default async function SetConfig(
   id: number,
   params: IlluminanceSetConfigParams,
 ): Promise<ResponseSuccessFrame<IlluminanceSetConfigResponse>> {
-  const requestFrame = createRequestFrame('Illuminance.SetConfig', { ...params, id: id });
+  const requestFrame = createRequestFrame('Illuminance.SetConfig', { ...params, id });
   return channel.sendRequestFrame(requestFrame);
 }

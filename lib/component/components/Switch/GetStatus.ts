@@ -6,6 +6,6 @@ import type { SwitchStatus } from '../Switch.js';
  * Obtain the component's status
  */
 export default async function GetStatus(channel: RpcChannel, id: number): Promise<ResponseSuccessFrame<SwitchStatus>> {
-  const requestFrame = createRequestFrame('Switch.GetStatus', { id: id });
+  const requestFrame = createRequestFrame('Switch.GetStatus', { id });
   return channel.sendRequestFrame(requestFrame);
 }

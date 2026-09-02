@@ -5,6 +5,6 @@ import { createRequestFrame, type ResponseSuccessFrame } from '../../../rpc/Rpc.
  * This method stops the dimming of the brightness level.
  */
 export default async function DimStop(channel: RpcChannel, id: number): Promise<ResponseSuccessFrame<null>> {
-  const requestFrame = createRequestFrame('RGBCCT.DimStop', { id: id });
+  const requestFrame = createRequestFrame('RGBCCT.DimStop', { id });
   return channel.sendRequestFrame(requestFrame);
 }

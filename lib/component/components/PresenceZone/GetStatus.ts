@@ -9,6 +9,6 @@ export default async function GetStatus(
   channel: RpcChannel,
   id: number,
 ): Promise<ResponseSuccessFrame<PresenceZoneStatus>> {
-  const requestFrame = createRequestFrame('PresenceZone.GetStatus', { id: id });
+  const requestFrame = createRequestFrame('PresenceZone.GetStatus', { id });
   return channel.sendRequestFrame(requestFrame);
 }

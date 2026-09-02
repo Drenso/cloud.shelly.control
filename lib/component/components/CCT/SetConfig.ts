@@ -20,6 +20,6 @@ export default async function SetConfig(
   id: number,
   params: CCTSetConfigParams,
 ): Promise<ResponseSuccessFrame<CCTSetConfigResponse>> {
-  const requestFrame = createRequestFrame('CCT.SetConfig', { ...params, id: id });
+  const requestFrame = createRequestFrame('CCT.SetConfig', { ...params, id });
   return channel.sendRequestFrame(requestFrame);
 }

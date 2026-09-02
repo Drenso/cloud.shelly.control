@@ -6,6 +6,6 @@ import type { ServiceStatus } from '../Service.js';
  * Obtain the component's status
  */
 export default async function GetStatus(channel: RpcChannel, id: number): Promise<ResponseSuccessFrame<ServiceStatus>> {
-  const requestFrame = createRequestFrame('Service.GetStatus', { id: id });
+  const requestFrame = createRequestFrame('Service.GetStatus', { id });
   return channel.sendRequestFrame(requestFrame);
 }

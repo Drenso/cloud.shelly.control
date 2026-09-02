@@ -20,6 +20,6 @@ export default async function SetConfig(
   id: number,
   params: ScriptSetConfigParams,
 ): Promise<ResponseSuccessFrame<ScriptSetConfigResponse>> {
-  const requestFrame = createRequestFrame('Script.SetConfig', { ...params, id: id });
+  const requestFrame = createRequestFrame('Script.SetConfig', { ...params, id });
   return channel.sendRequestFrame(requestFrame);
 }

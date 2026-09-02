@@ -18,6 +18,6 @@ export default async function SetConfig(
   id: number,
   params: SwitchSetConfigParams,
 ): Promise<ResponseSuccessFrame<SwitchSetConfigResponse>> {
-  const requestFrame = createRequestFrame('Switch.SetConfig', { ...params, id: id });
+  const requestFrame = createRequestFrame('Switch.SetConfig', { ...params, id });
   return channel.sendRequestFrame(requestFrame);
 }

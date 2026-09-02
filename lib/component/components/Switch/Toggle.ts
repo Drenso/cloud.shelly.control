@@ -13,6 +13,6 @@ export default async function Toggle(
   channel: RpcChannel,
   id: number,
 ): Promise<ResponseSuccessFrame<SwitchToggleResponse>> {
-  const requestFrame = createRequestFrame('Switch.Toggle', { id: id });
+  const requestFrame = createRequestFrame('Switch.Toggle', { id });
   return channel.sendRequestFrame(requestFrame);
 }

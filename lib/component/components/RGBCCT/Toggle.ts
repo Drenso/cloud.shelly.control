@@ -5,6 +5,6 @@ import { createRequestFrame, type ResponseSuccessFrame } from '../../../rpc/Rpc.
  * This method toggles the output state.
  */
 export default async function Toggle(channel: RpcChannel, id: number): Promise<ResponseSuccessFrame<null>> {
-  const requestFrame = createRequestFrame('RGBCCT.Toggle', { id: id });
+  const requestFrame = createRequestFrame('RGBCCT.Toggle', { id });
   return channel.sendRequestFrame(requestFrame);
 }

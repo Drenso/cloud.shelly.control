@@ -27,6 +27,6 @@ export default function GetData(
   id: number,
   params: GetDataParams,
 ): Promise<ResponseSuccessFrame<GetDataResult>> {
-  const requestFrame = createRequestFrame('EM1Data.GetData', { ...params, id: id });
+  const requestFrame = createRequestFrame('EM1Data.GetData', { ...params, id });
   return channel.sendRequestFrame(requestFrame);
 }

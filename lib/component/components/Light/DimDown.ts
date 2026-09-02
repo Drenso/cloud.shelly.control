@@ -17,6 +17,6 @@ export default async function DimDown(
   id: number,
   params: LightDimDownParams = {},
 ): Promise<ResponseSuccessFrame<null>> {
-  const requestFrame = createRequestFrame('Light.DimDown', { ...params, id: id });
+  const requestFrame = createRequestFrame('Light.DimDown', { ...params, id });
   return channel.sendRequestFrame(requestFrame);
 }

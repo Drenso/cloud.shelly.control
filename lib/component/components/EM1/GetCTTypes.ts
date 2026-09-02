@@ -12,6 +12,6 @@ export default async function GetCTTypes(
   channel: RpcChannel,
   id: number,
 ): Promise<ResponseSuccessFrame<GetCtTypeResponse>> {
-  const requestFrame = createRequestFrame('EM1.GetCTTypes', { id: id });
+  const requestFrame = createRequestFrame('EM1.GetCTTypes', { id });
   return channel.sendRequestFrame(requestFrame);
 }

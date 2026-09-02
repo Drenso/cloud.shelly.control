@@ -6,6 +6,6 @@ import type { EnumStatus } from '../Enum.js';
  * Obtain the component's status
  */
 export default async function GetStatus(channel: RpcChannel, id: number): Promise<ResponseSuccessFrame<EnumStatus>> {
-  const requestFrame = createRequestFrame('Enum.GetStatus', { id: id });
+  const requestFrame = createRequestFrame('Enum.GetStatus', { id });
   return channel.sendRequestFrame(requestFrame);
 }

@@ -31,6 +31,6 @@ export default async function GetCode(
   id: number,
   params?: ScriptGetCodeParams,
 ): Promise<ResponseSuccessFrame<ScriptGetCodeResponse>> {
-  const requestFrame = createRequestFrame('Script.GetCode', { ...params, id: id });
+  const requestFrame = createRequestFrame('Script.GetCode', { ...params, id });
   return channel.sendRequestFrame(requestFrame);
 }

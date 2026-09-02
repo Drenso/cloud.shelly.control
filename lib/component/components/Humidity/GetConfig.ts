@@ -9,6 +9,6 @@ export default async function GetConfig(
   channel: RpcChannel,
   id: number,
 ): Promise<ResponseSuccessFrame<HumidityConfig>> {
-  const requestFrame = createRequestFrame('Humidity.GetConfig', { id: id });
+  const requestFrame = createRequestFrame('Humidity.GetConfig', { id });
   return channel.sendRequestFrame(requestFrame);
 }

@@ -25,6 +25,6 @@ export default async function Eval(
   id: number,
   params: ScriptEvalParams,
 ): Promise<ResponseSuccessFrame<ScriptEvalResponse>> {
-  const requestFrame = createRequestFrame('Script.Eval', { ...params, id: id });
+  const requestFrame = createRequestFrame('Script.Eval', { ...params, id });
   return channel.sendRequestFrame(requestFrame);
 }

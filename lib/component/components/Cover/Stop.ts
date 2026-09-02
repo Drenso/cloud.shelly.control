@@ -5,6 +5,6 @@ import { createRequestFrame, type ResponseSuccessFrame } from '../../../rpc/Rpc.
  * Stop the cover.
  */
 export default async function Stop(channel: RpcChannel, id: number): Promise<ResponseSuccessFrame<null>> {
-  const requestFrame = createRequestFrame('Cover.Stop', { id: id });
+  const requestFrame = createRequestFrame('Cover.Stop', { id });
   return channel.sendRequestFrame(requestFrame);
 }

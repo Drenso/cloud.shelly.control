@@ -14,6 +14,6 @@ export default async function Set(
   id: number,
   params: ObjectSetParams,
 ): Promise<ResponseSuccessFrame<null>> {
-  const requestFrame = createRequestFrame('Object.Set', { ...params, id: id });
+  const requestFrame = createRequestFrame('Object.Set', { ...params, id });
   return channel.sendRequestFrame(requestFrame);
 }

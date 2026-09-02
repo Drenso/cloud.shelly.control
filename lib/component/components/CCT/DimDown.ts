@@ -17,6 +17,6 @@ export default async function DimDown(
   id: number,
   params: CCTDimDownParams = {},
 ): Promise<ResponseSuccessFrame<null>> {
-  const requestFrame = createRequestFrame('CCT.DimDown', { ...params, id: id });
+  const requestFrame = createRequestFrame('CCT.DimDown', { ...params, id });
   return channel.sendRequestFrame(requestFrame);
 }

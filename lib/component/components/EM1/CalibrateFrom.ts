@@ -15,6 +15,6 @@ export default async function CalibrateFrom(
   id: number,
   params: CalibrateFromParams,
 ): Promise<ResponseSuccessFrame<CalibrateFromResponse>> {
-  const requestFrame = createRequestFrame('EM1.CalibrateFrom', { ...params, id: id });
+  const requestFrame = createRequestFrame('EM1.CalibrateFrom', { ...params, id });
   return channel.sendRequestFrame(requestFrame);
 }

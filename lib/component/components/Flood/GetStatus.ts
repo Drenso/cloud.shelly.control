@@ -6,6 +6,6 @@ import type { FloodStatus } from '../Flood.js';
  * Obtain the component's status
  */
 export default async function GetStatus(channel: RpcChannel, id: number): Promise<ResponseSuccessFrame<FloodStatus>> {
-  const requestFrame = createRequestFrame('Flood.GetStatus', { id: id });
+  const requestFrame = createRequestFrame('Flood.GetStatus', { id });
   return channel.sendRequestFrame(requestFrame);
 }

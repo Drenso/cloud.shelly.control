@@ -18,6 +18,6 @@ export default async function SetConfig(
   id: number,
   params: TemperatureSetConfigParams,
 ): Promise<ResponseSuccessFrame<TemperatureSetConfigResponse>> {
-  const requestFrame = createRequestFrame('Temperature.SetConfig', { ...params, id: id });
+  const requestFrame = createRequestFrame('Temperature.SetConfig', { ...params, id });
   return channel.sendRequestFrame(requestFrame);
 }

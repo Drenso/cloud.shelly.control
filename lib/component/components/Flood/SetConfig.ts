@@ -20,6 +20,6 @@ export default async function SetConfig(
   id: number,
   params: FloodSetConfigParams,
 ): Promise<ResponseSuccessFrame<FloodSetConfigResponse>> {
-  const requestFrame = createRequestFrame('Flood.SetConfig', { ...params, id: id });
+  const requestFrame = createRequestFrame('Flood.SetConfig', { ...params, id });
   return channel.sendRequestFrame(requestFrame);
 }

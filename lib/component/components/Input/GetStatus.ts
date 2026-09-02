@@ -6,6 +6,6 @@ import type { InputStatus } from '../Input.js';
  * Obtain the component's status
  */
 export default async function GetStatus(channel: RpcChannel, id: number): Promise<ResponseSuccessFrame<InputStatus>> {
-  const requestFrame = createRequestFrame('Input.GetStatus', { id: id });
+  const requestFrame = createRequestFrame('Input.GetStatus', { id });
   return channel.sendRequestFrame(requestFrame);
 }

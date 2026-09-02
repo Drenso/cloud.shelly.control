@@ -9,6 +9,6 @@ export default async function GetConfig(
   channel: RpcChannel,
   id: number,
 ): Promise<ResponseSuccessFrame<IlluminanceConfig>> {
-  const requestFrame = createRequestFrame('Illuminance.GetConfig', { id: id });
+  const requestFrame = createRequestFrame('Illuminance.GetConfig', { id });
   return channel.sendRequestFrame(requestFrame);
 }

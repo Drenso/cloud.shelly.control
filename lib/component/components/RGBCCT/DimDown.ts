@@ -17,6 +17,6 @@ export default async function DimDown(
   id: number,
   params: RGBCCTDimDownParams = {},
 ): Promise<ResponseSuccessFrame<null>> {
-  const requestFrame = createRequestFrame('RGBCCT.DimDown', { ...params, id: id });
+  const requestFrame = createRequestFrame('RGBCCT.DimDown', { ...params, id });
   return channel.sendRequestFrame(requestFrame);
 }

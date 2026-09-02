@@ -20,6 +20,6 @@ export default async function SetConfig(
   id: number,
   params: LightSetConfigParams,
 ): Promise<ResponseSuccessFrame<LightSetConfigResponse>> {
-  const requestFrame = createRequestFrame('Light.SetConfig', { ...params, id: id });
+  const requestFrame = createRequestFrame('Light.SetConfig', { ...params, id });
   return channel.sendRequestFrame(requestFrame);
 }

@@ -21,6 +21,6 @@ export default async function Set(
   id: number,
   params: SwitchSetParams,
 ): Promise<ResponseSuccessFrame<SwitchSetResponse>> {
-  const requestFrame = createRequestFrame('Switch.Set', { ...params, id: id });
+  const requestFrame = createRequestFrame('Switch.Set', { ...params, id });
   return channel.sendRequestFrame(requestFrame);
 }

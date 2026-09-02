@@ -20,6 +20,6 @@ export default async function SetConfig(
   id: number,
   params: PresenceZoneSetConfigParams,
 ): Promise<ResponseSuccessFrame<PresenceZoneSetConfigResponse>> {
-  const requestFrame = createRequestFrame('PresenceZone.SetConfig', { ...params, id: id });
+  const requestFrame = createRequestFrame('PresenceZone.SetConfig', { ...params, id });
   return channel.sendRequestFrame(requestFrame);
 }

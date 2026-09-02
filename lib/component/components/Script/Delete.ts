@@ -5,6 +5,6 @@ import { createRequestFrame, type ResponseSuccessFrame } from '../../../rpc/Rpc.
  * This method removes specified script.
  */
 export default async function Delete(channel: RpcChannel, id: number): Promise<ResponseSuccessFrame<null>> {
-  const requestFrame = createRequestFrame('Script.Delete', { id: id });
+  const requestFrame = createRequestFrame('Script.Delete', { id });
   return channel.sendRequestFrame(requestFrame);
 }

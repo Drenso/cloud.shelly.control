@@ -19,6 +19,6 @@ export default function GetRecords(
   id: number,
   params: GetRecordsParams = {},
 ): Promise<ResponseSuccessFrame<GetRecordsResponse>> {
-  const requestFrame = createRequestFrame('EM1Data.GetRecords', { ...params, id: id });
+  const requestFrame = createRequestFrame('EM1Data.GetRecords', { ...params, id });
   return channel.sendRequestFrame(requestFrame);
 }

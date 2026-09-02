@@ -34,6 +34,6 @@ export default async function PutCode(
   id: number,
   params: ScriptPutCodeParams,
 ): Promise<ResponseSuccessFrame<ScriptPutCodeResponse>> {
-  const requestFrame = createRequestFrame('Script.PutCode', { ...params, id: id });
+  const requestFrame = createRequestFrame('Script.PutCode', { ...params, id });
   return channel.sendRequestFrame(requestFrame);
 }

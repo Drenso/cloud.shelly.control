@@ -26,6 +26,6 @@ export default async function Open(
   id: number,
   params: CoverOpenParams = {},
 ): Promise<ResponseSuccessFrame<null>> {
-  const requestFrame = createRequestFrame('Cover.Open', { ...params, id: id });
+  const requestFrame = createRequestFrame('Cover.Open', { ...params, id });
   return channel.sendRequestFrame(requestFrame);
 }

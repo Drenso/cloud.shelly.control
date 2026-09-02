@@ -6,6 +6,6 @@ import type { ButtonConfig } from '../Button.js';
  * Obtain the component's configuration
  */
 export default async function GetConfig(channel: RpcChannel, id: number): Promise<ResponseSuccessFrame<ButtonConfig>> {
-  const requestFrame = createRequestFrame('Button.GetConfig', { id: id });
+  const requestFrame = createRequestFrame('Button.GetConfig', { id });
   return channel.sendRequestFrame(requestFrame);
 }

@@ -9,6 +9,6 @@ export default async function GetConfig(
   channel: RpcChannel,
   id: number,
 ): Promise<ResponseSuccessFrame<PresenceZoneConfig>> {
-  const requestFrame = createRequestFrame('PresenceZone.GetConfig', { id: id });
+  const requestFrame = createRequestFrame('PresenceZone.GetConfig', { id });
   return channel.sendRequestFrame(requestFrame);
 }
