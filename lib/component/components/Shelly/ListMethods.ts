@@ -4,6 +4,19 @@ import { createRequestFrame, type ResponseSuccessFrame } from '../../../rpc/Rpc.
 type NamespaceMethodMapping = {
   Boolean: ['GetConfig', 'SetConfig', 'GetStatus', 'Set'];
   Button: ['GetConfig', 'SetConfig', 'GetStatus', 'Trigger'];
+  Camera: [
+    'GetConfig',
+    'SetConfig',
+    'GetStatus',
+    'GetCapabilities',
+    'Set',
+    'CaptureImage',
+    'StartRecording',
+    'StopRecording',
+    'AddZone',
+    'DeleteZone',
+    'PlaySound',
+  ];
   CameraZone: ['GetConfig', 'SetConfig', 'GetStatus'];
   CCT: ['GetConfig', 'SetConfig', 'GetStatus', 'Set', 'Toggle', 'DimUp', 'DimDown', 'DimStop'];
   Cover: ['SetConfig', 'GetConfig', 'GetStatus', 'Calibrate', 'Open', 'Close', 'Stop', 'GoToPosition', 'ResetCounters'];

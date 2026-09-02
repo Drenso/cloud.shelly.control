@@ -1,5 +1,6 @@
 import Boolean from './components/Boolean.js';
 import Button from './components/Button.js';
+import Camera from './components/Camera.js';
 import CameraZone from './components/CameraZone.js';
 import CCT from './components/CCT.js';
 import Cover from './components/Cover.js';
@@ -35,6 +36,7 @@ import Voltmeter from './components/Voltmeter.js';
 export const ComponentWithIdMapping = {
   boolean: Boolean,
   button: Button,
+  camera: Camera,
   camerazone: CameraZone,
   cct: CCT,
   cover: Cover,
