@@ -1,0 +1,31 @@
+{
+  "$extends": ["local"],
+  "name": {
+    "en": "Pro 3EM - LAN"
+  },
+  "class": "socket",
+  "capabilities": [
+    "measure_power",
+    "measure_power.a",
+    "measure_power.b",
+    "measure_power.c",
+    "measure_current",
+    "measure_current.a",
+    "measure_current.b",
+    "measure_current.c",
+    "measure_voltage.a",
+    "measure_voltage.b",
+    "measure_voltage.c",
+    "meter_power",
+    "meter_power.a",
+    "meter_power.b",
+    "meter_power.c",
+    "meter_power.total_returned",
+    "measure_temperature"
+  ],
+  "images": {
+    "small": "/assets/drivers/shellypro3em/images/small.png",
+    "large": "/assets/drivers/shellypro3em/images/large.png",
+    "xlarge": "/assets/drivers/shellypro3em/images/xlarge.png"
+  }
+}
