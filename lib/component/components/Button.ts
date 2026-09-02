@@ -143,7 +143,7 @@ export default class Button extends ComponentWithId<'Button', ButtonStatus, Butt
           name: translate(app.homey.__('locale'), button.getTitleTranslations()),
           id: button.id,
         }))
-        .filter(button => button.name.toLowerCase().includes(query.toLowerCase()));
+        .filter(button => button.name.toLowerCase().includes(query.trim().toLowerCase()));
     };
 
     app.homey.flow

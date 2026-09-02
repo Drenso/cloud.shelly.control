@@ -559,7 +559,7 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
               translate(app.homey.__('locale'), capabilityOptions.title, { number: `${input.id}` }),
             id: input.id,
           }))
-          .filter(input => input.name.toLowerCase().includes(query.toLowerCase()));
+          .filter(input => input.name.toLowerCase().includes(query.trim().toLowerCase()));
       };
     };
 

@@ -165,7 +165,7 @@ export default class Enum extends ComponentWithId<'Enum', EnumStatus, EnumConfig
           name: translate(app.homey.__('locale'), enumComponent.getTitleTranslations()),
           id: enumComponent.id,
         }))
-        .filter(enumComponent => enumComponent.name.toLowerCase().includes(query.toLowerCase()));
+        .filter(enumComponent => enumComponent.name.toLowerCase().includes(query.trim().toLowerCase()));
     };
 
     const valueAutoCompleteListener = (

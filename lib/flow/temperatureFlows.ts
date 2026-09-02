@@ -32,7 +32,7 @@ export function registerTemperatureFlowCards(app: ShellyApp): void {
             name: component.getAutocompleteTitle(device, 'measure_temperature'),
             id: component.getComponentKey(),
           }))
-          .filter(component => component.name.toLowerCase().includes(query.toLowerCase()));
+          .filter(component => component.name.toLowerCase().includes(query.trim().toLowerCase()));
       },
     )
     .registerRunListener((flowArgs: { component?: { id: string } }, triggerArgs: { component: string }) => {

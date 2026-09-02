@@ -159,7 +159,7 @@ export default class PresenceZone extends ComponentWithId<
             }),
           id: presenceZone.id,
         }))
-        .filter(presenceZone => presenceZone.name.toLowerCase().includes(query.toLowerCase()));
+        .filter(presenceZone => presenceZone.name.toLowerCase().includes(query.trim().toLowerCase()));
     };
 
     for (const flow of ['presence_count_changed', 'presence_enter', 'presence_exit'] as const) {

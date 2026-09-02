@@ -125,7 +125,7 @@ export default class DevicePower extends ComponentWithId<
           }),
           id: powerSupply.id,
         }))
-        .filter(powerSupply => powerSupply.name.toLowerCase().includes(query.toLowerCase()));
+        .filter(powerSupply => powerSupply.name.toLowerCase().includes(query.trim().toLowerCase()));
     };
 
     app.homey.flow

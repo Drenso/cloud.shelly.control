@@ -36,7 +36,7 @@ export function registerIlluminanceFlowCards(app: ShellyApp): void {
       ];
     }
 
-    return items.filter(component => component.name.toLowerCase().includes(query.toLowerCase()));
+    return items.filter(component => component.name.toLowerCase().includes(query.trim().toLowerCase()));
   };
 
   app.homey.flow

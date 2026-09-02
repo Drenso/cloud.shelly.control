@@ -147,7 +147,7 @@ export default class Number extends ComponentWithId<'Number', NumberStatus, Numb
           name: translate(app.homey.__('locale'), number.getTitleTranslations()),
           id: number.id,
         }))
-        .filter(number => number.name.toLowerCase().includes(query.toLowerCase()));
+        .filter(number => number.name.toLowerCase().includes(query.trim().toLowerCase()));
     };
 
     app.homey.flow

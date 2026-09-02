@@ -165,7 +165,7 @@ export default class Boolean extends ComponentWithId<'Boolean', BooleanStatus, B
           name: translate(app.homey.__('locale'), boolean.getTitleTranslations()),
           id: boolean.id,
         }))
-        .filter(boolean => boolean.name.toLowerCase().includes(query.toLowerCase()));
+        .filter(boolean => boolean.name.toLowerCase().includes(query.trim().toLowerCase()));
     };
 
     app.homey.flow
