@@ -1,0 +1,41 @@
+{
+  "meter_power": {
+    "title": {
+      "en": "Total Energy"
+    },
+    "decimals": 3
+  },
+  "meter_power.a": {
+    "title": {
+      "en": "Energy Phase A"
+    },
+    "decimals": 3
+  },
+  "meter_power.b": {
+    "title": {
+      "en": "Energy Phase B"
+    },
+    "decimals": 3
+  },
+  "meter_power.c": {
+    "title": {
+      "en": "Energy Phase C"
+    },
+    "decimals": 3
+  },
+  "meter_power.total_returned": {
+    "title": {
+      "en": "Total Energy Returned"
+    },
+    "decimals": 3
+  },
+  "button.reset_energy_counters": {
+    "title": {
+      "en": "Reset Energy"
+    },
+    "desc": {
+      "en": "Reset the imported and exported energy counters."
+    },
+    "maintenanceAction": true
+  }
+}

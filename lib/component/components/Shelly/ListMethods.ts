@@ -7,8 +7,19 @@ type NamespaceMethodMapping = {
   CCT: ['GetConfig', 'SetConfig', 'GetStatus', 'Set', 'Toggle', 'DimUp', 'DimDown', 'DimStop'];
   Cover: ['SetConfig', 'GetConfig', 'GetStatus', 'Calibrate', 'Open', 'Close', 'Stop', 'GoToPosition', 'ResetCounters'];
   DevicePower: ['SetConfig', 'GetConfig', 'GetStatus'];
+  EM: ['SetConfig', 'GetConfig', 'GetStatus'];
   EM1: ['SetConfig', 'GetConfig', 'GetStatus', 'CalibrateFrom', 'RevertToFactoryCalibration', 'GetCTTypes'];
   EM1Data: [
+    'SetConfig',
+    'GetConfig',
+    'GetStatus',
+    'GetRecords',
+    'GetData',
+    'DeleteAllData',
+    'ResetCounters',
+    'GetNetEnergies',
+  ];
+  EMData: [
     'SetConfig',
     'GetConfig',
     'GetStatus',

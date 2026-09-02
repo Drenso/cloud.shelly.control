@@ -1,0 +1,47 @@
+{
+  "measure_power.a": {
+    "title": {
+      "en": "Power Phase A"
+    }
+  },
+  "measure_power.b": {
+    "title": {
+      "en": "Power Phase B"
+    }
+  },
+  "measure_power.c": {
+    "title": {
+      "en": "Power Phase C"
+    }
+  },
+  "measure_current.a": {
+    "title": {
+      "en": "Current Phase A"
+    }
+  },
+  "measure_current.b": {
+    "title": {
+      "en": "Current Phase B"
+    }
+  },
+  "measure_current.c": {
+    "title": {
+      "en": "Current Phase C"
+    }
+  },
+  "measure_voltage.a": {
+    "title": {
+      "en": "Voltage Phase A"
+    }
+  },
+  "measure_voltage.b": {
+    "title": {
+      "en": "Voltage Phase B"
+    }
+  },
+  "measure_voltage.c": {
+    "title": {
+      "en": "Voltage Phase C"
+    }
+  }
+}
