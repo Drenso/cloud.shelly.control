@@ -243,6 +243,6 @@ export default class ShellyLocalDevice extends Homey.Device {
     }
     const uniqueErrors = [...new Set(allErrors)];
     await safeSetCapabilityValue(this, 'alarm_generic', uniqueErrors.length > 0);
-    await safeSetCapabilityValue(this, 'shelly_errors', uniqueErrors.join(', '));
+    await safeSetCapabilityValue(this, 'shelly_errors', uniqueErrors.length > 0 ? uniqueErrors.join(', ') : null);
   }
 }
