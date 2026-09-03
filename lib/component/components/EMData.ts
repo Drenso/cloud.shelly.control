@@ -111,7 +111,7 @@ export default class EMData extends ComponentWithId<'EMData', EMDataStatus, EMDa
       let energy = homeyDevice.getEnergy();
       energy = {
         ...energy,
-        cumulative: false,
+        cumulative: true,
         meterPowerImportedCapability: 'meter_power',
         meterPowerExportedCapability: 'meter_power.total_returned',
       };
