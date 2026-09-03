@@ -12,6 +12,7 @@ import Input from './lib/component/components/Input.js';
 import NumberComponent from './lib/component/components/Number.js';
 import PresenceZone from './lib/component/components/PresenceZone.js';
 import Shelly from './lib/component/components/Shelly.js';
+import Storage from './lib/component/components/Storage.js';
 import { registerButtonFlowCards } from './lib/flow/buttonFlows.js';
 import { registerIlluminanceFlowCards } from './lib/flow/illuminanceFlows.js';
 import { registerPresenceFlowCards } from './lib/flow/presenceFlows.js';
@@ -203,6 +204,7 @@ export default class ShellyApp extends Homey.App {
     Input.registerFlowCards(this);
     NumberComponent.registerFlowCards(this);
     PresenceZone.registerFlowCards(this);
+    Storage.registerFlowCards(this);
 
     this.homey.flow
       .getConditionCard('alarm_shelly_power_lost')

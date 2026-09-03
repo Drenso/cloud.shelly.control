@@ -1,0 +1,23 @@
+{
+  "type": "boolean",
+  "getable": true,
+  "setable": false,
+  "title": {
+    "en": "Active"
+  },
+  "titleFalse": {
+    "en": "Active"
+  },
+  "titleTrue": {
+    "en": "Not connected"
+  },
+  "insights": true,
+  "insightsTitleTrue": {
+    "en": "Storage active"
+  },
+  "insightsTitleFalse": {
+    "en": "Storage not active"
+  },
+  "uiComponent": "sensor",
+  "icon": "/assets/capabilities/boolean.svg"
+}

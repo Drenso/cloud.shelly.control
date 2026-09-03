@@ -1,0 +1,23 @@
+{
+  "type": "boolean",
+  "getable": true,
+  "setable": false,
+  "title": {
+    "en": "Present"
+  },
+  "titleFalse": {
+    "en": "Present"
+  },
+  "titleTrue": {
+    "en": "Absent"
+  },
+  "insights": true,
+  "insightsTitleTrue": {
+    "en": "Storage present"
+  },
+  "insightsTitleFalse": {
+    "en": "Storage absent"
+  },
+  "uiComponent": "sensor",
+  "icon": "/assets/capabilities/boolean.svg"
+}

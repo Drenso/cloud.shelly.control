@@ -1,0 +1,14 @@
+{
+  "title": {
+    "en": "Storage size"
+  },
+  "type": "number",
+  "unit": {
+    "en": "MB"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": null,
+  "insights": true,
+  "icon": "/assets/capabilities/shelly_fs_size.svg"
+}

@@ -1,0 +1,10 @@
+{
+  "title": {
+    "en": "Storage size"
+  },
+  "type": "string",
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/capabilities/shelly_fs_size.svg"
+}

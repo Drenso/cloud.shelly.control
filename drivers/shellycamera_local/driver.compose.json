@@ -4,7 +4,14 @@
     "en": "Camera - LAN"
   },
   "class": "camera",
-  "capabilities": ["alarm_motion", "hidden.has_camera_motion"],
+  "capabilities": [
+    "alarm_motion",
+    "hidden.has_camera_motion",
+    "shelly_fs_free",
+    "shelly_fs_size",
+    "shelly_storage_active",
+    "shelly_storage_present"
+  ],
   "images": {
     "small": "/assets/drivers/shellycamera/images/small.png",
     "large": "/assets/drivers/shellycamera/images/large.png",

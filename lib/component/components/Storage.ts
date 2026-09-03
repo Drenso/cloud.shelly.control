@@ -1,6 +1,10 @@
+import type ShellyApp from '../../../app.js';
 import type ShellyLocalDevice from '../../local/LocalDevice.js';
 import type { RpcChannel } from '../../rpc/channel/RpcChannel.js';
+import { safeAddCapability } from '../../safeFunctions.js';
+import { humanFileSize } from '../../util.js';
 import { ComponentWithId } from '../Component.js';
+import capabilitiesOptions from './Storage/capabilitiesOptions.json' with { type: 'json' };
 import type { ComponentMethod } from './Shelly/ListMethods.js';
 import type { StorageDeleteParams } from './Storage/Delete.js';
 import Delete from './Storage/Delete.js';
@@ -67,6 +71,15 @@ export default class Storage extends ComponentWithId<'Storage', StorageStatus, S
   public static readonly uiName = 'Storage';
   public static readonly key = 'storage';
 
+  private readonly capabilityMap = [
+    ['present', 'shelly_storage_present'],
+    ['active', 'shelly_storage_active'],
+    ['fs_free', 'shelly_fs_free'],
+    ['fs_free', 'shelly_fs_free_display'],
+    ['fs_size', 'shelly_fs_size'],
+    ['fs_size', 'shelly_fs_size_display'],
+  ] as const;
+
   public async List(channel: RpcChannel, params: StorageListParams): ReturnType<typeof List> {
     return List(channel, this.id, params);
   }
@@ -83,15 +96,55 @@ export default class Storage extends ComponentWithId<'Storage', StorageStatus, S
     return Eject(channel, this.id);
   }
 
-  public async registerHomeyDevice(homeyDevice: ShellyLocalDevice, methods: ComponentMethod<'Storage'>[]): Promise<void> {
-    // todo
+  public async registerHomeyDevice(
+    homeyDevice: ShellyLocalDevice,
+    _methods: ComponentMethod<'Storage'>[],
+  ): Promise<void> {
+    for (const [statusKey, homeyCapability] of this.capabilityMap) {
+      if (this.status[statusKey] !== undefined) {
+        await this.registerCapability(homeyDevice, homeyCapability, capabilitiesOptions[homeyCapability as never]);
+      }
+    }
+
+    await safeAddCapability(homeyDevice, 'shelly_errors');
   }
 
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: StorageStatus): Promise<void> {
-    // todo
+    for (const [statusKey, homeyCapability] of this.capabilityMap) {
+      let statusValue: number | boolean | string = status[statusKey];
+      if (statusValue === undefined) {
+        continue;
+      }
+
+      if (statusKey === 'fs_free' || statusKey === 'fs_size') {
+        if (homeyCapability.includes('display')) {
+          // Convert to human-readable size
+          statusValue = humanFileSize(statusValue as number);
+        } else {
+          // Convert to MB
+          statusValue = Math.round((statusValue as number) / 1024 / 1024);
+        }
+      }
+      await this.setCapability(homeyDevice, homeyCapability, statusValue);
+    }
+
+    await homeyDevice.updateErrors(this.getComponentKey(), status.errors ?? []);
   }
 
-  public async onConfigUpdate(homeyDevice: ShellyLocalDevice, config: StorageConfig): Promise<void> {
-    // todo
+  public async onConfigUpdate(_homeyDevice: ShellyLocalDevice, _config: StorageConfig): Promise<void> {}
+
+  public static registerFlowCards(app: ShellyApp): void {
+    app.homey.flow
+      .getConditionCard('shelly_storage_is_ready_for_use')
+      .registerRunListener((flowArgs: { device: ShellyLocalDevice }) => {
+        if (
+          flowArgs.device.hasCapability('shelly_storage_present') &&
+          !flowArgs.device.getCapabilityValue('shelly_storage_present')
+        ) {
+          return false;
+        }
+
+        return flowArgs.device.hasCapability('shelly_storage_active');
+      });
   }
 }
