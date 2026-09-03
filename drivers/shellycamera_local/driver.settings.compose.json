@@ -6,20 +6,14 @@
     "label": {
       "en": "Camera - Motion"
     },
-    "children": [
-      { "$extends": "Camera.motion.recording.enable" },
-      { "$extends": "Camera.motion.sensitivity" }
-    ]
+    "children": [{ "$extends": "Camera.motion.recording.enable" }, { "$extends": "Camera.motion.sensitivity" }]
   },
   {
     "type": "group",
     "label": {
       "en": "Camera - Audio"
     },
-    "children": [
-      { "$extends": "Camera.audio.input.enable" },
-      { "$extends": "Camera.audio.output.volume" }
-    ]
+    "children": [{ "$extends": "Camera.audio.input.enable" }, { "$extends": "Camera.audio.output.volume" }]
   },
   {
     "type": "group",
