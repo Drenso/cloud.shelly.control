@@ -22131,11 +22131,11 @@
       },
       "getable": true,
       "setable": false,
-      "titleFalse": {
-        "en": "Connected"
-      },
       "titleTrue": {
         "en": "Disconnected"
+      },
+      "titleFalse": {
+        "en": "Connected"
       },
       "insights": true,
       "insightsTitleTrue": {
@@ -22154,11 +22154,11 @@
       },
       "getable": true,
       "setable": false,
-      "titleFalse": {
-        "en": "Not tilted"
-      },
       "titleTrue": {
         "en": "Tilted"
+      },
+      "titleFalse": {
+        "en": "Not tilted"
       },
       "insights": true,
       "insightsTitleTrue": {
@@ -22363,11 +22363,11 @@
       "title": {
         "en": "Active"
       },
-      "titleFalse": {
+      "titleTrue": {
         "en": "Active"
       },
-      "titleTrue": {
-        "en": "Not connected"
+      "titleFalse": {
+        "en": "Not active"
       },
       "insights": true,
       "insightsTitleTrue": {
@@ -22386,10 +22386,10 @@
       "title": {
         "en": "Present"
       },
-      "titleFalse": {
+      "titleTrue": {
         "en": "Present"
       },
-      "titleTrue": {
+      "titleFalse": {
         "en": "Absent"
       },
       "insights": true,

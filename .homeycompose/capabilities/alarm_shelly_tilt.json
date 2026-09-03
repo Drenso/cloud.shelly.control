@@ -5,11 +5,11 @@
   },
   "getable": true,
   "setable": false,
-  "titleFalse": {
-    "en": "Not tilted"
-  },
   "titleTrue": {
     "en": "Tilted"
+  },
+  "titleFalse": {
+    "en": "Not tilted"
   },
   "insights": true,
   "insightsTitleTrue": {

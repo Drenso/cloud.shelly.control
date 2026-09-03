@@ -5,11 +5,11 @@
   },
   "getable": true,
   "setable": false,
-  "titleFalse": {
-    "en": "Connected"
-  },
   "titleTrue": {
     "en": "Disconnected"
+  },
+  "titleFalse": {
+    "en": "Connected"
   },
   "insights": true,
   "insightsTitleTrue": {

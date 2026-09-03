@@ -5,11 +5,11 @@
   "title": {
     "en": "Active"
   },
-  "titleFalse": {
+  "titleTrue": {
     "en": "Active"
   },
-  "titleTrue": {
-    "en": "Not connected"
+  "titleFalse": {
+    "en": "Not active"
   },
   "insights": true,
   "insightsTitleTrue": {

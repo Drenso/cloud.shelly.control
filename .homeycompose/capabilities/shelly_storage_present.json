@@ -5,10 +5,10 @@
   "title": {
     "en": "Present"
   },
-  "titleFalse": {
+  "titleTrue": {
     "en": "Present"
   },
-  "titleTrue": {
+  "titleFalse": {
     "en": "Absent"
   },
   "insights": true,
