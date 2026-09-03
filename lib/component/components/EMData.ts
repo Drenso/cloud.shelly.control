@@ -83,16 +83,23 @@ export default class EMData extends ComponentWithId<'EMData', EMDataStatus, EMDa
       );
     }
 
-    for (const [phase, energyKey] of [
-      ['a', 'a_total_act_energy'],
-      ['b', 'b_total_act_energy'],
-      ['c', 'c_total_act_energy'],
+    for (const [phase, energyKey, returnedEnergyKey] of [
+      ['a', 'a_total_act_energy', 'a_total_act_ret_energy'],
+      ['b', 'b_total_act_energy', 'b_total_act_ret_energy'],
+      ['c', 'c_total_act_energy', 'c_total_act_ret_energy'],
     ] as const) {
       if (this.status[energyKey] !== undefined) {
         await this.registerCapability(
           homeyDevice,
           `meter_power.${phase}`,
           capabilitiesOptions[`meter_power.${phase}` as never],
+        );
+      }
+      if (this.status[returnedEnergyKey] !== undefined) {
+        await this.registerCapability(
+          homeyDevice,
+          `meter_power.returned_${phase}`,
+          capabilitiesOptions[`meter_power.returned_${phase}` as never],
         );
       }
     }
@@ -132,13 +139,16 @@ export default class EMData extends ComponentWithId<'EMData', EMDataStatus, EMDa
       await this.setCapability(homeyDevice, 'meter_power.total_returned', status.total_act_ret / 1000);
     }
 
-    for (const [phase, energyKey] of [
-      ['a', 'a_total_act_energy'],
-      ['b', 'b_total_act_energy'],
-      ['c', 'c_total_act_energy'],
+    for (const [phase, energyKey, returnedEnergyKey] of [
+      ['a', 'a_total_act_energy', 'a_total_act_ret_energy'],
+      ['b', 'b_total_act_energy', 'b_total_act_ret_energy'],
+      ['c', 'c_total_act_energy', 'c_total_act_ret_energy'],
     ] as const) {
       if (status[energyKey] !== undefined) {
         await this.setCapability(homeyDevice, `meter_power.${phase}`, status[energyKey] / 1000);
+      }
+      if (status[returnedEnergyKey] !== undefined) {
+        await this.setCapability(homeyDevice, `meter_power.returned_${phase}`, status[returnedEnergyKey] / 1000);
       }
     }
 

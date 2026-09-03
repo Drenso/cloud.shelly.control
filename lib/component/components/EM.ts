@@ -102,41 +102,37 @@ export default class EM extends ComponentWithId<'EM', EMStatus, EMConfig, EMHome
   public static readonly uiName = 'Electrical Measurement';
   public static readonly key = 'em';
 
+  private static readonly totalFields = [
+    ['total_current', 'measure_current'],
+    ['total_act_power', 'measure_power'],
+    ['total_aprt_power', 'shelly_power_apparent'],
+  ] as const;
+
+  private static readonly phaseFields = [
+    ['a', 'a_current', 'a_voltage', 'a_act_power', 'a_aprt_power', 'a_pf', 'a_freq'],
+    ['b', 'b_current', 'b_voltage', 'b_act_power', 'b_aprt_power', 'b_pf', 'b_freq'],
+    ['c', 'c_current', 'c_voltage', 'c_act_power', 'c_aprt_power', 'c_pf', 'c_freq'],
+  ] as const;
+
   public async registerHomeyDevice(homeyDevice: ShellyLocalDevice, _methods: ComponentMethod<'EM'>[]): Promise<void> {
-    for (const [statusKey, homeyCapability] of [
-      ['total_current', 'measure_current'],
-      ['total_act_power', 'measure_power'],
-    ] as const) {
+    for (const [statusKey, homeyCapability] of EM.totalFields) {
       if (this.status[statusKey] !== undefined) {
         await this.registerCapability(homeyDevice, homeyCapability, capabilitiesOptions[homeyCapability as never]);
       }
     }
 
-    for (const [phase, currentKey, voltageKey, powerKey] of [
-      ['a', 'a_current', 'a_voltage', 'a_act_power'],
-      ['b', 'b_current', 'b_voltage', 'b_act_power'],
-      ['c', 'c_current', 'c_voltage', 'c_act_power'],
-    ] as const) {
-      if (this.status[currentKey] !== undefined) {
-        await this.registerCapability(
-          homeyDevice,
-          `measure_current.${phase}`,
-          capabilitiesOptions[`measure_current.${phase}` as never],
-        );
-      }
-      if (this.status[voltageKey] !== undefined) {
-        await this.registerCapability(
-          homeyDevice,
-          `measure_voltage.${phase}`,
-          capabilitiesOptions[`measure_voltage.${phase}` as never],
-        );
-      }
-      if (this.status[powerKey] !== undefined) {
-        await this.registerCapability(
-          homeyDevice,
-          `measure_power.${phase}`,
-          capabilitiesOptions[`measure_power.${phase}` as never],
-        );
+    for (const [phase, currentKey, voltageKey, powerKey, aprtPowerKey, pfKey, freqKey] of EM.phaseFields) {
+      for (const [statusKey, homeyCapability] of [
+        [currentKey, `measure_current.${phase}`],
+        [voltageKey, `measure_voltage.${phase}`],
+        [powerKey, `measure_power.${phase}`],
+        [aprtPowerKey, `shelly_power_apparent.${phase}`],
+        [pfKey, `shelly_power_factor.${phase}`],
+        [freqKey, `measure_frequency.${phase}`],
+      ] as const) {
+        if (this.status[statusKey] !== undefined) {
+          await this.registerCapability(homeyDevice, homeyCapability, capabilitiesOptions[homeyCapability as never]);
+        }
       }
     }
 
@@ -145,28 +141,24 @@ export default class EM extends ComponentWithId<'EM', EMStatus, EMConfig, EMHome
   }
 
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: EMStatus): Promise<void> {
-    for (const [statusKey, homeyCapability] of [
-      ['total_current', 'measure_current'],
-      ['total_act_power', 'measure_power'],
-    ] as const) {
+    for (const [statusKey, homeyCapability] of EM.totalFields) {
       if (status[statusKey] !== undefined) {
         await this.setCapability(homeyDevice, homeyCapability, status[statusKey]);
       }
     }
 
-    for (const [phase, currentKey, voltageKey, powerKey] of [
-      ['a', 'a_current', 'a_voltage', 'a_act_power'],
-      ['b', 'b_current', 'b_voltage', 'b_act_power'],
-      ['c', 'c_current', 'c_voltage', 'c_act_power'],
-    ] as const) {
-      if (status[currentKey] !== undefined) {
-        await this.setCapability(homeyDevice, `measure_current.${phase}`, status[currentKey]);
-      }
-      if (status[voltageKey] !== undefined) {
-        await this.setCapability(homeyDevice, `measure_voltage.${phase}`, status[voltageKey]);
-      }
-      if (status[powerKey] !== undefined) {
-        await this.setCapability(homeyDevice, `measure_power.${phase}`, status[powerKey]);
+    for (const [phase, currentKey, voltageKey, powerKey, aprtPowerKey, pfKey, freqKey] of EM.phaseFields) {
+      for (const [statusKey, homeyCapability] of [
+        [currentKey, `measure_current.${phase}`],
+        [voltageKey, `measure_voltage.${phase}`],
+        [powerKey, `measure_power.${phase}`],
+        [aprtPowerKey, `shelly_power_apparent.${phase}`],
+        [pfKey, `shelly_power_factor.${phase}`],
+        [freqKey, `measure_frequency.${phase}`],
+      ] as const) {
+        if (status[statusKey] !== undefined) {
+          await this.setCapability(homeyDevice, homeyCapability, status[statusKey]);
+        }
       }
     }
 

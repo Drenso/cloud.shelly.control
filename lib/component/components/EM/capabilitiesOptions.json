@@ -43,5 +43,50 @@
     "title": {
       "en": "Voltage Phase C"
     }
+  },
+  "shelly_power_apparent.a": {
+    "title": {
+      "en": "Apparent Power Phase A"
+    }
+  },
+  "shelly_power_apparent.b": {
+    "title": {
+      "en": "Apparent Power Phase B"
+    }
+  },
+  "shelly_power_apparent.c": {
+    "title": {
+      "en": "Apparent Power Phase C"
+    }
+  },
+  "shelly_power_factor.a": {
+    "title": {
+      "en": "Power Factor Phase A"
+    }
+  },
+  "shelly_power_factor.b": {
+    "title": {
+      "en": "Power Factor Phase B"
+    }
+  },
+  "shelly_power_factor.c": {
+    "title": {
+      "en": "Power Factor Phase C"
+    }
+  },
+  "measure_frequency.a": {
+    "title": {
+      "en": "Frequency Phase A"
+    }
+  },
+  "measure_frequency.b": {
+    "title": {
+      "en": "Frequency Phase B"
+    }
+  },
+  "measure_frequency.c": {
+    "title": {
+      "en": "Frequency Phase C"
+    }
   }
 }

@@ -29,6 +29,24 @@
     },
     "decimals": 3
   },
+  "meter_power.returned_a": {
+    "title": {
+      "en": "Energy Returned Phase A"
+    },
+    "decimals": 3
+  },
+  "meter_power.returned_b": {
+    "title": {
+      "en": "Energy Returned Phase B"
+    },
+    "decimals": 3
+  },
+  "meter_power.returned_c": {
+    "title": {
+      "en": "Energy Returned Phase C"
+    },
+    "decimals": 3
+  },
   "button.reset_energy_counters": {
     "title": {
       "en": "Reset Energy"

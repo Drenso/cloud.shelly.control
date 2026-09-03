@@ -17754,11 +17754,24 @@
         "measure_voltage.a",
         "measure_voltage.b",
         "measure_voltage.c",
+        "measure_frequency.a",
+        "measure_frequency.b",
+        "measure_frequency.c",
+        "shelly_power_factor.a",
+        "shelly_power_factor.b",
+        "shelly_power_factor.c",
+        "shelly_power_apparent",
+        "shelly_power_apparent.a",
+        "shelly_power_apparent.b",
+        "shelly_power_apparent.c",
         "meter_power",
         "meter_power.a",
         "meter_power.b",
         "meter_power.c",
         "meter_power.total_returned",
+        "meter_power.returned_a",
+        "meter_power.returned_b",
+        "meter_power.returned_c",
         "measure_temperature"
       ],
       "capabilitiesOptions": {
@@ -22078,6 +22091,19 @@
       "type": "boolean",
       "getable": true,
       "setable": false
+    },
+    "shelly_power_apparent": {
+      "type": "number",
+      "title": {
+        "en": "Apparent Power"
+      },
+      "units": {
+        "en": "VA"
+      },
+      "getable": true,
+      "setable": false,
+      "insights": true,
+      "icon": "/assets/capabilities/shelly_power_apparent.svg"
     },
     "shelly_power_factor": {
       "type": "number",
