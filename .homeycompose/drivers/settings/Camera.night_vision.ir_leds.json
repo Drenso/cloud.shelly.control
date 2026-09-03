@@ -1,0 +1,8 @@
+{
+  "id": "Camera:night_vision.ir_leds",
+  "type": "checkbox",
+  "label": {
+    "en": "IR LEDs enabled"
+  },
+  "value": true
+}

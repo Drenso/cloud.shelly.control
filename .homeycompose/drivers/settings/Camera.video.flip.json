@@ -1,0 +1,8 @@
+{
+  "id": "Camera:video.flip",
+  "type": "checkbox",
+  "label": {
+    "en": "Flip image"
+  },
+  "value": false
+}

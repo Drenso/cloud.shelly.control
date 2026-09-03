@@ -1,0 +1,10 @@
+{
+  "title": {
+    "en": "Stream count"
+  },
+  "type": "number",
+  "getable": true,
+  "setable": true,
+  "uiComponent": "sensor",
+  "icon": "/assets/capabilities/number.svg"
+}

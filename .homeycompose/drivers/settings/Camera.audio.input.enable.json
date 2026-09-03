@@ -1,0 +1,8 @@
+{
+  "id": "Camera:audio.input.enable",
+  "type": "checkbox",
+  "label": {
+    "en": "Microphone enabled"
+  },
+  "value": true
+}

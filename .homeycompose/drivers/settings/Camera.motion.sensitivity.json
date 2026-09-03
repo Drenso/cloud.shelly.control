@@ -1,0 +1,40 @@
+{
+  "id": "Camera:motion.sensitivity",
+  "type": "dropdown",
+  "label": {
+    "en": "Sensitivity"
+  },
+  "value": "medium",
+  "values": [
+    {
+      "id": "very_low",
+      "label": {
+        "en": "Very Low"
+      }
+    },
+    {
+      "id": "low",
+      "label": {
+        "en": "Low"
+      }
+    },
+    {
+      "id": "medium",
+      "label": {
+        "en": "Medium"
+      }
+    },
+    {
+      "id": "high",
+      "label": {
+        "en": "High"
+      }
+    },
+    {
+      "id": "very_high",
+      "label": {
+        "en": "Very High"
+      }
+    }
+  ]
+}

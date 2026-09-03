@@ -1,0 +1,28 @@
+{
+  "id": "Camera:night_vision.mode",
+  "type": "dropdown",
+  "label": {
+    "en": "Mode"
+  },
+  "value": "auto",
+  "values": [
+    {
+      "id": "auto",
+      "label": {
+        "en": "Automatic"
+      }
+    },
+    {
+      "id": "day",
+      "label": {
+        "en": "Day"
+      }
+    },
+    {
+      "id": "night",
+      "label": {
+        "en": "Night"
+      }
+    }
+  ]
+}

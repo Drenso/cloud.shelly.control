@@ -1,5 +1,54 @@
 [
+  { "$extends": "Camera.led.enable" },
+  { "$extends": "Camera.sounds.enable" },
   {
-    "$extends": "_shelly_device_info"
-  }
+    "type": "group",
+    "label": {
+      "en": "Camera - Motion"
+    },
+    "children": [
+      { "$extends": "Camera.motion.recording.enable" },
+      { "$extends": "Camera.motion.sensitivity" }
+    ]
+  },
+  {
+    "type": "group",
+    "label": {
+      "en": "Camera - Audio"
+    },
+    "children": [
+      { "$extends": "Camera.audio.input.enable" },
+      { "$extends": "Camera.audio.output.volume" }
+    ]
+  },
+  {
+    "type": "group",
+    "label": {
+      "en": "Camera - Night Vision"
+    },
+    "children": [
+      { "$extends": "Camera.night_vision.mode" },
+      { "$extends": "Camera.night_vision.ir_leds" },
+      { "$extends": "Camera.night_vision.sensitivity" },
+      { "$extends": "Camera.night_vision.light_threshold" }
+    ]
+  },
+  {
+    "type": "group",
+    "label": {
+      "en": "Camera - Video"
+    },
+    "children": [
+      { "$extends": "Camera.video.brightness" },
+      { "$extends": "Camera.video.contrast" },
+      { "$extends": "Camera.video.saturation" },
+      { "$extends": "Camera.video.sharpness" },
+      { "$extends": "Camera.video.tint" },
+      { "$extends": "Camera.video.temperature" },
+      { "$extends": "Camera.video.flip" },
+      { "$extends": "Camera.video.mirror" },
+      { "$extends": "Camera.video.antiflicker" }
+    ]
+  },
+  { "$extends": "_shelly_device_info" }
 ]

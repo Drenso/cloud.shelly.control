@@ -1115,6 +1115,38 @@
       },
       {
         "title": {
+          "en": "Device is disarmed"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": {
+              "driver_id": "ecowittws90_ble|ecowittws90_zigbee|eve01_local|hiluxds8_local|irrigation_local|neowatervalve_local|ogemray25a_local|raexmp46_local|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g3_local|shelly1g4_local|shelly1g4_zigbee|shelly1lg3_local|shelly1minig3_local|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg3_local|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig3_local|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblubutton1_ble|shellyblubuttontough1_ble|shellyblubuttontough1zb_ble|shellyblubuttontough1zb_zigbee|shellybludistance_ble|shellybludistance_zigbee|shellybludoorwindow_ble|shellybludoorwindowzb_ble|shellybludoorwindowzb_zigbee|shellybluht_ble|shellybluhtdisplayzb_ble|shellybluhtdisplayzb_zigbee|shellybluhtzb_ble|shellybluhtzb_zigbee|shellyblumotion_ble|shellyblumotionzb_ble|shellyblumotionzb_zigbee|shellyblurcbutton4_ble|shellyblurcbutton4zb_ble|shellyblurcbutton4zb_zigbee|shellybluremotecontrolzb_ble|shellybluremotecontrolzb_zigbee|shellyblutrv_zigbee|shellybluwallswitch4_ble|shellybluwallswitch4zb_ble|shellybluwallswitch4zb_zigbee|shellycamera_local|shellycolorblbg3_local|shellydimmerg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellyhtg3_local|shellypill_local|shellyplugmg3_local|shellyplugpmg3_local|shellyplugsg3_local|shellyplus010v_local|shellyplus1_local|shellyplus2pm_cover_local|shellyplus2pm_switch_local|shellyplusplugs_local|shellypmminig3_local|shellypresence_local|shellypresence_zigbee|shellyproem50_local|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave|shellywaveshutter_zwave|watervalve_local",
+              "capabilities": "shelly_armed"
+            }
+          }
+        ],
+        "id": "shelly_armed_false"
+      },
+      {
+        "title": {
+          "en": "Device is armed"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": {
+              "driver_id": "ecowittws90_ble|ecowittws90_zigbee|eve01_local|hiluxds8_local|irrigation_local|neowatervalve_local|ogemray25a_local|raexmp46_local|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g3_local|shelly1g4_local|shelly1g4_zigbee|shelly1lg3_local|shelly1minig3_local|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg3_local|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig3_local|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblubutton1_ble|shellyblubuttontough1_ble|shellyblubuttontough1zb_ble|shellyblubuttontough1zb_zigbee|shellybludistance_ble|shellybludistance_zigbee|shellybludoorwindow_ble|shellybludoorwindowzb_ble|shellybludoorwindowzb_zigbee|shellybluht_ble|shellybluhtdisplayzb_ble|shellybluhtdisplayzb_zigbee|shellybluhtzb_ble|shellybluhtzb_zigbee|shellyblumotion_ble|shellyblumotionzb_ble|shellyblumotionzb_zigbee|shellyblurcbutton4_ble|shellyblurcbutton4zb_ble|shellyblurcbutton4zb_zigbee|shellybluremotecontrolzb_ble|shellybluremotecontrolzb_zigbee|shellyblutrv_zigbee|shellybluwallswitch4_ble|shellybluwallswitch4zb_ble|shellybluwallswitch4zb_zigbee|shellycamera_local|shellycolorblbg3_local|shellydimmerg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellyhtg3_local|shellypill_local|shellyplugmg3_local|shellyplugpmg3_local|shellyplugsg3_local|shellyplus010v_local|shellyplus1_local|shellyplus2pm_cover_local|shellyplus2pm_switch_local|shellyplusplugs_local|shellypmminig3_local|shellypresence_local|shellypresence_zigbee|shellyproem50_local|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave|shellywaveshutter_zwave|watervalve_local",
+              "capabilities": "shelly_armed"
+            }
+          }
+        ],
+        "id": "shelly_armed_true"
+      },
+      {
+        "title": {
           "en": "Button pressed"
         },
         "titleFormatted": {
@@ -1403,6 +1435,38 @@
       },
       {
         "title": {
+          "en": "Privacy mode is disabled"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": {
+              "driver_id": "ecowittws90_ble|ecowittws90_zigbee|eve01_local|hiluxds8_local|irrigation_local|neowatervalve_local|ogemray25a_local|raexmp46_local|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g3_local|shelly1g4_local|shelly1g4_zigbee|shelly1lg3_local|shelly1minig3_local|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg3_local|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig3_local|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblubutton1_ble|shellyblubuttontough1_ble|shellyblubuttontough1zb_ble|shellyblubuttontough1zb_zigbee|shellybludistance_ble|shellybludistance_zigbee|shellybludoorwindow_ble|shellybludoorwindowzb_ble|shellybludoorwindowzb_zigbee|shellybluht_ble|shellybluhtdisplayzb_ble|shellybluhtdisplayzb_zigbee|shellybluhtzb_ble|shellybluhtzb_zigbee|shellyblumotion_ble|shellyblumotionzb_ble|shellyblumotionzb_zigbee|shellyblurcbutton4_ble|shellyblurcbutton4zb_ble|shellyblurcbutton4zb_zigbee|shellybluremotecontrolzb_ble|shellybluremotecontrolzb_zigbee|shellyblutrv_zigbee|shellybluwallswitch4_ble|shellybluwallswitch4zb_ble|shellybluwallswitch4zb_zigbee|shellycamera_local|shellycolorblbg3_local|shellydimmerg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellyhtg3_local|shellypill_local|shellyplugmg3_local|shellyplugpmg3_local|shellyplugsg3_local|shellyplus010v_local|shellyplus1_local|shellyplus2pm_cover_local|shellyplus2pm_switch_local|shellyplusplugs_local|shellypmminig3_local|shellypresence_local|shellypresence_zigbee|shellyproem50_local|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave|shellywaveshutter_zwave|watervalve_local",
+              "capabilities": "shelly_privacy_mode"
+            }
+          }
+        ],
+        "id": "shelly_privacy_mode_false"
+      },
+      {
+        "title": {
+          "en": "Privacy mode is enabled"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": {
+              "driver_id": "ecowittws90_ble|ecowittws90_zigbee|eve01_local|hiluxds8_local|irrigation_local|neowatervalve_local|ogemray25a_local|raexmp46_local|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g3_local|shelly1g4_local|shelly1g4_zigbee|shelly1lg3_local|shelly1minig3_local|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg3_local|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig3_local|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblubutton1_ble|shellyblubuttontough1_ble|shellyblubuttontough1zb_ble|shellyblubuttontough1zb_zigbee|shellybludistance_ble|shellybludistance_zigbee|shellybludoorwindow_ble|shellybludoorwindowzb_ble|shellybludoorwindowzb_zigbee|shellybluht_ble|shellybluhtdisplayzb_ble|shellybluhtdisplayzb_zigbee|shellybluhtzb_ble|shellybluhtzb_zigbee|shellyblumotion_ble|shellyblumotionzb_ble|shellyblumotionzb_zigbee|shellyblurcbutton4_ble|shellyblurcbutton4zb_ble|shellyblurcbutton4zb_zigbee|shellybluremotecontrolzb_ble|shellybluremotecontrolzb_zigbee|shellyblutrv_zigbee|shellybluwallswitch4_ble|shellybluwallswitch4zb_ble|shellybluwallswitch4zb_zigbee|shellycamera_local|shellycolorblbg3_local|shellydimmerg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellyhtg3_local|shellypill_local|shellyplugmg3_local|shellyplugpmg3_local|shellyplugsg3_local|shellyplus010v_local|shellyplus1_local|shellyplus2pm_cover_local|shellyplus2pm_switch_local|shellyplusplugs_local|shellypmminig3_local|shellypresence_local|shellypresence_zigbee|shellyproem50_local|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave|shellywaveshutter_zwave|watervalve_local",
+              "capabilities": "shelly_privacy_mode"
+            }
+          }
+        ],
+        "id": "shelly_privacy_mode_true"
+      },
+      {
+        "title": {
           "en": "Button pressed"
         },
         "titleFormatted": {
@@ -1503,6 +1567,31 @@
           }
         ],
         "id": "shelly_storage_present_true"
+      },
+      {
+        "title": {
+          "en": "Stream count has changed"
+        },
+        "tokens": [
+          {
+            "name": "shelly_stream_count",
+            "type": "number",
+            "title": {
+              "en": "Stream count"
+            }
+          }
+        ],
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": {
+              "driver_id": "ecowittws90_ble|ecowittws90_zigbee|eve01_local|hiluxds8_local|irrigation_local|neowatervalve_local|ogemray25a_local|raexmp46_local|shelly0110dimg4_local|shelly0110dimg4_zigbee|shelly1g3_local|shelly1g4_local|shelly1g4_zigbee|shelly1lg3_local|shelly1minig3_local|shelly1minig4_local|shelly1minig4_zigbee|shelly1pmg3_local|shelly1pmg4_local|shelly1pmg4_zigbee|shelly1pmminig3_local|shelly1pmminig4_local|shelly1pmminig4_zigbee|shelly2pmg4_cover_local|shelly2pmg4_cover_zigbee|shelly2pmg4_switch_local|shelly2pmg4_switch_zigbee|shellyazplug_local|shellyblubutton1_ble|shellyblubuttontough1_ble|shellyblubuttontough1zb_ble|shellyblubuttontough1zb_zigbee|shellybludistance_ble|shellybludistance_zigbee|shellybludoorwindow_ble|shellybludoorwindowzb_ble|shellybludoorwindowzb_zigbee|shellybluht_ble|shellybluhtdisplayzb_ble|shellybluhtdisplayzb_zigbee|shellybluhtzb_ble|shellybluhtzb_zigbee|shellyblumotion_ble|shellyblumotionzb_ble|shellyblumotionzb_zigbee|shellyblurcbutton4_ble|shellyblurcbutton4zb_ble|shellyblurcbutton4zb_zigbee|shellybluremotecontrolzb_ble|shellybluremotecontrolzb_zigbee|shellyblutrv_zigbee|shellybluwallswitch4_ble|shellybluwallswitch4zb_ble|shellybluwallswitch4zb_zigbee|shellycamera_local|shellycolorblbg3_local|shellydimmerg3_local|shellydimmerg4_local|shellydimmerg4_zigbee|shellyduobulbg3_local|shellyemg4_local|shellyemg4_zigbee|shellyemminig4_local|shellyemminig4_zigbee|shellyfloodg4_local|shellyfloodg4_zigbee|shellyfloodsg4_local|shellyfloodsg4_zigbee|shellyhtg3_local|shellypill_local|shellyplugmg3_local|shellyplugpmg3_local|shellyplugsg3_local|shellyplus010v_local|shellyplus1_local|shellyplus2pm_cover_local|shellyplus2pm_switch_local|shellyplusplugs_local|shellypmminig3_local|shellypresence_local|shellypresence_zigbee|shellyproem50_local|shellypstripg4_local|shellypstripg4_zigbee|shellywavemcb_zwave|shellywaveshutter_zwave|watervalve_local",
+              "capabilities": "shelly_stream_count"
+            }
+          }
+        ],
+        "id": "shelly_stream_count_changed"
       },
       {
         "title": {
@@ -10470,6 +10559,296 @@
       },
       "id": "shellycamera_local",
       "settings": [
+        {
+          "id": "Camera:led.enable",
+          "type": "checkbox",
+          "label": {
+            "en": "Indicator LED Enabled"
+          },
+          "value": true
+        },
+        {
+          "id": "Camera:sounds.enable",
+          "type": "checkbox",
+          "label": {
+            "en": "Sounds enabled"
+          },
+          "value": true
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Camera - Motion"
+          },
+          "children": [
+            {
+              "id": "Camera:motion.recording.enable",
+              "type": "checkbox",
+              "label": {
+                "en": "Record on motion"
+              },
+              "value": true
+            },
+            {
+              "id": "Camera:motion.sensitivity",
+              "type": "dropdown",
+              "label": {
+                "en": "Sensitivity"
+              },
+              "value": "medium",
+              "values": [
+                {
+                  "id": "very_low",
+                  "label": {
+                    "en": "Very Low"
+                  }
+                },
+                {
+                  "id": "low",
+                  "label": {
+                    "en": "Low"
+                  }
+                },
+                {
+                  "id": "medium",
+                  "label": {
+                    "en": "Medium"
+                  }
+                },
+                {
+                  "id": "high",
+                  "label": {
+                    "en": "High"
+                  }
+                },
+                {
+                  "id": "very_high",
+                  "label": {
+                    "en": "Very High"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Camera - Audio"
+          },
+          "children": [
+            {
+              "id": "Camera:audio.input.enable",
+              "type": "checkbox",
+              "label": {
+                "en": "Microphone enabled"
+              },
+              "value": true
+            },
+            {
+              "id": "Camera:audio.output.volume",
+              "type": "number",
+              "label": {
+                "en": "Speaker volume"
+              },
+              "value": 0,
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "units": "%"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Camera - Night Vision"
+          },
+          "children": [
+            {
+              "id": "Camera:night_vision.mode",
+              "type": "dropdown",
+              "label": {
+                "en": "Mode"
+              },
+              "value": "auto",
+              "values": [
+                {
+                  "id": "auto",
+                  "label": {
+                    "en": "Automatic"
+                  }
+                },
+                {
+                  "id": "day",
+                  "label": {
+                    "en": "Day"
+                  }
+                },
+                {
+                  "id": "night",
+                  "label": {
+                    "en": "Night"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "Camera:night_vision.ir_leds",
+              "type": "checkbox",
+              "label": {
+                "en": "IR LEDs enabled"
+              },
+              "value": true
+            },
+            {
+              "id": "Camera:night_vision.sensitivity",
+              "type": "number",
+              "label": {
+                "en": "Mode switching sensitivity"
+              },
+              "hint": {
+                "en": "Controls how much the light level must change before the camera switches modes again. Lower sensitivity provides more stable switching and reduces repeated mode changes; higher sensitivity reacts to smaller changes."
+              },
+              "value": 0,
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "units": "%"
+            },
+            {
+              "id": "Camera:night_vision.light_threshold",
+              "type": "number",
+              "label": {
+                "en": "Light threshold"
+              },
+              "hint": {
+                "en": "Set the light level at which the camera switches to Night mode. Higher values switch in brighter conditions."
+              },
+              "value": 0,
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "units": "%"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Camera - Video"
+          },
+          "children": [
+            {
+              "id": "Camera:video.brightness",
+              "type": "number",
+              "label": {
+                "en": "Brightness"
+              },
+              "value": 0,
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "units": "%"
+            },
+            {
+              "id": "Camera:video.contrast",
+              "type": "number",
+              "label": {
+                "en": "Contrast"
+              },
+              "value": 0,
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "units": "%"
+            },
+            {
+              "id": "Camera:video.saturation",
+              "type": "number",
+              "label": {
+                "en": "Saturation"
+              },
+              "value": 0,
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "units": "%"
+            },
+            {
+              "id": "Camera:video.sharpness",
+              "type": "number",
+              "label": {
+                "en": "Sharpness"
+              },
+              "value": 0,
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "units": "%"
+            },
+            {
+              "id": "Camera:video.tint",
+              "type": "number",
+              "label": {
+                "en": "Tint"
+              },
+              "value": 0,
+              "min": -256,
+              "max": 256,
+              "step": 1
+            },
+            {
+              "id": "Camera:video.flip",
+              "type": "checkbox",
+              "label": {
+                "en": "Flip image"
+              },
+              "value": false
+            },
+            {
+              "id": "Camera:video.mirror",
+              "type": "checkbox",
+              "label": {
+                "en": "Mirror image"
+              },
+              "value": false
+            },
+            {
+              "id": "Camera:video.temperature",
+              "type": "number",
+              "label": {
+                "en": "Colour Temperature"
+              },
+              "value": 0,
+              "min": -256,
+              "max": 256,
+              "step": 1
+            },
+            {
+              "id": "Camera:video.antiflicker",
+              "type": "dropdown",
+              "label": {
+                "en": "Anti-flicker"
+              },
+              "value": "50Hz",
+              "values": [
+                {
+                  "id": "50Hz",
+                  "label": {
+                    "en": "50 Hz"
+                  }
+                },
+                {
+                  "id": "60Hz",
+                  "label": {
+                    "en": "60 Hz"
+                  }
+                }
+              ]
+            }
+          ]
+        },
         {
           "id": "_shelly_device_info",
           "type": "group",
@@ -22193,6 +22572,29 @@
       "setable": false,
       "deprecated": true
     },
+    "shelly_armed": {
+      "type": "boolean",
+      "getable": true,
+      "setable": false,
+      "title": {
+        "en": "Armed"
+      },
+      "titleTrue": {
+        "en": "Armed"
+      },
+      "titleFalse": {
+        "en": "Not armed"
+      },
+      "insights": true,
+      "insightsTitleTrue": {
+        "en": "Device armed"
+      },
+      "insightsTitleFalse": {
+        "en": "Device not armed"
+      },
+      "uiComponent": "sensor",
+      "icon": "/assets/capabilities/boolean.svg"
+    },
     "shelly_charge_time": {
       "title": {
         "en": "Charge time"
@@ -22356,6 +22758,29 @@
       "getable": true,
       "setable": false
     },
+    "shelly_privacy_mode": {
+      "type": "boolean",
+      "getable": true,
+      "setable": false,
+      "title": {
+        "en": "Privacy mode"
+      },
+      "titleTrue": {
+        "en": "Enabled"
+      },
+      "titleFalse": {
+        "en": "Disabled"
+      },
+      "insights": true,
+      "insightsTitleTrue": {
+        "en": "Privacy mode enabled"
+      },
+      "insightsTitleFalse": {
+        "en": "Privacy mode disabled"
+      },
+      "uiComponent": "sensor",
+      "icon": "/assets/capabilities/boolean.svg"
+    },
     "shelly_storage_active": {
       "type": "boolean",
       "getable": true,
@@ -22401,6 +22826,16 @@
       },
       "uiComponent": "sensor",
       "icon": "/assets/capabilities/boolean.svg"
+    },
+    "shelly_stream_count": {
+      "title": {
+        "en": "Stream count"
+      },
+      "type": "number",
+      "getable": true,
+      "setable": true,
+      "uiComponent": "sensor",
+      "icon": "/assets/capabilities/number.svg"
     },
     "virtual_boolean": {
       "title": {

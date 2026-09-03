@@ -1,0 +1,12 @@
+{
+  "id": "Camera:video.saturation",
+  "type": "number",
+  "label": {
+    "en": "Saturation"
+  },
+  "value": 0,
+  "min": 0,
+  "max": 100,
+  "step": 1,
+  "units": "%"
+}

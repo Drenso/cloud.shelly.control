@@ -1,0 +1,8 @@
+{
+  "id": "Camera:motion.recording.enable",
+  "type": "checkbox",
+  "label": {
+    "en": "Record on motion"
+  },
+  "value": true
+}

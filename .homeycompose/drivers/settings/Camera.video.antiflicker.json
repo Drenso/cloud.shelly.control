@@ -1,0 +1,22 @@
+{
+  "id": "Camera:video.antiflicker",
+  "type": "dropdown",
+  "label": {
+    "en": "Anti-flicker"
+  },
+  "value": "50Hz",
+  "values": [
+    {
+      "id": "50Hz",
+      "label": {
+        "en": "50 Hz"
+      }
+    },
+    {
+      "id": "60Hz",
+      "label": {
+        "en": "60 Hz"
+      }
+    }
+  ]
+}

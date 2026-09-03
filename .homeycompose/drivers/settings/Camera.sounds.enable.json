@@ -1,0 +1,8 @@
+{
+  "id": "Camera:sounds.enable",
+  "type": "checkbox",
+  "label": {
+    "en": "Sounds enabled"
+  },
+  "value": true
+}

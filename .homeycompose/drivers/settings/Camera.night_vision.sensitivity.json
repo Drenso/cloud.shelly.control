@@ -1,0 +1,15 @@
+{
+  "id": "Camera:night_vision.sensitivity",
+  "type": "number",
+  "label": {
+    "en": "Mode switching sensitivity"
+  },
+  "hint": {
+    "en": "Controls how much the light level must change before the camera switches modes again. Lower sensitivity provides more stable switching and reduces repeated mode changes; higher sensitivity reacts to smaller changes."
+  },
+  "value": 0,
+  "min": 0,
+  "max": 100,
+  "step": 1,
+  "units": "%"
+}

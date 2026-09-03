@@ -13,6 +13,9 @@
       "hold":  "Hold"
     }
   },
+  "camera": {
+    "_name": "Camera"
+  },
   "capability": {
     "shelly_illumination": {
       "_name": "Illuminance"

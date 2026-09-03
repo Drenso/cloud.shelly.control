@@ -1,0 +1,11 @@
+{
+  "id": "Camera:video.temperature",
+  "type": "number",
+  "label": {
+    "en": "Colour Temperature"
+  },
+  "value": 0,
+  "min": -256,
+  "max": 256,
+  "step": 1
+}

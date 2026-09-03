@@ -1,0 +1,8 @@
+{
+  "id": "Camera:led.enable",
+  "type": "checkbox",
+  "label": {
+    "en": "Indicator LED Enabled"
+  },
+  "value": true
+}

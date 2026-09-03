@@ -1,0 +1,8 @@
+{
+  "id": "Camera:video.mirror",
+  "type": "checkbox",
+  "label": {
+    "en": "Mirror image"
+  },
+  "value": false
+}

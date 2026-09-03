@@ -1,17 +1,19 @@
 import type ShellyLocalDevice from '../../local/LocalDevice.js';
 import type { RpcChannel } from '../../rpc/channel/RpcChannel.js';
 import type { NotificationEventParam } from '../../rpc/Rpc.js';
-import type { RecursivePartial } from '../../util.js';
+import { safeAddCapability } from '../../safeFunctions.js';
+import { deepAssign, type RecursivePartial } from '../../util.js';
 import { type AllowedPrimitives, ComponentWithId } from '../Component.js';
 import AddZone, { type CameraAddZoneParams } from './Camera/AddZone.js';
+import capabilitiesOptions from './Camera/capabilitiesOptions.json' with { type: 'json' };
 import CaptureImage, { type CameraCaptureImageParams } from './Camera/CaptureImage.js';
 import DeleteZone, { type CameraDeleteZoneParams } from './Camera/DeleteZone.js';
 import GetCapabilities from './Camera/GetCapabilities.js';
 import GetConfig from './Camera/GetConfig.js';
 import GetStatus from './Camera/GetStatus.js';
 import type { CameraSetParams } from './Camera/Set.js';
-import SetConfig from './Camera/SetConfig.js';
 import Set from './Camera/Set.js';
+import SetConfig from './Camera/SetConfig.js';
 import StartRecording, { type CameraStartRecordingParams } from './Camera/StartRecording.js';
 import StopRecording, { type CameraStopRecordingParams } from './Camera/StopRecording.js';
 import type { ComponentMethod } from './Shelly/ListMethods.js';
@@ -46,8 +48,8 @@ export type CameraConfig = {
   };
   /** Motion detection settings. */
   motion: {
-    /** Motion detection sensitivity preset: "low", "medium" or "high". */
-    sensitivity: 'low' | 'medium' | 'high';
+    /** Motion detection sensitivity preset. */
+    sensitivity: 'very_low' | 'low' | 'medium' | 'high' | 'very_high';
     /** Motion-triggered recording settings. */
     recording: {
       /** Record a clip when motion is detected. */
@@ -153,7 +155,27 @@ export type CameraStatus = {
   errors?: Array<'streamer_fs_bad'>; // The streamer's filesystem version does not match the expected version and may need to be reflashed.
 };
 
-export type CameraHomeySettings = Record<never, never>;
+export type CameraHomeySettings = {
+  'Camera:audio.input.enable': boolean;
+  'Camera:audio.output.volume': number;
+  'Camera:led.enable': boolean;
+  'Camera:motion.recording.enable': boolean;
+  'Camera:motion.sensitivity': 'very_low' | 'low' | 'medium' | 'high' | 'very_high';
+  'Camera:night_vision.ir_leds': boolean;
+  'Camera:night_vision.light_threshold': number;
+  'Camera:night_vision.mode': 'auto' | 'day' | 'night';
+  'Camera:night_vision.sensitivity': number;
+  'Camera:sounds.enable': boolean;
+  'Camera:video.antiflicker': '50Hz' | '60Hz';
+  'Camera:video.brightness': number;
+  'Camera:video.contrast': number;
+  'Camera:video.flip': boolean;
+  'Camera:video.mirror': boolean;
+  'Camera:video.saturation': number;
+  'Camera:video.sharpness': number;
+  'Camera:video.temperature': number;
+  'Camera:video.tint': number;
+};
 
 /** Camera component. */
 export default class Camera extends ComponentWithId<'Camera', CameraStatus, CameraConfig, CameraHomeySettings> {
@@ -163,6 +185,12 @@ export default class Camera extends ComponentWithId<'Camera', CameraStatus, Came
   public readonly namespace = 'Camera';
   public static readonly uiName = 'Camera';
   public static readonly key = 'camera';
+
+  private readonly capabilityMap = [
+    ['arm', 'shelly_armed'],
+    ['privacy', 'shelly_privacy_mode'],
+    ['streams', 'shelly_stream_count'],
+  ] as const;
 
   public async GetCapabilities(channel: RpcChannel): ReturnType<typeof GetCapabilities> {
     return GetCapabilities(channel, this.id);
@@ -197,19 +225,176 @@ export default class Camera extends ComponentWithId<'Camera', CameraStatus, Came
 
   public async registerHomeyDevice(
     homeyDevice: ShellyLocalDevice,
-    methods: Array<ComponentMethod<'Camera'>>,
+    _methods: Array<ComponentMethod<'Camera'>>,
   ): Promise<void> {
-    // todo
+    // @ts-expect-error SDK types not available yet
+    const video = await homeyDevice.homey.videos.createVideoRTSP({
+      acceptInvalidCertificates: true,
+    });
+
+    video.registerVideoUrlListener(async () => {
+      // RTSP needs to be enabled
+      if (!this.config.rtsp?.enable) {
+        await SetConfig(this.device.getChannel(), this.id, { config: { rtsp: { enable: true } } });
+      }
+
+      const auth = '';
+      // todo: get authentication details
+      // if (authenticationRequired) {
+      //   auth = `admin:${password}`;
+      // }
+
+      return {
+        url: `rtsp://${auth}${this.device.ipAddress}/stream/0`,
+      };
+    });
+
+    // @ts-expect-error SDK types not available yet
+    homeyDevice.setCameraVideo(`camera:${this.id}`, this.config.name ?? homeyDevice.homey.__('camera._name'), video);
+
+    for (const [statusKey, homeyCapability] of this.capabilityMap) {
+      if (this.status[statusKey] !== undefined) {
+        await this.registerCapability(homeyDevice, homeyCapability, capabilitiesOptions[homeyCapability as never]);
+      }
+    }
+
+    await safeAddCapability(homeyDevice, 'shelly_errors');
   }
 
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: CameraStatus): Promise<void> {
-    // todo
+    for (const [statusKey, homeyCapability] of this.capabilityMap) {
+      if (status[statusKey] !== undefined) {
+        await this.setCapability(homeyDevice, homeyCapability, status[statusKey]);
+      }
+    }
+
+    await homeyDevice.updateErrors(this.getComponentKey(), status.errors ?? []);
   }
 
   public async onConfigUpdate(
     homeyDevice: ShellyLocalDevice,
     config: RecursivePartial<CameraConfig, AllowedPrimitives>,
   ): Promise<void> {
-    // todo
+    const newSettings: Partial<CameraHomeySettings> = {};
+
+    if (config.audio?.input?.enable !== undefined) {
+      newSettings['Camera:audio.input.enable'] = config.audio.input.enable;
+    }
+    if (config.audio?.output?.volume !== undefined) {
+      newSettings['Camera:audio.output.volume'] = config.audio.output.volume;
+    }
+    if (config.led?.enable !== undefined) {
+      newSettings['Camera:led.enable'] = config.led.enable;
+    }
+    if (config.motion?.recording?.enable !== undefined) {
+      newSettings['Camera:motion.recording.enable'] = config.motion.recording.enable;
+    }
+
+    for (const key of ['sensitivity'] as const) {
+      const homeySettingKey = `Camera:motion.${key}` as const;
+      if (config.motion?.[key] !== undefined) {
+        newSettings[homeySettingKey] = config.motion[key] as never;
+      }
+    }
+
+    for (const key of ['ir_leds', 'light_threshold', 'mode', 'sensitivity'] as const) {
+      const homeySettingKey = `Camera:night_vision.${key}` as const;
+      if (config.night_vision?.[key] !== undefined) {
+        newSettings[homeySettingKey] = config.night_vision[key] as never;
+      }
+    }
+
+    for (const key of ['enable'] as const) {
+      const homeySettingKey = `Camera:sounds.${key}` as const;
+      if (config.sounds?.[key] !== undefined) {
+        newSettings[homeySettingKey] = config.sounds[key];
+      }
+    }
+
+    for (const key of [
+      'antiflicker',
+      'brightness',
+      'contrast',
+      'flip',
+      'mirror',
+      'saturation',
+      'sharpness',
+      'temperature',
+      'tint',
+    ] as const) {
+      const homeySettingKey = `Camera:video.${key}` as const;
+      if (config.video?.[key] !== undefined) {
+        newSettings[homeySettingKey] = config.video[key] as never;
+      }
+    }
+
+    await homeyDevice.setComponentSettings(this.namespace, undefined, newSettings);
+  }
+
+  public async handleSettings(
+    homeyDevice: ShellyLocalDevice,
+    { changedKeys, newSettings }: SettingsEvent<CameraHomeySettings>,
+  ): Promise<boolean> {
+    const changedConfig: RecursivePartial<CameraConfig, AllowedPrimitives> = {};
+
+    if (changedKeys.includes('Camera:audio.input.enable')) {
+      deepAssign(changedConfig, { audio: { input: { enable: newSettings['Camera:audio.input.enable'] } } });
+    }
+
+    if (changedKeys.includes('Camera:audio.output.volume')) {
+      deepAssign(changedConfig, { audio: { output: { volume: newSettings['Camera:audio.output.volume'] } } });
+    }
+
+    if (changedKeys.includes('Camera:led.enable')) {
+      deepAssign(changedConfig, { led: { enable: newSettings['Camera:led.enable'] } });
+    }
+
+    if (changedKeys.includes('Camera:motion.recording.enable')) {
+      deepAssign(changedConfig, { motion: { recording: { enable: newSettings['Camera:motion.recording.enable'] } } });
+    }
+
+    for (const key of ['sensitivity'] as const) {
+      const homeySettingKey = `Camera:motion.${key}` as const;
+      if (changedKeys.includes(homeySettingKey)) {
+        deepAssign(changedConfig, { motion: { [key]: newSettings[homeySettingKey] } });
+      }
+    }
+
+    for (const key of ['ir_leds', 'light_threshold', 'mode', 'sensitivity'] as const) {
+      const homeySettingKey = `Camera:night_vision.${key}` as const;
+      if (changedKeys.includes(homeySettingKey)) {
+        deepAssign(changedConfig, { night_vision: { [key]: newSettings[homeySettingKey] } });
+      }
+    }
+
+    for (const key of ['enable'] as const) {
+      const homeySettingKey = `Camera:sounds.${key}` as const;
+      if (changedKeys.includes(homeySettingKey)) {
+        deepAssign(changedConfig, { sounds: { [key]: newSettings[homeySettingKey] } });
+      }
+    }
+    for (const key of [
+      'antiflicker',
+      'brightness',
+      'contrast',
+      'flip',
+      'mirror',
+      'saturation',
+      'sharpness',
+      'temperature',
+      'tint',
+    ] as const) {
+      const homeySettingKey = `Camera:video.${key}` as const;
+      if (changedKeys.includes(homeySettingKey)) {
+        deepAssign(changedConfig, { video: { [key]: newSettings[homeySettingKey] } });
+      }
+    }
+
+    if (Object.keys(changedConfig).length <= 0) {
+      return false;
+    }
+
+    const result = await this.SetConfig(this.device.getChannel(), { config: changedConfig });
+    return result.result.restart_required;
   }
 }

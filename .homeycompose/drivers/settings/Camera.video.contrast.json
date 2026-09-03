@@ -1,0 +1,12 @@
+{
+  "id": "Camera:video.contrast",
+  "type": "number",
+  "label": {
+    "en": "Contrast"
+  },
+  "value": 0,
+  "min": 0,
+  "max": 100,
+  "step": 1,
+  "units": "%"
+}

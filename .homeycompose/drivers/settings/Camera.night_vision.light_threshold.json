@@ -1,0 +1,15 @@
+{
+  "id": "Camera:night_vision.light_threshold",
+  "type": "number",
+  "label": {
+    "en": "Light threshold"
+  },
+  "hint": {
+    "en": "Set the light level at which the camera switches to Night mode. Higher values switch in brighter conditions."
+  },
+  "value": 0,
+  "min": 0,
+  "max": 100,
+  "step": 1,
+  "units": "%"
+}

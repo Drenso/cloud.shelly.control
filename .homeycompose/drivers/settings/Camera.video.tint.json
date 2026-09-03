@@ -1,0 +1,11 @@
+{
+  "id": "Camera:video.tint",
+  "type": "number",
+  "label": {
+    "en": "Tint"
+  },
+  "value": 0,
+  "min": -256,
+  "max": 256,
+  "step": 1
+}
