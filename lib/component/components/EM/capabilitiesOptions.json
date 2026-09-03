@@ -1,0 +1,92 @@
+{
+  "measure_power.a": {
+    "title": {
+      "en": "Power Phase A"
+    }
+  },
+  "measure_power.b": {
+    "title": {
+      "en": "Power Phase B"
+    }
+  },
+  "measure_power.c": {
+    "title": {
+      "en": "Power Phase C"
+    }
+  },
+  "measure_current.a": {
+    "title": {
+      "en": "Current Phase A"
+    }
+  },
+  "measure_current.b": {
+    "title": {
+      "en": "Current Phase B"
+    }
+  },
+  "measure_current.c": {
+    "title": {
+      "en": "Current Phase C"
+    }
+  },
+  "measure_voltage.a": {
+    "title": {
+      "en": "Voltage Phase A"
+    }
+  },
+  "measure_voltage.b": {
+    "title": {
+      "en": "Voltage Phase B"
+    }
+  },
+  "measure_voltage.c": {
+    "title": {
+      "en": "Voltage Phase C"
+    }
+  },
+  "shelly_power_apparent.a": {
+    "title": {
+      "en": "Apparent Power Phase A"
+    }
+  },
+  "shelly_power_apparent.b": {
+    "title": {
+      "en": "Apparent Power Phase B"
+    }
+  },
+  "shelly_power_apparent.c": {
+    "title": {
+      "en": "Apparent Power Phase C"
+    }
+  },
+  "shelly_power_factor.a": {
+    "title": {
+      "en": "Power Factor Phase A"
+    }
+  },
+  "shelly_power_factor.b": {
+    "title": {
+      "en": "Power Factor Phase B"
+    }
+  },
+  "shelly_power_factor.c": {
+    "title": {
+      "en": "Power Factor Phase C"
+    }
+  },
+  "measure_frequency.a": {
+    "title": {
+      "en": "Frequency Phase A"
+    }
+  },
+  "measure_frequency.b": {
+    "title": {
+      "en": "Frequency Phase B"
+    }
+  },
+  "measure_frequency.c": {
+    "title": {
+      "en": "Frequency Phase C"
+    }
+  }
+}
