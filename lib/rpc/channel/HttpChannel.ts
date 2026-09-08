@@ -124,7 +124,9 @@ export default class HttpChannel implements RpcChannel {
     const headerParameterStrings = headerWithoutDigest.split(', ');
     const challenge: Partial<AuthenticationChallenge> = {};
     for (const parameterString of headerParameterStrings) {
-      const [parameterName, parameterValueString] = parameterString.split('=');
+      const splitIndex = parameterString.indexOf('=');
+      const parameterName = parameterString.slice(0, splitIndex);
+      const parameterValueString = parameterString.slice(splitIndex + 1);
       // Only some fields are quoted https://datatracker.ietf.org/doc/html/rfc7616#autoid-9
       const parameterValue =
         parameterValueString.startsWith('"') && parameterValueString.endsWith('"')
