@@ -489,6 +489,41 @@ export default class Camera extends ComponentWithId<'Camera', CameraStatus, Came
           return component.CaptureImage(channel, { stream: flowArgs.stream.id });
         },
       );
+
+    app.homey.flow
+      .getActionCard('shelly_camera_start_recording_simple')
+      .registerArgumentAutocompleteListener('component', componentAutocompleteListener)
+      .registerArgumentAutocompleteListener('stream', streamAutocompleteListener)
+      .registerRunListener(
+        async (flowArgs: { component: { id: string }; stream?: { id: number }; device: ShellyLocalDevice }) => {
+          const { component, channel } = unpackFlowArgs(flowArgs);
+          await component.StartRecording(channel, { stream: flowArgs.stream?.id });
+        },
+      );
+
+    app.homey.flow
+      .getActionCard('shelly_camera_start_recording')
+      .registerArgumentAutocompleteListener('component', componentAutocompleteListener)
+      .registerArgumentAutocompleteListener('stream', streamAutocompleteListener)
+      .registerRunListener(
+        async (flowArgs: { component: { id: string }; stream?: { id: number }; device: ShellyLocalDevice }) => {
+          const { component, channel } = unpackFlowArgs(flowArgs);
+          const response = await component.StartRecording(channel, { stream: flowArgs.stream?.id });
+          return {
+            recording: response.result.rec_id,
+          };
+        },
+      );
+
+    app.homey.flow
+      .getActionCard('shelly_camera_stop_recording')
+      .registerArgumentAutocompleteListener('component', componentAutocompleteListener)
+      .registerRunListener(
+        async (flowArgs: { component: { id: string }; recording?: string; device: ShellyLocalDevice }) => {
+          const { component, channel } = unpackFlowArgs(flowArgs);
+          return component.StopRecording(channel, { rec_id: flowArgs.recording });
+        },
+      );
   }
 
   public getTitleTranslations(): string | { en: string; [p: string]: string } {
