@@ -18,6 +18,7 @@ import StartRecording, { type CameraStartRecordingParams } from './Camera/StartR
 import StopRecording, { type CameraStopRecordingParams } from './Camera/StopRecording.js';
 import type { ComponentMethod } from './Shelly/ListMethods.js';
 import type ShellyApp from '../../../app.js';
+import PlaySound, { type CameraPlaySoundParams } from './Camera/PlaySound.js';
 
 export type CameraConfig = {
   /** Id of the camera component */
@@ -218,6 +219,10 @@ export default class Camera extends ComponentWithId<'Camera', CameraStatus, Came
 
   public async DeleteZone(channel: RpcChannel, params: CameraDeleteZoneParams): ReturnType<typeof DeleteZone> {
     return DeleteZone(channel, this.id, params);
+  }
+
+  public async PlaySound(channel: RpcChannel, params: CameraPlaySoundParams): ReturnType<typeof PlaySound> {
+    return PlaySound(channel, this.id, params);
   }
 
   public async registerHomeyDevice(
@@ -530,6 +535,16 @@ export default class Camera extends ComponentWithId<'Camera', CameraStatus, Came
         async (flowArgs: { component: { id: string }; recording?: string; device: ShellyLocalDevice }) => {
           const { component, channel } = unpackFlowArgs(flowArgs);
           return component.StopRecording(channel, { rec_id: flowArgs.recording });
+        },
+      );
+
+    app.homey.flow
+      .getActionCard('shelly_camera_play_sound')
+      .registerArgumentAutocompleteListener('component', componentAutocompleteListener)
+      .registerRunListener(
+        async (flowArgs: { component: { id: string }; sound: string; device: ShellyLocalDevice }) => {
+          const { component, channel } = unpackFlowArgs(flowArgs);
+          return component.PlaySound(channel, { sound: flowArgs.sound });
         },
       );
   }
