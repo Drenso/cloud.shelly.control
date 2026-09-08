@@ -2,7 +2,7 @@ import type ShellyLocalDevice from '../../local/LocalDevice.js';
 import type { RpcChannel } from '../../rpc/channel/RpcChannel.js';
 import type { NotificationEventParam } from '../../rpc/Rpc.js';
 import { safeAddCapability } from '../../safeFunctions.js';
-import { deepAssign, type RecursivePartial } from '../../util.js';
+import { deepAssign, fillTranslationTagsRecursively, type RecursivePartial, translate } from '../../util.js';
 import { type AllowedPrimitives, ComponentWithId } from '../Component.js';
 import AddZone, { type CameraAddZoneParams } from './Camera/AddZone.js';
 import capabilitiesOptions from './Camera/capabilitiesOptions.json' with { type: 'json' };
@@ -17,6 +17,7 @@ import SetConfig from './Camera/SetConfig.js';
 import StartRecording, { type CameraStartRecordingParams } from './Camera/StartRecording.js';
 import StopRecording, { type CameraStopRecordingParams } from './Camera/StopRecording.js';
 import type { ComponentMethod } from './Shelly/ListMethods.js';
+import type ShellyApp from '../../../app.js';
 
 export type CameraConfig = {
   /** Id of the camera component */
@@ -258,6 +259,7 @@ export default class Camera extends ComponentWithId<'Camera', CameraStatus, Came
       }
     }
 
+    await safeAddCapability(homeyDevice, 'hidden.has_camera');
     await safeAddCapability(homeyDevice, 'shelly_errors');
   }
 
@@ -396,5 +398,58 @@ export default class Camera extends ComponentWithId<'Camera', CameraStatus, Came
 
     const result = await this.SetConfig(this.device.getChannel(), { config: changedConfig });
     return result.result.restart_required;
+  }
+
+  public static registerFlowCards(app: ShellyApp): void {
+    const getCameraComponents = (device: ShellyLocalDevice): Camera[] => {
+      if (device.virtualDevice === undefined) {
+        return [];
+      }
+
+      return [...device.virtualComponents.values()].filter(component => component instanceof Camera) as Camera[];
+    };
+
+    const componentAutocompleteListener = (
+      query: string,
+      { device }: { device: ShellyLocalDevice },
+    ): { name: string; id: string }[] => {
+      return getCameraComponents(device)
+        .map(component => ({
+          name: translate(app.homey.__('locale'), component.getTitleTranslations()),
+          id: component.getComponentKey(),
+        }))
+        .filter(component => component.name.toLowerCase().includes(query.trim().toLowerCase()));
+    };
+
+    app.homey.flow
+      .getActionCard('shelly_camera_set_privacy')
+      .registerArgumentAutocompleteListener('component', componentAutocompleteListener)
+      .registerRunListener(
+        async (flowArgs: { component: { id: string }; enabled: boolean; device: ShellyLocalDevice }) => {
+          const device = flowArgs.device;
+          const componentKey = flowArgs.component.id;
+
+          const component = device.virtualComponents.get(componentKey) as Camera | undefined;
+          if (component === undefined) {
+            throw new Error(app.homey.__('error.component_not_found', { component: componentKey }));
+          }
+
+          const channel = flowArgs.device.virtualDevice?.getChannel();
+          if (channel === undefined) {
+            throw new Error(app.homey.__('error.host_unreachable'));
+          }
+
+          return component.Set(channel, { privacy: flowArgs.enabled });
+        },
+      );
+  }
+
+  public getTitleTranslations(): string | { en: string; [p: string]: string } {
+    if (this.config.name !== null) {
+      return this.config.name;
+    }
+    return fillTranslationTagsRecursively(capabilitiesOptions['cameraName'], {
+      name: `${this.id}`,
+    }) as string | { en: string; [p: string]: string };
   }
 }

@@ -5,6 +5,7 @@ import type { ScrollDirection } from './drivers/shellybluremotecontrolzb_ble/dri
 import { BTHomeServer } from './lib/ble/BTHomeServer.js';
 import Boolean from './lib/component/components/Boolean.js';
 import Button from './lib/component/components/Button.js';
+import Camera from './lib/component/components/Camera.js';
 import CameraZone from './lib/component/components/CameraZone.js';
 import DevicePower from './lib/component/components/DevicePower.js';
 import Enum from './lib/component/components/Enum.js';
@@ -198,6 +199,7 @@ export default class ShellyApp extends Homey.App {
   private registerLanFlowCards(): void {
     Boolean.registerFlowCards(this);
     Button.registerFlowCards(this);
+    Camera.registerFlowCards(this);
     CameraZone.registerFlowCards(this);
     DevicePower.registerFlowCards(this);
     Enum.registerFlowCards(this);
