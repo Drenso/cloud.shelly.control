@@ -1,14 +1,13 @@
 import type ShellyApp from '../../../app.js';
 import type ShellyLocalDevice from '../../local/LocalDevice.js';
-import type { NotificationEventParam } from '../../rpc/Rpc.js';
 import { safeAddCapability, safeSetCapabilityValue, safeTriggerDeviceCard } from '../../safeFunctions.js';
-import { createMitt, translate } from '../../util.js';
+import { translate } from '../../util.js';
 import { ComponentWithId } from '../Component.js';
+import capabilitiesOptions from './CameraZone/capabilitiesOptions.json' with { type: 'json' };
 import GetConfig from './CameraZone/GetConfig.js';
 import GetStatus from './CameraZone/GetStatus.js';
 import SetConfig from './CameraZone/SetConfig.js';
 import type { ComponentMethod } from './Shelly/ListMethods.js';
-import capabilitiesOptions from './CameraZone/capabilitiesOptions.json' with { type: 'json' };
 
 export type CameraZoneStatus = {
   /** Id of the component instance. */
