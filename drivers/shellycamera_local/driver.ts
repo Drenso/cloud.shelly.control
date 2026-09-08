@@ -4,6 +4,8 @@ import ShellyLocalDriver from '../../lib/local/LocalDriver.js';
 import type { ShellyLocalListDeviceProperties, ShellyLocalListVirtualDeviceProperties } from '../../lib/types.js';
 
 export default class ShellyCameraLocalDriver extends ShellyLocalDriver {
+  public readonly requiresPlaintextPassword = true;
+
   public async assembleHomeyDevices(
     selectedDevice: ShellyLocalListVirtualDeviceProperties,
     components: ShellyGetComponentsResponseComponent[],

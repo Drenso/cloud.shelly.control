@@ -238,11 +238,11 @@ export default class Camera extends ComponentWithId<'Camera', CameraStatus, Came
         await SetConfig(this.device.getChannel(), this.id, { config: { rtsp: { enable: true } } });
       }
 
-      const auth = '';
-      // todo: get authentication details
-      // if (authenticationRequired) {
-      //   auth = `admin:${password}`;
-      // }
+      let auth = '';
+      const password = homeyDevice.getStoreValue('password');
+      if (password !== undefined) {
+        auth = `admin:${password}@`;
+      }
 
       return {
         url: `rtsp://${auth}${this.device.ipAddress}/stream/0`,
