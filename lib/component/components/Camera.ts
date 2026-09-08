@@ -421,25 +421,72 @@ export default class Camera extends ComponentWithId<'Camera', CameraStatus, Came
         .filter(component => component.name.toLowerCase().includes(query.trim().toLowerCase()));
     };
 
+    const streamAutocompleteListener = (
+      query: string,
+      flowArgs: { device: ShellyLocalDevice; component: { id: string } },
+    ): { name: string; id: number }[] => {
+      const device = flowArgs.device;
+      const componentKey = flowArgs.component.id;
+
+      const component = device.virtualComponents.get(componentKey) as Camera | undefined;
+      if (component === undefined) {
+        throw new Error(app.homey.__('error.component_not_found', { component: componentKey }));
+      }
+
+      const streams = component.config.streams;
+      return Object.keys(streams)
+        .map(stream => ({
+          name: stream,
+          id: parseInt(stream),
+        }))
+        .filter(stream => stream.name.toLowerCase().includes(query.trim().toLowerCase()));
+    };
+
+    const unpackFlowArgs = (flowArgs: {
+      component: { id: string };
+      device: ShellyLocalDevice;
+    }): {
+      component: Camera;
+      channel: RpcChannel;
+    } => {
+      const device = flowArgs.device;
+      const componentKey = flowArgs.component.id;
+
+      const component = device.virtualComponents.get(componentKey) as Camera | undefined;
+      if (component === undefined) {
+        throw new Error(app.homey.__('error.component_not_found', { component: componentKey }));
+      }
+
+      const channel = flowArgs.device.virtualDevice?.getChannel();
+      if (channel === undefined) {
+        throw new Error(app.homey.__('error.host_unreachable'));
+      }
+      return { component, channel };
+    };
+
     app.homey.flow
       .getActionCard('shelly_camera_set_privacy')
       .registerArgumentAutocompleteListener('component', componentAutocompleteListener)
       .registerRunListener(
         async (flowArgs: { component: { id: string }; enabled: boolean; device: ShellyLocalDevice }) => {
-          const device = flowArgs.device;
-          const componentKey = flowArgs.component.id;
-
-          const component = device.virtualComponents.get(componentKey) as Camera | undefined;
-          if (component === undefined) {
-            throw new Error(app.homey.__('error.component_not_found', { component: componentKey }));
-          }
-
-          const channel = flowArgs.device.virtualDevice?.getChannel();
-          if (channel === undefined) {
-            throw new Error(app.homey.__('error.host_unreachable'));
-          }
-
+          const { component, channel } = unpackFlowArgs(flowArgs);
           return component.Set(channel, { privacy: flowArgs.enabled });
+        },
+      );
+
+    app.homey.flow
+      .getActionCard('shelly_camera_take_snapshot')
+      .registerArgumentAutocompleteListener('component', componentAutocompleteListener)
+      .registerArgumentAutocompleteListener('stream', streamAutocompleteListener)
+      .registerRunListener(
+        async (flowArgs: {
+          component: { id: string };
+          stream: { id: number };
+          enabled: boolean;
+          device: ShellyLocalDevice;
+        }) => {
+          const { component, channel } = unpackFlowArgs(flowArgs);
+          return component.CaptureImage(channel, { stream: flowArgs.stream.id });
         },
       );
   }
