@@ -187,10 +187,7 @@ export default class Camera extends ComponentWithId<'Camera', CameraStatus, Came
   public static readonly uiName = 'Camera';
   public static readonly key = 'camera';
 
-  private readonly capabilityMap = [
-    ['arm', 'shelly_armed'],
-    ['streams', 'shelly_stream_count'],
-  ] as const;
+  private readonly capabilityMap = [['streams', 'shelly_stream_count']] as const;
 
   public async GetCapabilities(channel: RpcChannel): ReturnType<typeof GetCapabilities> {
     return GetCapabilities(channel, this.id);
