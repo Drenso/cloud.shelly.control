@@ -5,8 +5,10 @@
   },
   "class": "camera",
   "capabilities": [
+    "onoff.privacy",
     "alarm_motion",
     "hidden.has_camera_motion",
+    "hidden.has_camera",
     "shelly_fs_free",
     "shelly_fs_size",
     "shelly_storage_active",
