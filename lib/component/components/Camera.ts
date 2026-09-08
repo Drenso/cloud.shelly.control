@@ -189,7 +189,6 @@ export default class Camera extends ComponentWithId<'Camera', CameraStatus, Came
 
   private readonly capabilityMap = [
     ['arm', 'shelly_armed'],
-    ['privacy', 'shelly_privacy_mode'],
     ['streams', 'shelly_stream_count'],
   ] as const;
 
@@ -259,6 +258,14 @@ export default class Camera extends ComponentWithId<'Camera', CameraStatus, Came
       }
     }
 
+    await this.registerCapability(homeyDevice, 'onoff.privacy', {}, async (value: boolean) => {
+      const channel = homeyDevice.virtualDevice?.getChannel();
+      if (channel === undefined) {
+        throw new Error(homeyDevice.homey.__('error.host_unreachable'));
+      }
+      await this.Set(channel, { privacy: !value });
+    });
+
     await safeAddCapability(homeyDevice, 'hidden.has_camera');
     await safeAddCapability(homeyDevice, 'shelly_errors');
   }
@@ -268,6 +275,10 @@ export default class Camera extends ComponentWithId<'Camera', CameraStatus, Came
       if (status[statusKey] !== undefined) {
         await this.setCapability(homeyDevice, homeyCapability, status[statusKey]);
       }
+    }
+
+    if (status.privacy !== undefined) {
+      await this.setCapability(homeyDevice, 'onoff.privacy', !status.privacy);
     }
 
     await homeyDevice.updateErrors(this.getComponentKey(), status.errors ?? []);
