@@ -9,8 +9,12 @@
     {
       "name": "recording",
       "type": "string",
-      "title": { "en": "Recording" },
-      "example": { "en": "01a0813e-6013-7ca8-b48b-ca990617a75e" }
+      "title": {
+        "en": "Recording"
+      },
+      "example": {
+        "en": "01a0813e-6013-7ca8-b48b-ca990617a75e"
+      }
     }
   ],
   "args": [
