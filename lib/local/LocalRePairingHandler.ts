@@ -132,6 +132,7 @@ export class LocalRePairingHandler {
     const authenticationData = {
       title: this.selectedDevice.name,
       id: this.selectedDevice.data.id,
+      plaintext: this.driver.requiresPlaintextPassword,
     };
     await this.session.emit('all_credentials_devices', [authenticationData]).catch(this.error);
   }

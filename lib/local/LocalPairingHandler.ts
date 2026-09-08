@@ -72,18 +72,24 @@ export class LocalPairingHandler {
     const authenticationData = selectedDevices.map(selectedDevice => ({
       title: selectedDevice.name,
       id: selectedDevice.data.id,
+      plaintext: this.driver.requiresPlaintextPassword,
     }));
     await this.session.showView('device_password').catch(this.error);
     await this.session.emit('all_credentials_devices', authenticationData);
   }
 
-  private async assembleDevice(selectedDevice: ShellyLocalListVirtualDeviceProperties, ha1?: string): Promise<void> {
+  private async assembleDevice(
+    selectedDevice: ShellyLocalListVirtualDeviceProperties,
+    ha1?: string,
+    password?: string,
+  ): Promise<void> {
     const components = await Shelly.getAllComponents(
       createHttpChannel(selectedDevice.store.address, this.driver.homey.__, selectedDevice.data.useHttps, ha1),
     );
 
     // ha1 has been verified, it can now be stored
     selectedDevice.store.ha1 = ha1;
+    selectedDevice.store.password = password;
 
     const { addonComponents, mainComponents } = this.driver.splitComponents(components);
     const homeyDevices = await this.driver.assembleHomeyDevices(selectedDevice, mainComponents);
@@ -98,14 +104,22 @@ export class LocalPairingHandler {
     this.childHomeyDevices.set(selectedDevice.data.id, homeyDevices);
   }
 
-  private async checkCredentials({ id, ha1 }: { id: string; ha1: string }): Promise<boolean> {
+  private async checkCredentials({
+    id,
+    ha1,
+    password,
+  }: {
+    id: string;
+    ha1: string;
+    password?: string;
+  }): Promise<boolean> {
     const authenticationDevice = this.selectedDevices.find(device => device.data.id === id);
     if (authenticationDevice === undefined) {
       throw new Error(`No device with ID ${id} being authenticated`);
     }
 
     try {
-      await this.assembleDevice(authenticationDevice, ha1);
+      await this.assembleDevice(authenticationDevice, ha1, password);
       return true;
     } catch (err) {
       if (err instanceof HttpError && err.code === 401) {

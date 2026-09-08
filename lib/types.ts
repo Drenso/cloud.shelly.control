@@ -6,6 +6,7 @@ export type ShellyLocalDeviceStore = {
   components: string[];
   auth_domain?: string;
   ha1?: string;
+  password?: string;
 };
 
 export type ShellyLocalDeviceData = {

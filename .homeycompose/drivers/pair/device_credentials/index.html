@@ -114,6 +114,7 @@
    * @typedef {object} Device
    * @property {string} id
    * @property {string} title
+   * @property {boolean} plaintext
    */
 
   /** @type {Array<Device> | undefined} */
@@ -146,16 +147,20 @@
   /**
    * @returns {Promise<boolean>}
    */
-  async function checkDevice(id, password) {
+  async function checkDevice(id, password, plaintext) {
     const ha1 = await ha1Digest(id, password);
-    return Homey.emit('credentials', { id: id, ha1: ha1 });
+    const credentials = { id: id, ha1: ha1 };
+    if (plaintext) {
+      credentials.password = password;
+    }
+    return Homey.emit('credentials', credentials);
   }
 
   async function checkMultiple() {
     const password = passwordField.value;
     const invalidDevices = [];
     for (const device of devices) {
-      const valid = await checkDevice(device.id, password);
+      const valid = await checkDevice(device.id, password, device.plaintext);
       if (!valid) {
         invalidDevices.push(device);
       }
@@ -164,7 +169,7 @@
   }
 
   async function checkSingle() {
-    const valid = await checkDevice(currentDevice.id, passwordField.value);
+    const valid = await checkDevice(currentDevice.id, passwordField.value, currentDevice.plaintext);
     if (valid) {
       devices.shift();
     } else {
