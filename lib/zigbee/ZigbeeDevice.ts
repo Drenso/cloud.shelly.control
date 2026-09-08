@@ -55,12 +55,16 @@ export default abstract class ShellyZigbeeDevice extends ZigBeeDevice {
     }
 
     // Let the device configure itself
-    await this.configureDevice(zclNode);
+    await this.configureDevice(zclNode)
+      .then(async () => {
+        // Mark as available
+        await this.setAvailable().catch(err =>
+          this.error('Error while setting available at end of configuration:', err),
+        );
 
-    // Mark as available
-    await this.setAvailable();
-
-    this.debug('Configuration completed!');
+        this.debug('Configuration completed!');
+      })
+      .catch(err => this.error('Error while configuring device:', err));
   }
 
   /** Use this method to configure the device-specific capabilities */
