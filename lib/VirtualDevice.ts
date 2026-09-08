@@ -568,7 +568,11 @@ export class VirtualDevice {
 
     // Mark Homey devices as initializing
     const markInitializingPromise = Promise.all(
-      homeyDevices.map(homeyDevice => homeyDevice.setUnavailable(this.app.homey.__('device.offline'))),
+      homeyDevices.map(homeyDevice =>
+        homeyDevice
+          .setUnavailable(this.app.homey.__('device.offline'))
+          .catch(err => this.error(`Error while setting ${homeyDevice.__id} to unavailable for initialization:`, err)),
+      ),
     );
 
     const components =
