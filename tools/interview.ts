@@ -11,6 +11,10 @@ import * as fs from 'node:fs';
 const interviewsDir = '/interviews';
 
 const address = process.argv[2];
+if (!address) {
+  console.error('Please provide an IP address as argument');
+  process.exit(1);
+}
 
 const mockTranslate = (key: string): string => key;
 
