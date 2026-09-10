@@ -243,7 +243,11 @@ export default class RGBCCT extends ComponentWithId<'RGBCCT', RGBCCTStatus, RGBC
       );
       homeyDevice.registerMultipleCapabilityListener([hueCapabilityId, saturationCapabilityId], async values => {
         await this.Set(this.device.getChannel(), {
-          rgb: convert.hsv.rgb(values.light_hue * 360, values.light_saturation * 100, 100),
+          rgb: convert.hsv.rgb(
+            (values[hueCapabilityId] ?? homeyDevice.getCapabilityValue(hueCapabilityId)) * 360,
+            (values[saturationCapabilityId] ?? homeyDevice.getCapabilityValue(saturationCapabilityId)) * 100,
+            100,
+          ),
         });
       });
     }
