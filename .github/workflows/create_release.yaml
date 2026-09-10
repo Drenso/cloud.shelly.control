@@ -1,0 +1,61 @@
+name: Create Release
+on:
+  push:
+    tags:
+      - 'v*'
+
+env:
+  NODE_VERSION: 26
+
+jobs:
+  create_core_release:
+    name: Generate release
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+          - windows-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.ref_name }}
+
+      - name: Use Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Cache NPM dependencies
+        uses: actions/cache@v5
+        with:
+          path: |-
+            ${{ case(
+              matrix.os == 'windows-latest', 'C:/tmp/npm-cache',
+              '/tmp/npm-cache'
+            ) }}
+          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install NPM dependencies
+        run: npm ci --prefer-offline --no-audit --cache /tmp/npm-cache
+
+      - name: Build interview executable
+        run: |
+          npm run interview-build
+          npm run interview-sea
+
+      - name: Rename executable
+        if: matrix.os == 'windows-latest'
+        run: |
+          mv tools/interview-shelly-control tools/interview-shelly-control.exe
+
+      - name: Release
+        uses: softprops/action-gh-release@v3
+        with:
+          tag_name: ${{ github.ref_name }}
+          prerelease: false
+          generate_release_notes: true
+          overwrite_files: false
+          files: |
+            tools/interview-shelly-control
+            tools/interview-shelly-control.exe
