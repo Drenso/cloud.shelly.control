@@ -15,7 +15,7 @@ import type ShellyLocalDevice from './LocalDevice.js';
 import { LocalRePairingHandler } from './LocalRePairingHandler.js';
 
 export default abstract class ShellyLocalDriver extends Homey.Driver {
-  protected batteryDevice = false;
+  public readonly batteryDevice: boolean = false;
   public readonly requiresPlaintextPassword: boolean = false;
 
   public async onInit(): Promise<void> {

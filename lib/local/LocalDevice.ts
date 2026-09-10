@@ -26,7 +26,9 @@ export default class ShellyLocalDevice extends Homey.Device {
       await this.setUnavailable(this.homey.__('device.orphan'));
       return;
     }
-    await this.setUnavailable(this.homey.__('device.initializing'));
+    if (!(this.driver as ShellyLocalDriver).batteryDevice) {
+      await this.setUnavailable(this.homey.__('device.initializing'));
+    }
   }
 
   public async onAdded(): Promise<void> {
