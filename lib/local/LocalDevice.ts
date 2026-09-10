@@ -77,54 +77,6 @@ export default class ShellyLocalDevice extends Homey.Device {
     await this.setAvailable();
   }
 
-  public async addComponent(
-    componentId: string,
-    methodMapping: Partial<Record<NameSpace, ComponentMethod<NameSpace>[]>>,
-  ): Promise<void> {
-    this.log(`Adding ${componentId}...`);
-    await this.registerComponents([componentId], methodMapping);
-    const oldComponents = this.getTypedStore().components;
-    await this.setTypedStoreValue('components', [...oldComponents, componentId]);
-    this.log('Added', componentId);
-  }
-
-  public async removeComponent(
-    componentId: string,
-    methodMapping: Partial<Record<NameSpace, ComponentMethod<NameSpace>[]>>,
-  ): Promise<void> {
-    this.log(`Removing ${componentId}...`);
-    const removedComponent = this.virtualComponents.get(componentId);
-    if (removedComponent === undefined) {
-      return;
-    }
-
-    const oldCapabilities = this.getCapabilities();
-    for (const capability of oldCapabilities) {
-      await safeRemoveCapability(this, capability);
-      await this.setCapabilityOptions(capability, {});
-    }
-
-    this.virtualComponents.delete(componentId);
-    this.componentCounts.set(
-      removedComponent.namespace,
-      (this.componentCounts.get(removedComponent.namespace) ?? 1) - 1,
-    );
-
-    // Re-register so multi-component capabilities are fixed
-    for (const virtualComponent of this.virtualComponents.values()) {
-      await virtualComponent.unregisterHomeyDevice(this);
-      await virtualComponent.registerHomeyDevice(this, (methodMapping[virtualComponent.namespace] ?? []) as never);
-      await virtualComponent.setInitialValues(this);
-    }
-
-    const oldComponents = this.getTypedStore().components;
-    await this.setTypedStoreValue(
-      'components',
-      oldComponents.filter(oldComponentId => oldComponentId !== componentId),
-    );
-    this.log('Removed', componentId);
-  }
-
   private async registerComponents(
     newComponents: string[],
     methodMapping: Partial<Record<NameSpace, ComponentMethod<NameSpace>[]>>,
