@@ -5,8 +5,10 @@ import CameraZone from './components/CameraZone.js';
 import CCT from './components/CCT.js';
 import Cover from './components/Cover.js';
 import DevicePower from './components/DevicePower.js';
+import EM from './components/EM.js';
 import EM1 from './components/EM1.js';
 import EM1Data from './components/EM1Data.js';
+import EMData from './components/EMData.js';
 import Enum from './components/Enum.js';
 import Flood from './components/Flood.js';
 import HTUI from './components/HTUI.js';
@@ -41,8 +43,10 @@ export const ComponentWithIdMapping = {
   cct: CCT,
   cover: Cover,
   devicepower: DevicePower,
+  em: EM,
   em1: EM1,
   em1data: EM1Data,
+  emdata: EMData,
   enum: Enum,
   flood: Flood,
   humidity: Humidity,
