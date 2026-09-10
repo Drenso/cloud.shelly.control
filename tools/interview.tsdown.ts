@@ -8,6 +8,6 @@ export default defineConfig({
   outDir: './interview-sea',
   unbundle: false,
   deps: {
-    alwaysBundle: ['mitt', 'undici']
-  }
+    alwaysBundle: ['mitt', 'undici'],
+  },
 });
