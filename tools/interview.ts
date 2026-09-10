@@ -2,8 +2,8 @@
  * Get information about the RPC components of a device,
  * with its IP address passed as argument.
  */
-import HttpChannel from './lib/rpc/channel/HttpChannel.js';
-import Shelly from './lib/component/components/Shelly.js';
+import HttpChannel from '../lib/rpc/channel/HttpChannel.js';
+import Shelly from '../lib/component/components/Shelly.js';
 import path from 'node:path';
 import * as fs from 'node:fs';
 

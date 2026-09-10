@@ -4,7 +4,7 @@
  */
 import path from 'node:path';
 import * as fs from 'node:fs';
-import type { JsonObject } from './types/json.js';
+import type { JsonObject } from '../types/json.js';
 
 const flowsRootFolder = '.homeycompose/flow';
 const driversFolder = 'drivers';
