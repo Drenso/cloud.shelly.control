@@ -1,0 +1,5 @@
+{
+  "main": "tools/interview-sea/interview.mjs",
+  "mainFormat": "module",
+  "output": "tools/interview-sea/interview-shelly-control"
+}
