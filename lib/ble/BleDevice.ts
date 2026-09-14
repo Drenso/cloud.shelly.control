@@ -25,7 +25,7 @@ export default abstract class ShellyBleDevice extends Homey.Device {
   }
 
   public getTypedData(): ShellyBluDeviceData {
-    return this.getData();
+    return this.getData() as ShellyBluDeviceData;
   }
 
   public async onInit(): Promise<void> {

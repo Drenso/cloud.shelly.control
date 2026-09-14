@@ -119,7 +119,7 @@ export default class ShellyLocalDevice extends Homey.Device {
   }
 
   public getTypedStore(): ShellyLocalDeviceStore {
-    return this.getStore();
+    return this.getStore() as ShellyLocalDeviceStore;
   }
 
   public setTypedStoreValue<Key extends keyof ShellyLocalDeviceStore>(
@@ -130,7 +130,7 @@ export default class ShellyLocalDevice extends Homey.Device {
   }
 
   public getTypedData(): ShellyLocalDeviceData {
-    return this.getData();
+    return this.getData() as ShellyLocalDeviceData;
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
