@@ -35,16 +35,12 @@ export default abstract class ShellyBleDevice extends Homey.Device {
     const uuid = this.getTypedData().uuid;
 
     if (
-      // @ts-expect-error Only supported in the newest version of the SDK
       typeof this.homey.hasFeature !== 'undefined' &&
-      // @ts-expect-error Only supported in the newest version of the SDK
       this.homey.hasFeature('ble-advertisements') &&
-      // @ts-expect-error Only supported in the newest version of the SDK
       typeof this.homey.ble.subscribeToAdvertisements !== 'undefined'
     ) {
       this.log('Subscribing to BLE advertisements');
       try {
-        // @ts-expect-error Only supported in the newest version of the SDK
         await this.homey.ble.subscribeToAdvertisements(uuid, {}, (advertisement: BleAdvertisement) => {
           this.handleHomeyBle(advertisement).catch(err =>
             this.error('Error while handling advertisement subscription:', err),
@@ -61,16 +57,12 @@ export default abstract class ShellyBleDevice extends Homey.Device {
   public async onUninit(): Promise<void> {
     const uuid = this.getTypedData().uuid;
     if (
-      // @ts-expect-error Only supported in the newest version of the SDK
       typeof this.homey.hasFeature !== 'undefined' &&
-      // @ts-expect-error Only supported in the newest version of the SDK
       this.homey.hasFeature('ble-advertisements') &&
-      // @ts-expect-error Only supported in the newest version of the SDK
       typeof this.homey.ble.unsubscribeFromAdvertisements !== 'undefined'
     ) {
       this.log('Unsubscribing from BLE advertisements');
       try {
-        // @ts-expect-error Only supported in the newest version of the SDK
         await this.homey.ble.unsubscribeFromAdvertisements(uuid);
       } catch (e) {
         this.error('Error while unsubscribing from BLE advertisement:', e);

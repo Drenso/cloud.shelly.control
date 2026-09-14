@@ -229,8 +229,6 @@ export default class Camera extends ComponentWithId<'Camera', CameraStatus, Came
     _methods: Array<ComponentMethod<'Camera'>>,
   ): Promise<string[]> {
     const componentCapabilities: string[] = [];
-
-    // @ts-expect-error SDK types not available yet
     const video = await homeyDevice.homey.videos.createVideoRTSP({
       acceptInvalidCertificates: true,
     });
@@ -252,7 +250,6 @@ export default class Camera extends ComponentWithId<'Camera', CameraStatus, Came
       };
     });
 
-    // @ts-expect-error SDK types not available yet
     await homeyDevice.setCameraVideo(
       `camera:${this.id}`,
       this.config.name ?? homeyDevice.homey.__('camera._name'),
