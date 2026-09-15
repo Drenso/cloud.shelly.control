@@ -54,7 +54,7 @@ type ButtonMittEvents = {
 };
 
 /**
- * The virtual Button component is used to store a true/false value.
+ * The virtual Button component is used to simulate button events.
  */
 export default class Button extends ComponentWithId<'Button', ButtonStatus, ButtonConfig, ButtonHomeySettings> {
   protected readonly _SetConfig = SetConfig;

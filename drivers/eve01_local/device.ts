@@ -177,7 +177,7 @@ export default class Eve01LocalDevice extends ShellyLocalDevice {
         await safeSetCapabilityValue(
           this,
           'measure_power.phase_b',
-          phaseInfo === null ? null : phaseInfo?.phase_b.power * 1000,
+          phaseInfo === null ? null : phaseInfo.phase_b.power * 1000,
         );
         await safeSetCapabilityValue(this, 'measure_current.phase_b', phaseInfo?.phase_b.current ?? null);
         await safeSetCapabilityValue(this, 'measure_voltage.phase_b', phaseInfo?.phase_b.voltage ?? null);
