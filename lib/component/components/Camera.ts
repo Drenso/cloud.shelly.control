@@ -252,7 +252,11 @@ export default class Camera extends ComponentWithId<'Camera', CameraStatus, Came
     });
 
     // @ts-expect-error SDK types not available yet
-    await homeyDevice.setCameraVideo(`camera:${this.id}`, this.config.name ?? homeyDevice.homey.__('camera._name'), video);
+    await homeyDevice.setCameraVideo(
+      `camera:${this.id}`,
+      this.config.name ?? homeyDevice.homey.__('camera._name'),
+      video,
+    );
 
     for (const [statusKey, homeyCapability] of this.capabilityMap) {
       if (this.status[statusKey] !== undefined) {
