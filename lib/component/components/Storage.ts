@@ -109,7 +109,7 @@ export default class Storage extends ComponentWithId<'Storage', StorageStatus, S
       }
     }
 
-    componentCapabilities.push('shelly_errors');
+    componentCapabilities.push('alarm_generic', 'shelly_errors');
 
     return componentCapabilities;
   }

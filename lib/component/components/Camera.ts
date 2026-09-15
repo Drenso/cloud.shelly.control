@@ -277,7 +277,7 @@ export default class Camera extends ComponentWithId<'Camera', CameraStatus, Came
       }),
     );
 
-    componentCapabilities.push('hidden.has_camera', 'shelly_errors');
+    componentCapabilities.push('hidden.has_camera', 'alarm_generic', 'shelly_errors');
 
     return componentCapabilities;
   }
