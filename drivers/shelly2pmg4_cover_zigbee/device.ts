@@ -17,6 +17,6 @@ export default class Shelly2PMGen4CoverZigbeeDevice extends ShellyZigbeeDevice {
       this.error(error);
     }
 
-    await initWindowCoveringsDevice(this, zclNode);
+    await initWindowCoveringsDevice(this, zclNode, { invertPercentage: true });
   }
 }
