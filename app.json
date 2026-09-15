@@ -9503,6 +9503,259 @@
         }
       ],
       "name": {
+        "en": "BLU Door/Window Mini ZB - BLE"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "alarm_open",
+        "measure_rotation",
+        "shelly_illumination",
+        "measure_battery"
+      ],
+      "energy": {
+        "batteries": [
+          "CR2032"
+        ]
+      },
+      "images": {
+        "small": "/assets/drivers/shellybludoorwindowminizb/images/small.png",
+        "large": "/assets/drivers/shellybludoorwindowminizb/images/large.png",
+        "xlarge": "/assets/drivers/shellybludoorwindowminizb/images/xlarge.png"
+      },
+      "learnmode": {
+        "image": "/drivers/shellybludoorwindowminizb_ble/assets/learnmode.svg",
+        "instruction": {
+          "en": "Press the button during the Bluetooth scan."
+        }
+      },
+      "id": "shellybludoorwindowminizb_ble"
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "icon": "/drivers/shellybludoorwindowminizb_zigbee/assets/icon.svg",
+      "name": {
+        "en": "BLU Door/Window Mini ZB - Zigbee"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "alarm_open",
+        "alarm_shelly_tilt",
+        "shelly_illumination",
+        "measure_battery"
+      ],
+      "energy": {
+        "batteries": [
+          "CR2032"
+        ]
+      },
+      "images": {
+        "small": "/assets/drivers/shellybludoorwindowminizb/images/small.png",
+        "large": "/assets/drivers/shellybludoorwindowminizb/images/large.png",
+        "xlarge": "/assets/drivers/shellybludoorwindowminizb/images/xlarge.png"
+      },
+      "zigbee": {
+        "manufacturerName": "Shelly",
+        "productId": [
+          "BLU DoorWindow Mini ZB"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              1,
+              1280,
+              64545
+            ],
+            "bindings": [
+              1280,
+              64545
+            ]
+          }
+        },
+        "learnmode": {
+          "image": "/drivers/shellybludoorwindowminizb_zigbee/assets/learnmode.svg",
+          "instruction": {
+            "en": "Press the button 5 times to initialize Zigbee pairing."
+          }
+        }
+      },
+      "id": "shellybludoorwindowminizb_zigbee",
+      "settings": [
+        {
+          "id": "Illuminance:bright_thr",
+          "type": "number",
+          "label": {
+            "en": "Illuminance - Bright Threshold"
+          },
+          "value": 50,
+          "min": 0,
+          "units": "lux"
+        },
+        {
+          "id": "Illuminance:dark_thr",
+          "type": "number",
+          "label": {
+            "en": "Illuminance - Dark Threshold"
+          },
+          "value": 10,
+          "min": 0,
+          "units": "lux"
+        }
+      ]
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "ble"
+      ],
+      "pair": [
+        {
+          "id": "ble_information",
+          "navigation": {
+            "next": "pair_instructions"
+          }
+        },
+        {
+          "id": "pair_instructions",
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
+        {
+          "id": "list_my_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices"
+          }
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ],
+      "name": {
+        "en": "BLU Door/Window Outdoor ZB - BLE"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "alarm_open",
+        "measure_rotation",
+        "measure_battery"
+      ],
+      "energy": {
+        "batteries": [
+          "CR2032"
+        ]
+      },
+      "images": {
+        "small": "/assets/drivers/shellybludoorwindowoutdoorzb/images/small.png",
+        "large": "/assets/drivers/shellybludoorwindowoutdoorzb/images/large.png",
+        "xlarge": "/assets/drivers/shellybludoorwindowoutdoorzb/images/xlarge.png"
+      },
+      "learnmode": {
+        "image": "/drivers/shellybludoorwindowoutdoorzb_ble/assets/learnmode.svg",
+        "instruction": {
+          "en": "Press the button during the Bluetooth scan."
+        }
+      },
+      "id": "shellybludoorwindowoutdoorzb_ble"
+    },
+    {
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "icon": "/drivers/shellybludoorwindowoutdoorzb_zigbee/assets/icon.svg",
+      "name": {
+        "en": "BLU Door/Window Outdoor ZB - Zigbee"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "alarm_open",
+        "alarm_shelly_tilt",
+        "measure_battery"
+      ],
+      "energy": {
+        "batteries": [
+          "CR2032"
+        ]
+      },
+      "images": {
+        "small": "/assets/drivers/shellybludoorwindowoutdoorzb/images/small.png",
+        "large": "/assets/drivers/shellybludoorwindowoutdoorzb/images/large.png",
+        "xlarge": "/assets/drivers/shellybludoorwindowoutdoorzb/images/xlarge.png"
+      },
+      "zigbee": {
+        "manufacturerName": "Shelly",
+        "productId": [
+          "BLU DoorWindow Outdoor ZB"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              1,
+              1280
+            ],
+            "bindings": [
+              1280
+            ]
+          }
+        },
+        "learnmode": {
+          "image": "/drivers/shellybludoorwindowoutdoorzb_zigbee/assets/learnmode.svg",
+          "instruction": {
+            "en": "Press the button 5 times to initialize Zigbee pairing."
+          }
+        }
+      },
+      "id": "shellybludoorwindowoutdoorzb_zigbee",
+      "settings": []
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "ble"
+      ],
+      "pair": [
+        {
+          "id": "ble_information",
+          "navigation": {
+            "next": "pair_instructions"
+          }
+        },
+        {
+          "id": "pair_instructions",
+          "navigation": {
+            "next": "list_my_devices"
+          }
+        },
+        {
+          "id": "list_my_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices"
+          }
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ],
+      "name": {
         "en": "BLU Door/Window ZB - BLE"
       },
       "class": "sensor",

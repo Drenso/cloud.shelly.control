@@ -14,6 +14,8 @@ type BluDoorWindowZBSettings = {
 };
 
 export default class ShellyBluDoorWindowZBZigbeeDevice extends ShellyZigbeeDevice {
+  protected hasLightLevel = true;
+
   protected async configureDevice(zclNode: ZCLNode): Promise<void> {
     await initPowerConfigurationDevice(this, zclNode);
     await initIasZoneDevice(
@@ -25,14 +27,16 @@ export default class ShellyBluDoorWindowZBZigbeeDevice extends ShellyZigbeeDevic
       this.isFirstInit(),
     ).catch((e: unknown) => this.error('IAS Zone init failed', e));
 
-    await initReadOnlyCapability(
-      this,
-      zclNode,
-      'shelly_illumination',
-      ShellyCustomLightLevelCluster,
-      'lightLevel',
-      convertLightLevel,
-    );
+    if (this.hasLightLevel) {
+      await initReadOnlyCapability(
+        this,
+        zclNode,
+        'shelly_illumination',
+        ShellyCustomLightLevelCluster,
+        'lightLevel',
+        convertLightLevel,
+      );
+    }
   }
 
   public async onSettings({
@@ -40,17 +44,19 @@ export default class ShellyBluDoorWindowZBZigbeeDevice extends ShellyZigbeeDevic
     newSettings,
     changedKeys,
   }: SettingsEvent<BluDoorWindowZBSettings>): Promise<string | void> {
-    const newAttributes: Partial<types.AttributesFromDefinition<ShellyCustomLightLevelClusterAttributes>> = {};
-    if (changedKeys.includes('Illuminance:bright_thr')) {
-      newAttributes['brightThreshold'] = newSettings['Illuminance:bright_thr'];
-    }
+    if (this.hasLightLevel) {
+      const newAttributes: Partial<types.AttributesFromDefinition<ShellyCustomLightLevelClusterAttributes>> = {};
+      if (changedKeys.includes('Illuminance:bright_thr')) {
+        newAttributes['brightThreshold'] = newSettings['Illuminance:bright_thr'];
+      }
 
-    if (changedKeys.includes('Illuminance:dark_thr')) {
-      newAttributes['darkThreshold'] = newSettings['Illuminance:dark_thr'];
-    }
+      if (changedKeys.includes('Illuminance:dark_thr')) {
+        newAttributes['darkThreshold'] = newSettings['Illuminance:dark_thr'];
+      }
 
-    if (Object.keys(newAttributes).length > 0) {
-      await this.zclNode.endpoints[1].clusters[ShellyCustomLightLevelCluster.NAME]?.writeAttributes(newAttributes);
+      if (Object.keys(newAttributes).length > 0) {
+        await this.zclNode.endpoints[1].clusters[ShellyCustomLightLevelCluster.NAME]?.writeAttributes(newAttributes);
+      }
     }
 
     await super.onSettings({ oldSettings, newSettings, changedKeys });
