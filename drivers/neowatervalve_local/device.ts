@@ -43,7 +43,7 @@ export default class NeoWaterValveLocalDevice extends ShellyLocalDevice {
     ): Promise<void> => {
       if (status.value !== undefined) {
         // convert from m³/min to l/min
-        await safeSetCapabilityValue(this, 'measure_water', status.value / 1000);
+        await safeSetCapabilityValue(this, 'measure_water', status.value * 1000);
       }
     };
 
