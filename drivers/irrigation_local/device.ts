@@ -11,29 +11,21 @@ export default class IrrigationControllerLocalDevice extends ShellyLocalDevice {
   protected async registerComponent(
     virtualComponent: InstanceType<MappedComponent>,
     methods: ComponentMethod<NameSpace>[],
-  ): Promise<void> {
+  ): Promise<string[]> {
     const role = virtualComponent.attrs?.role;
 
     if (role?.startsWith('zone') && role !== 'zones_status') {
-      await this.registerZoneBoolean(virtualComponent as Boolean);
-      await virtualComponent.setInitialValues(this);
+      return this.registerZoneBoolean(virtualComponent as Boolean);
     }
 
     if (virtualComponent instanceof Service) {
-      await virtualComponent.registerHomeyDevice(this, methods as never);
-      await virtualComponent.setInitialValues(this);
+      return virtualComponent.registerHomeyDevice(this, methods as never);
     }
+
+    return [];
   }
 
-  private async registerZoneBoolean(virtualComponent: Boolean): Promise<void> {
-    await virtualComponent.registerCapability(this, 'onoff', undefined, async (value: boolean) => {
-      const channel = this.virtualDevice?.getChannel();
-      if (channel === undefined) {
-        throw new Error(this.homey.__('error.host_unreachable'));
-      }
-      await virtualComponent.Set(channel, { value: value });
-    });
-
+  private async registerZoneBoolean(virtualComponent: Boolean): Promise<string[]> {
     virtualComponent.onStatusUpdate = async (
       homeyDevice: ShellyLocalDevice,
       status: Partial<BooleanStatus>,
@@ -42,5 +34,15 @@ export default class IrrigationControllerLocalDevice extends ShellyLocalDevice {
         await safeSetCapabilityValue(homeyDevice, 'onoff', status.value);
       }
     };
+
+    return [
+      await virtualComponent.registerCapability(this, 'onoff', undefined, async (value: boolean) => {
+        const channel = this.virtualDevice?.getChannel();
+        if (channel === undefined) {
+          throw new Error(this.homey.__('error.host_unreachable'));
+        }
+        await virtualComponent.Set(channel, { value: value });
+      }),
+    ];
   }
 }

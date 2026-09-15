@@ -6,7 +6,6 @@ import GetStatus from './Flood/GetStatus.js';
 import type { ComponentMethod } from './Shelly/ListMethods.js';
 import capabilitiesOptions from './Flood/capabilitiesOptions.json' with { type: 'json' };
 import { includesAny, type RecursivePartial } from '../../util.js';
-import { safeAddCapability } from '../../safeFunctions.js';
 
 export type FloodConfig = {
   /** Identifier of the component instance */
@@ -61,15 +60,18 @@ export default class Flood extends ComponentWithId<'Flood', FloodStatus, FloodCo
   public async registerHomeyDevice(
     homeyDevice: ShellyLocalDevice,
     _methods: ComponentMethod<'Flood'>[],
-  ): Promise<void> {
+  ): Promise<string[]> {
+    const componentCapabilities: string[] = [];
+
     if (this.status.alarm !== undefined) {
       const homeyCapability = 'alarm_water';
       const capabilityOptions = capabilitiesOptions[homeyCapability as never];
-      await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions);
+      componentCapabilities.push(await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions));
     }
 
-    await safeAddCapability(homeyDevice, 'alarm_generic');
-    await safeAddCapability(homeyDevice, 'shelly_errors');
+    componentCapabilities.push('alarm_generic', 'shelly_errors');
+
+    return componentCapabilities;
   }
 
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: FloodStatus): Promise<void> {

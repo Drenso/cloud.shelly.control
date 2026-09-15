@@ -73,7 +73,9 @@ export default class Button extends ComponentWithId<'Button', ButtonStatus, Butt
   public async registerHomeyDevice(
     homeyDevice: ShellyLocalDevice,
     _methods: ComponentMethod<'Button'>[],
-  ): Promise<void> {
+  ): Promise<string[]> {
+    const componentCapabilities: string[] = [];
+
     const homeyCapability = 'virtual_button';
     const capabilityOptions: JsonObject = {
       title: this.getTitleTranslations(),
@@ -86,9 +88,11 @@ export default class Button extends ComponentWithId<'Button', ButtonStatus, Butt
       }
     }
 
-    await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions, async (_value: boolean) => {
-      await this.Trigger(this.device.getChannel(), { event: 'single_push' });
-    });
+    componentCapabilities.push(
+      await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions, async (_value: boolean) => {
+        await this.Trigger(this.device.getChannel(), { event: 'single_push' });
+      }),
+    );
 
     this.buttonMitt.on('event', event => {
       safeTriggerDeviceCard(
@@ -98,6 +102,8 @@ export default class Button extends ComponentWithId<'Button', ButtonStatus, Butt
         { id: this.id, event: event },
       );
     });
+
+    return componentCapabilities;
   }
 
   public async unregisterHomeyDevice(_homeyDevice: ShellyLocalDevice): Promise<void> {

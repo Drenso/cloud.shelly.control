@@ -3,9 +3,9 @@ import { ComponentWithId } from '../Component.js';
 import SetConfig from './Object/SetConfig.js';
 import GetConfig from './Object/GetConfig.js';
 import GetStatus from './Object/GetStatus.js';
+import type { ObjectSetParams } from './Object/Set.js';
 import Set from './Object/Set.js';
 import type { RpcChannel } from '../../rpc/channel/RpcChannel.js';
-import type { ObjectSetParams } from './Object/Set.js';
 import type ShellyLocalDevice from '../../local/LocalDevice.js';
 import type { ComponentMethod } from './Shelly/ListMethods.js';
 
@@ -61,7 +61,9 @@ export default class Object extends ComponentWithId<'Object', ObjectStatus, Obje
   public async registerHomeyDevice(
     _homeyDevice: ShellyLocalDevice,
     _methods: ComponentMethod<'Object'>[],
-  ): Promise<void> {}
+  ): Promise<string[]> {
+    return [];
+  }
 
   public async onStatusUpdate(_homeyDevice: ShellyLocalDevice, _status: Partial<ObjectStatus>): Promise<void> {}
 

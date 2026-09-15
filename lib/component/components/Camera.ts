@@ -1,7 +1,6 @@
 import type ShellyLocalDevice from '../../local/LocalDevice.js';
 import type { RpcChannel } from '../../rpc/channel/RpcChannel.js';
 import type { NotificationEventParam } from '../../rpc/Rpc.js';
-import { safeAddCapability } from '../../safeFunctions.js';
 import { deepAssign, fillTranslationTagsRecursively, type RecursivePartial, translate } from '../../util.js';
 import { type AllowedPrimitives, ComponentWithId } from '../Component.js';
 import AddZone, { type CameraAddZoneParams } from './Camera/AddZone.js';
@@ -228,7 +227,9 @@ export default class Camera extends ComponentWithId<'Camera', CameraStatus, Came
   public async registerHomeyDevice(
     homeyDevice: ShellyLocalDevice,
     _methods: Array<ComponentMethod<'Camera'>>,
-  ): Promise<void> {
+  ): Promise<string[]> {
+    const componentCapabilities: string[] = [];
+
     // @ts-expect-error SDK types not available yet
     const video = await homeyDevice.homey.videos.createVideoRTSP({
       acceptInvalidCertificates: true,
@@ -260,20 +261,25 @@ export default class Camera extends ComponentWithId<'Camera', CameraStatus, Came
 
     for (const [statusKey, homeyCapability] of this.capabilityMap) {
       if (this.status[statusKey] !== undefined) {
-        await this.registerCapability(homeyDevice, homeyCapability, capabilitiesOptions[homeyCapability as never]);
+        componentCapabilities.push(
+          await this.registerCapability(homeyDevice, homeyCapability, capabilitiesOptions[homeyCapability as never]),
+        );
       }
     }
 
-    await this.registerCapability(homeyDevice, 'onoff.privacy', {}, async (value: boolean) => {
-      const channel = homeyDevice.virtualDevice?.getChannel();
-      if (channel === undefined) {
-        throw new Error(homeyDevice.homey.__('error.host_unreachable'));
-      }
-      await this.Set(channel, { privacy: !value });
-    });
+    componentCapabilities.push(
+      await this.registerCapability(homeyDevice, 'onoff.privacy', {}, async (value: boolean) => {
+        const channel = homeyDevice.virtualDevice?.getChannel();
+        if (channel === undefined) {
+          throw new Error(homeyDevice.homey.__('error.host_unreachable'));
+        }
+        await this.Set(channel, { privacy: !value });
+      }),
+    );
 
-    await safeAddCapability(homeyDevice, 'hidden.has_camera');
-    await safeAddCapability(homeyDevice, 'shelly_errors');
+    componentCapabilities.push('hidden.has_camera', 'shelly_errors');
+
+    return componentCapabilities;
   }
 
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: CameraStatus): Promise<void> {

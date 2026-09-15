@@ -84,7 +84,9 @@ export default class Boolean extends ComponentWithId<'Boolean', BooleanStatus, B
   public async registerHomeyDevice(
     homeyDevice: ShellyLocalDevice,
     _methods: ComponentMethod<'Boolean'>[],
-  ): Promise<void> {
+  ): Promise<string[]> {
+    const componentCapabilities: string[] = [];
+
     const homeyCapability = 'virtual_boolean';
     let capabilityOptions: JsonObject = {
       title: this.getTitleTranslations(),
@@ -119,9 +121,13 @@ export default class Boolean extends ComponentWithId<'Boolean', BooleanStatus, B
       }
     }
 
-    await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions, async (value: boolean) => {
-      await this.Set(this.device.getChannel(), { value });
-    });
+    componentCapabilities.push(
+      await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions, async (value: boolean) => {
+        await this.Set(this.device.getChannel(), { value });
+      }),
+    );
+
+    return componentCapabilities;
   }
 
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Partial<BooleanStatus>): Promise<void> {

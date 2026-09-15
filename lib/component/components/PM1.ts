@@ -1,7 +1,6 @@
 import type ShellyLocalDevice from '../../local/LocalDevice.js';
 import type { RpcChannel } from '../../rpc/channel/RpcChannel.js';
 import type { ResponseSuccessFrame } from '../../rpc/Rpc.js';
-import { safeAddCapability } from '../../safeFunctions.js';
 import type { RecursivePartial } from '../../util.js';
 import { type AllowedPrimitives, ComponentWithId } from '../Component.js';
 import capabilitiesOptions from './PM1/capabilitiesOptions.json' with { type: 'json' };
@@ -97,7 +96,12 @@ export default class PM1 extends ComponentWithId<'PM1', PM1Status, PM1Config, PM
     return ResetCounters(channel, this.id, params);
   }
 
-  public async registerHomeyDevice(homeyDevice: ShellyLocalDevice, methods: ComponentMethod<'PM1'>[]): Promise<void> {
+  public async registerHomeyDevice(
+    homeyDevice: ShellyLocalDevice,
+    methods: ComponentMethod<'PM1'>[],
+  ): Promise<string[]> {
+    const componentCapabilities: string[] = [];
+
     // Simple capabilities
     for (const [statusKey, homeyCapability] of [
       ['apower', 'measure_power'],
@@ -111,12 +115,11 @@ export default class PM1 extends ComponentWithId<'PM1', PM1Status, PM1Config, PM
     ] as const) {
       if (this.status[statusKey] !== undefined) {
         const capabilityOptions = capabilitiesOptions[homeyCapability as never];
-        await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions);
+        componentCapabilities.push(await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions));
       }
     }
 
-    await safeAddCapability(homeyDevice, 'alarm_generic');
-    await safeAddCapability(homeyDevice, 'shelly_errors');
+    componentCapabilities.push('alarm_generic', 'shelly_errors');
 
     if (this.status['aenergy'] !== undefined || this.status['ret_aenergy'] !== undefined) {
       let energy = homeyDevice.getEnergy();
@@ -131,15 +134,19 @@ export default class PM1 extends ComponentWithId<'PM1', PM1Status, PM1Config, PM
 
     if (methods.includes('ResetCounters')) {
       const maintenanceActionId = 'button.reset_energy_counters';
-      await this.registerCapability(
-        homeyDevice,
-        maintenanceActionId,
-        capabilitiesOptions[maintenanceActionId as never],
-        async () => {
-          await this.ResetCounters(this.device.getChannel());
-        },
+      componentCapabilities.push(
+        await this.registerCapability(
+          homeyDevice,
+          maintenanceActionId,
+          capabilitiesOptions[maintenanceActionId as never],
+          async () => {
+            await this.ResetCounters(this.device.getChannel());
+          },
+        ),
       );
     }
+
+    return componentCapabilities;
   }
 
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Partial<PM1Status>): Promise<void> {

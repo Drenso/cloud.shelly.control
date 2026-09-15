@@ -1,4 +1,4 @@
-import { safeAddCapability, safeSetCapabilityValue, safeTriggerDeviceCard } from '../../safeFunctions.js';
+import { safeSetCapabilityValue, safeTriggerDeviceCard } from '../../safeFunctions.js';
 import { type AllowedPrimitives, ComponentWithId } from '../Component.js';
 import GetConfig from './Switch/GetConfig.js';
 import GetStatus from './Switch/GetStatus.js';
@@ -213,7 +213,9 @@ export default class Switch extends ComponentWithId<'Switch', SwitchStatus, Swit
   public async registerHomeyDevice(
     homeyDevice: ShellyLocalDevice,
     methods: ComponentMethod<'Switch'>[],
-  ): Promise<void> {
+  ): Promise<string[]> {
+    const componentCapabilities: string[] = [];
+
     const onOffCapabilityListener = async (value: boolean): Promise<void> => {
       await this.Set(this.device.getChannel(), { on: value });
     };
@@ -233,16 +235,17 @@ export default class Switch extends ComponentWithId<'Switch', SwitchStatus, Swit
     ] as const) {
       if (this.status[statusKey] !== undefined) {
         const capabilityOptions = capabilitiesOptions[homeyCapability as never];
-        await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions, capabilityListener);
+        componentCapabilities.push(
+          await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions, capabilityListener),
+        );
       }
     }
 
     if (this.status.temperature !== undefined) {
-      await safeAddCapability(homeyDevice, 'hidden.has_temperature_measurement');
+      componentCapabilities.push('hidden.has_temperature_measurement');
     }
 
-    await safeAddCapability(homeyDevice, 'alarm_generic');
-    await safeAddCapability(homeyDevice, 'shelly_errors');
+    componentCapabilities.push('alarm_generic', 'shelly_errors');
 
     if (this.status['aenergy'] !== undefined || this.status['ret_aenergy'] !== undefined) {
       let energy = homeyDevice.getEnergy();
@@ -257,15 +260,19 @@ export default class Switch extends ComponentWithId<'Switch', SwitchStatus, Swit
 
     if (methods.includes('ResetCounters')) {
       const maintenanceActionId = 'button.reset_energy_counters';
-      await this.registerCapability(
-        homeyDevice,
-        maintenanceActionId,
-        capabilitiesOptions[maintenanceActionId as never],
-        async () => {
-          await this.ResetCounters(this.device.getChannel());
-        },
+      componentCapabilities.push(
+        await this.registerCapability(
+          homeyDevice,
+          maintenanceActionId,
+          capabilitiesOptions[maintenanceActionId as never],
+          async () => {
+            await this.ResetCounters(this.device.getChannel());
+          },
+        ),
       );
     }
+
+    return componentCapabilities;
   }
 
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Partial<SwitchStatus>): Promise<void> {

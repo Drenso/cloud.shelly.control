@@ -7,7 +7,7 @@ import type ShellyLocalDevice from '../../local/LocalDevice.js';
 import type { ComponentMethod } from './Shelly/ListMethods.js';
 import type { RpcChannel } from '../../rpc/channel/RpcChannel.js';
 import { diffArrays, type RecursivePartial } from '../../util.js';
-import { safeAddCapability, safeSetCapabilityValue, safeTriggerDeviceCard } from '../../safeFunctions.js';
+import { safeSetCapabilityValue, safeTriggerDeviceCard } from '../../safeFunctions.js';
 import capabilitiesOptions from './Service/capabilitiesOptions.json' with { type: 'json' };
 
 export type ServiceConfig = {
@@ -182,14 +182,15 @@ export default class Service extends ComponentWithId<'Service', ServiceStatus, S
   public async registerHomeyDevice(
     homeyDevice: ShellyLocalDevice,
     _methods: ComponentMethod<'Service'>[],
-  ): Promise<void> {
-    await safeAddCapability(homeyDevice, 'alarm_generic');
-    await safeAddCapability(homeyDevice, 'shelly_errors');
-    await safeAddCapability(homeyDevice, 'alarm_generic.flags');
+  ): Promise<string[]> {
+    const componentCapabilities: string[] = [];
+
+    componentCapabilities.push('alarm_generic', 'shelly_errors', 'alarm_generic.flags', 'shelly_flags');
     await homeyDevice
       .setCapabilityOptions('alarm_generic.flags', capabilitiesOptions['alarm_generic.flags'])
       .catch(err => homeyDevice.error('Error while setting alarm_generic.flags capability options:', err));
-    await safeAddCapability(homeyDevice, 'shelly_flags');
+
+    return componentCapabilities;
   }
 
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Partial<ServiceStatus>): Promise<void> {

@@ -1,7 +1,7 @@
 import type ShellyApp from '../../../app.js';
 import type ShellyLocalDevice from '../../local/LocalDevice.js';
 import type { NotificationEventParam } from '../../rpc/Rpc.js';
-import { safeAddCapability, safeTriggerDeviceCard } from '../../safeFunctions.js';
+import { safeTriggerDeviceCard } from '../../safeFunctions.js';
 import { createMitt, translate } from '../../util.js';
 import { ComponentWithId } from '../Component.js';
 import type { IlluminanceStatus } from './Illuminance.js';
@@ -103,18 +103,20 @@ export default class PresenceZone extends ComponentWithId<
   public async registerHomeyDevice(
     homeyDevice: ShellyLocalDevice,
     _methods: Array<ComponentMethod<'PresenceZone'>>,
-  ): Promise<void> {
+  ): Promise<string[]> {
+    const componentCapabilities: string[] = [];
+
     for (const [statusKey, homeyCapability] of [
       ['value', 'alarm_presence'],
       ['num_objects', 'shelly_presence_count'],
     ] as const) {
       if (this.status[statusKey] !== undefined) {
         const capabilityOptions = capabilitiesOptions[homeyCapability];
-        await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions);
+        componentCapabilities.push(await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions));
       }
     }
 
-    await safeAddCapability(homeyDevice, 'hidden.has_presence_sensor');
+    componentCapabilities.push('hidden.has_presence_sensor');
 
     this.presenceMitt.on('presence', state => {
       this.setCapability(homeyDevice, 'alarm_presence', state);
@@ -131,6 +133,8 @@ export default class PresenceZone extends ComponentWithId<
     this.presenceMitt.on('leave', () => {
       safeTriggerDeviceCard(homeyDevice, 'presence_exit', { zone: this.id }, { zone: this.id });
     });
+
+    return componentCapabilities;
   }
 
   public async unregisterHomeyDevice(_homeyDevice: ShellyLocalDevice): Promise<void> {

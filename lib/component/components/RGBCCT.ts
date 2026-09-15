@@ -193,7 +193,9 @@ export default class RGBCCT extends ComponentWithId<'RGBCCT', RGBCCTStatus, RGBC
   public async registerHomeyDevice(
     homeyDevice: ShellyLocalDevice,
     _methods: ComponentMethod<'RGBCCT'>[],
-  ): Promise<void> {
+  ): Promise<string[]> {
+    const componentCapabilities: string[] = [];
+
     const onOffCapabilityListener = async (value: boolean): Promise<void> => {
       await this.Set(this.device.getChannel(), { on: value });
     };
@@ -224,7 +226,9 @@ export default class RGBCCT extends ComponentWithId<'RGBCCT', RGBCCTStatus, RGBC
     ] as const) {
       if (this.status[statusKey] !== undefined) {
         const capabilityOptions = capabilitiesOptions[homeyCapability as never];
-        await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions, capabilityListener);
+        componentCapabilities.push(
+          await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions, capabilityListener),
+        );
       }
     }
 
@@ -250,7 +254,10 @@ export default class RGBCCT extends ComponentWithId<'RGBCCT', RGBCCTStatus, RGBC
           ),
         });
       });
+      componentCapabilities.push(hueCapabilityId, saturationCapabilityId);
     }
+
+    return componentCapabilities;
   }
 
   public async onStatusUpdate(

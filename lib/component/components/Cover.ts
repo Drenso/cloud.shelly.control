@@ -15,7 +15,7 @@ import Stop from './Cover/Stop.js';
 import GoToPosition, { type CoverGoToPositionParams } from './Cover/GoToPosition.js';
 import type { CoverResetCountersParams } from './Cover/ResetCounters.js';
 import ResetCounters from './Cover/ResetCounters.js';
-import { safeAddCapability, safeSetCapabilityValue, safeTriggerDeviceCard } from '../../safeFunctions.js';
+import { safeSetCapabilityValue, safeTriggerDeviceCard } from '../../safeFunctions.js';
 
 export type CoverConfig = {
   /** Identifier of the Cover component instance */
@@ -595,7 +595,12 @@ export default class Cover extends ComponentWithId<'Cover', CoverStatus, CoverCo
     return ResetCounters(channel, this.id, params);
   }
 
-  public async registerHomeyDevice(homeyDevice: ShellyLocalDevice, methods: ComponentMethod<'Cover'>[]): Promise<void> {
+  public async registerHomeyDevice(
+    homeyDevice: ShellyLocalDevice,
+    methods: ComponentMethod<'Cover'>[],
+  ): Promise<string[]> {
+    const componentCapabilities: string[] = [];
+
     const windowCoveringsStateCapabilityListener = async (value: 'up' | 'idle' | 'down'): Promise<void> => {
       if (value === 'up') {
         await this.Open(this.device.getChannel());
@@ -635,7 +640,9 @@ export default class Cover extends ComponentWithId<'Cover', CoverStatus, CoverCo
       ] as const) {
         if (this.status[statusKey] !== undefined) {
           const capabilityOptions = capabilitiesOptions[homeyCapability as never];
-          await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions, capabilityListener);
+          componentCapabilities.push(
+            await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions, capabilityListener),
+          );
         }
       }
     }
@@ -652,33 +659,45 @@ export default class Cover extends ComponentWithId<'Cover', CoverStatus, CoverCo
     ] as const) {
       if (this.status[statusKey] !== undefined) {
         const capabilityOptions = capabilitiesOptions[homeyCapability as never];
-        await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions, capabilityListener);
+        componentCapabilities.push(
+          await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions, capabilityListener),
+        );
       }
     }
 
     if (this.status.temperature !== undefined) {
-      await safeAddCapability(homeyDevice, 'hidden.has_temperature_measurement');
+      componentCapabilities.push('hidden.has_temperature_measurement');
     }
 
-    await safeAddCapability(homeyDevice, 'alarm_generic');
-    await safeAddCapability(homeyDevice, 'shelly_errors');
+    componentCapabilities.push('alarm_generic', 'shelly_errors');
 
     if (methods.includes('ResetCounters')) {
       const maintenanceActionId = 'button.reset_energy_counters';
       const capabilityOptions = capabilitiesOptions[maintenanceActionId];
-      await this.registerCapability(homeyDevice, maintenanceActionId, capabilityOptions, resetEnergyCapabilityListener);
+      componentCapabilities.push(
+        await this.registerCapability(
+          homeyDevice,
+          maintenanceActionId,
+          capabilityOptions,
+          resetEnergyCapabilityListener,
+        ),
+      );
     }
 
     if (methods.includes('Calibrate')) {
       const maintenanceActionId = 'button.start_calibration';
       const capabilityOptions = capabilitiesOptions[maintenanceActionId];
-      await this.registerCapability(
-        homeyDevice,
-        maintenanceActionId,
-        capabilityOptions,
-        startCalibrationCapabilityListener,
+      componentCapabilities.push(
+        await this.registerCapability(
+          homeyDevice,
+          maintenanceActionId,
+          capabilityOptions,
+          startCalibrationCapabilityListener,
+        ),
       );
     }
+
+    return componentCapabilities;
   }
 
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Partial<CoverStatus>): Promise<void> {

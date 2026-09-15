@@ -77,7 +77,9 @@ export default class Pill extends ComponentWithoutId<'Pill', PillStatus, PillCon
   public async registerHomeyDevice(
     _homeyDevice: ShellyLocalDevice,
     _methods: ComponentMethod<'Pill'>[],
-  ): Promise<void> {}
+  ): Promise<string[]> {
+    return [];
+  }
 
   public async onStatusUpdate(_homeyDevice: ShellyLocalDevice, _status: PillStatus): Promise<void> {}
 

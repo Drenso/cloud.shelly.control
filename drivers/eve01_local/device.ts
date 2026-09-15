@@ -5,7 +5,7 @@ import type Boolean from '../../lib/component/components/Boolean.js';
 import type Number from '../../lib/component/components/Number.js';
 import type { NumberStatus } from '../../lib/component/components/Number.js';
 import type { BooleanStatus } from '../../lib/component/components/Boolean.js';
-import { safeAddCapability, safeSetCapabilityValue } from '../../lib/safeFunctions.js';
+import { safeSetCapabilityValue } from '../../lib/safeFunctions.js';
 import type Enum from '../../lib/component/components/Enum.js';
 import type { EnumStatus } from '../../lib/component/components/Enum.js';
 import type Object from '../../lib/component/components/Object.js';
@@ -84,43 +84,28 @@ export default class Eve01LocalDevice extends ShellyLocalDevice {
   protected async registerComponent(
     virtualComponent: InstanceType<MappedComponent>,
     methods: ComponentMethod<NameSpace>[],
-  ): Promise<void> {
+  ): Promise<string[]> {
     const role = virtualComponent.attrs?.role;
     switch (role) {
       case 'start_charging':
-        await this.registerStartCharging(virtualComponent as Boolean);
-        await virtualComponent.setInitialValues(this);
-        return;
+        return this.registerStartCharging(virtualComponent as Boolean);
       case 'work_state':
-        await this.registerWorkState(virtualComponent as Enum);
-        await virtualComponent.setInitialValues(this);
-        return;
+        return this.registerWorkState(virtualComponent as Enum);
       case 'current_limit':
-        await this.registerCurrentLimit(virtualComponent as Number);
-        await virtualComponent.setInitialValues(this);
-        return;
+        return this.registerCurrentLimit(virtualComponent as Number);
       case 'energy_charge':
-        await this.registerEnergyCharge(virtualComponent as Number);
-        await virtualComponent.setInitialValues(this);
-        return;
+        return this.registerEnergyCharge(virtualComponent as Number);
       case 'time_charge':
-        await this.registerTimeCharge(virtualComponent as Number);
-        await virtualComponent.setInitialValues(this);
-        return;
+        return this.registerTimeCharge(virtualComponent as Number);
       case 'phase_info':
-        await this.registerPhaseInfo(virtualComponent as Object);
-        await virtualComponent.setInitialValues(this);
-        return;
+        return this.registerPhaseInfo(virtualComponent as Object);
       default: {
-        await virtualComponent.registerHomeyDevice(this, methods as never);
-        await virtualComponent.setInitialValues(this);
+        return virtualComponent.registerHomeyDevice(this, methods as never);
       }
     }
   }
 
-  private async registerWorkState(virtualComponent: Enum): Promise<void> {
-    await virtualComponent.registerCapability(this, 'evcharger_charging_state', undefined);
-
+  private async registerWorkState(virtualComponent: Enum): Promise<string[]> {
     virtualComponent.onStatusUpdate = async (
       _homeyDevice: ShellyLocalDevice,
       status: Partial<EnumStatus>,
@@ -129,17 +114,11 @@ export default class Eve01LocalDevice extends ShellyLocalDevice {
         await safeSetCapabilityValue(this, 'evcharger_charging_state', status.value);
       }
     };
+
+    return [await virtualComponent.registerCapability(this, 'evcharger_charging_state', undefined)];
   }
 
-  private async registerStartCharging(virtualComponent: Boolean): Promise<void> {
-    await virtualComponent.registerCapability(this, 'evcharger_charging', undefined, async (value: boolean) => {
-      const channel = this.virtualDevice?.getChannel();
-      if (channel === undefined) {
-        throw new Error(this.homey.__('error.host_unreachable'));
-      }
-      await virtualComponent.Set(channel, { value });
-    });
-
+  private async registerStartCharging(virtualComponent: Boolean): Promise<string[]> {
     virtualComponent.onStatusUpdate = async (
       _homeyDevice: ShellyLocalDevice,
       status: Partial<BooleanStatus>,
@@ -148,11 +127,19 @@ export default class Eve01LocalDevice extends ShellyLocalDevice {
         await safeSetCapabilityValue(this, 'evcharger_charging', status.value);
       }
     };
+
+    return [
+      await virtualComponent.registerCapability(this, 'evcharger_charging', undefined, async (value: boolean) => {
+        const channel = this.virtualDevice?.getChannel();
+        if (channel === undefined) {
+          throw new Error(this.homey.__('error.host_unreachable'));
+        }
+        await virtualComponent.Set(channel, { value });
+      }),
+    ];
   }
 
-  private async registerEnergyCharge(virtualComponent: Number): Promise<void> {
-    await safeAddCapability(this, 'meter_power.session');
-
+  private async registerEnergyCharge(virtualComponent: Number): Promise<string[]> {
     virtualComponent.onStatusUpdate = async (
       _homeyDevice: ShellyLocalDevice,
       status: Partial<NumberStatus>,
@@ -161,27 +148,11 @@ export default class Eve01LocalDevice extends ShellyLocalDevice {
         await safeSetCapabilityValue(this, 'meter_power.session', status.value);
       }
     };
+
+    return ['meter_power.session'];
   }
 
-  private async registerPhaseInfo(virtualComponent: Object): Promise<void> {
-    await safeAddCapability(this, 'meter_power');
-    await safeAddCapability(this, 'meter_power.active');
-
-    await safeAddCapability(this, 'measure_power');
-    await safeAddCapability(this, 'measure_current');
-
-    await safeAddCapability(this, 'measure_power.phase_a');
-    await safeAddCapability(this, 'measure_current.phase_a');
-    await safeAddCapability(this, 'measure_voltage.phase_a');
-
-    await safeAddCapability(this, 'measure_power.phase_b');
-    await safeAddCapability(this, 'measure_current.phase_b');
-    await safeAddCapability(this, 'measure_voltage.phase_b');
-
-    await safeAddCapability(this, 'measure_power.phase_c');
-    await safeAddCapability(this, 'measure_current.phase_c');
-    await safeAddCapability(this, 'measure_voltage.phase_c');
-
+  private async registerPhaseInfo(virtualComponent: Object): Promise<string[]> {
     virtualComponent.onStatusUpdate = async (
       _homeyDevice: ShellyLocalDevice,
       status: Partial<ObjectStatus>,
@@ -220,11 +191,25 @@ export default class Eve01LocalDevice extends ShellyLocalDevice {
         await safeSetCapabilityValue(this, 'measure_voltage.phase_c', phaseInfo?.phase_c.voltage ?? null);
       }
     };
+
+    return [
+      'meter_power',
+      'meter_power.active',
+      'measure_power',
+      'measure_current',
+      'measure_power.phase_a',
+      'measure_current.phase_a',
+      'measure_voltage.phase_a',
+      'measure_power.phase_b',
+      'measure_current.phase_b',
+      'measure_voltage.phase_b',
+      'measure_power.phase_c',
+      'measure_current.phase_c',
+      'measure_voltage.phase_c',
+    ];
   }
 
-  private async registerTimeCharge(virtualComponent: Number): Promise<void> {
-    await safeAddCapability(this, 'shelly_charge_time');
-
+  private async registerTimeCharge(virtualComponent: Number): Promise<string[]> {
     virtualComponent.onStatusUpdate = async (
       _homeyDevice: ShellyLocalDevice,
       status: Partial<NumberStatus>,
@@ -234,9 +219,11 @@ export default class Eve01LocalDevice extends ShellyLocalDevice {
         await safeSetCapabilityValue(this, 'shelly_charge_time', value);
       }
     };
+
+    return ['shelly_charge_time'];
   }
 
-  private async registerCurrentLimit(virtualComponent: Number): Promise<void> {
+  private async registerCurrentLimit(virtualComponent: Number): Promise<string[]> {
     this.currentLimitComponent = virtualComponent;
 
     virtualComponent.onStatusUpdate = async (
@@ -249,5 +236,7 @@ export default class Eve01LocalDevice extends ShellyLocalDevice {
         }).catch(err => this.error('Error while setting current_limit setting:', err));
       }
     };
+
+    return [];
   }
 }

@@ -6,7 +6,6 @@ import type { RecursivePartial } from '../../util.js';
 import SetConfig from './Humidity/SetConfig.js';
 import GetConfig from './Humidity/GetConfig.js';
 import GetStatus from './Humidity/GetStatus.js';
-import { safeAddCapability } from '../../safeFunctions.js';
 
 export type HumidityConfig = {
   /** Identifier of the Humidity component instance */
@@ -76,14 +75,19 @@ export default class Humidity extends ComponentWithId<
   public async registerHomeyDevice(
     homeyDevice: ShellyLocalDevice,
     _methods: ComponentMethod<'Humidity'>[],
-  ): Promise<void> {
+  ): Promise<string[]> {
+    const componentCapabilities: string[] = [];
+
     if (this.status.rh !== undefined) {
       const homeyCapability = 'measure_humidity';
-      await this.registerCapability(homeyDevice, homeyCapability, capabilitiesOptions[homeyCapability as never]);
+      componentCapabilities.push(
+        await this.registerCapability(homeyDevice, homeyCapability, capabilitiesOptions[homeyCapability as never]),
+      );
     }
 
-    await safeAddCapability(homeyDevice, 'alarm_generic');
-    await safeAddCapability(homeyDevice, 'shelly_errors');
+    componentCapabilities.push('alarm_generic', 'shelly_errors');
+
+    return componentCapabilities;
   }
 
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Partial<HumidityStatus>): Promise<void> {

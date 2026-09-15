@@ -7,48 +7,36 @@ import type Object from '../../lib/component/components/Object.js';
 import type { ObjectStatus } from '../../lib/component/components/Object.js';
 import type { NumberStatus } from '../../lib/component/components/Number.js';
 import type { BooleanStatus } from '../../lib/component/components/Boolean.js';
-import { safeAddCapability, safeSetCapabilityValue } from '../../lib/safeFunctions.js';
+import { safeSetCapabilityValue } from '../../lib/safeFunctions.js';
 
 // https://shelly-api-docs.shelly.cloud/gen2/Devices/ShellyX/XT1/NeoAdvancedWaterValve
 export default class NeoWaterValveLocalDevice extends ShellyLocalDevice {
   protected async registerComponent(
     virtualComponent: InstanceType<MappedComponent>,
     methods: ComponentMethod<NameSpace>[],
-  ): Promise<void> {
+  ): Promise<string[]> {
     const role = virtualComponent.attrs?.role;
     switch (role) {
       case 'flow_rate':
-        await this.registerFlowRate(virtualComponent as Number);
-        await virtualComponent.setInitialValues(this);
-        return;
+        return this.registerFlowRate(virtualComponent as Number);
       case 'state':
-        await this.registerState(virtualComponent as Boolean);
-        await virtualComponent.setInitialValues(this);
-        return;
+        return this.registerState(virtualComponent as Boolean);
       case 'water_consumption': {
-        await this.registerWaterConsumption(virtualComponent as Object);
-        await virtualComponent.setInitialValues(this);
-        return;
+        return this.registerWaterConsumption(virtualComponent as Object);
       }
       case 'water_pressure': {
-        await this.registerWaterPressure(virtualComponent as Number);
-        await virtualComponent.setInitialValues(this);
-        return;
+        return this.registerWaterPressure(virtualComponent as Number);
       }
       case 'water_temperature': {
-        await this.registerWaterTemperature(virtualComponent as Number);
-        await virtualComponent.setInitialValues(this);
-        return;
+        return this.registerWaterTemperature(virtualComponent as Number);
       }
       default: {
-        await virtualComponent.registerHomeyDevice(this, methods as never);
-        await virtualComponent.setInitialValues(this);
+        return virtualComponent.registerHomeyDevice(this, methods as never);
       }
     }
   }
 
-  private async registerFlowRate(virtualComponent: Number): Promise<void> {
-    await safeAddCapability(this, 'measure_water');
+  private async registerFlowRate(virtualComponent: Number): Promise<string[]> {
     virtualComponent.onStatusUpdate = async (
       _homeyDevice: ShellyLocalDevice,
       status: Partial<NumberStatus>,
@@ -58,10 +46,11 @@ export default class NeoWaterValveLocalDevice extends ShellyLocalDevice {
         await safeSetCapabilityValue(this, 'measure_water', status.value / 1000);
       }
     };
+
+    return ['measure_water'];
   }
 
-  private async registerState(virtualComponent: Boolean): Promise<void> {
-    await safeAddCapability(this, 'onoff');
+  private async registerState(virtualComponent: Boolean): Promise<string[]> {
     this.registerCapabilityListener('onoff', async (value: boolean) => {
       if (this.virtualDevice === undefined) {
         throw new Error(this.homey.__('error.not_initialized'));
@@ -79,10 +68,11 @@ export default class NeoWaterValveLocalDevice extends ShellyLocalDevice {
         await safeSetCapabilityValue(this, 'onoff', status.value);
       }
     };
+
+    return ['onoff'];
   }
 
-  private async registerWaterConsumption(virtualComponent: Object): Promise<void> {
-    await safeAddCapability(this, 'meter_water');
+  private async registerWaterConsumption(virtualComponent: Object): Promise<string[]> {
     virtualComponent.onStatusUpdate = async (
       _homeyDevice: ShellyLocalDevice,
       status: Partial<ObjectStatus>,
@@ -93,10 +83,11 @@ export default class NeoWaterValveLocalDevice extends ShellyLocalDevice {
         await safeSetCapabilityValue(this, 'meter_water', waterConsumption.counter.total * 1000);
       }
     };
+
+    return ['meter_water'];
   }
 
-  private async registerWaterPressure(virtualComponent: Number): Promise<void> {
-    await safeAddCapability(this, 'measure_pressure');
+  private async registerWaterPressure(virtualComponent: Number): Promise<string[]> {
     virtualComponent.onStatusUpdate = async (
       _homeyDevice: ShellyLocalDevice,
       status: Partial<NumberStatus>,
@@ -106,10 +97,11 @@ export default class NeoWaterValveLocalDevice extends ShellyLocalDevice {
         await safeSetCapabilityValue(this, 'measure_pressure', status.value * 10);
       }
     };
+
+    return ['measure_pressure'];
   }
 
-  private async registerWaterTemperature(virtualComponent: Number): Promise<void> {
-    await safeAddCapability(this, 'measure_temperature');
+  private async registerWaterTemperature(virtualComponent: Number): Promise<string[]> {
     virtualComponent.onStatusUpdate = async (
       _homeyDevice: ShellyLocalDevice,
       status: Partial<NumberStatus>,
@@ -118,5 +110,7 @@ export default class NeoWaterValveLocalDevice extends ShellyLocalDevice {
         await safeSetCapabilityValue(this, 'measure_temperature', status.value);
       }
     };
+
+    return ['measure_temperature'];
   }
 }

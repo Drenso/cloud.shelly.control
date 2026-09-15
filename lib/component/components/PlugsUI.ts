@@ -104,7 +104,9 @@ export default class PlugsUI extends ComponentWithoutId<
   public async registerHomeyDevice(
     _homeyDevice: ShellyLocalDevice,
     _methods: ComponentMethod<'PLUGS_UI'>[],
-  ): Promise<void> {}
+  ): Promise<string[]> {
+    return [];
+  }
 
   public async onStatusUpdate(_homeyDevice: ShellyLocalDevice, _status: PlugsUIStatus): Promise<void> {}
 

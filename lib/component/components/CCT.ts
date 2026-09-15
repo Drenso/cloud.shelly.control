@@ -13,7 +13,6 @@ import SetConfig from './CCT/SetConfig.js';
 import Toggle from './CCT/Toggle.js';
 import type { ComponentMethod } from './Shelly/ListMethods.js';
 import capabilitiesOptions from './CCT/capabilitiesOptions.json' with { type: 'json' };
-import { safeAddCapability } from '../../safeFunctions.js';
 
 export type CCTConfig = {
   /** Id of the CCT component instance */
@@ -225,7 +224,12 @@ export default class CCT extends ComponentWithId<'CCT', CCTStatus, CCTConfig, CC
     return DimStop(channel, this.id);
   }
 
-  public async registerHomeyDevice(homeyDevice: ShellyLocalDevice, _methods: ComponentMethod<'CCT'>[]): Promise<void> {
+  public async registerHomeyDevice(
+    homeyDevice: ShellyLocalDevice,
+    _methods: ComponentMethod<'CCT'>[],
+  ): Promise<string[]> {
+    const componentCapabilities: string[] = [];
+
     const onOffCapabilityListener = async (value: boolean): Promise<void> => {
       await this.Set(this.device.getChannel(), { on: value });
     };
@@ -250,12 +254,15 @@ export default class CCT extends ComponentWithId<'CCT', CCTStatus, CCTConfig, CC
     ] as const) {
       if (this.status[statusKey] !== undefined) {
         const capabilityOptions = capabilitiesOptions[homeyCapability as never];
-        await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions, capabilityListener);
+        componentCapabilities.push(
+          await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions, capabilityListener),
+        );
       }
     }
 
-    await safeAddCapability(homeyDevice, 'alarm_generic');
-    await safeAddCapability(homeyDevice, 'shelly_errors');
+    componentCapabilities.push('alarm_generic', 'shelly_errors');
+
+    return componentCapabilities;
   }
 
   public async onStatusUpdate(

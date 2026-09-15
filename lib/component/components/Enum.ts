@@ -89,7 +89,12 @@ export default class Enum extends ComponentWithId<'Enum', EnumStatus, EnumConfig
     return Set(channel, this.id, params);
   }
 
-  public async registerHomeyDevice(homeyDevice: ShellyLocalDevice, _methods: ComponentMethod<'Enum'>[]): Promise<void> {
+  public async registerHomeyDevice(
+    homeyDevice: ShellyLocalDevice,
+    _methods: ComponentMethod<'Enum'>[],
+  ): Promise<string[]> {
+    const componentCapabilities: string[] = [];
+
     const homeyCapability = 'virtual_enum';
     const options = this.config.options;
     const optionLabels = this.config.meta?.ui.titles ?? {};
@@ -119,9 +124,13 @@ export default class Enum extends ComponentWithId<'Enum', EnumStatus, EnumConfig
       capabilityOptions.uiComponent = null;
     }
 
-    await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions, async (value: string) => {
-      await this.Set(this.device.getChannel(), { value });
-    });
+    componentCapabilities.push(
+      await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions, async (value: string) => {
+        await this.Set(this.device.getChannel(), { value });
+      }),
+    );
+
+    return componentCapabilities;
   }
 
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Partial<EnumStatus>): Promise<void> {

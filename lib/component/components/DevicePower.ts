@@ -5,7 +5,7 @@ import GetConfig from './DevicePower/GetConfig.js';
 import GetStatus from './DevicePower/GetStatus.js';
 import type { ComponentMethod } from './Shelly/ListMethods.js';
 import capabilitiesOptions from './DevicePower/capabilitiesOptions.json' with { type: 'json' };
-import { safeAddCapability, safeSetCapabilityValue } from '../../safeFunctions.js';
+import { safeSetCapabilityValue } from '../../safeFunctions.js';
 import type { VirtualDevice } from '../../VirtualDevice.js';
 import type ShellyApp from '../../../app.js';
 import { translate } from '../../util.js';
@@ -66,20 +66,24 @@ export default class DevicePower extends ComponentWithId<
   public async registerHomeyDevice(
     homeyDevice: ShellyLocalDevice,
     _methods: ComponentMethod<'DevicePower'>[],
-  ): Promise<void> {
+  ): Promise<string[]> {
+    const componentCapabilities: string[] = [];
+
     if (this.status.battery?.percent !== undefined) {
       const homeyCapability = 'measure_battery';
       const capabilityOptions = capabilitiesOptions[homeyCapability as never];
-      await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions);
+      componentCapabilities.push(await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions));
     }
 
     if (DevicePower.hasExternalPowerSupply(homeyDevice.virtualDevice!)) {
-      await safeAddCapability(homeyDevice, 'hidden.has_external_device_power');
+      componentCapabilities.push('hidden.has_external_device_power');
     }
 
     if (this.status.external !== undefined) {
-      await this.registerCapability(homeyDevice, 'alarm_shelly_power_lost', undefined);
+      componentCapabilities.push(await this.registerCapability(homeyDevice, 'alarm_shelly_power_lost', undefined));
     }
+
+    return componentCapabilities;
   }
 
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: DevicePowerStatus): Promise<void> {

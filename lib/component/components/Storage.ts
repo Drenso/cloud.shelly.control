@@ -1,7 +1,6 @@
 import type ShellyApp from '../../../app.js';
 import type ShellyLocalDevice from '../../local/LocalDevice.js';
 import type { RpcChannel } from '../../rpc/channel/RpcChannel.js';
-import { safeAddCapability } from '../../safeFunctions.js';
 import { humanFileSize } from '../../util.js';
 import { ComponentWithId } from '../Component.js';
 import capabilitiesOptions from './Storage/capabilitiesOptions.json' with { type: 'json' };
@@ -99,14 +98,20 @@ export default class Storage extends ComponentWithId<'Storage', StorageStatus, S
   public async registerHomeyDevice(
     homeyDevice: ShellyLocalDevice,
     _methods: ComponentMethod<'Storage'>[],
-  ): Promise<void> {
+  ): Promise<string[]> {
+    const componentCapabilities: string[] = [];
+
     for (const [statusKey, homeyCapability] of this.capabilityMap) {
       if (this.status[statusKey] !== undefined) {
-        await this.registerCapability(homeyDevice, homeyCapability, capabilitiesOptions[homeyCapability as never]);
+        componentCapabilities.push(
+          await this.registerCapability(homeyDevice, homeyCapability, capabilitiesOptions[homeyCapability as never]),
+        );
       }
     }
 
-    await safeAddCapability(homeyDevice, 'shelly_errors');
+    componentCapabilities.push('shelly_errors');
+
+    return componentCapabilities;
   }
 
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: StorageStatus): Promise<void> {

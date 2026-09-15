@@ -1,4 +1,4 @@
-import { safeAddCapability, safeSetCapabilityValue, safeTriggerDeviceCard } from '../../safeFunctions.js';
+import { safeSetCapabilityValue, safeTriggerDeviceCard } from '../../safeFunctions.js';
 import { type AllowedPrimitives, ComponentWithId } from '../Component.js';
 import type ShellyLocalDevice from '../../local/LocalDevice.js';
 import type { ComponentMethod } from './Shelly/ListMethods.js';
@@ -355,14 +355,13 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
   public async registerHomeyDevice(
     homeyDevice: ShellyLocalDevice,
     _methods: ComponentMethod<'Input'>[],
-  ): Promise<void> {
+  ): Promise<string[]> {
+    const componentCapabilities: string[] = [];
+
     const inputTypeComponents = Input.getInputTypes(homeyDevice.virtualDevice!);
 
-    await safeAddCapability(homeyDevice, 'alarm_generic');
-    await safeAddCapability(homeyDevice, 'shelly_errors');
+    componentCapabilities.push('alarm_generic', 'shelly_errors');
 
-    // Go through all types so capabilities for types that are no longer used also get cleaned up.
-    // On subsequent Input components this does not cost much due to the hasCapability checks in safeAddCapability
     for (const inputType of ['switch', 'button', 'analog', 'count'] as const) {
       const components = inputTypeComponents[inputType] ?? [];
       const homeyDeviceInputComponents = components.filter(component =>
@@ -374,11 +373,13 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
       }
 
       // Add helper capability to show correct flows
-      await safeAddCapability(homeyDevice, `hidden.has_input_${inputType}`);
+      componentCapabilities.push(`hidden.has_input_${inputType}`);
 
       if (['switch', 'analog', 'count'].includes(inputType)) {
         const homeyCapability = CAPABILITY_MAPPING[inputType as 'switch' | 'analog' | 'count'];
-        await this.registerInputCapability(homeyDevice, homeyCapability, capabilitiesOptions[homeyCapability]);
+        componentCapabilities.push(
+          await this.registerInputCapability(homeyDevice, homeyCapability, capabilitiesOptions[homeyCapability]),
+        );
       }
     }
 
@@ -386,6 +387,8 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
       const buttonUpdate = { value: type, input: this.id };
       safeTriggerDeviceCard(homeyDevice, 'input_button_event', buttonUpdate, buttonUpdate);
     });
+
+    return componentCapabilities;
   }
 
   public async unregisterHomeyDevice(_homeyDevice: ShellyLocalDevice): Promise<void> {
@@ -491,8 +494,8 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
     rawCapabilityOptions: JsonObject | undefined,
   ): Promise<string> {
     const capabilityId = `${homeyCapability}.${this.id}`;
-    await safeAddCapability(homeyDevice, capabilityId);
     if (rawCapabilityOptions === undefined) {
+      await homeyDevice.setCapabilityOptions(capabilityId, {});
       return capabilityId;
     }
     const name = this.config.name !== null ? this.config.name : `${this.id}`;

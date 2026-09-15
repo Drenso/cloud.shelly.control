@@ -6,7 +6,12 @@ import type { ComponentMethod, NameSpace } from '../component/components/Shelly/
 import type { MappedComponent } from '../component/ComponentMapping.js';
 import type ShellyLocalDriver from './LocalDriver.js';
 import { diffArrays } from '../util.js';
-import { safeRemoveCapability, safeSetCapabilityValue, safeTriggerDeviceCard } from '../safeFunctions.js';
+import {
+  safeAddCapability,
+  safeRemoveCapability,
+  safeSetCapabilityValue,
+  safeTriggerDeviceCard,
+} from '../safeFunctions.js';
 
 export default class ShellyLocalDevice extends Homey.Device {
   declare public readonly __id: string;
@@ -63,13 +68,6 @@ export default class ShellyLocalDevice extends Homey.Device {
     this.debug('Removed components:', removedComponents);
     this.debug('Added components:', addedComponents);
 
-    // Remove before adding, to avoid capability conflicts
-    const oldCapabilities = this.getCapabilities();
-    for (const capability of oldCapabilities) {
-      await safeRemoveCapability(this, capability);
-      await this.setCapabilityOptions(capability, {});
-    }
-
     await this.registerComponents(newComponents, methodMapping);
     await this.setTypedStoreValue('components', newComponents);
 
@@ -101,17 +99,38 @@ export default class ShellyLocalDevice extends Homey.Device {
       this.virtualComponents.set(componentId, virtualComponent);
     }
 
+    const capabilities: string[] = [];
+
     for (const virtualComponent of this.virtualComponents.values()) {
-      await this.registerComponent(virtualComponent, methodMapping[virtualComponent.namespace] ?? []);
+      const componentCapabilities = await this.registerComponent(
+        virtualComponent,
+        methodMapping[virtualComponent.namespace] ?? [],
+      );
+      capabilities.push(...componentCapabilities);
+    }
+
+    const { added: addedCapabilities, removed: removedCapabilities } = diffArrays(this.getCapabilities(), capabilities);
+
+    this.debug('Removing capabilities:', removedCapabilities);
+    for (const removedCapability of removedCapabilities) {
+      await safeRemoveCapability(this, removedCapability);
+    }
+
+    this.debug('Adding capabilities:', addedCapabilities);
+    for (const addedCapability of addedCapabilities) {
+      await safeAddCapability(this, addedCapability);
+    }
+
+    for (const virtualComponent of this.virtualComponents.values()) {
+      await virtualComponent.setInitialValues(this);
     }
   }
 
   protected async registerComponent(
     virtualComponent: InstanceType<MappedComponent>,
     methods: ComponentMethod<NameSpace>[],
-  ): Promise<void> {
-    await virtualComponent.registerHomeyDevice(this, methods as never);
-    await virtualComponent.setInitialValues(this);
+  ): Promise<string[]> {
+    return await virtualComponent.registerHomeyDevice(this, methods as never);
   }
 
   public get app(): ShellyApp {

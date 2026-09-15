@@ -42,7 +42,12 @@ export default class OutboundWebsocket extends ComponentWithoutId<
   public static readonly uiName = 'Outbound Websocket';
   public static readonly key = 'ws';
 
-  public async registerHomeyDevice(_homeyDevice: ShellyLocalDevice, _methods: ComponentMethod<'Ws'>[]): Promise<void> {}
+  public async registerHomeyDevice(
+    _homeyDevice: ShellyLocalDevice,
+    _methods: ComponentMethod<'Ws'>[],
+  ): Promise<string[]> {
+    return [];
+  }
 
   public async onStatusUpdate(_homeyDevice: ShellyLocalDevice, _status: OutboundWebsocketStatus): Promise<void> {}
 

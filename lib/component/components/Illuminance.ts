@@ -1,5 +1,4 @@
 import type ShellyLocalDevice from '../../local/LocalDevice.js';
-import { safeAddCapability } from '../../safeFunctions.js';
 import { fillTranslationTagsRecursively, type RecursivePartial } from '../../util.js';
 import { type AllowedPrimitives, ComponentWithId } from '../Component.js';
 import capabilitiesOptions from './Illuminance/capabilitiesOptions.json' with { type: 'json' };
@@ -76,19 +75,22 @@ export default class Illuminance extends ComponentWithId<
   public async registerHomeyDevice(
     homeyDevice: ShellyLocalDevice,
     _methods: ComponentMethod<'Illuminance'>[],
-  ): Promise<void> {
+  ): Promise<string[]> {
+    const componentCapabilities: string[] = [];
+
     for (const [statusKey, homeyCapability] of [
       ['lux', 'measure_luminance'],
       ['illumination', 'shelly_illumination'],
     ] as const) {
       if (this.status[statusKey] !== undefined) {
         const capabilityOptions = capabilitiesOptions[homeyCapability as never];
-        await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions);
+        componentCapabilities.push(await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions));
       }
     }
 
-    await safeAddCapability(homeyDevice, 'alarm_generic');
-    await safeAddCapability(homeyDevice, 'shelly_errors');
+    componentCapabilities.push('alarm_generic', 'shelly_errors');
+
+    return componentCapabilities;
   }
 
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: IlluminanceStatus): Promise<void> {

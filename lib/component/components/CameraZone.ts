@@ -1,6 +1,6 @@
 import type ShellyApp from '../../../app.js';
 import type ShellyLocalDevice from '../../local/LocalDevice.js';
-import { safeAddCapability, safeSetCapabilityValue, safeTriggerDeviceCard } from '../../safeFunctions.js';
+import { safeSetCapabilityValue, safeTriggerDeviceCard } from '../../safeFunctions.js';
 import { translate } from '../../util.js';
 import { ComponentWithId } from '../Component.js';
 import capabilitiesOptions from './CameraZone/capabilitiesOptions.json' with { type: 'json' };
@@ -52,15 +52,19 @@ export default class CameraZone extends ComponentWithId<
   public async registerHomeyDevice(
     homeyDevice: ShellyLocalDevice,
     _methods: ComponentMethod<'CameraZone'>[],
-  ): Promise<void> {
+  ): Promise<string[]> {
+    const componentCapabilities: string[] = [];
+
     for (const [statusKey, homeyCapability] of [['motion', 'alarm_motion']] as const) {
       if (this.status[statusKey] !== undefined) {
         const capabilityOptions = capabilitiesOptions[homeyCapability];
-        await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions);
+        componentCapabilities.push(await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions));
       }
     }
 
-    await safeAddCapability(homeyDevice, 'hidden.has_camera_motion');
+    componentCapabilities.push('hidden.has_camera_motion');
+
+    return componentCapabilities;
   }
 
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: CameraZoneStatus): Promise<void> {

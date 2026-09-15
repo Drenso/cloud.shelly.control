@@ -6,7 +6,6 @@ import GetConfig from './EM1/GetConfig.js';
 import GetStatus from './EM1/GetStatus.js';
 import SetConfig from './EM1/SetConfig.js';
 import type { ComponentMethod } from './Shelly/ListMethods.js';
-import { safeAddCapability } from '../../safeFunctions.js';
 
 export type EM1Config = {
   /** Id of the EM1 component instance */
@@ -73,7 +72,12 @@ export default class EM1 extends ComponentWithId<'EM1', EM1Status, EM1Config, EM
   public static readonly uiName = 'Electrical Measurement';
   public static readonly key = 'em1';
 
-  public async registerHomeyDevice(homeyDevice: ShellyLocalDevice, _methods: ComponentMethod<'EM1'>[]): Promise<void> {
+  public async registerHomeyDevice(
+    homeyDevice: ShellyLocalDevice,
+    _methods: ComponentMethod<'EM1'>[],
+  ): Promise<string[]> {
+    const componentCapabilities: string[] = [];
+
     for (const [statusKey, homeyCapability] of [
       ['current', 'measure_current'],
       ['voltage', 'measure_voltage'],
@@ -82,12 +86,15 @@ export default class EM1 extends ComponentWithId<'EM1', EM1Status, EM1Config, EM
       ['pf', 'shelly_power_factor'],
     ] as const) {
       if (this.status[statusKey] !== undefined) {
-        await this.registerCapability(homeyDevice, homeyCapability, capabilitiesOptions[homeyCapability as never]);
+        componentCapabilities.push(
+          await this.registerCapability(homeyDevice, homeyCapability, capabilitiesOptions[homeyCapability as never]),
+        );
       }
     }
 
-    await safeAddCapability(homeyDevice, 'alarm_generic');
-    await safeAddCapability(homeyDevice, 'shelly_errors');
+    componentCapabilities.push('alarm_generic', 'shelly_errors');
+
+    return componentCapabilities;
   }
 
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: EM1Status): Promise<void> {

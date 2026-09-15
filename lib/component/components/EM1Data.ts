@@ -8,7 +8,6 @@ import GetStatus from './EM1Data/GetStatus.js';
 import ResetCounters from './EM1Data/ResetCounters.js';
 import SetConfig from './EM1Data/SetConfig.js';
 import type { ComponentMethod } from './Shelly/ListMethods.js';
-import { safeAddCapability } from '../../safeFunctions.js';
 
 export type EM1DataConfig = { id: never; name: never } & Record<string, never>;
 
@@ -66,19 +65,22 @@ export default class EM1Data extends ComponentWithId<'EM1Data', EM1DataStatus, E
   public async registerHomeyDevice(
     homeyDevice: ShellyLocalDevice,
     methods: ComponentMethod<'EM1Data'>[],
-  ): Promise<void> {
+  ): Promise<string[]> {
+    const componentCapabilities: string[] = [];
+
     for (const [statusKey, homeyCapability] of [
       ['total_act_energy', 'meter_power.total'],
       ['total_act_energy', 'meter_power.imported'],
       ['total_act_ret_energy', 'meter_power.exported'],
     ] as const) {
       if (this.status[statusKey] !== undefined) {
-        await this.registerCapability(homeyDevice, homeyCapability, capabilitiesOptions[homeyCapability as never]);
+        componentCapabilities.push(
+          await this.registerCapability(homeyDevice, homeyCapability, capabilitiesOptions[homeyCapability as never]),
+        );
       }
     }
 
-    await safeAddCapability(homeyDevice, 'alarm_generic');
-    await safeAddCapability(homeyDevice, 'shelly_errors');
+    componentCapabilities.push('alarm_generic', 'shelly_errors');
 
     if (this.status['total_act_energy'] !== undefined || this.status['total_act_ret_energy'] !== undefined) {
       let energy = homeyDevice.getEnergy();
@@ -93,15 +95,19 @@ export default class EM1Data extends ComponentWithId<'EM1Data', EM1DataStatus, E
 
     if (methods.includes('ResetCounters')) {
       const maintenanceActionId = 'button.reset_energy_counters';
-      await this.registerCapability(
-        homeyDevice,
-        maintenanceActionId,
-        capabilitiesOptions[maintenanceActionId as never],
-        async () => {
-          await this.ResetCounters(this.device.getChannel());
-        },
+      componentCapabilities.push(
+        await this.registerCapability(
+          homeyDevice,
+          maintenanceActionId,
+          capabilitiesOptions[maintenanceActionId as never],
+          async () => {
+            await this.ResetCounters(this.device.getChannel());
+          },
+        ),
       );
     }
+
+    return componentCapabilities;
   }
 
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: EM1DataStatus): Promise<void> {

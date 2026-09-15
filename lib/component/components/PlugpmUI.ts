@@ -87,7 +87,9 @@ export default class PlugpmUI extends ComponentWithoutId<
   public async registerHomeyDevice(
     _homeyDevice: ShellyLocalDevice,
     _methods: ComponentMethod<'PLUGPM_UI'>[],
-  ): Promise<void> {}
+  ): Promise<string[]> {
+    return [];
+  }
 
   public async onStatusUpdate(_homeyDevice: ShellyLocalDevice, _status: PlugpmUIStatus): Promise<void> {}
 

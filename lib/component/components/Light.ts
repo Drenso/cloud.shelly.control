@@ -1,4 +1,4 @@
-import { safeAddCapability, safeSetCapabilityValue, safeTriggerDeviceCard } from '../../safeFunctions.js';
+import { safeSetCapabilityValue, safeTriggerDeviceCard } from '../../safeFunctions.js';
 import { type AllowedPrimitives, ComponentWithId } from '../Component.js';
 import type { RpcChannel } from '../../rpc/channel/RpcChannel.js';
 import { parseNightModeActiveBetween } from '../util/NightMode.js';
@@ -325,7 +325,12 @@ export default class Light extends ComponentWithId<'Light', LightStatus, LightCo
     return ResetCounters(channel, this.id, params);
   }
 
-  public async registerHomeyDevice(homeyDevice: ShellyLocalDevice, methods: ComponentMethod<'Light'>[]): Promise<void> {
+  public async registerHomeyDevice(
+    homeyDevice: ShellyLocalDevice,
+    methods: ComponentMethod<'Light'>[],
+  ): Promise<string[]> {
+    const componentCapabilities: string[] = [];
+
     const onOffCapabilityListener = async (value: boolean): Promise<void> => {
       await this.Set(this.device.getChannel(), { on: value });
     };
@@ -358,16 +363,17 @@ export default class Light extends ComponentWithId<'Light', LightStatus, LightCo
     ] as const) {
       if (this.status[statusKey] !== undefined) {
         const capabilityOptions = capabilitiesOptions[homeyCapability as never];
-        await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions, capabilityListener);
+        componentCapabilities.push(
+          await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions, capabilityListener),
+        );
       }
     }
 
     if (this.status.temperature !== undefined) {
-      await safeAddCapability(homeyDevice, 'hidden.has_temperature_measurement');
+      componentCapabilities.push('hidden.has_temperature_measurement');
     }
 
-    await safeAddCapability(homeyDevice, 'alarm_generic');
-    await safeAddCapability(homeyDevice, 'shelly_errors');
+    componentCapabilities.push('alarm_generic', 'shelly_errors');
 
     for (const [method, homeyCapability, capabilityListener] of [
       ['ResetCounters', 'button.reset_energy_counters', resetEnergyListener],
@@ -375,9 +381,13 @@ export default class Light extends ComponentWithId<'Light', LightStatus, LightCo
     ] as const) {
       if (methods.includes(method)) {
         const capabilityOptions = capabilitiesOptions[homeyCapability];
-        await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions, capabilityListener);
+        componentCapabilities.push(
+          await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions, capabilityListener),
+        );
       }
     }
+
+    return componentCapabilities;
   }
 
   public async onStatusUpdate(

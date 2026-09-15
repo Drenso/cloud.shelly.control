@@ -5,48 +5,33 @@ import type Boolean from '../../lib/component/components/Boolean.js';
 import type Number from '../../lib/component/components/Number.js';
 import type { NumberStatus } from '../../lib/component/components/Number.js';
 import type { BooleanStatus } from '../../lib/component/components/Boolean.js';
-import { safeAddCapability, safeSetCapabilityValue, safeTriggerDeviceCard } from '../../lib/safeFunctions.js';
+import { safeSetCapabilityValue, safeTriggerDeviceCard } from '../../lib/safeFunctions.js';
 
 // https://shelly-api-docs.shelly.cloud/gen2/Devices/ShellyX/XT1/SmartWaterValve/
 export default class WaterValveLocalDevice extends ShellyLocalDevice {
   protected async registerComponent(
     virtualComponent: InstanceType<MappedComponent>,
     methods: ComponentMethod<NameSpace>[],
-  ): Promise<void> {
+  ): Promise<string[]> {
     const role = virtualComponent.attrs?.role;
     switch (role) {
       case 'open':
       case 'close':
         // Handled by position
-        return;
+        return [];
       case 'position': {
-        await this.registerValvePosition(virtualComponent as Number);
-        await virtualComponent.setInitialValues(this);
-        return;
+        return this.registerValvePosition(virtualComponent as Number);
       }
       case 'has_power': {
-        await this.registerPowerAlarm(virtualComponent as Boolean);
-        await virtualComponent.setInitialValues(this);
-        return;
+        return this.registerPowerAlarm(virtualComponent as Boolean);
       }
       default: {
-        await virtualComponent.registerHomeyDevice(this, methods as never);
-        await virtualComponent.setInitialValues(this);
+        return virtualComponent.registerHomeyDevice(this, methods as never);
       }
     }
   }
 
-  private async registerValvePosition(virtualComponent: Number): Promise<void> {
-    await safeAddCapability(this, 'valve_position');
-
-    await virtualComponent.registerCapability(this, 'valve_position', undefined, async (value: number) => {
-      const channel = this.virtualDevice?.getChannel();
-      if (channel === undefined) {
-        throw new Error(this.homey.__('error.host_unreachable'));
-      }
-      await virtualComponent.Set(channel, { value: value * 100 });
-    });
-
+  private async registerValvePosition(virtualComponent: Number): Promise<string[]> {
     virtualComponent.onStatusUpdate = async (
       _homeyDevice: ShellyLocalDevice,
       status: Partial<NumberStatus>,
@@ -55,11 +40,19 @@ export default class WaterValveLocalDevice extends ShellyLocalDevice {
         await safeSetCapabilityValue(this, 'valve_position', status.value / 100);
       }
     };
+
+    return [
+      await virtualComponent.registerCapability(this, 'valve_position', undefined, async (value: number) => {
+        const channel = this.virtualDevice?.getChannel();
+        if (channel === undefined) {
+          throw new Error(this.homey.__('error.host_unreachable'));
+        }
+        await virtualComponent.Set(channel, { value: value * 100 });
+      }),
+    ];
   }
 
-  private async registerPowerAlarm(virtualComponent: Boolean): Promise<void> {
-    await safeAddCapability(this, 'alarm_shelly_power_lost');
-
+  private async registerPowerAlarm(virtualComponent: Boolean): Promise<string[]> {
     virtualComponent.onStatusUpdate = async (
       _homeyDevice: ShellyLocalDevice,
       status: Partial<BooleanStatus>,
@@ -76,5 +69,7 @@ export default class WaterValveLocalDevice extends ShellyLocalDevice {
         }
       }
     };
+
+    return ['alarm_shelly_power_lost'];
   }
 }

@@ -77,7 +77,9 @@ export default class Number extends ComponentWithId<'Number', NumberStatus, Numb
   public async registerHomeyDevice(
     homeyDevice: ShellyLocalDevice,
     _methods: ComponentMethod<'Number'>[],
-  ): Promise<void> {
+  ): Promise<string[]> {
+    const componentCapabilities: string[] = [];
+
     const homeyCapability = 'virtual_number';
     const capabilityOptions: JsonObject = {
       title: this.getTitleTranslations(),
@@ -101,9 +103,13 @@ export default class Number extends ComponentWithId<'Number', NumberStatus, Numb
       }
     }
 
-    await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions, async (value: number) => {
-      await this.Set(this.device.getChannel(), { value });
-    });
+    componentCapabilities.push(
+      await this.registerCapability(homeyDevice, homeyCapability, capabilityOptions, async (value: number) => {
+        await this.Set(this.device.getChannel(), { value });
+      }),
+    );
+
+    return componentCapabilities;
   }
 
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Partial<NumberStatus>): Promise<void> {

@@ -108,7 +108,9 @@ export default class PowerStripUI extends ComponentWithoutId<
   public async registerHomeyDevice(
     _homeyDevice: ShellyLocalDevice,
     _methods: ComponentMethod<'POWERSTRIP_UI'>[],
-  ): Promise<void> {}
+  ): Promise<string[]> {
+    return [];
+  }
 
   public async onStatusUpdate(_homeyDevice: ShellyLocalDevice, _status: PowerStripUIStatus): Promise<void> {}
 

@@ -6,7 +6,7 @@ import { type RecursivePartial, translate } from '../../util.js';
 import SetConfig from './Temperature/SetConfig.js';
 import GetConfig from './Temperature/GetConfig.js';
 import GetStatus from './Temperature/GetStatus.js';
-import { safeAddCapability, safeTriggerDeviceCard } from '../../safeFunctions.js';
+import { safeTriggerDeviceCard } from '../../safeFunctions.js';
 
 export type TemperatureConfig = {
   // Identifier of the Temperature component instance
@@ -59,15 +59,20 @@ export default class Temperature extends ComponentWithId<
   public async registerHomeyDevice(
     homeyDevice: ShellyLocalDevice,
     _methods: ComponentMethod<'Temperature'>[],
-  ): Promise<void> {
+  ): Promise<string[]> {
+    const componentCapabilities: string[] = [];
+
     if (this.status.tC !== undefined) {
       const homeyCapability = 'measure_temperature';
-      await this.registerCapability(homeyDevice, homeyCapability, capabilitiesOptions[homeyCapability]);
-      await safeAddCapability(homeyDevice, 'hidden.has_temperature_measurement');
+      componentCapabilities.push(
+        await this.registerCapability(homeyDevice, homeyCapability, capabilitiesOptions[homeyCapability]),
+      );
+      componentCapabilities.push('hidden.has_temperature_measurement');
     }
 
-    await safeAddCapability(homeyDevice, 'alarm_generic');
-    await safeAddCapability(homeyDevice, 'shelly_errors');
+    componentCapabilities.push('alarm_generic', 'shelly_errors');
+
+    return componentCapabilities;
   }
 
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Partial<TemperatureStatus>): Promise<void> {
