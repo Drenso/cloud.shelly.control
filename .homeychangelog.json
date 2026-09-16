@@ -76,5 +76,8 @@
   },
   "0.16.0": {
     "en": "Add LAN support for Camera. Add Z-Wave support for Wave Shutter."
+  },
+  "0.16.1": {
+    "en": "2PM Gen4 (Zigbee mode): Support venetian tilt, fix inverted position, fix cover mode check. Resolve chosen status indicator to be reset on app restart. Fix m3/min to l/min conversation. No longer mark battery powered devices as unavailable during app start."
   }
 }
