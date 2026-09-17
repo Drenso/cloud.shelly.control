@@ -5844,6 +5844,37 @@
         "local"
       ],
       "connectivity": [
+        "matter"
+      ],
+      "icon": "/drivers/shelly1lg4_matter/assets/icon.svg",
+      "name": {
+        "en": "1L Gen4 - Matter"
+      },
+      "class": "socket",
+      "capabilities": [
+        "onoff"
+      ],
+      "matter": {
+        "vendorId": 5264,
+        "productId": 4149,
+        "learnmode": {
+          "instruction": {
+            "en": "Enable Matter in the Shelly web interface. The required information for pairing will be shown after enabling."
+          }
+        }
+      },
+      "images": {
+        "small": "/assets/drivers/shelly1lg4/images/small.png",
+        "large": "/assets/drivers/shelly1lg4/images/large.png",
+        "xlarge": "/assets/drivers/shelly1lg4/images/xlarge.png"
+      },
+      "id": "shelly1lg4_matter"
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
         "lan"
       ],
       "capabilities": [
