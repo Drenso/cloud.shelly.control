@@ -1,0 +1,19 @@
+{
+  "$extends": ["local"],
+  "name": {
+    "en": "2L Gen3 - LAN"
+  },
+  "class": "socket",
+  "capabilities": [
+    "onoff",
+    "shelly_input_switch",
+    "measure_temperature",
+    "hidden.has_input_button",
+    "hidden.has_input_switch"
+  ],
+  "images": {
+    "small": "/assets/drivers/shelly2lg3/images/small.png",
+    "large": "/assets/drivers/shelly2lg3/images/large.png",
+    "xlarge": "/assets/drivers/shelly2lg3/images/xlarge.png"
+  }
+}
