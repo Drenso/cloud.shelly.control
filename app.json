@@ -5500,6 +5500,22 @@
       "id": "shelly1lg3_local",
       "settings": [
         {
+          "id": "Input:enable",
+          "type": "checkbox",
+          "label": {
+            "en": "Input - Enabled"
+          },
+          "value": true
+        },
+        {
+          "id": "Input:invert",
+          "type": "checkbox",
+          "label": {
+            "en": "Input - Invert"
+          },
+          "value": true
+        },
+        {
           "id": "Switch:in_mode",
           "type": "dropdown",
           "label": {
