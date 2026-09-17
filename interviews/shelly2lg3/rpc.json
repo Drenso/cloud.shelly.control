@@ -2,7 +2,7 @@
   {
     "key": "ble",
     "status": {
-      "addr": "e4:b0:63:d5:38:4a,p",
+      "addr": "b0:81:84:ec:9a:d6,p",
       "flags": ["advertising"]
     },
     "config": {
@@ -19,11 +19,11 @@
   {
     "key": "cloud",
     "status": {
-      "connected": false
+      "connected": true
     },
     "config": {
-      "enable": false,
-      "server": "iot.shelly.cloud:6012/jrpc"
+      "enable": true,
+      "server": "shelly-238-eu.shelly.cloud:6022/jrpc"
     }
   },
   {
@@ -45,12 +45,12 @@
     "key": "input:1",
     "status": {
       "id": 1,
-      "state": false
+      "state": null
     },
     "config": {
       "id": 1,
       "name": null,
-      "type": "switch",
+      "type": "button",
       "enable": true,
       "invert": false,
       "factory_reset": true
@@ -85,10 +85,10 @@
     "config": {
       "enable": false,
       "server": null,
-      "client_id": "shelly1lg3-e4b063d53848",
+      "client_id": "shelly2lg3-b08184ec9ad4",
       "user": null,
       "ssl_ca": null,
-      "topic_prefix": "shelly1lg3-e4b063d53848",
+      "topic_prefix": "shelly2lg3-b08184ec9ad4",
       "rpc_ntf": true,
       "status_ntf": false,
       "use_client_cert": false,
@@ -110,44 +110,79 @@
         "switch_on_rst_ts": 0
       },
       "temperature": {
-        "tC": 33.1,
-        "tF": 91.6
+        "tC": 37.8,
+        "tF": 100
       }
     },
     "config": {
       "id": 0,
       "name": null,
-      "in_mode": "follow",
+      "in_mode": "detached",
       "in_locked": false,
-      "initial_state": "match_input",
+      "initial_state": "restore_last",
       "auto_on": false,
       "auto_on_delay": 60,
       "auto_off": false,
       "auto_off_delay": 60,
       "counts": {
         "enable": true
-      },
-      "input_id": 0
+      }
     },
     "attrs": {
       "inputs": [0]
     }
   },
   {
+    "key": "switch:1",
+    "status": {
+      "id": 1,
+      "source": "init",
+      "tag": null,
+      "output": false,
+      "counts": {
+        "on_time": 0,
+        "on_time_rst_ts": 0,
+        "switch_on": 0,
+        "switch_on_rst_ts": 0
+      },
+      "temperature": {
+        "tC": 37.8,
+        "tF": 100
+      }
+    },
+    "config": {
+      "id": 1,
+      "name": null,
+      "in_mode": "detached",
+      "in_locked": false,
+      "initial_state": "restore_last",
+      "auto_on": false,
+      "auto_on_delay": 60,
+      "auto_off": false,
+      "auto_off_delay": 60,
+      "counts": {
+        "enable": true
+      }
+    },
+    "attrs": {
+      "inputs": [1]
+    }
+  },
+  {
     "key": "sys",
     "status": {
-      "mac": "E4B063D53848",
+      "mac": "B08184EC9AD4",
       "restart_required": false,
-      "time": "16:10",
-      "unixtime": 1789654207,
-      "last_sync_ts": 1789654183,
-      "uptime": 30,
-      "ram_size": 274964,
-      "ram_free": 111696,
-      "ram_min_free": 95016,
+      "time": "16:06",
+      "unixtime": 1789654009,
+      "last_sync_ts": 1789653947,
+      "uptime": 67,
+      "ram_size": 274676,
+      "ram_free": 103660,
+      "ram_min_free": 85244,
       "fs_size": 851968,
       "fs_free": 356352,
-      "cfg_rev": 9,
+      "cfg_rev": 20,
       "kvs_rev": 0,
       "schedule_rev": 0,
       "webhook_rev": 0,
@@ -163,15 +198,15 @@
       "provisioning": {
         "duration": 300,
         "stage": "confirmed",
-        "started_at": 1789654183,
+        "started_at": 1789653947,
         "started_ut": 5
       }
     },
     "config": {
       "device": {
         "name": null,
-        "mac": "E4B063D53848",
-        "fw_id": "20260710-101114/2.0.0-g87fbfa4",
+        "mac": "B08184EC9AD4",
+        "fw_id": "20260710-101123/2.0.0-g87fbfa4",
         "discoverable": true,
         "eco_mode": false,
         "tls_check_cert_validity_time": true,
@@ -179,8 +214,8 @@
       },
       "location": {
         "tz": "Europe/Amsterdam",
-        "lat": 52.3072,
-        "lon": 6.5127
+        "lat": 52.2159,
+        "lon": 6.9091
       },
       "debug": {
         "level": 2,
@@ -199,7 +234,7 @@
         }
       },
       "ui_data": {
-        "device_revision": "0-9"
+        "device_revision": "0-20"
       },
       "rpc_udp": {
         "dst_addr": null,
@@ -208,23 +243,23 @@
       "sntp": {
         "server": "time.cloudflare.com"
       },
-      "cfg_rev": 9
+      "cfg_rev": 20
     }
   },
   {
     "key": "wifi",
     "status": {
-      "sta_ip": "192.168.222.150",
+      "sta_ip": "192.168.222.135",
       "status": "got ip",
       "ssid": "DrensoDev",
       "channel": 1,
-      "rssi": -46,
+      "rssi": -48,
       "bssid": "76:ac:b9:2c:8c:03",
-      "sta_ip6": ["fe80::e6b0:63ff:fed5:3848", "fd03:8586:4012:ec48:e6b0:63ff:fed5:3848"]
+      "sta_ip6": ["fe80::b281:84ff:feec:9ad4", "fd03:8586:4012:ec48:b281:84ff:feec:9ad4"]
     },
     "config": {
       "ap": {
-        "ssid": "Shelly1LG3-E4B063D53848",
+        "ssid": "Shelly2LG3-B08184EC9AD4",
         "is_open": true,
         "enable": true,
         "range_extender": {
@@ -264,7 +299,7 @@
     },
     "config": {
       "enable": true,
-      "server": "wss://192.168.222.137:6114",
+      "server": "ws://192.168.123.102:6113/",
       "ssl_ca": "*"
     }
   }
