@@ -682,6 +682,14 @@ export class VirtualDevice {
   ): Promise<void> {
     this.log('Recreating...');
 
+    for (const device of this.initializedHomeyDevices.values()) {
+      for (const component of this.initializedComponents.values()) {
+        await component
+          .unregisterHomeyDevice(device)
+          .catch(err => this.error(`Error while unregistering from component ${component.getComponentKey()}:`, err));
+      }
+    }
+
     this.app.homey.clearTimeout(this.sleepingKeepaliveTimeout);
     this.initialHomeyDeviceDefinitions = homeyDeviceDefinitions;
     this.initialComponentResponses = componentDefinitions;
