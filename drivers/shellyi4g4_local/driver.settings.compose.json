@@ -1,0 +1,20 @@
+[
+  {
+    "$extends": "Input0.group"
+  },
+  {
+    "$extends": "Input1.group"
+  },
+  {
+    "$extends": "Input2.group"
+  },
+  {
+    "$extends": "Input3.group"
+  },
+  {
+    "$extends": "installBleForwardingScript"
+  },
+  {
+    "$extends": "_shelly_device_info"
+  }
+]
