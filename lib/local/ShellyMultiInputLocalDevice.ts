@@ -1,7 +1,7 @@
 import type { NameSpace } from '../component/components/Shelly/ListMethods.js';
 import ShellyLocalDevice from './LocalDevice.js';
 
-export default abstract class  ShellyMultiInputLocalDevice extends ShellyLocalDevice {
+export default abstract class ShellyMultiInputLocalDevice extends ShellyLocalDevice {
   protected inputCount: number = 2;
 
   public async onSettings(event: SettingsEvent<Record<string, unknown>>): Promise<string | void> {
@@ -57,7 +57,9 @@ export default abstract class  ShellyMultiInputLocalDevice extends ShellyLocalDe
     }
 
     for (const inputIndex of this.getInputIndices()) {
-      await this.virtualComponents.get(`input:${inputIndex}`)?.handleSettings(this, splitSettings[`Input:${inputIndex}`] as never);
+      await this.virtualComponents
+        .get(`input:${inputIndex}`)
+        ?.handleSettings(this, splitSettings[`Input:${inputIndex}`] as never);
     }
 
     return super.onSettings(splitSettings['Rest']);
