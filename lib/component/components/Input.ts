@@ -472,7 +472,9 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
   public async handleEvent(event: NotificationEventParam): Promise<void> {
     if (BUTTON_EVENTS.includes(event.event as never)) {
       this.buttonMitt.emit('button', event.event as ButtonEvent);
+      return;
     }
+
     if (event.event === 'rate_limit_exceeded') {
       const rateLimitEvent = event as RateLimitEvent;
       this.device.error(
