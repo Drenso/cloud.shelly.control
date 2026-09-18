@@ -17,17 +17,17 @@ jobs:
           - ubuntu-latest
           - windows-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v6.1.0
         with:
           ref: ${{ github.ref_name }}
 
       - name: Use Node.js ${{ env.NODE_VERSION }}
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v6.5.0
         with:
           node-version: ${{ env.NODE_VERSION }}
 
       - name: Cache NPM dependencies
-        uses: actions/cache@v5
+        uses: actions/cache@v5.1.0
         with:
           path: |-
             ${{ case(
@@ -50,7 +50,7 @@ jobs:
           mv tools/interview-shelly-control tools/interview-shelly-control.exe
 
       - name: Release
-        uses: softprops/action-gh-release@v3
+        uses: softprops/action-gh-release@v3.0.3
         with:
           tag_name: ${{ github.ref_name }}
           prerelease: false
