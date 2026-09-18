@@ -129,7 +129,7 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
     return this.id.split('_')[0];
   }
 
-  protected async onPairMatchDevice(deviceInfo: ShellyGetDeviceInfoResponse): Promise<boolean> {
+  protected onPairMatchDevice(deviceInfo: ShellyGetDeviceInfoResponse): boolean {
     return deviceInfo.id.toLowerCase().startsWith(this.baseDriverId);
   }
 
@@ -201,7 +201,7 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
       }
 
       // Filter out devices that are not for this driver
-      if (!(await this.onPairMatchDevice(deviceInfo))) {
+      if (!this.onPairMatchDevice(deviceInfo)) {
         return undefined;
       }
 

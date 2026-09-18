@@ -2,7 +2,7 @@ import type { ShellyGetDeviceInfoResponse } from '../../lib/component/components
 import ShellyMultiSwitchInputLocalDriver from '../../lib/local/ShellyMultiSwitchInputLocalDriver.js';
 
 export default class ShellyPlus2PMSwitchLocalDriver extends ShellyMultiSwitchInputLocalDriver {
-  protected async onPairMatchDevice(deviceInfo: ShellyGetDeviceInfoResponse): Promise<boolean> {
+  protected onPairMatchDevice(deviceInfo: ShellyGetDeviceInfoResponse): boolean {
     return deviceInfo.id.toLowerCase().startsWith(this.baseDriverId) && deviceInfo.profile === 'switch';
   }
 }
