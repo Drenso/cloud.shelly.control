@@ -1,0 +1,22 @@
+{
+  "$extends": ["matter"],
+  "name": {
+    "en": "i4 (DC) Gen4 - Matter"
+  },
+  "class": "button",
+  "capabilities": ["onoff"],
+  "matter": {
+    "vendorId": 5264,
+    "productId": 6169,
+    "learnmode": {
+      "instruction": {
+        "en": "Enable Matter in the Shelly web interface. The required information for pairing will be shown after enabling."
+      }
+    }
+  },
+  "images": {
+    "small": "/assets/drivers/shellyi4g4/images/small.png",
+    "large": "/assets/drivers/shellyi4g4/images/large.png",
+    "xlarge": "/assets/drivers/shellyi4g4/images/xlarge.png"
+  }
+}
