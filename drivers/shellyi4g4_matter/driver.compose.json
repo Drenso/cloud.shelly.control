@@ -1,7 +1,7 @@
 {
   "$extends": ["matter"],
   "name": {
-    "en": "i4 (DC) Gen4 - Matter"
+    "en": "i4(DC) Gen4 - Matter"
   },
   "class": "button",
   "capabilities": ["onoff"],
