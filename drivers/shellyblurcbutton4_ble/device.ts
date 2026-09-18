@@ -14,7 +14,7 @@ export default class ShellyBluRCButton4BleDevice
   }
 
   public getButtonIndices(): number[] {
-    return [...Array(4)];
+    return [0, 1, 2, 3];
   }
 
   public getButtonEventTypes(): ButtonEventType[] {

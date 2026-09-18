@@ -31,7 +31,7 @@ export function registerButtonFlowCards(app: ShellyApp): void {
     query: string,
     { device }: { device: ButtonIndicesDeviceInterface },
   ): Array<{ name: string; id: number | 'any' }> => {
-    const items: Array<{ name: string; id: number | 'any' }> = device.getButtonIndices().map((_, index) => ({
+    const items: Array<{ name: string; id: number | 'any' }> = device.getButtonIndices().map(index => ({
       name: (app.homey.__(`button._name`) ?? '').replace('__number__', String(index + 1)),
       id: index,
     }));
