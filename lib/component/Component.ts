@@ -41,7 +41,11 @@ export abstract class Component<
     public status: Status,
     public config: Config,
     public attrs: undefined | VirtualComponentAttributes,
-  ) {}
+  ) {
+    this.initialize();
+  }
+
+  protected initialize(): void {}
 
   public abstract SetConfig(
     channel: RpcChannel,

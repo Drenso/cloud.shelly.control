@@ -41,6 +41,12 @@ export default class ShellyLocalDevice extends Homey.Device {
   }
 
   public async onDeleted(): Promise<void> {
+    for (const component of this.virtualComponents.values()) {
+      await component
+        .unregisterHomeyDevice(this)
+        .catch(err => this.error(`Error while unregistering from component ${component.getComponentKey()}:`, err));
+    }
+
     if (this.virtualDevice !== undefined) {
       this.virtualDevice
         .transition({ action: 'removed_homey_device', id: this.getTypedData().id })

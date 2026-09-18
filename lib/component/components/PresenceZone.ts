@@ -98,7 +98,37 @@ export default class PresenceZone extends ComponentWithId<
   public static readonly uiName = 'Presence Zone';
   public static readonly key = 'presencezone';
 
+  private homeyDevices = new Set<ShellyLocalDevice>();
+
   private readonly presenceMitt = createMitt<PresenceMittEvents>();
+
+  protected initialize(): void {
+    super.initialize();
+
+    this.presenceMitt.on('presence', async state => {
+      for (const homeyDevice of this.homeyDevices) {
+        await this.setCapability(homeyDevice, 'alarm_presence', state);
+      }
+    });
+    this.presenceMitt.on('detailed_presence', async objects => {
+      for (const homeyDevice of this.homeyDevices) {
+        await this.setCapability(homeyDevice, 'shelly_presence_count', objects.length);
+        await this.setCapability(homeyDevice, 'alarm_presence', objects.length > 0);
+        const countUpdate = { zone: this.id, value: objects.length };
+        await safeTriggerDeviceCard(homeyDevice, 'presence_count_changed', countUpdate, { zone: this.id });
+      }
+    });
+    this.presenceMitt.on('enter', async () => {
+      for (const homeyDevice of this.homeyDevices) {
+        await safeTriggerDeviceCard(homeyDevice, 'presence_enter', { zone: this.id }, { zone: this.id });
+      }
+    });
+    this.presenceMitt.on('leave', async () => {
+      for (const homeyDevice of this.homeyDevices) {
+        await safeTriggerDeviceCard(homeyDevice, 'presence_exit', { zone: this.id }, { zone: this.id });
+      }
+    });
+  }
 
   public async registerHomeyDevice(
     homeyDevice: ShellyLocalDevice,
@@ -118,27 +148,13 @@ export default class PresenceZone extends ComponentWithId<
 
     componentCapabilities.push('hidden.has_presence_sensor');
 
-    this.presenceMitt.on('presence', state => {
-      this.setCapability(homeyDevice, 'alarm_presence', state);
-    });
-    this.presenceMitt.on('detailed_presence', objects => {
-      this.setCapability(homeyDevice, 'shelly_presence_count', objects.length);
-      this.setCapability(homeyDevice, 'alarm_presence', objects.length > 0);
-      const countUpdate = { zone: this.id, value: objects.length };
-      safeTriggerDeviceCard(homeyDevice, 'presence_count_changed', countUpdate, { zone: this.id });
-    });
-    this.presenceMitt.on('enter', () => {
-      safeTriggerDeviceCard(homeyDevice, 'presence_enter', { zone: this.id }, { zone: this.id });
-    });
-    this.presenceMitt.on('leave', () => {
-      safeTriggerDeviceCard(homeyDevice, 'presence_exit', { zone: this.id }, { zone: this.id });
-    });
+    this.homeyDevices.add(homeyDevice);
 
     return componentCapabilities;
   }
 
-  public async unregisterHomeyDevice(_homeyDevice: ShellyLocalDevice): Promise<void> {
-    this.presenceMitt.all.clear();
+  public async unregisterHomeyDevice(homeyDevice: ShellyLocalDevice): Promise<void> {
+    this.homeyDevices.delete(homeyDevice);
   }
 
   public static registerFlowCards(app: ShellyApp): void {

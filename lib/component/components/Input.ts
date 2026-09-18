@@ -339,7 +339,20 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
 
   public readonly CheckExpression = CheckExpression;
 
+  private homeyDevices = new Set<ShellyLocalDevice>();
+
   private readonly buttonMitt = createMitt<ButtonMittEvents>();
+
+  protected initialize(): void {
+    super.initialize();
+
+    this.buttonMitt.on('button', async type => {
+      const buttonUpdate = { value: type, input: this.id };
+      for (const homeyDevice of this.homeyDevices) {
+        await safeTriggerDeviceCard(homeyDevice, 'input_button_event', buttonUpdate, buttonUpdate);
+      }
+    });
+  }
 
   public async ResetCounters(
     channel: RpcChannel,
@@ -383,16 +396,13 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
       }
     }
 
-    this.buttonMitt.on('button', type => {
-      const buttonUpdate = { value: type, input: this.id };
-      safeTriggerDeviceCard(homeyDevice, 'input_button_event', buttonUpdate, buttonUpdate);
-    });
+    this.homeyDevices.add(homeyDevice);
 
     return componentCapabilities;
   }
 
-  public async unregisterHomeyDevice(_homeyDevice: ShellyLocalDevice): Promise<void> {
-    this.buttonMitt.all.clear();
+  public async unregisterHomeyDevice(homeyDevice: ShellyLocalDevice): Promise<void> {
+    this.homeyDevices.delete(homeyDevice);
   }
 
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Partial<InputStatus>): Promise<void> {

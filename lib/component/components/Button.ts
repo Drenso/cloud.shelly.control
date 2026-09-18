@@ -64,7 +64,24 @@ export default class Button extends ComponentWithId<'Button', ButtonStatus, Butt
   public static readonly uiName = 'Button';
   public static readonly key = 'button';
 
+  private homeyDevices = new Set<ShellyLocalDevice>();
+
   private readonly buttonMitt = createMitt<ButtonMittEvents>();
+
+  protected initialize(): void {
+    super.initialize();
+
+    this.buttonMitt.on('event', async event => {
+      for (const homeyDevice of this.homeyDevices) {
+        await safeTriggerDeviceCard(
+          homeyDevice,
+          'virtual_button_triggered',
+          { id: this.id, event: event },
+          { id: this.id, event: event },
+        );
+      }
+    });
+  }
 
   public async Trigger(channel: RpcChannel, params: ButtonTriggerParams): ReturnType<typeof Trigger> {
     return Trigger(channel, this.id, params);
@@ -94,20 +111,13 @@ export default class Button extends ComponentWithId<'Button', ButtonStatus, Butt
       }),
     );
 
-    this.buttonMitt.on('event', event => {
-      safeTriggerDeviceCard(
-        homeyDevice,
-        'virtual_button_triggered',
-        { id: this.id, event: event },
-        { id: this.id, event: event },
-      );
-    });
+    this.homeyDevices.add(homeyDevice);
 
     return componentCapabilities;
   }
 
-  public async unregisterHomeyDevice(_homeyDevice: ShellyLocalDevice): Promise<void> {
-    this.buttonMitt.all.clear();
+  public async unregisterHomeyDevice(homeyDevice: ShellyLocalDevice): Promise<void> {
+    this.homeyDevices.delete(homeyDevice);
   }
 
   public async handleEvent(event: NotificationEventParam): Promise<void> {
