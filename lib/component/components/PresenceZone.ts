@@ -102,7 +102,7 @@ export default class PresenceZone extends ComponentWithId<
 
   private readonly presenceMitt = createMitt<PresenceMittEvents>();
 
-  protected initialize(): void {
+  public initialize(): void {
     super.initialize();
 
     this.presenceMitt.on('presence', async state => {

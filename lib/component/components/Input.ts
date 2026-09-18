@@ -343,7 +343,7 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
 
   private readonly buttonMitt = createMitt<ButtonMittEvents>();
 
-  protected initialize(): void {
+  public initialize(): void {
     super.initialize();
 
     this.buttonMitt.on('button', async type => {

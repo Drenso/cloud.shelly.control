@@ -68,7 +68,7 @@ export default class Button extends ComponentWithId<'Button', ButtonStatus, Butt
 
   private readonly buttonMitt = createMitt<ButtonMittEvents>();
 
-  protected initialize(): void {
+  public initialize(): void {
     super.initialize();
 
     this.buttonMitt.on('event', async event => {

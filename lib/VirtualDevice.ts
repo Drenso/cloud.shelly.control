@@ -667,6 +667,7 @@ export class VirtualDevice {
         component.config as ConstructorParameters<MappedComponent>[2],
         component.attrs,
       );
+      componentInstance.initialize();
       this.initializedComponents.set(component.key, componentInstance);
     }
   }
