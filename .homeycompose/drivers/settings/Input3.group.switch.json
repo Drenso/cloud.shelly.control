@@ -1,0 +1,44 @@
+{
+  "type": "group",
+  "label": "Input 3",
+  "children": [
+    {
+      "id": "Input:3:enable",
+      "type": "checkbox",
+      "value": true,
+      "label": {
+        "en": "Input 3 - Enabled"
+      }
+    },
+    {
+      "id": "Input:3:type",
+      "type": "dropdown",
+      "label": {
+        "en": "Input 3 - Type"
+      },
+      "value": "switch",
+      "values": [
+        {
+          "id": "switch",
+          "label": {
+            "en": "Switch"
+          }
+        },
+        {
+          "id": "button",
+          "label": {
+            "en": "Button"
+          }
+        }
+      ]
+    },
+    {
+      "id": "Input:3:invert",
+      "type": "checkbox",
+      "value": true,
+      "label": {
+        "en": "Input 3 - Invert"
+      }
+    }
+  ]
+}

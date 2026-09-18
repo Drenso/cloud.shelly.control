@@ -15644,7 +15644,7 @@
       "id": "shellyi4g3_local",
       "settings": [
         {
-          "id": "Input0.group",
+          "id": "Input0.group.switch",
           "type": "group",
           "label": "Input 0",
           "children": [
@@ -15657,6 +15657,28 @@
               }
             },
             {
+              "id": "Input:0:type",
+              "type": "dropdown",
+              "label": {
+                "en": "Input 0 - Type"
+              },
+              "value": "switch",
+              "values": [
+                {
+                  "id": "switch",
+                  "label": {
+                    "en": "Switch"
+                  }
+                },
+                {
+                  "id": "button",
+                  "label": {
+                    "en": "Button"
+                  }
+                }
+              ]
+            },
+            {
               "id": "Input:0:invert",
               "type": "checkbox",
               "value": true,
@@ -15667,7 +15689,7 @@
           ]
         },
         {
-          "id": "Input1.group",
+          "id": "Input1.group.switch",
           "type": "group",
           "label": "Input 1",
           "children": [
@@ -15680,6 +15702,28 @@
               }
             },
             {
+              "id": "Input:1:type",
+              "type": "dropdown",
+              "label": {
+                "en": "Input 1 - Type"
+              },
+              "value": "switch",
+              "values": [
+                {
+                  "id": "switch",
+                  "label": {
+                    "en": "Switch"
+                  }
+                },
+                {
+                  "id": "button",
+                  "label": {
+                    "en": "Button"
+                  }
+                }
+              ]
+            },
+            {
               "id": "Input:1:invert",
               "type": "checkbox",
               "value": true,
@@ -15690,7 +15734,7 @@
           ]
         },
         {
-          "id": "Input2.group",
+          "id": "Input2.group.switch",
           "type": "group",
           "label": "Input 2",
           "children": [
@@ -15703,6 +15747,28 @@
               }
             },
             {
+              "id": "Input:2:type",
+              "type": "dropdown",
+              "label": {
+                "en": "Input 2 - Type"
+              },
+              "value": "switch",
+              "values": [
+                {
+                  "id": "switch",
+                  "label": {
+                    "en": "Switch"
+                  }
+                },
+                {
+                  "id": "button",
+                  "label": {
+                    "en": "Button"
+                  }
+                }
+              ]
+            },
+            {
               "id": "Input:2:invert",
               "type": "checkbox",
               "value": true,
@@ -15713,7 +15779,7 @@
           ]
         },
         {
-          "id": "Input3.group",
+          "id": "Input3.group.switch",
           "type": "group",
           "label": "Input 3",
           "children": [
@@ -15724,6 +15790,28 @@
               "label": {
                 "en": "Input 3 - Enabled"
               }
+            },
+            {
+              "id": "Input:3:type",
+              "type": "dropdown",
+              "label": {
+                "en": "Input 3 - Type"
+              },
+              "value": "switch",
+              "values": [
+                {
+                  "id": "switch",
+                  "label": {
+                    "en": "Switch"
+                  }
+                },
+                {
+                  "id": "button",
+                  "label": {
+                    "en": "Button"
+                  }
+                }
+              ]
             },
             {
               "id": "Input:3:invert",
@@ -15851,7 +15939,7 @@
       "id": "shellyi4g4_local",
       "settings": [
         {
-          "id": "Input0.group",
+          "id": "Input0.group.switch",
           "type": "group",
           "label": "Input 0",
           "children": [
@@ -15864,6 +15952,28 @@
               }
             },
             {
+              "id": "Input:0:type",
+              "type": "dropdown",
+              "label": {
+                "en": "Input 0 - Type"
+              },
+              "value": "switch",
+              "values": [
+                {
+                  "id": "switch",
+                  "label": {
+                    "en": "Switch"
+                  }
+                },
+                {
+                  "id": "button",
+                  "label": {
+                    "en": "Button"
+                  }
+                }
+              ]
+            },
+            {
               "id": "Input:0:invert",
               "type": "checkbox",
               "value": true,
@@ -15874,7 +15984,7 @@
           ]
         },
         {
-          "id": "Input1.group",
+          "id": "Input1.group.switch",
           "type": "group",
           "label": "Input 1",
           "children": [
@@ -15887,6 +15997,28 @@
               }
             },
             {
+              "id": "Input:1:type",
+              "type": "dropdown",
+              "label": {
+                "en": "Input 1 - Type"
+              },
+              "value": "switch",
+              "values": [
+                {
+                  "id": "switch",
+                  "label": {
+                    "en": "Switch"
+                  }
+                },
+                {
+                  "id": "button",
+                  "label": {
+                    "en": "Button"
+                  }
+                }
+              ]
+            },
+            {
               "id": "Input:1:invert",
               "type": "checkbox",
               "value": true,
@@ -15897,7 +16029,7 @@
           ]
         },
         {
-          "id": "Input2.group",
+          "id": "Input2.group.switch",
           "type": "group",
           "label": "Input 2",
           "children": [
@@ -15910,6 +16042,28 @@
               }
             },
             {
+              "id": "Input:2:type",
+              "type": "dropdown",
+              "label": {
+                "en": "Input 2 - Type"
+              },
+              "value": "switch",
+              "values": [
+                {
+                  "id": "switch",
+                  "label": {
+                    "en": "Switch"
+                  }
+                },
+                {
+                  "id": "button",
+                  "label": {
+                    "en": "Button"
+                  }
+                }
+              ]
+            },
+            {
               "id": "Input:2:invert",
               "type": "checkbox",
               "value": true,
@@ -15920,7 +16074,7 @@
           ]
         },
         {
-          "id": "Input3.group",
+          "id": "Input3.group.switch",
           "type": "group",
           "label": "Input 3",
           "children": [
@@ -15931,6 +16085,28 @@
               "label": {
                 "en": "Input 3 - Enabled"
               }
+            },
+            {
+              "id": "Input:3:type",
+              "type": "dropdown",
+              "label": {
+                "en": "Input 3 - Type"
+              },
+              "value": "switch",
+              "values": [
+                {
+                  "id": "switch",
+                  "label": {
+                    "en": "Switch"
+                  }
+                },
+                {
+                  "id": "button",
+                  "label": {
+                    "en": "Button"
+                  }
+                }
+              ]
             },
             {
               "id": "Input:3:invert",

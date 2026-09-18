@@ -1,15 +1,15 @@
 [
   {
-    "$extends": "Input0.group"
+    "$extends": "Input0.group.switch"
   },
   {
-    "$extends": "Input1.group"
+    "$extends": "Input1.group.switch"
   },
   {
-    "$extends": "Input2.group"
+    "$extends": "Input2.group.switch"
   },
   {
-    "$extends": "Input3.group"
+    "$extends": "Input3.group.switch"
   },
   {
     "$extends": "installBleForwardingScript"
