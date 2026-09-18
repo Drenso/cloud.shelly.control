@@ -1,0 +1,22 @@
+{
+  "type": "group",
+  "label": "Input 1",
+  "children": [
+    {
+      "id": "Input:1:enable",
+      "type": "checkbox",
+      "value": true,
+      "label": {
+        "en": "Input 1 - Enabled"
+      }
+    },
+    {
+      "id": "Input:1:invert",
+      "type": "checkbox",
+      "value": true,
+      "label": {
+        "en": "Input 1 - Invert"
+      }
+    }
+  ]
+}

@@ -1,23 +1,9 @@
 [
   {
-    "type": "group",
-    "label": "Input 0",
-    "children": [
-      {
-        "$extends": "Input.enable",
-        "id": "Input:0:enable",
-        "label": {
-          "en": "Input 0 - Enabled"
-        }
-      },
-      {
-        "$extends": "Input.invert",
-        "id": "Input:0:invert",
-        "label": {
-          "en": "Input 0 - Invert"
-        }
-      }
-    ]
+    "$extends": "Input0.group"
+  },
+  {
+    "$extends": "Input1.group"
   },
   {
     "type": "group",

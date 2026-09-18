@@ -1,25 +1,26 @@
 import type { NameSpace } from '../component/components/Shelly/ListMethods.js';
 import ShellyLocalDevice from './LocalDevice.js';
 
-export default abstract class ShellyMultiInputLocalDevice extends ShellyLocalDevice {
+export default abstract class  ShellyMultiInputLocalDevice extends ShellyLocalDevice {
+  protected inputCount: number = 2;
+
   public async onSettings(event: SettingsEvent<Record<string, unknown>>): Promise<string | void> {
     const splitSettings: Record<string, SettingsEvent<Record<string, unknown>>> = {
-      'Input:0': {
-        changedKeys: [],
-        oldSettings: {},
-        newSettings: {},
-      },
-      'Input:1': {
-        changedKeys: [],
-        oldSettings: {},
-        newSettings: {},
-      },
       Rest: {
         changedKeys: [],
         oldSettings: {},
         newSettings: {},
       },
     };
+
+    for (const inputIndex of this.getInputIndices()) {
+      splitSettings[`Input:${inputIndex}`] = {
+        changedKeys: [],
+        oldSettings: {},
+        newSettings: {},
+      };
+    }
+
     // Remap changed keys
     for (const changedKey of event.changedKeys) {
       const [namespace, identifier, setting] = changedKey.split(':') as [string, string, string | undefined];
@@ -55,8 +56,9 @@ export default abstract class ShellyMultiInputLocalDevice extends ShellyLocalDev
       }
     }
 
-    await this.virtualComponents.get('input:0')?.handleSettings(this, splitSettings['Input:0'] as never);
-    await this.virtualComponents.get('input:1')?.handleSettings(this, splitSettings['Input:1'] as never);
+    for (const inputIndex of this.getInputIndices()) {
+      await this.virtualComponents.get(`input:${inputIndex}`)?.handleSettings(this, splitSettings[`Input:${inputIndex}`] as never);
+    }
 
     return super.onSettings(splitSettings['Rest']);
   }
@@ -78,5 +80,9 @@ export default abstract class ShellyMultiInputLocalDevice extends ShellyLocalDev
     } else {
       await super.setComponentSettings(component, id, settings);
     }
+  }
+
+  protected getInputIndices(): number[] {
+    return [...Array(this.inputCount)].map((_, index) => index);
   }
 }

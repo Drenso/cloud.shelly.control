@@ -4422,46 +4422,48 @@
       "id": "shelly0110dimg4_local",
       "settings": [
         {
+          "id": "Input0.group",
           "type": "group",
           "label": "Input 0",
           "children": [
             {
               "id": "Input:0:enable",
+              "type": "checkbox",
+              "value": true,
               "label": {
                 "en": "Input 0 - Enabled"
-              },
-              "type": "checkbox",
-              "value": true
+              }
             },
             {
               "id": "Input:0:invert",
+              "type": "checkbox",
+              "value": true,
               "label": {
                 "en": "Input 0 - Invert"
-              },
-              "type": "checkbox",
-              "value": true
+              }
             }
           ]
         },
         {
+          "id": "Input1.group",
           "type": "group",
           "label": "Input 1",
           "children": [
             {
               "id": "Input:1:enable",
+              "type": "checkbox",
+              "value": true,
               "label": {
                 "en": "Input 1 - Enabled"
-              },
-              "type": "checkbox",
-              "value": true
+              }
             },
             {
               "id": "Input:1:invert",
+              "type": "checkbox",
+              "value": true,
               "label": {
                 "en": "Input 1 - Invert"
-              },
-              "type": "checkbox",
-              "value": true
+              }
             }
           ]
         },
@@ -8232,46 +8234,48 @@
       "id": "shelly2pmg4_cover_local",
       "settings": [
         {
+          "id": "Input0.group",
           "type": "group",
           "label": "Input 0",
           "children": [
             {
               "id": "Input:0:enable",
+              "type": "checkbox",
+              "value": true,
               "label": {
                 "en": "Input 0 - Enabled"
-              },
-              "type": "checkbox",
-              "value": true
+              }
             },
             {
               "id": "Input:0:invert",
+              "type": "checkbox",
+              "value": true,
               "label": {
                 "en": "Input 0 - Invert"
-              },
-              "type": "checkbox",
-              "value": true
+              }
             }
           ]
         },
         {
+          "id": "Input1.group",
           "type": "group",
           "label": "Input 1",
           "children": [
             {
               "id": "Input:1:enable",
+              "type": "checkbox",
+              "value": true,
               "label": {
                 "en": "Input 1 - Enabled"
-              },
-              "type": "checkbox",
-              "value": true
+              }
             },
             {
               "id": "Input:1:invert",
+              "type": "checkbox",
+              "value": true,
               "label": {
                 "en": "Input 1 - Invert"
-              },
-              "type": "checkbox",
-              "value": true
+              }
             }
           ]
         },
@@ -12502,24 +12506,48 @@
       "id": "shellydimmerg3_local",
       "settings": [
         {
+          "id": "Input0.group",
           "type": "group",
           "label": "Input 0",
           "children": [
             {
               "id": "Input:0:enable",
+              "type": "checkbox",
+              "value": true,
               "label": {
                 "en": "Input 0 - Enabled"
-              },
-              "type": "checkbox",
-              "value": true
+              }
             },
             {
               "id": "Input:0:invert",
+              "type": "checkbox",
+              "value": true,
               "label": {
                 "en": "Input 0 - Invert"
-              },
+              }
+            }
+          ]
+        },
+        {
+          "id": "Input1.group",
+          "type": "group",
+          "label": "Input 1",
+          "children": [
+            {
+              "id": "Input:1:enable",
               "type": "checkbox",
-              "value": true
+              "value": true,
+              "label": {
+                "en": "Input 1 - Enabled"
+              }
+            },
+            {
+              "id": "Input:1:invert",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Input 1 - Invert"
+              }
             }
           ]
         },
@@ -12949,24 +12977,48 @@
       "id": "shellydimmerg4_local",
       "settings": [
         {
+          "id": "Input0.group",
           "type": "group",
           "label": "Input 0",
           "children": [
             {
               "id": "Input:0:enable",
+              "type": "checkbox",
+              "value": true,
               "label": {
                 "en": "Input 0 - Enabled"
-              },
-              "type": "checkbox",
-              "value": true
+              }
             },
             {
               "id": "Input:0:invert",
+              "type": "checkbox",
+              "value": true,
               "label": {
                 "en": "Input 0 - Invert"
-              },
+              }
+            }
+          ]
+        },
+        {
+          "id": "Input1.group",
+          "type": "group",
+          "label": "Input 1",
+          "children": [
+            {
+              "id": "Input:1:enable",
               "type": "checkbox",
-              "value": true
+              "value": true,
+              "label": {
+                "en": "Input 1 - Enabled"
+              }
+            },
+            {
+              "id": "Input:1:invert",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Input 1 - Invert"
+              }
             }
           ]
         },
@@ -16803,46 +16855,48 @@
       "id": "shellyplus010v_local",
       "settings": [
         {
+          "id": "Input0.group",
           "type": "group",
           "label": "Input 0",
           "children": [
             {
               "id": "Input:0:enable",
+              "type": "checkbox",
+              "value": true,
               "label": {
                 "en": "Input 0 - Enabled"
-              },
-              "type": "checkbox",
-              "value": true
+              }
             },
             {
               "id": "Input:0:invert",
+              "type": "checkbox",
+              "value": true,
               "label": {
                 "en": "Input 0 - Invert"
-              },
-              "type": "checkbox",
-              "value": true
+              }
             }
           ]
         },
         {
+          "id": "Input1.group",
           "type": "group",
           "label": "Input 1",
           "children": [
             {
               "id": "Input:1:enable",
+              "type": "checkbox",
+              "value": true,
               "label": {
                 "en": "Input 1 - Enabled"
-              },
-              "type": "checkbox",
-              "value": true
+              }
             },
             {
               "id": "Input:1:invert",
+              "type": "checkbox",
+              "value": true,
               "label": {
                 "en": "Input 1 - Invert"
-              },
-              "type": "checkbox",
-              "value": true
+              }
             }
           ]
         },
@@ -17419,46 +17473,48 @@
       "id": "shellyplus2pm_cover_local",
       "settings": [
         {
+          "id": "Input0.group",
           "type": "group",
           "label": "Input 0",
           "children": [
             {
               "id": "Input:0:enable",
+              "type": "checkbox",
+              "value": true,
               "label": {
                 "en": "Input 0 - Enabled"
-              },
-              "type": "checkbox",
-              "value": true
+              }
             },
             {
               "id": "Input:0:invert",
+              "type": "checkbox",
+              "value": true,
               "label": {
                 "en": "Input 0 - Invert"
-              },
-              "type": "checkbox",
-              "value": true
+              }
             }
           ]
         },
         {
+          "id": "Input1.group",
           "type": "group",
           "label": "Input 1",
           "children": [
             {
               "id": "Input:1:enable",
+              "type": "checkbox",
+              "value": true,
               "label": {
                 "en": "Input 1 - Enabled"
-              },
-              "type": "checkbox",
-              "value": true
+              }
             },
             {
               "id": "Input:1:invert",
+              "type": "checkbox",
+              "value": true,
               "label": {
                 "en": "Input 1 - Invert"
-              },
-              "type": "checkbox",
-              "value": true
+              }
             }
           ]
         },
