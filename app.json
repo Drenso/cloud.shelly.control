@@ -5502,20 +5502,50 @@
       "id": "shelly1lg3_local",
       "settings": [
         {
-          "id": "Input:enable",
-          "type": "checkbox",
-          "label": {
-            "en": "Input - Enabled"
-          },
-          "value": true
+          "id": "Input0.group",
+          "type": "group",
+          "label": "Input 0",
+          "children": [
+            {
+              "id": "Input:0:enable",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Input 0 - Enabled"
+              }
+            },
+            {
+              "id": "Input:0:invert",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Input 0 - Invert"
+              }
+            }
+          ]
         },
         {
-          "id": "Input:invert",
-          "type": "checkbox",
-          "label": {
-            "en": "Input - Invert"
-          },
-          "value": true
+          "id": "Input1.group",
+          "type": "group",
+          "label": "Input 1",
+          "children": [
+            {
+              "id": "Input:1:enable",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Input 1 - Enabled"
+              }
+            },
+            {
+              "id": "Input:1:invert",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Input 1 - Invert"
+              }
+            }
+          ]
         },
         {
           "id": "Switch:in_mode",
@@ -5711,20 +5741,50 @@
       "id": "shelly1lg4_local",
       "settings": [
         {
-          "id": "Input:enable",
-          "type": "checkbox",
-          "label": {
-            "en": "Input - Enabled"
-          },
-          "value": true
+          "id": "Input0.group",
+          "type": "group",
+          "label": "Input 0",
+          "children": [
+            {
+              "id": "Input:0:enable",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Input 0 - Enabled"
+              }
+            },
+            {
+              "id": "Input:0:invert",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Input 0 - Invert"
+              }
+            }
+          ]
         },
         {
-          "id": "Input:invert",
-          "type": "checkbox",
-          "label": {
-            "en": "Input - Invert"
-          },
-          "value": true
+          "id": "Input1.group",
+          "type": "group",
+          "label": "Input 1",
+          "children": [
+            {
+              "id": "Input:1:enable",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Input 1 - Enabled"
+              }
+            },
+            {
+              "id": "Input:1:invert",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Input 1 - Invert"
+              }
+            }
+          ]
         },
         {
           "id": "Switch:in_mode",
@@ -7755,20 +7815,50 @@
       "id": "shelly2lg3_local",
       "settings": [
         {
-          "id": "Input:enable",
-          "type": "checkbox",
-          "label": {
-            "en": "Input - Enabled"
-          },
-          "value": true
+          "id": "Input0.group",
+          "type": "group",
+          "label": "Input 0",
+          "children": [
+            {
+              "id": "Input:0:enable",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Input 0 - Enabled"
+              }
+            },
+            {
+              "id": "Input:0:invert",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Input 0 - Invert"
+              }
+            }
+          ]
         },
         {
-          "id": "Input:invert",
-          "type": "checkbox",
-          "label": {
-            "en": "Input - Invert"
-          },
-          "value": true
+          "id": "Input1.group",
+          "type": "group",
+          "label": "Input 1",
+          "children": [
+            {
+              "id": "Input:1:enable",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Input 1 - Enabled"
+              }
+            },
+            {
+              "id": "Input:1:invert",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Input 1 - Invert"
+              }
+            }
+          ]
         },
         {
           "id": "Switch:in_mode",
@@ -7975,20 +8065,50 @@
       "id": "shelly2lg4_local",
       "settings": [
         {
-          "id": "Input:enable",
-          "type": "checkbox",
-          "label": {
-            "en": "Input - Enabled"
-          },
-          "value": true
+          "id": "Input0.group",
+          "type": "group",
+          "label": "Input 0",
+          "children": [
+            {
+              "id": "Input:0:enable",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Input 0 - Enabled"
+              }
+            },
+            {
+              "id": "Input:0:invert",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Input 0 - Invert"
+              }
+            }
+          ]
         },
         {
-          "id": "Input:invert",
-          "type": "checkbox",
-          "label": {
-            "en": "Input - Invert"
-          },
-          "value": true
+          "id": "Input1.group",
+          "type": "group",
+          "label": "Input 1",
+          "children": [
+            {
+              "id": "Input:1:enable",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Input 1 - Enabled"
+              }
+            },
+            {
+              "id": "Input:1:invert",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Input 1 - Invert"
+              }
+            }
+          ]
         },
         {
           "id": "Switch:in_mode",

@@ -1,3 +1,3 @@
-import ShellyLocalDevice from '../../lib/local/LocalDevice.js';
+import ShellyMultiInputLocalDevice from '../../lib/local/ShellyMultiInputLocalDevice.js';
 
-export default class Shelly2LGen4LocalDevice extends ShellyLocalDevice {}
+export default class Shelly2LGen4LocalDevice extends ShellyMultiInputLocalDevice {}

@@ -1,9 +1,9 @@
 [
   {
-    "$extends": "Input.enable"
+    "$extends": "Input0.group"
   },
   {
-    "$extends": "Input.invert"
+    "$extends": "Input1.group"
   },
   {
     "$extends": "Switch.in_mode"
