@@ -1,0 +1,13 @@
+{
+  "$extends": ["local"],
+  "name": {
+    "en": "i4 Gen3 - LAN"
+  },
+  "class": "button",
+  "capabilities": ["shelly_input_switch", "measure_temperature", "hidden.has_input_button", "hidden.has_input_switch"],
+  "images": {
+    "small": "/assets/drivers/shellyi4g3/images/small.png",
+    "large": "/assets/drivers/shellyi4g3/images/large.png",
+    "xlarge": "/assets/drivers/shellyi4g3/images/xlarge.png"
+  }
+}
