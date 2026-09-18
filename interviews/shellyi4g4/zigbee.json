@@ -1,0 +1,364 @@
+{
+  "ids": {
+    "modelId": "I4",
+    "manufacturerName": "Shelly"
+  },
+  "endpoints": {
+    "ieeeAddress": "58:e6:c5:ff:fe:37:9d:54",
+    "networkAddress": 28698,
+    "modelId": "I4",
+    "manufacturerName": "Shelly",
+    "endpointDescriptors": [
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 28698,
+        "_reserved": 22,
+        "endpointId": 1,
+        "applicationProfileId": 260,
+        "applicationDeviceId": 0,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 0,
+        "inputClusters": [0, 3, 7],
+        "outputClusters": [4, 6, 3, 5]
+      },
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 28698,
+        "_reserved": 18,
+        "endpointId": 2,
+        "applicationProfileId": 260,
+        "applicationDeviceId": 0,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 0,
+        "inputClusters": [7],
+        "outputClusters": [4, 6, 3, 5]
+      },
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 28698,
+        "_reserved": 18,
+        "endpointId": 3,
+        "applicationProfileId": 260,
+        "applicationDeviceId": 0,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 0,
+        "inputClusters": [7],
+        "outputClusters": [4, 6, 3, 5]
+      },
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 28698,
+        "_reserved": 18,
+        "endpointId": 4,
+        "applicationProfileId": 260,
+        "applicationDeviceId": 0,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 0,
+        "inputClusters": [7],
+        "outputClusters": [4, 6, 3, 5]
+      },
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 28698,
+        "_reserved": 18,
+        "endpointId": 5,
+        "applicationProfileId": 260,
+        "applicationDeviceId": 7,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 0,
+        "inputClusters": [],
+        "outputClusters": [4, 258, 8, 6, 3]
+      },
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 28698,
+        "_reserved": 18,
+        "endpointId": 6,
+        "applicationProfileId": 260,
+        "applicationDeviceId": 7,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 0,
+        "inputClusters": [],
+        "outputClusters": [4, 258, 8, 6, 3]
+      },
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 28698,
+        "_reserved": 12,
+        "endpointId": 239,
+        "applicationProfileId": 49153,
+        "applicationDeviceId": 8193,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 0,
+        "inputClusters": [64513, 64514],
+        "outputClusters": []
+      },
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 28698,
+        "_reserved": 10,
+        "endpointId": 242,
+        "applicationProfileId": 41440,
+        "applicationDeviceId": 97,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 0,
+        "inputClusters": [],
+        "outputClusters": [33]
+      }
+    ],
+    "deviceType": "router",
+    "receiveWhenIdle": true,
+    "swBuildId": "1.8.99-i4g4samples0",
+    "capabilities": {
+      "alternatePANCoordinator": false,
+      "deviceType": true,
+      "powerSourceMains": true,
+      "receiveWhenIdle": true,
+      "security": false,
+      "allocateAddress": true
+    },
+    "extendedEndpointDescriptors": {
+      "1": {
+        "clusters": {
+          "basic": {
+            "attributes": [
+              {
+                "acl": ["readable"],
+                "id": 0,
+                "dataTypeId": 32,
+                "name": "zclVersion",
+                "value": 8
+              },
+              {
+                "acl": ["readable"],
+                "id": 7,
+                "dataTypeId": 48,
+                "name": "powerSource",
+                "value": "unknown"
+              },
+              {
+                "acl": ["readable"],
+                "id": 4,
+                "dataTypeId": 66,
+                "name": "manufacturerName",
+                "value": "Shelly"
+              },
+              {
+                "acl": ["readable"],
+                "id": 5,
+                "dataTypeId": 66,
+                "name": "modelId",
+                "value": "I4"
+              },
+              {
+                "acl": ["readable"],
+                "id": 1,
+                "dataTypeId": 32,
+                "name": "appVersion",
+                "value": 0
+              },
+              {
+                "acl": ["readable"],
+                "id": 2,
+                "dataTypeId": 32,
+                "name": "stackVersion",
+                "value": 3
+              },
+              {
+                "acl": ["readable"],
+                "id": 3,
+                "dataTypeId": 32,
+                "name": "hwVersion",
+                "value": 0
+              },
+              {
+                "acl": ["readable"],
+                "id": 6,
+                "dataTypeId": 66,
+                "name": "dateCode",
+                "value": "20251020"
+              },
+              {
+                "acl": ["readable"],
+                "id": 8,
+                "dataTypeId": 48,
+                "name": "appProfileVersion",
+                "value": 0
+              },
+              {
+                "acl": ["readable"],
+                "id": 9,
+                "dataTypeId": 48
+              },
+              {
+                "acl": ["readable"],
+                "id": 10,
+                "dataTypeId": 65
+              },
+              {
+                "acl": ["readable"],
+                "id": 11,
+                "dataTypeId": 66
+              }
+            ],
+            "commandsGenerated": [],
+            "commandsReceived": ["factoryReset"]
+          },
+          "identify": {
+            "attributes": [
+              {
+                "acl": ["readable", "writable"],
+                "id": 0,
+                "dataTypeId": 33,
+                "name": "identifyTime",
+                "value": 0
+              }
+            ],
+            "commandsGenerated": ["identifyQuery.response"],
+            "commandsReceived": ["identify", "identifyQuery", "triggerEffect"]
+          },
+          "onOffSwitch": {
+            "attributes": [
+              {
+                "acl": ["readable"],
+                "id": 0,
+                "dataTypeId": 48
+              },
+              {
+                "acl": ["readable", "writable"],
+                "id": 16,
+                "dataTypeId": 48
+              }
+            ],
+            "commandsGenerated": [],
+            "commandsReceived": []
+          }
+        },
+        "bindings": {
+          "identify": {
+            "attributes": [
+              {
+                "acl": ["readable", "writable"],
+                "id": 0,
+                "dataTypeId": 33,
+                "name": "identifyTime",
+                "value": 0
+              }
+            ],
+            "commandsGenerated": ["identifyQuery.response"],
+            "commandsReceived": ["identify", "identifyQuery", "triggerEffect"]
+          },
+          "groups": {},
+          "onOff": {},
+          "scenes": {}
+        }
+      },
+      "2": {
+        "clusters": {
+          "onOffSwitch": {
+            "attributes": [
+              {
+                "acl": ["readable"],
+                "id": 0,
+                "dataTypeId": 48
+              },
+              {
+                "acl": ["readable", "writable"],
+                "id": 16,
+                "dataTypeId": 48
+              }
+            ],
+            "commandsGenerated": [],
+            "commandsReceived": []
+          }
+        },
+        "bindings": {
+          "groups": {},
+          "onOff": {},
+          "identify": {},
+          "scenes": {}
+        }
+      },
+      "3": {
+        "clusters": {
+          "onOffSwitch": {
+            "attributes": [
+              {
+                "acl": ["readable"],
+                "id": 0,
+                "dataTypeId": 48
+              },
+              {
+                "acl": ["readable", "writable"],
+                "id": 16,
+                "dataTypeId": 48
+              }
+            ],
+            "commandsGenerated": [],
+            "commandsReceived": []
+          }
+        },
+        "bindings": {
+          "groups": {},
+          "onOff": {},
+          "identify": {},
+          "scenes": {}
+        }
+      },
+      "4": {
+        "clusters": {
+          "onOffSwitch": {
+            "attributes": [
+              {
+                "acl": ["readable"],
+                "id": 0,
+                "dataTypeId": 48
+              },
+              {
+                "acl": ["readable", "writable"],
+                "id": 16,
+                "dataTypeId": 48
+              }
+            ],
+            "commandsGenerated": [],
+            "commandsReceived": []
+          }
+        },
+        "bindings": {
+          "groups": {},
+          "onOff": {},
+          "identify": {},
+          "scenes": {}
+        }
+      },
+      "5": {
+        "clusters": {},
+        "bindings": {
+          "groups": {},
+          "windowCovering": {},
+          "levelControl": {},
+          "onOff": {},
+          "identify": {}
+        }
+      },
+      "6": {
+        "clusters": {},
+        "bindings": {
+          "groups": {},
+          "windowCovering": {},
+          "levelControl": {},
+          "onOff": {},
+          "identify": {}
+        }
+      },
+      "239": {
+        "clusters": {},
+        "bindings": {}
+      },
+      "242": {
+        "clusters": {},
+        "bindings": {}
+      }
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "$extends": ["zigbee"],
+  "name": {
+    "en": "i4(DC) Gen4 - Zigbee"
+  },
+  "class": "button",
+  "capabilities": [],
+  "zigbee": {
+    "manufacturerName": "Shelly",
+    "productId": ["I4"],
+    "endpoints": {
+      "1": {
+        "clusters": [5, 6, 7],
+        "bindings": [5, 6]
+      },
+      "2": {
+        "clusters": [5, 6, 7],
+        "bindings": [5, 6]
+      },
+      "3": {
+        "clusters": [5, 6, 7],
+        "bindings": [5, 6]
+      },
+      "4": {
+        "clusters": [5, 6, 7],
+        "bindings": [5, 6]
+      },
+      "5": {
+        "clusters": [8],
+        "bindings": [8]
+      },
+      "6": {
+        "clusters": [8],
+        "bindings": [8]
+      }
+    },
+    "learnmode": {
+      "instruction": {
+        "en": "Verify that the device is in Zigbee mode (you can enable Zigbee mode by pressing the reset button five times).\n\nPress the reset button three times to initialize pairing."
+      }
+    }
+  },
+  "images": {
+    "small": "/assets/drivers/shellyi4g4/images/small.png",
+    "large": "/assets/drivers/shellyi4g4/images/large.png",
+    "xlarge": "/assets/drivers/shellyi4g4/images/xlarge.png"
+  }
+}
