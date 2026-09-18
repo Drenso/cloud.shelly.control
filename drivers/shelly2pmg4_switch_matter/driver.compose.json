@@ -1,7 +1,7 @@
 {
   "$extends": ["matter"],
   "name": {
-    "en": "2PM Gen4 Switch mode - Matter"
+    "en": "2PM Gen4 - Switch - Matter"
   },
   "class": "socket",
   "capabilities": [
