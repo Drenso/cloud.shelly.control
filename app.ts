@@ -71,17 +71,15 @@ export default class ShellyApp extends Homey.App {
   public async onInit(): Promise<void> {
     this.log('Initializing App...');
 
-    await getIp(this.homey)
-      .then(ip => {
-        this.outboundWsServer.open(ip);
-      })
-      .catch(err => {
-        if (err === 'Invalid Event: getLocalAddress') {
-          this.log('Running in the cloud, no outbound WS server started.');
-        } else {
-          this.error('Error while getting local IP for outbound WS server:', err);
-        }
-      });
+    if (this.homey.platform === 'cloud') {
+      this.log('Running in the cloud, no outbound WS server started.');
+    } else {
+      await getIp(this.homey)
+        .then(ip => {
+          this.outboundWsServer.open(ip);
+        })
+        .catch(err => this.error('Error while getting local IP for outbound WS server:', err));
+    }
 
     this.registerGenericFlowCards();
     this.registerLanFlowCards();
