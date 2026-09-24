@@ -199,7 +199,7 @@ export default abstract class ShellyZigbeeDevice
     await safeTriggerSingleInputSwitchChanged(this, value);
   }
 
-  protected convertButtonEvent(scene: number): ButtonEventType | null {
+  protected convertButtonEvent(scene: number): ButtonEventType | 'toggle' | null {
     switch (scene) {
       case 1:
         return 'single_press';
@@ -209,18 +209,20 @@ export default abstract class ShellyZigbeeDevice
         return 'triple_press';
       case 4:
         return 'hold';
+      case 5:
+        return 'toggle';
       default:
         return null;
     }
   }
 
   protected async handleButtonPress(index: number, payload: RecallScenePayload): Promise<void> {
-    if (payload.sceneId === 5) {
-      // switch toggle, ignore
+    const buttonEvent = this.convertButtonEvent(payload.sceneId);
+
+    if (buttonEvent === 'toggle') {
+      // Handled by switch, ignore
       return;
     }
-
-    const buttonEvent = this.convertButtonEvent(payload.sceneId);
 
     this.debug(`Button ${index}:`, buttonEvent);
 
