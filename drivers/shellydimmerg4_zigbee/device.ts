@@ -5,8 +5,17 @@ import initMeteringDevice from '@drenso/homey-zigbee-library/capabilities/meteri
 import initElectricalMeasurementDevice from '@drenso/homey-zigbee-library/capabilities/electricalMeasurement.mjs';
 import { type ClusterSpecification, Util } from 'homey-zigbeedriver';
 import initDimDevice from '@drenso/homey-zigbee-library/capabilities/dim.mjs';
+import type {
+  ButtonEventTypesDeviceInterface,
+  ButtonIndicesDeviceInterface,
+  SwitchIndicesDeviceInterface,
+} from '../../lib/capabilityInterfaces.js';
+import type { ButtonEventType } from '../../lib/flow/buttonFlows.js';
 
-export default class ShellyDimmerGen4ZigbeeDevice extends ShellyZigbeeDevice {
+export default class ShellyDimmerGen4ZigbeeDevice
+  extends ShellyZigbeeDevice
+  implements ButtonEventTypesDeviceInterface, ButtonIndicesDeviceInterface, SwitchIndicesDeviceInterface
+{
   protected async configureDevice(zclNode: ZCLNode): Promise<void> {
     await initDimDevice(this, zclNode);
     await initOnOffDevice(this, zclNode);
@@ -14,6 +23,11 @@ export default class ShellyDimmerGen4ZigbeeDevice extends ShellyZigbeeDevice {
       noPowerFactorReporting: true,
     });
     await initElectricalMeasurementDevice(this, zclNode);
+    await this.initializeInputFlows(zclNode, [2, 3]);
+  }
+
+  public getButtonEventTypes(): ButtonEventType[] {
+    return ['single_press', 'double_press', 'triple_press', 'hold'];
   }
 
   /**

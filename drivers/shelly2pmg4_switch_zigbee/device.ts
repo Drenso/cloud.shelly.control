@@ -3,8 +3,17 @@ import initMeteringDevice from '@drenso/homey-zigbee-library/capabilities/meteri
 import initOnOffDevice from '@drenso/homey-zigbee-library/capabilities/onOff.mjs';
 import zbClusters, { type ZCLNode } from 'zigbee-clusters';
 import ShellyZigbeeDevice from '../../lib/zigbee/ZigbeeDevice.js';
+import type {
+  ButtonEventTypesDeviceInterface,
+  ButtonIndicesDeviceInterface,
+  SwitchIndicesDeviceInterface,
+} from '../../lib/capabilityInterfaces.js';
+import type { ButtonEventType } from '../../lib/flow/buttonFlows.js';
 
-export default class Shelly2PMGen4SwitchZigbeeDevice extends ShellyZigbeeDevice {
+export default class Shelly2PMGen4SwitchZigbeeDevice
+  extends ShellyZigbeeDevice
+  implements ButtonEventTypesDeviceInterface, ButtonIndicesDeviceInterface, SwitchIndicesDeviceInterface
+{
   protected async configureDevice(zclNode: ZCLNode): Promise<void> {
     try {
       await zclNode.endpoints[1].clusters[zbClusters.OnOffCluster.NAME]?.readAttributes(['onOff']);
@@ -18,6 +27,7 @@ export default class Shelly2PMGen4SwitchZigbeeDevice extends ShellyZigbeeDevice 
     }
     const isSubDevice = this.isSubDevice();
     const endpointId = isSubDevice ? 2 : 1;
+    const inputEndpointId = endpointId + 2;
 
     await initOnOffDevice(this, zclNode, { endpointId });
     await initMeteringDevice(this, zclNode, {
@@ -25,5 +35,11 @@ export default class Shelly2PMGen4SwitchZigbeeDevice extends ShellyZigbeeDevice 
       noPowerFactorReporting: true,
     });
     await initElectricalMeasurementDevice(this, zclNode, { endpointId });
+
+    await this.initializeInputFlows(zclNode, [inputEndpointId]);
+  }
+
+  public getButtonEventTypes(): ButtonEventType[] {
+    return ['single_press', 'double_press', 'triple_press', 'hold'];
   }
 }

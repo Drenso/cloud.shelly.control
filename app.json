@@ -5515,7 +5515,9 @@
       },
       "class": "socket",
       "capabilities": [
-        "onoff"
+        "onoff",
+        "hidden.single_button_pressed",
+        "hidden.single_input_switch_changed"
       ],
       "zigbee": {
         "manufacturerName": "Shelly",
@@ -5533,6 +5535,20 @@
             ],
             "bindings": [
               6
+            ]
+          },
+          "2": {
+            "clusters": [
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "bindings": [
+              5,
+              6,
+              7
             ]
           }
         },
@@ -6532,7 +6548,9 @@
       },
       "class": "socket",
       "capabilities": [
-        "onoff"
+        "onoff",
+        "hidden.single_button_pressed",
+        "hidden.single_input_switch_changed"
       ],
       "zigbee": {
         "manufacturerName": "Shelly",
@@ -6550,6 +6568,20 @@
             ],
             "bindings": [
               6
+            ]
+          },
+          "2": {
+            "clusters": [
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "bindings": [
+              5,
+              6,
+              7
             ]
           }
         },
@@ -7176,7 +7208,9 @@
         "measure_current",
         "measure_voltage",
         "measure_frequency",
-        "meter_power"
+        "meter_power",
+        "hidden.single_button_pressed",
+        "hidden.single_input_switch_changed"
       ],
       "zigbee": {
         "manufacturerName": "Shelly",
@@ -7198,6 +7232,20 @@
               6,
               1794,
               2820
+            ]
+          },
+          "2": {
+            "clusters": [
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "bindings": [
+              5,
+              6,
+              7
             ]
           }
         },
@@ -7824,7 +7872,9 @@
         "measure_current",
         "measure_voltage",
         "measure_frequency",
-        "meter_power"
+        "meter_power",
+        "hidden.single_button_pressed",
+        "hidden.single_input_switch_changed"
       ],
       "zigbee": {
         "manufacturerName": "Shelly",
@@ -7846,6 +7896,20 @@
               6,
               1794,
               2820
+            ]
+          },
+          "2": {
+            "clusters": [
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "bindings": [
+              5,
+              6,
+              7
             ]
           }
         },
@@ -9083,7 +9147,9 @@
       "class": "windowcoverings",
       "capabilities": [
         "windowcoverings_set",
-        "windowcoverings_state"
+        "windowcoverings_state",
+        "hidden.button_pressed",
+        "hidden.input_switch_changed"
       ],
       "zigbee": {
         "manufacturerName": "Shelly",
@@ -9101,6 +9167,34 @@
             ],
             "bindings": [
               258
+            ]
+          },
+          "2": {
+            "clusters": [
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "bindings": [
+              5,
+              6,
+              7
+            ]
+          },
+          "3": {
+            "clusters": [
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "bindings": [
+              5,
+              6,
+              7
             ]
           }
         },
@@ -9477,7 +9571,9 @@
         "measure_current",
         "measure_voltage",
         "measure_frequency",
-        "meter_power"
+        "meter_power",
+        "hidden.single_button_pressed",
+        "hidden.single_input_switch_changed"
       ],
       "zigbee": {
         "manufacturerName": "Shelly",
@@ -9493,7 +9589,9 @@
               "onoff",
               "measure_power",
               "measure_current",
-              "meter_power"
+              "meter_power",
+              "hidden.single_button_pressed",
+              "hidden.single_input_switch_changed"
             ]
           }
         },
@@ -9529,6 +9627,44 @@
               1794,
               2820
             ]
+          },
+          "3": {
+            "clusters": [
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "bindings": [
+              5,
+              6,
+              7
+            ]
+          },
+          "4": {
+            "clusters": [
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "bindings": [
+              5,
+              6,
+              7
+            ]
+          },
+          "5": {
+            "clusters": [
+              3,
+              4,
+              6,
+              8,
+              258
+            ],
+            "bindings": []
           }
         },
         "learnmode": {
@@ -13700,6 +13836,34 @@
               8,
               1794,
               2820
+            ]
+          },
+          "2": {
+            "clusters": [
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "bindings": [
+              5,
+              6,
+              7
+            ]
+          },
+          "3": {
+            "clusters": [
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "bindings": [
+              5,
+              6,
+              7
             ]
           }
         },

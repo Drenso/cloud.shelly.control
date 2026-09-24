@@ -2,8 +2,21 @@ import initWindowCoveringsDevice from '@drenso/homey-zigbee-library/capabilities
 import zbClusters, { type WindowCoveringCluster, type ZCLNode } from 'zigbee-clusters';
 import ShellyZigbeeDevice from '../../lib/zigbee/ZigbeeDevice.js';
 import { safeAddCapability, safeRemoveCapability } from '../../lib/safeFunctions.js';
+import type {
+  ButtonEventTypesDeviceInterface,
+  ButtonIndicesDeviceInterface,
+  SwitchIndicesDeviceInterface,
+} from '../../lib/capabilityInterfaces.js';
+import type { ButtonEventType } from '../../lib/flow/buttonFlows.js';
 
-export default class Shelly2PMGen4CoverZigbeeDevice extends ShellyZigbeeDevice {
+export default class Shelly2PMGen4CoverZigbeeDevice
+  extends ShellyZigbeeDevice
+  implements ButtonEventTypesDeviceInterface, ButtonIndicesDeviceInterface, SwitchIndicesDeviceInterface
+{
+  public getButtonEventTypes(): ButtonEventType[] {
+    return ['single_press', 'double_press', 'triple_press', 'hold'];
+  }
+
   protected async configureDevice(zclNode: ZCLNode): Promise<void> {
     const cluster = zclNode.endpoints[1].clusters[zbClusters.WindowCoveringCluster.NAME] as WindowCoveringCluster;
 
@@ -28,5 +41,7 @@ export default class Shelly2PMGen4CoverZigbeeDevice extends ShellyZigbeeDevice {
     }
 
     await initWindowCoveringsDevice(this, zclNode, { invertPercentage: true });
+
+    await this.initializeInputFlows(zclNode, [2, 3]);
   }
 }

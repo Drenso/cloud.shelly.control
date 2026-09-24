@@ -4,7 +4,12 @@
     "en": "2PM Gen4 - Cover - Zigbee"
   },
   "class": "windowcoverings",
-  "capabilities": ["windowcoverings_set", "windowcoverings_state"],
+  "capabilities": [
+    "windowcoverings_set",
+    "windowcoverings_state",
+    "hidden.button_pressed",
+    "hidden.input_switch_changed"
+  ],
   "zigbee": {
     "manufacturerName": "Shelly",
     "productId": ["2PM"],
@@ -12,6 +17,14 @@
       "1": {
         "clusters": [0, 3, 4, 5, 258],
         "bindings": [258]
+      },
+      "2": {
+        "clusters": [3, 4, 5, 6, 7],
+        "bindings": [5, 6, 7]
+      },
+      "3": {
+        "clusters": [3, 4, 5, 6, 7],
+        "bindings": [5, 6, 7]
       }
     },
     "learnmode": {

@@ -4,7 +4,16 @@
     "en": "2PM Gen4 - Switch - Zigbee"
   },
   "class": "socket",
-  "capabilities": ["onoff", "measure_power", "measure_current", "measure_voltage", "measure_frequency", "meter_power"],
+  "capabilities": [
+    "onoff",
+    "measure_power",
+    "measure_current",
+    "measure_voltage",
+    "measure_frequency",
+    "meter_power",
+    "hidden.single_button_pressed",
+    "hidden.single_input_switch_changed"
+  ],
   "zigbee": {
     "manufacturerName": "Shelly",
     "productId": ["2PM"],
@@ -13,7 +22,14 @@
         "name": {
           "en": "2PM Gen4 - Switch - Zigbee (2)"
         },
-        "capabilities": ["onoff", "measure_power", "measure_current", "meter_power"]
+        "capabilities": [
+          "onoff",
+          "measure_power",
+          "measure_current",
+          "meter_power",
+          "hidden.single_button_pressed",
+          "hidden.single_input_switch_changed"
+        ]
       }
     },
     "endpoints": {
@@ -24,6 +40,18 @@
       "2": {
         "clusters": [0, 3, 4, 5, 6, 1794, 2820],
         "bindings": [6, 1794, 2820]
+      },
+      "3": {
+        "clusters": [3, 4, 5, 6, 7],
+        "bindings": [5, 6, 7]
+      },
+      "4": {
+        "clusters": [3, 4, 5, 6, 7],
+        "bindings": [5, 6, 7]
+      },
+      "5": {
+        "clusters": [3, 4, 6, 8, 258],
+        "bindings": []
       }
     },
     "learnmode": {

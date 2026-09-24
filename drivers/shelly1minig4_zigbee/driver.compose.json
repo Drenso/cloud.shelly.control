@@ -4,7 +4,7 @@
     "en": "1 Mini Gen4 - Zigbee"
   },
   "class": "socket",
-  "capabilities": ["onoff"],
+  "capabilities": ["onoff", "hidden.single_button_pressed", "hidden.single_input_switch_changed"],
   "zigbee": {
     "manufacturerName": "Shelly",
     "productId": ["Mini1"],
@@ -12,6 +12,10 @@
       "1": {
         "clusters": [0, 3, 4, 5, 6],
         "bindings": [6]
+      },
+      "2": {
+        "clusters": [3, 4, 5, 6, 7],
+        "bindings": [5, 6, 7]
       }
     },
     "learnmode": {
