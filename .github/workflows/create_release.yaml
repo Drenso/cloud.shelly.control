@@ -8,6 +8,16 @@ env:
   NODE_VERSION: 26
 
 jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Release
+        uses: softprops/action-gh-release@v3.0.3
+        with:
+          tag_name: ${{ github.ref_name }}
+          prerelease: true
+          generate_release_notes: true
+
   create_core_release:
     name: Generate release
     runs-on: ${{ matrix.os }}
@@ -50,14 +60,25 @@ jobs:
 
       - name: Rename executable
         run: |
-          mv tools/interview-sea/interview-shelly-control tools/interview-sea/interview-shelly-control${{ runner.os }}.exe
+          mv tools/interview-sea/interview-shelly-control tools/interview-sea/interview-shelly-control-${{ runner.os }}.exe
 
+      - name: Upload executable
+        uses: softprops/action-gh-release@v3.0.3
+        with:
+          tag_name: ${{ github.ref_name }}
+          prerelease: true
+          generate_release_notes: false
+          overwrite_files: false
+          files: |
+            tools/interview-sea/interview-shelly-control*
+
+  publish-release:
+    runs-on: ubuntu-latest
+    steps:
       - name: Release
         uses: softprops/action-gh-release@v3.0.3
         with:
           tag_name: ${{ github.ref_name }}
           prerelease: false
-          generate_release_notes: true
+          generate_release_notes: false
           overwrite_files: false
-          files: |
-            tools/interview-sea/interview-shelly-control*
