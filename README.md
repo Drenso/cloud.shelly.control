@@ -5,7 +5,7 @@ This repository is mirrored from our internal GitLab instance.
 We offer a script to interview your LAN device. Download the .exe or linux executable from the releases page, and execute it as follows:
 
 ```
-./interview-shelly-control <your_device_ip>
+./interview-shelly-control-{os} <your_device_ip>
 ```
 
 ## Development
