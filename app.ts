@@ -17,6 +17,7 @@ import Storage from './lib/component/components/Storage.js';
 import { registerButtonFlowCards } from './lib/flow/buttonFlows.js';
 import { registerIlluminanceFlowCards } from './lib/flow/illuminanceFlows.js';
 import { registerPresenceFlowCards } from './lib/flow/presenceFlows.js';
+import { registerSwitchInputFlows } from './lib/flow/switchInputFlows.js';
 import { registerTemperatureFlowCards } from './lib/flow/temperatureFlows.js';
 import { createHttpChannel } from './lib/HomeyRPCChannels.js';
 import type ShellyLocalDevice from './lib/local/LocalDevice.js';
@@ -193,6 +194,7 @@ export default class ShellyApp extends Homey.App {
     registerButtonFlowCards(this);
     registerIlluminanceFlowCards(this);
     registerPresenceFlowCards(this);
+    registerSwitchInputFlows(this);
     registerTemperatureFlowCards(this);
   }
 

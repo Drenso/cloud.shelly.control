@@ -11,3 +11,7 @@ export interface ButtonEventTypesDeviceInterface {
 export interface MultiZoneCapabilityDeviceInterface {
   isZoneOccupied(zone: number): boolean;
 }
+
+export interface SwitchIndicesDeviceInterface {
+  getSwitchIndices(): number[];
+}

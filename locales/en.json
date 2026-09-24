@@ -16,6 +16,10 @@
   "camera": {
     "_name": "Camera"
   },
+  "switch": {
+    "_name": "Switch __number__",
+    "_any": "Any Switch"
+  },
   "capability": {
     "shelly_illumination": {
       "_name": "Illuminance"
