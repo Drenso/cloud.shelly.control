@@ -63,7 +63,7 @@ export class LocalRePairingHandler {
 
     const deviceInfoResults = await Promise.allSettled(
       Object.values(discoveryResults).map(async discoveryResult => {
-        const httpChannel = createHttpChannel(discoveryResult.address, this.driver.homey.__, false);
+        const httpChannel = createHttpChannel(this.driver.app, discoveryResult.address, this.driver.homey.__, false);
         const deviceInfoResponse = await Shelly.GetDeviceInfo(httpChannel);
         return { deviceInfo: deviceInfoResponse.result, httpChannel: httpChannel, discoveryResult: discoveryResult };
       }),
@@ -120,7 +120,7 @@ export class LocalRePairingHandler {
         await this.authenticateDevice();
         return;
       }
-      console.error('Error while assembling device with old ha1:', e);
+      this.error('Error while assembling device with old ha1:', e);
       // TODO add some way of showing error messages in the front end,
       //  as Homey does not seem to do anything with thrown exceptions
     }
@@ -141,7 +141,13 @@ export class LocalRePairingHandler {
     this.debug('assembling device');
     const selectedDevice = this.selectedDevice;
     const components = await Shelly.getAllComponents(
-      createHttpChannel(selectedDevice.store.address, this.driver.homey.__, selectedDevice.data.useHttps, ha1),
+      createHttpChannel(
+        this.driver.app,
+        selectedDevice.store.address,
+        this.driver.homey.__,
+        selectedDevice.data.useHttps,
+        ha1,
+      ),
     );
 
     // ha1 has been verified, it can now be stored

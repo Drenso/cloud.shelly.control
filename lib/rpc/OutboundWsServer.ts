@@ -21,8 +21,8 @@ export default class OutboundWsServer {
   private registeredDevices = new Set<string>();
 
   public constructor(
-    public readonly log: (...args: unknown[]) => void = console.log,
-    public readonly error: (...args: unknown[]) => void = console.error,
+    public readonly log: (...args: unknown[]) => void,
+    public readonly error: (...args: unknown[]) => void,
   ) {}
 
   public open(ip: string): void {

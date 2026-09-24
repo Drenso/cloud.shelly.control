@@ -18,6 +18,11 @@ type BTHomeMitt = Record<string, BleForwardEventData>;
 export class BTHomeServer {
   public readonly btHomeMitt = createMitt<BTHomeMitt>();
 
+  public constructor(
+    public readonly log: (...args: unknown[]) => void,
+    public readonly error: (...args: unknown[]) => void,
+  ) {}
+
   public async installForwardingScript(device: VirtualDevice): Promise<void> {
     const scriptPath = path.join(import.meta.dirname, 'script.js');
     const script = await readFile(scriptPath, 'utf8');
@@ -57,6 +62,6 @@ export class BTHomeServer {
       return;
     }
 
-    console.log(new Date(), '[dbg]', '[ShellyApp]', '[BLE Forward]', ...args);
+    this.log('[BLE Forward]', '[dbg]', ...args);
   }
 }

@@ -8,6 +8,7 @@ import type { WsMittEvents } from './rpc/OutboundWsServer.js';
 import type { Time } from './unitConversion.js';
 
 export function createHttpChannel(
+  app: ShellyApp,
   address: string,
   translate: (key: string, variables?: Record<string, string>) => string,
   useHttps: boolean,
@@ -15,9 +16,11 @@ export function createHttpChannel(
   onHttpsUpgrade?: () => Promise<void>,
 ): HttpChannel {
   const debug = (...args: unknown[]): void => {
-    if (Homey.env['DEBUG'] === '1') {
-      console.log(new Date(), '[dbg]', '[ShellyApp]', `[HttpChannel:${address}]`, ...args);
+    if (Homey.env['DEBUG'] !== '1') {
+      return;
     }
+
+    app.log('[dbg]', `[HttpChannel:${address}]`, ...args);
   };
   return new HttpChannel(address, debug, translate, useHttps, ha1, onHttpsUpgrade);
 }
@@ -33,9 +36,11 @@ export function createInboundWsChannel(
   onHttpsUpgrade?: () => Promise<void>,
 ): InboundWebsocketChannel {
   const debug = (...args: unknown[]): void => {
-    if (Homey.env['DEBUG'] === '1') {
-      console.log(new Date(), '[dbg]', '[ShellyApp]', `[InboundWS:${address}]`, ...args);
+    if (Homey.env['DEBUG'] !== '1') {
+      return;
     }
+
+    app.log('[dbg]', `[InboundWS:${address}]`, ...args);
   };
 
   const wsLog = (...args: unknown[]): void => {
@@ -67,9 +72,11 @@ export function createOutboundWsChannel(
   keepAliveDuration: Time | undefined,
 ): OutboundWebsocketChannel {
   const debug = (...args: unknown[]): void => {
-    if (Homey.env['DEBUG'] === '1') {
-      console.log(new Date(), '[dbg]', '[ShellyApp]', `[OutboundWS:${identifier}]`, ...args);
+    if (Homey.env['DEBUG'] !== '1') {
+      return;
     }
+
+    app.log(`[OutboundWS:${identifier}]`, '[dbg]', ...args);
   };
 
   return new OutboundWebsocketChannel(app, identifier, outboundWsMitt, log, error, debug, keepAliveDuration);

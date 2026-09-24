@@ -191,7 +191,7 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
     discoveryResult: ShellyDiscoveryResult,
   ): Promise<ShellyLocalListVirtualDeviceProperties | undefined> {
     try {
-      const httpChannel = createHttpChannel(discoveryResult.address, this.homey.__, false);
+      const httpChannel = createHttpChannel(this.app, discoveryResult.address, this.homey.__, false);
       const deviceInfoResponse = await Shelly.GetDeviceInfo(httpChannel);
       const deviceInfo = deviceInfoResponse.result;
 
@@ -229,6 +229,6 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
       return;
     }
 
-    console.log(new Date(), '[dbg]', '[ManagerDrivers]', `[Driver:${this.id}]`, ...args);
+    this.log('[dbg]', ...args);
   }
 }

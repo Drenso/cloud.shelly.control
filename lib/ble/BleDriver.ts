@@ -83,6 +83,6 @@ export default abstract class ShellyBleDriver extends Homey.Driver {
       return;
     }
 
-    console.log(new Date(), '[dbg]', '[ManagerDrivers]', `[Driver:${this.id}]`, ...args);
+    this.log('[dbg]', ...args);
   }
 }

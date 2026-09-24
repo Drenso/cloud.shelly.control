@@ -15,7 +15,7 @@ if (basename(import.meta.dirname) === 'tools') {
 
 const address = process.argv[2];
 if (!address) {
-  console.error('Please provide an IP address as argument');
+  console.error('Please provide an IP address as argument'); // eslint-disable-line no-restricted-syntax -- Allowed for local tools
   process.exit(1);
 }
 
@@ -26,7 +26,7 @@ const rpcChannel = new HttpChannel(address, console.log, mockTranslate, false, n
 const deviceInfo = await Shelly.GetDeviceInfo(rpcChannel);
 const deviceType = deviceInfo.result.id.split('-')[0];
 
-console.log(`Interviewing ${deviceType}...`);
+console.log(`Interviewing ${deviceType}...`); // eslint-disable-line no-restricted-syntax -- Allowed for local tools
 const components = (await Shelly.getAllComponents(rpcChannel)).sort((a, b) => a.key.localeCompare(b.key));
 
 const outputDir = path.join(import.meta.dirname, interviewsDir, deviceType);
@@ -35,4 +35,4 @@ const outputPath = path.join(outputDir, 'rpc.json');
 await fs.promises.mkdir(outputDir, { recursive: true });
 await fs.promises.writeFile(outputPath, JSON.stringify(components, undefined, 2));
 
-console.log(`Result written to ${outputPath}`);
+console.log(`Result written to ${outputPath}`); // eslint-disable-line no-restricted-syntax -- Allowed for local tools

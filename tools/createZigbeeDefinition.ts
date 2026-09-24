@@ -1,7 +1,7 @@
 import * as fs from 'node:fs';
 
 if (process.argv.length < 3) {
-  console.error('Path to interview JSON file is required as argument');
+  console.error('Path to interview JSON file is required as argument'); // eslint-disable-line no-restricted-syntax -- Allowed for local tools
   process.exit(1);
 }
 
@@ -64,4 +64,4 @@ for (const endpointId in endpointDescriptions) {
   driverCompose.zigbee.endpoints[`${endpointId}`] = endpointCompose;
 }
 
-console.log(JSON.stringify(driverCompose, undefined, 2));
+console.log(JSON.stringify(driverCompose, undefined, 2)); // eslint-disable-line no-restricted-syntax -- Allowed for local tools

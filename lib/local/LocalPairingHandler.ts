@@ -84,7 +84,13 @@ export class LocalPairingHandler {
     password?: string,
   ): Promise<void> {
     const components = await Shelly.getAllComponents(
-      createHttpChannel(selectedDevice.store.address, this.driver.homey.__, selectedDevice.data.useHttps, ha1),
+      createHttpChannel(
+        this.driver.app,
+        selectedDevice.store.address,
+        this.driver.homey.__,
+        selectedDevice.data.useHttps,
+        ha1,
+      ),
     );
 
     // ha1 has been verified, it can now be stored

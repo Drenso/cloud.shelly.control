@@ -11,7 +11,7 @@ const driversFolder = 'drivers';
 
 const driverIds = fs.readdirSync(driversFolder);
 const driversString = driverIds.filter((id: string) => !id.endsWith('_matter')).join('|');
-console.log('Inserting', driversString);
+console.log('Inserting', driversString); // eslint-disable-line no-restricted-syntax -- Allowed for local tools
 
 const flowCategoryFolders = fs.readdirSync(flowsRootFolder);
 
@@ -33,7 +33,8 @@ function insertDrivers(flowDefinitionFile: string): void {
       }
     }
   }
-  console.log(flowDefinitionFile);
+
+  console.log(flowDefinitionFile); // eslint-disable-line no-restricted-syntax -- Allowed for local tools
   fs.writeFileSync(flowDefinitionFile, JSON.stringify(flowDefinition, undefined, 2) + '\n', 'utf8');
 }
 

@@ -254,7 +254,6 @@ export default class Enum extends ComponentWithId<'Enum', EnumStatus, EnumConfig
           if (channel === undefined) {
             throw new Error(app.homey.__('error.host_unreachable'));
           }
-          console.log(cardArgs);
           return component.status.value === cardArgs.value.id;
         },
       );

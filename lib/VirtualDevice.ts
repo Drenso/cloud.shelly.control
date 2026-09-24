@@ -1020,6 +1020,7 @@ class LocalConnection {
     this.outbound_ws_state = 'waiting_for_initial_connection';
 
     this.httpChannel = createHttpChannel(
+      this.virtualDevice.app,
       this.ipAddress,
       this.virtualDevice.app.homey.__,
       useInitialHttps,

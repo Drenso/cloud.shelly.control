@@ -33,7 +33,7 @@ const VIRTUAL_DEVICE_SETTING_KEY_PREFIX = 'virtual_device_';
 export default class ShellyApp extends Homey.App {
   public readonly homeyLog = new Log({ homey: this.homey });
   public readonly outboundWsServer = new OutboundWsServer(this.log, this.error);
-  public readonly btHomeServer = new BTHomeServer();
+  public readonly btHomeServer = new BTHomeServer(this.log, this.error);
 
   public readonly virtualDevices = new Map<string, VirtualDevice>();
 
@@ -135,7 +135,7 @@ export default class ShellyApp extends Homey.App {
 
   private async handleRediscovery({ address: newAddress }: DiscoveryResultMDNSSD): Promise<void> {
     try {
-      const httpChannel = createHttpChannel(newAddress, this.homey.__, false);
+      const httpChannel = createHttpChannel(this, newAddress, this.homey.__, false);
       const deviceInfoResponse = await Shelly.GetDeviceInfo(httpChannel);
       const deviceInfo = deviceInfoResponse.result;
 
@@ -182,9 +182,11 @@ export default class ShellyApp extends Homey.App {
   }
 
   public debug(...args: unknown[]): void {
-    if (Homey.env['DEBUG'] === '1') {
-      console.log(new Date(), '[dbg]', '[ShellyApp]', ...args);
+    if (Homey.env['DEBUG'] !== '1') {
+      return;
     }
+
+    this.log('[dbg]', ...args);
   }
 
   private registerGenericFlowCards(): void {
