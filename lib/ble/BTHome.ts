@@ -205,30 +205,6 @@ export function parseBleForward(data: BleForwardEventData): BTHomeData | undefin
   return parseBtHomeServiceData(Buffer.from(btHomeServiceData, 'base64'));
 }
 
-export function handleBleForward(data: BleForwardEventData): void {
-  const advData = Buffer.from(data.advData, 'base64');
-  const scanRsp = Buffer.from(data.scanRsp, 'base64');
-  const manufacturerData: Record<string, Buffer> = {};
-  for (const manufacturer in data.manufacturer_data) {
-    manufacturerData[manufacturer] = Buffer.from(data.manufacturer_data[manufacturer], 'base64');
-  }
-  const serviceData: Record<string, Buffer> = {};
-  for (const service in data.service_data) {
-    serviceData[service] = Buffer.from(data.service_data[service], 'base64');
-  }
-  const btHomeServiceData = serviceData[BTHOME_SERVICE_ID];
-  console.log(advData, scanRsp, manufacturerData, serviceData);
-  if (btHomeServiceData === undefined) {
-    return;
-  }
-  try {
-    const parsedBtHomeServiceData = parseBtHomeServiceData(btHomeServiceData);
-    console.log(parsedBtHomeServiceData);
-  } catch (e) {
-    console.error('Error while parsing BTHome data:', e);
-  }
-}
-
 type BtHomeObject = {
   property: string;
   dataType: (typeof btHomeDataTypes)[keyof typeof btHomeDataTypes];
