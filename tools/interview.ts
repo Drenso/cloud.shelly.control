@@ -6,9 +6,12 @@ import HttpChannel from '../lib/rpc/channel/HttpChannel.js';
 import Shelly from '../lib/component/components/Shelly.js';
 import path from 'node:path';
 import * as fs from 'node:fs';
+import { basename } from 'path';
 
-// Relative to project root
-const interviewsDir = '/interviews';
+let interviewsDir = 'interviews';
+if (basename(import.meta.dirname) === 'tools') {
+  interviewsDir = '../interviews';
+}
 
 const address = process.argv[2];
 if (!address) {
