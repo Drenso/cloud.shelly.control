@@ -33,7 +33,7 @@
     "zigbee-clusters": "3.8.0"
   },
   "devDependencies": {
-    "@drenso/eslint-config-homey-mts": "1.2.1",
+    "@drenso/eslint-config-homey-mts": "1.3.0",
     "@drenso/homey-translation-helper": "2.6.5",
     "@drenso/prettier-config-homey-mts": "1.2.0",
     "@tsconfig/node20": "20.1.9",
