@@ -5,6 +5,7 @@
   "titleFormatted": {
     "en": "[[press_type]] event received"
   },
+  "highlight": true,
   "tokens": [
     {
       "name": "press_type",
