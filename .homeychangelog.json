@@ -79,5 +79,8 @@
   },
   "0.16.1": {
     "en": "2PM Gen4 (Zigbee mode): Support venetian tilt, fix inverted position, fix cover mode check. Resolve chosen status indicator to be reset on app restart. Fix m3/min to l/min conversation. No longer mark battery powered devices as unavailable during app start."
+  },
+  "0.17.0": {
+    "en": "Add LAN support for 1L Gen4, 2L Gen3 & 2L Gen4. Add BLE support for BLU Door/Window Mini ZB and BLU Door/Window Outdoor ZB. Add Zigbee support for BLU Door/Window Mini ZB and BLU Door/Window Outdoor ZB. Add Matter definitions for 1L Gen4 & 2L Gen4. Improve device removal process. Add missing pair animations for BLU devices. Updated some device images. Small optimisations."
   }
 }
