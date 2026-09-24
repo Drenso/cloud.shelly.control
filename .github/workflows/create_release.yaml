@@ -15,7 +15,7 @@ jobs:
         uses: softprops/action-gh-release@v3.0.3
         with:
           tag_name: ${{ github.ref_name }}
-          prerelease: true
+          draft: true
           generate_release_notes: true
 
   build_executable:
@@ -67,7 +67,7 @@ jobs:
         uses: softprops/action-gh-release@v3.0.3
         with:
           tag_name: ${{ github.ref_name }}
-          prerelease: true
+          draft: true
           generate_release_notes: false
           overwrite_files: false
           files: |
@@ -81,7 +81,7 @@ jobs:
         uses: softprops/action-gh-release@v3.0.3
         with:
           tag_name: ${{ github.ref_name }}
-          prerelease: false
+          draft: false
           generate_release_notes: false
           overwrite_files: false
           make_latest: true
