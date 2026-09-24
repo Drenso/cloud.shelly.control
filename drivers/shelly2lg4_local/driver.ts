@@ -1,3 +1,3 @@
-import ShellyDoubleSwitchInputLocalDriver from '../../lib/local/ShellyDoubleSwitchInputLocalDriver.js';
+import ShellyMultiSwitchInputLocalDriver from '../../lib/local/ShellyMultiSwitchInputLocalDriver.js';
 
-export default class Shelly2LGen4LocalDriver extends ShellyDoubleSwitchInputLocalDriver {}
+export default class Shelly2LGen4LocalDriver extends ShellyMultiSwitchInputLocalDriver {}

@@ -3,19 +3,14 @@ import Switch, { type SwitchConfig } from '../component/components/Switch.js';
 import type { ShellyLocalListDeviceProperties } from '../types.js';
 import ShellyLocalDriver from './LocalDriver.js';
 
-export default abstract class ShellyDoubleSwitchInputLocalDriver extends ShellyLocalDriver {
+export default abstract class ShellyMultiSwitchInputLocalDriver extends ShellyLocalDriver {
+  /** Components that need to be grouped by ID and split over multiple Homey devices. */
+  protected componentsToSplit: string[] = ['switch', 'input'];
+
   public async assembleHomeyDevices(
     selectedDevice: ShellyLocalListDeviceProperties,
     components: ShellyGetComponentsResponseComponent[],
   ): Promise<ShellyLocalListDeviceProperties[]> {
-    const componentMapping: Record<string, ShellyGetComponentsResponseComponent> = {};
-
-    for (const component of components) {
-      componentMapping[component.key] = component;
-    }
-
-    const splitComponents = ['switch', 'input'];
-
     const subDevices: ShellyLocalListDeviceProperties[] = [];
     const id = selectedDevice.data.id;
     // Create a sub-device for each switch
@@ -38,7 +33,7 @@ export default abstract class ShellyDoubleSwitchInputLocalDriver extends ShellyL
           icon: `../../../assets/drivers/${this.baseDriverId}/icon.svg`,
           store: {
             ...selectedDevice.store,
-            components: splitComponents.map(splitComponent => `${splitComponent}:${componentId}`),
+            components: this.componentsToSplit.map(splitComponent => `${splitComponent}:${componentId}`),
           },
           capabilities: ['button.restart'],
         });
@@ -48,7 +43,7 @@ export default abstract class ShellyDoubleSwitchInputLocalDriver extends ShellyL
     // Assign components that do not belong to a specific switch to all sub-devices
     for (const component of components) {
       const [componentType] = component.key.split(':') as [string, `${number}` | undefined];
-      if (!splitComponents.includes(componentType)) {
+      if (!this.componentsToSplit.includes(componentType)) {
         for (const subDevice of subDevices) {
           subDevice.store.components.push(component.key);
         }
