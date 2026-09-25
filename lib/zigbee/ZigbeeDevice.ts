@@ -14,6 +14,8 @@ import OnOffBoundCluster from '@drenso/homey-zigbee-library/lib/clusters/bound_c
 import ExtendedScenesCluster from '@drenso/homey-zigbee-library/lib/clusters/ExtendedScenesCluster.mjs';
 import type { ButtonIndicesDeviceInterface, SwitchIndicesDeviceInterface } from '../capabilityInterfaces.js';
 
+const SWITCH_TYPE_STORE_KEY = 'shelly_zigbee_switch_types';
+
 export default abstract class ShellyZigbeeDevice
   extends ZigBeeDevice
   implements ButtonIndicesDeviceInterface, SwitchIndicesDeviceInterface
@@ -126,12 +128,42 @@ export default abstract class ShellyZigbeeDevice
     const buttonIndices: number[] = [];
     const switchIndices: number[] = [];
 
+    const oldSwitchTypes: Record<string, string> = this.getStoreValue(SWITCH_TYPE_STORE_KEY) ?? {};
+    const newSwitchTypes: Record<string, string> = {};
+
+    for (const endpointId of endpointIds) {
+      await (zclNode.endpoints[endpointId].clusters[OnOffSwitchCluster.NAME] as OnOffSwitchCluster)
+        .readAttributes(['switchType'])
+        .then(({ switchType }) => {
+          newSwitchTypes[endpointId] = switchType;
+        })
+        .catch(err => {
+          this.error(`Error while reading endpoint ${endpointId} switchType:`, err);
+        });
+    }
+
+    await this.setStoreValue(SWITCH_TYPE_STORE_KEY, { ...oldSwitchTypes, ...newSwitchTypes }).catch(err =>
+      this.error('Error while storing new switchType:', err),
+    );
+
     for (let i = 0; i < endpointIds.length; i++) {
       const endpointId = endpointIds[i];
 
-      const { switchType } = await (
-        zclNode.endpoints[endpointId].clusters[OnOffSwitchCluster.NAME] as OnOffSwitchCluster
-      ).readAttributes(['switchType']);
+      const oldSwitchType = oldSwitchTypes[endpointId];
+      const newSwitchType = newSwitchTypes[endpointId];
+
+      let switchType = newSwitchType;
+
+      if (newSwitchType === undefined) {
+        if (oldSwitchType === undefined) {
+          this.error('Could not determine switchType for endpoint', endpointId, ', skipping');
+          continue;
+        }
+
+        this.log('Falling back to old switchType for endpoint', endpointId);
+        switchType = oldSwitchType;
+      }
+
       this.debug(endpointId, 'SwitchType:', switchType);
 
       if (switchType === 'momentary') {
