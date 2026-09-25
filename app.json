@@ -4411,7 +4411,7 @@
         }
       ],
       "name": {
-        "en": "Dimmer 0/1-10V Gen4 - LAN"
+        "en": "Dimmer 0/1-10V PM Gen4 - LAN"
       },
       "class": "light",
       "images": {
@@ -4818,7 +4818,7 @@
       ],
       "icon": "/drivers/shelly0110dimg4_matter/assets/icon.svg",
       "name": {
-        "en": "Dimmer 0/1-10V Gen4 - Matter"
+        "en": "Dimmer 0/1-10V PM Gen4 - Matter"
       },
       "class": "light",
       "capabilities": [
@@ -4855,7 +4855,7 @@
       ],
       "icon": "/drivers/shelly0110dimg4_zigbee/assets/icon.svg",
       "name": {
-        "en": "Dimmer 0/1-10V Gen4 - Zigbee"
+        "en": "Dimmer 0/1-10V PM Gen4 - Zigbee"
       },
       "class": "light",
       "capabilities": [

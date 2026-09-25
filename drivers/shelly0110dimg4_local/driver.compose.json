@@ -1,7 +1,7 @@
 {
   "$extends": ["local"],
   "name": {
-    "en": "Dimmer 0/1-10V Gen4 - LAN"
+    "en": "Dimmer 0/1-10V PM Gen4 - LAN"
   },
   "class": "light",
   "capabilities": [

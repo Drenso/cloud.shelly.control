@@ -1,7 +1,7 @@
 {
   "$extends": ["matter"],
   "name": {
-    "en": "Dimmer 0/1-10V Gen4 - Matter"
+    "en": "Dimmer 0/1-10V PM Gen4 - Matter"
   },
   "class": "light",
   "capabilities": ["onoff", "dim", "measure_power", "measure_current", "measure_voltage", "meter_power"],

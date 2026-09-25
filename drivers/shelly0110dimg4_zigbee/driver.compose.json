@@ -1,7 +1,7 @@
 {
   "$extends": ["zigbee"],
   "name": {
-    "en": "Dimmer 0/1-10V Gen4 - Zigbee"
+    "en": "Dimmer 0/1-10V PM Gen4 - Zigbee"
   },
   "class": "light",
   "capabilities": ["onoff", "dim", "measure_power", "measure_current", "measure_voltage", "meter_power"],
