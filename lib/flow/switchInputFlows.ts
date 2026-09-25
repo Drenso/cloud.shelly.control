@@ -17,7 +17,7 @@ export async function safeTriggerInputSwitchChanged(
   await safeTriggerDeviceCard(device, 'shelly_input_switch_changed', args, args);
 }
 
-export function registerSwitchInputFlows(app: ShellyApp): void {
+export function registerSwitchInputFlowCards(app: ShellyApp): void {
   const switchInputAutocompleteListener = (
     query: string,
     { device }: { device: SwitchIndicesDeviceInterface },
