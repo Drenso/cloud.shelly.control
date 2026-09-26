@@ -20242,6 +20242,73 @@
       "id": "shellypro3em_local",
       "settings": [
         {
+          "value": "120A",
+          "values": [
+            {
+              "id": "50A",
+              "label": {
+                "en": "50 A"
+              }
+            },
+            {
+              "id": "3x63A",
+              "label": {
+                "en": "3x63 A"
+              }
+            },
+            {
+              "id": "120A",
+              "label": {
+                "en": "120 A"
+              }
+            },
+            {
+              "id": "400A",
+              "label": {
+                "en": "400 A"
+              }
+            }
+          ],
+          "id": "EM:ct_type",
+          "type": "dropdown",
+          "label": {
+            "en": "Electrical Measurement - CT Type"
+          }
+        },
+        {
+          "id": "EM:reverse_a",
+          "type": "checkbox",
+          "label": {
+            "en": "Electrical Measurement - Reverse Phase A"
+          },
+          "hint": {
+            "en": "Reverse the measurement direction of active power and energy for phase A."
+          },
+          "value": false
+        },
+        {
+          "id": "EM:reverse_b",
+          "type": "checkbox",
+          "label": {
+            "en": "Electrical Measurement - Reverse Phase B"
+          },
+          "hint": {
+            "en": "Reverse the measurement direction of active power and energy for phase B."
+          },
+          "value": false
+        },
+        {
+          "id": "EM:reverse_c",
+          "type": "checkbox",
+          "label": {
+            "en": "Electrical Measurement - Reverse Phase C"
+          },
+          "hint": {
+            "en": "Reverse the measurement direction of active power and energy for phase C."
+          },
+          "value": false
+        },
+        {
           "id": "installBleForwardingScript",
           "type": "checkbox",
           "label": {

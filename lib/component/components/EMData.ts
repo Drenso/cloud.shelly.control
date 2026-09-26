@@ -8,7 +8,6 @@ import GetStatus from './EMData/GetStatus.js';
 import ResetCounters from './EMData/ResetCounters.js';
 import SetConfig from './EMData/SetConfig.js';
 import type { ComponentMethod } from './Shelly/ListMethods.js';
-import { safeAddCapability } from '../../safeFunctions.js';
 
 export type EMDataConfig = { id: never; name: never } & Record<string, never>;
 
@@ -71,15 +70,21 @@ export default class EMData extends ComponentWithId<'EMData', EMDataStatus, EMDa
   public async registerHomeyDevice(
     homeyDevice: ShellyLocalDevice,
     methods: ComponentMethod<'EMData'>[],
-  ): Promise<void> {
+  ): Promise<string[]> {
+    const componentCapabilities: string[] = [];
+
     if (this.status.total_act !== undefined) {
-      await this.registerCapability(homeyDevice, 'meter_power', capabilitiesOptions['meter_power' as never]);
+      componentCapabilities.push(
+        await this.registerCapability(homeyDevice, 'meter_power', capabilitiesOptions['meter_power' as never]),
+      );
     }
     if (this.status.total_act_ret !== undefined) {
-      await this.registerCapability(
-        homeyDevice,
-        'meter_power.total_returned',
-        capabilitiesOptions['meter_power.total_returned' as never],
+      componentCapabilities.push(
+        await this.registerCapability(
+          homeyDevice,
+          'meter_power.total_returned',
+          capabilitiesOptions['meter_power.total_returned' as never],
+        ),
       );
     }
 
@@ -89,23 +94,26 @@ export default class EMData extends ComponentWithId<'EMData', EMDataStatus, EMDa
       ['c', 'c_total_act_energy', 'c_total_act_ret_energy'],
     ] as const) {
       if (this.status[energyKey] !== undefined) {
-        await this.registerCapability(
-          homeyDevice,
-          `meter_power.${phase}`,
-          capabilitiesOptions[`meter_power.${phase}` as never],
+        componentCapabilities.push(
+          await this.registerCapability(
+            homeyDevice,
+            `meter_power.${phase}`,
+            capabilitiesOptions[`meter_power.${phase}` as never],
+          ),
         );
       }
       if (this.status[returnedEnergyKey] !== undefined) {
-        await this.registerCapability(
-          homeyDevice,
-          `meter_power.returned_${phase}`,
-          capabilitiesOptions[`meter_power.returned_${phase}` as never],
+        componentCapabilities.push(
+          await this.registerCapability(
+            homeyDevice,
+            `meter_power.returned_${phase}`,
+            capabilitiesOptions[`meter_power.returned_${phase}` as never],
+          ),
         );
       }
     }
 
-    await safeAddCapability(homeyDevice, 'alarm_generic');
-    await safeAddCapability(homeyDevice, 'shelly_errors');
+    componentCapabilities.push('alarm_generic', 'shelly_errors');
 
     if (this.status.total_act !== undefined || this.status.total_act_ret !== undefined) {
       let energy = homeyDevice.getEnergy();
@@ -120,15 +128,19 @@ export default class EMData extends ComponentWithId<'EMData', EMDataStatus, EMDa
 
     if (methods.includes('ResetCounters')) {
       const maintenanceActionId = 'button.reset_energy_counters';
-      await this.registerCapability(
-        homeyDevice,
-        maintenanceActionId,
-        capabilitiesOptions[maintenanceActionId as never],
-        async () => {
-          await this.ResetCounters(this.device.getChannel());
-        },
+      componentCapabilities.push(
+        await this.registerCapability(
+          homeyDevice,
+          maintenanceActionId,
+          capabilitiesOptions[maintenanceActionId as never],
+          async () => {
+            await this.ResetCounters(this.device.getChannel());
+          },
+        ),
       );
     }
+
+    return componentCapabilities;
   }
 
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: EMDataStatus): Promise<void> {

@@ -1,0 +1,11 @@
+{
+  "id": "EM:reverse_a",
+  "type": "checkbox",
+  "label": {
+    "en": "Electrical Measurement - Reverse Phase A"
+  },
+  "hint": {
+    "en": "Reverse the measurement direction of active power and energy for phase A."
+  },
+  "value": false
+}

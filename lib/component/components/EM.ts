@@ -1,11 +1,11 @@
 import type ShellyLocalDevice from '../../local/LocalDevice.js';
-import { ComponentWithId } from '../Component.js';
+import type { RecursivePartial } from '../../util.js';
+import { type AllowedPrimitives, ComponentWithId } from '../Component.js';
 import capabilitiesOptions from './EM/capabilitiesOptions.json' with { type: 'json' };
 import GetConfig from './EM/GetConfig.js';
 import GetStatus from './EM/GetStatus.js';
 import SetConfig from './EM/SetConfig.js';
 import type { ComponentMethod } from './Shelly/ListMethods.js';
-import { safeAddCapability } from '../../safeFunctions.js';
 
 export type EMConfig = {
   /** Id of the EM component instance */
@@ -21,17 +21,21 @@ export type EMConfig = {
   /**
    * Select the type of Shelly current transformer attached to the device.
    * If ct_type is not set, an error ct_type_not_set is present in component status.
+   * Supported ct_types can be obtained with EM.GetCTTypes.
    */
   ct_type?: string;
   /**
    * Settings for the alarm thresholds.
    * 'null' disables a threshold, setting the alarms option to 'null' disables all alarms.
    */
-  alarms: {
-    voltage: [number, number] | null;
-    current: [number, number] | null;
-    power: [number, number] | null;
-  } | null;
+  alarms: Record<
+    'a' | 'b' | 'c',
+    {
+      voltage: [number | null, number | null] | null;
+      current: [number | null, number | null] | null;
+      power: [number | null, number | null] | null;
+    }
+  > | null;
 };
 
 export type EMStatus = {
@@ -89,7 +93,14 @@ export type EMStatus = {
   flags?: string[];
 };
 
-export type EMHomeySettings = Record<never, never>;
+export type EMHomeySettings = {
+  'EM:ct_type': string;
+  'EM:reverse_a': boolean;
+  'EM:reverse_b': boolean;
+  'EM:reverse_c': boolean;
+};
+
+const phases = ['a', 'b', 'c'] as const;
 
 /**
  * EM component handles the data collection and processing from triphase energy meter devices like the Shelly Pro 3EM.
@@ -114,10 +125,17 @@ export default class EM extends ComponentWithId<'EM', EMStatus, EMConfig, EMHome
     ['c', 'c_current', 'c_voltage', 'c_act_power', 'c_aprt_power', 'c_pf', 'c_freq'],
   ] as const;
 
-  public async registerHomeyDevice(homeyDevice: ShellyLocalDevice, _methods: ComponentMethod<'EM'>[]): Promise<void> {
+  public async registerHomeyDevice(
+    homeyDevice: ShellyLocalDevice,
+    _methods: ComponentMethod<'EM'>[],
+  ): Promise<string[]> {
+    const componentCapabilities: string[] = [];
+
     for (const [statusKey, homeyCapability] of EM.totalFields) {
       if (this.status[statusKey] !== undefined) {
-        await this.registerCapability(homeyDevice, homeyCapability, capabilitiesOptions[homeyCapability as never]);
+        componentCapabilities.push(
+          await this.registerCapability(homeyDevice, homeyCapability, capabilitiesOptions[homeyCapability as never]),
+        );
       }
     }
 
@@ -131,13 +149,16 @@ export default class EM extends ComponentWithId<'EM', EMStatus, EMConfig, EMHome
         [freqKey, `measure_frequency.${phase}`],
       ] as const) {
         if (this.status[statusKey] !== undefined) {
-          await this.registerCapability(homeyDevice, homeyCapability, capabilitiesOptions[homeyCapability as never]);
+          componentCapabilities.push(
+            await this.registerCapability(homeyDevice, homeyCapability, capabilitiesOptions[homeyCapability as never]),
+          );
         }
       }
     }
 
-    await safeAddCapability(homeyDevice, 'alarm_generic');
-    await safeAddCapability(homeyDevice, 'shelly_errors');
+    componentCapabilities.push('alarm_generic', 'shelly_errors');
+
+    return componentCapabilities;
   }
 
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: EMStatus): Promise<void> {
@@ -165,7 +186,38 @@ export default class EM extends ComponentWithId<'EM', EMStatus, EMConfig, EMHome
     await homeyDevice.updateErrors(this.getComponentKey(), status.errors ?? []);
   }
 
-  public async onConfigUpdate(_homeyDevice: ShellyLocalDevice, _config: EMConfig): Promise<void> {
-    return;
+  public async onConfigUpdate(homeyDevice: ShellyLocalDevice, config: EMConfig): Promise<void> {
+    const newSettings: RecursivePartial<EMHomeySettings, AllowedPrimitives> = {};
+
+    if (config.ct_type !== undefined) {
+      newSettings['EM:ct_type'] = config.ct_type;
+    }
+    for (const phase of phases) {
+      // Shelly only reports reversed phases, a missing key means not reversed
+      newSettings[`EM:reverse_${phase}`] = config.reverse?.[phase] ?? false;
+    }
+
+    await homeyDevice.setComponentSettings(this.namespace, this.id, newSettings);
+  }
+
+  public async handleSettings(
+    _homeyDevice: ShellyLocalDevice,
+    { changedKeys, newSettings }: SettingsEvent<EMHomeySettings>,
+  ): Promise<boolean> {
+    const changedConfig: RecursivePartial<EMConfig, AllowedPrimitives> = {};
+
+    if (changedKeys.includes('EM:ct_type')) {
+      changedConfig.ct_type = newSettings['EM:ct_type'];
+    }
+    if (phases.some(phase => changedKeys.includes(`EM:reverse_${phase}`))) {
+      changedConfig.reverse = Object.fromEntries(phases.map(phase => [phase, newSettings[`EM:reverse_${phase}`]]));
+    }
+
+    if (Object.keys(changedConfig).length <= 0) {
+      return false;
+    }
+
+    const result = await this.SetConfig(this.device.getChannel(), { config: changedConfig });
+    return result.result.restart_required;
   }
 }
