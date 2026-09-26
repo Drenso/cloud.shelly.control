@@ -1,0 +1,11 @@
+{
+  "id": "EM:reverse_c",
+  "type": "checkbox",
+  "label": {
+    "en": "Electrical Measurement - Reverse Phase C"
+  },
+  "hint": {
+    "en": "Reverse the measurement direction of active power and energy for phase C."
+  },
+  "value": false
+}
