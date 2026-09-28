@@ -15,7 +15,7 @@ const driverCompose: {
     manufacturerName: string;
     productId: string[];
     endpoints: Record<string, { clusters: number[]; bindings: number[] }>;
-    _clusters: Record<string, number>;
+    _clusters: Record<string, string>;
     learnmode: { instruction: { en: string } };
   };
 } = {
@@ -32,11 +32,24 @@ const driverCompose: {
   },
 };
 
-const endpointDescriptions = interview.endpoints.extendedEndpointDescriptors;
+type EndpointDescription = {
+  status: string;
+  nwkAddrOfInterest: number;
+  _reserved: number;
+  endpointId: number;
+  applicationProfileId: number;
+  applicationDeviceId: number;
+  applicationDeviceVersion: number;
+  _reserved1: number;
+  inputClusters: number[];
+  outputClusters: number[];
+};
+
+const endpointDescriptions: EndpointDescription[] = interview.endpoints.endpointDescriptors;
 
 const zigbeeClustersModule = await import('zigbee-clusters');
 
-const clusterMapping: Record<string, number> = {};
+const clusterMapping: Record<number, string> = {};
 
 const clusterDefinitions = zigbeeClustersModule.default.CLUSTER;
 for (const clusterKey in clusterDefinitions) {
@@ -45,23 +58,21 @@ for (const clusterKey in clusterDefinitions) {
     ID: number;
   };
   const clusterName = clusterDefinition.NAME;
-  clusterMapping[clusterName] = clusterDefinition.ID;
+  clusterMapping[clusterDefinition.ID] = clusterName;
 }
 
-for (const endpointId in endpointDescriptions) {
-  const endpointDescription = endpointDescriptions[endpointId];
+for (const endpointDescription of endpointDescriptions) {
   const endpointCompose: { clusters: number[]; bindings: number[] } = {
-    clusters: [],
+    clusters: [...new Set([...endpointDescription.inputClusters, ...endpointDescription.outputClusters])].toSorted(),
     bindings: [],
   };
 
-  for (const clusterName in endpointDescription.clusters) {
-    const clusterId = clusterMapping[clusterName];
-    endpointCompose.clusters.push(clusterId);
-    driverCompose.zigbee._clusters[clusterName] = clusterId;
+  for (const clusterId of endpointCompose.clusters) {
+    const clusterName = clusterMapping[clusterId];
+    driverCompose.zigbee._clusters[clusterId] = clusterName;
   }
 
-  driverCompose.zigbee.endpoints[`${endpointId}`] = endpointCompose;
+  driverCompose.zigbee.endpoints[`${endpointDescription.endpointId}`] = endpointCompose;
 }
 
 console.log(JSON.stringify(driverCompose, undefined, 2)); // eslint-disable-line no-restricted-syntax -- Allowed for local tools
