@@ -1,5 +1,7 @@
 import mitt, { type Emitter, type EventType } from 'mitt';
 import type { JsonObject, JsonValue } from '../types/json.js';
+import type { Time } from './unitConversion.js';
+import type Homey from 'homey';
 
 export function createMitt<Events extends Record<EventType, unknown>>(): Emitter<Events> {
   // @ts-expect-error Mitt default export is broken
@@ -226,4 +228,10 @@ export function diffArrays<V>(
 export function humanFileSize(size: number): string {
   const i = size == 0 ? 0 : Math.floor(Math.log(size) / Math.log(1024));
   return +(size / Math.pow(1024, i)).toFixed(2) + ' ' + ['B', 'kB', 'MB', 'GB', 'TB'][i];
+}
+
+export function wait(homey: Homey.App['homey'], duration: Time): Promise<void> {
+  const { promise, resolve } = Promise.withResolvers<void>();
+  homey.setTimeout(resolve, duration.toMs());
+  return promise;
 }

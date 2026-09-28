@@ -12,7 +12,7 @@ import type { RpcChannel } from './RpcChannel.js';
 import WebSocket, { type RawData } from 'ws';
 import { RpcError } from '../RpcError.js';
 import { RPC_SRC } from '../../config.js';
-import { createMitt } from '../../util.js';
+import { createMitt, wait } from '../../util.js';
 import {
   type AuthenticationResponse,
   createAuthenticationResponse,
@@ -87,7 +87,7 @@ export default class InboundWebsocketChannel implements RpcChannel {
       this.resetReconnectTimeout();
       this.updateKeepAlive();
       // Delay greeting to allow some time for the device to be responsive
-      await new Promise(resolve => this.app.homey.setTimeout(resolve, GREETING_DELAY.toMs()));
+      await wait(this.app.homey, GREETING_DELAY);
       // Send a message to enable receiving
       this.ping()
         .then(() => {
@@ -261,10 +261,11 @@ export default class InboundWebsocketChannel implements RpcChannel {
         requestFrameMessage = JSON.stringify(requestFrame);
       }
 
-      return new Promise<ResponseSuccessFrame<Result>>((resolve, reject) => {
-        this.awaitingResponse.set(requestFrame.id as number, { resolve, reject });
-        this.ws.send(requestFrameMessage);
-      }).catch(error => {
+      const { promise, resolve, reject } = Promise.withResolvers<ResponseSuccessFrame<Result>>();
+      this.awaitingResponse.set(requestFrame.id as number, { resolve, reject });
+      this.ws.send(requestFrameMessage);
+
+      return promise.catch(error => {
         if (!(error instanceof UnauthenticatedWS && requestFrame.auth === undefined)) {
           throw error;
         }

@@ -54,11 +54,9 @@ export default class ShellyApp extends Homey.App {
       .filter((id: string) => id.endsWith('local'));
 
     for (const driverName of localDriverNames) {
-      localDriversReadyPromises.push(
-        new Promise<void>(resolve => {
-          this.localDriverResolvers[driverName] = resolve;
-        }),
-      );
+      const { promise, resolve } = Promise.withResolvers<void>();
+      this.localDriverResolvers[driverName] = resolve;
+      localDriversReadyPromises.push(promise);
     }
     this.localDriversReady = Promise.all(localDriversReadyPromises).then();
 

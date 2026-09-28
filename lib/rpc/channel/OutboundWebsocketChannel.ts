@@ -51,9 +51,9 @@ export default class OutboundWebsocketChannel implements RpcChannel {
     private keepAliveDuration: Time | undefined,
   ) {
     this.outboundWsMitt = outboundWsMitt;
-    this.wsPromise = new Promise(resolve => {
-      this.resolveWsPromise = resolve;
-    });
+    const { promise, resolve } = Promise.withResolvers<WebSocket>();
+    this.wsPromise = promise;
+    this.resolveWsPromise = resolve;
 
     this.boundHandler = this.handleMessage.bind(this);
     this.outboundWsMitt.on(this.identifier, this.boundHandler);
@@ -139,9 +139,10 @@ export default class OutboundWebsocketChannel implements RpcChannel {
     if (socket.readyState === WebSocket.OPEN) {
       return socket;
     }
-    this.wsPromise = new Promise(resolve => {
-      this.resolveWsPromise = resolve;
-    });
+    const { promise, resolve } = Promise.withResolvers<WebSocket>();
+    this.wsPromise = promise;
+    this.resolveWsPromise = resolve;
+
     return this.getWs();
   }
 
@@ -151,10 +152,10 @@ export default class OutboundWebsocketChannel implements RpcChannel {
     try {
       const ws = await this.getWs();
       this.debug('Sending', requestFrame.method);
-      return new Promise((resolve, reject) => {
-        this.awaitingResponse.set(requestFrame.id as number, { resolve, reject });
-        ws.send(JSON.stringify(requestFrame));
-      });
+      const { promise, resolve, reject } = Promise.withResolvers<ResponseSuccessFrame<Result>>();
+      this.awaitingResponse.set(requestFrame.id as number, { resolve, reject });
+      ws.send(JSON.stringify(requestFrame));
+      return promise;
     } catch (e) {
       throw prettyError(e, this.app.homey.__);
     }
@@ -166,10 +167,10 @@ export default class OutboundWebsocketChannel implements RpcChannel {
       throw new Error('Outbound websocket has not connected yet');
     }
     const pingFrame = createRequestFrame('Shelly.GetDeviceInfo');
-    return new Promise((resolve, reject) => {
-      this.awaitingResponse.set(pingFrame.id as number, { resolve, reject });
-      ws.send(JSON.stringify(pingFrame));
-    });
+    const { promise, resolve, reject } = Promise.withResolvers<void>();
+    this.awaitingResponse.set(pingFrame.id as number, { resolve, reject });
+    ws.send(JSON.stringify(pingFrame));
+    return promise;
   }
 
   private updateKeepAlive(): void {

@@ -15,7 +15,7 @@ import type ShellyLocalDevice from './local/LocalDevice.js';
 import { createHttpChannel, createInboundWsChannel, createOutboundWsChannel } from './HomeyRPCChannels.js';
 import type ShellyLocalDriver from './local/LocalDriver.js';
 import type { ShellyLocalListDeviceProperties, ShellyLocalListVirtualDeviceProperties } from './types.js';
-import { diffArrays } from './util.js';
+import { diffArrays, wait } from './util.js';
 import type { OutBoundWebsocketConfig } from './component/components/OutboundWebsocket.js';
 import { getIp } from './LocalIp.js';
 import { OUTBOUND_WS_PORT } from './config.js';
@@ -275,9 +275,7 @@ export class VirtualDevice {
                 this.error('Error while configuring outbound websocket:', err);
                 const retryDelay = Time.s(2 ** (2 * this.outboundWsRetries));
                 this.debugState(`Retrying in ${retryDelay.toS()} seconds...`);
-                await new Promise(resolve => {
-                  this.app.homey.setTimeout(resolve, retryDelay.toMs());
-                });
+                await wait(this.app.homey, retryDelay);
                 this.outboundWsRetries += 1;
                 return this.states.waiting_for_outbound_ws_connection.enter();
               }
@@ -369,9 +367,7 @@ export class VirtualDevice {
           this.error('Error while initializing:', err);
           const retryDelay = Time.s(2 ** (2 * this.initRetries));
           this.debugState(`Retrying in ${retryDelay.toS()} seconds...`);
-          await new Promise(resolve => {
-            this.app.homey.setTimeout(resolve, retryDelay.toMs());
-          });
+          await wait(this.app.homey, retryDelay);
           this.initRetries += 1;
           return this.states.initializing.enter();
         }

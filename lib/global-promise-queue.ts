@@ -21,11 +21,12 @@ export function queueWorker(scope: string, worker: WorkerFunction): QueuedWorker
 
   const runContext = { cancel: false };
 
+  const { promise, resolve, reject } = Promise.withResolvers<void>();
+  queue[scope].push({ worker, runContext, resolve, reject });
+  void run(scope);
+
   return {
-    promise: new Promise<void>((resolve, reject) => {
-      queue[scope].push({ worker, runContext, resolve, reject });
-      void run(scope);
-    }),
+    promise: promise,
     context: runContext,
   };
 }
