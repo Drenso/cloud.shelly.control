@@ -4,6 +4,7 @@ export default [
   {
     // Temporarily ignore
     ignores: [
+      'tools/interview-sea',
       'types/homey-zigbeedriver/index.d.ts',
       'types/homey-zwavedriver/index.d.ts',
       'types/zigbee-clusters/index.d.ts',
