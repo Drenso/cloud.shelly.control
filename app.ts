@@ -20,7 +20,6 @@ import { registerPresenceFlowCards } from './lib/flow/presenceFlows.js';
 import { registerSwitchInputFlowCards } from './lib/flow/switchInputFlows.js';
 import { registerTemperatureFlowCards } from './lib/flow/temperatureFlows.js';
 import { createHttpChannel } from './lib/HomeyRPCChannels.js';
-import type ShellyLocalDevice from './lib/local/LocalDevice.js';
 import { getIp } from './lib/LocalIp.js';
 import OutboundWsServer from './lib/rpc/OutboundWsServer.js';
 import { type SerializedVirtualDevice, VirtualDevice } from './lib/VirtualDevice.js';
@@ -209,12 +208,6 @@ export default class ShellyApp extends Homey.App {
     NumberComponent.registerFlowCards(this);
     PresenceZone.registerFlowCards(this);
     Storage.registerFlowCards(this);
-
-    this.homey.flow
-      .getConditionCard('alarm_shelly_power_lost')
-      .registerRunListener((cardArgs: { device: ShellyLocalDevice }) => {
-        return cardArgs.device.getCapabilityValue('alarm_shelly_power_lost');
-      });
 
     this.homey.flow
       .getDeviceTriggerCard('blu_remote_control_button_pressed')
