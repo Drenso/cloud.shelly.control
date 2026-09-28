@@ -70,19 +70,21 @@ export class LocalPairingHandler {
   }
 
   private async addVirtualDevices(): Promise<void> {
-    await Promise.allSettled(this.selectedDevices.map(selectedDevice => {
-      const components = this.deviceComponents.get(selectedDevice.data.id)!;
-      const homeyDevices = this.childHomeyDevices.get(selectedDevice.data.id)!;
-      const homeyDevicesReady = Promise.all(
-        homeyDevices.map(device => this.driver.app.newDeviceBarriers[device.data.id]?.ready),
-      );
-      return homeyDevicesReady.then(() => {
-        this.log('Homey devices ready for', selectedDevice.data.id);
-        this.driver.createVirtualDevice(selectedDevice, components, homeyDevices);
-      });
-    }))
+    await Promise.allSettled(
+      this.selectedDevices.map(selectedDevice => {
+        const components = this.deviceComponents.get(selectedDevice.data.id)!;
+        const homeyDevices = this.childHomeyDevices.get(selectedDevice.data.id)!;
+        const homeyDevicesReady = Promise.all(
+          homeyDevices.map(device => this.driver.app.newDeviceBarriers[device.data.id]?.ready),
+        );
+        return homeyDevicesReady.then(() => {
+          this.log('Homey devices ready for', selectedDevice.data.id);
+          this.driver.createVirtualDevice(selectedDevice, components, homeyDevices);
+        });
+      }),
+    );
     for (const homeyDevice of this.allHomeyDevices) {
-      delete this.driver.app.newDeviceBarriers[homeyDevice.data.id]
+      delete this.driver.app.newDeviceBarriers[homeyDevice.data.id];
     }
   }
 
