@@ -16209,64 +16209,104 @@
         "endpoints": {
           "1": {
             "clusters": [
+              0,
+              3,
+              4,
               5,
               6,
               7
             ],
             "bindings": [
               5,
-              6
+              6,
+              7
             ]
           },
           "2": {
             "clusters": [
+              3,
+              4,
               5,
               6,
               7
             ],
             "bindings": [
               5,
-              6
+              6,
+              7
             ]
           },
           "3": {
             "clusters": [
+              3,
+              4,
               5,
               6,
               7
             ],
             "bindings": [
               5,
-              6
+              6,
+              7
             ]
           },
           "4": {
             "clusters": [
+              3,
+              4,
               5,
               6,
               7
             ],
             "bindings": [
               5,
-              6
+              6,
+              7
             ]
           },
           "5": {
             "clusters": [
+              258,
+              3,
+              4,
+              6,
               8
             ],
-            "bindings": [
-              8
-            ]
+            "bindings": []
           },
           "6": {
             "clusters": [
+              258,
+              3,
+              4,
+              6,
               8
             ],
-            "bindings": [
-              8
-            ]
+            "bindings": []
+          },
+          "239": {
+            "clusters": [
+              64513,
+              64514
+            ],
+            "bindings": []
+          },
+          "242": {
+            "clusters": [
+              33
+            ],
+            "bindings": []
           }
+        },
+        "_clusters": {
+          "0": "basic",
+          "3": "identify",
+          "4": "groups",
+          "5": "scenes",
+          "6": "onOff",
+          "7": "onOffSwitch",
+          "8": "levelControl",
+          "258": "windowCovering"
         },
         "learnmode": {
           "instruction": {
