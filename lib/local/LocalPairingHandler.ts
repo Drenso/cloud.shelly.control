@@ -38,7 +38,16 @@ export class LocalPairingHandler {
     this.session.setHandler('credentials', this.checkCredentials.bind(this));
     // Add all assembled Homey devices
     this.session.setHandler('authentication_done', () => this.session.showView('add_subdevices'));
-    this.session.setHandler('add_subdevices', async () => this.allHomeyDevices);
+    this.session.setHandler('add_subdevices', async () => {
+      for (const homeyDevice of this.allHomeyDevices) {
+        const { promise, resolve } = Promise.withResolvers<void>();
+        this.driver.app.newDeviceBarriers[homeyDevice.data.id] = {
+          ready: promise,
+          resolve,
+        };
+      }
+      return this.allHomeyDevices;
+    });
     // Add virtual devices for the added devices
     this.session.setHandler('done', this.addVirtualDevices.bind(this));
   }
@@ -64,7 +73,13 @@ export class LocalPairingHandler {
     for (const selectedDevice of this.selectedDevices) {
       const components = this.deviceComponents.get(selectedDevice.data.id)!;
       const homeyDevices = this.childHomeyDevices.get(selectedDevice.data.id)!;
-      this.driver.createVirtualDevice(selectedDevice, components, homeyDevices);
+      const homeyDevicesReady = Promise.all(
+        homeyDevices.map(device => this.driver.app.newDeviceBarriers[device.data.id]?.ready),
+      );
+      homeyDevicesReady.then(() => {
+        this.log('Homey devices ready for', selectedDevice.data.id);
+        this.driver.createVirtualDevice(selectedDevice, components, homeyDevices);
+      });
     }
   }
 

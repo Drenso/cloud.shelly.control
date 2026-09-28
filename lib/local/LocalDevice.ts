@@ -21,6 +21,7 @@ export default class ShellyLocalDevice extends Homey.Device {
   private errors: Record<string, string[]> = {};
 
   public async onInit(): Promise<void> {
+    this.app.newDeviceBarriers[this.getTypedData().id]?.resolve();
     this.registerCapabilityListener('button.restart', () => {
       if (this.virtualDevice === undefined) {
         throw new Error(this.homey.__('device.not_connected'));

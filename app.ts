@@ -40,6 +40,8 @@ export default class ShellyApp extends Homey.App {
   public readonly localDriverResolvers: Record<string, () => void>;
   public readonly localDriversReady: Promise<void>;
 
+  public readonly newDeviceBarriers: Record<string, { ready: Promise<void>; resolve: () => void }> = {};
+
   public readonly expectedHomeyDeviceIds: string[] = [];
 
   public constructor(...args: Array<never>) {
