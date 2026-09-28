@@ -134,7 +134,6 @@ export default class InboundWebsocketChannel implements RpcChannel {
     this.closed = true;
     this.eventEmitter.all.clear();
     this.close();
-    this.log('WS closed');
   }
 
   private close(): void {
