@@ -125,7 +125,7 @@ export default class PM1 extends ComponentWithId<'PM1', PM1Status, PM1Config, PM
       let energy = homeyDevice.getEnergy();
       energy = {
         ...energy,
-        cumulative: false,
+        cumulative: undefined,
         meterPowerImportedCapability: 'meter_power.imported',
         meterPowerExportedCapability: 'meter_power.exported',
       };

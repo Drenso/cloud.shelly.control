@@ -53,7 +53,7 @@ export default class ShellyApp extends Homey.App {
     const localDriversReadyPromises: Array<Promise<void>> = [];
 
     // Dynamically get the names of local drivers based on their suffix
-    const localDriverNames = this.manifest.drivers
+    const localDriverNames = (this.manifest.drivers ?? [])
       .map((driver: { id: string }) => driver.id)
       .filter((id: string) => id.endsWith('local'));
 
@@ -127,7 +127,7 @@ export default class ShellyApp extends Homey.App {
   private async setupVirtualDeviceRediscovery(): Promise<void> {
     const discoveryStrategy = this.homey.discovery.getStrategy('shelly');
 
-    discoveryStrategy.on('result', discoveryResult => this.handleRediscovery(discoveryResult));
+    discoveryStrategy.on('result', discoveryResult => this.handleRediscovery(discoveryResult as DiscoveryResultMDNSSD));
 
     const initialDiscoveryResults = discoveryStrategy.getDiscoveryResults() as Record<string, DiscoveryResultMDNSSD>;
     for (const initialDiscoveryResultsKey in initialDiscoveryResults) {

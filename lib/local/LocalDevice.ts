@@ -32,7 +32,7 @@ export default class ShellyLocalDevice extends Homey.Device {
       await this.setUnavailable(this.homey.__('device.orphan'));
       return;
     }
-    if (!(this.driver as ShellyLocalDriver).batteryDevice) {
+    if (!this.typedDriver.batteryDevice) {
       await this.setUnavailable(this.homey.__('device.initializing'));
     }
   }
@@ -187,7 +187,7 @@ export default class ShellyLocalDevice extends Homey.Device {
   }
 
   public debug(...args: unknown[]): void {
-    (this.driver as ShellyLocalDriver).debug(`[Device:${this.__id}]`, ...args);
+    this.typedDriver.debug(`[Device:${this.__id}]`, ...args);
   }
 
   public async updateErrors(component: string, errors: string[]): Promise<void> {
@@ -212,6 +212,10 @@ export default class ShellyLocalDevice extends Homey.Device {
 
     this.errors[component] = errors;
     await this.collectAllErrors();
+  }
+
+  private get typedDriver(): ShellyLocalDriver {
+    return this.driver as unknown as ShellyLocalDriver;
   }
 
   private async collectAllErrors(): Promise<void> {

@@ -252,7 +252,7 @@ export default class Switch extends ComponentWithId<'Switch', SwitchStatus, Swit
       let energy = homeyDevice.getEnergy();
       energy = {
         ...energy,
-        cumulative: false,
+        cumulative: undefined,
         meterPowerImportedCapability: 'meter_power.imported',
         meterPowerExportedCapability: 'meter_power.exported',
       };

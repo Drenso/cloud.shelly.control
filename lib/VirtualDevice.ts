@@ -209,7 +209,7 @@ export class VirtualDevice {
         }
 
         // Check if any Homey devices remain
-        const driver = this.app.homey.drivers.getDrivers()[this.driver] as ShellyLocalDriver;
+        const driver = this.app.homey.drivers.getDrivers()[this.driver] as unknown as ShellyLocalDriver;
         const homeyDevices = [];
         for (const homeyDeviceId of this.initialHomeyDeviceIds) {
           const homeyDevice = driver.getLocalDevice(homeyDeviceId);
@@ -741,7 +741,7 @@ export class VirtualDevice {
   private async assembleDevices(
     components: ShellyGetComponentsResponseComponent[],
   ): Promise<ShellyLocalListDeviceProperties[]> {
-    const driver = this.app.homey.drivers.getDriver(this.driver) as ShellyLocalDriver;
+    const driver = this.app.homey.drivers.getDriver(this.driver) as unknown as ShellyLocalDriver;
 
     const { mainComponents, addonComponents } = driver.splitComponents(components);
     const virtualHomeyDevice: ShellyLocalListVirtualDeviceProperties = {

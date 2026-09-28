@@ -38,9 +38,9 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
     }
   }
 
-  public async onPair(session: Homey.Driver.PairSession): Promise<void> {
-    await super.onPair(session);
-    await new LocalPairingHandler(
+  public onPair(session: Homey.Driver.PairSession): void {
+    super.onPair(session);
+    new LocalPairingHandler(
       session,
       this,
       (...args: Array<unknown>) => this.log('[Pairing Handler]', ...args),
@@ -49,8 +49,8 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
     ).setup();
   }
 
-  public async onRepair(session: Homey.Driver.PairSession, device: ShellyLocalDevice): Promise<void> {
-    await new LocalRePairingHandler(
+  public onRepair(session: Homey.Driver.PairSession, device: ShellyLocalDevice): void {
+    new LocalRePairingHandler(
       session,
       device,
       this,
@@ -122,7 +122,11 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
       return deviceInfo.id;
     }
 
-    return this.manifest.name.en.split('-')[0].trim();
+    if (typeof this.manifest.name === 'string') {
+      return this.manifest.name.split('-')[0].trim();
+    }
+
+    return (this.manifest.name.en ?? '').split('-')[0].trim();
   }
 
   protected get baseDriverId(): string {

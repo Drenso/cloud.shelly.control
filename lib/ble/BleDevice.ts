@@ -16,7 +16,7 @@ export default abstract class ShellyBleDevice extends Homey.Device {
   private seenPackets = Array(256).fill(false);
 
   public constructor(...args: unknown[]) {
-    super(...(args as never[]));
+    super(...args);
     this.handleBleForward = this.handleBleForward.bind(this);
   }
 

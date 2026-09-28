@@ -22,7 +22,11 @@ export default abstract class ShellyBleDriver extends Homey.Driver {
       return advertisement.address;
     }
 
-    return this.manifest.name.en.split('-')[0].trim();
+    if (typeof this.manifest.name === 'string') {
+      return this.manifest.name.split('-')[0].trim();
+    }
+
+    return (this.manifest.name.en ?? '').split('-')[0].trim();
   }
 
   protected get baseDriverId(): string {
@@ -44,7 +48,7 @@ export default abstract class ShellyBleDriver extends Homey.Driver {
         }
       }
     });
-    session.setHandler('pair_instructions', () => {
+    session.setHandler('pair_instructions', async () => {
       return this.manifest['learnmode'];
     });
   }

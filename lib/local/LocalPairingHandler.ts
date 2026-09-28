@@ -20,7 +20,7 @@ export class LocalPairingHandler {
     public readonly debug: (...args: unknown[]) => void,
   ) {}
 
-  public async setup(): Promise<void> {
+  public setup(): void {
     // If devices need pairing instructions, get them from the manifest
     this.session.setHandler('pair_instructions', () => {
       return this.driver.manifest['learnmode'];

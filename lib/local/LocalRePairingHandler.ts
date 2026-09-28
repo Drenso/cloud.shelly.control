@@ -27,7 +27,7 @@ export class LocalRePairingHandler {
     public readonly debug: (...args: unknown[]) => void,
   ) {}
 
-  public async setup(): Promise<void> {
+  public setup(): void {
     this.log('Re-pairing', this.device.getTypedData().id);
 
     // Update device info
