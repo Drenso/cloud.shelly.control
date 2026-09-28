@@ -27,7 +27,8 @@ export default class ShellyProEM4LocalDriver extends ShellyLocalDriver {
         const subdeviceId = `${id}:em1:${emId}`;
 
         const em1Config = component.config as EM1Config;
-        const subdeviceName = em1Config.name ?? `${EM1.uiName} ${emId + 1}`;
+        const displayId = emId === 0 ? 'A' : 'B';
+        const subdeviceName = em1Config.name ?? `${EM1.uiName} ${displayId}`;
 
         subDevices.push({
           name: `${selectedDevice.name} - ${subdeviceName}`,

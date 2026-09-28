@@ -21,7 +21,8 @@ export default abstract class ShellyMultiSwitchInputLocalDriver extends ShellyLo
         const subdeviceId = `${id}:switch:${switchId}`;
 
         const switchConfig = component.config as SwitchConfig;
-        const subdeviceName = switchConfig.name ?? `${Switch.uiName} ${switchId + 1}`;
+        const displayId = switchId < 100 ? switchId + 1 : switchId;
+        const subdeviceName = switchConfig.name ?? `${Switch.uiName} ${displayId}`;
 
         subDevices.push({
           name: `${selectedDevice.name} - ${subdeviceName}`,

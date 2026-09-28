@@ -1,13 +1,13 @@
 {
   "type": "group",
-  "label": "Input 3",
+  "label": "Input 4",
   "children": [
     {
       "id": "Input:3:enable",
       "type": "checkbox",
       "value": true,
       "label": {
-        "en": "Input 3 - Enabled"
+        "en": "Input 4 - Enabled"
       }
     },
     {
@@ -15,7 +15,7 @@
       "type": "checkbox",
       "value": true,
       "label": {
-        "en": "Input 3 - Invert"
+        "en": "Input 4 - Invert"
       }
     }
   ]

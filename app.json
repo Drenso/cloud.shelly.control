@@ -4550,33 +4550,10 @@
         {
           "id": "Input0.group",
           "type": "group",
-          "label": "Input 0",
-          "children": [
-            {
-              "id": "Input:0:enable",
-              "type": "checkbox",
-              "value": true,
-              "label": {
-                "en": "Input 0 - Enabled"
-              }
-            },
-            {
-              "id": "Input:0:invert",
-              "type": "checkbox",
-              "value": true,
-              "label": {
-                "en": "Input 0 - Invert"
-              }
-            }
-          ]
-        },
-        {
-          "id": "Input1.group",
-          "type": "group",
           "label": "Input 1",
           "children": [
             {
-              "id": "Input:1:enable",
+              "id": "Input:0:enable",
               "type": "checkbox",
               "value": true,
               "label": {
@@ -4584,11 +4561,34 @@
               }
             },
             {
-              "id": "Input:1:invert",
+              "id": "Input:0:invert",
               "type": "checkbox",
               "value": true,
               "label": {
                 "en": "Input 1 - Invert"
+              }
+            }
+          ]
+        },
+        {
+          "id": "Input1.group",
+          "type": "group",
+          "label": "Input 2",
+          "children": [
+            {
+              "id": "Input:1:enable",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Input 2 - Enabled"
+              }
+            },
+            {
+              "id": "Input:1:invert",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Input 2 - Invert"
               }
             }
           ]
@@ -5646,33 +5646,10 @@
         {
           "id": "Input0.group",
           "type": "group",
-          "label": "Input 0",
-          "children": [
-            {
-              "id": "Input:0:enable",
-              "type": "checkbox",
-              "value": true,
-              "label": {
-                "en": "Input 0 - Enabled"
-              }
-            },
-            {
-              "id": "Input:0:invert",
-              "type": "checkbox",
-              "value": true,
-              "label": {
-                "en": "Input 0 - Invert"
-              }
-            }
-          ]
-        },
-        {
-          "id": "Input1.group",
-          "type": "group",
           "label": "Input 1",
           "children": [
             {
-              "id": "Input:1:enable",
+              "id": "Input:0:enable",
               "type": "checkbox",
               "value": true,
               "label": {
@@ -5680,11 +5657,34 @@
               }
             },
             {
-              "id": "Input:1:invert",
+              "id": "Input:0:invert",
               "type": "checkbox",
               "value": true,
               "label": {
                 "en": "Input 1 - Invert"
+              }
+            }
+          ]
+        },
+        {
+          "id": "Input1.group",
+          "type": "group",
+          "label": "Input 2",
+          "children": [
+            {
+              "id": "Input:1:enable",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Input 2 - Enabled"
+              }
+            },
+            {
+              "id": "Input:1:invert",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Input 2 - Invert"
               }
             }
           ]
@@ -5885,33 +5885,10 @@
         {
           "id": "Input0.group",
           "type": "group",
-          "label": "Input 0",
-          "children": [
-            {
-              "id": "Input:0:enable",
-              "type": "checkbox",
-              "value": true,
-              "label": {
-                "en": "Input 0 - Enabled"
-              }
-            },
-            {
-              "id": "Input:0:invert",
-              "type": "checkbox",
-              "value": true,
-              "label": {
-                "en": "Input 0 - Invert"
-              }
-            }
-          ]
-        },
-        {
-          "id": "Input1.group",
-          "type": "group",
           "label": "Input 1",
           "children": [
             {
-              "id": "Input:1:enable",
+              "id": "Input:0:enable",
               "type": "checkbox",
               "value": true,
               "label": {
@@ -5919,11 +5896,34 @@
               }
             },
             {
-              "id": "Input:1:invert",
+              "id": "Input:0:invert",
               "type": "checkbox",
               "value": true,
               "label": {
                 "en": "Input 1 - Invert"
+              }
+            }
+          ]
+        },
+        {
+          "id": "Input1.group",
+          "type": "group",
+          "label": "Input 2",
+          "children": [
+            {
+              "id": "Input:1:enable",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Input 2 - Enabled"
+              }
+            },
+            {
+              "id": "Input:1:invert",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Input 2 - Invert"
               }
             }
           ]
@@ -8007,33 +8007,10 @@
         {
           "id": "Input0.group",
           "type": "group",
-          "label": "Input 0",
-          "children": [
-            {
-              "id": "Input:0:enable",
-              "type": "checkbox",
-              "value": true,
-              "label": {
-                "en": "Input 0 - Enabled"
-              }
-            },
-            {
-              "id": "Input:0:invert",
-              "type": "checkbox",
-              "value": true,
-              "label": {
-                "en": "Input 0 - Invert"
-              }
-            }
-          ]
-        },
-        {
-          "id": "Input1.group",
-          "type": "group",
           "label": "Input 1",
           "children": [
             {
-              "id": "Input:1:enable",
+              "id": "Input:0:enable",
               "type": "checkbox",
               "value": true,
               "label": {
@@ -8041,11 +8018,34 @@
               }
             },
             {
-              "id": "Input:1:invert",
+              "id": "Input:0:invert",
               "type": "checkbox",
               "value": true,
               "label": {
                 "en": "Input 1 - Invert"
+              }
+            }
+          ]
+        },
+        {
+          "id": "Input1.group",
+          "type": "group",
+          "label": "Input 2",
+          "children": [
+            {
+              "id": "Input:1:enable",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Input 2 - Enabled"
+              }
+            },
+            {
+              "id": "Input:1:invert",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Input 2 - Invert"
               }
             }
           ]
@@ -8257,33 +8257,10 @@
         {
           "id": "Input0.group",
           "type": "group",
-          "label": "Input 0",
-          "children": [
-            {
-              "id": "Input:0:enable",
-              "type": "checkbox",
-              "value": true,
-              "label": {
-                "en": "Input 0 - Enabled"
-              }
-            },
-            {
-              "id": "Input:0:invert",
-              "type": "checkbox",
-              "value": true,
-              "label": {
-                "en": "Input 0 - Invert"
-              }
-            }
-          ]
-        },
-        {
-          "id": "Input1.group",
-          "type": "group",
           "label": "Input 1",
           "children": [
             {
-              "id": "Input:1:enable",
+              "id": "Input:0:enable",
               "type": "checkbox",
               "value": true,
               "label": {
@@ -8291,11 +8268,34 @@
               }
             },
             {
-              "id": "Input:1:invert",
+              "id": "Input:0:invert",
               "type": "checkbox",
               "value": true,
               "label": {
                 "en": "Input 1 - Invert"
+              }
+            }
+          ]
+        },
+        {
+          "id": "Input1.group",
+          "type": "group",
+          "label": "Input 2",
+          "children": [
+            {
+              "id": "Input:1:enable",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Input 2 - Enabled"
+              }
+            },
+            {
+              "id": "Input:1:invert",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Input 2 - Invert"
               }
             }
           ]
@@ -8546,33 +8546,10 @@
         {
           "id": "Input0.group",
           "type": "group",
-          "label": "Input 0",
-          "children": [
-            {
-              "id": "Input:0:enable",
-              "type": "checkbox",
-              "value": true,
-              "label": {
-                "en": "Input 0 - Enabled"
-              }
-            },
-            {
-              "id": "Input:0:invert",
-              "type": "checkbox",
-              "value": true,
-              "label": {
-                "en": "Input 0 - Invert"
-              }
-            }
-          ]
-        },
-        {
-          "id": "Input1.group",
-          "type": "group",
           "label": "Input 1",
           "children": [
             {
-              "id": "Input:1:enable",
+              "id": "Input:0:enable",
               "type": "checkbox",
               "value": true,
               "label": {
@@ -8580,11 +8557,34 @@
               }
             },
             {
-              "id": "Input:1:invert",
+              "id": "Input:0:invert",
               "type": "checkbox",
               "value": true,
               "label": {
                 "en": "Input 1 - Invert"
+              }
+            }
+          ]
+        },
+        {
+          "id": "Input1.group",
+          "type": "group",
+          "label": "Input 2",
+          "children": [
+            {
+              "id": "Input:1:enable",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Input 2 - Enabled"
+              }
+            },
+            {
+              "id": "Input:1:invert",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Input 2 - Invert"
               }
             }
           ]
@@ -12890,33 +12890,10 @@
         {
           "id": "Input0.group",
           "type": "group",
-          "label": "Input 0",
-          "children": [
-            {
-              "id": "Input:0:enable",
-              "type": "checkbox",
-              "value": true,
-              "label": {
-                "en": "Input 0 - Enabled"
-              }
-            },
-            {
-              "id": "Input:0:invert",
-              "type": "checkbox",
-              "value": true,
-              "label": {
-                "en": "Input 0 - Invert"
-              }
-            }
-          ]
-        },
-        {
-          "id": "Input1.group",
-          "type": "group",
           "label": "Input 1",
           "children": [
             {
-              "id": "Input:1:enable",
+              "id": "Input:0:enable",
               "type": "checkbox",
               "value": true,
               "label": {
@@ -12924,11 +12901,34 @@
               }
             },
             {
-              "id": "Input:1:invert",
+              "id": "Input:0:invert",
               "type": "checkbox",
               "value": true,
               "label": {
                 "en": "Input 1 - Invert"
+              }
+            }
+          ]
+        },
+        {
+          "id": "Input1.group",
+          "type": "group",
+          "label": "Input 2",
+          "children": [
+            {
+              "id": "Input:1:enable",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Input 2 - Enabled"
+              }
+            },
+            {
+              "id": "Input:1:invert",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Input 2 - Invert"
               }
             }
           ]
@@ -13361,33 +13361,10 @@
         {
           "id": "Input0.group",
           "type": "group",
-          "label": "Input 0",
-          "children": [
-            {
-              "id": "Input:0:enable",
-              "type": "checkbox",
-              "value": true,
-              "label": {
-                "en": "Input 0 - Enabled"
-              }
-            },
-            {
-              "id": "Input:0:invert",
-              "type": "checkbox",
-              "value": true,
-              "label": {
-                "en": "Input 0 - Invert"
-              }
-            }
-          ]
-        },
-        {
-          "id": "Input1.group",
-          "type": "group",
           "label": "Input 1",
           "children": [
             {
-              "id": "Input:1:enable",
+              "id": "Input:0:enable",
               "type": "checkbox",
               "value": true,
               "label": {
@@ -13395,11 +13372,34 @@
               }
             },
             {
-              "id": "Input:1:invert",
+              "id": "Input:0:invert",
               "type": "checkbox",
               "value": true,
               "label": {
                 "en": "Input 1 - Invert"
+              }
+            }
+          ]
+        },
+        {
+          "id": "Input1.group",
+          "type": "group",
+          "label": "Input 2",
+          "children": [
+            {
+              "id": "Input:1:enable",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Input 2 - Enabled"
+              }
+            },
+            {
+              "id": "Input:1:invert",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Input 2 - Invert"
               }
             }
           ]
@@ -17267,33 +17267,10 @@
         {
           "id": "Input0.group",
           "type": "group",
-          "label": "Input 0",
-          "children": [
-            {
-              "id": "Input:0:enable",
-              "type": "checkbox",
-              "value": true,
-              "label": {
-                "en": "Input 0 - Enabled"
-              }
-            },
-            {
-              "id": "Input:0:invert",
-              "type": "checkbox",
-              "value": true,
-              "label": {
-                "en": "Input 0 - Invert"
-              }
-            }
-          ]
-        },
-        {
-          "id": "Input1.group",
-          "type": "group",
           "label": "Input 1",
           "children": [
             {
-              "id": "Input:1:enable",
+              "id": "Input:0:enable",
               "type": "checkbox",
               "value": true,
               "label": {
@@ -17301,11 +17278,34 @@
               }
             },
             {
-              "id": "Input:1:invert",
+              "id": "Input:0:invert",
               "type": "checkbox",
               "value": true,
               "label": {
                 "en": "Input 1 - Invert"
+              }
+            }
+          ]
+        },
+        {
+          "id": "Input1.group",
+          "type": "group",
+          "label": "Input 2",
+          "children": [
+            {
+              "id": "Input:1:enable",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Input 2 - Enabled"
+              }
+            },
+            {
+              "id": "Input:1:invert",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Input 2 - Invert"
               }
             }
           ]
@@ -17885,33 +17885,10 @@
         {
           "id": "Input0.group",
           "type": "group",
-          "label": "Input 0",
-          "children": [
-            {
-              "id": "Input:0:enable",
-              "type": "checkbox",
-              "value": true,
-              "label": {
-                "en": "Input 0 - Enabled"
-              }
-            },
-            {
-              "id": "Input:0:invert",
-              "type": "checkbox",
-              "value": true,
-              "label": {
-                "en": "Input 0 - Invert"
-              }
-            }
-          ]
-        },
-        {
-          "id": "Input1.group",
-          "type": "group",
           "label": "Input 1",
           "children": [
             {
-              "id": "Input:1:enable",
+              "id": "Input:0:enable",
               "type": "checkbox",
               "value": true,
               "label": {
@@ -17919,11 +17896,34 @@
               }
             },
             {
-              "id": "Input:1:invert",
+              "id": "Input:0:invert",
               "type": "checkbox",
               "value": true,
               "label": {
                 "en": "Input 1 - Invert"
+              }
+            }
+          ]
+        },
+        {
+          "id": "Input1.group",
+          "type": "group",
+          "label": "Input 2",
+          "children": [
+            {
+              "id": "Input:1:enable",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Input 2 - Enabled"
+              }
+            },
+            {
+              "id": "Input:1:invert",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Input 2 - Invert"
               }
             }
           ]

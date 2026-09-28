@@ -510,7 +510,9 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
       await homeyDevice.setCapabilityOptions(capabilityId, {});
       return capabilityId;
     }
-    const name = this.config.name !== null ? this.config.name : `${this.id}`;
+
+    const displayId = this.id < 100 ? this.id + 1 : this.id;
+    const name = this.config.name !== null ? this.config.name : `${displayId}`;
     const capabilityOptions = fillTranslationTagsRecursively(rawCapabilityOptions, {
       name: name,
     }) as JsonObject;
@@ -568,12 +570,17 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
         }
         const capabilityOptions = capabilitiesOptions[CAPABILITY_MAPPING[inputType]];
         return deviceSwitchInputs
-          .map(input => ({
-            name:
-              input.config.name ??
-              translate(app.homey.__('locale'), capabilityOptions.title, { number: `${input.id}` }),
-            id: input.id,
-          }))
+          .map(input => {
+            const displayId = input.id < 100 ? input.id + 1 : input.id;
+            return {
+              name:
+                input.config.name ??
+                translate(app.homey.__('locale'), capabilityOptions.title, {
+                  name: `${displayId}`,
+                }),
+              id: input.id,
+            };
+          })
           .filter(input => input.name.toLowerCase().includes(query.trim().toLowerCase()));
       };
     };

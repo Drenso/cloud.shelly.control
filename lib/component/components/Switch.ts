@@ -14,7 +14,8 @@ import type { ResponseSuccessFrame } from '../../rpc/Rpc.js';
 import capabilitiesOptions from './Switch/capabilitiesOptions.json' with { type: 'json' };
 import type ShellyLocalDevice from '../../local/LocalDevice.js';
 import type { ComponentMethod } from './Shelly/ListMethods.js';
-import { type RecursivePartial, translate } from '../../util.js';
+import { fillTranslationTagsRecursively, type RecursivePartial, translate } from '../../util.js';
+import type { JsonObject } from '../../../types/json.js';
 
 export type SwitchConfig = {
   // Identifier of the Switch component instance
@@ -357,8 +358,36 @@ export default class Switch extends ComponentWithId<'Switch', SwitchStatus, Swit
     return result.result.restart_required;
   }
 
+  public async registerCapability(
+    homeyDevice: ShellyLocalDevice,
+    homeyCapability: string,
+    rawCapabilityOptions: JsonObject | undefined,
+    capabilityListener?: Parameters<typeof homeyDevice.registerCapabilityListener>[1],
+  ): Promise<string> {
+    const singleComponent = homeyDevice.componentCounts.get(this.namespace) === 1;
+    const capabilityId = singleComponent ? homeyCapability : `${homeyCapability}.${this.id}`;
+
+    if (capabilityListener !== undefined) {
+      homeyDevice.registerCapabilityListener(capabilityId, capabilityListener);
+    }
+
+    if (rawCapabilityOptions === undefined) {
+      await homeyDevice.setCapabilityOptions(capabilityId, {});
+      return capabilityId;
+    }
+
+    const displayId = this.id < 100 ? this.id + 1 : this.id;
+    const name = this.config.name ? this.config.name : `${displayId}`;
+    const capabilityOptions = fillTranslationTagsRecursively(rawCapabilityOptions, {
+      name: name,
+    }) as JsonObject;
+    await homeyDevice.setCapabilityOptions(capabilityId, capabilityOptions);
+    return capabilityId;
+  }
+
   public getAutocompleteTitle(device: ShellyLocalDevice, capability: string): string {
-    const name = this.config.name !== null ? this.config.name : `${this.id}`;
+    const displayId = this.id < 100 ? this.id + 1 : this.id;
+    const name = this.config.name !== null ? this.config.name : `${displayId}`;
     if (capability === 'measure_temperature') {
       return translate(device.homey.__('locale'), capabilitiesOptions['measure_temperature.switch'].title, {
         name: name,

@@ -37,7 +37,7 @@ export default class ShellyCameraLocalDriver extends ShellyLocalDriver {
         const subdeviceId = `${id}:storage:${storageId}`;
 
         const storageConfig = component.config as StorageConfig;
-        const subdeviceName = storageConfig.name ?? `${Storage.uiName} ${storageId + 1}`;
+        const subdeviceName = storageConfig.name ?? `${Storage.uiName} ${storageId}`;
 
         subDevices.push({
           name: `${selectedDevice.name} - ${subdeviceName}`,
