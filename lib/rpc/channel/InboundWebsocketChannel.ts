@@ -262,10 +262,7 @@ export default class InboundWebsocketChannel implements RpcChannel {
       }
 
       const { promise, resolve, reject } = Promise.withResolvers<ResponseSuccessFrame<Result>>();
-      this.awaitingResponse.set(requestFrame.id as number, { resolve, reject });
-      this.ws.send(requestFrameMessage);
-
-      return promise.catch(error => {
+      const caughtPromise = promise.catch(error => {
         if (!(error instanceof UnauthenticatedWS && requestFrame.auth === undefined)) {
           throw error;
         }
@@ -282,6 +279,11 @@ export default class InboundWebsocketChannel implements RpcChannel {
         this.log('Authenticated');
         return response;
       });
+
+      this.awaitingResponse.set(requestFrame.id as number, { resolve, reject });
+      this.ws.send(requestFrameMessage);
+
+      return caughtPromise;
     } catch (e) {
       throw prettyError(e, this.app.homey.__);
     }
