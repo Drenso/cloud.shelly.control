@@ -65,7 +65,7 @@ jobs:
 
       - name: Rename executable
         run: |
-          mv tools/interview-sea/interview-shelly-control tools/interview-sea/interview-shelly-control-${{ runner.os }}-${{ runner.arch}}${{ (matrix.os == 'windows-latest' || matrix.os == 'windows-11-arm') && '.exe' || '' }}
+          mv tools/interview-sea/interview-shelly-control tools/interview-sea/interview-shelly-control-${{ github.ref_name }}-${{ runner.os }}-${{ runner.arch}}${{ (matrix.os == 'windows-latest' || matrix.os == 'windows-11-arm') && '.exe' || '' }}
 
       - name: Upload executable
         uses: softprops/action-gh-release@v3.0.3
