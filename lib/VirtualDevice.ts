@@ -779,7 +779,7 @@ export class VirtualDevice {
       this.initializedHomeyDevices.set(homeyDevice.getTypedData().id, homeyDevice);
       const newComponentIds = newComponentIdsMapping.get(homeyDevice.getTypedData().id);
       if (newComponentIds === undefined) {
-        await homeyDevice.setUnavailable(homeyDevice.homey.__('device.initialization_error'));
+        await homeyDevice.setUnavailable(homeyDevice.homey.__('device.initialization_error')).catch(this.error);
         homeyDevice.error('No new components definition found');
         continue;
       }
@@ -787,7 +787,7 @@ export class VirtualDevice {
       initializers.push(
         homeyDevice.initializeShelly(this, newComponentIds, methodMapping).catch(error => {
           homeyDevice.error(error);
-          homeyDevice.setUnavailable(homeyDevice.homey.__('device.initialization_error'));
+          homeyDevice.setUnavailable(homeyDevice.homey.__('device.initialization_error')).catch(this.error);
         }),
       );
     }
