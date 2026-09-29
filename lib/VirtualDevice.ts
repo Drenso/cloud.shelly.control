@@ -596,6 +596,10 @@ export class VirtualDevice {
         });
 
         this.bleForwardScript = forwardingScript;
+
+        await this.app.btHomeServer
+          .updateForwardingScript(this)
+          .catch(err => this.error('Error while updating BLE forwarding script:', err));
       }
     }
 

@@ -166,7 +166,7 @@ export default class ShellyLocalDevice extends Homey.Device {
         throw new Error(this.homey.__('error.not_initialized'));
       }
       if (event.newSettings['installBleForwardingScript']) {
-        await this.app.btHomeServer.installForwardingScript(this.virtualDevice);
+        await this.app.btHomeServer.createForwardingScript(this.virtualDevice);
       } else {
         await this.app.btHomeServer.uninstallForwardingScript(this.virtualDevice);
       }
