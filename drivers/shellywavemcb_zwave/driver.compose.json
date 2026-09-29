@@ -23,10 +23,10 @@
   },
   "capabilitiesOptions": {
     "meter_power.import": {
-      "title": { "en": "Imported Energy" }
+      "title": { "en": "Imported energy" }
     },
     "meter_power.export": {
-      "title": { "en": "Exported Energy" }
+      "title": { "en": "Exported energy" }
     }
   },
   "zwave": {

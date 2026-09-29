@@ -1,25 +1,25 @@
 {
   "meter_power.imported": {
     "title": {
-      "en": "Imported Energy"
+      "en": "Imported energy"
     },
     "decimals": 3
   },
   "meter_power.exported": {
     "title": {
-      "en": "Exported Energy"
+      "en": "Exported energy"
     },
     "decimals": 3
   },
   "meter_power.total": {
     "title": {
-      "en": "Total Energy"
+      "en": "Total energy"
     },
     "decimals": 3
   },
   "button.reset_energy_counters": {
     "title": {
-      "en": "Reset Energy"
+      "en": "Reset energy"
     },
     "desc": {
       "en": "Reset the imported and exported energy counters."

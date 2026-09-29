@@ -1,7 +1,7 @@
 {
   "shelly_input_switch": {
     "title": {
-      "en": "Switch Input __name__"
+      "en": "Switch input __name__"
     },
     "titleTrue": {
       "en": "On"
@@ -12,17 +12,17 @@
   },
   "shelly_input_analog": {
     "title": {
-      "en": "Analog Input __name__"
+      "en": "Analog input __name__"
     }
   },
   "shelly_input_count": {
     "title": {
-      "en": "Count Input __name__"
+      "en": "Count input __name__"
     }
   },
   "BUTTON_TITLE": {
     "title": {
-      "en": "Button Input __name__"
+      "en": "Button input __name__"
     }
   }
 }

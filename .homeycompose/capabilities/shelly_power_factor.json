@@ -1,7 +1,7 @@
 {
   "type": "number",
   "title": {
-    "en": "Power Factor"
+    "en": "Power factor"
   },
   "getable": true,
   "setable": false,

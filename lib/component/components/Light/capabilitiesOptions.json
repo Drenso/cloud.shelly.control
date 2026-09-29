@@ -1,7 +1,7 @@
 {
   "button.reset_energy_counters": {
     "title": {
-      "en": "Reset Energy"
+      "en": "Reset energy"
     },
     "desc": {
       "en": "Reset the imported energy counter."
@@ -19,7 +19,7 @@
   },
   "measure_temperature.light": {
     "title": {
-      "en": "Light __name__ Temperature"
+      "en": "Light __name__ temperature"
     }
   }
 }

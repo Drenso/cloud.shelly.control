@@ -1,7 +1,7 @@
 {
   "button.reset_energy_counters": {
     "title": {
-      "en": "Reset Cover __name__ Energy"
+      "en": "Reset cover __name__ energy"
     },
     "desc": {
       "en": "Reset the imported and exported energy counters."
@@ -10,7 +10,7 @@
   },
   "button.start_calibration": {
     "title": {
-      "en": "Start Cover Calibration"
+      "en": "Start cover calibration"
     },
     "desc": {
       "en": "Start the automatic calibration procedure. WARNING: during calibration obstruction detection is ignored!"
@@ -19,7 +19,7 @@
   },
   "measure_temperature.cover": {
     "title": {
-      "en": "Cover __name__ Temperature"
+      "en": "Cover __name__ temperature"
     }
   }
 }

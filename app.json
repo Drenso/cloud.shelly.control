@@ -19852,7 +19852,7 @@
       "capabilitiesOptions": {
         "alarm_presence.zone_1": {
           "title": {
-            "en": "Zone 1 Presence"
+            "en": "Zone 1 presence"
           },
           "insightsTitleTrue": {
             "en": "Object detected in zone 1"
@@ -19863,7 +19863,7 @@
         },
         "alarm_presence.zone_2": {
           "title": {
-            "en": "Zone 2 Presence"
+            "en": "Zone 2 presence"
           },
           "insightsTitleTrue": {
             "en": "Object detected in zone 2"
@@ -19874,7 +19874,7 @@
         },
         "alarm_presence.zone_3": {
           "title": {
-            "en": "Zone 3 Presence"
+            "en": "Zone 3 presence"
           },
           "insightsTitleTrue": {
             "en": "Object detected in zone 3"
@@ -19885,7 +19885,7 @@
         },
         "alarm_presence.zone_4": {
           "title": {
-            "en": "Zone 4 Presence"
+            "en": "Zone 4 presence"
           },
           "insightsTitleTrue": {
             "en": "Object detected in zone 4"
@@ -19896,7 +19896,7 @@
         },
         "alarm_presence.zone_5": {
           "title": {
-            "en": "Zone 5 Presence"
+            "en": "Zone 5 presence"
           },
           "insightsTitleTrue": {
             "en": "Object detected in zone 5"
@@ -19907,7 +19907,7 @@
         },
         "alarm_presence.zone_6": {
           "title": {
-            "en": "Zone 6 Presence"
+            "en": "Zone 6 presence"
           },
           "insightsTitleTrue": {
             "en": "Object detected in zone 6"
@@ -19918,7 +19918,7 @@
         },
         "alarm_presence.zone_7": {
           "title": {
-            "en": "Zone 7 Presence"
+            "en": "Zone 7 presence"
           },
           "insightsTitleTrue": {
             "en": "Object detected in zone 7"
@@ -19929,7 +19929,7 @@
         },
         "alarm_presence.zone_8": {
           "title": {
-            "en": "Zone 8 Presence"
+            "en": "Zone 8 presence"
           },
           "insightsTitleTrue": {
             "en": "Object detected in zone 8"
@@ -19940,7 +19940,7 @@
         },
         "alarm_presence.zone_9": {
           "title": {
-            "en": "Zone 9 Presence"
+            "en": "Zone 9 presence"
           },
           "insightsTitleTrue": {
             "en": "Object detected in zone 9"
@@ -19951,7 +19951,7 @@
         },
         "alarm_presence.zone_10": {
           "title": {
-            "en": "Zone 10 Presence"
+            "en": "Zone 10 presence"
           },
           "insightsTitleTrue": {
             "en": "Object detected in zone 10"
@@ -20925,12 +20925,12 @@
       "capabilitiesOptions": {
         "meter_power.import": {
           "title": {
-            "en": "Imported Energy"
+            "en": "Imported energy"
           }
         },
         "meter_power.export": {
           "title": {
-            "en": "Exported Energy"
+            "en": "Exported energy"
           }
         }
       },
@@ -24192,7 +24192,7 @@
     "alarm_shelly_power_lost": {
       "type": "boolean",
       "title": {
-        "en": "Power Supply"
+        "en": "Power supply"
       },
       "getable": true,
       "setable": false,
@@ -24339,7 +24339,7 @@
     },
     "shelly_illumination": {
       "title": {
-        "en": "Illumination Status"
+        "en": "Illumination status"
       },
       "type": "enum",
       "uiComponent": "sensor",
@@ -24369,7 +24369,7 @@
     },
     "shelly_input_analog": {
       "title": {
-        "en": "Analog Input"
+        "en": "Analog input"
       },
       "units": "%",
       "icon": "/assets/capabilities/input_analog.svg",
@@ -24379,7 +24379,7 @@
     },
     "shelly_input_count": {
       "title": {
-        "en": "Count Input"
+        "en": "Count input"
       },
       "decimals": 0,
       "icon": "/assets/capabilities/input_count.svg",
@@ -24389,7 +24389,7 @@
     },
     "shelly_input_switch": {
       "title": {
-        "en": "Switch Input"
+        "en": "Switch input"
       },
       "titleTrue": {
         "en": "Input On"
@@ -24405,7 +24405,7 @@
     "shelly_power_factor": {
       "type": "number",
       "title": {
-        "en": "Power Factor"
+        "en": "Power factor"
       },
       "getable": true,
       "setable": false,
@@ -24414,7 +24414,7 @@
     },
     "shelly_presence_count": {
       "title": {
-        "en": "Object Count"
+        "en": "Object count"
       },
       "icon": "/assets/capabilities/alarm_presence.svg",
       "type": "number",
