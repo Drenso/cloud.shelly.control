@@ -7,14 +7,14 @@
       "type": "checkbox",
       "value": true,
       "label": {
-        "en": "Input 2 - Enabled"
+        "en": "Input 3 - Enabled"
       }
     },
     {
       "id": "Input:2:type",
       "type": "dropdown",
       "label": {
-        "en": "Input 2 - Type"
+        "en": "Input 3 - Type"
       },
       "value": "switch",
       "values": [
@@ -37,7 +37,7 @@
       "type": "checkbox",
       "value": true,
       "label": {
-        "en": "Input 2 - Invert"
+        "en": "Input 3 - Invert"
       }
     }
   ]

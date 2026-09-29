@@ -15646,21 +15646,21 @@
         {
           "id": "Input0.group.switch",
           "type": "group",
-          "label": "Input 0",
+          "label": "Input 1",
           "children": [
             {
               "id": "Input:0:enable",
               "type": "checkbox",
               "value": true,
               "label": {
-                "en": "Input 0 - Enabled"
+                "en": "Input 1 - Enabled"
               }
             },
             {
               "id": "Input:0:type",
               "type": "dropdown",
               "label": {
-                "en": "Input 0 - Type"
+                "en": "Input 1 - Type"
               },
               "value": "switch",
               "values": [
@@ -15683,7 +15683,7 @@
               "type": "checkbox",
               "value": true,
               "label": {
-                "en": "Input 0 - Invert"
+                "en": "Input 1 - Invert"
               }
             }
           ]
@@ -15691,21 +15691,21 @@
         {
           "id": "Input1.group.switch",
           "type": "group",
-          "label": "Input 1",
+          "label": "Input 2",
           "children": [
             {
               "id": "Input:1:enable",
               "type": "checkbox",
               "value": true,
               "label": {
-                "en": "Input 1 - Enabled"
+                "en": "Input 2 - Enabled"
               }
             },
             {
               "id": "Input:1:type",
               "type": "dropdown",
               "label": {
-                "en": "Input 1 - Type"
+                "en": "Input 2 - Type"
               },
               "value": "switch",
               "values": [
@@ -15728,7 +15728,7 @@
               "type": "checkbox",
               "value": true,
               "label": {
-                "en": "Input 1 - Invert"
+                "en": "Input 2 - Invert"
               }
             }
           ]
@@ -15743,14 +15743,14 @@
               "type": "checkbox",
               "value": true,
               "label": {
-                "en": "Input 2 - Enabled"
+                "en": "Input 3 - Enabled"
               }
             },
             {
               "id": "Input:2:type",
               "type": "dropdown",
               "label": {
-                "en": "Input 2 - Type"
+                "en": "Input 3 - Type"
               },
               "value": "switch",
               "values": [
@@ -15773,7 +15773,7 @@
               "type": "checkbox",
               "value": true,
               "label": {
-                "en": "Input 2 - Invert"
+                "en": "Input 3 - Invert"
               }
             }
           ]
@@ -15781,21 +15781,21 @@
         {
           "id": "Input3.group.switch",
           "type": "group",
-          "label": "Input 3",
+          "label": "Input 4",
           "children": [
             {
               "id": "Input:3:enable",
               "type": "checkbox",
               "value": true,
               "label": {
-                "en": "Input 3 - Enabled"
+                "en": "Input 4 - Enabled"
               }
             },
             {
               "id": "Input:3:type",
               "type": "dropdown",
               "label": {
-                "en": "Input 3 - Type"
+                "en": "Input 4 - Type"
               },
               "value": "switch",
               "values": [
@@ -15818,7 +15818,7 @@
               "type": "checkbox",
               "value": true,
               "label": {
-                "en": "Input 3 - Invert"
+                "en": "Input 4 - Invert"
               }
             }
           ]
@@ -15941,21 +15941,21 @@
         {
           "id": "Input0.group.switch",
           "type": "group",
-          "label": "Input 0",
+          "label": "Input 1",
           "children": [
             {
               "id": "Input:0:enable",
               "type": "checkbox",
               "value": true,
               "label": {
-                "en": "Input 0 - Enabled"
+                "en": "Input 1 - Enabled"
               }
             },
             {
               "id": "Input:0:type",
               "type": "dropdown",
               "label": {
-                "en": "Input 0 - Type"
+                "en": "Input 1 - Type"
               },
               "value": "switch",
               "values": [
@@ -15978,7 +15978,7 @@
               "type": "checkbox",
               "value": true,
               "label": {
-                "en": "Input 0 - Invert"
+                "en": "Input 1 - Invert"
               }
             }
           ]
@@ -15986,21 +15986,21 @@
         {
           "id": "Input1.group.switch",
           "type": "group",
-          "label": "Input 1",
+          "label": "Input 2",
           "children": [
             {
               "id": "Input:1:enable",
               "type": "checkbox",
               "value": true,
               "label": {
-                "en": "Input 1 - Enabled"
+                "en": "Input 2 - Enabled"
               }
             },
             {
               "id": "Input:1:type",
               "type": "dropdown",
               "label": {
-                "en": "Input 1 - Type"
+                "en": "Input 2 - Type"
               },
               "value": "switch",
               "values": [
@@ -16023,7 +16023,7 @@
               "type": "checkbox",
               "value": true,
               "label": {
-                "en": "Input 1 - Invert"
+                "en": "Input 2 - Invert"
               }
             }
           ]
@@ -16038,14 +16038,14 @@
               "type": "checkbox",
               "value": true,
               "label": {
-                "en": "Input 2 - Enabled"
+                "en": "Input 3 - Enabled"
               }
             },
             {
               "id": "Input:2:type",
               "type": "dropdown",
               "label": {
-                "en": "Input 2 - Type"
+                "en": "Input 3 - Type"
               },
               "value": "switch",
               "values": [
@@ -16068,7 +16068,7 @@
               "type": "checkbox",
               "value": true,
               "label": {
-                "en": "Input 2 - Invert"
+                "en": "Input 3 - Invert"
               }
             }
           ]
@@ -16076,21 +16076,21 @@
         {
           "id": "Input3.group.switch",
           "type": "group",
-          "label": "Input 3",
+          "label": "Input 4",
           "children": [
             {
               "id": "Input:3:enable",
               "type": "checkbox",
               "value": true,
               "label": {
-                "en": "Input 3 - Enabled"
+                "en": "Input 4 - Enabled"
               }
             },
             {
               "id": "Input:3:type",
               "type": "dropdown",
               "label": {
-                "en": "Input 3 - Type"
+                "en": "Input 4 - Type"
               },
               "value": "switch",
               "values": [
@@ -16113,7 +16113,7 @@
               "type": "checkbox",
               "value": true,
               "label": {
-                "en": "Input 3 - Invert"
+                "en": "Input 4 - Invert"
               }
             }
           ]
