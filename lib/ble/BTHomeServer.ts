@@ -41,7 +41,7 @@ export class BTHomeServer {
   public async uninstallForwardingScript(device: VirtualDevice): Promise<void> {
     const scriptId = device.bleForwardScriptId;
     if (scriptId === null) {
-      this.debug(`No script to uninstall on ${device.deviceId}`);
+      device.error(`No BLE forwarding script to uninstall`);
       return;
     }
     device.log('Uninstalling BLE forwarding in script:', scriptId);
