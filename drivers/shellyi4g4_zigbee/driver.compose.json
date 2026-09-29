@@ -10,36 +10,20 @@
     "productId": ["I4"],
     "endpoints": {
       "1": {
-        "clusters": [0, 3, 4, 5, 6, 7],
+        "clusters": [5, 6, 7],
         "bindings": [5, 6, 7]
       },
       "2": {
-        "clusters": [3, 4, 5, 6, 7],
+        "clusters": [5, 6, 7],
         "bindings": [5, 6, 7]
       },
       "3": {
-        "clusters": [3, 4, 5, 6, 7],
+        "clusters": [5, 6, 7],
         "bindings": [5, 6, 7]
       },
       "4": {
-        "clusters": [3, 4, 5, 6, 7],
+        "clusters": [5, 6, 7],
         "bindings": [5, 6, 7]
-      },
-      "5": {
-        "clusters": [258, 3, 4, 6, 8],
-        "bindings": []
-      },
-      "6": {
-        "clusters": [258, 3, 4, 6, 8],
-        "bindings": []
-      },
-      "239": {
-        "clusters": [64513, 64514],
-        "bindings": []
-      },
-      "242": {
-        "clusters": [33],
-        "bindings": []
       }
     },
     "_clusters": {
