@@ -19,5 +19,5 @@
     "en": "Storage absent"
   },
   "uiComponent": "sensor",
-  "icon": "/assets/capabilities/boolean.svg"
+  "icon": "/assets/capabilities/shelly_storage_present.svg"
 }

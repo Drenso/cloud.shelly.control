@@ -19,5 +19,5 @@
     "en": "Not tilted"
   },
   "uiComponent": "sensor",
-  "icon": "/assets/capabilities/alarm_tilt.svg"
+  "icon": "/assets/capabilities/alarm_shelly_tilt.svg"
 }

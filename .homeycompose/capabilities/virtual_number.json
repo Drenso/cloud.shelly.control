@@ -6,5 +6,5 @@
   "getable": true,
   "setable": true,
   "uiComponent": "slider",
-  "icon": "/assets/capabilities/number.svg"
+  "icon": "/assets/capabilities/virtual_number.svg"
 }

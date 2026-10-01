@@ -25144,7 +25144,7 @@
         "en": "Not tilted"
       },
       "uiComponent": "sensor",
-      "icon": "/assets/capabilities/alarm_tilt.svg"
+      "icon": "/assets/capabilities/alarm_shelly_tilt.svg"
     },
     "hidden": {
       "type": "string",
@@ -25353,7 +25353,7 @@
         "en": "Storage not active"
       },
       "uiComponent": "sensor",
-      "icon": "/assets/capabilities/boolean.svg"
+      "icon": "/assets/capabilities/shelly_storage_active.svg"
     },
     "shelly_storage_present": {
       "type": "boolean",
@@ -25376,7 +25376,7 @@
         "en": "Storage absent"
       },
       "uiComponent": "sensor",
-      "icon": "/assets/capabilities/boolean.svg"
+      "icon": "/assets/capabilities/shelly_storage_present.svg"
     },
     "shelly_stream_count": {
       "title": {
@@ -25396,7 +25396,7 @@
       "getable": true,
       "setable": true,
       "uiComponent": "button",
-      "icon": "/assets/capabilities/boolean.svg"
+      "icon": "/assets/capabilities/virtual_boolean.svg"
     },
     "virtual_button": {
       "title": {
@@ -25405,7 +25405,8 @@
       "type": "boolean",
       "getable": false,
       "setable": true,
-      "uiComponent": "button"
+      "uiComponent": "button",
+      "icon": "/assets/capabilities/virtual_button.svg"
     },
     "virtual_enum": {
       "title": {
@@ -25416,7 +25417,7 @@
       "setable": true,
       "uiComponent": "picker",
       "values": [],
-      "icon": "/assets/capabilities/enum.svg"
+      "icon": "/assets/capabilities/virtual_enum.svg"
     },
     "virtual_number": {
       "title": {
@@ -25426,7 +25427,7 @@
       "getable": true,
       "setable": true,
       "uiComponent": "slider",
-      "icon": "/assets/capabilities/number.svg"
+      "icon": "/assets/capabilities/virtual_number.svg"
     }
   },
   "discovery": {

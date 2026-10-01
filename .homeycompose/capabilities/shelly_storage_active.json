@@ -19,5 +19,5 @@
     "en": "Storage not active"
   },
   "uiComponent": "sensor",
-  "icon": "/assets/capabilities/boolean.svg"
+  "icon": "/assets/capabilities/shelly_storage_active.svg"
 }

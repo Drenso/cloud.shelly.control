@@ -7,5 +7,5 @@
   "setable": true,
   "uiComponent": "picker",
   "values": [],
-  "icon": "/assets/capabilities/enum.svg"
+  "icon": "/assets/capabilities/virtual_enum.svg"
 }
