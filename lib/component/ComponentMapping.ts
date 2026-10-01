@@ -1,3 +1,6 @@
+import Media from './components/Media.js';
+import Occupancy from './components/Occupancy.js';
+import WallDisplayUI from './components/WallDisplayUI.js';
 import Boolean from './components/Boolean.js';
 import Button from './components/Button.js';
 import Camera from './components/Camera.js';
@@ -49,6 +52,7 @@ export const ComponentWithIdMapping = {
   illuminance: Illuminance,
   input: Input,
   light: Light,
+  occupancy: Occupancy,
   object: Object,
   number: Number,
   pm1: PM1,
@@ -68,6 +72,8 @@ export const ComponentWithoutIdMapping = {
   plugs_ui: PlugsUI,
   powerstrip_ui: PowerStripUI,
   presence: Presence,
+  media: Media,
+  ui: WallDisplayUI,
   sys: System,
   ws: OutboundWebsocket,
 } as const;

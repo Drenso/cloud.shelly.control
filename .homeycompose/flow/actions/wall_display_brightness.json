@@ -1,0 +1,35 @@
+{
+  "title": {
+    "no": "Still skjermens lysstyrke",
+    "en": "Set screen brightness"
+  },
+  "args": [
+    {
+      "type": "device",
+      "filter": {
+        "driver_id": "shellywalldisplay_local|shellywalldisplayx2i_local"
+      },
+      "name": "device"
+    },
+    {
+      "hint": {
+        "no": "Slår av automatisk lysstyrke.",
+        "en": "Disables automatic brightness."
+      },
+      "max": 100,
+      "title": {
+        "no": "Lysstyrke",
+        "en": "Brightness"
+      },
+      "units": "%",
+      "min": 0,
+      "type": "number",
+      "step": 1,
+      "name": "brightness"
+    }
+  ],
+  "titleFormatted": {
+    "en": "Set screen brightness to [[brightness]]%",
+    "no": "Still skjermens lysstyrke til [[brightness]]%"
+  }
+}

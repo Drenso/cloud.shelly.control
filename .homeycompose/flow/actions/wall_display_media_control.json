@@ -1,0 +1,64 @@
+{
+  "title": {
+    "no": "Styr lydavspilling",
+    "en": "Control audio playback"
+  },
+  "args": [
+    {
+      "type": "device",
+      "filter": {
+        "driver_id": "shellywalldisplay_local|shellywalldisplayx2i_local"
+      },
+      "name": "device"
+    },
+    {
+      "type": "dropdown",
+      "title": {
+        "no": "Handling",
+        "en": "Action"
+      },
+      "values": [
+        {
+          "title": {
+            "no": "Spill av",
+            "en": "Play"
+          },
+          "id": "play"
+        },
+        {
+          "title": {
+            "no": "Pause",
+            "en": "Pause"
+          },
+          "id": "pause"
+        },
+        {
+          "title": {
+            "no": "Stopp",
+            "en": "Stop"
+          },
+          "id": "stop"
+        },
+        {
+          "title": {
+            "no": "Neste",
+            "en": "Next"
+          },
+          "id": "next"
+        },
+        {
+          "title": {
+            "no": "Forrige",
+            "en": "Previous"
+          },
+          "id": "previous"
+        }
+      ],
+      "name": "action"
+    }
+  ],
+  "titleFormatted": {
+    "en": "Audio: [[action]]",
+    "no": "Lyd: [[action]]"
+  }
+}

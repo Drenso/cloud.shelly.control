@@ -1,0 +1,27 @@
+{
+  "title": {
+    "no": "Slå skjermen av/på",
+    "en": "Set screen power"
+  },
+  "args": [
+    {
+      "type": "device",
+      "filter": {
+        "driver_id": "shellywalldisplay_local|shellywalldisplayx2i_local"
+      },
+      "name": "device"
+    },
+    {
+      "type": "checkbox",
+      "title": {
+        "no": "Skjerm på",
+        "en": "Screen on"
+      },
+      "name": "on"
+    }
+  ],
+  "titleFormatted": {
+    "en": "Set screen power to [[on]]",
+    "no": "Sett skjermens strømtilstand til [[on]]"
+  }
+}

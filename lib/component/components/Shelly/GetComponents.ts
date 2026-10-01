@@ -37,9 +37,11 @@ export type ShellyGetComponentsResponseComponent = {
   /** Virtual component attributes */
   attrs?: {
     /** The component controlling the value of this virtual component */
-    owner: string;
+    owner?: string;
     /** The role the value of this component fulfills on the device */
-    role: string;
+    role?: string;
+    /** IDs of the inputs associated with a Light component. */
+    inputs?: number[];
   };
 };
 

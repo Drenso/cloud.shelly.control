@@ -1,0 +1,31 @@
+{
+  "title": {
+    "no": "Still lydvolum",
+    "en": "Set audio volume"
+  },
+  "args": [
+    {
+      "type": "device",
+      "filter": {
+        "driver_id": "shellywalldisplay_local|shellywalldisplayx2i_local"
+      },
+      "name": "device"
+    },
+    {
+      "title": {
+        "no": "Volum",
+        "en": "Volume"
+      },
+      "type": "number",
+      "name": "volume",
+      "step": 10,
+      "units": "%",
+      "min": 0,
+      "max": 100
+    }
+  ],
+  "titleFormatted": {
+    "en": "Set audio volume to [[volume]]%",
+    "no": "Still lydvolum til [[volume]]%"
+  }
+}

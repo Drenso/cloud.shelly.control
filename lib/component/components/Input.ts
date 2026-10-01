@@ -31,7 +31,7 @@ export type InputConfig = {
    *
    * Some values are available only if applicable.
    */
-  type: 'switch' | 'button' | 'analog' | 'count';
+  type: 'switch' | 'button' | 'analog' | 'count' | 'disabled';
   /**
    * Global enable flag.
    * When disabled, the input instance doesn't emit any events and reports status properties as null.
@@ -314,7 +314,7 @@ const CAPABILITY_MAPPING = {
   analog: 'shelly_input_analog',
   count: 'shelly_input_count',
   button: 'BUTTON_TITLE',
-} as const satisfies Record<InputConfig['type'], keyof typeof capabilitiesOptions>;
+} as const satisfies Record<Exclude<InputConfig['type'], 'disabled'>, keyof typeof capabilitiesOptions>;
 
 type RateLimitEvent = {
   component: string;
@@ -406,7 +406,7 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
   }
 
   public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Partial<InputStatus>): Promise<void> {
-    if (status.state !== undefined && status.state !== null) {
+    if (this.config.type === 'switch' && status.state !== undefined && status.state !== null) {
       await this.setInputCapability(homeyDevice, 'shelly_input_switch', status.state);
       const switchUpdate = { value: status.state, input: this.id };
       await safeTriggerDeviceCard(homeyDevice, 'input_switch_changed', switchUpdate, switchUpdate);
@@ -532,8 +532,10 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
   /**
    * A utility function outside the RPC spec to collect all components configured to each type for a Shelly device.
    */
-  public static getInputTypes(virtualDevice: VirtualDevice): Record<InputConfig['type'], string[]> {
-    const types: Record<InputConfig['type'], string[]> = {
+  public static getInputTypes(
+    virtualDevice: VirtualDevice,
+  ): Record<Exclude<InputConfig['type'], 'disabled'>, string[]> {
+    const types: Record<Exclude<InputConfig['type'], 'disabled'>, string[]> = {
       switch: [],
       button: [],
       analog: [],
@@ -541,7 +543,7 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
     };
 
     for (const [componentId, component] of virtualDevice.virtualComponents.entries()) {
-      if (component instanceof Input) {
+      if (component instanceof Input && component.config.type !== 'disabled') {
         types[component.config.type].push(componentId);
       }
     }
@@ -550,7 +552,7 @@ export default class Input extends ComponentWithId<'Input', InputStatus, InputCo
   }
 
   public static registerFlowCards(app: ShellyApp): void {
-    const createAutocompleteListener = (inputType: InputConfig['type']) => {
+    const createAutocompleteListener = (inputType: Exclude<InputConfig['type'], 'disabled'>) => {
       return (
         query: string,
         { device }: { value: boolean; device: ShellyLocalDevice },

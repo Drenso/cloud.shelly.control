@@ -1,0 +1,22 @@
+{
+  "locale": "no",
+  "pair": {
+    "wall_display": {
+      "discovery_description": "Skjermer på samme nettverk blir funnet automatisk.",
+      "searching": "Søker etter skjermer...",
+      "choose_display": "Velg en skjerm for å koble til.",
+      "not_found": "Fant ingen nye skjermer. Søk på nytt eller skriv inn IP-adressen.",
+      "search_again": "Søk på nytt",
+      "manual_address": "Skriv IP-adresse manuelt",
+      "discovery_failed": "Kunne ikke søke etter skjermer. Du kan skrive inn IP-adressen i stedet.",
+      "title": "Koble til Shelly-skjerm",
+      "description": "Skriv inn IP-adressen som vises under nettverksinnstillinger på skjermen.",
+      "address": "IP-adresse",
+      "connect": "Koble til",
+      "invalid_address": "Skriv inn en gyldig IPv4-adresse.",
+      "wrong_model": "Denne driveren støtter ikke modellen __model__.",
+      "already_paired": "Denne skjermen er allerede lagt til i Shelly Control.",
+      "wrong_device": "IP-adressen tilhører en annen skjerm."
+    }
+  }
+}

@@ -1,0 +1,61 @@
+[
+  {
+    "$extends": "Input.enable"
+  },
+  {
+    "$extends": "Input.invert"
+  },
+  {
+    "$extends": "Switch.in_mode"
+  },
+  {
+    "$extends": "Switch.initial_state.without_match"
+  },
+  {
+    "id": "Ui:brightness.auto",
+    "type": "checkbox",
+    "value": true,
+    "label": {
+      "no": "Skjerm - Automatisk lysstyrke",
+      "en": "Screen - Automatic Brightness"
+    }
+  },
+  {
+    "max": 100,
+    "id": "Ui:brightness.level",
+    "value": 50,
+    "step": 1,
+    "type": "number",
+    "label": {
+      "no": "Skjerm - Manuell lysstyrke",
+      "en": "Screen - Manual Brightness"
+    },
+    "hint": {
+      "no": "Brukes når automatisk lysstyrke er avslått.",
+      "en": "Used when automatic brightness is disabled."
+    },
+    "min": 0,
+    "units": "%"
+  },
+  {
+    "$extends": "Illuminance.dark_thr"
+  },
+  {
+    "$extends": "Illuminance.bright_thr"
+  },
+  {
+    "$extends": "Temperature.offset_C"
+  },
+  {
+    "$extends": "Temperature.report_thr_C"
+  },
+  {
+    "$extends": "Humidity.offset"
+  },
+  {
+    "$extends": "Humidity.report_thr"
+  },
+  {
+    "$extends": "_shelly_device_info"
+  }
+]

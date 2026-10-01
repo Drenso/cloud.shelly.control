@@ -78,6 +78,23 @@
   },
   "locale": "en",
   "pair": {
+    "wall_display": {
+      "discovery_description": "Displays on the same network are found automatically.",
+      "searching": "Searching for displays...",
+      "choose_display": "Select a display to connect.",
+      "not_found": "No new displays found. Try again or enter an IP address.",
+      "search_again": "Search again",
+      "manual_address": "Enter an IP address manually",
+      "discovery_failed": "Could not search for displays. You can enter an IP address instead.",
+      "title": "Connect Shelly Wall Display",
+      "description": "Enter the IP address shown in the display network settings.",
+      "address": "IP address",
+      "connect": "Connect",
+      "invalid_address": "Enter a valid IPv4 address.",
+      "wrong_model": "This driver does not support model __model__.",
+      "already_paired": "This display is already paired with Shelly Control.",
+      "wrong_device": "This IP address belongs to a different display."
+    },
     "add_devices": {
       "loading": "Adding your new Shelly devices, this may take a moment...",
       "title": "Adding devices"

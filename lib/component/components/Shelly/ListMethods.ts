@@ -52,6 +52,27 @@ type NamespaceMethodMapping = {
     'ResetCounters',
   ];
   Number: ['GetConfig', 'SetConfig', 'GetStatus', 'Set'];
+  Occupancy: ['GetConfig', 'SetConfig', 'GetStatus'];
+  Ui: ['GetConfig', 'SetConfig', 'GetStatus', 'Screen.Set'];
+  Media: [
+    'GetConfig',
+    'SetConfig',
+    'GetStatus',
+    'SetVolume',
+    'MediaPlayer.Play',
+    'MediaPlayer.Pause',
+    'MediaPlayer.Stop',
+    'MediaPlayer.Next',
+    'MediaPlayer.Previous',
+    'MediaPlayer.PlayRingtone',
+    'MediaPlayer.PlayAlert',
+    'List',
+    'Radio.ListFavourites',
+    'Radio.PlayFavourite',
+    'Radio.Stop',
+    'Radio.PlayNextFavourite',
+    'Radio.PlayPreviousFavourite',
+  ];
   Object: ['GetConfig', 'SetConfig', 'GetStatus', 'Set'];
   Pill: ['SetConfig', 'GetConfig', 'GetStatus'];
   PLUGPM_UI: ['SetConfig', 'GetConfig', 'GetStatus'];
@@ -103,4 +124,21 @@ export default async function ListMethods(
 ): Promise<ResponseSuccessFrame<ShellyListMethodsResponse>> {
   const requestFrame = createRequestFrame('Shelly.ListMethods');
   return channel.sendRequestFrame(requestFrame);
+}
+
+export function parseMethodMapping(
+  methods: readonly string[],
+): Partial<Record<NameSpace, ComponentMethod<NameSpace>[]>> {
+  const mapping: Partial<Record<NameSpace, ComponentMethod<NameSpace>[]>> = {};
+  for (const methodString of methods) {
+    const [namespace, ...methodParts] = methodString.split('.');
+    if (methodParts.length === 0) {
+      continue;
+    }
+    const key = namespace as NameSpace;
+    const methodsForNamespace = mapping[key] ?? [];
+    methodsForNamespace.push(methodParts.join('.') as ComponentMethod<NameSpace>);
+    mapping[key] = methodsForNamespace;
+  }
+  return mapping;
 }

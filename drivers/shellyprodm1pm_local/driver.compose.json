@@ -1,0 +1,24 @@
+{
+  "$extends": ["local"],
+  "name": {
+    "en": "Pro Dimmer 1 PM - LAN"
+  },
+  "class": "light",
+  "capabilities": [
+    "onoff",
+    "dim",
+    "shelly_input_switch",
+    "measure_power",
+    "measure_current",
+    "measure_voltage",
+    "meter_power",
+    "measure_temperature",
+    "hidden.has_input_switch",
+    "hidden.has_input_button"
+  ],
+  "images": {
+    "small": "/assets/drivers/shellyprodm1pm/images/small.png",
+    "large": "/assets/drivers/shellyprodm1pm/images/large.png",
+    "xlarge": "/assets/drivers/shellyprodm1pm/images/xlarge.png"
+  }
+}

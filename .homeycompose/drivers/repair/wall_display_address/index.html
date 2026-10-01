@@ -1,0 +1,37 @@
+<main class="homey-main">
+  <form class="homey-form" id="address-form">
+    <p data-i18n="pair.wall_display.description"></p>
+    <div class="homey-form-group">
+      <label class="homey-form-label" for="address" data-i18n="pair.wall_display.address"></label>
+      <input
+        class="homey-form-input"
+        id="address"
+        name="address"
+        type="text"
+        inputmode="text"
+        placeholder="192.168.1.100"
+        autocomplete="off"
+        required />
+    </div>
+    <button class="homey-button-primary-full" type="submit" data-i18n="pair.wall_display.connect"></button>
+  </form>
+</main>
+<script>
+  Homey.setTitle(Homey.__('pair.wall_display.title'));
+  Homey.emit('wall_display_current_address').then(address => {
+    document.getElementById('address').value = address;
+  });
+  const form = document.getElementById('address-form');
+  form.addEventListener('submit', async event => {
+    event.preventDefault();
+    Homey.showLoadingOverlay(Homey.__('pair.loading_devices'));
+    try {
+      await Homey.emit('wall_display_address', document.getElementById('address').value);
+
+      await Homey.showView('repair');
+    } catch (err) {
+      Homey.hideLoadingOverlay();
+      Homey.alert(err.message || err);
+    }
+  });
+</script>

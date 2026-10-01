@@ -25,6 +25,7 @@ export class LocalRePairingHandler {
     public readonly log: (...args: unknown[]) => void,
     public readonly error: (...args: unknown[]) => void,
     public readonly debug: (...args: unknown[]) => void,
+    private readonly selectedDeviceProvider?: () => Promise<ShellyLocalListVirtualDeviceProperties>,
   ) {}
 
   public async setup(): Promise<void> {
@@ -55,6 +56,10 @@ export class LocalRePairingHandler {
 
   private async selectDevice(): Promise<void> {
     this.debug('selecting device');
+    if (this.selectedDeviceProvider !== undefined) {
+      this.selectedDevice = await this.selectedDeviceProvider();
+      return;
+    }
     const oldData = this.device.getTypedData();
     const shellyDeviceId = oldData.parent ?? oldData.id;
 

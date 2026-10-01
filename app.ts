@@ -1,3 +1,4 @@
+import { registerWallDisplayFlowCards } from './lib/flow/wallDisplayFlows.js';
 import { Log } from '@drenso/homey-log';
 import Homey, { type DiscoveryResultMDNSSD } from 'homey';
 import sourceMapSupport from 'source-map-support';
@@ -205,6 +206,7 @@ export default class ShellyApp extends Homey.App {
     DevicePower.registerFlowCards(this);
     Enum.registerFlowCards(this);
     Input.registerFlowCards(this);
+    registerWallDisplayFlowCards(this);
     NumberComponent.registerFlowCards(this);
     PresenceZone.registerFlowCards(this);
     Storage.registerFlowCards(this);

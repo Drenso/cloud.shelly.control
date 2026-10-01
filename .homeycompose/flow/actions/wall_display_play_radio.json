@@ -1,0 +1,31 @@
+{
+  "title": {
+    "no": "Spill av en radiofavoritt",
+    "en": "Play a radio favourite"
+  },
+  "args": [
+    {
+      "type": "device",
+      "filter": {
+        "driver_id": "shellywalldisplay_local|shellywalldisplayx2i_local"
+      },
+      "name": "device"
+    },
+    {
+      "type": "autocomplete",
+      "placeholder": {
+        "no": "Velg en radiokanal",
+        "en": "Choose a station"
+      },
+      "title": {
+        "no": "Radiokanal",
+        "en": "Station"
+      },
+      "name": "item"
+    }
+  ],
+  "titleFormatted": {
+    "en": "Play radio favourite [[item]]",
+    "no": "Spill av radiofavoritten [[item]]"
+  }
+}

@@ -59,6 +59,7 @@ export default class HttpChannel implements RpcChannel {
         origin: withHttps ? `https://${this.address}` : `http://${this.address}`,
         path: '/rpc',
         method: 'POST',
+        headers: { 'content-type': 'application/json' },
         body: JSON.stringify(requestFrame),
       });
       // this.debug(`Response ${requestFrame.id}:`, response);

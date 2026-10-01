@@ -9,7 +9,7 @@ import WebSocket from 'ws';
 import { ComponentMapping, type MappedComponent } from './component/ComponentMapping.js';
 import type { ShellyGetComponentsResponseComponent } from './component/components/Shelly/GetComponents.js';
 import Shelly from './component/components/Shelly.js';
-import type { ComponentMethod, NameSpace } from './component/components/Shelly/ListMethods.js';
+import { parseMethodMapping, type ComponentMethod, type NameSpace } from './component/components/Shelly/ListMethods.js';
 import type { NotificationEventFrame, NotificationFrame, NotificationStatusFrame } from './rpc/Rpc.js';
 import type ShellyLocalDevice from './local/LocalDevice.js';
 import { createHttpChannel, createInboundWsChannel, createOutboundWsChannel } from './HomeyRPCChannels.js';
@@ -129,6 +129,7 @@ export class VirtualDevice {
   private bleForwardScript: Script | undefined;
 
   private sleepingKeepaliveTimeout?: NodeJS.Timeout;
+  private initialBatteryWakeupTimeout?: NodeJS.Timeout;
 
   public constructor(
     public readonly app: ShellyApp,
@@ -225,6 +226,11 @@ export class VirtualDevice {
           // If not, remove this virtual device
           return this.states.uninitializing.enter();
         }
+        // Restored battery sensors may remain asleep for up to a day.
+        // Keep their last Homey readings until they wake, then initialize from the device.
+        if (this.batteryDevice && this.initialComponentResponses === undefined) {
+          return this.states.waiting_for_initial_connection.enter(true);
+        }
         // If yes, transition to configuring outbound WS connection
         return this.states.waiting_for_outbound_ws_connection.enter();
       },
@@ -245,6 +251,10 @@ export class VirtualDevice {
       enter: async (): Promise<void> => {
         this.state = 'waiting_for_outbound_ws_connection';
         this.debugState('Waiting for outbound websocket connection...');
+        const driver = this.app.homey.drivers.getDrivers()[this.driver] as ShellyLocalDriver;
+        if (!driver.configureOutboundWebsocket) {
+          return this.states.waiting_for_initial_connection.enter();
+        }
 
         if (this.outboundWsRetries > MAX_STATE_RETRIES) {
           this.error(
@@ -300,6 +310,8 @@ export class VirtualDevice {
           return;
         }
         if (action === 'device_connected' || action === 'outbound_websocket_connected') {
+          this.app.homey.clearTimeout(this.initialBatteryWakeupTimeout);
+          this.initialBatteryWakeupTimeout = undefined;
           this.debugState('Initial connection established');
           this.outboundWsRetries = 0;
           return this.states.initializing.enter();
@@ -307,26 +319,56 @@ export class VirtualDevice {
           throw new Error(`Unknown transition for waiting_for_initial_connection: ${action}`);
         }
       },
-      enter: async (): Promise<void> => {
+      enter: async (restoringSleepingBatteryDevice = false): Promise<void> => {
         this.state = 'waiting_for_initial_connection';
         this.debugState('Waiting for initial connection...');
 
         if (this.initialHomeyDevices === undefined) {
           throw new Error('No initial Homey devices specified.');
         }
+        this.app.homey.clearTimeout(this.initialBatteryWakeupTimeout);
+        this.initialBatteryWakeupTimeout = undefined;
 
-        await Promise.allSettled(
-          this.initialHomeyDevices.map(homeyDevice =>
-            homeyDevice
-              .setUnavailable(this.app.homey.__('device.offline'))
-              .catch(err =>
-                this.error(
-                  'Error while setting homey device to unavailable while waiting for initial connection:',
-                  err,
+        if (restoringSleepingBatteryDevice) {
+          const wakeupTimeout = this.app.homey.setTimeout(() => {
+            if (this.state !== 'waiting_for_initial_connection') {
+              return;
+            }
+            this.log('No battery sensor contact within 24 hours after startup, setting unavailable');
+            // Keep waiting so a later wakeup still performs full initialization.
+            this.states.waiting_for_initial_connection
+              .enter()
+              .catch(err => this.error('Error while marking battery sensor unavailable:', err));
+          }, BATTERY_DEVICE_KEEPALIVE_TIMEOUT.toMs());
+          this.initialBatteryWakeupTimeout = wakeupTimeout;
+
+          await Promise.allSettled(
+            this.initialHomeyDevices.map(async homeyDevice => {
+              await homeyDevice.ready();
+              if (
+                this.state === 'waiting_for_initial_connection' &&
+                this.initialBatteryWakeupTimeout === wakeupTimeout
+              ) {
+                await homeyDevice
+                  .setAvailable()
+                  .catch(err => this.error('Error while restoring sleeping battery sensor availability:', err));
+              }
+            }),
+          );
+        } else {
+          await Promise.allSettled(
+            this.initialHomeyDevices.map(homeyDevice =>
+              homeyDevice
+                .setUnavailable(this.app.homey.__('device.offline'))
+                .catch(err =>
+                  this.error(
+                    'Error while setting homey device to unavailable while waiting for initial connection:',
+                    err,
+                  ),
                 ),
-              ),
-          ),
-        );
+            ),
+          );
+        }
         this.localConnection.waitForConnection();
       },
     },
@@ -692,6 +734,8 @@ export class VirtualDevice {
     }
 
     this.app.homey.clearTimeout(this.sleepingKeepaliveTimeout);
+    this.app.homey.clearTimeout(this.initialBatteryWakeupTimeout);
+    this.initialBatteryWakeupTimeout = undefined;
     this.initialHomeyDeviceDefinitions = homeyDeviceDefinitions;
     this.initialComponentResponses = componentDefinitions;
     this.initialHomeyDeviceIds = homeyDeviceDefinitions.map(device => device.data.id);
@@ -829,16 +873,7 @@ export class VirtualDevice {
 
   private async getMethodMapping(): Promise<Partial<Record<NameSpace, ComponentMethod<NameSpace>[]>>> {
     const methodsResponse = await Shelly.ListMethods(this.localConnection.httpChannel);
-    const methods = methodsResponse.result.methods;
-
-    const methodMapping: Partial<Record<NameSpace, ComponentMethod<NameSpace>[]>> = {};
-    for (const methodString of methods) {
-      const [namespace, method] = methodString.split('.') as [NameSpace, ComponentMethod<NameSpace>];
-      const namespaceMethods = methodMapping[namespace] ?? [];
-      namespaceMethods.push(method);
-      methodMapping[namespace] = namespaceMethods;
-    }
-    return methodMapping;
+    return parseMethodMapping(methodsResponse.result.methods);
   }
 
   public async reboot({ initialWaitTime = undefined } = {}): Promise<void> {
@@ -847,6 +882,9 @@ export class VirtualDevice {
   }
 
   private async unregister(): Promise<void> {
+    this.app.homey.clearTimeout(this.sleepingKeepaliveTimeout);
+    this.app.homey.clearTimeout(this.initialBatteryWakeupTimeout);
+    this.initialBatteryWakeupTimeout = undefined;
     try {
       await this.disconnect();
     } finally {

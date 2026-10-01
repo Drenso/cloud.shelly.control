@@ -20,8 +20,10 @@ type ComponentSetConfigResponse = {
 };
 
 export type VirtualComponentAttributes = {
-  owner: string;
-  role: string;
+  owner?: string;
+  role?: string;
+  /** IDs of the inputs associated with a Light component. */
+  inputs?: number[];
 };
 
 export abstract class Component<

@@ -1,0 +1,111 @@
+<main class="homey-main">
+  <p data-i18n="pair.wall_display.discovery_description"></p>
+  <p id="search-status" role="status" aria-live="polite"></p>
+  <div id="discovered-devices"></div>
+  <div class="homey-form-group">
+    <button
+      class="homey-button-secondary-full"
+      id="search-again"
+      type="button"
+      data-i18n="pair.wall_display.search_again"></button>
+  </div>
+  <details id="manual-address" class="homey-form-group">
+    <summary data-i18n="pair.wall_display.manual_address"></summary>
+    <form class="homey-form" id="address-form">
+      <p data-i18n="pair.wall_display.description"></p>
+      <div class="homey-form-group">
+        <label class="homey-form-label" for="address" data-i18n="pair.wall_display.address"></label>
+        <input
+          class="homey-form-input"
+          id="address"
+          name="address"
+          type="text"
+          inputmode="text"
+          placeholder="192.168.1.100"
+          autocomplete="off"
+          autocapitalize="off"
+          spellcheck="false"
+          required />
+      </div>
+      <button class="homey-button-primary-full" type="submit" data-i18n="pair.wall_display.connect"></button>
+    </form>
+  </details>
+</main>
+<style>
+  .display-option {
+    text-align: start;
+    white-space: normal;
+  }
+  .display-address {
+    display: block;
+    font-size: 0.85em;
+    font-weight: normal;
+  }
+</style>
+<script>
+  Homey.setTitle(Homey.__('pair.wall_display.title'));
+  const form = document.getElementById('address-form');
+  const searchButton = document.getElementById('search-again');
+  const searchStatus = document.getElementById('search-status');
+  const discoveredDevices = document.getElementById('discovered-devices');
+  const manualAddress = document.getElementById('manual-address');
+  let connecting = false;
+
+  async function connectDevice(getSelectedDevice) {
+    if (connecting) return;
+    connecting = true;
+    Homey.showLoadingOverlay(Homey.__('pair.loading_devices'));
+    try {
+      const selected = await getSelectedDevice();
+      await Homey.emit('list_devices_selection', [selected]);
+      await Homey.showView('authenticate_devices');
+    } catch (err) {
+      Homey.hideLoadingOverlay();
+      Homey.alert(err.message || err);
+    } finally {
+      connecting = false;
+    }
+  }
+
+  async function searchDevices() {
+    if (searchButton.disabled) return;
+    searchButton.disabled = true;
+    searchStatus.textContent = Homey.__('pair.wall_display.searching');
+    try {
+      const devices = await Homey.emit('list_devices');
+      discoveredDevices.replaceChildren();
+      searchStatus.textContent = Homey.__(
+        devices.length ? 'pair.wall_display.choose_display' : 'pair.wall_display.not_found',
+      );
+      if (!devices.length) manualAddress.open = true;
+      for (const device of devices) {
+        const group = document.createElement('div');
+        group.className = 'homey-form-group';
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'homey-button-secondary-full display-option';
+        const name = document.createElement('span');
+        name.textContent = device.name;
+        const address = document.createElement('span');
+        address.className = 'display-address';
+        address.textContent = device.store.address;
+        button.append(name, address);
+        button.addEventListener('click', () => connectDevice(() => device));
+        group.append(button);
+        discoveredDevices.append(group);
+      }
+    } catch (err) {
+      searchStatus.textContent = Homey.__('pair.wall_display.discovery_failed');
+      manualAddress.open = true;
+    } finally {
+      searchButton.disabled = false;
+    }
+  }
+
+  form.addEventListener('submit', async event => {
+    event.preventDefault();
+    await connectDevice(() => Homey.emit('wall_display_address', document.getElementById('address').value));
+  });
+  searchButton.addEventListener('click', searchDevices);
+  searchDevices();
+</script>

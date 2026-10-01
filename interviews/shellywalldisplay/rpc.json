@@ -1,0 +1,114 @@
+[
+  {
+    "key": "switch:0",
+    "status": {
+      "id": 0,
+      "output": false,
+      "source": "Auto power on (off)"
+    },
+    "config": {
+      "id": 0,
+      "auto_off": false,
+      "auto_on_delay": 0,
+      "initial_state": "off",
+      "in_mode": "follow",
+      "name": null
+    }
+  },
+  {
+    "key": "input:0",
+    "status": {
+      "id": 0,
+      "state": false
+    },
+    "config": {
+      "type": "disabled",
+      "id": 0,
+      "enable": true,
+      "invert": false,
+      "factory_reset": true,
+      "name": null
+    }
+  },
+  {
+    "key": "temperature:0",
+    "status": {
+      "id": 0,
+      "tC": 25,
+      "tF": 77
+    },
+    "config": {
+      "id": 0,
+      "report_thr_C": 1,
+      "offset_C": 0,
+      "name": null
+    }
+  },
+  {
+    "key": "humidity:0",
+    "status": {
+      "id": 0,
+      "rh": 37.2
+    },
+    "config": {
+      "id": 0,
+      "report_thr": 1,
+      "offset": 0,
+      "name": null
+    }
+  },
+  {
+    "key": "illuminance:0",
+    "status": {
+      "id": 0,
+      "lux": 30,
+      "illumination": "twilight"
+    },
+    "config": {
+      "id": 0,
+      "bright_thr": 200,
+      "dark_thr": 30,
+      "name": null
+    }
+  },
+  {
+    "key": "ui",
+    "status": {},
+    "config": {
+      "lock_type": "none",
+      "disable_gestures_when_locked": false,
+      "use_F": false,
+      "screen_saver": {
+        "enable": true,
+        "timeout": 900,
+        "priority_element": "CLOCK"
+      },
+      "brightness": {
+        "auto": true,
+        "level": 0,
+        "min_level": 3,
+        "auto_off": {
+          "enable": true,
+          "by_lux": true,
+          "timeout": 30
+        },
+        "auto_dim": {
+          "enable": true,
+          "timeout": 30
+        }
+      }
+    }
+  },
+  {
+    "key": "media",
+    "status": {
+      "playback": {
+        "enable": false,
+        "volume": 5
+      }
+    },
+    "config": {
+      "rev": 0
+    }
+  }
+]

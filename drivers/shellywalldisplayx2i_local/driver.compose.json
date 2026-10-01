@@ -1,0 +1,56 @@
+{
+  "$extends": ["local"],
+  "name": {
+    "en": "Wall Display X2i - LAN"
+  },
+  "class": "other",
+  "capabilities": [
+    "onoff",
+    "measure_luminance",
+    "volume_set",
+    "speaker_playing",
+    "speaker_track",
+    "speaker_next",
+    "speaker_prev",
+    "speaker_stop",
+    "button.screen_on",
+    "button.screen_off",
+    "alarm_presence"
+  ],
+  "images": {
+    "xlarge": "/assets/drivers/shellywalldisplayx2i/images/xlarge.png",
+    "large": "/assets/drivers/shellywalldisplayx2i/images/large.png",
+    "small": "/assets/drivers/shellywalldisplayx2i/images/small.png"
+  },
+  "pair": [
+    {
+      "$template": "wall_display_address",
+      "id": "wall_display_address"
+    },
+    {
+      "id": "authenticate_devices",
+      "template": "loading",
+      "options": {
+        "text": "pair.loading_devices"
+      }
+    },
+    {
+      "$template": "device_credentials",
+      "id": "device_password"
+    },
+    {
+      "$template": "add_subdevices",
+      "id": "add_subdevices"
+    }
+  ],
+  "repair": [
+    {
+      "$template": "wall_display_address",
+      "id": "wall_display_address"
+    },
+    {
+      "$template": "repair",
+      "id": "repair"
+    }
+  ]
+}

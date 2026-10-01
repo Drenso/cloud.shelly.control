@@ -1,0 +1,31 @@
+{
+  "title": {
+    "no": "Spill av en lyd fra biblioteket",
+    "en": "Play a sound from the library"
+  },
+  "args": [
+    {
+      "type": "device",
+      "filter": {
+        "driver_id": "shellywalldisplay_local|shellywalldisplayx2i_local"
+      },
+      "name": "device"
+    },
+    {
+      "type": "autocomplete",
+      "placeholder": {
+        "no": "Velg en lyd",
+        "en": "Choose a sound"
+      },
+      "title": {
+        "no": "Lyd",
+        "en": "Sound"
+      },
+      "name": "item"
+    }
+  ],
+  "titleFormatted": {
+    "en": "Play sound [[item]]",
+    "no": "Spill av lyden [[item]]"
+  }
+}

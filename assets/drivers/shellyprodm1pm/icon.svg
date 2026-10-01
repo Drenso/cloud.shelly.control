@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 960">
+  <g fill="none" stroke="#000" stroke-width="24" stroke-linejoin="round">
+    <path d="M330 130V45h300v85l45 55v590l-45 55v85H330v-85l-45-55V185z"/>
+    <path d="M330 130h300M330 830h300M285 250h390M285 710h390"/>
+    <rect x="355" y="340" width="250" height="160" rx="12"/>
+    <path d="M385 375h190v60H385zM410 435v30m35-30v30m35-30v30m35-30v30m35-30v30"/>
+    <circle cx="480" cy="620" r="30"/>
+    <circle cx="390" cy="555" r="8" fill="#000"/>
+    <circle cx="435" cy="555" r="8" fill="#000"/>
+    <circle cx="480" cy="555" r="8" fill="#000"/>
+    <circle cx="525" cy="555" r="8" fill="#000"/>
+    <circle cx="570" cy="555" r="8" fill="#000"/>
+    <circle cx="385" cy="85" r="16"/>
+    <circle cx="480" cy="85" r="16"/>
+    <circle cx="575" cy="85" r="16"/>
+    <circle cx="385" cy="875" r="16"/>
+    <circle cx="480" cy="875" r="16"/>
+    <circle cx="575" cy="875" r="16"/>
+  </g>
+</svg>
