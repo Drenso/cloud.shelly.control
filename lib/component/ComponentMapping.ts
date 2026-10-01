@@ -27,6 +27,7 @@ import PresenceZone from './components/PresenceZone.js';
 import RGBCCT from './components/RGBCCT.js';
 import Script from './components/Script.js';
 import Service from './components/Service.js';
+import Smoke from './components/Smoke.js';
 import Storage from './components/Storage.js';
 import Switch from './components/Switch.js';
 import System from './components/System.js';
@@ -56,6 +57,7 @@ export const ComponentWithIdMapping = {
   rgbcct: RGBCCT,
   script: Script,
   service: Service,
+  smoke: Smoke,
   storage: Storage,
   switch: Switch,
   temperature: Temperature,

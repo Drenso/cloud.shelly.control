@@ -25432,6 +25432,16 @@
       "getable": true,
       "setable": false
     },
+    "shelly_mute_alarm": {
+      "title": {
+        "en": "Mute"
+      },
+      "type": "boolean",
+      "getable": false,
+      "setable": true,
+      "uiComponent": "button",
+      "icon": "/assets/capabilities/volume_mute.svg"
+    },
     "shelly_power_factor": {
       "type": "number",
       "title": {

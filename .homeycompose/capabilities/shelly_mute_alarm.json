@@ -1,0 +1,10 @@
+{
+  "title": {
+    "en": "Mute"
+  },
+  "type": "boolean",
+  "getable": false,
+  "setable": true,
+  "uiComponent": "button",
+  "icon": "/assets/capabilities/volume_mute.svg"
+}

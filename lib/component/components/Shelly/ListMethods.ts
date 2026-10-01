@@ -75,6 +75,7 @@ type NamespaceMethodMapping = {
     'Eval',
   ];
   Service: ['GetConfig', 'SetConfig', 'GetStatus', 'GetResources', 'GetInfo'];
+  Smoke: ['GetConfig', 'SetConfig', 'GetStatus', 'Mute'];
   Storage: ['GetConfig', 'SetConfig', 'GetStatus', 'List', 'Delete', 'Format', 'Eject'];
   Switch: ['Set', 'Toggle', 'SetConfig', 'GetConfig', 'GetStatus', 'ResetCounters'];
   Sys: ['SetConfig', 'GetConfig', 'GetStatus', 'SetTime'];
