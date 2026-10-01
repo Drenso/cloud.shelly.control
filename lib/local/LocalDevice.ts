@@ -106,7 +106,7 @@ export default class ShellyLocalDevice extends Homey.Device {
       this.virtualComponents.set(componentId, virtualComponent);
     }
 
-    const capabilities: string[] = [];
+    const capabilities: string[] = this.virtualDevice!.batteryDevice ? [] : ['button.restart'];
 
     for (const virtualComponent of this.virtualComponents.values()) {
       const componentCapabilities = await this.registerComponent(
