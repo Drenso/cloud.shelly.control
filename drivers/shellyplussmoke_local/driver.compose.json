@@ -1,0 +1,16 @@
+{
+  "$extends": ["local"],
+  "name": {
+    "en": "Plus Smoke - LAN"
+  },
+  "class": "smokealarm",
+  "capabilities": ["alarm_smoke", "measure_battery"],
+  "energy": {
+    "batteries": ["CR123A"]
+  },
+  "images": {
+    "small": "/assets/drivers/shellyplussmoke/images/small.png",
+    "large": "/assets/drivers/shellyplussmoke/images/large.png",
+    "xlarge": "/assets/drivers/shellyplussmoke/images/xlarge.png"
+  }
+}

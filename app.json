@@ -20063,6 +20063,113 @@
         "lan"
       ],
       "capabilities": [
+        "alarm_smoke",
+        "measure_battery"
+      ],
+      "capabilitiesOptions": {
+        "alarm_generic": {
+          "title": {
+            "en": "Error Alarm"
+          }
+        },
+        "button.restart": {
+          "maintenanceAction": true,
+          "title": {
+            "en": "Restart Device"
+          }
+        }
+      },
+      "pair": [
+        {
+          "id": "pairing_information",
+          "navigation": {
+            "next": "list_devices"
+          }
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "authenticate_devices"
+          }
+        },
+        {
+          "id": "authenticate_devices",
+          "template": "loading",
+          "options": {
+            "text": "pair.loading_devices"
+          }
+        },
+        {
+          "id": "loading_devices",
+          "template": "loading",
+          "options": {
+            "text": "pair.loading_devices"
+          }
+        },
+        {
+          "id": "device_password"
+        },
+        {
+          "id": "add_subdevices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "repair"
+        }
+      ],
+      "name": {
+        "en": "Plus Smoke - LAN"
+      },
+      "class": "smokealarm",
+      "energy": {
+        "batteries": [
+          "CR123A"
+        ]
+      },
+      "images": {
+        "small": "/assets/drivers/shellyplussmoke/images/small.png",
+        "large": "/assets/drivers/shellyplussmoke/images/large.png",
+        "xlarge": "/assets/drivers/shellyplussmoke/images/xlarge.png"
+      },
+      "id": "shellyplussmoke_local",
+      "settings": [
+        {
+          "id": "_shelly_device_info",
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            {
+              "id": "_shelly_device_id",
+              "type": "label",
+              "label": {
+                "en": "Device identifier"
+              },
+              "value": "-"
+            },
+            {
+              "id": "_shelly_ip",
+              "type": "label",
+              "label": {
+                "en": "IP address"
+              },
+              "value": "-"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "lan"
+      ],
+      "capabilities": [
         "measure_power",
         "measure_current",
         "measure_voltage",
