@@ -20083,6 +20083,12 @@
         {
           "id": "pairing_information",
           "navigation": {
+            "next": "pair_instructions"
+          }
+        },
+        {
+          "id": "pair_instructions",
+          "navigation": {
             "next": "list_devices"
           }
         },
@@ -20127,6 +20133,12 @@
         "batteries": [
           "CR123A"
         ]
+      },
+      "learnmode": {
+        "image": "/drivers/shellyplussmoke_local/assets/learnmode.svg",
+        "instruction": {
+          "en": "Press the button briefly 3 times to put the Device in Setup mode for 2 minutes."
+        }
       },
       "images": {
         "small": "/assets/drivers/shellyplussmoke/images/small.png",
