@@ -14,7 +14,7 @@ import Eval from '../component/components/Script/Eval.js';
 import Stop from '../component/components/Script/Stop.js';
 
 const SCRIPT_NAME = 'Homey BLE forwarding';
-const SCRIPT_VERSION = 1;
+const SCRIPT_VERSION = 2;
 
 type BTHomeMitt = Record<string, BleForwardEventData>;
 
