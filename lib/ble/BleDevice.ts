@@ -83,9 +83,16 @@ export default abstract class ShellyBleDevice extends Homey.Device {
   private async handleHomeyBle(advertisement: BleAdvertisement): Promise<void> {
     this.debugDeduplication('Received Homey advertisement');
     for (const service of advertisement.serviceData) {
-      if (service.uuid === BTHOME_SERVICE_UUID) {
+      if (service.uuid !== BTHOME_SERVICE_UUID) {
+        continue;
+      }
+
+      try {
         const btHomeData = parseBtHomeServiceData(service.data);
+
         return this.handleBtHomeData(btHomeData);
+      } catch (e) {
+        this.error('Error while handling BLE Homey data:', e);
       }
     }
   }
@@ -99,8 +106,14 @@ export default abstract class ShellyBleDevice extends Homey.Device {
     if (Homey.env['BLE_DEBUG_DEDUPLICATION'] === '1' || Homey.env['BLE_DEBUG_FORWARDING'] === '1') {
       this.debug('Received forwarded advertisement');
     }
-    const btHomeData = parseBleForward(data);
-    return this.handleBtHomeData(btHomeData);
+
+    try {
+      const btHomeData = parseBleForward(data);
+
+      return this.handleBtHomeData(btHomeData);
+    } catch (e) {
+      this.error('Error while handling BLE forward:', e);
+    }
   }
 
   private async handleBtHomeData(btHomeData: BTHomeData | undefined): Promise<void> {
