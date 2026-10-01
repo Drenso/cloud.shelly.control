@@ -88,5 +88,8 @@
   },
   "1.0.0": {
     "en": "Shelly Control is now considered to be stable! Add LAN support for i4 Gen3 & i4(DC) Gen4. Add Zigbee support for i4(DC) Gen4 Add Matter definition for i4 Gen4. Update BLE proxy script to not crash when BLE enabled flag is missing."
+  },
+  "1.0.1": {
+    "en": "Brings back the missing restart button, resolves issue with BLE proxy not starting."
   }
 }
