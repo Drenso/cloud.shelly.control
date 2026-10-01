@@ -1,0 +1,57 @@
+{
+  "$extends": ["zigbee"],
+  "name": {
+    "en": "2L Gen4 - Zigbee"
+  },
+  "class": "socket",
+  "capabilities": ["onoff", "hidden.single_button_pressed", "hidden.single_input_switch_changed"],
+  "zigbee": {
+    "manufacturerName": "Shelly",
+    "productId": ["2L"],
+    "devices": {
+      "secondChannel": {
+        "name": {
+          "en": "2L Gen4 - Zigbee (2)"
+        },
+        "capabilities": ["onoff", "hidden.single_button_pressed", "hidden.single_input_switch_changed"]
+      }
+    },
+    "endpoints": {
+      "1": {
+        "clusters": [0, 25, 3, 4, 5, 6],
+        "bindings": [6]
+      },
+      "2": {
+        "clusters": [4, 5, 6],
+        "bindings": [6]
+      },
+      "3": {
+        "clusters": [3, 4, 5, 6, 7],
+        "bindings": [5, 6, 7]
+      },
+      "4": {
+        "clusters": [3, 4, 5, 6, 7],
+        "bindings": [5, 6, 7]
+      }
+    },
+    "_clusters": {
+      "0": "basic",
+      "3": "identify",
+      "4": "groups",
+      "5": "scenes",
+      "6": "onOff",
+      "7": "onOffSwitch",
+      "25": "ota"
+    },
+    "learnmode": {
+      "instruction": {
+        "en": "Verify that the device is in Zigbee mode (you can enable Zigbee mode by pressing the reset button five times).\n\nPress the reset button three times to initialize pairing."
+      }
+    }
+  },
+  "images": {
+    "small": "/assets/drivers/shelly2lg4/images/small.png",
+    "large": "/assets/drivers/shelly2lg4/images/large.png",
+    "xlarge": "/assets/drivers/shelly2lg4/images/xlarge.png"
+  }
+}
