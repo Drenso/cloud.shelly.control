@@ -1,0 +1,45 @@
+{
+  "$extends": ["zigbee"],
+  "name": {
+    "en": "1L Gen4 - Zigbee"
+  },
+  "class": "socket",
+  "capabilities": ["onoff", "hidden.button_pressed", "hidden.input_switch_changed"],
+  "zigbee": {
+    "manufacturerName": "Shelly",
+    "productId": ["1L"],
+    "endpoints": {
+      "1": {
+        "clusters": [0, 3, 4, 5, 6, 25],
+        "bindings": [6]
+      },
+      "2": {
+        "clusters": [3, 4, 5, 6, 7],
+        "bindings": [5, 6, 7]
+      },
+      "3": {
+        "clusters": [3, 4, 5, 6, 7],
+        "bindings": [5, 6, 7]
+      }
+    },
+    "_clusters": {
+      "0": "basic",
+      "3": "identify",
+      "4": "groups",
+      "5": "scenes",
+      "6": "onOff",
+      "7": "onOffSwitch",
+      "25": "ota"
+    },
+    "learnmode": {
+      "instruction": {
+        "en": "Verify that the device is in Zigbee mode (you can enable Zigbee mode by pressing the reset button five times).\n\nPress the reset button three times to initialize pairing."
+      }
+    }
+  },
+  "images": {
+    "small": "/assets/drivers/shelly1lg4/images/small.png",
+    "large": "/assets/drivers/shelly1lg4/images/large.png",
+    "xlarge": "/assets/drivers/shelly1lg4/images/xlarge.png"
+  }
+}
