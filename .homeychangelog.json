@@ -91,5 +91,8 @@
   },
   "1.0.1": {
     "en": "Brings back the missing restart button, resolves issue with BLE proxy not starting."
+  },
+  "1.1.0": {
+    "en": "Add Zigbee support for 1L Gen4 & 2L Gen4. Update capability icons. Fix crash on unknown BTHome object ids."
   }
 }
