@@ -1,0 +1,337 @@
+{
+  "ids": {
+    "modelId": "1L",
+    "manufacturerName": "Shelly"
+  },
+  "endpoints": {
+    "ieeeAddress": "e8:f6:0a:ff:fe:7f:b6:2c",
+    "networkAddress": 33520,
+    "modelId": "1L",
+    "manufacturerName": "Shelly",
+    "endpointDescriptors": [
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 33520,
+        "_reserved": 20,
+        "endpointId": 1,
+        "applicationProfileId": 260,
+        "applicationDeviceId": 266,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 0,
+        "inputClusters": [0, 3, 4, 5, 6],
+        "outputClusters": [25]
+      },
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 33520,
+        "_reserved": 18,
+        "endpointId": 2,
+        "applicationProfileId": 260,
+        "applicationDeviceId": 0,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 0,
+        "inputClusters": [7],
+        "outputClusters": [4, 6, 3, 5]
+      },
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 33520,
+        "_reserved": 18,
+        "endpointId": 3,
+        "applicationProfileId": 260,
+        "applicationDeviceId": 0,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 0,
+        "inputClusters": [7],
+        "outputClusters": [4, 6, 3, 5]
+      },
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 33520,
+        "_reserved": 12,
+        "endpointId": 239,
+        "applicationProfileId": 49153,
+        "applicationDeviceId": 8193,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 0,
+        "inputClusters": [64513, 64514],
+        "outputClusters": []
+      },
+      {
+        "status": "SUCCESS",
+        "nwkAddrOfInterest": 33520,
+        "_reserved": 10,
+        "endpointId": 242,
+        "applicationProfileId": 41440,
+        "applicationDeviceId": 97,
+        "applicationDeviceVersion": 0,
+        "_reserved1": 0,
+        "inputClusters": [],
+        "outputClusters": [33]
+      }
+    ],
+    "deviceType": "router",
+    "receiveWhenIdle": true,
+    "swBuildId": "2.0.1",
+    "capabilities": {
+      "alternatePANCoordinator": false,
+      "deviceType": true,
+      "powerSourceMains": true,
+      "receiveWhenIdle": true,
+      "security": false,
+      "allocateAddress": true
+    },
+    "extendedEndpointDescriptors": {
+      "1": {
+        "clusters": {
+          "basic": {
+            "attributes": [
+              {
+                "acl": ["readable"],
+                "id": 0,
+                "dataTypeId": 32,
+                "name": "zclVersion",
+                "value": 8
+              },
+              {
+                "acl": ["readable"],
+                "id": 7,
+                "dataTypeId": 48,
+                "name": "powerSource",
+                "value": "mains"
+              },
+              {
+                "acl": ["readable"],
+                "id": 4,
+                "dataTypeId": 66,
+                "name": "manufacturerName",
+                "value": "Shelly"
+              },
+              {
+                "acl": ["readable"],
+                "id": 5,
+                "dataTypeId": 66,
+                "name": "modelId",
+                "value": "1L"
+              },
+              {
+                "acl": ["readable"],
+                "id": 1,
+                "dataTypeId": 32,
+                "name": "appVersion",
+                "value": 0
+              },
+              {
+                "acl": ["readable"],
+                "id": 2,
+                "dataTypeId": 32,
+                "name": "stackVersion",
+                "value": 3
+              },
+              {
+                "acl": ["readable"],
+                "id": 3,
+                "dataTypeId": 32,
+                "name": "hwVersion",
+                "value": 0
+              },
+              {
+                "acl": ["readable"],
+                "id": 6,
+                "dataTypeId": 66,
+                "name": "dateCode",
+                "value": "20260923"
+              },
+              {
+                "acl": ["readable"],
+                "id": 8,
+                "dataTypeId": 48,
+                "name": "appProfileVersion",
+                "value": 0
+              },
+              {
+                "acl": ["readable"],
+                "id": 9,
+                "dataTypeId": 48
+              },
+              {
+                "acl": ["readable"],
+                "id": 10,
+                "dataTypeId": 65
+              },
+              {
+                "acl": ["readable"],
+                "id": 11,
+                "dataTypeId": 66
+              }
+            ],
+            "commandsGenerated": [],
+            "commandsReceived": ["factoryReset"]
+          },
+          "identify": {
+            "attributes": [
+              {
+                "acl": ["readable", "writable"],
+                "id": 0,
+                "dataTypeId": 33,
+                "name": "identifyTime",
+                "value": 0
+              }
+            ],
+            "commandsGenerated": ["identifyQuery.response"],
+            "commandsReceived": ["identify", "identifyQuery", "triggerEffect"]
+          },
+          "groups": {
+            "attributes": [
+              {
+                "acl": ["readable"],
+                "id": 0,
+                "dataTypeId": 24,
+                "name": "nameSupport",
+                "value": {
+                  "type": "Buffer",
+                  "data": [0]
+                }
+              }
+            ],
+            "commandsGenerated": [
+              "addGroup.response",
+              "viewGroup.response",
+              "getGroupMembership.response",
+              "removeGroup.response"
+            ],
+            "commandsReceived": [
+              "addGroup",
+              "viewGroup",
+              "getGroupMembership",
+              "removeGroup",
+              "removeAllGroups",
+              "addGroupIfIdentify"
+            ]
+          },
+          "scenes": {
+            "attributes": [
+              {
+                "acl": ["readable"],
+                "id": 0,
+                "dataTypeId": 32
+              },
+              {
+                "acl": ["readable"],
+                "id": 1,
+                "dataTypeId": 32
+              },
+              {
+                "acl": ["readable"],
+                "id": 2,
+                "dataTypeId": 33
+              },
+              {
+                "acl": ["readable"],
+                "id": 3,
+                "dataTypeId": 16
+              },
+              {
+                "acl": ["readable"],
+                "id": 4,
+                "dataTypeId": 24
+              }
+            ],
+            "commandsGenerated": [0, 1, 2, 3, 4, 6],
+            "commandsReceived": [0, 1, 2, 3, 4, 5, 6]
+          },
+          "onOff": {
+            "attributes": [
+              {
+                "acl": ["readable", "reportable"],
+                "id": 0,
+                "dataTypeId": 16,
+                "name": "onOff",
+                "value": false,
+                "reportingConfiguration": {
+                  "direction": "reported",
+                  "attributeDataType": 16,
+                  "minInterval": 0,
+                  "maxInterval": 900,
+                  "status": "SUCCESS"
+                }
+              }
+            ],
+            "commandsGenerated": [],
+            "commandsReceived": [
+              "setOff",
+              "setOn",
+              "toggle",
+              "offWithEffect",
+              "onWithRecallGlobalScene",
+              "onWithTimedOff"
+            ]
+          }
+        },
+        "bindings": {
+          "ota": {}
+        }
+      },
+      "2": {
+        "clusters": {
+          "onOffSwitch": {
+            "attributes": [
+              {
+                "acl": ["readable"],
+                "id": 0,
+                "dataTypeId": 48
+              },
+              {
+                "acl": ["readable", "writable"],
+                "id": 16,
+                "dataTypeId": 48
+              }
+            ],
+            "commandsGenerated": [],
+            "commandsReceived": []
+          }
+        },
+        "bindings": {
+          "groups": {},
+          "onOff": {},
+          "identify": {},
+          "scenes": {}
+        }
+      },
+      "3": {
+        "clusters": {
+          "onOffSwitch": {
+            "attributes": [
+              {
+                "acl": ["readable"],
+                "id": 0,
+                "dataTypeId": 48
+              },
+              {
+                "acl": ["readable", "writable"],
+                "id": 16,
+                "dataTypeId": 48
+              }
+            ],
+            "commandsGenerated": [],
+            "commandsReceived": []
+          }
+        },
+        "bindings": {
+          "groups": {},
+          "onOff": {},
+          "identify": {},
+          "scenes": {}
+        }
+      },
+      "239": {
+        "clusters": {},
+        "bindings": {}
+      },
+      "242": {
+        "clusters": {},
+        "bindings": {}
+      }
+    }
+  }
+}
