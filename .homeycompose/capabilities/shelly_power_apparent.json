@@ -1,0 +1,13 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Apparent Power"
+  },
+  "units": {
+    "en": "VA"
+  },
+  "getable": true,
+  "setable": false,
+  "insights": true,
+  "icon": "/assets/capabilities/shelly_power_apparent.svg"
+}

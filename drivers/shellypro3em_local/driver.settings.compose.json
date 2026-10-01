@@ -1,0 +1,47 @@
+[
+  {
+    "$extends": "EM.ct_type",
+    "value": "120A",
+    "values": [
+      {
+        "id": "50A",
+        "label": {
+          "en": "50 A"
+        }
+      },
+      {
+        "id": "3x63A",
+        "label": {
+          "en": "3x63 A"
+        }
+      },
+      {
+        "id": "120A",
+        "label": {
+          "en": "120 A"
+        }
+      },
+      {
+        "id": "400A",
+        "label": {
+          "en": "400 A"
+        }
+      }
+    ]
+  },
+  {
+    "$extends": "EM.reverse_a"
+  },
+  {
+    "$extends": "EM.reverse_b"
+  },
+  {
+    "$extends": "EM.reverse_c"
+  },
+  {
+    "$extends": "installBleForwardingScript"
+  },
+  {
+    "$extends": "_shelly_device_info"
+  }
+]
