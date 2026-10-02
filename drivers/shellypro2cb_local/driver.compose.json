@@ -1,0 +1,22 @@
+{
+  "$extends": ["local"],
+  "name": {
+    "en": "Pro 2CB - LAN"
+  },
+  "class": "socket",
+  "capabilities": [
+    "onoff",
+    "shelly_remote_lock",
+    "measure_voltage",
+    "measure_temperature.circuit_breaker",
+    "hidden.has_temperature_measurement",
+    "shelly_total_cycles",
+    "alarm_generic",
+    "shelly_errors"
+  ],
+  "images": {
+    "small": "/assets/drivers/shellypro2cb/images/small.png",
+    "large": "/assets/drivers/shellypro2cb/images/large.png",
+    "xlarge": "/assets/drivers/shellypro2cb/images/xlarge.png"
+  }
+}

@@ -1,0 +1,26 @@
+[
+  {
+    "$extends": "CB.undervoltage_limit"
+  },
+  {
+    "$extends": "CB.voltage_limit"
+  },
+  {
+    "$extends": "CB.voltage_thr"
+  },
+  {
+    "$extends": "CB.reaction_delay"
+  },
+  {
+    "$extends": "CB.autorecovery_enable"
+  },
+  {
+    "$extends": "CB.autorecovery_delay"
+  },
+  {
+    "$extends": "installBleForwardingScript"
+  },
+  {
+    "$extends": "_shelly_device_info"
+  }
+]
