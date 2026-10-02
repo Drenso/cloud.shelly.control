@@ -1,0 +1,33 @@
+{
+  "id": "EM:phase_selector",
+  "type": "dropdown",
+  "label": {
+    "en": "Energy Meter - LED Indicator - Phase"
+  },
+  "values": [
+    {
+      "id": "a",
+      "label": {
+        "en": "Phase A"
+      }
+    },
+    {
+      "id": "b",
+      "label": {
+        "en": "Phase B"
+      }
+    },
+    {
+      "id": "c",
+      "label": {
+        "en": "Phase C"
+      }
+    },
+    {
+      "id": "all",
+      "label": {
+        "en": "All"
+      }
+    }
+  ]
+}

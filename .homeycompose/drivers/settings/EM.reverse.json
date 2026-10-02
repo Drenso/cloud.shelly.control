@@ -1,0 +1,39 @@
+{
+  "type": "group",
+  "label": "Energy Meter - Reverse",
+  "children": [
+    {
+      "id": "EM:reverse.a",
+      "type": "checkbox",
+      "label": {
+        "en": "Energy Meter - Reverse - Phase A"
+      },
+      "hint": {
+        "en": "Reverse the measurement direction of active power and energy for phase A."
+      },
+      "value": false
+    },
+    {
+      "id": "EM:reverse.b",
+      "type": "checkbox",
+      "label": {
+        "en": "Energy Meter - Reverse - Phase B"
+      },
+      "hint": {
+        "en": "Reverse the measurement direction of active power and energy for phase B."
+      },
+      "value": false
+    },
+    {
+      "id": "EM:reverse.c",
+      "type": "checkbox",
+      "label": {
+        "en": "Energy Meter - Reverse - Phase C"
+      },
+      "hint": {
+        "en": "Reverse the measurement direction of active power and energy for phase C."
+      },
+      "value": false
+    }
+  ]
+}

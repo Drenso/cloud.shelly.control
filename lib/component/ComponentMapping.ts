@@ -8,6 +8,7 @@ import Cover from './components/Cover.js';
 import DevicePower from './components/DevicePower.js';
 import EM1 from './components/EM1.js';
 import EM1Data from './components/EM1Data.js';
+import EnergyMeter from './components/EnergyMeter.js';
 import Enum from './components/Enum.js';
 import Flood from './components/Flood.js';
 import HTUI from './components/HTUI.js';
@@ -44,6 +45,7 @@ export const ComponentWithIdMapping = {
   cct: CCT,
   cover: Cover,
   devicepower: DevicePower,
+  em: EnergyMeter,
   em1: EM1,
   em1data: EM1Data,
   enum: Enum,

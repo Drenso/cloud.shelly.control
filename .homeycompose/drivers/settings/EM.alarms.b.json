@@ -1,0 +1,114 @@
+{
+  "type": "group",
+  "label": "Energy Meter - Alarms - Phase B",
+  "children": [
+    {
+      "id": "EM:alarms.b.voltage.under.enabled",
+      "type": "checkbox",
+      "label": {
+        "en": "Energy Meter - Alarms - Phase B - Undervoltage - Enabled"
+      },
+      "value": false
+    },
+    {
+      "id": "EM:alarms.b.voltage.under",
+      "type": "number",
+      "label": {
+        "en": "Energy Meter - Alarms - Phase B - Undervoltage - Threshold"
+      },
+      "value": 0,
+      "min": 0,
+      "units": "V"
+    },
+    {
+      "id": "EM:alarms.b.voltage.over.enabled",
+      "type": "checkbox",
+      "label": {
+        "en": "Energy Meter - Alarms - Phase B - Overvoltage - Enabled"
+      },
+      "value": false
+    },
+    {
+      "id": "EM:alarms.b.voltage.over",
+      "type": "number",
+      "label": {
+        "en": "Energy Meter - Alarms - Phase B - Overvoltage - Threshold"
+      },
+      "value": 0,
+      "min": 0,
+      "units": "V"
+    },
+    {
+      "id": "EM:alarms.b.current.under.enabled",
+      "type": "checkbox",
+      "label": {
+        "en": "Energy Meter - Alarms - Phase B - Undercurrent - Enabled"
+      },
+      "value": false
+    },
+    {
+      "id": "EM:alarms.b.current.under",
+      "type": "number",
+      "label": {
+        "en": "Energy Meter - Alarms - Phase B - Undercurrent - Threshold"
+      },
+      "value": 0,
+      "min": 0,
+      "units": "A"
+    },
+    {
+      "id": "EM:alarms.b.current.over.enabled",
+      "type": "checkbox",
+      "label": {
+        "en": "Energy Meter - Alarms - Phase B - Overcurrent - Enabled"
+      },
+      "value": false
+    },
+    {
+      "id": "EM:alarms.b.current.over",
+      "type": "number",
+      "label": {
+        "en": "Energy Meter - Alarms - Phase B - Overcurrent - Threshold"
+      },
+      "value": 0,
+      "min": 0,
+      "units": "A"
+    },
+    {
+      "id": "EM:alarms.b.power.under.enabled",
+      "type": "checkbox",
+      "label": {
+        "en": "Energy Meter - Alarms - Phase B - Underpower - Enabled"
+      },
+      "value": false
+    },
+    {
+      "id": "EM:alarms.b.power.under.enabled",
+      "type": "number",
+      "label": {
+        "en": "Energy Meter - Alarms - Phase B - Underpower - Threshold"
+      },
+      "value": 0,
+      "min": 0,
+      "units": "W"
+    },
+    {
+      "id": "EM:alarms.b.power.over.enabled",
+      "type": "checkbox",
+      "label": {
+        "en": "Energy Meter - Alarms - Phase B - Overpower - Enabled"
+      },
+      "value": false
+    },
+    {
+      "id": "EM:alarms.b.power.over",
+      "type": "number",
+      "label": {
+        "en": "Energy Meter - Alarms - Phase B - Overpower - Threshold"
+      },
+      "value": 0,
+      "min": 0,
+      "units": "W"
+    }
+  ]
+}

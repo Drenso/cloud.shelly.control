@@ -33,6 +33,7 @@ type NamespaceMethodMapping = {
     'ResetCounters',
     'GetNetEnergies',
   ];
+  EM: ['GetConfig', 'SetConfig', 'GetStatus', 'PhaseToPhaseCalib', 'PhaseToPhaseCalibReset', 'GetCTTypes'];
   Enum: ['GetConfig', 'SetConfig', 'GetStatus', 'Set'];
   Flood: ['SetConfig', 'GetConfig', 'GetStatus'];
   HT_UI: ['SetConfig', 'GetConfig', 'GetStatus'];

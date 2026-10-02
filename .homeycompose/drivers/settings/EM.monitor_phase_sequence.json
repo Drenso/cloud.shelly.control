@@ -1,0 +1,11 @@
+{
+  "id": "EM:monitor_phase_sequence",
+  "type": "checkbox",
+  "label": {
+    "en": "Energy Meter - Monitor phase sequence"
+  },
+  "hint": {
+    "en": "Monitor whether the zero-crossing occurs in phase order A -> B -> C -> A."
+  },
+  "value": false
+}

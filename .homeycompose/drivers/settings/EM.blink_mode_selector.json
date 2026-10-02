@@ -1,0 +1,21 @@
+{
+  "id": "EM:blink_mode_selector",
+  "type": "dropdown",
+  "label": {
+    "en": "Energy Meter - LED Indicator - Mode"
+  },
+  "values": [
+    {
+      "id": "active_energy",
+      "label": {
+        "en": "Active energy"
+      }
+    },
+    {
+      "id": "apparent_energy",
+      "label": {
+        "en": "Apparent energy"
+      }
+    }
+  ]
+}

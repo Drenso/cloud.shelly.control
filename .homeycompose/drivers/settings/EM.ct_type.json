@@ -1,0 +1,8 @@
+{
+  "id": "EM:ct_type",
+  "type": "dropdown",
+  "label": {
+    "en": "Energy Meter - CT Type"
+  },
+  "value": "placeholder: override when using in device definition"
+}

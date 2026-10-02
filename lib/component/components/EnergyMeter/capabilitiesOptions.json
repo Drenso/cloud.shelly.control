@@ -1,0 +1,55 @@
+{
+  "phase_a": {
+    "en": "Phase A"
+  },
+  "phase_b": {
+    "en": "Phase B"
+  },
+  "phase_c": {
+    "en": "Phase C"
+  },
+  "phase_n": {
+    "en": "Neutral"
+  },
+  "total": {
+    "en": "Total"
+  },
+  "measure_current": {
+    "title": {
+      "en": "__phase__ current"
+    }
+  },
+  "measure_voltage": {
+    "title": {
+      "en": "__phase__ voltage"
+    }
+  },
+  "measure_power": {
+    "title": {
+      "en": "__phase__ power"
+    }
+  },
+  "measure_power.apparent": {
+    "title": {
+      "en": "__phase__ apparent power"
+    },
+    "units": {
+      "en": "VA"
+    }
+  },
+  "shelly_power_factor": {
+    "title": {
+      "en": "__phase__ power factor"
+    }
+  },
+  "measure_frequency": {
+    "title": {
+      "en": "__phase__ frequency"
+    }
+  },
+  "alarm_generic.flags": {
+    "title": {
+      "en": "Flag alarm"
+    }
+  }
+}

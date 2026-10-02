@@ -1,0 +1,14 @@
+import type { RpcChannel } from '../../../rpc/channel/RpcChannel.js';
+import { createRequestFrame, type ResponseSuccessFrame } from '../../../rpc/Rpc.js';
+import type { EnergyMeterStatus } from '../EnergyMeter.js';
+
+/**
+ * Obtain the component's status
+ */
+export default async function GetStatus(
+  channel: RpcChannel,
+  id: number,
+): Promise<ResponseSuccessFrame<EnergyMeterStatus>> {
+  const requestFrame = createRequestFrame('EM.GetStatus', { id });
+  return channel.sendRequestFrame(requestFrame);
+}
