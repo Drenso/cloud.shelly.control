@@ -1,0 +1,11 @@
+{
+  "id": "CB:undervoltage_limit",
+  "type": "number",
+  "label": {
+    "en": "Circuit Breaker - Undervoltage Limit"
+  },
+  "value": 200,
+  "min": 180,
+  "max": 230,
+  "units": "V"
+}

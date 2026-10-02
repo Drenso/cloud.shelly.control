@@ -18,6 +18,7 @@ type NamespaceMethodMapping = {
     'PlaySound',
   ];
   CameraZone: ['GetConfig', 'SetConfig', 'GetStatus'];
+  CB: ['GetConfig', 'SetConfig', 'GetStatus', 'Set', 'GetLog'];
   CCT: ['GetConfig', 'SetConfig', 'GetStatus', 'Set', 'Toggle', 'DimUp', 'DimDown', 'DimStop'];
   Cover: ['SetConfig', 'GetConfig', 'GetStatus', 'Calibrate', 'Open', 'Close', 'Stop', 'GoToPosition', 'ResetCounters'];
   DevicePower: ['SetConfig', 'GetConfig', 'GetStatus'];

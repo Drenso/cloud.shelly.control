@@ -1,0 +1,10 @@
+{
+  "title": {
+    "en": "Remote locked"
+  },
+  "type": "boolean",
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/capabilities/locked.svg"
+}

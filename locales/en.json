@@ -29,6 +29,10 @@
         "start_and_end": "Invalid start time and end time for Light - Night Mode"
       }
     },
+    "CircuitBreaker": {
+      "safety_locked": "Safety switch is in lock position",
+      "remote_disabled": "Breaker was tripped locally and cannot be reset remotely"
+    },
     "Light": {
       "invalid_night_mode": {
         "end": "Invalid end time for Light - Night Mode",

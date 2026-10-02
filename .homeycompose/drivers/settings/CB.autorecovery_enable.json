@@ -1,0 +1,11 @@
+{
+  "id": "CB:autorecovery_enable",
+  "type": "checkbox",
+  "label": {
+    "en": "Circuit Breaker - Autorecover Voltage Errors"
+  },
+  "hint": {
+    "en": "Whether to restore the circuit breaker output state after an overvoltage or undervoltage error is cleared."
+  },
+  "value": false
+}

@@ -1,4 +1,5 @@
 import type ShellyApp from '../../app.js';
+import CircuitBreaker from '../component/components/CircuitBreaker.js';
 import Cover from '../component/components/Cover.js';
 import Light from '../component/components/Light.js';
 import Switch from '../component/components/Switch.js';
@@ -6,7 +7,9 @@ import Temperature from '../component/components/Temperature.js';
 import type ShellyLocalDevice from '../local/LocalDevice.js';
 
 export function registerTemperatureFlowCards(app: ShellyApp): void {
-  const getTemperatureComponents = (device: ShellyLocalDevice): (Temperature | Switch | Light | Cover)[] => {
+  const getTemperatureComponents = (
+    device: ShellyLocalDevice,
+  ): (Temperature | Switch | Light | Cover | CircuitBreaker)[] => {
     if (device.virtualDevice === undefined) {
       return [];
     }
@@ -15,7 +18,12 @@ export function registerTemperatureFlowCards(app: ShellyApp): void {
       if (component instanceof Temperature) {
         return true;
       }
-      if (component instanceof Switch || component instanceof Light || component instanceof Cover) {
+      if (
+        component instanceof Switch ||
+        component instanceof Light ||
+        component instanceof Cover ||
+        component instanceof CircuitBreaker
+      ) {
         return component.status.temperature !== undefined;
       }
       return false;

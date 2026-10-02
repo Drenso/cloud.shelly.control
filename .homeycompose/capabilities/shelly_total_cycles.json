@@ -1,0 +1,9 @@
+{
+  "title": {
+    "en": "Times cycled"
+  },
+  "type": "number",
+  "getable": true,
+  "setable": false,
+  "icon": "/assets/capabilities/input_count.svg"
+}

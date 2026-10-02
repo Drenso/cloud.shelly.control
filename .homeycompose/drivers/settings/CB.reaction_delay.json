@@ -1,0 +1,14 @@
+{
+  "id": "CB:reaction_delay",
+  "type": "number",
+  "label": {
+    "en": "Circuit Breaker - Reaction Delay"
+  },
+  "hint": {
+    "en": "For how long a voltage deviation needs to persist before triggering protection."
+  },
+  "value": 1,
+  "min": 1,
+  "max": 60,
+  "units": "s"
+}

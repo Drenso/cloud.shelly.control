@@ -23,6 +23,7 @@ import { createHttpChannel } from './lib/HomeyRPCChannels.js';
 import { getIp } from './lib/LocalIp.js';
 import OutboundWsServer from './lib/rpc/OutboundWsServer.js';
 import { type SerializedVirtualDevice, VirtualDevice } from './lib/VirtualDevice.js';
+import CircuitBreaker from './lib/component/components/CircuitBreaker.js';
 
 sourceMapSupport.install();
 
@@ -202,6 +203,7 @@ export default class ShellyApp extends Homey.App {
     Button.registerFlowCards(this);
     Camera.registerFlowCards(this);
     CameraZone.registerFlowCards(this);
+    CircuitBreaker.registerFlowCards(this);
     DevicePower.registerFlowCards(this);
     Enum.registerFlowCards(this);
     Input.registerFlowCards(this);

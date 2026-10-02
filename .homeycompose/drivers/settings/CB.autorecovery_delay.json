@@ -1,0 +1,14 @@
+{
+  "id": "CB:autorecovery_delay",
+  "type": "number",
+  "label": {
+    "en": "Circuit Breaker - Autorecovery Delay"
+  },
+  "hint": {
+    "en": "For how long the voltage needs to be nominal before starting autorecovery."
+  },
+  "value": 1,
+  "min": 1,
+  "max": 60,
+  "units": "s"
+}

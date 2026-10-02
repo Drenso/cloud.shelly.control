@@ -1,0 +1,14 @@
+{
+  "id": "CB:voltage_thr",
+  "type": "number",
+  "label": {
+    "en": "Circuit Breaker - Voltage Deviation Limit"
+  },
+  "hint": {
+    "en": "Voltage deviation from nominal. Used for undervoltage, overvoltage and autorecovery conditions."
+  },
+  "value": 5,
+  "min": 5,
+  "max": 10,
+  "units": "V"
+}

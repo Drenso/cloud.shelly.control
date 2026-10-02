@@ -2,6 +2,7 @@ import Boolean from './components/Boolean.js';
 import Button from './components/Button.js';
 import Camera from './components/Camera.js';
 import CameraZone from './components/CameraZone.js';
+import CircuitBreaker from './components/CircuitBreaker.js';
 import CCT from './components/CCT.js';
 import Cover from './components/Cover.js';
 import DevicePower from './components/DevicePower.js';
@@ -39,6 +40,7 @@ export const ComponentWithIdMapping = {
   button: Button,
   camera: Camera,
   camerazone: CameraZone,
+  cb: CircuitBreaker,
   cct: CCT,
   cover: Cover,
   devicepower: DevicePower,
