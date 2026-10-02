@@ -1,0 +1,52 @@
+[
+  {
+    "$extends": "EM.ct_type",
+    "values": [
+      {
+        "id": "50A",
+        "label": {
+          "en": "50 A"
+        }
+      },
+      {
+        "id": "3x63A",
+        "label": {
+          "en": "3 x 63 A"
+        }
+      },
+      {
+        "id": "120A",
+        "label": {
+          "en": "120 A"
+        }
+      }
+    ]
+  },
+  {
+    "$extends": "EM.reverse"
+  },
+  {
+    "$extends": "EM.monitor_phase_sequence"
+  },
+  {
+    "$extends": "EM.blink_mode_selector"
+  },
+  {
+    "$extends": "EM.phase_selector"
+  },
+  {
+    "$extends": "EM.alarms.a"
+  },
+  {
+    "$extends": "EM.alarms.b"
+  },
+  {
+    "$extends": "EM.alarms.c"
+  },
+  {
+    "$extends": "installBleForwardingScript"
+  },
+  {
+    "$extends": "_shelly_device_info"
+  }
+]

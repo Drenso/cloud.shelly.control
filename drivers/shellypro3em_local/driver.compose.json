@@ -1,0 +1,13 @@
+{
+  "$extends": ["local"],
+  "name": {
+    "en": "Pro 3EM - LAN"
+  },
+  "class": "sensor",
+  "capabilities": [],
+  "images": {
+    "small": "/assets/drivers/shellypro3em/images/small.png",
+    "large": "/assets/drivers/shellypro3em/images/large.png",
+    "xlarge": "/assets/drivers/shellypro3em/images/xlarge.png"
+  }
+}
