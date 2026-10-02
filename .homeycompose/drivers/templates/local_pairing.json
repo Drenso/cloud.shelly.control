@@ -1,0 +1,63 @@
+{
+  "platforms": ["local"],
+  "connectivity": ["lan"],
+  "capabilities": ["button.restart"],
+  "capabilitiesOptions": {
+    "alarm_generic": {
+      "title": {
+        "en": "Error Alarm"
+      }
+    },
+    "button.restart": {
+      "maintenanceAction": true,
+      "title": { "en": "Restart Device" }
+    }
+  },
+  "pair": [
+    {
+      "id": "pairing_information",
+      "$template": "pairing_information",
+      "navigation": {
+        "next": "pair_instructions"
+      }
+    },
+    {
+      "id": "pair_instructions",
+      "$template": "pair_instructions",
+      "navigation": { "next": "list_devices" }
+    },
+    {
+      "id": "list_devices",
+      "template": "list_devices",
+      "navigation": { "next": "authenticate_devices" }
+    },
+    {
+      "id": "authenticate_devices",
+      "template": "loading",
+      "options": {
+        "text": "pair.loading_devices"
+      }
+    },
+    {
+      "id": "loading_devices",
+      "template": "loading",
+      "options": {
+        "text": "pair.loading_devices"
+      }
+    },
+    {
+      "id": "device_password",
+      "$template": "device_credentials"
+    },
+    {
+      "id": "add_subdevices",
+      "$template": "add_subdevices"
+    }
+  ],
+  "repair": [
+    {
+      "id": "repair",
+      "$template": "repair"
+    }
+  ]
+}

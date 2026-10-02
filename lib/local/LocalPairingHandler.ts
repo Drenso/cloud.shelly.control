@@ -21,7 +21,7 @@ export class LocalPairingHandler {
   ) {}
 
   public async setup(): Promise<void> {
-    // If devices need pairing instructions, get them form the manifest
+    // If devices need pairing instructions, get them from the manifest
     this.session.setHandler('pair_instructions', () => {
       return this.driver.manifest['learnmode'];
     });

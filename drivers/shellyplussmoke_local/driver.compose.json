@@ -1,5 +1,5 @@
 {
-  "$extends": ["local"],
+  "$extends": ["local_pairing"],
   "name": {
     "en": "Plus Smoke - LAN"
   },
@@ -14,47 +14,6 @@
       "en": "Press the button briefly 3 times to put the Device in Setup mode for 2 minutes."
     }
   },
-  "pair": [
-    {
-      "id": "pairing_information",
-      "$template": "pairing_information",
-      "navigation": {
-        "next": "pair_instructions"
-      }
-    },
-    {
-      "id": "pair_instructions",
-      "$template": "pair_instructions",
-      "navigation": { "next": "list_devices" }
-    },
-    {
-      "id": "list_devices",
-      "template": "list_devices",
-      "navigation": { "next": "authenticate_devices" }
-    },
-    {
-      "id": "authenticate_devices",
-      "template": "loading",
-      "options": {
-        "text": "pair.loading_devices"
-      }
-    },
-    {
-      "id": "loading_devices",
-      "template": "loading",
-      "options": {
-        "text": "pair.loading_devices"
-      }
-    },
-    {
-      "id": "device_password",
-      "$template": "device_credentials"
-    },
-    {
-      "id": "add_subdevices",
-      "$template": "add_subdevices"
-    }
-  ],
   "images": {
     "small": "/assets/drivers/shellyplussmoke/images/small.png",
     "large": "/assets/drivers/shellyplussmoke/images/large.png",
