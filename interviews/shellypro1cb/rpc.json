@@ -1,0 +1,240 @@
+[
+  {
+    "key": "ble",
+    "status": {
+      "addr": "88:13:bf:dd:c9:5e,p"
+    },
+    "config": {
+      "rpc": {
+        "enable": false
+      }
+    }
+  },
+  {
+    "key": "bthome",
+    "status": {},
+    "config": {}
+  },
+  {
+    "key": "cb:0",
+    "status": {
+      "id": 0,
+      "output": false,
+      "source": "undervoltage",
+      "total_cycles": 9,
+      "safety": false,
+      "temperature": {
+        "tC": 27.8,
+        "tF": 82
+      },
+      "errors": ["undervoltage:0"]
+    },
+    "config": {
+      "id": 0,
+      "name": null,
+      "undervoltage_limit": 200,
+      "voltage_limit": 250,
+      "reaction_delay": 1,
+      "voltage_thr": 5,
+      "autorecovery_enable": false,
+      "autorecovery_delay": 1
+    },
+    "attrs": {
+      "limits": {
+        "autorecovery_delay": [1, 60],
+        "reaction_delay": [0, 5],
+        "undervoltage_limit": [180, 230],
+        "voltage_limit": [230, 280]
+      }
+    }
+  },
+  {
+    "key": "cloud",
+    "status": {
+      "connected": false
+    },
+    "config": {
+      "enable": false,
+      "server": "iot.shelly.cloud:6012/jrpc"
+    }
+  },
+  {
+    "key": "eth",
+    "status": {
+      "ip": null,
+      "ip6": null
+    },
+    "config": {
+      "enable": true,
+      "server_mode": false,
+      "ipv4mode": "dhcp",
+      "ip": null,
+      "netmask": null,
+      "gw": null,
+      "nameserver": null
+    }
+  },
+  {
+    "key": "mqtt",
+    "status": {
+      "connected": false
+    },
+    "config": {
+      "enable": false,
+      "server": null,
+      "client_id": "shellypro1cb-8813bfddc95c",
+      "user": null,
+      "ssl_ca": null,
+      "topic_prefix": "shellypro1cb-8813bfddc95c",
+      "rpc_ntf": true,
+      "status_ntf": false,
+      "use_client_cert": false,
+      "enable_rpc": true,
+      "enable_control": true
+    }
+  },
+  {
+    "key": "sys",
+    "status": {
+      "mac": "8813BFDDC95C",
+      "restart_required": false,
+      "time": "10:07",
+      "unixtime": 1790928441,
+      "last_sync_ts": 1790928263,
+      "uptime": 183,
+      "ram_size": 268400,
+      "ram_free": 133000,
+      "ram_min_free": 99820,
+      "fs_size": 524288,
+      "fs_free": 225280,
+      "cfg_rev": 11,
+      "kvs_rev": 0,
+      "schedule_rev": 0,
+      "webhook_rev": 0,
+      "btrelay_rev": 0,
+      "available_updates": {},
+      "reset_reason": 1,
+      "utc_offset": 7200
+    },
+    "config": {
+      "device": {
+        "name": null,
+        "mac": "8813BFDDC95C",
+        "fw_id": "20260923-075715/2.0.1-ge1a198b",
+        "discoverable": true,
+        "eco_mode": false,
+        "tls_check_cert_validity_time": true,
+        "enhanced_security": false
+      },
+      "location": {
+        "tz": "Europe/Amsterdam",
+        "lat": 52.2332,
+        "lon": 6.8959
+      },
+      "debug": {
+        "level": 2,
+        "file_level": null,
+        "mqtt": {
+          "enable": false
+        },
+        "websocket": {
+          "enable": false
+        },
+        "file_log": {
+          "enable": false
+        },
+        "udp": {
+          "addr": null
+        }
+      },
+      "ui_data": {
+        "device_revision": "1-11"
+      },
+      "rpc_udp": {
+        "dst_addr": null,
+        "listen_port": null
+      },
+      "sntp": {
+        "server": "time.cloudflare.com"
+      },
+      "cfg_rev": 11
+    }
+  },
+  {
+    "key": "voltmeter:0",
+    "status": {
+      "id": 0,
+      "voltage": 199.21
+    },
+    "config": {
+      "id": 0,
+      "name": null,
+      "report_thr": 5,
+      "xvoltage": {
+        "expr": null,
+        "unit": null
+      }
+    },
+    "attrs": {
+      "max_report_thr": 20,
+      "min_report_thr": 1
+    }
+  },
+  {
+    "key": "wifi",
+    "status": {
+      "sta_ip": "192.168.222.116",
+      "status": "got ip",
+      "ssid": "DrensoDev",
+      "channel": 1,
+      "rssi": -54,
+      "bssid": "76:ac:b9:2c:8c:03",
+      "sta_ip6": ["fe80::8a13:bfff:fedd:c95c", "fd03:8586:4012:ec48:8a13:bfff:fedd:c95c"]
+    },
+    "config": {
+      "ap": {
+        "ssid": "ShellyPro1CB-8813BFDDC95C",
+        "is_open": true,
+        "enable": false,
+        "range_extender": {
+          "enable": false
+        }
+      },
+      "sta": {
+        "ssid": "DrensoDev",
+        "is_open": false,
+        "enable": true,
+        "ipv4mode": "dhcp",
+        "ip": null,
+        "netmask": null,
+        "gw": null,
+        "nameserver": null
+      },
+      "sta1": {
+        "ssid": null,
+        "is_open": true,
+        "enable": false,
+        "ipv4mode": "dhcp",
+        "ip": null,
+        "netmask": null,
+        "gw": null,
+        "nameserver": null
+      },
+      "roam": {
+        "rssi_thr": -80,
+        "interval": 60
+      }
+    }
+  },
+  {
+    "key": "ws",
+    "status": {
+      "connected": false
+    },
+    "config": {
+      "enable": false,
+      "server": null,
+      "ssl_ca": "ca.pem"
+    }
+  }
+]
