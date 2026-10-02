@@ -109,11 +109,9 @@ export default class ShellyLocalDevice extends Homey.Device {
     const capabilities: string[] = this.virtualDevice!.batteryDevice ? [] : ['button.restart'];
 
     for (const virtualComponent of this.virtualComponents.values()) {
-      const componentCapabilities = await this.registerComponent(
-        virtualComponent,
-        methodMapping[virtualComponent.namespace] ?? [],
-      );
-      capabilities.push(...componentCapabilities);
+      await this.registerComponent(virtualComponent, methodMapping[virtualComponent.namespace] ?? [])
+        .then(componentCapabilities => capabilities.push(...componentCapabilities))
+        .catch(err => this.error(`Error while registering component ${virtualComponent.getComponentKey()}:`, err));
     }
 
     const { added: addedCapabilities, removed: removedCapabilities } = diffArrays(this.getCapabilities(), capabilities);
