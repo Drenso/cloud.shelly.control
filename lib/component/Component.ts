@@ -73,7 +73,11 @@ export abstract class Component<
 
   public async unregisterHomeyDevice(_homeyDevice: ShellyLocalDevice): Promise<void> {}
 
-  public abstract onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Status): Promise<void>;
+  /**
+   * @param homeyDevice - the Homey device to apply the new status to
+   * @param status - the parts of the status that were reported as changed
+   */
+  public abstract onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Partial<Status>): Promise<void>;
 
   public abstract onConfigUpdate(homeyDevice: ShellyLocalDevice, config: Config): Promise<void>;
 

@@ -121,8 +121,9 @@ export default class Script extends ComponentWithId<'Script', ScriptStatus, Scri
     return ['alarm_generic', 'shelly_errors'];
   }
 
-  public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: ScriptStatus): Promise<void> {
-    await homeyDevice.updateErrors(this.getComponentKey(), status.errors ?? []);
+  public async onStatusUpdate(homeyDevice: ShellyLocalDevice, _status: ScriptStatus): Promise<void> {
+    // Use this.status because partial status updates also have errors set to undefined
+    await homeyDevice.updateErrors(this.getComponentKey(), this.status.errors ?? []);
   }
 
   public async onConfigUpdate(_homeyDevice: ShellyLocalDevice, _config: ScriptConfig): Promise<void> {}

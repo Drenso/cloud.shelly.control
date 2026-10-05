@@ -120,7 +120,8 @@ export default class EM1Data extends ComponentWithId<'EM1Data', EM1DataStatus, E
       await this.setCapability(homeyDevice, 'meter_power.total', absoluteEnergy / 1000);
     }
 
-    await homeyDevice.updateErrors(this.getComponentKey(), status.errors ?? []);
+    // Use this.status because partial status updates also have errors set to undefined
+    await homeyDevice.updateErrors(this.getComponentKey(), this.status.errors ?? []);
   }
 
   public async onConfigUpdate(_homeyDevice: ShellyLocalDevice, _config: EM1DataConfig): Promise<void> {

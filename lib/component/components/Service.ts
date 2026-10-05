@@ -193,10 +193,12 @@ export default class Service extends ComponentWithId<'Service', ServiceStatus, S
     return componentCapabilities;
   }
 
-  public async onStatusUpdate(homeyDevice: ShellyLocalDevice, status: Partial<ServiceStatus>): Promise<void> {
-    await homeyDevice.updateErrors(this.getComponentKey(), status.errors ?? []);
+  public async onStatusUpdate(homeyDevice: ShellyLocalDevice, _status: Partial<ServiceStatus>): Promise<void> {
+    // Use this.status because partial status updates also have errors set to undefined
+    await homeyDevice.updateErrors(this.getComponentKey(), this.status.errors ?? []);
 
-    const newFlags = status.flags ?? [];
+    // Use this.status because partial status updates also have flags set to undefined
+    const newFlags = this.status.flags ?? [];
     const { added, removed } = diffArrays(this.oldFlags, newFlags);
 
     for (const addedFlag of added) {

@@ -95,7 +95,8 @@ export default class Humidity extends ComponentWithId<
       await this.setCapability(homeyDevice, 'measure_humidity', status.rh);
     }
 
-    await homeyDevice.updateErrors(this.getComponentKey(), status.errors ?? []);
+    // Use this.status because partial status updates also have errors set to undefined
+    await homeyDevice.updateErrors(this.getComponentKey(), this.status.errors ?? []);
   }
 
   public async onConfigUpdate(homeyDevice: ShellyLocalDevice, config: HumidityConfig): Promise<void> {

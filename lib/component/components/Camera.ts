@@ -293,7 +293,8 @@ export default class Camera extends ComponentWithId<'Camera', CameraStatus, Came
       await this.setCapability(homeyDevice, 'onoff.privacy', !status.privacy);
     }
 
-    await homeyDevice.updateErrors(this.getComponentKey(), status.errors ?? []);
+    // Use this.status because partial status updates also have errors set to undefined
+    await homeyDevice.updateErrors(this.getComponentKey(), this.status.errors ?? []);
   }
 
   public async onConfigUpdate(

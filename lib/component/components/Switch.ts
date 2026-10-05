@@ -315,7 +315,8 @@ export default class Switch extends ComponentWithId<'Switch', SwitchStatus, Swit
       }
     }
 
-    await homeyDevice.updateErrors(this.getComponentKey(), status.errors ?? []);
+    // Use this.status because partial status updates also have errors set to undefined
+    await homeyDevice.updateErrors(this.getComponentKey(), this.status.errors ?? []);
   }
 
   public async onConfigUpdate(homeyDevice: ShellyLocalDevice, config: SwitchConfig): Promise<void> {

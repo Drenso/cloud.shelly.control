@@ -133,7 +133,8 @@ export default class Storage extends ComponentWithId<'Storage', StorageStatus, S
       await this.setCapability(homeyDevice, homeyCapability, statusValue);
     }
 
-    await homeyDevice.updateErrors(this.getComponentKey(), status.errors ?? []);
+    // Use this.status because partial status updates also have errors set to undefined
+    await homeyDevice.updateErrors(this.getComponentKey(), this.status.errors ?? []);
   }
 
   public async onConfigUpdate(_homeyDevice: ShellyLocalDevice, _config: StorageConfig): Promise<void> {}

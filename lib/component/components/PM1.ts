@@ -172,7 +172,8 @@ export default class PM1 extends ComponentWithId<'PM1', PM1Status, PM1Config, PM
       await this.setCapability(homeyDevice, 'meter_power.total', absoluteEnergy / 1000);
     }
 
-    await homeyDevice.updateErrors(this.getComponentKey(), status.errors ?? []);
+    // Use this.status because partial status updates also have errors set to undefined
+    await homeyDevice.updateErrors(this.getComponentKey(), this.status.errors ?? []);
   }
 
   public async onConfigUpdate(homeyDevice: ShellyLocalDevice, config: PM1Config): Promise<void> {
