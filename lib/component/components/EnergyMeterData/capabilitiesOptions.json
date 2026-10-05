@@ -1,0 +1,31 @@
+{
+  "phase_a": {
+    "en": "Phase A"
+  },
+  "phase_b": {
+    "en": "Phase B"
+  },
+  "phase_c": {
+    "en": "Phase C"
+  },
+  "meter_power": {
+    "title": {
+      "en": "Total imported energy"
+    }
+  },
+  "meter_power.returned": {
+    "title": {
+      "en": "Total exported energy"
+    }
+  },
+  "meter_power.phase": {
+    "title": {
+      "en": "__phase__ imported energy"
+    }
+  },
+  "meter_power.returned.phase": {
+    "title": {
+      "en": "__phase__ exported energy"
+    }
+  }
+}
