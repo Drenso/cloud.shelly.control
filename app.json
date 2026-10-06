@@ -21699,6 +21699,7 @@
       "id": "shellypro3em_local",
       "settings": [
         {
+          "value": "120A",
           "values": [
             {
               "id": "50A",
@@ -21709,7 +21710,7 @@
             {
               "id": "3x63A",
               "label": {
-                "en": "3 x 63 A"
+                "en": "63 A"
               }
             },
             {
@@ -21723,8 +21724,7 @@
           "type": "dropdown",
           "label": {
             "en": "Energy Meter - CT Type"
-          },
-          "value": "placeholder: override when using in device definition"
+          }
         },
         {
           "id": "EM.reverse",

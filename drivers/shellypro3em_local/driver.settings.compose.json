@@ -1,6 +1,7 @@
 [
   {
     "$extends": "EM.ct_type",
+    "value": "120A",
     "values": [
       {
         "id": "50A",
@@ -11,7 +12,7 @@
       {
         "id": "3x63A",
         "label": {
-          "en": "3 x 63 A"
+          "en": "63 A"
         }
       },
       {
