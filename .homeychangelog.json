@@ -94,5 +94,8 @@
   },
   "1.1.0": {
     "en": "Add Zigbee support for 1L Gen4 & 2L Gen4. Update capability icons. Fix crash on unknown BTHome object ids."
+  },
+  "1.2.0": {
+    "en": "Add LAN support for Plus Smoke, Pro 1CB, Pro 2CB & Pro 3EM. Small other improvements."
   }
 }
