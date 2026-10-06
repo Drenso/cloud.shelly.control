@@ -63,46 +63,19 @@
       "reverse": {},
       "alarms": {
         "a": {
-          "voltage": [
-            null,
-            null
-          ],
-          "current": [
-            null,
-            200
-          ],
-          "power": [
-            null,
-            null
-          ]
+          "voltage": [null, null],
+          "current": [null, 200],
+          "power": [null, null]
         },
         "b": {
-          "voltage": [
-            null,
-            null
-          ],
-          "current": [
-            null,
-            null
-          ],
-          "power": [
-            null,
-            null
-          ]
+          "voltage": [null, null],
+          "current": [null, null],
+          "power": [null, null]
         },
         "c": {
-          "voltage": [
-            null,
-            null
-          ],
-          "current": [
-            null,
-            null
-          ],
-          "power": [
-            null,
-            null
-          ]
+          "voltage": [null, null],
+          "current": [null, null],
+          "power": [null, null]
         }
       }
     }
@@ -275,10 +248,7 @@
       "channel": 1,
       "rssi": -44,
       "bssid": "76:ac:b9:2c:8c:03",
-      "sta_ip6": [
-        "fe80::af9:e0ff:fee9:77d4",
-        "fd03:8586:4012:ec48:af9:e0ff:fee9:77d4"
-      ]
+      "sta_ip6": ["fe80::af9:e0ff:fee9:77d4", "fd03:8586:4012:ec48:af9:e0ff:fee9:77d4"]
     },
     "config": {
       "ap": {
