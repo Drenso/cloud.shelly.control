@@ -1,25 +1,28 @@
 [
   {
     "key": "ble",
-    "status": {},
+    "status": {
+      "addr": "08:f9:e0:e9:77:d6,p"
+    },
     "config": {
-      "enable": true,
       "rpc": {
-        "enable": true
-      },
-      "observer": {
         "enable": false
       }
     }
   },
   {
+    "key": "bthome",
+    "status": {},
+    "config": {}
+  },
+  {
     "key": "cloud",
     "status": {
-      "connected": false
+      "connected": true
     },
     "config": {
-      "enable": false,
-      "server": "iot.shelly.cloud:6012/jrpc"
+      "enable": true,
+      "server": "shelly-238-eu.shelly.cloud:6022/jrpc"
     }
   },
   {
@@ -32,22 +35,22 @@
       "a_aprt_power": 0,
       "a_pf": 0,
       "a_freq": 0,
-      "b_current": 0.026,
+      "b_current": 0.027,
       "b_voltage": 0,
       "b_act_power": 0,
       "b_aprt_power": 0,
       "b_pf": 0,
       "b_freq": 0,
       "c_current": 0.027,
-      "c_voltage": 230.5,
+      "c_voltage": 231.2,
       "c_act_power": 0,
       "c_aprt_power": 6.3,
       "c_pf": 0,
       "c_freq": 50,
       "n_current": null,
-      "total_current": 0.082,
+      "total_current": 0.083,
       "total_act_power": 0,
-      "total_aprt_power": 6.308,
+      "total_aprt_power": 6.258,
       "user_calibrated_phase": []
     },
     "config": {
@@ -56,31 +59,78 @@
       "blink_mode_selector": "active_energy",
       "phase_selector": "all",
       "monitor_phase_sequence": false,
-      "reverse": {}
+      "ct_type": "120A",
+      "reverse": {},
+      "alarms": {
+        "a": {
+          "voltage": [
+            null,
+            null
+          ],
+          "current": [
+            null,
+            200
+          ],
+          "power": [
+            null,
+            null
+          ]
+        },
+        "b": {
+          "voltage": [
+            null,
+            null
+          ],
+          "current": [
+            null,
+            null
+          ],
+          "power": [
+            null,
+            null
+          ]
+        },
+        "c": {
+          "voltage": [
+            null,
+            null
+          ],
+          "current": [
+            null,
+            null
+          ],
+          "power": [
+            null,
+            null
+          ]
+        }
+      }
     }
   },
   {
     "key": "emdata:0",
     "status": {
       "id": 0,
-      "a_total_act_energy": 0.1,
+      "a_total_act_energy": 0.13,
       "a_total_act_ret_energy": 0,
-      "b_total_act_energy": 0.1,
+      "b_total_act_energy": 0.13,
       "b_total_act_ret_energy": 0,
-      "c_total_act_energy": 0.1,
-      "c_total_act_ret_energy": 0.01,
-      "total_act": 0.29,
-      "total_act_ret": 0.01
+      "c_total_act_energy": 0.13,
+      "c_total_act_ret_energy": 0.12,
+      "total_act": 0.39,
+      "total_act_ret": 0.12
     },
     "config": {}
   },
   {
     "key": "eth",
     "status": {
-      "ip": null
+      "ip": null,
+      "ip6": null
     },
     "config": {
       "enable": true,
+      "server_mode": false,
       "ipv4mode": "dhcp",
       "ip": null,
       "netmask": null,
@@ -119,33 +169,54 @@
     "status": {
       "mac": "08F9E0E977D4",
       "restart_required": false,
-      "time": "22:21",
-      "unixtime": 1790950898,
-      "uptime": 167,
-      "ram_size": 255208,
-      "ram_free": 87308,
+      "time": "16:22",
+      "unixtime": 1791274976,
+      "last_sync_ts": 1791274962,
+      "uptime": 34,
+      "ram_size": 262948,
+      "ram_free": 110008,
+      "ram_min_free": 93464,
       "fs_size": 524288,
-      "fs_free": 192512,
-      "cfg_rev": 27,
+      "fs_free": 155648,
+      "cfg_rev": 61,
       "kvs_rev": 0,
       "schedule_rev": 0,
       "webhook_rev": 0,
+      "btrelay_rev": 0,
       "available_updates": {
-        "stable": {
-          "version": "1.3.3"
+        "beta": {
+          "version": "2.1.0-beta2"
         }
       },
-      "reset_reason": 1
+      "alt": {
+        "Pro3EMProAddon": {
+          "name": "Shelly Pro 3 EM",
+          "desc": "Pro 3 EM with Pro Sensor Addon",
+          "beta": {
+            "version": "2.1.0-beta2",
+            "build_id": "20261001-075921/g9b0364a"
+          },
+          "stable": {
+            "version": "2.0.1",
+            "build_id": "20260923-075722/2.0.1-ge1a198b"
+          }
+        }
+      },
+      "reset_reason": 3,
+      "utc_offset": 28800
     },
     "config": {
       "device": {
         "name": null,
         "mac": "08F9E0E977D4",
-        "fw_id": "20240223-141900/1.2.2-g7c39781",
+        "fw_id": "20260923-075715/2.0.1-ge1a198b",
         "discoverable": true,
         "eco_mode": false,
         "profile": "triphase",
-        "addon_type": null
+        "addon_type": null,
+        "sys_btn_toggle": true,
+        "tls_check_cert_validity_time": true,
+        "enhanced_security": false
       },
       "location": {
         "tz": "Asia/Shanghai",
@@ -161,27 +232,32 @@
         "websocket": {
           "enable": false
         },
+        "file_log": {
+          "enable": false
+        },
         "udp": {
           "addr": null
         }
       },
-      "ui_data": {},
+      "ui_data": {
+        "device_revision": "1-37"
+      },
       "rpc_udp": {
         "dst_addr": null,
         "listen_port": null
       },
       "sntp": {
-        "server": "time.google.com"
+        "server": "time.cloudflare.com"
       },
-      "cfg_rev": 27
+      "cfg_rev": 61
     }
   },
   {
     "key": "temperature:0",
     "status": {
       "id": 0,
-      "tC": 39.2,
-      "tF": 102.5
+      "tC": 39.9,
+      "tF": 103.9
     },
     "config": {
       "id": 0,
@@ -196,13 +272,19 @@
       "sta_ip": "192.168.222.171",
       "status": "got ip",
       "ssid": "DrensoDev",
-      "rssi": -51
+      "channel": 1,
+      "rssi": -44,
+      "bssid": "76:ac:b9:2c:8c:03",
+      "sta_ip6": [
+        "fe80::af9:e0ff:fee9:77d4",
+        "fd03:8586:4012:ec48:af9:e0ff:fee9:77d4"
+      ]
     },
     "config": {
       "ap": {
         "ssid": "ShellyPro3EM-08F9E0E977D4",
         "is_open": true,
-        "enable": true,
+        "enable": false,
         "range_extender": {
           "enable": false
         }
@@ -239,8 +321,8 @@
       "connected": false
     },
     "config": {
-      "enable": false,
-      "server": null,
+      "enable": true,
+      "server": "wss://192.168.222.137:6114",
       "ssl_ca": "*"
     }
   }
