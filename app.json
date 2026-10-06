@@ -21633,7 +21633,19 @@
       "connectivity": [
         "lan"
       ],
-      "capabilities": [],
+      "capabilities": [
+        "measure_power",
+        "measure_current",
+        "measure_voltage",
+        "measure_frequency",
+        "shelly_power_factor",
+        "meter_power",
+        "measure_temperature",
+        "hidden.has_temperature_measurement",
+        "shelly_errors",
+        "shelly_flags",
+        "alarm_generic"
+      ],
       "capabilitiesOptions": {
         "alarm_generic": {
           "title": {
@@ -21690,7 +21702,7 @@
       "name": {
         "en": "Pro 3EM - LAN"
       },
-      "class": "sensor",
+      "class": "socket",
       "images": {
         "small": "/assets/drivers/shellypro3em/images/small.png",
         "large": "/assets/drivers/shellypro3em/images/large.png",
