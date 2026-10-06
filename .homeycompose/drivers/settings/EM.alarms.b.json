@@ -83,7 +83,7 @@
       "value": false
     },
     {
-      "id": "EM:alarms.b.power.under.enabled",
+      "id": "EM:alarms.b.power.under",
       "type": "number",
       "label": {
         "en": "Energy Meter - Alarms - Phase B - Underpower - Threshold"
