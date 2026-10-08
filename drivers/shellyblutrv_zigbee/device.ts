@@ -19,14 +19,14 @@ type ShellyTRVCluster = Cluster & {
 
 export default class ShellyBluTrvZigbeeDevice extends ShellyZigbeeDevice {
   protected async configureDevice(zclNode: ZCLNode): Promise<void> {
-    this.log(
-      'Alarm',
-      await (
-        zclNode.endpoints[this.getClusterEndpoint(zbClusters.CLUSTER.THERMOSTAT) ?? 1].clusters[
-          zbClusters.CLUSTER.THERMOSTAT.NAME
-        ] as ThermostatCluster
-      ).readAttributes(['alarmMask']),
-    );
+    await (
+      zclNode.endpoints[this.getClusterEndpoint(zbClusters.CLUSTER.THERMOSTAT) ?? 1].clusters[
+        zbClusters.CLUSTER.THERMOSTAT.NAME
+      ] as ThermostatCluster
+    )
+      .readAttributes(['alarmMask'])
+      .then(data => this.log('Alarm', data))
+      .catch(e => this.error('Failed to read alarm mask', e));
 
     await initMeasureTemperatureDevice(this, zclNode, {
       attributeName: 'localTemperature',
