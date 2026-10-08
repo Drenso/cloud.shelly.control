@@ -18,7 +18,7 @@
   },
   "zigbee": {
     "manufacturerName": "Shelly",
-    "productId": ["Shelly Dimmer 0/1-10V PM"],
+    "productId": ["Dimmer 0-1/10"],
     "endpoints": {
       "1": {
         "clusters": [0, 3, 4, 5, 6, 8, 1794, 2820],

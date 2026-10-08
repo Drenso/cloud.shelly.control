@@ -5070,7 +5070,7 @@
       "zigbee": {
         "manufacturerName": "Shelly",
         "productId": [
-          "Shelly Dimmer 0/1-10V PM"
+          "Dimmer 0-1/10"
         ],
         "endpoints": {
           "1": {
