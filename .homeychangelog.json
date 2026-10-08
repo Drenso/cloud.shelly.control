@@ -100,5 +100,8 @@
   },
   "1.2.1": {
     "en": "Fix incorrect Zigbee identifier for Dimmer 0-1/10V PM Gen4"
+  },
+  "1.2.2": {
+    "en": "Fix Zigbee TRV initialisation crash"
   }
 }
