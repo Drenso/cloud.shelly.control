@@ -97,5 +97,8 @@
   },
   "1.2.0": {
     "en": "Add LAN support for Plus Smoke, Pro 1CB, Pro 2CB & Pro 3EM. Small other improvements."
+  },
+  "1.2.1": {
+    "en": "Fix incorrect Zigbee identifier for Dimmer 0-1/10V PM Gen4"
   }
 }
