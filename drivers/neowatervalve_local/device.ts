@@ -21,15 +21,12 @@ export default class NeoWaterValveLocalDevice extends ShellyLocalDevice {
         return this.registerFlowRate(virtualComponent as Number);
       case 'state':
         return this.registerState(virtualComponent as Boolean);
-      case 'water_consumption': {
+      case 'water_consumption':
         return this.registerWaterConsumption(virtualComponent as Object);
-      }
-      case 'water_pressure': {
+      case 'water_pressure':
         return this.registerWaterPressure(virtualComponent as Number);
-      }
-      case 'water_temperature': {
+      case 'water_temperature':
         return this.registerWaterTemperature(virtualComponent as Number);
-      }
       default: {
         return virtualComponent.registerHomeyDevice(this, methods as never);
       }
@@ -79,8 +76,7 @@ export default class NeoWaterValveLocalDevice extends ShellyLocalDevice {
     ): Promise<void> => {
       const waterConsumption = status.value as { counter: { total: number } } | undefined;
       if (waterConsumption?.counter?.total !== undefined) {
-        // convert m³ to l
-        await safeSetCapabilityValue(this, 'meter_water', waterConsumption.counter.total * 1000);
+        await safeSetCapabilityValue(this, 'meter_water', waterConsumption.counter.total);
       }
     };
 
