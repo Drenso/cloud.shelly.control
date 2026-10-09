@@ -103,5 +103,8 @@
   },
   "1.2.2": {
     "en": "Fix Zigbee TRV initialisation crash"
+  },
+  "1.2.3": {
+    "en": "Fix water meter unit for Neo Smart Water Valve"
   }
 }
