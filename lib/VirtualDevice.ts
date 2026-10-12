@@ -90,6 +90,7 @@ export const IGNORED_NO_IMPLEMENTATION_COMPONENTS = [
   'mqtt',
   'wifi',
   'zigbee',
+  'prosensoraddon',
 ];
 const MAX_STATE_RETRIES = 5;
 const NET_POWER_DEVICE_KEEPALIVE_TIMEOUT = Time.m(4);
