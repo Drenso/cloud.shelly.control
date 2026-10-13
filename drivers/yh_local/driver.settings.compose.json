@@ -1,0 +1,17 @@
+[
+  {
+    "$extends": "Cover.initial_state"
+  },
+  {
+    "$extends": "Cover.invert_directions"
+  },
+  {
+    "$extends": "Cover.maintenance_mode"
+  },
+  {
+    "$extends": "installBleForwardingScript"
+  },
+  {
+    "$extends": "_shelly_device_info"
+  }
+]

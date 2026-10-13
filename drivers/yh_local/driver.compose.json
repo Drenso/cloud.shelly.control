@@ -1,0 +1,13 @@
+{
+  "$extends": ["local"],
+  "name": {
+    "en": "Yihao Blinds Motor - LAN"
+  },
+  "class": "windowcoverings",
+  "images": {
+    "small": "/assets/drivers/yh/images/small.png",
+    "large": "/assets/drivers/yh/images/large.png",
+    "xlarge": "/assets/drivers/yh/images/xlarge.png"
+  },
+  "capabilities": ["windowcoverings_set", "windowcoverings_state"]
+}
