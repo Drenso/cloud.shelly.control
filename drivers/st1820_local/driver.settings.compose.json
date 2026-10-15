@@ -1,0 +1,26 @@
+[
+  {
+    "$extends": "Service.humidity_offset"
+  },
+  {
+    "$extends": "Service.temp_offset"
+  },
+  {
+    "$extends": "Service.temp_unit"
+  },
+  {
+    "$extends": "Service.temp_range"
+  },
+  {
+    "$extends": "Service.temp_hysteresis"
+  },
+  {
+    "$extends": "Service.power_down_memory"
+  },
+  {
+    "$extends": "Service.temp_anti_freeze"
+  },
+  {
+    "$extends": "_shelly_device_info"
+  }
+]

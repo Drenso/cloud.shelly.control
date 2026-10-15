@@ -235,5 +235,11 @@ export default class ShellyApp extends Homey.App {
       .registerRunListener((cardArgs: { value: boolean; device: ShellyLocalDevice }) =>
         cardArgs.device.triggerCapabilityListener('shelly_anti_freeze', cardArgs.value),
       );
+
+    this.homey.flow
+      .getActionCard('set_shelly_child_lock')
+      .registerRunListener((cardArgs: { value: boolean; device: ShellyLocalDevice }) =>
+        cardArgs.device.triggerCapabilityListener('shelly_child_lock', cardArgs.value),
+      );
   }
 }

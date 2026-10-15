@@ -1,0 +1,15 @@
+{
+  "title": {
+    "en": "Heating"
+  },
+  "insightsTitleTrue": {
+    "en": "Heating turned on"
+  },
+  "insightsTitleFalse": {
+    "en": "Heating turned off"
+  },
+  "type": "boolean",
+  "getable": true,
+  "setable": false,
+  "icon": "/assets/capabilities/alarm_heat.svg"
+}

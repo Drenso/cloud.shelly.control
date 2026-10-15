@@ -13,7 +13,13 @@ import capabilitiesOptions from './Service/capabilitiesOptions.json' with { type
 export type ServiceConfig = {
   /** Identifier of the Service component instance */
   id: number;
-} & (ValveServiceConfig | NeoValveServiceConfig | PortableEvChargerConfig | HvacThermostatConfig);
+} & (
+  | ValveServiceConfig
+  | NeoValveServiceConfig
+  | PortableEvChargerConfig
+  | HvacThermostatConfig
+  | FloorThermostatConfig
+);
 
 type ValveServiceConfig = {
   /**
@@ -132,6 +138,47 @@ type HvacThermostatConfig = {
   thermostat_mode: 'cool' | 'heat' | 'auto';
 } & Record<string, undefined>;
 
+type FloorThermostatConfig = {
+  /**
+   * Manual calibration offset (in °C or °F depending on temp_unit).
+   * Adds/subtracts a correction to the measured temperature to correct sensor deviation.
+   *
+   * Example: if your sensor reads 21 °C but the actual room is 22 °C, set temp_offset = +1.
+   */
+  temp_offset: number;
+  /**
+   * Manual calibration offset applied to humidity readings.
+   * Adds/subtracts a correction to the measured humidity percentage to correct sensor deviation.
+   *
+   * Example: if the device reports 40 % humidity but the actual humidity is 45 %, set humidity_offset = +5.
+   */
+  humidity_offset: number;
+  /**
+   * Defines the temperature unit system for display and internal calculations
+   */
+  temp_unit: 'C' | 'F';
+  /**
+   * Defines the minimum and maximum allowed temperature setpoints.
+   *
+   * Range 5-50
+   */
+  temp_range: [number, number];
+  /**
+   * Defines the temperature hysteresis value in °C
+   *
+   * The allowed deviation from the target temperature before switching heating back on.
+   */
+  temp_hysteresis: number;
+  /**
+   * Determines whether the thermostat restores its previous state or resets to its default state after a power cycle.
+   */
+  power_down_memory: boolean;
+  /**
+   * Defines the anti-freeze temperature threshold in °C.
+   */
+  temp_anti_freeze: number;
+} & Record<string, undefined>;
+
 export type ServiceStatus = {
   /** Unique MD5 hash of the current service file. */
   etag: string;
@@ -176,6 +223,11 @@ export type ServiceHomeySettings = {
   'Service:humidity_offset': number;
   'Service:thermostat_mode': 'cool' | 'heat' | 'auto';
   'Service:temp_unit': 'C' | 'F';
+  'Service:temp_range.min': number;
+  'Service:temp_range.max': number;
+  'Service:temp_hysteresis': number;
+  'Service:power_down_memory': boolean;
+  'Service:temp_anti_freeze': number;
 };
 
 const simpleSettings = [
@@ -187,6 +239,9 @@ const simpleSettings = [
   'humidity_offset',
   'thermostat_mode',
   'temp_unit',
+  'temp_hysteresis',
+  'power_down_memory',
+  'temp_anti_freeze',
 ] as const satisfies (keyof Required<ServiceConfig>)[];
 
 const autoBalanceSettings = [
@@ -295,6 +350,18 @@ export default class Service extends ComponentWithId<'Service', ServiceStatus, S
       newSettings['Service:temp_offset'] = config.temp_offset ?? 0;
     }
 
+    if (config.temp_range !== undefined) {
+      const [min, max] = config.temp_range;
+      newSettings['Service:temp_range.min'] = min;
+      newSettings['Service:temp_range.max'] = max;
+      await homeyDevice
+        .setCapabilityOptions('target_temperature', {
+          min,
+          max,
+        })
+        .catch(err => homeyDevice.error('Error while setting target_temperature options:', err));
+    }
+
     await homeyDevice.setComponentSettings(this.namespace, this.id, newSettings);
   }
 
@@ -345,6 +412,10 @@ export default class Service extends ComponentWithId<'Service', ServiceStatus, S
 
     if (changedKeys.includes('Service:temp_offset')) {
       changedConfig.temp_offset = newSettings['Service:temp_offset'];
+    }
+
+    if (changedKeys.includes('Service:temp_range.min') || changedKeys.includes('Service:temp_range.max')) {
+      changedConfig.temp_range = [newSettings['Service:temp_range.min'], newSettings['Service:temp_range.max']];
     }
 
     if (Object.keys(changedConfig).length <= 0) {

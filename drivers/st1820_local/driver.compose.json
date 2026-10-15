@@ -1,0 +1,20 @@
+{
+  "$extends": ["local"],
+  "name": {
+    "en": "LinkedGo Smart Floor Heating Thermostat - LAN"
+  },
+  "class": "thermostat",
+  "images": {
+    "small": "/assets/drivers/st1820/images/small.png",
+    "large": "/assets/drivers/st1820/images/large.png",
+    "xlarge": "/assets/drivers/st1820/images/xlarge.png"
+  },
+  "capabilities": [],
+  "capabilitiesOptions": {
+    "target_temperature": {
+      "min": 15,
+      "max": 35,
+      "step": 1
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "Service:power_down_memory",
+  "type": "checkbox",
+  "label": {
+    "en": "Thermostat - Recover state"
+  },
+  "hint": {
+    "en": "Determines whether the thermostat restores its previous state or resets to its default state after a power cycle."
+  },
+  "value": true
+}

@@ -1,0 +1,430 @@
+[
+  {
+    "key": "ble",
+    "status": {
+      "addr": "b0:81:84:e2:24:56,p"
+    },
+    "config": {
+      "rpc": {
+        "enable": false
+      }
+    }
+  },
+  {
+    "key": "boolean:200",
+    "status": {
+      "value": false,
+      "source": "",
+      "last_update_ts": 0
+    },
+    "config": {
+      "id": 200,
+      "name": "Anti-freeze",
+      "meta": {
+        "ui": {
+          "view": "toggle",
+          "titles": [
+            "Disabled",
+            "Enabled"
+          ]
+        },
+        "cloud": [
+          "log"
+        ]
+      },
+      "persisted": false,
+      "default_value": false,
+      "owner": "service:0",
+      "access": "crw"
+    },
+    "attrs": {
+      "owner": "service:0",
+      "role": "anti_freeze"
+    }
+  },
+  {
+    "key": "boolean:201",
+    "status": {
+      "value": false,
+      "source": "",
+      "last_update_ts": 0
+    },
+    "config": {
+      "id": 201,
+      "name": "Child lock",
+      "meta": {
+        "ui": {
+          "view": "toggle",
+          "titles": [
+            "Disabled",
+            "Enabled"
+          ]
+        },
+        "cloud": [
+          "log"
+        ]
+      },
+      "persisted": false,
+      "default_value": false,
+      "owner": "service:0",
+      "access": "crw"
+    },
+    "attrs": {
+      "owner": "service:0",
+      "role": "child_lock"
+    }
+  },
+  {
+    "key": "boolean:202",
+    "status": {
+      "value": false,
+      "source": "",
+      "last_update_ts": 0
+    },
+    "config": {
+      "id": 202,
+      "name": "Enable thermostat",
+      "meta": {
+        "ui": {
+          "view": "toggle",
+          "titles": [
+            "Disabled",
+            "Enable"
+          ]
+        },
+        "cloud": [
+          "log"
+        ]
+      },
+      "persisted": false,
+      "default_value": false,
+      "owner": "service:0",
+      "access": "crw"
+    },
+    "attrs": {
+      "owner": "service:0",
+      "role": "enable"
+    }
+  },
+  {
+    "key": "boolean:203",
+    "status": {
+      "value": false,
+      "source": "sys",
+      "last_update_ts": 1792074122
+    },
+    "config": {
+      "id": 203,
+      "name": "C1C2 relay status",
+      "meta": {
+        "ui": {
+          "view": "label",
+          "titles": [
+            "OFF",
+            "ON"
+          ]
+        },
+        "cloud": [
+          "log"
+        ]
+      },
+      "persisted": false,
+      "default_value": false,
+      "owner": "service:0",
+      "access": "cr"
+    },
+    "attrs": {
+      "owner": "service:0",
+      "role": "c1c2_relay_status"
+    }
+  },
+  {
+    "key": "bthome",
+    "status": {},
+    "config": {}
+  },
+  {
+    "key": "cloud",
+    "status": {
+      "connected": false
+    },
+    "config": {
+      "enable": false,
+      "server": "iot.shelly.cloud:6012/jrpc"
+    }
+  },
+  {
+    "key": "mqtt",
+    "status": {
+      "connected": false
+    },
+    "config": {
+      "enable": false,
+      "server": null,
+      "client_id": "st1820-b08184e22454",
+      "user": null,
+      "ssl_ca": null,
+      "topic_prefix": "st1820-b08184e22454",
+      "rpc_ntf": true,
+      "status_ntf": false,
+      "use_client_cert": false,
+      "enable_rpc": true,
+      "enable_control": true
+    }
+  },
+  {
+    "key": "number:200",
+    "status": {
+      "value": 40,
+      "source": "sys",
+      "last_update_ts": 1792074122
+    },
+    "config": {
+      "id": 200,
+      "name": "Current humidity",
+      "min": 0,
+      "max": 100,
+      "meta": {
+        "ui": {
+          "unit": "%",
+          "view": "label"
+        },
+        "cloud": [
+          "measurement",
+          "log"
+        ]
+      },
+      "persisted": false,
+      "default_value": 0,
+      "owner": "service:0",
+      "access": "cr"
+    },
+    "attrs": {
+      "owner": "service:0",
+      "role": "current_humidity"
+    }
+  },
+  {
+    "key": "number:201",
+    "status": {
+      "value": 27.6,
+      "source": "sys",
+      "last_update_ts": 1792074122
+    },
+    "config": {
+      "id": 201,
+      "name": "Current temperature",
+      "min": 15,
+      "max": 35,
+      "meta": {
+        "ui": {
+          "view": "label",
+          "unit": "°C"
+        },
+        "cloud": [
+          "measurement",
+          "log"
+        ]
+      },
+      "persisted": false,
+      "default_value": 25,
+      "owner": "service:0",
+      "access": "cr"
+    },
+    "attrs": {
+      "owner": "service:0",
+      "role": "current_temperature"
+    }
+  },
+  {
+    "key": "number:202",
+    "status": {
+      "value": 22,
+      "source": "sys",
+      "last_update_ts": 1792074122
+    },
+    "config": {
+      "id": 202,
+      "name": "Target temperature",
+      "min": 15,
+      "max": 35,
+      "meta": {
+        "ui": {
+          "view": "slider",
+          "unit": "°C",
+          "step": 0.5
+        },
+        "cloud": [
+          "log"
+        ]
+      },
+      "persisted": false,
+      "default_value": 25,
+      "owner": "service:0",
+      "access": "crw"
+    },
+    "attrs": {
+      "owner": "service:0",
+      "role": "target_temperature"
+    }
+  },
+  {
+    "key": "service:0",
+    "status": {
+      "etag": "90d7feccaec7f17b2d9e58260d403f30",
+      "state": "running",
+      "dev_mode": false,
+      "stats": {
+        "mem": 1076,
+        "mem_peak": 1230
+      },
+      "files": {
+        "code": {
+          "sha256": "82fc7fb12018846a355c062314bc53a3066e446b5c1fac8d4ec658ff2a43558a"
+        },
+        "manifest": {
+          "sha256": "094af9d43fc4b6dd9e9a29a6f8036b2cd6374d1a1457bc7804697cf1e45d39aa"
+        },
+        "ui": {
+          "sha256": "3806938a538ee860de11ea207b7c83bc5c6f803b4175c80d25bd72f519614282"
+        }
+      }
+    },
+    "config": {
+      "temp_unit": "C",
+      "temp_range": [
+        15,
+        35
+      ],
+      "temp_hysteresis": 1,
+      "power_down_memory": true,
+      "temp_anti_freeze": 5,
+      "temp_offset": 0,
+      "humidity_offset": 0,
+      "id": 0
+    }
+  },
+  {
+    "key": "sys",
+    "status": {
+      "mac": "B08184E22454",
+      "restart_required": false,
+      "time": "16:26",
+      "unixtime": 1792074365,
+      "last_sync_ts": 1792074350,
+      "uptime": 18,
+      "ram_size": 275280,
+      "ram_free": 95292,
+      "ram_min_free": 83156,
+      "fs_size": 1048576,
+      "fs_free": 512000,
+      "cfg_rev": 29,
+      "kvs_rev": 0,
+      "schedule_rev": 0,
+      "webhook_rev": 0,
+      "btrelay_rev": 0,
+      "available_updates": {},
+      "reset_reason": 3,
+      "utc_offset": 7200
+    },
+    "config": {
+      "device": {
+        "name": null,
+        "mac": "B08184E22454",
+        "fw_id": "20260925-100443/2.0.1-xt1-g59b45b2",
+        "discoverable": true,
+        "tls_check_cert_validity_time": true,
+        "enhanced_security": false
+      },
+      "location": {
+        "tz": "Europe/Amsterdam",
+        "lat": 52.2332,
+        "lon": 6.8959
+      },
+      "debug": {
+        "level": 2,
+        "file_level": null,
+        "mqtt": {
+          "enable": false
+        },
+        "websocket": {
+          "enable": false
+        },
+        "udp": {
+          "addr": null
+        }
+      },
+      "ui_data": {
+        "device_revision": "0-29"
+      },
+      "rpc_udp": {
+        "dst_addr": null,
+        "listen_port": null
+      },
+      "sntp": {
+        "server": "time.cloudflare.com"
+      },
+      "cfg_rev": 29
+    }
+  },
+  {
+    "key": "wifi",
+    "status": {
+      "sta_ip": "192.168.222.175",
+      "status": "got ip",
+      "ssid": "DrensoDev",
+      "channel": 1,
+      "rssi": -37,
+      "bssid": "76:ac:b9:2c:8c:03",
+      "sta_ip6": [
+        "fe80::b281:84ff:fee2:2454",
+        "fd03:8586:4012:ec48:b281:84ff:fee2:2454"
+      ]
+    },
+    "config": {
+      "ap": {
+        "ssid": "ST1820-B08184E22454",
+        "is_open": true,
+        "enable": false,
+        "range_extender": {
+          "enable": false
+        }
+      },
+      "sta": {
+        "ssid": "DrensoDev",
+        "is_open": false,
+        "enable": true,
+        "ipv4mode": "dhcp",
+        "ip": null,
+        "netmask": null,
+        "gw": null,
+        "nameserver": null
+      },
+      "sta1": {
+        "ssid": null,
+        "is_open": true,
+        "enable": false,
+        "ipv4mode": "dhcp",
+        "ip": null,
+        "netmask": null,
+        "gw": null,
+        "nameserver": null
+      },
+      "roam": {
+        "rssi_thr": -80,
+        "interval": 60
+      }
+    }
+  },
+  {
+    "key": "ws",
+    "status": {
+      "connected": false
+    },
+    "config": {
+      "enable": false,
+      "server": null,
+      "ssl_ca": "ca.pem"
+    }
+  }
+]

@@ -1,0 +1,13 @@
+{
+  "id": "Service:temp_anti_freeze",
+  "type": "number",
+  "label": {
+    "en": "Thermostat - Anti-freeze threshold"
+  },
+  "min": 1,
+  "max": 21,
+  "value": 5,
+  "units": {
+    "en": "°C"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "type": "group",
+  "label": "Thermostat - Temperature range",
+  "children": [
+    {
+      "id": "Service:temp_range.min",
+      "type": "number",
+      "label": {
+        "en": "Thermostat - Temperature range - Minimum setpoint"
+      },
+      "min": 5,
+      "max": 50,
+      "value": 15
+    },
+    {
+      "id": "Service:temp_range.max",
+      "type": "number",
+      "label": {
+        "en": "Thermostat - Temperature range - Maximum setpoint"
+      },
+      "min": 5,
+      "max": 50,
+      "value": 35
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "Service:temp_hysteresis",
+  "type": "number",
+  "label": {
+    "en": "Thermostat - Hysteresis deviation"
+  },
+  "hint": {
+    "en": "The allowed deviation from the target temperature before switching heating back on."
+  },
+  "min": 1,
+  "max": 10,
+  "value": 1,
+  "units": {
+    "en": "°C"
+  }
+}
