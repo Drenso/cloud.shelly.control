@@ -1,0 +1,10 @@
+{
+  "title": {
+    "en": "Anti-freeze"
+  },
+  "type": "boolean",
+  "getable": true,
+  "setable": true,
+  "uiComponent": "button",
+  "icon": "/assets/capabilities/anti_freeze.svg"
+}

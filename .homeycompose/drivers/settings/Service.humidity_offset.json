@@ -1,0 +1,14 @@
+{
+  "id": "Service:humidity_offset",
+  "type": "number",
+  "label": {
+    "en": "Thermostat - Humidity correction"
+  },
+  "hint": {
+    "en": "Correction that is added to the measured humidity to correct sensor deviation."
+  },
+  "value": 0,
+  "units": {
+    "en": "percentage points"
+  }
+}

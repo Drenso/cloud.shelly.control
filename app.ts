@@ -24,6 +24,7 @@ import { getIp } from './lib/LocalIp.js';
 import OutboundWsServer from './lib/rpc/OutboundWsServer.js';
 import { type SerializedVirtualDevice, VirtualDevice } from './lib/VirtualDevice.js';
 import CircuitBreaker from './lib/component/components/CircuitBreaker.js';
+import type ShellyLocalDevice from './lib/local/LocalDevice.js';
 
 sourceMapSupport.install();
 
@@ -227,6 +228,12 @@ export default class ShellyApp extends Homey.App {
         ) =>
           (triggerArgs.direction === 'none' || cardArgs.direction.includes(triggerArgs.direction)) &&
           cardArgs.channel.includes(triggerArgs.channel.toFixed()),
+      );
+
+    this.homey.flow
+      .getActionCard('set_shelly_anti_freeze')
+      .registerRunListener((cardArgs: { value: boolean; device: ShellyLocalDevice }) =>
+        cardArgs.device.triggerCapabilityListener('shelly_anti_freeze', cardArgs.value),
       );
   }
 }

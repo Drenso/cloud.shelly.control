@@ -13,7 +13,7 @@ import capabilitiesOptions from './Service/capabilitiesOptions.json' with { type
 export type ServiceConfig = {
   /** Identifier of the Service component instance */
   id: number;
-} & (ValveServiceConfig | NeoValveServiceConfig | PortableEvChargerConfig);
+} & (ValveServiceConfig | NeoValveServiceConfig | PortableEvChargerConfig | HvacThermostatConfig);
 
 type ValveServiceConfig = {
   /**
@@ -107,6 +107,31 @@ type PortableEvChargerConfig = {
   name: null;
 } & Record<string, undefined>;
 
+type HvacThermostatConfig = {
+  /**
+   * Manual calibration offset (in °C or °F depending on temp_unit).
+   * Adds/subtracts a correction to the measured temperature to correct sensor deviation.
+   *
+   * Example: if your sensor reads 21 °C but the actual room is 22 °C, set temp_offset = +1.
+   */
+  temp_offset: number;
+  /**
+   * Manual calibration offset applied to humidity readings.
+   * Adds/subtracts a correction to the measured humidity percentage to correct sensor deviation.
+   *
+   * Example: if the device reports 40 % humidity but the actual humidity is 45 %, set humidity_offset = +5.
+   */
+  humidity_offset: number;
+  /**
+   * Defines the temperature unit system for display and internal calculations
+   */
+  temp_unit: 'C' | 'F';
+  /**
+   * Defines the current operating mode of the thermostat.
+   */
+  thermostat_mode: 'cool' | 'heat' | 'auto';
+} & Record<string, undefined>;
+
 export type ServiceStatus = {
   /** Unique MD5 hash of the current service file. */
   etag: string;
@@ -147,6 +172,10 @@ export type ServiceHomeySettings = {
   'Service:global_charge_limit:enabled': boolean;
   'Service:global_time_limit': number;
   'Service:global_time_limit:enabled': boolean;
+  'Service:temp_offset': number;
+  'Service:humidity_offset': number;
+  'Service:thermostat_mode': 'cool' | 'heat' | 'auto';
+  'Service:temp_unit': 'C' | 'F';
 };
 
 const simpleSettings = [
@@ -155,6 +184,9 @@ const simpleSettings = [
   'power_restored_pos',
   'power_loss_pos',
   'auto_charge',
+  'humidity_offset',
+  'thermostat_mode',
+  'temp_unit',
 ] as const satisfies (keyof Required<ServiceConfig>)[];
 
 const autoBalanceSettings = [
@@ -259,6 +291,10 @@ export default class Service extends ComponentWithId<'Service', ServiceStatus, S
       }
     }
 
+    if (config.temp_offset !== undefined) {
+      newSettings['Service:temp_offset'] = config.temp_offset ?? 0;
+    }
+
     await homeyDevice.setComponentSettings(this.namespace, this.id, newSettings);
   }
 
@@ -305,6 +341,10 @@ export default class Service extends ComponentWithId<'Service', ServiceStatus, S
       const enabled = newSettings['Service:global_time_limit:enabled'];
       const limit = newSettings['Service:global_time_limit'];
       changedConfig.global_time_limit = enabled ? limit : null;
+    }
+
+    if (changedKeys.includes('Service:temp_offset')) {
+      changedConfig.temp_offset = newSettings['Service:temp_offset'];
     }
 
     if (Object.keys(changedConfig).length <= 0) {

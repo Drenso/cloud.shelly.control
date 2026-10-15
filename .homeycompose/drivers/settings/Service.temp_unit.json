@@ -1,0 +1,25 @@
+{
+  "id": "Service:temp_unit",
+  "type": "dropdown",
+  "label": {
+    "en": "Thermostat - Temperature unit"
+  },
+  "value": "C",
+  "values": [
+    {
+      "id": "C",
+      "label": {
+        "en": "°C"
+      }
+    },
+    {
+      "id": "F",
+      "label": {
+        "en": "°F"
+      }
+    }
+  ],
+  "hint": {
+    "en": "Unit used for the temperature correction and internal calculations."
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "$extends": ["local"],
+  "name": {
+    "en": "LinkedGo Smart HVAC Thermostat - LAN"
+  },
+  "class": "thermostat",
+  "images": {
+    "small": "/assets/drivers/st/images/small.png",
+    "large": "/assets/drivers/st/images/large.png",
+    "xlarge": "/assets/drivers/st/images/xlarge.png"
+  },
+  "capabilities": [
+    "target_temperature",
+    "target_humidity",
+    "measure_temperature",
+    "measure_humidity",
+    "thermostat_mode",
+    "fan_mode",
+    "onoff",
+    "shelly_anti_freeze",
+    "alarm_generic",
+    "shelly_errors",
+    "shelly_flags"
+  ],
+  "capabilitiesOptions": {
+    "thermostat_mode": {
+      "values": [
+        { "id": "heat", "title": { "en": "Heat" } },
+        { "id": "cool", "title": { "en": "Cool" } },
+        { "id": "dry", "title": { "en": "Dry" } },
+        { "id": "ventilation", "title": { "en": "Ventilation" } }
+      ]
+    },
+    "fan_mode": {
+      "values": [
+        { "id": "auto", "title": { "en": "Auto" } },
+        { "id": "low", "title": { "en": "Low" } },
+        { "id": "medium", "title": { "en": "Medium" } },
+        { "id": "high", "title": { "en": "High" } }
+      ]
+    }
+  }
+}

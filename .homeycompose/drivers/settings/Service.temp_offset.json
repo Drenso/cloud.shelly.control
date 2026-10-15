@@ -1,0 +1,11 @@
+{
+  "id": "Service:temp_offset",
+  "type": "number",
+  "label": {
+    "en": "Thermostat - Temperature correction"
+  },
+  "hint": {
+    "en": "Correction that is added to the measured temperature to correct sensor deviation. In °C or °F, depending on the configured unit."
+  },
+  "value": 0
+}

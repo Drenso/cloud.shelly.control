@@ -1,0 +1,31 @@
+{
+  "id": "Service:thermostat_mode",
+  "type": "dropdown",
+  "label": {
+    "en": "Thermostat - Thermostat mode"
+  },
+  "value": "auto",
+  "values": [
+    {
+      "id": "auto",
+      "label": {
+        "en": "Automatically switch"
+      }
+    },
+    {
+      "id": "heat",
+      "label": {
+        "en": "Heating only"
+      }
+    },
+    {
+      "id": "cool",
+      "label": {
+        "en": "Cooling only"
+      }
+    }
+  ],
+  "hint": {
+    "en": "Limit the operating mode of the thermostat."
+  }
+}

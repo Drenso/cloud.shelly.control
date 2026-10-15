@@ -53,6 +53,9 @@
         "start": "Invalid start time for Light - Night Mode",
         "start_and_end": "Invalid start time and end time for Light - Night Mode"
       }
+    },
+    "Service": {
+      "invalid_thermostat_mode": "Mode is not available in the current configuration"
     }
   },
   "device": {
