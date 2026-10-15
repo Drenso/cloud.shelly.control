@@ -3,15 +3,6 @@
     "$extends": "Service.thermostat_mode"
   },
   {
-    "$extends": "Service.humidity_offset"
-  },
-  {
-    "$extends": "Service.temp_offset"
-  },
-  {
-    "$extends": "Service.temp_unit"
-  },
-  {
     "$extends": "_shelly_device_info"
   }
 ]
