@@ -4693,7 +4693,7 @@
       "name": {
         "en": "Dimmer 0/1-10V PM Gen4 - LAN"
       },
-      "class": "light",
+      "class": "socket",
       "images": {
         "small": "/assets/drivers/shelly0110dimg4/images/small.png",
         "large": "/assets/drivers/shelly0110dimg4/images/large.png",
@@ -5100,7 +5100,7 @@
       "name": {
         "en": "Dimmer 0/1-10V PM Gen4 - Matter"
       },
-      "class": "light",
+      "class": "socket",
       "capabilities": [
         "onoff",
         "dim",
@@ -5137,7 +5137,7 @@
       "name": {
         "en": "Dimmer 0/1-10V PM Gen4 - Zigbee"
       },
-      "class": "light",
+      "class": "socket",
       "capabilities": [
         "onoff",
         "dim",
@@ -13231,7 +13231,7 @@
       "name": {
         "en": "Dimmer Gen3 - LAN"
       },
-      "class": "light",
+      "class": "socket",
       "images": {
         "small": "/assets/drivers/shellydimmerg3/images/small.png",
         "large": "/assets/drivers/shellydimmerg3/images/large.png",
@@ -13702,7 +13702,7 @@
       "name": {
         "en": "Dimmer Gen4 - LAN"
       },
-      "class": "light",
+      "class": "socket",
       "images": {
         "small": "/assets/drivers/shellydimmerg4/images/small.png",
         "large": "/assets/drivers/shellydimmerg4/images/large.png",
@@ -14109,7 +14109,7 @@
       "name": {
         "en": "Dimmer Gen4 - Matter"
       },
-      "class": "light",
+      "class": "socket",
       "capabilities": [
         "onoff",
         "dim",
@@ -14146,7 +14146,7 @@
       "name": {
         "en": "Dimmer Gen4 - Zigbee"
       },
-      "class": "light",
+      "class": "socket",
       "capabilities": [
         "onoff",
         "dim",
@@ -18321,7 +18321,7 @@
       "name": {
         "en": "Plus 0-10V Dimmer - LAN"
       },
-      "class": "light",
+      "class": "socket",
       "images": {
         "small": "/assets/drivers/shellyplus010v/images/small.png",
         "large": "/assets/drivers/shellyplus010v/images/large.png",

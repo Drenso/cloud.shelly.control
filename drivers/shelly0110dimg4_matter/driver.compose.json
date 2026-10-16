@@ -3,7 +3,7 @@
   "name": {
     "en": "Dimmer 0/1-10V PM Gen4 - Matter"
   },
-  "class": "light",
+  "class": "socket",
   "capabilities": ["onoff", "dim", "measure_power", "measure_current", "measure_voltage", "meter_power"],
   "matter": {
     "vendorId": 5264,

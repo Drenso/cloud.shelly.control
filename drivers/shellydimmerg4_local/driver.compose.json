@@ -3,7 +3,7 @@
   "name": {
     "en": "Dimmer Gen4 - LAN"
   },
-  "class": "light",
+  "class": "socket",
   "capabilities": [
     "onoff",
     "dim",

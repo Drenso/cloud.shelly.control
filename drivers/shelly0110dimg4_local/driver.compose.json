@@ -3,7 +3,7 @@
   "name": {
     "en": "Dimmer 0/1-10V PM Gen4 - LAN"
   },
-  "class": "light",
+  "class": "socket",
   "capabilities": [
     "onoff",
     "dim",

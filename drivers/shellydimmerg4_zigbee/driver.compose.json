@@ -3,7 +3,7 @@
   "name": {
     "en": "Dimmer Gen4 - Zigbee"
   },
-  "class": "light",
+  "class": "socket",
   "capabilities": ["onoff", "dim", "measure_power", "measure_current", "measure_voltage", "meter_power"],
   "capabilitiesOptions": {
     "measure_current": {

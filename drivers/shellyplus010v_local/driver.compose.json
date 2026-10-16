@@ -3,7 +3,7 @@
   "name": {
     "en": "Plus 0-10V Dimmer - LAN"
   },
-  "class": "light",
+  "class": "socket",
   "capabilities": [
     "onoff",
     "dim",
