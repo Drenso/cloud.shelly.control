@@ -23,14 +23,9 @@
       "meta": {
         "ui": {
           "view": "toggle",
-          "titles": [
-            "Disabled",
-            "Enabled"
-          ]
+          "titles": ["Disabled", "Enabled"]
         },
-        "cloud": [
-          "log"
-        ]
+        "cloud": ["log"]
       },
       "persisted": false,
       "default_value": false,
@@ -55,14 +50,9 @@
       "meta": {
         "ui": {
           "view": "toggle",
-          "titles": [
-            "Disabled",
-            "Enabled"
-          ]
+          "titles": ["Disabled", "Enabled"]
         },
-        "cloud": [
-          "log"
-        ]
+        "cloud": ["log"]
       },
       "persisted": false,
       "default_value": false,
@@ -87,14 +77,9 @@
       "meta": {
         "ui": {
           "view": "toggle",
-          "titles": [
-            "Disabled",
-            "Enable"
-          ]
+          "titles": ["Disabled", "Enable"]
         },
-        "cloud": [
-          "log"
-        ]
+        "cloud": ["log"]
       },
       "persisted": false,
       "default_value": false,
@@ -119,14 +104,9 @@
       "meta": {
         "ui": {
           "view": "label",
-          "titles": [
-            "OFF",
-            "ON"
-          ]
+          "titles": ["OFF", "ON"]
         },
-        "cloud": [
-          "log"
-        ]
+        "cloud": ["log"]
       },
       "persisted": false,
       "default_value": false,
@@ -189,10 +169,7 @@
           "unit": "%",
           "view": "label"
         },
-        "cloud": [
-          "measurement",
-          "log"
-        ]
+        "cloud": ["measurement", "log"]
       },
       "persisted": false,
       "default_value": 0,
@@ -221,10 +198,7 @@
           "view": "label",
           "unit": "°C"
         },
-        "cloud": [
-          "measurement",
-          "log"
-        ]
+        "cloud": ["measurement", "log"]
       },
       "persisted": false,
       "default_value": 25,
@@ -254,9 +228,7 @@
           "unit": "°C",
           "step": 0.5
         },
-        "cloud": [
-          "log"
-        ]
+        "cloud": ["log"]
       },
       "persisted": false,
       "default_value": 25,
@@ -292,10 +264,7 @@
     },
     "config": {
       "temp_unit": "C",
-      "temp_range": [
-        15,
-        35
-      ],
+      "temp_range": [15, 35],
       "temp_hysteresis": 1,
       "power_down_memory": true,
       "temp_anti_freeze": 5,
@@ -376,10 +345,7 @@
       "channel": 1,
       "rssi": -37,
       "bssid": "76:ac:b9:2c:8c:03",
-      "sta_ip6": [
-        "fe80::b281:84ff:fee2:2454",
-        "fd03:8586:4012:ec48:b281:84ff:fee2:2454"
-      ]
+      "sta_ip6": ["fe80::b281:84ff:fee2:2454", "fd03:8586:4012:ec48:b281:84ff:fee2:2454"]
     },
     "config": {
       "ap": {
