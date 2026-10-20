@@ -13,7 +13,6 @@ export default class ShellyWaveMCBZwaveDevice extends ShellyZwaveDevice {
           throw new Error(this.homey.__('error.breaker_control_disabled'));
         }
 
-        // @ts-expect-error Typings are borked for Z-Wave
         await this.node.CommandClass.COMMAND_CLASS_SWITCH_BINARY.SWITCH_BINARY_SET({
           'Target Value': 'off/disable',
           Duration: 'Default',

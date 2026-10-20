@@ -221,7 +221,6 @@ export default abstract class ShellyZwaveDevice extends ZwaveDevice {
   }
 
   public async getFirmwareVersion(): Promise<[number, number]> {
-    // @ts-expect-error VERSION_GET is defined at runtime
     const response = (await this.node.CommandClass.COMMAND_CLASS_VERSION.VERSION_GET()) as {
       'Firmware 0 Version': number;
       'Firmware 0 Sub Version': number;
