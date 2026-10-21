@@ -139,14 +139,16 @@ export default abstract class ShellyZwaveDevice extends ZwaveDevice {
     const [minimumMajor, minimumMinor] = this.minimumFirmwareVersion;
     if (major < minimumMajor || (major === minimumMajor && minor < minimumMinor)) {
       this.log('Firmware outdated!');
-      await this.setUnavailable(
+      await this.setWarning(
         this.homey.__('device.firmware_too_old', { version: `${minimumMajor}.${minimumMinor}` }),
-      ).catch(err => this.error('Error while setting device to unavailable due to outdated firmware:', err));
+      ).catch(err => this.error('Error while setting device warning due to outdated firmware:', err));
     } else {
-      await this.setAvailable().catch(err =>
-        this.error('Error while setting device to available at end of configuration:', err),
-      );
+      await this.unsetWarning().catch(err => this.error('Error while removing device warning:', err));
     }
+
+    await this.setAvailable().catch(err =>
+      this.error('Error while setting device to available at end of configuration:', err),
+    );
 
     this.debug('Configuration completed!');
   }
