@@ -1,0 +1,38 @@
+{
+  "updates": [
+    {
+      "version": "14.0.0",
+      "changelog": {
+        "en": "- SDK with fixed dead node issue"
+      },
+      "device": {
+        "manufacturerId": 1120,
+        "productTypeId": [2],
+        "productId": [131]
+      },
+      "files": [
+        {
+          "targetId": 0,
+          "size": 265012,
+          "name": "ANZ[v14.00].gbl",
+          "integrity": "sha3-512:59b5b6e7cf314be425bd022ff858281b4c6ba2c67280f5ac54b7781aad71b1496bcda5666e94006d8907edfc9cce6ed32865ef4cd15f6421f27e4aafe92d9d59",
+          "region": "ANZ"
+        },
+        {
+          "targetId": 0,
+          "size": 265020,
+          "name": "EU[v14.00].gbl",
+          "integrity": "sha3-512:165f6baec9d9433202f2813facecf852b5d3fb009e368f187da6ca5a080e5a1168cf70bb779a92821ace0a9a088f37d60a85086eb54c0c6e0cce49ffd6c1cf9c",
+          "region": "EU"
+        },
+        {
+          "targetId": 0,
+          "size": 265020,
+          "name": "US[v14.00].gbl",
+          "integrity": "sha3-512:7c4d7096360d107ed076264a02003b2919a9d27026dd0034562642e98e113ad045618cef81ccde782817318352c61ec58dc5024e56f5dea376811d6d292ba202",
+          "region": "US"
+        }
+      ]
+    }
+  ]
+}
