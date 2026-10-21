@@ -53,8 +53,8 @@ export default class ShellyApp extends Homey.App {
     const localDriversReadyPromises: Array<Promise<void>> = [];
 
     // Dynamically get the names of local drivers based on their suffix
-    const localDriverNames = (this.manifest.drivers ?? [])
-      .map((driver: { id: string }) => driver.id)
+    const localDriverNames = this.manifest
+      .drivers!.map((driver: { id: string }) => driver.id)
       .filter((id: string) => id.endsWith('local'));
 
     for (const driverName of localDriverNames) {

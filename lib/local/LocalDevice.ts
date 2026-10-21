@@ -215,7 +215,7 @@ export default class ShellyLocalDevice extends Homey.Device {
   }
 
   private get typedDriver(): ShellyLocalDriver {
-    return this.driver as unknown as ShellyLocalDriver;
+    return this.driver as ShellyLocalDriver;
   }
 
   private async collectAllErrors(): Promise<void> {
