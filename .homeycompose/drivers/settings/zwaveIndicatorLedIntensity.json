@@ -1,0 +1,20 @@
+{
+  "type": "number",
+  "label": {
+    "en": "Indicator LED intensity",
+    "nl": "Indicatie LED intensiteit"
+  },
+  "value": 100,
+  "attr": {
+    "min": 0,
+    "max": 100
+  },
+  "units": {
+    "en": "%",
+    "nl": "%"
+  },
+  "zwave": {
+    "index": 105,
+    "size": 1
+  }
+}

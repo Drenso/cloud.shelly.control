@@ -1,0 +1,24 @@
+{
+  "type": "number",
+  "label": {
+    "en": "Auto ON O1 with timer",
+    "nl": "Automatisch AAN O1 met timer"
+  },
+  "value": 0,
+  "attr": {
+    "min": 0,
+    "max": 32535
+  },
+  "units": {
+    "en": "(m)s",
+    "nl": "(m)s"
+  },
+  "hint": {
+    "en": "Defines the time after which output 1 is turned on automatically after been turned on. Note: setting this parameter to zero will disable automatically turning on.",
+    "nl": "Bepaalt de tijd waarna output 1 zichzelf automatisch aanzet na te zijn uitgeschakeld. Let op: het instellen van deze parameter op nul schakelt het automatisch aan gaan uit."
+  },
+  "zwave": {
+    "index": 20,
+    "size": 2
+  }
+}

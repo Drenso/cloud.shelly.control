@@ -1,0 +1,24 @@
+{
+  "type": "number",
+  "label": {
+    "en": "Auto OFF O1 with timer",
+    "nl": "Automatisch UIT O1 met timer"
+  },
+  "value": 0,
+  "attr": {
+    "min": 0,
+    "max": 32535
+  },
+  "units": {
+    "en": "(m)s",
+    "nl": "(m)s"
+  },
+  "hint": {
+    "en": "Defines the time after which output 1 is turned off automatically. Note: setting this parameter to zero will disable automatically turning off.",
+    "nl": "Bepaalt de tijd waarna output 1 zichzelf automatisch uitzet. Let op: het instellen van deze parameter op nul schakelt het automatisch uit gaan uit."
+  },
+  "zwave": {
+    "index": 19,
+    "size": 2
+  }
+}
