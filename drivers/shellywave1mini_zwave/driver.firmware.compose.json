@@ -1,0 +1,38 @@
+{
+  "updates": [
+    {
+      "changelog": {
+        "en": "- SDK with fixed dead node issue\n- Fixed Basic on/off, Binary Switch On/Off\n- Fixed switch binary report with normally closed\n- Fixed ota in progress LED indicator\n- Added parameter 117 - remote reboot\n- Removed parameters no. 91, 92, 93, 94\n- Removed Inclusion/exclusion indication (2x ON/OFF output)"
+      },
+      "device": {
+        "manufacturerId": 1120,
+        "productTypeId": 2,
+        "productId": 142
+      },
+      "files": [
+        {
+          "name": "US[v14.00].gbl",
+          "integrity": "sha3-512:9c5c46e999321c7731ec1ac5cd6c804b229903552c6488c13f1f5d6901d9ba013c6cee36737ceb03107f87ba4efba6d3c65615b40deef8c838b649a447a7865c",
+          "size": 265188,
+          "targetId": 0,
+          "region": "US"
+        },
+        {
+          "name": "EU[v14.00].gbl",
+          "integrity": "sha3-512:deadf24695205eed34daebbebe88eb723a43dcd4d751bf3cef057cbcfc4f74542b3eb2d320157c4efb326fbc7dfa00c28ac81a5566eda46dddb068fa1de03435",
+          "size": 265192,
+          "targetId": 0,
+          "region": "EU"
+        },
+        {
+          "name": "ANZ[v14.00].gbl",
+          "integrity": "sha3-512:e6274ffcebcb066c29031e528145dbfe7d705af0b99e936436d9f1f1b22b37bedb30379cc4e0583de199a6ab0ef2738595a5e94c47130c220914c2360197a426",
+          "size": 265188,
+          "targetId": 0,
+          "region": "ANZ"
+        }
+      ],
+      "version": "14.0.0"
+    }
+  ]
+}
