@@ -30,15 +30,20 @@ export default class ShellyWaveShutterZWaveDevice
     this.registerCapabilityListener('button.calibration', async () => this.startCalibration());
 
     await this.getConfigurationBulk(7, 2)
-      .then(res => {
+      .then(async res => {
         this.button1Detached = res[0].readUInt8() === 1;
         this.button2Detached = res[1].readUInt8() === 1;
 
         if (this.button1Detached || this.button2Detached) {
-          safeAddCapability(this, 'hidden.button_pressed');
+          await safeAddCapability(this, 'hidden.button_pressed');
         } else {
-          safeRemoveCapability(this, 'hidden.button_pressed');
+          await safeRemoveCapability(this, 'hidden.button_pressed');
         }
+
+        await this.setSettings({
+          zwaveSwitchDetachedModeSW1: this.button1Detached ? '1' : '0',
+          zwaveSwitchDetachedModeSW2: this.button2Detached ? '1' : '0',
+        });
       })
       .catch(err => this.error('Error while getting initial setting values:', err));
   }
@@ -80,10 +85,11 @@ export default class ShellyWaveShutterZWaveDevice
 
   public getButtonIndices(): number[] {
     const buttons = [];
-    if (this.button1Detached) {
+    const settings = this.getSettings();
+    if (settings['zwaveSwitchDetachedModeSW1'] === '1') {
       buttons.push(0);
     }
-    if (this.button2Detached) {
+    if (settings['zwaveSwitchDetachedModeSW2'] === '1') {
       buttons.push(1);
     }
     return buttons;
