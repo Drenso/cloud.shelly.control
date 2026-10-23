@@ -285,7 +285,7 @@
           "en": "Power supply disconnected"
         },
         "titleFormatted": {
-          "en": "[[devicePower]] reconnected"
+          "en": "[[devicePower]] disconnected"
         },
         "args": [
           {
