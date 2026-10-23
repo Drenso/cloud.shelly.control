@@ -31,6 +31,8 @@ export default abstract class ShellyZWaveDevice extends ZwaveDevice {
   public readonly minimumFirmwareVersion: readonly [number, number] = [0, 0];
   protected readonly calibrationStartConfigurationIndex = 78;
 
+  public getButtonEventTypes?(): ButtonEventType[];
+
   public async onNodeInit(payload: { node: ZwaveNode }): Promise<void> {
     this.logger = new Logger(
       this,
@@ -123,6 +125,10 @@ export default abstract class ShellyZWaveDevice extends ZwaveDevice {
           if (buttonEvent === null) {
             this.error('Unsupported Z-Wave key event:', payload.Properties1['Key Attributes']);
             return;
+          }
+
+          if (this.getButtonEventTypes && !this.getButtonEventTypes().includes(buttonEvent)) {
+            this.error('Unregistered Z-Wave key event:', buttonEvent);
           }
 
           if (this.hasCapability('hidden.single_button_pressed')) {
