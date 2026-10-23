@@ -112,7 +112,7 @@ export default abstract class ShellyZWaveDevice extends ZwaveDevice {
       });
     }
 
-    if (this.node.CommandClass['CENTRAL_SCENE'] !== undefined) {
+    if (this.node.CommandClass['COMMAND_CLASS_CENTRAL_SCENE'] !== undefined) {
       this.registerReportListener(
         'CENTRAL_SCENE',
         'CENTRAL_SCENE_NOTIFICATION',
