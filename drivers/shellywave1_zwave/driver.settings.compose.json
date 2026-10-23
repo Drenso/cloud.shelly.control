@@ -34,6 +34,9 @@
     },
     "children": [
       {
+        "$extends": "zwaveSwitchDetachedModeSW1"
+      },
+      {
         "$extends": "zwaveIndicatorLedIntensity"
       }
     ]

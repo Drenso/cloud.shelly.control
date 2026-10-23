@@ -23130,7 +23130,9 @@
       "capabilities": [
         "onoff",
         "button.restart",
-        "button.reset_meter"
+        "button.reset_meter",
+        "alarm_heat",
+        "hidden.single_button_pressed"
       ],
       "zwave": {
         "manufacturerId": 1120,
@@ -23367,6 +23369,39 @@
           },
           "children": [
             {
+              "id": "zwaveSwitchDetachedModeSW1",
+              "type": "dropdown",
+              "label": {
+                "en": "Detached Mode SW1",
+                "nl": "Losgekoppelde Modus SW1"
+              },
+              "value": "0",
+              "values": [
+                {
+                  "id": "0",
+                  "label": {
+                    "en": "Normal mode",
+                    "nl": "Normale modus"
+                  }
+                },
+                {
+                  "id": "1",
+                  "label": {
+                    "en": "Detached mode",
+                    "nl": "Losgekoppelde modus"
+                  }
+                }
+              ],
+              "hint": {
+                "en": "In normal mode changes on the inputs will be used to control the output. In detached mode the input will not influence the output.",
+                "nl": "In normale modus worden wijzigingen op de ingangen gebruikt om de uitgangen te bedienen. In losgekoppelde modus beïnvloeden wijzigingen op de ingangen de uitgangen niet."
+              },
+              "zwave": {
+                "index": 7,
+                "size": 1
+              }
+            },
+            {
               "id": "zwaveIndicatorLedIntensity",
               "type": "number",
               "label": {
@@ -23449,7 +23484,9 @@
       "capabilities": [
         "onoff",
         "button.restart",
-        "button.reset_meter"
+        "button.reset_meter",
+        "alarm_heat",
+        "hidden.single_button_pressed"
       ],
       "zwave": {
         "manufacturerId": 1120,
@@ -23685,6 +23722,39 @@
             "nl": "Apparaatinstellingen"
           },
           "children": [
+            {
+              "id": "zwaveSwitchDetachedModeSW1",
+              "type": "dropdown",
+              "label": {
+                "en": "Detached Mode SW1",
+                "nl": "Losgekoppelde Modus SW1"
+              },
+              "value": "0",
+              "values": [
+                {
+                  "id": "0",
+                  "label": {
+                    "en": "Normal mode",
+                    "nl": "Normale modus"
+                  }
+                },
+                {
+                  "id": "1",
+                  "label": {
+                    "en": "Detached mode",
+                    "nl": "Losgekoppelde modus"
+                  }
+                }
+              ],
+              "hint": {
+                "en": "In normal mode changes on the inputs will be used to control the output. In detached mode the input will not influence the output.",
+                "nl": "In normale modus worden wijzigingen op de ingangen gebruikt om de uitgangen te bedienen. In losgekoppelde modus beïnvloeden wijzigingen op de ingangen de uitgangen niet."
+              },
+              "zwave": {
+                "index": 7,
+                "size": 1
+              }
+            },
             {
               "id": "zwaveIndicatorLedIntensity",
               "type": "number",

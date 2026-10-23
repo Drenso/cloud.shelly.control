@@ -4,7 +4,7 @@
     "en": "Wave 1"
   },
   "class": "socket",
-  "capabilities": ["onoff", "button.restart", "button.reset_meter"],
+  "capabilities": ["onoff", "button.restart", "button.reset_meter", "alarm_heat", "hidden.single_button_pressed"],
   "zwave": {
     "manufacturerId": 1120,
     "productTypeId": [2],

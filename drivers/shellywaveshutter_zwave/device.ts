@@ -2,6 +2,7 @@ import ShellyZWaveDevice from '../../lib/zwave/ZWaveDevice.js';
 import { safeAddCapability, safeRemoveCapability } from '../../lib/safeFunctions.js';
 import type { ButtonIndicesDeviceInterface, ButtonEventTypesDeviceInterface } from '../../lib/capabilityInterfaces.js';
 import type { ButtonEventType } from '../../lib/flow/buttonFlows.js';
+import * as ButtonZWaveHandler from '../../lib/zwave/handlers/ButtonZWaveHandler.js';
 
 export default class ShellyWaveShutterZWaveDevice
   extends ShellyZWaveDevice
@@ -13,6 +14,7 @@ export default class ShellyWaveShutterZWaveDevice
   private button2Detached = false;
 
   protected async configureDevice(): Promise<void> {
+    await ButtonZWaveHandler.configureDevice(this);
     this.registerCapability('measure_power', 'METER', { multiChannelNodeId: 1 });
     this.registerCapability('meter_power', 'METER', { multiChannelNodeId: 1 });
     this.registerCapability('windowcoverings_set', 'SWITCH_MULTILEVEL', { multiChannelNodeId: 1 });
