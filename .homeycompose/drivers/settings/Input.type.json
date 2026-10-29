@@ -1,22 +1,22 @@
 {
-      "id": "Input:type",
-      "type": "dropdown",
+  "id": "Input:type",
+  "type": "dropdown",
+  "label": {
+    "en": "Input - Type"
+  },
+  "value": "switch",
+  "values": [
+    {
+      "id": "switch",
       "label": {
-        "en": "Input - Type"
-      },
-      "value": "switch",
-      "values": [
-        {
-          "id": "switch",
-          "label": {
-            "en": "Switch"
-          }
-        },
-        {
-          "id": "button",
-          "label": {
-            "en": "Button"
-          }
-        }
-      ]
+        "en": "Switch"
+      }
+    },
+    {
+      "id": "button",
+      "label": {
+        "en": "Button"
+      }
     }
+  ]
+}
