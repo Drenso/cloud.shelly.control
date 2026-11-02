@@ -2,7 +2,7 @@ import ShellyZWaveDevice from '../../lib/zwave/ZWaveDevice.js';
 import { safeAddCapability, safeRemoveCapability } from '../../lib/safeFunctions.js';
 import type { ButtonIndicesDeviceInterface, ButtonEventTypesDeviceInterface } from '../../lib/capabilityInterfaces.js';
 import type { ButtonEventType } from '../../lib/flow/buttonFlows.js';
-import * as ButtonZWaveHandler from '../../lib/zwave/handlers/ButtonZWaveHandler.js';
+import * as MultiButtonZWaveHandler from '../../lib/zwave/handlers/MultiButtonZWaveHandler.js';
 
 export default class ShellyWaveShutterZWaveDevice
   extends ShellyZWaveDevice
@@ -10,11 +10,8 @@ export default class ShellyWaveShutterZWaveDevice
 {
   public readonly minimumFirmwareVersion = [14, 2] as const;
 
-  private button1Detached = false;
-  private button2Detached = false;
-
   protected async configureDevice(): Promise<void> {
-    await ButtonZWaveHandler.configureDevice(this);
+    await MultiButtonZWaveHandler.configureDevice(this, 2);
     this.registerCapability('measure_power', 'METER', { multiChannelNodeId: 1 });
     this.registerCapability('meter_power', 'METER', { multiChannelNodeId: 1 });
     this.registerCapability('windowcoverings_set', 'SWITCH_MULTILEVEL', { multiChannelNodeId: 1 });
@@ -30,35 +27,15 @@ export default class ShellyWaveShutterZWaveDevice
       );
     }
     this.registerCapabilityListener('button.calibration', async () => this.startCalibration());
-
-    await this.getConfigurationBulk(7, 2)
-      .then(async res => {
-        this.button1Detached = res[0].readUInt8() === 1;
-        this.button2Detached = res[1].readUInt8() === 1;
-
-        if (this.button1Detached || this.button2Detached) {
-          await safeAddCapability(this, 'hidden.button_pressed');
-        } else {
-          await safeRemoveCapability(this, 'hidden.button_pressed');
-        }
-
-        await this.setSettings({
-          zwaveSwitchDetachedModeSW1: this.button1Detached ? '1' : '0',
-          zwaveSwitchDetachedModeSW2: this.button2Detached ? '1' : '0',
-        });
-      })
-      .catch(err => this.error('Error while getting initial setting values:', err));
   }
 
-  public async onSettings({
-    oldSettings,
-    newSettings,
-    changedKeys,
-  }: {
+  public async onSettings(event: {
     oldSettings: { [p: string]: boolean | string | number | undefined | null };
     newSettings: { [p: string]: boolean | string | number | undefined | null };
     changedKeys: string[];
   }): Promise<string | void> {
+    const { newSettings, changedKeys } = event;
+
     if (changedKeys.includes('zwaveShutterOperatingMode')) {
       // Check for venetian mode
       if (newSettings['zwaveShutterOperatingMode'] === '1') {
@@ -68,17 +45,8 @@ export default class ShellyWaveShutterZWaveDevice
       }
     }
 
-    if (changedKeys.includes('zwaveSwitchDetachedModeSW1') || changedKeys.includes('zwaveSwitchDetachedModeSW2')) {
-      this.button1Detached = newSettings['zwaveSwitchDetachedModeSW1'] === '1';
-      this.button2Detached = newSettings['zwaveSwitchDetachedModeSW2'] === '1';
-
-      if (this.button1Detached || this.button2Detached) {
-        await safeAddCapability(this, 'hidden.button_pressed');
-      } else {
-        await safeRemoveCapability(this, 'hidden.button_pressed');
-      }
-    }
-    await super.onSettings({ oldSettings, newSettings, changedKeys });
+    await MultiButtonZWaveHandler.onSettings(this, event, 2);
+    await super.onSettings(event);
   }
 
   public getButtonEventTypes(): ButtonEventType[] {
