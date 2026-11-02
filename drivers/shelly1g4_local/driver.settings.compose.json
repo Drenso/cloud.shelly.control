@@ -3,6 +3,9 @@
     "$extends": "Input.enable"
   },
   {
+    "$extends": "Input.type"
+  },
+  {
     "$extends": "Input.invert"
   },
   {

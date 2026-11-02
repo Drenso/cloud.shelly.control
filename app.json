@@ -5513,6 +5513,28 @@
           "value": true
         },
         {
+          "id": "Input:type",
+          "type": "dropdown",
+          "label": {
+            "en": "Input - Type"
+          },
+          "value": "switch",
+          "values": [
+            {
+              "id": "switch",
+              "label": {
+                "en": "Switch"
+              }
+            },
+            {
+              "id": "button",
+              "label": {
+                "en": "Button"
+              }
+            }
+          ]
+        },
+        {
           "id": "Input:invert",
           "type": "checkbox",
           "label": {
