@@ -1,5 +1,5 @@
 {
-  "id": "zwaveShutterDetachModeSW1",
+  "id": "zwaveSwitchDetachedModeSW1",
   "type": "dropdown",
   "label": {
     "en": "Detached Mode SW1",

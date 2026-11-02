@@ -61,9 +61,9 @@ export default class ShellyWaveShutterZWaveDevice
       }
     }
 
-    if (changedKeys.includes('zwaveShutterDetachModeSW1') || changedKeys.includes('zwaveShutterDetachModeSW2')) {
-      this.button1Detached = newSettings['zwaveShutterDetachModeSW1'] === '1';
-      this.button2Detached = newSettings['zwaveShutterDetachModeSW2'] === '1';
+    if (changedKeys.includes('zwaveSwitchDetachedModeSW1') || changedKeys.includes('zwaveSwitchDetachedModeSW2')) {
+      this.button1Detached = newSettings['zwaveSwitchDetachedModeSW1'] === '1';
+      this.button2Detached = newSettings['zwaveSwitchDetachedModeSW2'] === '1';
 
       if (this.button1Detached || this.button2Detached) {
         await safeAddCapability(this, 'hidden.button_pressed');

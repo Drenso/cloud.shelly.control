@@ -26029,7 +26029,7 @@
               }
             },
             {
-              "id": "zwaveShutterDetachModeSW1",
+              "id": "zwaveSwitchDetachedModeSW1",
               "type": "dropdown",
               "label": {
                 "en": "Detached Mode SW1",
@@ -26062,7 +26062,7 @@
               }
             },
             {
-              "id": "zwaveShutterDetachModeSW2",
+              "id": "zwaveSwitchDetachedModeSW2",
               "type": "dropdown",
               "label": {
                 "en": "Detached Mode SW2",
