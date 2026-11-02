@@ -1,6 +1,6 @@
-import ShellyZwaveDevice from '../../lib/zwave/ZwaveDevice.js';
+import ShellyZWaveDevice from '../../lib/zwave/ZWaveDevice.js';
 
-export default class ShellyWaveMCBZwaveDevice extends ShellyZwaveDevice {
+export default class ShellyWaveMCBZWaveDevice extends ShellyZWaveDevice {
   protected async configureDevice(): Promise<void> {
     this.registerCapability('onoff', 'SWITCH_BINARY', {
       setParserV2: async (value: boolean): Promise<void> => {

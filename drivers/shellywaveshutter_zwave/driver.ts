@@ -1,3 +1,3 @@
-import ShellyZwaveDriver from '../../lib/zwave/ZwaveDriver.js';
+import ShellyZWaveDriver from '../../lib/zwave/ZWaveDriver.js';
 
-export default class ShellyWaveShutterZWaveDriver extends ShellyZwaveDriver {}
+export default class ShellyWaveShutterZWaveDriver extends ShellyZWaveDriver {}

@@ -1,10 +1,10 @@
-import ShellyZwaveDevice from '../../lib/zwave/ZwaveDevice.js';
+import ShellyZWaveDevice from '../../lib/zwave/ZWaveDevice.js';
 import { safeAddCapability, safeRemoveCapability } from '../../lib/safeFunctions.js';
 import type { ButtonIndicesDeviceInterface, ButtonEventTypesDeviceInterface } from '../../lib/capabilityInterfaces.js';
 import type { ButtonEventType } from '../../lib/flow/buttonFlows.js';
 
 export default class ShellyWaveShutterZWaveDevice
-  extends ShellyZwaveDevice
+  extends ShellyZWaveDevice
   implements ButtonIndicesDeviceInterface, ButtonEventTypesDeviceInterface
 {
   public readonly minimumFirmwareVersion = [14, 2] as const;

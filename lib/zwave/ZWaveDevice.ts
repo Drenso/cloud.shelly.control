@@ -24,7 +24,7 @@ type CentralSceneNotification = {
   'Scene Number': number;
 };
 
-export default abstract class ShellyZwaveDevice extends ZwaveDevice {
+export default abstract class ShellyZWaveDevice extends ZwaveDevice {
   protected logger?: Logger = undefined;
   private queuedWorker?: QueuedWorker;
 
