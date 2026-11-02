@@ -3,6 +3,6 @@ import type { ShellyGetDeviceInfoResponse } from '../../lib/component/components
 
 export default class Shelly2PMGen4CoverLocalDriver extends ShellyLocalDriver {
   protected onPairMatchDevice(deviceInfo: ShellyGetDeviceInfoResponse): boolean {
-    return deviceInfo.id.toLowerCase().startsWith(this.baseDriverId) && deviceInfo.profile === 'cover';
+    return super.onPairMatchDevice(deviceInfo) && deviceInfo.profile === 'cover';
   }
 }

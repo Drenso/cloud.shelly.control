@@ -134,7 +134,7 @@ export default abstract class ShellyLocalDriver extends Homey.Driver {
   }
 
   protected onPairMatchDevice(deviceInfo: ShellyGetDeviceInfoResponse): boolean {
-    return deviceInfo.id.toLowerCase().startsWith(this.baseDriverId);
+    return deviceInfo.id.slice(0, -13).toLowerCase() === this.baseDriverId;
   }
 
   public async assembleAddonHomeyDevices(

@@ -3,6 +3,7 @@ import ShellyLocalDriver from '../../lib/local/LocalDriver.js';
 
 export default class Shellyi4Gen4LocalDriver extends ShellyLocalDriver {
   protected onPairMatchDevice(deviceInfo: ShellyGetDeviceInfoResponse): boolean {
-    return super.onPairMatchDevice(deviceInfo) || deviceInfo.id.toLowerCase().startsWith('shellyi4dcg4');
+    const deviceModel = deviceInfo.id.slice(0, -13).toLowerCase();
+    return deviceModel === this.baseDriverId || deviceModel === 'shellyi4dcg4';
   }
 }

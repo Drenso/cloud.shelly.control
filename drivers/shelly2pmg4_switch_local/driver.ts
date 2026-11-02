@@ -3,6 +3,6 @@ import ShellyMultiSwitchInputLocalDriver from '../../lib/local/ShellyMultiSwitch
 
 export default class Shelly2PMGen4SwitchLocalDriver extends ShellyMultiSwitchInputLocalDriver {
   protected onPairMatchDevice(deviceInfo: ShellyGetDeviceInfoResponse): boolean {
-    return deviceInfo.id.toLowerCase().startsWith(this.baseDriverId) && deviceInfo.profile === 'switch';
+    return super.onPairMatchDevice(deviceInfo) && deviceInfo.profile === 'switch';
   }
 }
