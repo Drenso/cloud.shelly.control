@@ -24553,30 +24553,6 @@
         "button.reset_meter",
         "button.calibration"
       ],
-      "capabilitiesOptions": {
-        "button.reset_meter": {
-          "maintenanceAction": true,
-          "title": {
-            "en": "Reset power meter",
-            "nl": "Stel stroomverbuik opnieuw in"
-          },
-          "desc": {
-            "en": "Reset the accumulated power usage (kWh), note that this can not be reversed.",
-            "nl": "Stel geaccumuleerde stroomverbruik (kWh) opnieuw in, dit kan niet worden teruggedraaid."
-          }
-        },
-        "button.calibration": {
-          "maintenanceAction": true,
-          "title": {
-            "en": "Start calibration",
-            "nl": "Start kalibratie"
-          },
-          "desc": {
-            "en": "Force calibration of the Wave Shutter. The device will perform the calibration process by completing a full cycle - up, down, up, and down to 50%. It works best if the blinds are halfway lowered before starting calibration.",
-            "nl": "Start geforceerde kalibratie van de Wave Shutter. Het apparaat voert de calibratie uit door een volledige cyclus te doorlopen - omhoog, omlaag, omhoog, en weer omlaag naar 50%. Het werkt het beste als het rolluik of de jaloezieën ongeveer halverwege staan bij aanvang."
-          }
-        }
-      },
       "zwave": {
         "manufacturerId": 1120,
         "productTypeId": [
