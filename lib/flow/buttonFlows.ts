@@ -65,7 +65,7 @@ export function registerButtonFlowCards(app: ShellyApp): void {
         flowArgs: { press_type: { name: string; id: ButtonEventType | 'any_press' } },
         triggerArgs: { press_type: ButtonEventType },
       ) => {
-        if (flowArgs.press_type.id === 'any_press') {
+        if (flowArgs.press_type.id === 'any_press' && triggerArgs.press_type !== 'hold') {
           return true;
         }
 
