@@ -85,19 +85,13 @@ export function registerButtonFlowCards(app: ShellyApp): void {
         },
         triggerArgs: { button: number; press_type: ButtonEventType },
       ) => {
-        if (
-          flowArgs.button.id === 'any' &&
-          flowArgs.press_type.id === 'any_press' &&
-          triggerArgs.press_type !== 'hold'
-        ) {
+        const buttonMatch = flowArgs.button.id === triggerArgs.button || flowArgs.button.id === 'any';
+
+        if (buttonMatch && flowArgs.press_type.id === 'any_press' && triggerArgs.press_type !== 'hold') {
           return true;
         }
 
-        if (flowArgs.button.id === 'any' && flowArgs.press_type.id === triggerArgs.press_type) {
-          return true;
-        }
-
-        return flowArgs.button.id === triggerArgs.button && flowArgs.press_type.id === triggerArgs.press_type;
+        return buttonMatch && flowArgs.press_type.id === triggerArgs.press_type;
       },
     );
 }
